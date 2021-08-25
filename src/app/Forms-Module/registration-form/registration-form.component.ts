@@ -19,6 +19,17 @@ export class RegistrationFormComponent implements OnInit {
   altMobileNo: number;
   currentAddress: string;
   permanentAddress: string;
+  class: string;
+  section: string;
+  lastSchoolName: string;
+  lastSchoolContactNo: string;
+  studentEmailId: string;
+  selectedMedium: string;
+  mediumOptions: SelectItem[];
+  pincode: number;
+  city: string;
+  nationality: string;
+  caste: string;
   checked: boolean;
   bloodGroup: string;
   yearRange: string;
@@ -26,15 +37,18 @@ export class RegistrationFormComponent implements OnInit {
   fatherOccupation: string;
   fatherBloodGroup: string;
   fatherContactNo: number;
+  fatherEmailId: string;
   motherName: string;
   motherOccupation: string;
   motherBloodGroup: string;
   motherContactNo: number;
+  motherEmailId: string;
   guardianName: string;
   guardianOccupation: string;
   guardianBloodGroup: string;
   guardianContactNo: number;
-  
+  guardianEmailId: string;
+
   constructor() { }
 
   ngOnInit() {
@@ -45,7 +59,11 @@ export class RegistrationFormComponent implements OnInit {
       { label: 'Female', value: 'F'},
       { label: 'Male', value: 'M'},
       { label: 'Others', value: 'O'},
-    ]
+    ];
+    this.mediumOptions = [
+      { label: 'Tamil', value: 'T' },
+      { label: 'English', value: 'E' }
+    ];
   }
 
   onCheckAddress(value) {

@@ -9,15 +9,15 @@
                                 <div class="p-grid">
                                     <div class="p-col-12 p-md-6 p-lg-2">
                                         <div><label>Firstname:<span class="form-mandatory-field">*</span></label></div>
-                                        <input type="text" pInputText [(ngModel)]="firstName" />
+                                        <input type="text" class="p-col-12" pInputText [(ngModel)]="firstName" />
                                     </div>
                                     <div class="p-col-12 p-md-6 p-lg-2">
                                         <div><label>Lastname:<span class="form-mandatory-field">*</span></label></div>
-                                        <input type="text" pInputText [(ngModel)]="lastName" />
+                                        <input type="text" class="p-col-12" pInputText [(ngModel)]="lastName" />
                                     </div>
                                     <div class="p-col-12 p-md-6 p-lg-2">
                                         <div><label>Role ID:<span class="form-mandatory-field">*</span></label></div>
-                                        <input type="text" pInputText [(ngModel)]="roleId" />
+                                        <input type="text" class="p-col-12" pInputText [(ngModel)]="roleId" />
                                     </div>
                                     <div class="p-col-12 p-md-6 p-lg-2">
                                         <div><label>D.O.B:<span class="form-mandatory-field">*</span></label></div>
@@ -34,42 +34,98 @@
                                 <div class="p-grid">
                                     <div class="p-col-12 p-md-6 p-lg-2">
                                         <div><label>District:<span class="form-mandatory-field">*</span></label></div>
-                                        <input type="text" pInputText [(ngModel)]="district" />
+                                        <input class="p-col-12" type="text" pInputText [(ngModel)]="district" />
                                     </div>
-                                    <div class="p-col-12 p-md-6 p-lg-2">
+                                    <div class="p-col-12 p-md-6 p-lg-3">
                                         <div><label>School Name:<span class="form-mandatory-field">*</span></label>
                                         </div>
-                                        <input type="text" pInputText [(ngModel)]="schoolName" />
+                                        <input class="p-col-12" type="text" pInputText [(ngModel)]="schoolName" />
                                     </div>
                                     <div class="p-col-12 p-md-6 p-lg-2">
                                         <div><label>Mobile Number:<span class="form-mandatory-field">*</span></label>
                                         </div>
-                                        <input type="tel" pInputText [(ngModel)]="mobileNo" />
+                                        <input class="p-col-12" type="tel" pInputText [(ngModel)]="mobileNo" />
                                     </div>
                                     <div class="p-col-12 p-md-6 p-lg-2">
-                                        <div><label class="p-col-12">Alternate MobileNo:</label></div>
-                                        <input type="tel" pInputText [(ngModel)]="altMobileNo" />
+                                        <div><label>Alternate MobileNo:</label></div>
+                                        <input class="p-col-12" type="tel" pInputText [(ngModel)]="altMobileNo" />
                                     </div>
-                                    <div class="p-col-12 p-md-6 p-lg-2">
-                                        <div><label class="p-col-12">Blood Group:<span
+                                    <div class="p-col-12 p-md-6 p-lg-1">
+                                        <div><label>Blood Group:<span
                                                     class="form-mandatory-field">*</span></label></div>
-                                        <input type="tel" pInputText [(ngModel)]="bloodGroup" />
+                                        <input class="p-col-12" type="tel" pInputText [(ngModel)]="bloodGroup" />
                                     </div>
                                 </div>
                             </div>
                             <div #row3 class="p-col-12 p-md-12 p-lg-12">
                                 <div class="p-grid">
+                                    <div class="p-col-12 p-md-6 p-lg-1">
+                                        <div><label>Class:<span class="form-mandatory-field">*</span></label></div>
+                                        <input class="p-col-12" type="text" pInputText [(ngModel)]="class" />
+                                    </div>
+                                    <div class="p-col-12 p-md-6 p-lg-1">
+                                        <div><label> Section:<span class="form-mandatory-field">*</span></label>
+                                        </div>
+                                        <input class="p-col-12" type="text" pInputText [(ngModel)]="section" />
+                                    </div>
+                                    <div class="p-col-12 p-md-6 p-lg-3">
+                                        <div><label>Last School Name:</label>
+                                        </div>
+                                        <input class="p-col-12" type="text" pInputText [(ngModel)]="lastSchoolName" />
+                                    </div>
+                                    <div class="p-col-12 p-md-6 p-lg-2">
+                                        <div><label>Last School Contact:</label></div>
+                                        <input class="p-col-12" type="text" pInputText [(ngModel)]="lastSchoolContactNo" />
+                                    </div>
+                                    <div class="p-col-12 p-md-6 p-lg-3">
+                                        <div><label>Email Id:<span
+                                                    class="form-mandatory-field">*</span></label></div>
+                                        <input class="p-col-12" type="email" pInputText [(ngModel)]="studentEmailId" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div #row4 class="p-col-12 p-md-12 p-lg-12">
+                                <div class="p-grid">
+                                    <div class="p-col-12 p-md-6 p-lg-2">
+                                        <div><label> Caste:<span class="form-mandatory-field">*</span></label>
+                                        </div>
+                                        <input class="p-col-12" type="text" pInputText [(ngModel)]="caste" />
+                                    </div>
+                                    <div class="p-col-12 p-md-6 p-lg-2">
+                                        <div><label>Nationality:<span class="form-mandatory-field">*</span></label></div>
+                                        <input class="p-col-12" type="text" pInputText [(ngModel)]="nationality" />
+                                    </div>
+                                    <div class="p-col-12 p-md-6 p-lg-2">
+                                        <div><label>City:<span class="form-mandatory-field">*</span></label>
+                                        </div>
+                                        <input class="p-col-12" type="text" pInputText [(ngModel)]="city" />
+                                    </div>
+                                    <div class="p-col-12 p-md-6 p-lg-2">
+                                        <div><label>Postal Code:<span
+                                            class="form-mandatory-field">*</span></label></div>
+                                        <input class="p-col-12" type="number" pInputText [(ngModel)]="pincode" />
+                                    </div>
+                                    <div class="p-col-12 p-md-6 p-lg-2">
+                                        <div><label>Medium:<span
+                                                    class="form-mandatory-field">*</span></label></div>
+                                        <p-dropdown [options]="mediumOptions" [(ngModel)]="selectedMedium"></p-dropdown>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div #row5 class="p-col-12 p-md-12 p-lg-12">
+                                <div class="p-grid">
                                     <div class="p-col-12 p-md-6 p-lg-3">
                                         <div> <label>Permanent Address:<span
                                                     class="form-mandatory-field">*</span></label> </div>
                                         <textarea pInputTextarea [(ngModel)]="permanentAddress" rows="5"
-                                            cols="40"></textarea>
+                                            cols="38"></textarea>
                                     </div>
                                     <div class="p-col-12 p-md-6 p-lg-3">
-                                        <div> <label class="p-col-12">Current Address:<span
+                                        <div> <label>Current Address:<span
                                                     class="form-mandatory-field">*</span></label> </div>
                                         <textarea pInputTextarea [(ngModel)]="currentAddress" rows="5"
-                                            cols="40"></textarea>
+                                            cols="38"></textarea>
                                         <div>
                                             <p-checkbox [(ngModel)]="checked" binary="true" inputId="binary"
                                                 (onChange)="onCheckAddress(checked)"></p-checkbox>
@@ -89,19 +145,24 @@
                                     <div class="p-grid">
                                         <div class="p-col-12 p-md-6 p-lg-2">
                                             <div><label>Name:<span class="form-mandatory-field">*</span></label></div>
-                                            <input type="text" pInputText [(ngModel)]="fatherName" />
+                                            <input class="p-col-12" type="text" pInputText [(ngModel)]="fatherName" />
                                         </div>
                                         <div class="p-col-12 p-md-6 p-lg-2">
                                             <div><label>Occupation:<span class="form-mandatory-field">*</span></label></div>
-                                            <input type="text" pInputText [(ngModel)]="fatherOccupation" />
+                                            <input class="p-col-12" type="text" pInputText [(ngModel)]="fatherOccupation" />
                                         </div>
-                                        <div class="p-col-12 p-md-6 p-lg-2">
-                                            <div><label>Blood Group:<span class="form-mandatory-field">*</span></label></div>
-                                            <input type="text" pInputText [(ngModel)]="fatherBloodGroup" />
+                                        <div class="p-col-12 p-md-6 p-lg-1">
+                                            <div><label>BloodGroup:<span class="form-mandatory-field">*</span></label></div>
+                                            <input class="p-col-12" type="text" pInputText [(ngModel)]="fatherBloodGroup" />
                                         </div>
                                         <div class="p-col-12 p-md-6 p-lg-2">
                                             <div><label>Contact:<span class="form-mandatory-field">*</span></label></div>
-                                            <input type="text" pInputText [(ngModel)]="fatherContactNo" />
+                                            <input class="p-col-12" type="tel" pInputText [(ngModel)]="fatherContactNo" />
+                                        </div>
+                                        <div class="p-col-12 p-md-6 p-lg-3">
+                                            <div><label>Email Id:<span
+                                                        class="form-mandatory-field">*</span></label></div>
+                                            <input class="p-col-12" type="email" pInputText [(ngModel)]="fatherEmailId" />
                                         </div>
                                     </div>
                                 </p-fieldset>
@@ -111,19 +172,24 @@
                                     <div class="p-grid">
                                         <div class="p-col-12 p-md-6 p-lg-2">
                                             <div><label>Name:<span class="form-mandatory-field">*</span></label></div>
-                                            <input type="text" pInputText [(ngModel)]="motherName" />
+                                            <input class="p-col-12" type="text" pInputText [(ngModel)]="motherName" />
                                         </div>
                                         <div class="p-col-12 p-md-6 p-lg-2">
                                             <div><label>Occupation:<span class="form-mandatory-field">*</span></label></div>
-                                            <input type="text" pInputText [(ngModel)]="motherOccupation" />
+                                            <input class="p-col-12" type="text" pInputText [(ngModel)]="motherOccupation" />
                                         </div>
-                                        <div class="p-col-12 p-md-6 p-lg-2">
-                                            <div><label>Blood Group:<span class="form-mandatory-field">*</span></label></div>
-                                            <input type="text" pInputText [(ngModel)]="motherBloodGroup" />
+                                        <div class="p-col-12 p-md-6 p-lg-1">
+                                            <div><label>BloodGroup:<span class="form-mandatory-field">*</span></label></div>
+                                            <input class="p-col-12" type="text" pInputText [(ngModel)]="motherBloodGroup" />
                                         </div>
                                         <div class="p-col-12 p-md-6 p-lg-2">
                                             <div><label>Contact:<span class="form-mandatory-field">*</span></label></div>
-                                            <input type="text" pInputText [(ngModel)]="motherContactNo" />
+                                            <input class="p-col-12" type="tel" pInputText [(ngModel)]="motherContactNo" />
+                                        </div>
+                                        <div class="p-col-12 p-md-6 p-lg-3">
+                                            <div><label>Email Id:<span
+                                                        class="form-mandatory-field">*</span></label></div>
+                                            <input class="p-col-12" type="email" pInputText [(ngModel)]="motherEmailId" />
                                         </div>
                                     </div>
                                 </p-fieldset>
@@ -139,19 +205,23 @@
                                     <div class="p-grid">
                                         <div class="p-col-12 p-md-6 p-lg-2">
                                             <div><label>Name:</label></div>
-                                            <input type="text" pInputText [(ngModel)]="guardianName" />
+                                            <input class="p-col-12" type="text" pInputText [(ngModel)]="guardianName" />
                                         </div>
                                         <div class="p-col-12 p-md-6 p-lg-2">
                                             <div><label>Occupation:</label></div>
-                                            <input type="text" pInputText [(ngModel)]="guardianOccupation" />
+                                            <input class="p-col-12" type="text" pInputText [(ngModel)]="guardianOccupation" />
                                         </div>
-                                        <div class="p-col-12 p-md-6 p-lg-2">
+                                        <div class="p-col-12 p-md-6 p-lg-1">
                                             <div><label>Blood Group:</label></div>
-                                            <input type="text" pInputText [(ngModel)]="guardianBloodGroup" />
+                                            <input class="p-col-12" type="text" pInputText [(ngModel)]="guardianBloodGroup" />
                                         </div>
                                         <div class="p-col-12 p-md-6 p-lg-2">
                                             <div><label>Contact:</label></div>
-                                            <input type="text" pInputText [(ngModel)]="guardianContactNo" />
+                                            <input class="p-col-12" type="tel" pInputText [(ngModel)]="guardianContactNo" />
+                                        </div>
+                                        <div class="p-col-12 p-md-6 p-lg-3">
+                                            <div><label>Email Id:</label></div>
+                                            <input class="p-col-12" type="email" pInputText [(ngModel)]="guardianEmailId" />
                                         </div>
                                     </div>
                                 </p-fieldset>
@@ -159,6 +229,9 @@
                         </div>
                     </p-card>
                 </p-tabPanel>
+                <div class="p-col-12 p-md-12 p-lg-12">
+                    <button pButton type="button" label="Submit" style="margin-left: 50%;"></button>
+                </div>
             </p-tabView>
         </div>
     </p-panel>

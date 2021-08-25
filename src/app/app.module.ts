@@ -59,6 +59,7 @@ import { CircularComponent } from './DataView-Module/circular/circular.component
 import { AssignmentsComponent } from './DataView-Module/assignments/assignments.component';
 import { NewsletterComponent } from './DataView-Module/newsletter/newsletter.component';
 import { InternaltransferComponent } from './DataView-Module/internaltransfer/internaltransfer.component';
+import { RegistrationFormComponent } from './Forms-Module/registration-form/registration-form.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -95,6 +96,7 @@ FullCalendarModule.registerPlugins([
     AssignmentsComponent,
     NewsletterComponent,
     InternaltransferComponent,
+    RegistrationFormComponent,
   ],
   imports: [
     BrowserModule,

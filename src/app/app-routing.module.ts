@@ -24,6 +24,7 @@ import { AttendanceComponent } from './Events-Module/attendance/attendance.compo
 import { EventCalendarComponent } from './Events-Module/event-calendar/event-calendar.component';
 import { OnlineAssessmentComponent } from './Events-Module/online-assessment/online-assessment.component';
 import { OnlineClassroomComponent } from './Events-Module/online-classroom/online-classroom.component';
+import { RegistrationFormComponent } from './Forms-Module/registration-form/registration-form.component';
 import { LoginComponent } from './login/login.component';
 
 
@@ -53,7 +54,8 @@ const routes: Routes = [
  { path: 'assignments', component: AssignmentsComponent },
  { path: 'newsletters', component: NewsletterComponent },
  { path: 'internal-transfer', component: InternaltransferComponent },
-  { path: 'fees', component: FeesComponent },
+ { path: 'fees', component: FeesComponent },
+ { path: 'registration', component: RegistrationFormComponent },
 ];  
 
 

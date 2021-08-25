@@ -1,31 +1,32 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { AttendanceComponent } from './attendance/attendance.component';
-import { BooksComponent } from './books/books.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { EventCalendarComponent } from './event-calendar/event-calendar.component';
-import { FeesComponent } from './fees/fees.component';
+import { AchievementsComponent } from './DataView-Module/achievements/achievements.component';
+import { AnnouncementComponent } from './DataView-Module/announcement/announcement.component';
+import { AssignmentsInformationComponent } from './DataView-Module/assignments-information/assignments-information.component';
+import { AssignmentsComponent } from './DataView-Module/assignments/assignments.component';
+import { BooksComponent } from './DataView-Module/books/books.component';
+import { CircularComponent } from './DataView-Module/circular/circular.component';
+import { ClassroomDownloadComponent } from './DataView-Module/classroom-download/classroom-download.component';
+import { FeesComponent } from './DataView-Module/fees/fees.component';
+import { GalleryListComponent } from './DataView-Module/gallery-list/gallery-list.component';
+import { InternaltransferComponent } from './DataView-Module/internaltransfer/internaltransfer.component';
+import { MainresultComponent } from './DataView-Module/mainresult/mainresult.component';
+import { NewsletterComponent } from './DataView-Module/newsletter/newsletter.component';
+import { PollListComponent } from './DataView-Module/poll-list/poll-list.component';
+import { ProfileComponent } from './DataView-Module/profile/profile.component';
+import { QuestionbankComponent } from './DataView-Module/questionbank/questionbank.component';
+import { ResultComponent } from './DataView-Module/result/result.component';
+import { StudentInfoComponent } from './DataView-Module/student-info/student-info.component';
+import { SubjectResultComponent } from './DataView-Module/subject-result/subject-result.component';
+import { SubjectTestresultComponent } from './DataView-Module/subject-testresult/subject-testresult.component';
+import { AttendanceComponent } from './Events-Module/attendance/attendance.component';
+import { EventCalendarComponent } from './Events-Module/event-calendar/event-calendar.component';
+import { OnlineAssessmentComponent } from './Events-Module/online-assessment/online-assessment.component';
+import { OnlineClassroomComponent } from './Events-Module/online-classroom/online-classroom.component';
 import { LoginComponent } from './login/login.component';
-import { OnlineAssessmentComponent } from './online-assessment/online-assessment.component';
-import { OnlineClassroomComponent } from './online-classroom/online-classroom.component';
-import { PollListComponent } from './poll-list/poll-list.component';
-import { ProfileComponent } from './profile/profile.component';
-import { StudentInfoComponent } from './student-info/student-info.component';
 
-import { GalleryListComponent } from './gallery-list/gallery-list.component';
-import { ResultComponent } from './result/result.component';
-import { SubjectResultComponent } from './subject-result/subject-result.component';
-import { SubjectTestresultComponent} from './subject-testresult/subject-testresult.component';
-import { QuestionbankComponent} from './questionbank/questionbank.component';
-import { MainresultComponent} from './mainresult/mainresult.component';
-import { AssignmentsInformationComponent } from './assignments-information/assignments-information.component';
-import { ClassroomDownloadComponent } from './classroom-download/classroom-download.component';
-import { AnnouncementComponent } from './announcement/announcement.component';
-import { AchievementsComponent } from './achievements/achievements.component';
-import { CircularComponent } from './circular/circular.component';
-import { AssignmentsComponent } from './assignments/assignments.component';
-import { NewsletterComponent } from './newsletter/newsletter.component';
-import { InternaltransferComponent } from './internaltransfer/internaltransfer.component';
+
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },

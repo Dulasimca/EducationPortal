@@ -29,6 +29,32 @@ body {
     box-shadow: 0px 6px 7px 2px rgb(33 33 33 / 20%);
 }
 
+.form-mandatory-field {
+    color: rgb(247, 9, 56);
+}
+
+.div-header-bg {
+    background: #d3e0ec !important;
+    height: 40px;
+    color: #495057 !important;
+    font-weight: bold;
+}
+
+/* input line */
+.input-txt {
+    border-left: none !important;
+    border-right: none !important;
+    border-top: none !important
+}
+
+.input-txt:enabled:focus {
+    outline: 0 none;
+    outline-offset: 0;
+    box-shadow: none !important;
+    border-color: #ced4da!important;
+}
+/* end */
+
 /* dashboard */
 
 body .layout-wrapper .layout-main {
@@ -262,3 +288,12 @@ body { margin: 0 !important}
     .p-panelmenu .p-panelmenu-content .p-menuitem .p-menuitem-link .p-menuitem-text {
         color: rgb(250, 250, 250)!important;
     }
+
+    .side-nav-panel {
+        width: 16% !important;
+    }
+
+    .side-nav-container {
+        width: calc(100% - 16%) !important;
+    }
+

@@ -23,10 +23,10 @@
     </mat-toolbar>
     <div>
         <div class="p-grid">
-            <div *ngIf="isOpen" class="p-col-2 no-pad-right">
+            <div *ngIf="isOpen" class="p-col-2 no-pad-right side-nav-panel">
                 <p-panelMenu [style]="{'overflow-y': 'scroll'}" [model]="items"></p-panelMenu>
             </div>
-            <div [ngClass]="{'p-col-10': isOpen, 'p-col-12': !isOpen}">
+            <div [ngClass]="{'side-nav-container': isOpen, 'p-col-12': !isOpen}">
                 <router-outlet></router-outlet>
             </div>
         </div>

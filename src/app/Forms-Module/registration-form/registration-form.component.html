@@ -1,29 +1,162 @@
-<div class="p-col-12">
+<div class="p-col-12" style="padding-top:25px;">
     <p-panel header="Registration Form">
         <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
             <p-tabView>
                 <p-tabPanel header="Personal Info">
                     <p-card>
                         <div class="p-col-12 no-pad-top" style="margin-left: -8px;">
-                            <div class="p-grid">
-
+                            <div #row1 class="p-col-12 p-md-12 p-lg-12">
+                                <div class="p-grid">
+                                    <div class="p-col-12 p-md-6 p-lg-2">
+                                        <div><label>Firstname:<span class="form-mandatory-field">*</span></label></div>
+                                        <input type="text" pInputText [(ngModel)]="firstName" />
+                                    </div>
+                                    <div class="p-col-12 p-md-6 p-lg-2">
+                                        <div><label>Lastname:<span class="form-mandatory-field">*</span></label></div>
+                                        <input type="text" pInputText [(ngModel)]="lastName" />
+                                    </div>
+                                    <div class="p-col-12 p-md-6 p-lg-2">
+                                        <div><label>Role ID:<span class="form-mandatory-field">*</span></label></div>
+                                        <input type="text" pInputText [(ngModel)]="roleId" />
+                                    </div>
+                                    <div class="p-col-12 p-md-6 p-lg-2">
+                                        <div><label>D.O.B:<span class="form-mandatory-field">*</span></label></div>
+                                        <p-calendar [(ngModel)]="dob" [monthNavigator]="true" [yearNavigator]="true"
+                                            yearRange="{{yearRange}}" inputId="dateofbirth"></p-calendar>
+                                    </div>
+                                    <div class="p-col-12 p-md-4 p-lg-2">
+                                        <div><label>Gender:<span class="form-mandatory-field">*</span></label></div>
+                                        <p-dropdown [options]="genderOptions" [(ngModel)]="selectedGender"></p-dropdown>
+                                    </div>
+                                </div>
                             </div>
+                            <div #row2 class="p-col-12 p-md-12 p-lg-12">
+                                <div class="p-grid">
+                                    <div class="p-col-12 p-md-6 p-lg-2">
+                                        <div><label>District:<span class="form-mandatory-field">*</span></label></div>
+                                        <input type="text" pInputText [(ngModel)]="district" />
+                                    </div>
+                                    <div class="p-col-12 p-md-6 p-lg-2">
+                                        <div><label>School Name:<span class="form-mandatory-field">*</span></label>
+                                        </div>
+                                        <input type="text" pInputText [(ngModel)]="schoolName" />
+                                    </div>
+                                    <div class="p-col-12 p-md-6 p-lg-2">
+                                        <div><label>Mobile Number:<span class="form-mandatory-field">*</span></label>
+                                        </div>
+                                        <input type="tel" pInputText [(ngModel)]="mobileNo" />
+                                    </div>
+                                    <div class="p-col-12 p-md-6 p-lg-2">
+                                        <div><label class="p-col-12">Alternate MobileNo:</label></div>
+                                        <input type="tel" pInputText [(ngModel)]="altMobileNo" />
+                                    </div>
+                                    <div class="p-col-12 p-md-6 p-lg-2">
+                                        <div><label class="p-col-12">Blood Group:<span
+                                                    class="form-mandatory-field">*</span></label></div>
+                                        <input type="tel" pInputText [(ngModel)]="bloodGroup" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div #row3 class="p-col-12 p-md-12 p-lg-12">
+                                <div class="p-grid">
+                                    <div class="p-col-12 p-md-6 p-lg-3">
+                                        <div> <label>Permanent Address:<span
+                                                    class="form-mandatory-field">*</span></label> </div>
+                                        <textarea pInputTextarea [(ngModel)]="permanentAddress" rows="5"
+                                            cols="40"></textarea>
+                                    </div>
+                                    <div class="p-col-12 p-md-6 p-lg-3">
+                                        <div> <label class="p-col-12">Current Address:<span
+                                                    class="form-mandatory-field">*</span></label> </div>
+                                        <textarea pInputTextarea [(ngModel)]="currentAddress" rows="5"
+                                            cols="40"></textarea>
+                                        <div>
+                                            <p-checkbox [(ngModel)]="checked" binary="true" inputId="binary"
+                                                (onChange)="onCheckAddress(checked)"></p-checkbox>
+                                            <span style="font-size: 12px;">Same as permanent address</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </p-card>
                 </p-tabPanel>
                 <p-tabPanel header="Parent Info">
                     <p-card>
                         <div class="p-col-12 no-pad-top" style="margin-left: -8px;">
-                            <div class="p-grid">
-
+                            <div #row1 class="p-col-12 p-md-12 p-lg-12">
+                                <p-fieldset legend="Father's Info" [toggleable]="true">
+                                    <div class="p-grid">
+                                        <div class="p-col-12 p-md-6 p-lg-2">
+                                            <div><label>Name:<span class="form-mandatory-field">*</span></label></div>
+                                            <input type="text" pInputText [(ngModel)]="fatherName" />
+                                        </div>
+                                        <div class="p-col-12 p-md-6 p-lg-2">
+                                            <div><label>Occupation:<span class="form-mandatory-field">*</span></label></div>
+                                            <input type="text" pInputText [(ngModel)]="fatherOccupation" />
+                                        </div>
+                                        <div class="p-col-12 p-md-6 p-lg-2">
+                                            <div><label>Blood Group:<span class="form-mandatory-field">*</span></label></div>
+                                            <input type="text" pInputText [(ngModel)]="fatherBloodGroup" />
+                                        </div>
+                                        <div class="p-col-12 p-md-6 p-lg-2">
+                                            <div><label>Contact:<span class="form-mandatory-field">*</span></label></div>
+                                            <input type="text" pInputText [(ngModel)]="fatherContactNo" />
+                                        </div>
+                                    </div>
+                                </p-fieldset>
                             </div>
+                            <div #row2 class="p-col-12 p-md-12 p-lg-12">
+                                <p-fieldset legend="Mother's Info" [toggleable]="true">
+                                    <div class="p-grid">
+                                        <div class="p-col-12 p-md-6 p-lg-2">
+                                            <div><label>Name:<span class="form-mandatory-field">*</span></label></div>
+                                            <input type="text" pInputText [(ngModel)]="motherName" />
+                                        </div>
+                                        <div class="p-col-12 p-md-6 p-lg-2">
+                                            <div><label>Occupation:<span class="form-mandatory-field">*</span></label></div>
+                                            <input type="text" pInputText [(ngModel)]="motherOccupation" />
+                                        </div>
+                                        <div class="p-col-12 p-md-6 p-lg-2">
+                                            <div><label>Blood Group:<span class="form-mandatory-field">*</span></label></div>
+                                            <input type="text" pInputText [(ngModel)]="motherBloodGroup" />
+                                        </div>
+                                        <div class="p-col-12 p-md-6 p-lg-2">
+                                            <div><label>Contact:<span class="form-mandatory-field">*</span></label></div>
+                                            <input type="text" pInputText [(ngModel)]="motherContactNo" />
+                                        </div>
+                                    </div>
+                                </p-fieldset>
+                            </div>
+                        </div>
                     </p-card>
                 </p-tabPanel>
                 <p-tabPanel header="Gaurdian Info">
                     <p-card>
                         <div class="p-col-12 no-pad-top" style="margin-left: -8px;">
-                            <div class="p-grid">
-
+                            <div #row1 class="p-col-12 p-md-12 p-lg-12">
+                                <p-fieldset legend="Guardian's Info" [toggleable]="true">
+                                    <div class="p-grid">
+                                        <div class="p-col-12 p-md-6 p-lg-2">
+                                            <div><label>Name:</label></div>
+                                            <input type="text" pInputText [(ngModel)]="guardianName" />
+                                        </div>
+                                        <div class="p-col-12 p-md-6 p-lg-2">
+                                            <div><label>Occupation:</label></div>
+                                            <input type="text" pInputText [(ngModel)]="guardianOccupation" />
+                                        </div>
+                                        <div class="p-col-12 p-md-6 p-lg-2">
+                                            <div><label>Blood Group:</label></div>
+                                            <input type="text" pInputText [(ngModel)]="guardianBloodGroup" />
+                                        </div>
+                                        <div class="p-col-12 p-md-6 p-lg-2">
+                                            <div><label>Contact:</label></div>
+                                            <input type="text" pInputText [(ngModel)]="guardianContactNo" />
+                                        </div>
+                                    </div>
+                                </p-fieldset>
                             </div>
+                        </div>
                     </p-card>
                 </p-tabPanel>
             </p-tabView>

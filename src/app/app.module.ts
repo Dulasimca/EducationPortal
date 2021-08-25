@@ -29,6 +29,8 @@ import {MatDividerModule} from '@angular/material/divider';
 import {PanelMenuModule} from 'primeng/panelmenu';
 import { AppRoutingModule } from './app-routing.module';
 import { TooltipModule } from 'primeng/tooltip';
+import {InputTextareaModule} from 'primeng/inputtextarea';
+import {FieldsetModule} from 'primeng/fieldset';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -60,6 +62,8 @@ import { AssignmentsComponent } from './DataView-Module/assignments/assignments.
 import { NewsletterComponent } from './DataView-Module/newsletter/newsletter.component';
 import { InternaltransferComponent } from './DataView-Module/internaltransfer/internaltransfer.component';
 import { RegistrationFormComponent } from './Forms-Module/registration-form/registration-form.component';
+import { AuthService } from './Services/auth.service';
+import { RestAPIService } from './Services/restAPI.service';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -126,9 +130,11 @@ FullCalendarModule.registerPlugins([
     MatIconModule,
     MatDividerModule,
     DialogModule,
-    PanelMenuModule
+    PanelMenuModule,
+    InputTextareaModule,
+    FieldsetModule
   ],
-  providers: [PrimeNGConfig, FilterService],
+  providers: [PrimeNGConfig, FilterService, AuthService, RestAPIService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

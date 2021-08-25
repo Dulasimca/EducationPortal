@@ -1,0 +1,47 @@
+<div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px; height: 520px;">
+        <p-panel header="Internal School Transfer">
+        <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
+            <p-card>
+                <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
+                    <div class="p-grid">
+                        <div class="p-col-12 p-md-6 p-lg-2 no-pad-left">
+                            <label>District </label>
+                            <p-dropdown [options]="district" [(ngModel)]="selectedDistrict" optionLabel="name"
+                               placeholder="select a district"></p-dropdown>
+                        </div>
+                        <div class="p-col-12 p-md-6 p-lg-2 no-pad-left" style="margin: left -3px;">
+                            <label>School </label>
+                            <p-dropdown [options]="school" [(ngModel)]="selectedSchool" optionLabel="name"
+                                placeholder="select a school"></p-dropdown>
+                        </div>
+                        <div class="p-col-12 p-md-6 p-lg-2 no-pad-left" style="margin: left -3px;"> 
+                            <label> Date of Apply</label>
+                            <p-calendar [(ngModel)]="date" [showIcon]="true"></p-calendar>
+                    </div>
+                    <div class="p-col-1"></div>
+                    <div class="p-col-12 p-md-4 p-lg-2" style="align-self: center; margin-top: 20px;">
+                        <button pButton type="button" label="Transfer" (click)="onTransfer()"></button>
+                        </div>
+                      
+
+                    </div>
+                </div>
+                <br>
+                <div class="p-col-12"></div>
+                <div class="p-col-12"></div>
+                <div class="p-col-12"></div>
+                <div class="p-col-12"></div>
+                <div class="p-col-12"></div>
+                <div class="p-col-12"></div>
+                <div class="p-col-12"></div>
+                <div class="p-col-12"></div>
+            </p-card>
+        </div>
+    </p-panel>
+    <p-dialog  header="Alert Message !"  [(visible)]="display" [modal]="true">
+        <div class="p-col-12" style="padding-top: 10px;">
+        Transfer has been applied successfully!!! <br>
+        Please wait for an approval from Head of the School.
+    </div>
+    </p-dialog>
+</div>

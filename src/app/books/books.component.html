@@ -1,0 +1,38 @@
+<div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px;">
+        <p-panel header="Books">
+            <div class="p-col-12 p-md-10 p-lg-8">
+                <div style="font-style: italic; font-size: 15px; color: rgb(11, 43, 102);">
+                    * Incase of any queries,contact school
+                </div>
+                <div style="font-style: italic; font-size: 15px; color: rgb(11, 43, 102);">
+                    * Please select your preference and click on proceed
+                </div>
+                <div class="p-col-12 p-md-12 p-lg-12">
+                    <p-table [value]="books">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="width:1.7cm;">S.No</th>
+                                <th>Subject/Stream Name</th>
+                                <th>Author/Reference</th>
+                                <th>PDF</th>
+
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-book>
+                            <tr>
+                                <td>{{book.no}}</td>
+                                <td>{{book.subjects}}</td>
+                                <td>{{book.author}}</td>
+                                <td>
+                                    <i style="padding-left: 10px; color: #52de38; font-size: 1.5rem;"
+                                        class="pi pi-file-pdf"></i>
+                                </td>
+
+                            </tr>
+                        </ng-template>
+                    </p-table>
+
+                </div>
+            </div>
+        </p-panel>
+</div>

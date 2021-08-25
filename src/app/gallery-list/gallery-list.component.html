@@ -1,0 +1,23 @@
+<div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px;">
+        <p-panel header="School Gallery">
+            <div class="p-col-12 p-md-10 p-lg-8 no-pad-top">
+                <p-card>
+                    <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
+                        <span style="font-weight: bold;">Gallery</span>
+                    </div>
+                    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [numVisible]="5">
+                        <ng-template pTemplate="item" let-item>
+                            <img [src]="item.previewImageSrc" style="width: 400px;height: 400px; display: block;" />
+                        </ng-template>
+                        <ng-template pTemplate="thumbnail" let-item>
+                            <div class="p-grid p-nogutter p-justify-center">
+                                <img [src]="item.thumbnailImageSrc"
+                                    style="display: block; width: 100px;height: 100px;" />
+                            </div>
+                        </ng-template>
+                    </p-galleria>
+                    <p-divider></p-divider>
+                </p-card>
+            </div>
+        </p-panel>
+</div>

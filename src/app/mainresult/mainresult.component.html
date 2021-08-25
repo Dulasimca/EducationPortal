@@ -1,0 +1,46 @@
+<div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px;">
+        <p-panel header="Subject Test Result">
+        <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
+            <p-card>
+                <div class="p-col-12 p-md-12 p-lg-12 no-pad-top" style="margin-top: -5px;">
+                    <div class="no-pad-top"><label>Year:</label> </div>  
+                    <p-dropdown [options]="years" [(ngModel)]="selectedyear" optionLabel="name"></p-dropdown>
+
+                </div>
+                <div>
+                    <p-table [value]="data">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="width: 100px">S.No</th>
+                                <th>Subject Name</th>
+                                <th>Maximum Mark</th>
+                                <th>Marks Taken</th>
+                                <th>Result</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let rowIndex=rowIndex let-data>
+                            <tr>
+                                <td style="width: 100px">{{data.slno}}</td>
+                                <td>{{data.subject}}</td>
+                                <td>{{data.maximum}}</td>
+                                <td>{{data.taken}}</td>
+                                <td>{{data.pass}}</td>
+                               <!-- <td>
+                                   
+                                    <span style="font-size: 13px;"> <a routerLink="/subjecttestresult" routerLinkActive="active" target="_blank" rel="view" style="color: blue; text-decoration: underline;">View</a></span></td>
+                                 <td>{{data.duration}}</td> -->
+                                <!-- <td><i class="pi pi-download" style="padding-left: 10px; color: #990f0f; font-size: 1.5rem;"></i></td> -->
+                                <!-- <td>{{data.Uploaded}}</td> -->
+                                <!-- <td><i class="pi pi-upload" style="padding-right: 20px; color: #990f0f; font-size: 1.5rem;"></i></td>
+                                <td>{{data.teacher}}</td> -->
+                                <!-- <td><i class="pi pi-download" style="padding-left: 10px; color: #990f0f; font-size: 1.5re m;"></i></td>  -->
+                            </tr>
+
+                        </ng-template>
+                    </p-table>
+                    <P>***IT REQUIRED MINIMUM PASS MARK THIRTY FIVE PERCENT OF MARKS IN EACH ONE OF THE FIVE SUBJECTS.</P>
+                </div>
+            </p-card>
+        </div>
+    </p-panel>
+</div>

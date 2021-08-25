@@ -1,0 +1,40 @@
+<div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px;">
+        <p-panel header="Live Classrooms">
+        <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
+            <p-card>
+                <div class="p-col-12 p-md-12 p-lg-12 no-pad-top" style="margin-top: -5px;">
+                   <div class="no-pad-top"><label>Date:</label> </div>  
+                    <p-calendar [(ngModel)]="date" [showIcon]="true"></p-calendar>
+                </div>
+                <div>
+                    <p-table [value]="data">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="width: 90px">S.No</th>
+                                <th>Subject</th>
+                                <th>Start Date</th>
+                                <th>Start Time</th>
+                                <th>Duration</th>
+                                <th>Join Room</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let rowIndex=rowIndex let-data>
+                            <tr>
+                                <td style="width: 90px">{{data.slno}}</td>
+                                <td>{{data.subject}}</td>
+                                <td>{{data.date}}</td>
+                                <td>{{data.time}}</td>
+                                <td>{{data.duration}}</td>
+                                <td>
+                                    <!-- <div class="tooltip"> This session has been expired -->
+                                    <i class="pi pi-sign-in" style="padding-left: 10px; color: #52de38; font-size: 1.5rem;" pTooltip="Session End"></i>
+                                <!-- </div> -->
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </p-card>
+        </div>
+    </p-panel>
+</div>

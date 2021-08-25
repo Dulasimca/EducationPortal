@@ -1,0 +1,46 @@
+<div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px;">
+        <p-panel header="Attendance">
+        <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
+            <p-card>
+                <div class="p-col-12">
+                    <div class="p-grid">
+                        <div class="p-col-4 p-md-4 p-lg-1 cursor-pointer" style="font-weight: bold;" (click)="onPrev()">
+                            <i class="pi pi-angle-double-left" style="font-size: 1.2rem; vertical-align: bottom;"></i>
+                            Prev
+                        </div>
+                        <div class="p-col-4 p-md-4 p-lg-1" style="font-weight: bold;">{{monthyear}}</div>
+                        <div class="p-col-4 p-md-4 p-lg-1 cursor-pointer" style="font-weight: bold;" (click)="onNext()">Next
+                        <i class="pi pi-angle-double-right" style="font-size: 1.2rem; vertical-align: bottom;"></i> </div>
+                    </div>
+                    <p-divider></p-divider>
+                </div>
+                <div class="p-grid">
+                <div class="p-col-12 p-md-6 p-lg-4" style="width: 400px;">
+                    <Ngx-AttendanceCalendar [monthData]="selectedMonth" [yearData]="selectedyear"
+                        [attendanceData]="myAttData"></Ngx-AttendanceCalendar>
+                    <!-- <p-calendar [(ngModel)]="date" [inline]="true" [showWeek]="true"></p-calendar> -->
+                </div>
+                <div class="p-col-5"></div>
+                <div class="p-col-12 p-md-4 p-lg-3">
+                    <div class="p-grid" style="padding-top: 10px;">
+                        <div class="p-col-1" style="width: 25px; height: 30px; background: rgb(171, 235, 198);"></div>
+                        <span  class="p-col-10 no-pad-top" > - Present </span>
+                    </div>
+                    <div class="p-grid" style="padding-top: 20px;">
+                        <div class="p-col-1" style="width: 25px; height: 30px; background: rgb(245, 183, 177);"></div>
+                        <span  class="p-col-10 no-pad-top" > - Absent </span>
+                    </div>
+                    <div class="p-grid" style="padding-top: 20px;">
+                        <div class="p-col-1" style="width: 25px; height: 30px; background: rgb(229, 232, 232);"></div>
+                        <span  class="p-col-10 no-pad-top" > - Not Working Day </span>
+                    </div>
+                    <div class="p-grid" style="padding-top: 20px;">
+                        <div class="p-col-1" style="width: 25px; height: 30px; background: rgb(249, 231, 159);"></div>
+                        <span  class="p-col-10 no-pad-top" > - Attendance Not Uploaded </span>
+                    </div>
+                </div>
+            </div>
+            </p-card>
+        </div>
+    </p-panel>
+</div>

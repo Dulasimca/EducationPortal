@@ -1,0 +1,36 @@
+<div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px;">
+        <p-panel header="MCQ Test Result">
+        <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
+            <p-card>
+                <div class="p-col-12 p-md-12 p-lg-12 no-pad-top" style="margin-top: -5px;">
+                    <div class="no-pad-top"><label>Year:</label> </div>  
+                    <p-dropdown [options]="years" [(ngModel)]="selectedyear" optionLabel="name"></p-dropdown>
+      </div>
+                <div>
+                    <p-table [value]="data">
+                        <ng-template pTemplate="header">
+                            <tr>
+                                <th style="width: 90px">S.No</th>
+                                <th>Subject Name</th>
+                                <th>Test Name</th>
+                                <th>Result</th>
+                                <th>Download Result</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let rowIndex=rowIndex let-data>
+                            <tr>
+                                <td style="width: 90px">{{data.slno}}</td>
+                                <td>{{data.subject}}</td>
+                                <td>{{data.test}}</td>
+                                <td>
+                                    <span style="font-size: 13px;"> <a routerLink="/subjecttestresult" routerLinkActive="active" target="_blank" rel="view" style="color: blue; text-decoration: underline;">View</a></span></td>
+                                <!-- <td>{{data.duration}}</td> -->
+                                <td><i class="pi pi-sign-in" style="padding-left: 10px; color: #52de38; font-size: 1.5rem;"></i></td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </p-card>
+        </div>
+    </p-panel>
+</div>

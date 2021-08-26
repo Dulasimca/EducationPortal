@@ -26,12 +26,16 @@ import { OnlineAssessmentComponent } from './Events-Module/online-assessment/onl
 import { OnlineClassroomComponent } from './Events-Module/online-classroom/online-classroom.component';
 import { RegistrationFormComponent } from './Forms-Module/registration-form/registration-form.component';
 import { LoginComponent } from './login/login.component';
+import { CircularFormComponent } from './Forms-Module/circular-form/Circular-form.component';
+//Adithya
+import { AnnouncementFormComponent } from './Forms-Module/announcement-form/announcement-form.component';
 import { AuthGuard } from './Services/auth.guard';
 
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
+ 
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'events', component: EventCalendarComponent, canActivate: [AuthGuard] },
@@ -57,6 +61,8 @@ const routes: Routes = [
  { path: 'internal-transfer', component: InternaltransferComponent, canActivate: [AuthGuard] },
  { path: 'fees', component: FeesComponent, canActivate: [AuthGuard] },
  { path: 'registration', component: RegistrationFormComponent, canActivate: [AuthGuard] },
+   //Adithya
+   { path: 'announcement', component: AnnouncementFormComponent },
 ];  
 
 

@@ -31,14 +31,14 @@ export class AppComponent {
         { label: 'My Profile', icon: 'fa fa-address-card', routerLink: '/student-info' },
         { label: 'My Parent', icon: 'fa fa-users', routerLink: '/student-info' },
         { label: 'My Achievements', icon: 'fa fa-trophy', routerLink: '/achievements' },
-        { label: 'My School', icon: 'fa fa-graduation-cap', },
+       // { label: 'My School', icon: 'fa fa-graduation-cap', },
       ] },
       {label: 'ID Card Info', icon: 'fa fa-id-badge', routerLink: '/profile' },
       { label: 'Vote', icon: 'fa fa-thumbs-up', 
       items: [
         { label: 'Vote', icon: 'fa fa-thumbs-o-up', routerLink: '/poll-list'},
-        { label: 'Nominee', icon: 'fa fa-handshake-o', routerLink: '/poll-list'},
-        { label: 'Vote Result', icon: 'fa fa-vacrd-o', routerLink: '/poll-list'}
+       //{ label: 'Nominee', icon: 'fa fa-handshake-o', routerLink: '/poll-list'},
+        //{ label: 'Vote Result', icon: 'fa fa-vacrd-o', routerLink: '/poll-list'}
       ] },
       {
         label: 'School', icon: 'fa fa-institution',

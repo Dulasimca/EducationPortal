@@ -61,6 +61,8 @@ import { InternaltransferComponent } from './DataView-Module/internaltransfer/in
 import { RegistrationFormComponent } from './Forms-Module/registration-form/registration-form.component';
 import { AuthService } from './Services/auth.service';
 import { RestAPIService } from './Services/restAPI.service';
+import { CircularFormComponent } from './Forms-Module/circular-form/circular-form.component';
+import { AnnouncementFormComponent } from './Forms-Module/announcement-form/announcement-form.component';
 import { AuthGuard } from './Services/auth.guard';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -100,6 +102,8 @@ FullCalendarModule.registerPlugins([
     NewsletterComponent,
     InternaltransferComponent,
     RegistrationFormComponent,
+    CircularFormComponent,
+    AnnouncementFormComponent,
   ],
   imports: [
     BrowserModule,

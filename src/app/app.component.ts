@@ -22,6 +22,10 @@ export class AppComponent {
     console.log('sign', this.isSignedIn, this.isLoggedIn$);
     this.items = [
       { label: 'Dashboard', icon: 'fa fa-desktop', routerLink: '/dashboard' },
+      { label: 'Admin', icon: 'fa fa-user-secret', 
+    items: [
+      { label: 'Registration', icon: 'fa fa-registered', routerLink: '/registration' }
+    ]},
       { label: 'Profile', icon: 'fa fa-user-circle-o', 
       items: [
         { label: 'My Profile', icon: 'fa fa-address-card', routerLink: '/student-info' },

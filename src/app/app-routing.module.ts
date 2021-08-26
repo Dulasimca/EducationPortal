@@ -27,36 +27,42 @@ import { OnlineClassroomComponent } from './Events-Module/online-classroom/onlin
 import { RegistrationFormComponent } from './Forms-Module/registration-form/registration-form.component';
 import { LoginComponent } from './login/login.component';
 import { CircularFormComponent } from './Forms-Module/circular-form/Circular-form.component';
+//Adithya
+import { AnnouncementFormComponent } from './Forms-Module/announcement-form/announcement-form.component';
+import { AuthGuard } from './Services/auth.guard';
+
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'events', component: EventCalendarComponent },
-  { path: 'attendance', component: AttendanceComponent },
-  { path: 'books', component: BooksComponent },
-  { path: 'online-assessment', component: OnlineAssessmentComponent },
-  { path: 'online-classroom', component: OnlineClassroomComponent },
-  { path: 'poll-list', component: PollListComponent },
-  { path: 'student-info', component: StudentInfoComponent },
-  {path: 'gallery-list',component: GalleryListComponent},
-  {​​​​​​​​ path:'result', component:ResultComponent }​​​​​​​​,
-  {​​​​​​​​ path:'subject-result', component:SubjectResultComponent }​​​​​​​​,
-  {​​​​​​​​ path:'subject-test-result', component:SubjectTestresultComponent }​​​​​​​​,
-  {​​​​​​​​ path:'question-bank', component:QuestionbankComponent }​​​​​​​​,
-  {​​​​​​​​ path:'mainresult', component:MainresultComponent }​​​​​​​​,
- { path: 'assignments-information', component: AssignmentsInformationComponent },
- { path: 'classroom-download', component: ClassroomDownloadComponent },
- { path: 'achievements', component: AchievementsComponent }, 
- { path: 'announcements', component: AnnouncementComponent },
- { path: 'circulars', component: CircularComponent },
- { path: 'assignments', component: AssignmentsComponent },
- { path: 'newsletters', component: NewsletterComponent },
- { path: 'internal-transfer', component: InternaltransferComponent },
- { path: 'fees', component: FeesComponent },
- { path: 'registration', component: RegistrationFormComponent },
- { path: 'circular', component: CircularFormComponent },
+ 
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
+  { path: 'events', component: EventCalendarComponent, canActivate: [AuthGuard] },
+  { path: 'attendance', component: AttendanceComponent, canActivate: [AuthGuard] },
+  { path: 'books', component: BooksComponent, canActivate: [AuthGuard] },
+  { path: 'online-assessment', component: OnlineAssessmentComponent, canActivate: [AuthGuard] },
+  { path: 'online-classroom', component: OnlineClassroomComponent, canActivate: [AuthGuard] },
+  { path: 'poll-list', component: PollListComponent, canActivate: [AuthGuard] },
+  { path: 'student-info', component: StudentInfoComponent, canActivate: [AuthGuard] },
+  {path: 'gallery-list',component: GalleryListComponent, canActivate: [AuthGuard] },
+  {​​​​​​​​ path:'result', component:ResultComponent , canActivate: [AuthGuard] }​​​​​​​​,
+  {​​​​​​​​ path:'subject-result', component:SubjectResultComponent , canActivate: [AuthGuard] }​​​​​​​​,
+  {​​​​​​​​ path:'subject-test-result', component:SubjectTestresultComponent , canActivate: [AuthGuard] }​​​​​​​​,
+  {​​​​​​​​ path:'question-bank', component:QuestionbankComponent , canActivate: [AuthGuard] }​​​​​​​​,
+  {​​​​​​​​ path:'mainresult', component:MainresultComponent , canActivate: [AuthGuard] }​​​​​​​​,
+ { path: 'assignments-information', component: AssignmentsInformationComponent, canActivate: [AuthGuard] },
+ { path: 'classroom-download', component: ClassroomDownloadComponent, canActivate: [AuthGuard] },
+ { path: 'achievements', component: AchievementsComponent, canActivate: [AuthGuard] }, 
+ { path: 'announcements', component: AnnouncementComponent, canActivate: [AuthGuard] },
+ { path: 'circulars', component: CircularComponent, canActivate: [AuthGuard] },
+ { path: 'assignments', component: AssignmentsComponent, canActivate: [AuthGuard] },
+ { path: 'newsletters', component: NewsletterComponent, canActivate: [AuthGuard] },
+ { path: 'internal-transfer', component: InternaltransferComponent, canActivate: [AuthGuard] },
+ { path: 'fees', component: FeesComponent, canActivate: [AuthGuard] },
+ { path: 'registration', component: RegistrationFormComponent, canActivate: [AuthGuard] },
+   //Adithya
+   { path: 'announcement', component: AnnouncementFormComponent },
 ];  
 
 

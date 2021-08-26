@@ -1,48 +1,36 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 import { User } from '../Interfaces/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  isSignedIn: boolean;
+  isSignedIn: boolean = false;
   getUserInfo: any;
-  constructor(private router: Router) { }
+  private loggedIn = new BehaviorSubject<boolean>(false); 
+  /// To control if the user is logged in or not
+  /// The BehaviorSubject keeps the latest value cached (in our case when the service is created the initial value is going to be false). 
+  /// So when an Observer subscribes to the isLoggedIn(), the cached valued is going to be emitted right away.
 
-  public isLoggedIn() {
-    return true;
+  constructor(private router: Router) { 
+    JSON.stringify(localStorage.setItem('LOG', 'false'));
   }
 
-  public loginInfo(userInfo: User) {
-    if (userInfo !== undefined) {
-      this.isSignedIn = true;
-      JSON.stringify(localStorage.setItem('USER_INFO', JSON.stringify(userInfo)));
+  get isLoggedIn() {
+    return this.loggedIn.asObservable(); // getter to expose only the get method publicly and as also expose the Subject as an Observable
+  }
+
+  login(user: User){
+    if (user.username !== '' && user.password !== '' ) { 
+      this.loggedIn.next(true);
+      this.router.navigate(['/dashboard']);
     }
   }
-
-  public getLoggedUser() {
-    return JSON.parse(localStorage.getItem('USER_INFO'));
-  }
-
-  public getUserAccessible() {
-    let username = localStorage.getItem('user');
-    let password = localStorage.getItem('pswd');
-    let userId = localStorage.getItem('Id');
-
-    if (username !== undefined && username !== ''
-      && password !== undefined && password !== '') {
-      return { username, password, userId };
-    }
-  }
-
-  public getCredentials() {
-    this.getUserInfo = localStorage.getItem('USER_INFO');
-     return this.getUserInfo;
-   }
 
   public logout() {
-    localStorage.removeItem('USER_INFO');
-    this.router.navigateByUrl('');
+    this.loggedIn.next(false);
+    this.router.navigate(['/login']);
   }
 }

@@ -26,7 +26,7 @@ import { OnlineAssessmentComponent } from './Events-Module/online-assessment/onl
 import { OnlineClassroomComponent } from './Events-Module/online-classroom/online-classroom.component';
 import { RegistrationFormComponent } from './Forms-Module/registration-form/registration-form.component';
 import { LoginComponent } from './login/login.component';
-
+import { CircularFormComponent } from './Forms-Module/circular-form/Circular-form.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
@@ -56,6 +56,7 @@ const routes: Routes = [
  { path: 'internal-transfer', component: InternaltransferComponent },
  { path: 'fees', component: FeesComponent },
  { path: 'registration', component: RegistrationFormComponent },
+ { path: 'circular', component: CircularFormComponent },
 ];  
 
 

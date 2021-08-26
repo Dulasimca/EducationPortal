@@ -13,28 +13,25 @@ import {InputTextModule} from 'primeng/inputtext';
 import {RippleModule} from 'primeng/ripple';
 import { FormsModule } from '@angular/forms';
 import {TableModule} from 'primeng/table';
-import { NgxAttendanceLibraryModule } from 'ngx-attendance-library';
+import { NgxAttendanceLibraryModule, NgxAttendanceLibraryService } from 'ngx-attendance-library';
 import {FullCalendarModule} from '@fullcalendar/angular';
-import {MegaMenuModule} from 'primeng/megamenu';
 import {CheckboxModule} from 'primeng/checkbox';
 import {GalleriaModule} from 'primeng/galleria';
 import {DialogModule} from 'primeng/dialog';
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatIconModule} from '@angular/material/icon';
-import {MatDividerModule} from '@angular/material/divider';
 import {PanelMenuModule} from 'primeng/panelmenu';
 import { AppRoutingModule } from './app-routing.module';
 import { TooltipModule } from 'primeng/tooltip';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import {FieldsetModule} from 'primeng/fieldset';
+import {FileUploadModule} from 'primeng/fileupload';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { FilterService, PrimeNGConfig } from 'primeng/api';
+import { FilterService, MessageService, PrimeNGConfig } from 'primeng/api';
 import {TabViewModule} from 'primeng/tabview';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './DataView-Module/profile/profile.component';
@@ -65,6 +62,7 @@ import { RegistrationFormComponent } from './Forms-Module/registration-form/regi
 import { AuthService } from './Services/auth.service';
 import { RestAPIService } from './Services/restAPI.service';
 import { AuthGuard } from './Services/auth.guard';
+import { HttpClientModule } from '@angular/common/http';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -125,17 +123,15 @@ FullCalendarModule.registerPlugins([
     CheckboxModule,
     GalleriaModule,
     TooltipModule,
-    MegaMenuModule,
-    MatSidenavModule,
     MatToolbarModule,
-    MatIconModule,
-    MatDividerModule,
     DialogModule,
     PanelMenuModule,
     InputTextareaModule,
-    FieldsetModule
+    FieldsetModule,
+    FileUploadModule,
+    HttpClientModule
   ],
-  providers: [PrimeNGConfig, FilterService, AuthGuard, AuthService, RestAPIService],
+  providers: [PrimeNGConfig, FilterService, AuthGuard, AuthService, RestAPIService, NgxAttendanceLibraryService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

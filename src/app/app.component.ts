@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { AuthService } from './Services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -9,14 +11,21 @@ import { Router } from '@angular/router';
 export class AppComponent {
   title = 'education-portal';
   items: any[];
-  isOpen: boolean;
-  isClose: boolean = true;
- 
-  constructor(private router: Router) { }
+  isOpen: boolean = false;
+  isLoggedIn$: Observable<boolean>;
+  isSignedIn: boolean;
+  constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
+    this.isLoggedIn$ = this.authService.isLoggedIn;
+    // this.isSignedIn = this.authService.checkLog;
+    console.log('sign', this.isSignedIn, this.isLoggedIn$);
     this.items = [
       { label: 'Dashboard', icon: 'fa fa-desktop', routerLink: '/dashboard' },
+      { label: 'Admin', icon: 'fa fa-user-secret', 
+    items: [
+      { label: 'Registration', icon: 'fa fa-registered', routerLink: '/registration' }
+    ]},
       { label: 'Profile', icon: 'fa fa-user-circle-o', 
       items: [
         { label: 'My Profile', icon: 'fa fa-address-card', routerLink: '/student-info' },
@@ -59,14 +68,8 @@ export class AppComponent {
 
     ];  }
 
-    open() {
-      this.isClose = false;
-      this.isOpen = true;
-    }
-
-    close() {
-      this.isClose = true;
-      this.isOpen = false;
+    onLogout(){
+      this.authService.logout();                   
     }
 
 }

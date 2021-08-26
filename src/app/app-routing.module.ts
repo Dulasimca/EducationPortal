@@ -28,6 +28,8 @@ import { RegistrationFormComponent } from './Forms-Module/registration-form/regi
 import { LoginComponent } from './login/login.component';
 //Adithya
 import { AnnouncementFormComponent } from './Forms-Module/announcement-form/announcement-form.component';
+import { AuthGuard } from './Services/auth.guard';
+
 
 const routes: Routes = [
   { path: '', component: LoginComponent },

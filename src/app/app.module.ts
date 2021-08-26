@@ -65,6 +65,7 @@ import { RegistrationFormComponent } from './Forms-Module/registration-form/regi
 import { AuthService } from './Services/auth.service';
 import { RestAPIService } from './Services/restAPI.service';
 import { AnnouncementFormComponent } from './Forms-Module/announcement-form/announcement-form.component';
+import { AuthGuard } from './Services/auth.guard';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -136,7 +137,7 @@ FullCalendarModule.registerPlugins([
     InputTextareaModule,
     FieldsetModule
   ],
-  providers: [PrimeNGConfig, FilterService, AuthService, RestAPIService],
+  providers: [PrimeNGConfig, FilterService, AuthGuard, AuthService, RestAPIService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,5 +1,5 @@
 <div #main class="no-pad">
-    <mat-toolbar class="mat-elevation-z8">
+    <mat-toolbar class="mat-elevation-z8" *ngIf="(isLoggedIn$ | async)">
         <div class="no-pad" style="background: rgb(11, 43, 102) !important;">
             <i *ngIf="!isOpen" class="pi pi-bars" style="font-size: 1.6rem; color: whitesmoke" (click)="isOpen=!isOpen"></i>
             <i *ngIf="isOpen" class="pi pi-times" style="font-size: 1.6rem; color: whitesmoke" (click)="isOpen=!isOpen"></i>
@@ -24,7 +24,7 @@
     <div>
         <div class="p-grid">
             <div *ngIf="isOpen" class="p-col-2 no-pad-right side-nav-panel">
-                <p-panelMenu [style]="{'overflow-y': 'scroll'}" [model]="items"></p-panelMenu>
+                <p-panelMenu [model]="items"></p-panelMenu>
             </div>
             <div [ngClass]="{'side-nav-container': isOpen, 'p-col-12': !isOpen}">
                 <router-outlet></router-outlet>

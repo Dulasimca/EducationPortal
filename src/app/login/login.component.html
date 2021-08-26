@@ -1,12 +1,7 @@
-<!-- <div class="p-col-12" style="background-image: url('assets/layout/images/school-bg.jpg'); background-repeat: no-repeat;
-height: 750px; background-size: cover">
-background: #0e3167;
--moz-linear-gradient(top, #0e3167 0%, #1e5799 50%, #207cca 51%, #7db9e8 100%);
-</div> -->
 <div class="p-col-12 no-pad" style="height: 722px; width: 100%; 
  background: linear-gradient(to bottom, #0e3167 0%, #1e5799 50%, #207cca 100%);">
     <div class="p-grid">
-        <div class="p-col-12 no-pad" style="height: 100px; text-align: center;">
+        <div class="p-col-12" style="height: 100px; text-align: center;">
             <span style="font-size: 25px; color: whitesmoke; margin-top: 20px;"> Government of Tamilnadu - Educational
                 Services Platform </span><br>
         </div>
@@ -24,12 +19,12 @@ background: #0e3167;
                 <div class="p-col-12" style="text-align: center; margin-top: 5px;">
                     <i class="fa fa-user-circle-o"
                         style="font-size: 2rem; margin-left: 5px; margin-right: 10px; color: #0e3167;"></i>
-                    <input class="p-col-8" type="text" pInputText placeholder="Register No." />
+                    <input class="p-col-8" type="text" pInputText placeholder="Username" [(ngModel)]="username" />
                 </div>
                 <div class="p-col-12" style="text-align: center;">
                     <i class="fa fa-lock"
                         style="font-size: 2.3rem; margin-left: 5px; margin-right: 15px;color: #0e3167;"></i>
-                    <input class="p-col-8" type="password" pInputText placeholder="Password" />
+                    <input class="p-col-8" type="password" pInputText placeholder="Password" [(ngModel)]="password" />
                 </div>
                 <div class="p-col-12 no-pad-bottom no-pad-top" style="text-align: center;">
                     <span>

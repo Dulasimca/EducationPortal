@@ -64,6 +64,7 @@ import { InternaltransferComponent } from './DataView-Module/internaltransfer/in
 import { RegistrationFormComponent } from './Forms-Module/registration-form/registration-form.component';
 import { AuthService } from './Services/auth.service';
 import { RestAPIService } from './Services/restAPI.service';
+import { AnnouncementFormComponent } from './Forms-Module/announcement-form/announcement-form.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -101,6 +102,7 @@ FullCalendarModule.registerPlugins([
     NewsletterComponent,
     InternaltransferComponent,
     RegistrationFormComponent,
+    AnnouncementFormComponent,
   ],
   imports: [
     BrowserModule,

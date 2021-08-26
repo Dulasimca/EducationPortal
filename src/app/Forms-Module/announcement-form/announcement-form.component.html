@@ -1,0 +1,36 @@
+<div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px; height: 520px;">
+    <p-panel header="Announcement">
+    <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
+        <p-card>
+            <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
+                <div class="p-grid">
+                    <div class="p-col-12 p-md-6 p-lg-2 no-pad-left">
+                        <label> Date:</label>
+                            <p-calendar [(ngModel)]="date" [showIcon]="true"></p-calendar>
+                    </div>
+                    <div class="p-col-12 p-md-6 p-lg-2">
+                        <label> Announcement Tag:</label>
+                        <input id="float-input" type="text" pInputText> 
+                    </div>
+                    <div class="p-col-12 p-md-6 p-lg-2">
+                        <div> <label>Announcement:</label> </div>
+                <textarea pInputTextarea [(ngModel)]="Announcement" rows="5"
+                    cols="25"></textarea>
+            </div>
+            <!-- <div class="p-col-12 p-md-4 p-lg-2">
+                <div> <label>Attachment:</label> </div>
+
+                
+            </div> -->
+            <div class="p-col-12 p-md-12 p-lg-12">
+            <button pButton type="button" label="Save" onclick="onSave()" ></button>
+            </div>
+            <div class="p-col-12 p-md-12 p-lg-2">
+                <button pButton type="button" label="View" onclick="onView()"></button>
+            </div>
+            </div>
+            </div>
+        </p-card>
+    </div>
+
+

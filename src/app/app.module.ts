@@ -64,6 +64,7 @@ import { InternaltransferComponent } from './DataView-Module/internaltransfer/in
 import { RegistrationFormComponent } from './Forms-Module/registration-form/registration-form.component';
 import { AuthService } from './Services/auth.service';
 import { RestAPIService } from './Services/restAPI.service';
+import { AuthGuard } from './Services/auth.guard';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -134,7 +135,7 @@ FullCalendarModule.registerPlugins([
     InputTextareaModule,
     FieldsetModule
   ],
-  providers: [PrimeNGConfig, FilterService, AuthService, RestAPIService],
+  providers: [PrimeNGConfig, FilterService, AuthGuard, AuthService, RestAPIService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

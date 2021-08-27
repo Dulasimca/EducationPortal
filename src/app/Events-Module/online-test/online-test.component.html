@@ -1,0 +1,57 @@
+<div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px;">
+  <p-panel header="Online Test">
+    <div class="p-col-12 p-md-12 p-lg-12 no-pad-top card">
+      <div class="p-col-12 p-md-12 p-lg-12 no-pad-top no-pad-bottom text-center">
+        <h3 style="margin: 0 !important;">{{testName}}</h3>
+      </div>
+      <div class="p-grid">
+        <div class="p-col-12 p-md-6 p-lg-2 text-left" style="font-size: 17px;">
+          <span> Subject: </span> <span style="color: #3f6ea9;"> {{subjectcName}} </span>
+        </div>
+        <div class="p-col-8"></div>
+        <div class="p-col-12 p-md-6 p-lg-2 text-left" style="font-size: 17px;">
+          <span> Total Marks: </span> <span style="color: #3f6ea9;"> {{totalMarks}} </span>
+          <br /><span> Duration: </span> <span style="color: #3f6ea9;"> {{ellapsedTime}} / {{duration}} </span>
+        </div>
+        <div class="p-col-12 border-line-blue">
+          <div class="p-col-12 p-md-12 p-lg-12">
+            <div *ngFor="let question of filteredQuestions;">
+              <div>Question {{pager.index + 1}} of {{pager.count}}</div>
+              <h2 style="font-weight: normal;">{{pager.index + 1}}.
+                <span [innerHTML]="question.name"></span>
+              </h2>
+              <div class="row text-left options">
+                <div class="col-6" *ngFor="let option of question.options">
+                  <div class="option">
+                    <label class="font-normal" [attr.for]="option.id">
+                      <input id="{{option.id}}" type="checkbox" [(ngModel)]="option.selected"
+                        (change)="onSelect(question, option);" /> {{option.name}}
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="p-col-12 p-md-12 p-lg-12">
+            <div class="text-left">
+              <button id="btn-sm" pButton class="btn-margin" icon="pi pi-angle-double-left" type="button" label="First"
+                *ngIf="config.allowBack" (click)="goTo(0);" ></button>
+              <button id="btn-sm" pButton class="btn-margin" type="button" icon="pi pi-angle-left" label="Prev"
+                *ngIf="config.allowBack" (click)="goTo(pager.index - 1);"></button>
+              <button id="btn-sm" pButton class="btn-margin" type="button" icon="pi pi-angle-right" iconPos="right" label="Next"
+                *ngIf="config.allowNext" (click)="goTo(pager.index + 1);"></button>
+              <button id="btn-sm" pButton class="btn-margin" type="button" icon="pi pi-angle-double-right" iconPos="right"
+                label="Last" *ngIf="config.allowBack" (click)="goTo(pager.count - 1);"></button>
+            </div>
+          </div>
+          <div class="p-col-12 p-md-12 p-lg-12">
+            <div class="text-center">
+              <button pButton class="btn" type="button" label="Submit" (click)="onSubmit();" ></button>
+            </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </p-panel>
+</div>

@@ -9,27 +9,39 @@ import { SelectItem } from 'primeng/api';
 export class RegistrationFormComponent implements OnInit {
   firstName: string;
   lastName: string;
-  roleId: any;
-  dob: any;
-  selectedGender: string;
+  roleId: string;
+  roleIdOptions: SelectItem[];
+  dob: any  = new Date();
+  doj: Date = new Date();
+  gender: string;
   genderOptions: SelectItem[];
   district: string;
+  districtOptions: SelectItem[];
   schoolName: string;
+  schoolNameOptions: SelectItem[];
   mobileNo: number;
   altMobileNo: number;
   currentAddress: string;
   permanentAddress: string;
   class: string;
+  classOptions: SelectItem[];
   section: string;
+  sectionOptions: SelectItem[];
   lastSchoolName: string;
+  lastSchoolNameOptions: SelectItem[];
   lastSchoolContactNo: string;
   studentEmailId: string;
-  selectedMedium: string;
+  medium: string;
   mediumOptions: SelectItem[];
+  state: string;
+  stateOptions: SelectItem[];
   pincode: number;
   city: string;
+  cityOptions: SelectItem[];
   nationality: string;
+  nationalityOptions: SelectItem[];
   caste: string;
+  casteOptions: SelectItem[];
   checked: boolean;
   bloodGroup: string;
   yearRange: string;
@@ -48,6 +60,7 @@ export class RegistrationFormComponent implements OnInit {
   guardianBloodGroup: string;
   guardianContactNo: number;
   guardianEmailId: string;
+  uploadedFiles: any[] = [];
 
   constructor() { }
 
@@ -64,6 +77,12 @@ export class RegistrationFormComponent implements OnInit {
       { label: 'Tamil', value: 'T' },
       { label: 'English', value: 'E' }
     ];
+    this.casteOptions = [
+      { label: 'MBC', value: 'MBC' },
+      { label: 'BC', value: 'BC' },
+      { label: 'OC', value: 'OC' },
+      { label: 'SC/ST', value: 'SC' },
+    ]
   }
 
   onCheckAddress(value) {
@@ -71,5 +90,13 @@ export class RegistrationFormComponent implements OnInit {
       this.currentAddress = (value && this.permanentAddress !== undefined) ? this.permanentAddress : '';
     }
   }
+
+  onFileUpload($event, id) {
+    // for(let file of event.files) {
+    //     this.uploadedFiles.push(file);
+    // }
+
+   // this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
+}
 
 }

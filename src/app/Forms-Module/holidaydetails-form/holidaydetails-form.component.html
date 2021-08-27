@@ -1,0 +1,38 @@
+<div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px; height: 520px;">
+    <p-panel header="Holiday Details">
+    <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
+        <p-card>
+            <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
+                <div class="p-grid">
+                    <div class="p-col-12 p-md-4 p-lg-2">
+                    <div><label>Type:</label></div><br>
+                         <p-dropdown [options]="typeOptions" [(ngModel)]="selectedType">
+                             </p-dropdown>
+                             </div>
+                    <div class="p-col-12 p-md-12 p-lg-12">
+                    <div><label>Occassion/Festival/Events:</label></div><br>
+                        <input type="text" name="_Events" size="25" pInputText [(ngModel)]="Events"/>
+                </div>
+                <div class="p-col-12 p-md-12 p-lg-12">
+                    <div><label>Date:</label></div><br>
+                      <p-calendar [(ngModel)]="date"  [showIcon]="true"></p-calendar>
+                      </div>
+                <div class="p-col-12 p-md-12 p-lg-12">
+                        <div><label>Day:</label></div><br>
+                        <input type="text" name="_Day" size="25" pInputText [(ngModel)]="Day"/>
+                    </div>
+                <div class="p-col-12 p-md-12 p-lg-12">
+                        <div><label>Status:</label></div><br>
+                            <input type="text" name="_Status"size="25" pInputText [(ngModel)]="Status"/>
+                    </div>
+                </div>
+                <div class="p-col-12 p-md-12 p-lg-12">
+                    <button pButton name="save" type="button" label="Submit" onclick="onSave()" style="margin-left: 50%;"></button>
+                </div>
+            </div>
+        </p-card>
+        </div>
+        
+    </p-panel>
+   </div>
+                    

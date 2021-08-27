@@ -65,6 +65,7 @@ export class AppComponent {
       { label: 'Fee', icon: 'fa fa-money', routerLink: '/fees' },
       { label: 'Internal-School Transfer', icon: 'fa fa-exchange', routerLink: '/internal-transfer' },
       { label: 'Download Session', icon: 'fa fa-download', routerLink: '/classroom-download' },
+      // { label: 'Online Test', icon: 'fa fa-download', routerLink: '/classroom-download' },
 
     ];  }
 

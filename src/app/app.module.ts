@@ -31,6 +31,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { TooltipModule } from 'primeng/tooltip';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import {FieldsetModule} from 'primeng/fieldset';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -65,7 +66,14 @@ import { RegistrationFormComponent } from './Forms-Module/registration-form/regi
 import { AuthService } from './Services/auth.service';
 import { RestAPIService } from './Services/restAPI.service';
 import { AnnouncementFormComponent } from './Forms-Module/announcement-form/announcement-form.component';
+import {FileUploadModule} from 'primeng/fileupload';
+import {HttpClientModule} from '@angular/common/http';
+
 import { AuthGuard } from './Services/auth.guard';
+import { AssignmentFormComponent } from './Forms-Module/assignment-form/assignment-form.component';
+import { MyachievementFormComponent } from './Forms-Module/myachievement-form/myachievement-form.component';
+import { HolidaydetailsFormComponent } from './Forms-Module/holidaydetails-form/holidaydetails-form.component';
+import { NomineeFormComponent } from './Forms-Module/nominee-form/nominee-form.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -104,6 +112,10 @@ FullCalendarModule.registerPlugins([
     InternaltransferComponent,
     RegistrationFormComponent,
     AnnouncementFormComponent,
+    AssignmentFormComponent,
+    MyachievementFormComponent,
+    HolidaydetailsFormComponent,
+    NomineeFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -135,7 +147,11 @@ FullCalendarModule.registerPlugins([
     DialogModule,
     PanelMenuModule,
     InputTextareaModule,
-    FieldsetModule
+    FieldsetModule,
+    FileUploadModule,
+    HttpClientModule,
+    MatDatepickerModule
+
   ],
   providers: [PrimeNGConfig, FilterService, AuthGuard, AuthService, RestAPIService],
   bootstrap: [AppComponent]

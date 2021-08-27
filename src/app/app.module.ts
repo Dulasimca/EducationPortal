@@ -67,6 +67,10 @@ import { RestAPIService } from './Services/restAPI.service';
 import { CircularFormComponent } from './Forms-Module/circular-form/circular-form.component';
 import { AnnouncementFormComponent } from './Forms-Module/announcement-form/announcement-form.component';
 import { AuthGuard } from './Services/auth.guard';
+import { NewsletterFormComponent } from './Forms-Module/newsletter-form/newsletter-form.component';
+import { BookFormComponent } from './Forms-Module/book-form/book-form.component';
+import { ResultFormComponent } from './Forms-Module/result-form/result-form.component';
+import { GalleryFormComponent } from './Forms-Module/gallery-form/gallery-form.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -106,6 +110,10 @@ FullCalendarModule.registerPlugins([
     RegistrationFormComponent,
     CircularFormComponent,
     AnnouncementFormComponent,
+    NewsletterFormComponent,
+    BookFormComponent,
+    ResultFormComponent,
+    GalleryFormComponent,
   ],
   imports: [
     BrowserModule,

@@ -26,7 +26,12 @@ import { OnlineAssessmentComponent } from './Events-Module/online-assessment/onl
 import { OnlineClassroomComponent } from './Events-Module/online-classroom/online-classroom.component';
 import { RegistrationFormComponent } from './Forms-Module/registration-form/registration-form.component';
 import { LoginComponent } from './login/login.component';
+//Srikanth
 import { CircularFormComponent } from './Forms-Module/circular-form/Circular-form.component';
+import { NewsletterFormComponent } from './Forms-Module/newsletter-form/Newsletter-form.component';
+import { BookFormComponent } from './Forms-Module/book-form/book-form.component';
+import { ResultFormComponent } from './Forms-Module/result-form/result-form.component';
+import { GalleryFormComponent } from './Forms-Module/gallery-form/gallery-form.component';
 //Adithya
 import { AnnouncementFormComponent } from './Forms-Module/announcement-form/announcement-form.component';
 import { AuthGuard } from './Services/auth.guard';
@@ -63,6 +68,12 @@ const routes: Routes = [
  { path: 'registration', component: RegistrationFormComponent, canActivate: [AuthGuard] },
    //Adithya
    { path: 'announcement', component: AnnouncementFormComponent },
+   //Srikanth
+   { path: 'circular', component: CircularFormComponent },
+   { path: 'newsletter', component: NewsletterFormComponent },
+   { path: 'book',component:BookFormComponent},
+   { path: 'results',component:ResultFormComponent},
+   { path: 'gallery',component:GalleryFormComponent},
 ];  
 
 

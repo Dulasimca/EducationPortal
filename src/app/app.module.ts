@@ -65,6 +65,7 @@ import { CircularFormComponent } from './Forms-Module/circular-form/circular-for
 import { AnnouncementFormComponent } from './Forms-Module/announcement-form/announcement-form.component';
 import { AuthGuard } from './Services/auth.guard';
 import { HttpClientModule } from '@angular/common/http';
+import { OnlineTestComponent } from './Events-Module/online-test/online-test.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -104,6 +105,7 @@ FullCalendarModule.registerPlugins([
     RegistrationFormComponent,
     CircularFormComponent,
     AnnouncementFormComponent,
+    OnlineTestComponent,
   ],
   imports: [
     BrowserModule,

@@ -30,6 +30,7 @@ import { CircularFormComponent } from './Forms-Module/circular-form/Circular-for
 //Adithya
 import { AnnouncementFormComponent } from './Forms-Module/announcement-form/announcement-form.component';
 import { AuthGuard } from './Services/auth.guard';
+import { OnlineTestComponent } from './Events-Module/online-test/online-test.component';
 
 
 const routes: Routes = [
@@ -61,7 +62,9 @@ const routes: Routes = [
  { path: 'internal-transfer', component: InternaltransferComponent, canActivate: [AuthGuard] },
  { path: 'fees', component: FeesComponent, canActivate: [AuthGuard] },
  { path: 'registration', component: RegistrationFormComponent, canActivate: [AuthGuard] },
-   //Adithya
+ { path: 'registration', component: RegistrationFormComponent, canActivate: [AuthGuard] },
+ { path: 'online-test', component: OnlineTestComponent },
+ //Adithya
    { path: 'announcement', component: AnnouncementFormComponent },
 ];  
 

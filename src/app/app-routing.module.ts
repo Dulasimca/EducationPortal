@@ -32,6 +32,7 @@ import { NewsletterFormComponent } from './Forms-Module/newsletter-form/Newslett
 import { BookFormComponent } from './Forms-Module/book-form/book-form.component';
 import { ResultFormComponent } from './Forms-Module/result-form/result-form.component';
 import { GalleryFormComponent } from './Forms-Module/gallery-form/gallery-form.component';
+import { DownloadsessionFormComponent } from './Forms-Module/downloadsession-form/downloadsession-form.component';
 //Adithya
 import { AnnouncementFormComponent } from './Forms-Module/announcement-form/announcement-form.component';
 import { AssignmentFormComponent } from './Forms-Module/assignment-form/assignment-form.component';
@@ -85,6 +86,7 @@ const routes: Routes = [
    { path: 'myachievement', component: MyachievementFormComponent },
    { path: 'holidaydetails', component: HolidaydetailsFormComponent },
    { path: 'nominee', component: NomineeFormComponent },
+   { path: 'downloadsession', component:DownloadsessionFormComponent}, 
 ];  
 
 

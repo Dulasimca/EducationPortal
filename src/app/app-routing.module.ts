@@ -26,6 +26,7 @@ import { OnlineAssessmentComponent } from './Events-Module/online-assessment/onl
 import { OnlineClassroomComponent } from './Events-Module/online-classroom/online-classroom.component';
 import { RegistrationFormComponent } from './Forms-Module/registration-form/registration-form.component';
 import { LoginComponent } from './login/login.component';
+import { CircularFormComponent } from './Forms-Module/circular-form/Circular-form.component';
 //Adithya
 import { AnnouncementFormComponent } from './Forms-Module/announcement-form/announcement-form.component';
 import { AssignmentFormComponent } from './Forms-Module/assignment-form/assignment-form.component';

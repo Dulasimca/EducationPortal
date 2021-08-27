@@ -48,6 +48,7 @@ export class RegistrationFormComponent implements OnInit {
   guardianBloodGroup: string;
   guardianContactNo: number;
   guardianEmailId: string;
+  uploadedFiles: any[] = [];
 
   constructor() { }
 
@@ -71,5 +72,13 @@ export class RegistrationFormComponent implements OnInit {
       this.currentAddress = (value && this.permanentAddress !== undefined) ? this.permanentAddress : '';
     }
   }
+
+  onFileUpload($event, id) {
+    // for(let file of event.files) {
+    //     this.uploadedFiles.push(file);
+    // }
+
+   // this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
+}
 
 }

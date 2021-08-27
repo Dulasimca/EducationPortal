@@ -1,0 +1,33 @@
+
+
+<div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px;">
+    <p-panel header="CIRCULAR">
+    <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
+        
+
+<div  class="p-col-12 p-md-12 p-lg-12">
+    <div class="p-grid">
+        <div class="p-col-12 p-md-6 p-lg-2">
+            <div class="no-pad-top"><label>Date:</label> </div> 
+            <p-calendar [(ngModel)]="date" [showIcon]="true"></p-calendar>
+        </div>
+        
+            <div class="p-col-12 p-md-6 p-lg-2">
+                <div><label>Subject:</label></div>
+                <input type="text" pInputText [(ngModel)]="Subject" />
+            </div>
+        
+            
+                <div class="p-col-12 p-md-6 p-lg-2">
+                    <div><label>Instructions:</label></div>
+                   
+                    <textarea pInputTextarea [(ngModel)]="Instructions"></textarea>
+                </div><br>
+
+                <div class="p-col-12 p-md-6 p-lg-2">
+                    <button pButton type="button" label="Submit" style="margin-left: 10%;"></button>
+                
+                    <div class="p-col-12 p-md-6 p-lg-2">
+                    <button pButton type="button" label="View" style= "margin-left: 50%;"></button>
+                </div>
+        </div>

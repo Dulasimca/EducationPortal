@@ -27,7 +27,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { TooltipModule } from 'primeng/tooltip';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import {FieldsetModule} from 'primeng/fieldset';
-import {FileUploadModule} from 'primeng/fileupload';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -63,9 +63,14 @@ import { AuthService } from './Services/auth.service';
 import { RestAPIService } from './Services/restAPI.service';
 import { CircularFormComponent } from './Forms-Module/circular-form/circular-form.component';
 import { AnnouncementFormComponent } from './Forms-Module/announcement-form/announcement-form.component';
+import {FileUploadModule} from 'primeng/fileupload';
+import {HttpClientModule} from '@angular/common/http';
 import { AuthGuard } from './Services/auth.guard';
-import { HttpClientModule } from '@angular/common/http';
 import { OnlineTestComponent } from './Events-Module/online-test/online-test.component';
+import { AssignmentFormComponent } from './Forms-Module/assignment-form/assignment-form.component';
+import { MyachievementFormComponent } from './Forms-Module/myachievement-form/myachievement-form.component';
+import { HolidaydetailsFormComponent } from './Forms-Module/holidaydetails-form/holidaydetails-form.component';
+import { NomineeFormComponent } from './Forms-Module/nominee-form/nominee-form.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -106,6 +111,10 @@ FullCalendarModule.registerPlugins([
     CircularFormComponent,
     AnnouncementFormComponent,
     OnlineTestComponent,
+    AssignmentFormComponent,
+    MyachievementFormComponent,
+    HolidaydetailsFormComponent,
+    NomineeFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -135,7 +144,9 @@ FullCalendarModule.registerPlugins([
     InputTextareaModule,
     FieldsetModule,
     FileUploadModule,
-    HttpClientModule
+    HttpClientModule,
+    MatDatepickerModule
+
   ],
   providers: [PrimeNGConfig, FilterService, AuthGuard, AuthService, RestAPIService, NgxAttendanceLibraryService],
   bootstrap: [AppComponent]

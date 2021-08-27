@@ -29,6 +29,10 @@ import { LoginComponent } from './login/login.component';
 import { CircularFormComponent } from './Forms-Module/circular-form/Circular-form.component';
 //Adithya
 import { AnnouncementFormComponent } from './Forms-Module/announcement-form/announcement-form.component';
+import { AssignmentFormComponent } from './Forms-Module/assignment-form/assignment-form.component';
+import { MyachievementFormComponent } from './Forms-Module/myachievement-form/myachievement-form.component';
+import { HolidaydetailsFormComponent } from './Forms-Module/holidaydetails-form/holidaydetails-form.component';
+import { NomineeFormComponent } from './Forms-Module/nominee-form/nominee-form.component';
 import { AuthGuard } from './Services/auth.guard';
 import { OnlineTestComponent } from './Events-Module/online-test/online-test.component';
 
@@ -49,7 +53,7 @@ const routes: Routes = [
   {path: 'gallery-list',component: GalleryListComponent, canActivate: [AuthGuard] },
   {​​​​​​​​ path:'result', component:ResultComponent , canActivate: [AuthGuard] }​​​​​​​​,
   {​​​​​​​​ path:'subject-result', component:SubjectResultComponent , canActivate: [AuthGuard] }​​​​​​​​,
-  {​​​​​​​​ path:'subject-test-result', component:SubjectTestresultComponent , canActivate: [AuthGuard] }​​​​​​​​,
+  {​​​​​​​​ path:'subject-test-result', component:SubjectTestresultComponent  }​​​​​​​​,
   {​​​​​​​​ path:'question-bank', component:QuestionbankComponent , canActivate: [AuthGuard] }​​​​​​​​,
   {​​​​​​​​ path:'mainresult', component:MainresultComponent , canActivate: [AuthGuard] }​​​​​​​​,
  { path: 'assignments-information', component: AssignmentsInformationComponent, canActivate: [AuthGuard] },
@@ -66,6 +70,10 @@ const routes: Routes = [
  { path: 'online-test', component: OnlineTestComponent },
  //Adithya
    { path: 'announcement', component: AnnouncementFormComponent },
+   { path: 'assignment', component: AssignmentFormComponent },
+   { path: 'myachievement', component: MyachievementFormComponent },
+   { path: 'holidaydetails', component: HolidaydetailsFormComponent },
+   { path: 'nominee', component: NomineeFormComponent },
 ];  
 
 

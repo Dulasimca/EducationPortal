@@ -76,17 +76,18 @@ const routes: Routes = [
  { path: 'online-test', component: OnlineTestComponent },
  //Adithya
    { path: 'announcement', component: AnnouncementFormComponent },
+   { path: 'assignment', component: AssignmentFormComponent },
+   { path: 'myachievement', component: MyachievementFormComponent },
+   { path: 'holidaydetails', component: HolidaydetailsFormComponent },
+   { path: 'nominee', component: NomineeFormComponent },
    //Srikanth
    { path: 'circular', component: CircularFormComponent },
    { path: 'newsletter', component: NewsletterFormComponent },
    { path: 'book',component:BookFormComponent},
    { path: 'results',component:ResultFormComponent},
    { path: 'gallery',component:GalleryFormComponent},
-   { path: 'assignment', component: AssignmentFormComponent },
-   { path: 'myachievement', component: MyachievementFormComponent },
-   { path: 'holidaydetails', component: HolidaydetailsFormComponent },
-   { path: 'nominee', component: NomineeFormComponent },
    { path: 'downloadsession', component:DownloadsessionFormComponent}, 
+   
 ];  
 
 

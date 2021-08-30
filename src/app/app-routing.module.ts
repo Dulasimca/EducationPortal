@@ -74,11 +74,11 @@ const routes: Routes = [
  { path: 'registration', component: RegistrationFormComponent, canActivate: [AuthGuard] },
  { path: 'online-test', component: OnlineTestComponent },
  //Adithya
-   { path: 'announcement', component: AnnouncementFormComponent },
-   { path: 'assignment', component: AssignmentFormComponent },
-   { path: 'myachievement', component: MyachievementFormComponent },
-   { path: 'holidaydetails', component: HolidaydetailsFormComponent },
-   { path: 'nominee', component: NomineeFormComponent },
+   { path: 'announcement', component: AnnouncementFormComponent, canActivate: [AuthGuard]  },
+   { path: 'assignment', component: AssignmentFormComponent, canActivate: [AuthGuard] },
+   { path: 'myachievement', component: MyachievementFormComponent, canActivate: [AuthGuard] },
+   { path: 'holidaydetails', component: HolidaydetailsFormComponent, canActivate: [AuthGuard]},
+   { path: 'nominee', component: NomineeFormComponent, canActivate: [AuthGuard] },
    //Srikanth
    { path: 'circular', component: CircularFormComponent },
    { path: 'newsletter', component: NewsletterFormComponent },

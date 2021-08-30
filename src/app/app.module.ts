@@ -66,12 +66,17 @@ import { AnnouncementFormComponent } from './Forms-Module/announcement-form/anno
 import {FileUploadModule} from 'primeng/fileupload';
 import {HttpClientModule} from '@angular/common/http';
 import { AuthGuard } from './Services/auth.guard';
+import { NewsletterFormComponent } from './Forms-Module/newsletter-form/newsletter-form.component';
+import { BookFormComponent } from './Forms-Module/book-form/book-form.component';
+import { ResultFormComponent } from './Forms-Module/result-form/result-form.component';
+import { GalleryFormComponent } from './Forms-Module/gallery-form/gallery-form.component';
 import { OnlineTestComponent } from './Events-Module/online-test/online-test.component';
 import { AssignmentFormComponent } from './Forms-Module/assignment-form/assignment-form.component';
 import { MyachievementFormComponent } from './Forms-Module/myachievement-form/myachievement-form.component';
 import { HolidaydetailsFormComponent } from './Forms-Module/holidaydetails-form/holidaydetails-form.component';
 import { NomineeFormComponent } from './Forms-Module/nominee-form/nominee-form.component';
 import { TestDetailsFormComponent } from './Forms-Module/test-details-form/test-details-form.component';
+import { DownloadsessionFormComponent } from './Forms-Module/downloadsession-form/downloadsession-form.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -111,12 +116,17 @@ FullCalendarModule.registerPlugins([
     RegistrationFormComponent,
     CircularFormComponent,
     AnnouncementFormComponent,
+    NewsletterFormComponent,
+    BookFormComponent,
+    ResultFormComponent,
+    GalleryFormComponent,
     OnlineTestComponent,
     AssignmentFormComponent,
     MyachievementFormComponent,
     HolidaydetailsFormComponent,
     NomineeFormComponent,
     TestDetailsFormComponent,
+    DownloadsessionFormComponent,
   ],
   imports: [
     BrowserModule,

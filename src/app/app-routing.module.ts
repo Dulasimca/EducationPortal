@@ -26,7 +26,13 @@ import { OnlineAssessmentComponent } from './Events-Module/online-assessment/onl
 import { OnlineClassroomComponent } from './Events-Module/online-classroom/online-classroom.component';
 import { RegistrationFormComponent } from './Forms-Module/registration-form/registration-form.component';
 import { LoginComponent } from './login/login.component';
+//Srikanth
 import { CircularFormComponent } from './Forms-Module/circular-form/Circular-form.component';
+import { NewsletterFormComponent } from './Forms-Module/newsletter-form/Newsletter-form.component';
+import { BookFormComponent } from './Forms-Module/book-form/book-form.component';
+import { ResultFormComponent } from './Forms-Module/result-form/result-form.component';
+import { GalleryFormComponent } from './Forms-Module/gallery-form/gallery-form.component';
+import { DownloadsessionFormComponent } from './Forms-Module/downloadsession-form/downloadsession-form.component';
 //Adithya
 import { AnnouncementFormComponent } from './Forms-Module/announcement-form/announcement-form.component';
 import { AssignmentFormComponent } from './Forms-Module/assignment-form/assignment-form.component';
@@ -66,7 +72,7 @@ const routes: Routes = [
  { path: 'newsletters', component: NewsletterComponent, canActivate: [AuthGuard] },
  { path: 'internal-transfer', component: InternaltransferComponent, canActivate: [AuthGuard] },
  { path: 'fees', component: FeesComponent, canActivate: [AuthGuard] },
- { path: 'registration', component: RegistrationFormComponent },
+ { path: 'registration', component: RegistrationFormComponent, canActivate: [AuthGuard] },
  { path: 'online-test', component: OnlineTestComponent, canActivate: [AuthGuard] },
  { path: 'test-details', component: TestDetailsFormComponent },
  //Adithya
@@ -75,6 +81,14 @@ const routes: Routes = [
    { path: 'myachievement', component: MyachievementFormComponent, canActivate: [AuthGuard] },
    { path: 'holidaydetails', component: HolidaydetailsFormComponent, canActivate: [AuthGuard] },
    { path: 'nominee', component: NomineeFormComponent, canActivate: [AuthGuard] },
+   //Srikanth
+   { path: 'circular', component: CircularFormComponent },
+   { path: 'newsletter', component: NewsletterFormComponent },
+   { path: 'book',component:BookFormComponent},
+   { path: 'results',component:ResultFormComponent},
+   { path: 'gallery',component:GalleryFormComponent},
+   { path: 'downloadsession', component:DownloadsessionFormComponent}, 
+   
 ];  
 
 

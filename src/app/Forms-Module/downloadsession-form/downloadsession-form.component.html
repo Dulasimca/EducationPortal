@@ -1,8 +1,8 @@
 <div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px; height: 520px;">
-    <p-panel header="GALLERY">
+    <p-panel header="CLASSROOM DOWNLOAD">
     <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
-     <p-card>   
-     
+    <p-card>
+
 <div  class="p-col-12 p-md-12 p-lg-12">
     <div class="p-grid">
         <div class="p-col-12 p-md-6 p-lg-12">
@@ -11,17 +11,20 @@
         </div>
         
             <div class="p-col-12 p-md-6 p-lg-12">
-                <div><label>Tittle:</label></div>
-                <input type="text" size ="25" pInputText [(ngModel)]="tittle" />
+                <div><label>Subject:</label></div>
+                <input type="text" size ="25" pInputText [(ngModel)]="Subject" />
             </div>
-
-            <div class="p-col-12 p-md-6 p-lg-12">
-            <p-fileUpload mode="basic" name="demo[]" url="./upload.php" accept="image/*" maxFileSize="1000000"  [auto]="true"></p-fileUpload>
         
-            </div>
+            
+                <div class="p-col-12 p-md-6 p-lg-12">
+                    <div><label>Duration:</label></div>
+                   
+                    <input type="text" size ="25" pInputText [(ngModel)]="Duration"/>
+                </div>
     </div>
 </div>
-</p-card>
+    </p-card>
+    </div>
+    </p-panel>
 </div>
-</p-panel>
-</div>
+    

@@ -1,22 +1,39 @@
 <div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px; height: 520px;">
-    <p-panel header="NEWSLETTERS">
+    <p-panel header="Newsletter">
     <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
         <p-card>
         <div  class="p-col-12 p-md-12 p-lg-12">
             <div class="p-grid">
-                <div class="p-col-12 p-md-6 p-lg-12">
-                    <div><label>Subject:</label></div>
-                    <input type="text" size ="25" pInputText [(ngModel)]="Subject" />
+
+                <div class="p-col-12 p-md-6 p-lg-3">
+                    <div class="no-pad-top"><label>Date:</label> </div> 
+                    <p-calendar [(ngModel)]="date" [showIcon]="true"></p-calendar>
                 </div>
-                <div class="p-col-12 p-md-6 p-lg-12">
-                    <button pButton type="button" label="Submit" style="margin-left: 0%;"></button>
+
+                <div class="p-col-12 p-md-4 p-lg-3">
+                    <div><label>Topic</label></div>
+                    <input type="text" pInputText [(ngModel)]="Subject" />
+                </div>
+                <!-- <div class="p-col-12 p-md-4 p-lg-4">
+                    <button pButton name="upload" type="button" icon="pi pi-upload"
+                    label="Upload"></button>
+                </div> -->
+
+                <div class="p-col-12 p-md-6 p-lg-3 align-el-center">
+                    <div><label>Attach file:</label></div>
+                    <input class="p-col-12" name="_guardianimg" type="file" pInputText (change)="onFileUpload($event, 4)" accept=".png" />
+                </div>
+
                 
-                    <!-- <div class="p-col-12 p-md-6 p-lg-2"> -->
-                    <button pButton type="button" label="View" style= "margin-left: 6%;"></button>
-                </div>
             </div>
         </div>
         </p-card>
+        <div class="p-col-12 p-md-6 p-lg12" style = "margin-left:35%;"> 
+            <button pButton type="button" label="Submit" > </button>
+        <!-- </div>  -->
+        <!-- <div class="p-col-12 p-md-6 p-lg-2" > -->
+            <button pButton type="button" label="View" style = "margin-left:5%;"></button>
+            </div>
     </div>
     </p-panel>
     </div>

@@ -9,30 +9,31 @@
                          <p-dropdown [options]="typeOptions" [(ngModel)]="selectedType">
                              </p-dropdown>
                              </div>
-                    <div class="p-col-12 p-md-12 p-lg-12">
+                             <div class="p-col-12 p-md-6 p-lg-3">
                     <div><label>Occassion/Festival/Events:</label></div><br>
                         <input type="text" name="_Events" size="25" pInputText [(ngModel)]="Events"/>
                 </div>
-                <div class="p-col-12 p-md-12 p-lg-12">
+                <div class="p-col-12 p-md-6 p-lg-3">
                     <div><label>Date:</label></div><br>
                       <p-calendar [(ngModel)]="date"  [showIcon]="true"></p-calendar>
                       </div>
-                <div class="p-col-12 p-md-12 p-lg-12">
+                      <div class="p-col-12 p-md-6 p-lg-3">
                         <div><label>Day:</label></div><br>
                         <input type="text" name="_Day" size="25" pInputText [(ngModel)]="Day"/>
                     </div>
-                <div class="p-col-12 p-md-12 p-lg-12">
+                    <div class="p-col-12 p-md-6 p-lg-12">
                         <div><label>Status:</label></div><br>
                             <input type="text" name="_Status"size="25" pInputText [(ngModel)]="Status"/>
                     </div>
                 </div>
-                <div class="p-col-12 p-md-12 p-lg-12">
-                    <button pButton name="save" type="button" label="Submit" onclick="onSave()" style="margin-left: 50%;"></button>
-                </div>
+                
             </div>
         </p-card>
+        <div class="p-col-12 p-md-6 p-lg-12">
+            <button pButton name="save" type="button" label="Submit" onclick="onSave()" style="margin-left: 30%;"></button>
+            <button pButton type="button" label="View" onclick="onView()" style="margin-left: 5%;"></button>
         </div>
-        
+        </div>
     </p-panel>
    </div>
                     

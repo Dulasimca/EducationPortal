@@ -24,13 +24,19 @@ export class AppComponent {
       { label: 'Dashboard', icon: 'fa fa-desktop', routerLink: '/dashboard' },
       { label: 'Admin', icon: 'fa fa-user-secret', 
     items: [
-      { label: 'Registration', icon: 'fa fa-registered', routerLink: '/registration' }
+      { label: 'Registration', icon: 'fa fa-registered', routerLink: '/registration' },
+      { label: 'Book', icon: 'fa fa-book', routerLink: '/book' },
+      { label: 'NewsLetter', icon: 'fa fa-peenvelope-on', routerLink: '/newsletter' },
+      { label: 'Results', icon: 'fa fa-file-text-o', routerLink: '/results' },
+      { label: 'Gallery', icon: 'fa fa-picture-o', routerLink: '/gallery' },
+      { label: 'Download Session', icon: 'fa fa-download', routerLink: '/downloadsession' },
+      { label: 'Circular', icon: 'fa fa-calendar-minus-o', routerLink: '/circular' },
     ]},
       { label: 'Profile', icon: 'fa fa-user-circle-o', 
       items: [
         { label: 'My Profile', icon: 'fa fa-address-card', routerLink: '/student-info' },
         { label: 'My Parent', icon: 'fa fa-users', routerLink: '/student-info' },
-        { label: 'My Achievements', icon: 'fa fa-trophy', routerLink: '/achievements' },
+        { label: 'My Achievements', icon: 'fa fa-trophy', routerLink: '/myachievement' },
        // { label: 'My School', icon: 'fa fa-graduation-cap', },
       ] },
       {label: 'ID Card Info', icon: 'fa fa-id-badge', routerLink: '/profile' },
@@ -48,7 +54,7 @@ export class AppComponent {
           { label: 'Announcements', icon: 'fa fa-bullhorn', routerLink: '/announcements' },
           { label: 'Assignments', icon: 'fa fa-pencil-square-o', routerLink: '/assignments' },
           { label: 'Circulars', icon: 'fa fa-calendar-minus-o', routerLink: '/circulars' },
-          { label: 'NewsLetter', icon: 'fa fa-envelope-open', routerLink: '/newsletters' },
+          { label: 'NewsLetter', icon: 'fa fa-peenvelope-on', routerLink: '/newsletters' },
         ]
       },
       { label: 'Question Bank', icon: 'fa fa-file-text-o', routerLink: '/question-bank' },

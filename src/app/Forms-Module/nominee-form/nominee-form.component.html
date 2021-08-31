@@ -4,26 +4,35 @@
         <p-card>
             <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
                 <div class="p-grid">
-                    <div class="p-col-12 p-md-4 p-lg-2">
+                    <div class="p-col-12 p-md-6 p-lg-3">
                         <div><label>Class:</label></div><br>
-                        <input type="text" name="_Class" size="25" pInputText [(ngModel)]="Class"/>
+                        <div class="p-col-12 p-md-6 p-lg-3">
+                        <input type="text" name="_Class" size="23" pInputText [(ngModel)]="Class"/>
                 </div>
-                    <div class="p-col-12 p-md-12 p-lg-12">
+                    </div>
+                    <div class="p-col-12 p-md-12 p-lg-3">
                         <div><label>Section:</label></div><br>
-                        <input type="text" name="_Section" size="25" pInputText [(ngModel)]="Section"/>
+                        <div class="p-col-12 p-md-6 p-lg-3">
+                        <input type="text" name="_Section" size="23" pInputText [(ngModel)]="Section"/>
                 </div>
-                <div class="p-col-12 p-md-12 p-lg-12">
+                    </div>
+                <div class="p-col-12 p-md-12 p-lg-3">
                     <div><label>Name:</label></div><br>
-                        <input type="text" name="_Name" size="25" pInputText [(ngModel)]="Name"/>
+                    <div class="p-col-12 p-md-6 p-lg-3">
+                        <input type="text" name="_Name" size="23" pInputText [(ngModel)]="Name"/>
                 </div>
-                <div class="p-col-12 p-md-6 p-lg-2">
+                </div>
+                <div class="p-col-12 p-md-12 p-lg-3">
                     <div><label>Position:</label></div><br>
+                    
                     <p-dropdown [options]="positionOptions" [(ngModel)]="selectedPosition">
                         </p-dropdown>
-                        </div>
+                        
+                </div>
                
                 <div class="p-col-12 p-md-12 p-lg-12">
-                    <button pButton name="save" type="button" label="Submit" onclick="onSave()" style="margin-left: 50%;"></button>
+                    <button pButton name="save" type="button" label="Submit" onclick="onSave()" style="margin-left: 30%;"></button>
+                    <button pButton type="button" label="View" onclick="onView()" style="margin-left: 5%;"></button>
                 </div>
             </div>
         </div>

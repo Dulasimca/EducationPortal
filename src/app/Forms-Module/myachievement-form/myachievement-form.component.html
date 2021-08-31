@@ -4,31 +4,34 @@
         <p-card>
             <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
                 <div class="p-grid">
+                    <div class="p-col-12 p-md-6 p-lg-3">
                     <div class="no-pad-top"><label>Date:</label> <br>
             <p-calendar [(ngModel)]="date" [showIcon]="true"></p-calendar>
                     </div>
-                      <div class="p-col-12 p-md-6 p-lg-12" style="text-align: left; margin-top: 5px;">
+                </div>
+                      <div class="p-col-12 p-md-6 p-lg-3" style="text-align: left; margin-top: 5px;">
                         <label> Events:</label><br>
                         <input id="float-input"  type="text" size="24" pInputText> 
                     </div>
-                    <div class="p-col-12 p-md-6 p-lg-12" style="text-align: left; margin-top: 5px;">
+                    <div class="p-col-12 p-md-6 p-lg-3" style="text-align: left; margin-top: 5px;">
                         <label> Place:</label><br>
                         <input id="float-input"  type="text" size="24" pInputText> 
                     </div>
-                    <div class="p-col-12 p-md-6 p-lg-12" style="text-align: left; margin-top: 5px;">
+                    <div class="p-col-12 p-md-6 p-lg-3" style="text-align: left; margin-top: 5px;">
                         <label> Status:</label><br>
                         <input id="float-input"  type="text" size="24" pInputText> 
                     </div>
-                    <p-divider></p-divider>
-            <div class="p-col-12 p-md-12 p-lg-12">
-                 <button pButton type="button" label="Save" onclick="onSave()" style="margin-left: 10%;"></button>
-            <!-- </div>
-            <div class="p-col-6 p-md-6 p-lg-12"> -->
-                 <button pButton type="button" label="View" onclick="onView()" style="margin-left: 10%;"></button>
-            </div>
+                  
+           
                </div>
             </div>
         </p-card>
+        <div class="p-col-12 p-md-12 p-lg-12">
+            <button pButton type="button" label="Submit" onclick="onSave()" style="margin-left: 30%;"></button>
+       <!-- </div>
+       <div class="p-col-6 p-md-6 p-lg-12"> -->
+            <button pButton type="button" label="View" onclick="onView()" style="margin-left: 5%;"></button>
+       </div>
         </div>
     </p-panel>
 </div>

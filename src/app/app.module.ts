@@ -75,6 +75,7 @@ import { AssignmentFormComponent } from './Forms-Module/assignment-form/assignme
 import { MyachievementFormComponent } from './Forms-Module/myachievement-form/myachievement-form.component';
 import { HolidaydetailsFormComponent } from './Forms-Module/holidaydetails-form/holidaydetails-form.component';
 import { NomineeFormComponent } from './Forms-Module/nominee-form/nominee-form.component';
+import { TestDetailsFormComponent } from './Forms-Module/test-details-form/test-details-form.component';
 import { DownloadsessionFormComponent } from './Forms-Module/downloadsession-form/downloadsession-form.component';
 
 FullCalendarModule.registerPlugins([
@@ -124,6 +125,7 @@ FullCalendarModule.registerPlugins([
     MyachievementFormComponent,
     HolidaydetailsFormComponent,
     NomineeFormComponent,
+    TestDetailsFormComponent,
     DownloadsessionFormComponent,
   ],
   imports: [

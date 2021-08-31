@@ -41,6 +41,7 @@ import { HolidaydetailsFormComponent } from './Forms-Module/holidaydetails-form/
 import { NomineeFormComponent } from './Forms-Module/nominee-form/nominee-form.component';
 import { AuthGuard } from './Services/auth.guard';
 import { OnlineTestComponent } from './Events-Module/online-test/online-test.component';
+import { TestDetailsFormComponent } from './Forms-Module/test-details-form/test-details-form.component';
 
 
 const routes: Routes = [
@@ -72,13 +73,13 @@ const routes: Routes = [
  { path: 'internal-transfer', component: InternaltransferComponent, canActivate: [AuthGuard] },
  { path: 'fees', component: FeesComponent, canActivate: [AuthGuard] },
  { path: 'registration', component: RegistrationFormComponent, canActivate: [AuthGuard] },
- { path: 'registration', component: RegistrationFormComponent, canActivate: [AuthGuard] },
- { path: 'online-test', component: OnlineTestComponent },
+ { path: 'online-test', component: OnlineTestComponent, canActivate: [AuthGuard] },
+ { path: 'test-details', component: TestDetailsFormComponent },
  //Adithya
-   { path: 'announcement', component: AnnouncementFormComponent, canActivate: [AuthGuard]  },
+   { path: 'announcement', component: AnnouncementFormComponent, canActivate: [AuthGuard] },
    { path: 'assignment', component: AssignmentFormComponent, canActivate: [AuthGuard] },
    { path: 'myachievement', component: MyachievementFormComponent, canActivate: [AuthGuard] },
-   { path: 'holidaydetails', component: HolidaydetailsFormComponent, canActivate: [AuthGuard]},
+   { path: 'holidaydetails', component: HolidaydetailsFormComponent, canActivate: [AuthGuard] },
    { path: 'nominee', component: NomineeFormComponent, canActivate: [AuthGuard] },
    //Srikanth
    { path: 'circular', component: CircularFormComponent },

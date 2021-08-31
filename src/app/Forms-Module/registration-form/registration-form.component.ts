@@ -91,12 +91,8 @@ export class RegistrationFormComponent implements OnInit {
     }
   }
 
-  onFileUpload($event, id) {
-    // for(let file of event.files) {
-    //     this.uploadedFiles.push(file);
-    // }
+  onFileUpload($event, id) { }
 
-   // this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
-}
+  onSubmit() { }
 
 }

@@ -7,6 +7,25 @@ import { NavigationEnd, Router } from '@angular/router';
   styleUrls: ['./student-info.component.css']
 })
 export class StudentInfoComponent implements OnInit {
+
+name : string;
+class : any;
+dob : any;
+doj : any;
+bloodGroup : any;
+address : any;
+fathersName : string;
+fathersOccupation : any;
+fathersBloodGroup : any;
+fathersContact : number;
+mothersName : string;
+mothersOccupation : any;
+mothersBloodGroup : any;
+mothersContact : number;
+image : any;
+
+
+
   activeIndex: any = 0;
 
   constructor(private router: Router) { }
@@ -23,6 +42,9 @@ export class StudentInfoComponent implements OnInit {
         this.activeIndex = index;
       }
     });
+  }
+  onEdit(){
+    this.router.navigate(['/personal-details']);
   }
 
 }

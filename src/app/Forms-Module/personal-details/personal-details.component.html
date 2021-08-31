@@ -1,0 +1,162 @@
+<div class="p-col-12" style="padding-top:25px;">
+    <p-panel header="Personal Details">
+        <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
+            <form #personalDetails="ngForm" name="personalDetailsForm">
+            <p-card>
+                <div class="p-col-12 no-pad-top" style="margin-left: -8px;">
+                    <p-fieldset legend="Personal Info" [toggleable]="true">
+                        <div #row1 class="p-col-12 p-md-12 p-lg-12">
+                            <div class="p-grid">
+                                <div class="p-col-12 p-md-6 p-lg-2">
+                                    <div><label>Name:<span class="form-mandatory-field">*</span></label></div>
+                                    <input type="text" class="p-col-12" pInputText [(ngModel)]="name" />
+                                </div>
+                                <div class="p-col-12 p-md-6 p-lg-1">
+                                    <div><label>Class:<span class="form-mandatory-field">*</span></label></div>
+                                    <input type="text" class="p-col-12" pInputText [(ngModel)]="class" />
+                                </div>
+                                <div class="p-col-12 p-md-6 p-lg-1">
+                                    <div><label>Section:<span class="form-mandatory-field">*</span></label></div>
+                                    <input type="text" class="p-col-12" pInputText [(ngModel)]="section" />
+                                </div>
+                                <div class="p-col-12 p-md-6 p-lg-2">
+                                    <div><label>Date of Birth:<span class="form-mandatory-field">*</span></label></div>
+                                    <p-calendar [(ngModel)]="dob" [monthNavigator]="true" [yearNavigator]="true"
+                                        yearRange="{{yearRange}}" inputId="dateofbirth"></p-calendar>
+                                </div>
+                                <div class="p-col-12 p-md-6 p-lg-2">
+                                    <div><label>Date of Join:<span class="form-mandatory-field">*</span></label></div>
+                                    <p-calendar [(ngModel)]="doj" [monthNavigator]="true" [yearNavigator]="true"
+                                        yearRange="{{yearRange}}" inputId="dateofjoin"></p-calendar>
+                                </div>
+                                <div class="p-col-12 p-md-6 p-lg-2">
+                                    <div><label>Blood Group:<span class="form-mandatory-field">*</span></label></div>
+                                    <input type="text" class="p-col-12" pInputText [(ngModel)]="bloodGroup" />
+                                </div>
+                                <div class="p-col-12 p-md-12 p-lg-2 pic-right">
+                                    <div><img style="width: 110px; height: 110px;" />
+                                        <button pButton type="button" icon="pi pi-plus"
+                                            style="width: 25px; height: 25px;;"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div #row2 class="p-col-12 p-md-12 p-lg-12">
+                            <div class="p-grid">
+                                <div class="p-col-12 p-md-6 p-lg-3">
+                                    <div><label>Address:<span class="form-mandatory-field">*</span></label></div>
+                                    <textarea pInputTextarea [(ngModel)]="address" rows="4" cols="36"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </p-fieldset>
+                    <div #row1 class="p-col-12 p-md-12 p-lg-12">
+                        <p-fieldset legend="Father's Info" [toggleable]="true">
+                            <div class="p-grid">
+                                <div class="p-col-12 p-md-6 p-lg-2">
+                                    <div><label>Father's Name:<span class="form-mandatory-field">*</span></label></div>
+                                    <input class="p-col-12" type="text" pInputText [(ngModel)]="fathersName" />
+                                </div>
+
+                                <div class="p-col-12 p-md-6 p-lg-2">
+                                    <div><label>Occupation:<span class="form-mandatory-field">*</span></label></div>
+                                    <input class="p-col-12" type="text" pInputText [(ngModel)]="fathersOccupation" />
+                                </div>
+
+                                <div class="p-col-12 p-md-6 p-lg-2">
+                                    <div><label>Blood Group:<span class="form-mandatory-field">*</span></label></div>
+                                    <input class="p-col-12" type="text" pInputText [(ngModel)]="fathersBloodGroup" />
+                                </div>
+                                <div class="p-col-12 p-md-6 p-lg-2">
+                                    <div><label>Contact Number:<span class="form-mandatory-field">*</span></label></div>
+                                    <input class="p-col-12" type="tel" pInputText [(ngModel)]="fathersContact" />
+                                </div>
+                                <div class="p-col-12 p-md-6 p-lg-2">
+                                    <div><label>Email Id:</label></div>
+                                    <input class="p-col-12" type="email" pInputText [(ngModel)]="fathersEmail" />
+                                </div>
+                                <div class="p-col-12 p-md-12 p-lg-2 pic-right">
+                                    <div><img style="width: 110px; height: 110px;" />
+                                        <button pButton type="button" icon="pi pi-plus"
+                                            style="width: 25px; height: 25px;;"></button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </p-fieldset>
+                    </div>
+                    <div #row1 class="p-col-12 p-md-12 p-lg-12">
+                        <p-fieldset legend="Mother's Info" [toggleable]="true">
+                            <div class="p-grid">
+                                <div class="p-col-12 p-md-6 p-lg-2">
+                                    <div><label>Mother's Name:<span class="form-mandatory-field">*</span></label></div>
+                                    <input class="p-col-12" type="text" pInputText [(ngModel)]="mothersName" />
+                                </div>
+                                <div class="p-col-12 p-md-6 p-lg-2">
+                                    <div><label>Occupation:<span class="form-mandatory-field">*</span></label></div>
+                                    <input class="p-col-12" type="text" pInputText [(ngModel)]="mothersOccupation" />
+                                </div>
+                                <div class="p-col-12 p-md-6 p-lg-2">
+                                    <div><label>Blood Group:<span class="form-mandatory-field">*</span></label></div>
+                                    <input class="p-col-12" type="text" pInputText [(ngModel)]="mothersBloodGroup" />
+                                </div>
+                                <div class="p-col-12 p-md-6 p-lg-2">
+                                    <div><label>Contact Number:<span class="form-mandatory-field">*</span></label></div>
+                                    <input class="p-col-12" type="tel" pInputText [(ngModel)]="mothersContact" />
+                                </div>
+                                <div class="p-col-12 p-md-6 p-lg-2">
+                                    <div><label>Email Id:</label></div>
+                                    <input class="p-col-12" type="email" pInputText [(ngModel)]="mothersEmail" />
+                                </div>
+                                <div class="p-col-12 p-md-12 p-lg-2 pic-right">
+                                    <div><img style="width: 110px; height: 110px;" />
+                                        <button pButton type="button" icon="pi pi-plus"
+                                            style="width: 25px; height: 25px;;"></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </p-fieldset>
+                    </div>
+                    <div #row2 class="p-col-12 p-md-12 p-lg-12">
+                        <p-fieldset legend="Guardian's Info" [toggleable]="true">
+                            <div class="p-grid">
+                                <div class="p-col-12 p-md-6 p-lg-2">
+                                    <div><label>Guardian's Name:<span class="form-mandatory-field">*</span></label>
+                                    </div>
+                                    <input class="p-col-12" type="text" pInputText [(ngModel)]="mothersName" />
+                                </div>
+                                <div class="p-col-12 p-md-6 p-lg-2">
+                                    <div><label>Occupation:<span class="form-mandatory-field">*</span></label></div>
+                                    <input class="p-col-12" type="text" pInputText [(ngModel)]="mothersOccupation" />
+                                </div>
+                                <div class="p-col-12 p-md-6 p-lg-2">
+                                    <div><label>Blood Group:<span class="form-mandatory-field">*</span></label></div>
+                                    <input class="p-col-12" type="text" pInputText [(ngModel)]="mothersBloodGroup" />
+                                </div>
+                                <div class="p-col-12 p-md-6 p-lg-2">
+                                    <div><label>Contact Number:<span class="form-mandatory-field">*</span></label></div>
+                                    <input class="p-col-12" type="tel" pInputText [(ngModel)]="mothersContact" />
+                                </div>
+                                <div class="p-col-12 p-md-6 p-lg-2">
+                                    <div><label>Email Id:</label></div>
+                                    <input class="p-col-12" type="email" pInputText [(ngModel)]="guardiansEmail" />
+                                </div>
+                                <div class="p-col-12 p-md-12 p-lg-2 pic-right">
+                                    <div><img style="width: 110px; height: 110px;" />
+                                        <button pButton type="button" icon="pi pi-plus"  
+                                            style="width: 25px; height: 25px;;"></button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </p-fieldset>
+                    </div>
+                    <div class="p-col-12 p-md-12 p-lg-12 text-center">
+                        <button pButton name="save" type="button" label="Save"></button>
+                    </div>
+                </div>
+            </p-card>
+            </form>
+        </div>
+    </p-panel>
+</div>

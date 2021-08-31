@@ -3,8 +3,9 @@ body {
     /* position: relative; */
     background: #eaf0f5;
     overflow-x: hidden;
+    overflow-y: auto;
   }
-html, body { height: 100%; }
+html, body { height: 650px !important; }
 
 body { margin: 0 !important}
 
@@ -156,8 +157,16 @@ background-color: #b8baf3;
 .side-nav-panel {
     width: 16% !important;
 }
+.nav-panel-container {
+    height: 650px !important;
+    contain: content !important;
+    overflow: auto !important;
+}
 .side-nav-container {
     width: calc(100% - 16%) !important;
+    /* height: 650px !important;
+    contain: content !important;
+    overflow: auto !important; */
 }
 
 /* end #Regioin 3*/

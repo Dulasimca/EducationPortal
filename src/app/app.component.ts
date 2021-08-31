@@ -34,7 +34,7 @@ export class AppComponent {
       items: [
         { label: 'My Profile', icon: 'fa fa-address-card', routerLink: '/student-info' },
         { label: 'My Parent', icon: 'fa fa-users', routerLink: '/student-info' },
-        { label: 'My Achievements', icon: 'fa fa-trophy', routerLink: '/achievements' },
+        { label: 'My Achievements', icon: 'fa fa-trophy', routerLink: '/myachievement' },
        // { label: 'My School', icon: 'fa fa-graduation-cap', },
       ] },
       {label: 'ID Card Info', icon: 'fa fa-id-badge', routerLink: '/profile' },

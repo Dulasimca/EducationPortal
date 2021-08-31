@@ -17,8 +17,8 @@ export class NomineeFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.positionOptions = [
-      { label: 'Class Representative', value: 'L'},
-      { label: 'School Representative', value: 'H'},
+      { label: 'Class Representative', value: 'C'},
+      { label: 'School Representative', value: 'S'},
     ];
   }
 

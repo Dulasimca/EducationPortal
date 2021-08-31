@@ -25,11 +25,13 @@ export class AppComponent {
       { label: 'Admin', icon: 'fa fa-user-secret', 
     items: [
       { label: 'Registration', icon: 'fa fa-registered', routerLink: '/registration' },
-      { label: 'Announcement', icon: 'fa fa-bullhorn', routerLink: '/announcement'},
-      { label: 'Assignment', icon:   'fa fa-pencil-square-o', routerLink: '/assignment'},
-      { label: 'Holidays', icon: 'fa fa-calendar', routerLink: '/holidaydetails'},
-      { label: 'Nominee', icon: 'fa fa-handshake-o', routerLink: '/nominee' }
-      ]},
+      { label: 'Book', icon: 'fa fa-book', routerLink: '/book' },
+      { label: 'NewsLetter', icon: 'fa fa-peenvelope-on', routerLink: '/newsletter' },
+      { label: 'Results', icon: 'fa fa-file-text-o', routerLink: '/results' },
+      { label: 'Gallery', icon: 'fa fa-picture-o', routerLink: '/gallery' },
+      { label: 'Download Session', icon: 'fa fa-download', routerLink: '/downloadsession' },
+      { label: 'Circular', icon: 'fa fa-calendar-minus-o', routerLink: '/circular' },
+    ]},
       { label: 'Profile', icon: 'fa fa-user-circle-o', 
       items: [
         { label: 'My Profile', icon: 'fa fa-address-card', routerLink: '/student-info' },
@@ -41,7 +43,7 @@ export class AppComponent {
       { label: 'Vote', icon: 'fa fa-thumbs-up', 
       items: [
         { label: 'Vote', icon: 'fa fa-thumbs-o-up', routerLink: '/poll-list'},
-        // { label: 'Nominee', icon: 'fa fa-handshake-o', routerLink: '/nominee'},
+       //{ label: 'Nominee', icon: 'fa fa-handshake-o', routerLink: '/poll-list'},
         //{ label: 'Vote Result', icon: 'fa fa-vacrd-o', routerLink: '/poll-list'}
       ] },
       {
@@ -50,9 +52,9 @@ export class AppComponent {
           { label: 'Calendar', icon: 'fa fa-calendar', routerLink: '/events' },
           { label: 'Attendance', icon: 'fa fa-calendar-check-o', routerLink: '/attendance' },
           { label: 'Announcements', icon: 'fa fa-bullhorn', routerLink: '/announcements' },
-          { label: 'Assignments', icon: 'fa fa-pencil-square-o', routerLink: '/assignments-information' },
+          { label: 'Assignments', icon: 'fa fa-pencil-square-o', routerLink: '/assignments' },
           { label: 'Circulars', icon: 'fa fa-calendar-minus-o', routerLink: '/circulars' },
-          { label: 'NewsLetter', icon: 'fa fa-envelope-open', routerLink: '/newsletters' },
+          { label: 'NewsLetter', icon: 'fa fa-peenvelope-on', routerLink: '/newsletters' },
         ]
       },
       { label: 'Question Bank', icon: 'fa fa-file-text-o', routerLink: '/question-bank' },

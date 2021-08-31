@@ -9,7 +9,7 @@ import { delay, timeout, retry, catchError } from 'rxjs/operators';
 })
 
 export class RestAPIService {
-  BASEURL = '';
+  BASEURL = 'http://localhost:7440/api/';
   public HttpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded',

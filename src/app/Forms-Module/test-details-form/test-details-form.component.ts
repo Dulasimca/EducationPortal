@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { SelectItem } from 'primeng/api';
-import { saveAs } from 'file-saver';
+// import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-test-details-form',
@@ -61,6 +61,6 @@ export class TestDetailsFormComponent implements OnInit {
     const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheethtml.sheet;charset=UTF-8';
     const path = "../../assets/files/questions.xlsx";
     const filename = 'Sample_Excel' + ".xlsx";
-    saveAs(path, filename);
+    // saveAs(path, filename);
  }
 }

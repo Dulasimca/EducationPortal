@@ -1,38 +1,38 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {DropdownModule} from 'primeng/dropdown';
-import {MenubarModule} from 'primeng/menubar';
-import {SidebarModule} from 'primeng/sidebar';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {PanelModule} from 'primeng/panel';
-import {CardModule} from 'primeng/card';
-import {DividerModule} from 'primeng/divider';
-import {ButtonModule} from 'primeng/button';
-import {CalendarModule} from 'primeng/calendar';
-import {InputTextModule} from 'primeng/inputtext';
-import {RippleModule} from 'primeng/ripple';
+import { DropdownModule } from 'primeng/dropdown';
+import { MenubarModule } from 'primeng/menubar';
+import { SidebarModule } from 'primeng/sidebar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { PanelModule } from 'primeng/panel';
+import { CardModule } from 'primeng/card';
+import { DividerModule } from 'primeng/divider';
+import { ButtonModule } from 'primeng/button';
+import { CalendarModule } from 'primeng/calendar';
+import { InputTextModule } from 'primeng/inputtext';
+import { RippleModule } from 'primeng/ripple';
 import { FormsModule } from '@angular/forms';
-import {TableModule} from 'primeng/table';
+import { TableModule } from 'primeng/table';
 import { NgxAttendanceLibraryModule, NgxAttendanceLibraryService } from 'ngx-attendance-library';
-import {FullCalendarModule} from '@fullcalendar/angular';
-import {CheckboxModule} from 'primeng/checkbox';
-import {GalleriaModule} from 'primeng/galleria';
-import {DialogModule} from 'primeng/dialog';
+import { FullCalendarModule } from '@fullcalendar/angular';
+import { CheckboxModule } from 'primeng/checkbox';
+import { GalleriaModule } from 'primeng/galleria';
+import { DialogModule } from 'primeng/dialog';
 import dayGridPlugin from '@fullcalendar/daygrid'; // a plugin!
 import timeGridPlugin from '@fullcalendar/timegrid';
 import interactionPlugin from '@fullcalendar/interaction';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {PanelMenuModule} from 'primeng/panelmenu';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { PanelMenuModule } from 'primeng/panelmenu';
 import { AppRoutingModule } from './app-routing.module';
 import { TooltipModule } from 'primeng/tooltip';
-import {InputTextareaModule} from 'primeng/inputtextarea';
-import {FieldsetModule} from 'primeng/fieldset';
-import {MatDatepickerModule} from '@angular/material/datepicker';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { FieldsetModule } from 'primeng/fieldset';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { FilterService, MessageService, PrimeNGConfig } from 'primeng/api';
-import {TabViewModule} from 'primeng/tabview';
+import { TabViewModule } from 'primeng/tabview';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './DataView-Module/profile/profile.component';
 import { PollListComponent } from './DataView-Module/poll-list/poll-list.component';
@@ -63,8 +63,8 @@ import { AuthService } from './Services/auth.service';
 import { RestAPIService } from './Services/restAPI.service';
 import { CircularFormComponent } from './Forms-Module/circular-form/circular-form.component';
 import { AnnouncementFormComponent } from './Forms-Module/announcement-form/announcement-form.component';
-import {FileUploadModule} from 'primeng/fileupload';
-import {HttpClientModule} from '@angular/common/http';
+import { FileUploadModule } from 'primeng/fileupload';
+import { HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from './Services/auth.guard';
 import { NewsletterFormComponent } from './Forms-Module/newsletter-form/newsletter-form.component';
 import { BookFormComponent } from './Forms-Module/book-form/book-form.component';
@@ -77,6 +77,10 @@ import { HolidaydetailsFormComponent } from './Forms-Module/holidaydetails-form/
 import { NomineeFormComponent } from './Forms-Module/nominee-form/nominee-form.component';
 import { TestDetailsFormComponent } from './Forms-Module/test-details-form/test-details-form.component';
 import { DownloadsessionFormComponent } from './Forms-Module/downloadsession-form/downloadsession-form.component';
+import { QuestionBankUploadFormComponent } from './Forms-Module/question-bank-upload-form/question-bank-upload-form.component';
+import { MyclassResultComponent } from './Forms-Module/myclass-result/myclass-result.component';
+import { MySchoolComponent } from './Forms-Module/my-school/my-school.component';
+import { PersonalDetailsComponent } from './Forms-Module/personal-details/personal-details.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -127,6 +131,10 @@ FullCalendarModule.registerPlugins([
     NomineeFormComponent,
     TestDetailsFormComponent,
     DownloadsessionFormComponent,
+    QuestionBankUploadFormComponent,
+    MyclassResultComponent,
+    MySchoolComponent,
+    PersonalDetailsComponent,
   ],
   imports: [
     BrowserModule,

@@ -4,15 +4,13 @@
         <p-card>
         <div  class="p-col-12 p-md-12 p-lg-12">
             <div class="p-grid">
-                <div class="p-col-12 p-md-6 p-lg-12">
-                    <div><label>Subject:</label></div>
-                    <input type="text" size ="25" pInputText [(ngModel)]="Subject" />
+                <div class="p-col-12 p-md-4 p-lg-6">
+                    <div><label>Topic</label></div>
+                    <input type="text" pInputText [(ngModel)]="Subject" />
                 </div>
                 <div class="p-col-12 p-md-6 p-lg-12">
-                    <button pButton type="button" label="Submit" style="margin-left: 0%;"></button>
-                
-                    <!-- <div class="p-col-12 p-md-6 p-lg-2"> -->
-                    <button pButton type="button" label="View" style= "margin-left: 6%;"></button>
+                    <button pButton name="downlod" type="button" icon="pi pi-download"
+                    label="Download"></button>
                 </div>
             </div>
         </div>

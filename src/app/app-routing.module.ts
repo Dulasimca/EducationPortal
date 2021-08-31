@@ -81,12 +81,12 @@ const routes: Routes = [
    { path: 'holidaydetails', component: HolidaydetailsFormComponent },
    { path: 'nominee', component: NomineeFormComponent },
    //Srikanth
-   { path: 'circular', component: CircularFormComponent },
-   { path: 'newsletter', component: NewsletterFormComponent },
-   { path: 'book',component:BookFormComponent},
-   { path: 'results',component:ResultFormComponent},
-   { path: 'gallery',component:GalleryFormComponent},
-   { path: 'downloadsession', component:DownloadsessionFormComponent}, 
+   { path: 'circular', component: CircularFormComponent, canActivate: [AuthGuard] },
+   { path: 'newsletter', component: NewsletterFormComponent, canActivate: [AuthGuard] },
+   { path: 'book',component:BookFormComponent, canActivate: [AuthGuard]},
+   { path: 'results',component:ResultFormComponent, canActivate: [AuthGuard]},
+   { path: 'gallery',component:GalleryFormComponent, canActivate: [AuthGuard]},
+   { path: 'downloadsession', component:DownloadsessionFormComponent, canActivate: [AuthGuard]}, 
    
 ];  
 

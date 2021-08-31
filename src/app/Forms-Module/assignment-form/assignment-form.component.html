@@ -4,18 +4,20 @@
         <p-card>
             <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
                 <div class="p-grid">
+                    <div class="p-col-12 p-md-6 p-lg-3">
                     <div class="no-pad-top"><label>Date:</label> <br>
             <p-calendar [(ngModel)]="date" [showIcon]="true"></p-calendar>
                     </div>
-                    <div class="p-col-12 p-md-6 p-lg-12 no-pad-left">
+                    </div>
+                    <div class="p-col-12 p-md-6 p-lg-3">
                         <label> Due Date:</label><br>
                             <p-calendar [(ngModel)]="date" [showIcon]="true"></p-calendar>
                     </div>
-                    <div class="p-col-12 p-md-6 p-lg-12" style="text-align: left; margin-top: 5px;">
+                    <div class="p-col-12 p-md-6 p-lg-3" style="text-align: left; margin-top: 5px;">
                         <label> Assigned Work:</label><br>
                         <input id="float-input"  type="text" size="24" pInputText> 
                     </div>
-                    <div class="p-col-12 p-md-6 p-lg-12" style="text-align: left; margin-top: 5px;">
+                    <div class="p-col-12 p-md-6 p-lg-3" style="text-align: left; margin-top: 5px;">
                         <label> Assigned Type:</label><br>
                         <input id="float-input"  type="text" size="24" pInputText> 
                     </div>
@@ -23,16 +25,18 @@
                         <label> Subject Name:</label><br>
                         <input id="float-input"  type="text" size="24" pInputText> 
                     </div>
-            <div class="p-col-12 p-md-6 p-lg-12">
-                <div> <label>Attachment:</label> </div>
-                <p-fileUpload mode="basic" name="demo[]" url="./upload.php" accept="image/*" ></p-fileUpload>
+            <div class="p-col-12 p-md-6 p-lg-7" >
+                <label> Attachment:</label><br>
+                    <input class="p-col-4" name="_studentimg" type="file" pInputText
+                    (change)="onFileUpload($event, 1)" accept=".png" />
+           
              </div>
-             
-            <div class="p-col-12 p-md-12 p-lg-12">
-            <button pButton type="button" label="Save" onclick="onSave()" style="margin-left: 10%;"></button>
+             <div class="p-col-12 p-md-12 p-lg-12">
+                <button pButton name="upload" type="button" icon="pi pi-upload" label="Upload"></button>     
+               <button pButton type="button" label="Submit" onclick="onSave()" style="margin-left: 25%;"></button>
             <!-- </div>
             <div class="p-col-6 p-md-6 p-lg-12"> -->
-                <button pButton type="button" label="View" onclick="onView()" style="margin-left: 10%;"></button>
+                <button pButton type="button" label="View" onclick="onView()" style="margin-left: 5%;"></button>
             </div>
        
             </div>

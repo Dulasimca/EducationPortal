@@ -1,0 +1,116 @@
+<div class="p-col-12" style="padding-top:25px;">
+    <p-panel header="Online Test Details">
+        <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
+            <form #f="ngForm" name="testDetailsForm">
+                <div class="p-grid">
+                    <div class="p-col-12 p-md-12 p-lg-2"></div>
+                    <div class="p-col-12 p-md-10 p-lg-8">
+                        <p-card>
+                            <div #row1 class="p-col-12 p-md-12 p-lg-12">
+                                <div class="p-grid">
+                                    <div class="p-col-12 p-md-6 p-lg-4">
+                                        <div><label for="_testname">Test Name<span
+                                                    class="form-mandatory-field">*</span></label>
+                                        </div>
+                                        <p-dropdown name="_testname" [(ngModel)]="testName" [options]="testNameOptions"
+                                            required>
+                                        </p-dropdown>
+                                    </div>
+                                    <div class="p-col-12 p-md-6 p-lg-3">
+                                        <div><label for="_testdate">Test Date<span
+                                                    class="form-mandatory-field">*</span></label></div>
+                                        <p-calendar [(ngModel)]="testDate" name="_testdate" [showIcon]="true" required>
+                                        </p-calendar>
+                                    </div>
+                                    <div class="p-col-12 p-md-6 p-lg-2">
+                                        <div><label for="_class">Class<span
+                                                    class="form-mandatory-field">*</span></label>
+                                        </div>
+                                        <p-dropdown name="_class" [options]="classOptions" [(ngModel)]="class" required>
+                                        </p-dropdown>
+                                    </div>
+                                </div>
+                            </div>
+                            <div #row2 class="p-col-12 p-md-12 p-lg-12">
+                                <div class="p-grid">
+                                    <div class="p-col-12 p-md-6 p-lg-3">
+                                        <div><label for="_subject">Subject<span
+                                                    class="form-mandatory-field">*</span></label>
+                                        </div>
+                                        <p-dropdown name="_subject" [options]="subjectOptions" [(ngModel)]="subject"
+                                            required>
+                                        </p-dropdown>
+                                    </div>
+                                    <div class="p-col-12 p-md-6 p-lg-6">
+                                        <div><label for="_description">Description<span
+                                                    class="form-mandatory-field">*</span></label></div>
+                                        <input class="p-col-12" name="_description" type="text" pInputText
+                                            [(ngModel)]="description" required />
+                                        <div class="note">*Note: test description eg: "Choose the best answer"</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div #row3 class="p-col-12 p-md-12 p-lg-12">
+                                <div class="p-grid">
+                                    <div class="p-col-12 p-md-4 p-lg-3">
+                                        <div><label for="_questiontype">Question Type<span
+                                                    class="form-mandatory-field">*</span></label>
+                                        </div>
+                                        <p-dropdown name="_questiontype" [options]="questionTypeOptions"
+                                            [(ngModel)]="questionType" required>
+                                        </p-dropdown>
+                                    </div>
+                                    <div class="p-col-12 p-md-4 p-lg-2">
+                                        <div><label for="_totalmarks">Total Marks<span
+                                                    class="form-mandatory-field">*</span></label></div>
+                                        <input class="p-col-12" name="_totalmarks" type="text" pInputText
+                                            [(ngModel)]="totalMarks" required />
+                                    </div>
+                                    <div class="p-col-12 p-md-4 p-lg-2">
+                                        <div><label for="_totalduration">Total Duration<span
+                                                    class="form-mandatory-field">*</span></label></div>
+                                        <input class="p-col-12" name="_totalduration" type="text" pInputText
+                                            [(ngModel)]="totalDuration" required />
+                                        <div class="note">*Note: in minutes/hour</div>
+                                    </div>
+                                    <div class="p-col-12 p-md-4 p-lg-2">
+                                        <div><label for="_durationtype">Min/Hour<span
+                                                    class="form-mandatory-field">*</span></label>
+                                        </div>
+                                        <p-dropdown name="_durationtype" [(ngModel)]="durationType"
+                                            [options]="durationTypeOptions" required>
+                                        </p-dropdown>
+                                    </div>
+                                </div>
+                            </div>
+                            <div #row4 class="p-col-12 p-md-12 p-lg-12">
+                                <div class="p-grid">
+                                    <div class="p-col-12 p-md-8 p-lg-5">
+                                        <input #fileSelector id="my-file-selector" pInputText class="p-col-12"
+                                            name="_excel" type="file" (change)="uploadData($event);"
+                                            accept=".xls,.xlsx,.csv" required>
+                                    </div>
+                                    <div class="p-col-12 p-md-4 p-lg-2">
+                                        <button pButton type="button" icon="pi pi-file-excel" class="p-button-success"
+                                            (click)="onDownload()">
+                                        </button>
+                                    </div>
+                                    <div class="note">
+                                        *Note: Please upload the appopirate excel with questions, options and answers
+                                        for the test.
+                                        <br>
+                                        you can download sample excel sheet for reference by clicking the above excel
+                                        button
+                                    </div>
+                                </div>
+                            </div>
+                            <div #row5 class="p-col-12 p-md-12 p-lg-12 text-center">
+                                <button pButton name="_save" type="button" label="Save" (click)="onSave()"></button>
+                            </div>
+                        </p-card>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </p-panel>
+</div>

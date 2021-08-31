@@ -12,6 +12,7 @@ export class AnnouncementFormComponent implements OnInit {
   Announcement: string;
   data: any = []; 
   cols: any;
+  uploadedFiles: any[] = [];
 
   constructor(private http: HttpClient) { }
   
@@ -23,5 +24,12 @@ export class AnnouncementFormComponent implements OnInit {
       { field: 'Announcement', header: 'ANNOUNCEMENT' }
       ];
   }
+  onFileUpload($event, id) {
+    // for(let file of event.files) {
+    //     this.uploadedFiles.push(file);
+    // }
+
+   // this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
+}
 
 }

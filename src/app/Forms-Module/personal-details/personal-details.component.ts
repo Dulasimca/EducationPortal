@@ -27,9 +27,6 @@ export class PersonalDetailsComponent implements OnInit {
   fathersEmail: any;
   guardiansEmail: any;
 
-
-
-   
   constructor() { }
 
   ngOnInit()  {

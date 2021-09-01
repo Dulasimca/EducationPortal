@@ -168,6 +168,7 @@ background-color: #b8baf3;
 }
 .side-nav-panel {
     width: 16% !important;
+    margin-top: 0.5% !important;
     position: fixed !important;
     overflow-y: auto !important;
     height: 100% !important;
@@ -177,8 +178,8 @@ background-color: #b8baf3;
     left: 0 !important;
     padding-left: 0 !important;
     padding-top: 0 !important;
-    transition-delay: 1s !important;
-    transition-duration: 3s !important;
+    transition-duration: 1s !important;
+    background: rgb(11, 43, 102) !important;
 }
 .side-nav {
     width: 100% !important;

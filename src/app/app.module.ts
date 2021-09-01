@@ -81,6 +81,10 @@ import { QuestionBankUploadFormComponent } from './Forms-Module/question-bank-up
 import { MyclassResultComponent } from './Forms-Module/myclass-result/myclass-result.component';
 import { MySchoolComponent } from './Forms-Module/my-school/my-school.component';
 import { PersonalDetailsComponent } from './Forms-Module/personal-details/personal-details.component';
+import { FeesDetailsFormComponent } from './Forms-Module/fees-details-form/fees-details-form.component';
+import { CalendarDetailsFormComponent } from './Forms-Module/calendar-details-form/calendar-details-form.component';
+import { AttendanceDetailsFormComponent } from './Forms-Module/attendance-details-form/attendance-details-form.component';
+import { DatePipe } from '@angular/common';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -135,6 +139,9 @@ FullCalendarModule.registerPlugins([
     MyclassResultComponent,
     MySchoolComponent,
     PersonalDetailsComponent,
+    FeesDetailsFormComponent,
+    CalendarDetailsFormComponent,
+    AttendanceDetailsFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -168,7 +175,8 @@ FullCalendarModule.registerPlugins([
     MatDatepickerModule
 
   ],
-  providers: [PrimeNGConfig, FilterService, AuthGuard, AuthService, RestAPIService, NgxAttendanceLibraryService],
+  providers: [PrimeNGConfig, FilterService, AuthGuard, AuthService, RestAPIService,
+    NgxAttendanceLibraryService, DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

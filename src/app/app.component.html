@@ -1,19 +1,23 @@
 <div #main class="no-pad">
     <mat-toolbar class="mat-elevation-z8" *ngIf="(isLoggedIn$ | async)">
-        <div class="no-pad" style="background: rgb(11, 43, 102) !important;">
-            <i *ngIf="!isOpen" class="pi pi-bars" style="font-size: 1.6rem; color: whitesmoke" (click)="isOpen=!isOpen"></i>
-            <i *ngIf="isOpen" class="pi pi-times" style="font-size: 1.6rem; color: whitesmoke" (click)="isOpen=!isOpen"></i>
+        <div class="p-col-1 no-pad-left" [ngClass]="{'move-right': isOpen}">
+            <div class="no-pad" style="background: rgb(11, 43, 102) !important; display: flex;">
+                <i *ngIf="!isOpen" class="pi pi-bars" style="font-size: 1.6rem; color: whitesmoke; align-self: center;"
+                    (click)="isOpen=!isOpen"></i>
+                <i *ngIf="isOpen" class="pi pi-times" style="font-size: 1.6rem; color: whitesmoke; align-self: center;"
+                    (click)="isOpen=!isOpen"></i>
+                <img src="assets/layout/images/TN_Govt_Logo.png" style="margin-left: 2px;" />
+            </div>
+
         </div>
-        <div class="p-col-2 p-md-3 p-lg-1 no-pad-top no-pad-bottom" style="text-align: left;">
-            <img src="assets/layout/images/TN_Govt_Logo.png" />
-        </div>
-        <div class="p-col-10 p-md-8 p-lg-6 no-pad-top" style="text-align: end; font-size: 25px; margin-left: 10%;">
+        <div class="p-col-10 p-md-8 p-lg-6 no-pad-top"
+            [ngClass]="{'menubar-bar-text-unset': !isOpen, 'menubar-bar-text-set': isOpen}">
             Government of Tamilnadu - Educational Services Platform
             <div style="text-align: center; font-size: 20px;color: whitesmoke">Government Higher Secondary School -
                 Trichy</div>
         </div>
         <div class="p-col-2"></div>
-        <div class="p-col-2 p-md-6 p-lg-2 no-pad-top no-pad-bottom">
+        <div class="p-col-2 p-md-6 p-lg-2 no-pad-top no-pad-bottom" [ngClass]="{'menubar-bar-info-set': isOpen}">
             <div class="p-grid" style="color: whitesmoke">
                 <img src="assets/layout/images/student-icon1.png" style="width: 50px; height: 55px; margin-top: 8px;" />
                 &nbsp; &nbsp; <div style="font-size: 13px; align-self: center; margin-top: 10px;"> ARUN KUMAR S <i
@@ -21,12 +25,12 @@
             </div>
         </div>
     </mat-toolbar>
-    <div>
-        <div class="p-grid">
+    <div [ngClass]="{'layout-wrapper': isOpen}">
+        <div class="p-grid side-nav">
             <div *ngIf="isOpen" class="p-col-2 no-pad-right side-nav-panel">
                 <p-panelMenu [model]="items"></p-panelMenu>
             </div>
-            <div [ngClass]="{'side-nav-container': isOpen, 'p-col-12': !isOpen}">
+            <div class="side-nav-container">
                 <router-outlet></router-outlet>
             </div>
         </div>

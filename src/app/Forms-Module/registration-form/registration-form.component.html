@@ -1,7 +1,7 @@
 <div class="p-col-12" style="padding-top:25px;">
-    <p-panel header="Registration Form">
+    <p-panel header="Registration">
         <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
-            <form #f="ngForm" name="personalForm">
+            <form #f="ngForm" name="registrationForm">
                 <p-tabView>
                     <p-tabPanel header="Personal Info I">
                         <p-card>
@@ -306,6 +306,12 @@
                                         </div>
                                     </p-fieldset>
                                 </div>
+                            </div>
+                        </p-card>
+                    </p-tabPanel>
+                    <p-tabPanel header="Guardian Info">
+                        <p-card>
+                            <div class="p-col-12 no-pad-top">
                                 <div #row1 class="p-col-12 p-md-12 p-lg-12">
                                     <p-fieldset legend="Guardian's Info" [toggleable]="true">
                                         <div class="p-grid">
@@ -338,11 +344,12 @@
                                     </p-fieldset>
                                 </div>
                             </div>
-                        </p-card>
+                            </p-card>
                     </p-tabPanel>
                     <div class="p-col-12 p-md-12 p-lg-12 text-center">
-                        <button pButton name="_save" type="button" label="Submit" [disabled]="(!f.valid)"
+                        <button pButton name="_save" type="button" label="Submit" 
                             (click)="onSubmit()"></button>
+                            <!-- [disabled]="(!f.valid)" -->
                     </div>
                 </p-tabView>
             </form>

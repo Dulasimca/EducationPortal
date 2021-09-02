@@ -1,0 +1,76 @@
+<div class="p-col-12" style="padding-top:25px;">
+    <p-panel header="Class Test Results">
+        <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
+            <form #testResult="ngForm" name="classTestResultForm">
+                <div #div1 *ngIf="loginId==1">
+                    <p-card>
+                        <div class="p-col-12 no-pad-top" style="margin-left: -8px;">
+                            <div #row1 class="p-col-12 p-md-12 p-lg-12">
+                                <div class="p-grid">
+                                    <div class="p-col-12 p-md-6 p-lg-2">
+                                        <label>Staff Name<span class="form-mandatory-field">*</span></label>
+                                        <p-dropdown [options]="staffName" [(ngModel)]="selectedStaff" optionLabel="name"
+                                            placeholder="Select name"></p-dropdown>
+                                    </div>
+                                    <div class="p-col-12 p-md-6 p-lg-2">
+                                        <label>Class<span class="form-mandatory-field">*</span></label>
+                                        <p-dropdown [options]="class" [(ngModel)]="selectedClass" optionLabel="name"
+                                            placeholder="Select class"></p-dropdown>
+                                    </div>
+                                    <div class="p-col-12 p-md-6 p-lg-2">
+                                        <label>Section<span class="form-mandatory-field">*</span></label>
+                                        <p-dropdown [options]="section" [(ngModel)]="selectedSection" optionLabel="name"
+                                            placeholder="Select section"></p-dropdown>
+                                    </div>
+                                    <div class="p-col-12 p-md-6 p-lg-2">
+                                        <label>Test Name<span class="form-mandatory-field">*</span></label> 
+                                        <input type="text" class="p-col-12" pInputText [(ngModel)]="testName" />
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </p-card>
+                </div>
+
+                <div #div2 *ngIf="loginId==2">
+                    <p-card>
+                        <div class="p-col-12 no-pad-top" style="margin-left: -8px;">
+                            <div #row1 class="p-col-12 p-md-12 p-lg-12">
+                                <div class="p-grid">
+                                    <div class="p-col-12 p-md-6 p-lg-2">
+                                        <label>Student Name<span class="form-mandatory-field">*</span></label>
+                                        <p-dropdown [options]="studentName" [(ngModel)]="selectedStudent" optionLabel="name"
+                                            placeholder="Select name"></p-dropdown>
+                                    </div>
+                                    <div class="p-col-12 p-md-6 p-lg-2">
+                                        <label>Class<span class="form-mandatory-field">*</span></label>
+                                        <p-dropdown [options]="class" [(ngModel)]="selectedClass" optionLabel="name"
+                                            placeholder="Select class"></p-dropdown>
+                                    </div>
+                                    <div class="p-col-12 p-md-6 p-lg-2">
+                                        <label>Section<span class="form-mandatory-field">*</span></label>
+                                        <p-dropdown [options]="section" [(ngModel)]="selectedSection" optionLabel="name"
+                                            placeholder="Select section"></p-dropdown>
+                                    </div>
+                                    <div class="p-col-12 p-md-6 p-lg-2">
+                                        <label>Test Name<span class="form-mandatory-field">*</span></label> 
+                                        <input type="text" class="p-col-12" pInputText [(ngModel)]="testName" />
+                                    </div>
+                                    <div class="p-col-12 p-md-6 p-lg-2">
+                                        <div><label>Date of Submit:<span class="form-mandatory-field">*</span></label></div>
+                                        <p-calendar [(ngModel)]="dos" [monthNavigator]="true" [yearNavigator]="true"
+                                            yearRange="{{yearRange}}" inputId="dateofsunmit"></p-calendar>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </p-card>
+                </div>
+
+            </form>
+        </div>
+    </p-panel>
+</div>

@@ -42,12 +42,16 @@ import { NomineeFormComponent } from './Forms-Module/nominee-form/nominee-form.c
 import { AuthGuard } from './Services/auth.guard';
 import { OnlineTestComponent } from './Events-Module/online-test/online-test.component';
 import { TestDetailsFormComponent } from './Forms-Module/test-details-form/test-details-form.component';
+import { QuestionBankUploadFormComponent } from './Forms-Module/question-bank-upload-form/question-bank-upload-form.component';
+import { MyclassResultComponent } from './Forms-Module/myclass-result/myclass-result.component';
+import { MySchoolComponent } from './Forms-Module/my-school/my-school.component';
+import { PersonalDetailsComponent } from './Forms-Module/personal-details/personal-details.component';
+import { FeesDetailsFormComponent } from './Forms-Module/fees-details-form/fees-details-form.component';
 
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
- 
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'events', component: EventCalendarComponent, canActivate: [AuthGuard] },
@@ -74,7 +78,13 @@ const routes: Routes = [
  { path: 'fees', component: FeesComponent, canActivate: [AuthGuard] },
  { path: 'registration', component: RegistrationFormComponent, canActivate: [AuthGuard] },
  { path: 'online-test', component: OnlineTestComponent, canActivate: [AuthGuard] },
- { path: 'test-details', component: TestDetailsFormComponent },
+ { path: 'test-details', component: TestDetailsFormComponent, canActivate: [AuthGuard] },
+ { path: 'question-bank-upload', component: QuestionBankUploadFormComponent},
+ { path: 'myclass-results', component: MyclassResultComponent},
+ { path: 'my-school', component: MySchoolComponent},
+ { path: 'personal-details', component: PersonalDetailsComponent},
+ { path: 'fee-details', component: FeesDetailsFormComponent},
+ 
  //Adithya
    { path: 'announcement', component: AnnouncementFormComponent, canActivate: [AuthGuard] },
    { path: 'assignment', component: AssignmentFormComponent, canActivate: [AuthGuard] },

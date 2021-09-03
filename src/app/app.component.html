@@ -1,6 +1,6 @@
-<div #main class="no-pad">
+<div #main class="no-pad container">
     <mat-toolbar class="mat-elevation-z8" *ngIf="(isLoggedIn$ | async)">
-        <div class="p-col-1 no-pad-left" [ngClass]="{'move-right': isOpen}">
+        <div class="p-col-1 p-md-1 p-lg-1 no-pad-left" [ngClass]="{'move-right': isOpen, 'move-left': !isOpen}">
             <div class="no-pad" style="background: rgb(11, 43, 102) !important; display: flex;">
                 <i *ngIf="!isOpen" class="pi pi-bars" style="font-size: 1.6rem; color: whitesmoke; align-self: center;"
                     (click)="isOpen=!isOpen"></i>
@@ -10,14 +10,14 @@
             </div>
 
         </div>
-        <div class="p-col-10 p-md-8 p-lg-6 no-pad-top"
+        <div class="p-col-5 p-md-6 p-lg-6 no-pad-top"
             [ngClass]="{'menubar-bar-text-unset': !isOpen, 'menubar-bar-text-set': isOpen}">
             Government of Tamilnadu - Educational Services Platform
             <div style="text-align: center; font-size: 20px;color: whitesmoke">Government Higher Secondary School -
                 Trichy</div>
         </div>
         <div class="p-col-2"></div>
-        <div class="p-col-2 p-md-6 p-lg-2 no-pad-top no-pad-bottom" [ngClass]="{'menubar-bar-info-set': isOpen}">
+        <div class="p-col-2 p-md-3 p-lg-2 no-pad-top no-pad-bottom" [ngClass]="{'menubar-bar-info-set': isOpen}">
             <div class="p-grid" style="color: whitesmoke">
                 <img src="assets/layout/images/student-icon1.png" style="width: 50px; height: 55px; margin-top: 8px;" />
                 &nbsp; &nbsp; <div style="font-size: 13px; align-self: center; margin-top: 10px;"> ARUN KUMAR S <i
@@ -25,7 +25,7 @@
             </div>
         </div>
     </mat-toolbar>
-    <div [ngClass]="{'layout-wrapper': isOpen}">
+    <div [ngClass]="{'layout-wrapper-set': isOpen, 'layout-wrapper-unset': !isOpen}">
         <div class="p-grid side-nav">
             <div *ngIf="isOpen" class="p-col-2 no-pad-right side-nav-panel">
                 <p-panelMenu [model]="items"></p-panelMenu>

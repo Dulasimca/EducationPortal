@@ -28,6 +28,8 @@ import { TooltipModule } from 'primeng/tooltip';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { FieldsetModule } from 'primeng/fieldset';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { BlockUI, BlockUIModule } from 'primeng/blockui';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -85,6 +87,7 @@ import { FeesDetailsFormComponent } from './Forms-Module/fees-details-form/fees-
 import { CalendarDetailsFormComponent } from './Forms-Module/calendar-details-form/calendar-details-form.component';
 import { AttendanceDetailsFormComponent } from './Forms-Module/attendance-details-form/attendance-details-form.component';
 import { DatePipe } from '@angular/common';
+import { MasterService } from './Services/master-data.service';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -172,11 +175,12 @@ FullCalendarModule.registerPlugins([
     FieldsetModule,
     FileUploadModule,
     HttpClientModule,
-    MatDatepickerModule
-
+    MatDatepickerModule,
+    ProgressSpinnerModule,
+    BlockUIModule
   ],
   providers: [PrimeNGConfig, FilterService, AuthGuard, AuthService, RestAPIService,
-    NgxAttendanceLibraryService, DatePipe],
+    NgxAttendanceLibraryService, DatePipe, MessageService, MasterService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

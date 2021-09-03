@@ -95,7 +95,7 @@
                                                         class="form-mandatory-field">*</span></label>
                                             </div>
                                             <p-dropdown name="_district" [options]="districtOptions"
-                                                [(ngModel)]="district" required>
+                                                [(ngModel)]="district" (onClick)="onSelect('D')" required>
                                             </p-dropdown>
                                         </div>
                                         <div class="p-col-12 p-md-6 p-lg-2">
@@ -153,11 +153,11 @@
                                 <div #row1 class="p-col-12 p-md-12 p-lg-12">
                                     <div class="p-grid">
                                         <div class="p-col-12 p-md-6 p-lg-2">
-                                            <div><label for="_roleid">Role ID<span
+                                            <div><label for="_roleid">Role<span
                                                         class="form-mandatory-field">*</span></label>
                                             </div>
                                             <p-dropdown name="_roleid" [options]="roleIdOptions" [(ngModel)]="roleId"
-                                                required>
+                                            (onClick)="onSelect('R')" required>
                                             </p-dropdown>
                                         </div>
                                         <div class="p-col-12 p-md-6 p-lg-3">
@@ -168,21 +168,25 @@
                                                 [(ngModel)]="schoolName" required>
                                             </p-dropdown>
                                         </div>
-                                        <div class="p-col-12 p-md-6 p-lg-1">
+                                        <div class="p-col-12 p-md-6 p-lg-2">
                                             <div><label for="_class">Class<span
                                                         class="form-mandatory-field">*</span></label></div>
                                             <p-dropdown name="_class" [options]="classOptions" [(ngModel)]="class"
-                                                required>
+                                            (onClick)="onSelect('C')" required>
                                             </p-dropdown>
                                         </div>
-                                        <div class="p-col-12 p-md-6 p-lg-1">
+                                        <div class="p-col-12 p-md-6 p-lg-2">
                                             <div><label for="_section"> Section<span
                                                         class="form-mandatory-field">*</span></label>
                                             </div>
                                             <p-dropdown name="_section" [options]="sectionOptions" [(ngModel)]="section"
-                                                required>
+                                               (onClick)="onSelect('S')" required>
                                             </p-dropdown>
                                         </div>
+                                    </div>
+                                </div>
+                                <div #row2 class="p-col-12 p-md-12 p-lg-12">
+                                    <div class="p-grid">
                                         <div class="p-col-12 p-md-6 p-lg-2">
                                             <div><label for="_doj">D.O.J<span
                                                         class="form-mandatory-field">*</span></label></div>
@@ -190,10 +194,6 @@
                                             inputId="dateofjoining" required>
                                             </p-calendar>
                                         </div>
-                                    </div>
-                                </div>
-                                <div #row2 class="p-col-12 p-md-12 p-lg-12">
-                                    <div class="p-grid">
                                         <div class="p-col-12 p-md-6 p-lg-2">
                                             <div><label for="_medium">Medium<span
                                                         class="form-mandatory-field">*</span></label></div>

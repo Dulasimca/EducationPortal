@@ -1,60 +1,77 @@
 <div class="p-col-12" style="padding-top:25px;">
     <p-panel header="My School">
         <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
-            <form #mySchool="ngForm" name="mySchoolForm">
-            <p-card>
-                <div class="p-col-12 no-pad-top" style="margin-left: -8px;">
-                    <div #row1 class="p-col-12 p-md-12 p-lg-12">
-                        <div class="p-grid">
-                            <div class="p-col-12 p-md-6 p-lg-2">
-                                <label>Curriculum<span class="form-mandatory-field">*</span></label>
-                                <p-dropdown [options]="curriculum" [(ngModel)]="selectedCurriculum" optionLabel="name"
-                                    placeholder="select curriculum"></p-dropdown>
-                            </div>
-                            <div class="p-col-12 p-md-6 p-lg-2">
-                                <div><label>Headmaster Name<span class="form-mandatory-field">*</span></label></div>
-                                <input type="text" class="p-col-12" pInputText [(ngModel)]="headMasterName" />
-                            </div>
-                            <div class="p-col-12 p-md-6 p-lg-2">
-                                <div><label>Email Id<span class="form-mandatory-field">*</span></label></div>
-                                <input type="email" class="p-col-12" pInputText [(ngModel)]="email" />
-                            </div>
-                            <div class="p-col-12 p-md-6 p-lg-3">
-                                <div><label>Address<span class="form-mandatory-field">*</span></label></div>
-                                <textarea pInputTextarea [(ngModel)]="address" rows="2" cols="36"></textarea>
-                            </div>
-                            <div class="p-col-12 p-md-6 p-lg-2">
-                                <div><label>Pincode<span class="form-mandatory-field">*</span></label></div>
-                                <input type="text" class="p-col-12" pInputText [(ngModel)]="pincode" />
-                            </div>
-                            <div #row1 class="p-col-12 p-md-12 p-lg-12">
-                                <div class="p-grid">
-                                    <div class="p-col-12 p-md-6 p-lg-2">
-                                        <div><label>Phone Number<span class="form-mandatory-field">*</span></label>
-                                        </div>
-                                        <input type="tel" class="p-col-12" pInputText [(ngModel)]="phoneNo" />
+            <form #f="ngForm" name="mySchoolForm">
+                <p-card>
+                    <div class="p-col-12 no-pad-top" style="margin-left: -8px;">
+                        <div #row1 class="p-col-12 p-md-12 p-lg-12">
+                            <div class="p-grid">
+                                <div class="p-col-12 p-md-6 p-lg-2">
+                                    <label for="_curriculum">Curriculum<span
+                                            class="form-mandatory-field">*</span></label>
+                                    <p-dropdown [options]="curriculum" [(ngModel)]="selectedCurriculum"
+                                        name="_curriculum" optionLabel="label" placeholder="select curriculum" required>
+                                    </p-dropdown>
+                                </div>
+                                <div class="p-col-12 p-md-6 p-lg-2">
+                                    <div><label for="_hmname">Headmaster Name<span
+                                                class="form-mandatory-field">*</span></label></div>
+                                    <input type="text" class="p-col-12" name="_hmname" pInputText
+                                        [(ngModel)]="headMasterName" required />
+                                </div>
+                                <div class="p-col-12 p-md-6 p-lg-2">
+                                    <div><label for="_email">Email Id<span class="form-mandatory-field">*</span></label>
                                     </div>
-                                    <div class="p-col-12 p-md-6 p-lg-2">
-                                        <div><label>Landline Number<span class="form-mandatory-field">*</span></label>
+                                    <input type="email" class="p-col-12" name="_email" pInputText [(ngModel)]="email"
+                                        required />
+                                </div>
+                                <div class="p-col-12 p-md-6 p-lg-3">
+                                    <div><label for="_address">Address<span
+                                                class="form-mandatory-field">*</span></label></div>
+                                    <textarea pInputTextarea [(ngModel)]="address" name="_address" rows="2" cols="36"
+                                        required></textarea>
+                                </div>
+                                <div class="p-col-12 p-md-6 p-lg-2">
+                                    <div><label for="_pincode">Pincode<span
+                                                class="form-mandatory-field">*</span></label></div>
+                                    <input type="text" class="p-col-12" name="_pincode" pInputText [(ngModel)]="pincode"
+                                        required />
+                                </div>
+                                <div #row1 class="p-col-12 p-md-12 p-lg-12">
+                                    <div class="p-grid">
+                                        <div class="p-col-12 p-md-6 p-lg-2">
+                                            <div><label for="_phoneno">Phone Number<span
+                                                        class="form-mandatory-field">*</span></label>
+                                            </div>
+                                            <input type="tel" class="p-col-12" name="_phoneno" pInputText
+                                                [(ngModel)]="phoneNo" required />
                                         </div>
-                                        <input type="tel" class="p-col-12" pInputText [(ngModel)]="landlineNo" />
-                                    </div>
-                                    <div class="p-col-12 p-md-6 p-lg-2">
-                                        <div><label>Fax Number<span class="form-mandatory-field">*</span></label></div>
-                                        <input type="text" class="p-col-12" pInputText [(ngModel)]="faxNo" />
+                                        <div class="p-col-12 p-md-6 p-lg-2">
+                                            <div><label for="_landlineno">Landline Number<span
+                                                        class="form-mandatory-field">*</span></label>
+                                            </div>
+                                            <input type="tel" class="p-col-12" name="_landlineno" pInputText
+                                                [(ngModel)]="landlineNo" required />
+                                        </div>
+                                        <div class="p-col-12 p-md-6 p-lg-2">
+                                            <div><label for="_faxno">Fax Number<span
+                                                        class="form-mandatory-field">*</span></label></div>
+                                            <input type="text" class="p-col-12" name="_faxno" pInputText
+                                                [(ngModel)]="faxNo" required />
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="p-col-12 p-md-6 p-lg-6" style="text-align:right;">
-                                <button pButton name="save" type="button" label="Save"></button>
-                            </div>
+                                <div class="p-col-12 p-md-6 p-lg-6" style="text-align:right;">
+                                    <button pButton name="save" type="button" label="Save"
+                                        [disabled]="(!f.valid)"></button>
+                                </div>
                                 <div class="p-col-12 p-md-6 p-lg-6">
-                                <button pButton name="view" type="button" label="View"></button>
+                                    <button pButton name="view" type="button" label="View"></button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </p-card>
+                </p-card>
             </form>
         </div>
     </p-panel>

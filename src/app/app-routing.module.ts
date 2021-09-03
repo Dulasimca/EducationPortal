@@ -46,6 +46,7 @@ import { QuestionBankUploadFormComponent } from './Forms-Module/question-bank-up
 import { MyclassResultComponent } from './Forms-Module/myclass-result/myclass-result.component';
 import { MySchoolComponent } from './Forms-Module/my-school/my-school.component';
 import { PersonalDetailsComponent } from './Forms-Module/personal-details/personal-details.component';
+import { AssessmentResultsComponent } from './Forms-Module/assessment-results/assessment-results.component';
 import { FeesDetailsFormComponent } from './Forms-Module/fees-details-form/fees-details-form.component';
 
 
@@ -83,6 +84,7 @@ const routes: Routes = [
  { path: 'myclass-results', component: MyclassResultComponent},
  { path: 'my-school', component: MySchoolComponent},
  { path: 'personal-details', component: PersonalDetailsComponent},
+ { path: 'assessment-results', component: AssessmentResultsComponent},
  { path: 'fee-details', component: FeesDetailsFormComponent},
  
  //Adithya

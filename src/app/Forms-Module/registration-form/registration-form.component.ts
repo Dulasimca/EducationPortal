@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { SelectItem } from 'primeng/api';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
+import { saveAs } from 'file-saver';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-registration-form',
@@ -65,14 +68,21 @@ export class RegistrationFormComponent implements OnInit {
   uploadedFiles: any[] = [];
   regId: any;
   slno: any;
+  imagePreview: any;
 
-  constructor(private restApiService: RestAPIService) { }
+  constructor(private restApiService: RestAPIService, private http: HttpClient) { }
 
   ngOnInit() {
     const current_year = new Date().getFullYear();
     const start_year_range = current_year - 30;
     this.yearRange = start_year_range + ':' + current_year;
-    this.genderOptions = [
+    this.schoolNameOptions = [
+      { label: 'xyz', value: "S001" },
+    ];
+    this.lastSchoolNameOptions = [
+      { label: 'zzzz', value: "S002" },
+    ];
+      this.genderOptions = [
       { label: 'Female', value: 'Female' },
       { label: 'Male', value: 'Male' },
       { label: 'Others', value: 'Others' },
@@ -135,7 +145,18 @@ export class RegistrationFormComponent implements OnInit {
     }
   }
 
-  onFileUpload($event, id) { }
+  onFileUpload($event, id) {
+    console.log('eve', $event);
+    const reader = new FileReader();
+    var selectedFile = $event.target.files[0];
+    console.log('file', selectedFile);
+    // reader.readAsDataURL(selectedFile);
+    // console.log('url', reader.readAsDataURL(selectedFile));
+    var endpoint = '../../assets/layout';
+    this.http.post(endpoint, selectedFile).subscribe(res => {
+
+    })
+  }
 
   onSubmit() {
     const params = {

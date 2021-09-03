@@ -10,24 +10,29 @@
                 <div class="p-col-12 p-md-6 p-lg-3">
                     <div class="no-pad-top"><label>Date:</label> </div> 
                     <p-calendar [(ngModel)]="date" [showIcon]="true" name="date"></p-calendar>
+                    <input type="hidden" [ngModel]="3" name="school_id"/>
+                    <input type="hidden" name="RowId" ng-value="002"/>
                 </div>
                 
                     <div class="p-col-12 p-md-6 p-lg-3">
                         <div><label>Subject:</label></div>
                         <input type="text"  pInputText [(ngModel)]="Subject" name="Subject"/>
-                        <input type="hidden"  pInputText [(ngModel)]="school_id" name="school_id" value="001"/>
-                        <!-- <input type="hidden"  pInputText [(ngModel)]="row_id" name="row_id" value="002"/> -->
-
+                    
                     </div>
-                
+                        
+                    
+                   
+                        <input type="hidden"  pInputText [(ngModel)]="RowId" name="RowId" ng-value="005"/>
+                    
+                    
                     
                         <div class="p-col-12 p-md-6 p-lg-3">
                             <div><label>Instructions:</label></div>
                         
-                            <textarea pInputTextarea autoResize="autoResize" [(ngModel)] ="Instructions" name="Instructions"></textarea>
+                            <textarea pInputTextarea autoResize="autoResize" [(ngModel)] ="Details" name="Details"></textarea>
                         </div>
 
-                        <!-- <div class="p-col-12 p-md-6 p-lg-3">
+                        <!-- <div classs="p-col-12 p-md-6 p-lg-3">
                             <button pButton name="upload" type="button" icon="pi pi-upload"
                             label="Upload"></button>
                         </div> -->
@@ -43,7 +48,7 @@
 
     </p-card>
     <div class="p-col-12 p-md-6 p-lg12" style = "margin-left:35%;"> 
-        <button pButton type="button" label="Submit" (click)="onSave(circular)"> </button>
+        <button pButton name="_save" type="button" label="Submit" (click)="onSubmit()"></button>
     <!-- </div>  -->
     <!-- <div class="p-col-12 p-md-6 p-lg-2" > -->
         <button pButton type="button" label="View" style = "margin-left:5%;"></button>

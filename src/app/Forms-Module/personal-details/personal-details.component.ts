@@ -26,6 +26,10 @@ export class PersonalDetailsComponent implements OnInit {
   mothersEmail: any;
   fathersEmail: any;
   guardiansEmail: any;
+  guardianOccupation: any;
+  guardianBloodGroup: any;
+  guardianContact: any;
+ 
 
   constructor() { }
 
@@ -37,5 +41,9 @@ export class PersonalDetailsComponent implements OnInit {
 
   onFileUpload($event){
 
+  }
+
+  onSave() {
+    
   }
 }

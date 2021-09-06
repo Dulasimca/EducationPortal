@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SelectItem } from 'primeng/api/selectitem';
 
 @Component({
   selector: 'app-myclass-result',
@@ -9,22 +10,30 @@ export class MyclassResultComponent implements OnInit {
 
   loginId: any;
   selectedStaff: any;
-  staffName: any;
+  staffName: SelectItem[];
   selectedClass: any;
-  class: any;
+  class: SelectItem[];
   selectedSection: any;
-  section: any;
+  section: SelectItem[];
   testName: any;
   yearRange: string;
   dos: any;
   selectedStudent: any;
-  studentName: any;
+  studentName: SelectItem[];
+  result: any;
+ 
 
 
   constructor() { }
 
   ngOnInit(): void {
-    this.loginId = 1;
+    this.loginId = 1
+    ;
   }
 
+  uploadData($event) {
+
+  }
+
+  
 }

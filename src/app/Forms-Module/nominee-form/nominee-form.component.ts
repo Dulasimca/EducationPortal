@@ -7,6 +7,7 @@ import { SelectItem } from 'primeng/api';
   styleUrls: ['./nominee-form.component.css']
 })
 export class NomineeFormComponent implements OnInit {
+  date: Date = new Date();
   Class: string;
   Section: string;
   Name: string;

@@ -11,6 +11,7 @@ export class AssignmentFormComponent implements OnInit {
   data: any = []; 
   cols: any;
   uploadedFiles: any[] = [];
+  
 
   constructor() { }
 

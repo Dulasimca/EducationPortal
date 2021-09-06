@@ -5,6 +5,13 @@
             <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
                 <div class="p-grid">
                     <div class="p-col-12 p-md-6 p-lg-3">
+                        <div><label>Date:</label></div><br>
+                       
+                     <p-calendar [(ngModel)]="date" [showIcon]="true"></p-calendar>
+                        </div>
+                       
+                       
+                    <div class="p-col-12 p-md-6 p-lg-3">
                         <div><label>Class:</label></div><br>
                         <div class="p-col-12 p-md-6 p-lg-3">
                         <input type="text" name="_Class" size="23" pInputText [(ngModel)]="Class"/>

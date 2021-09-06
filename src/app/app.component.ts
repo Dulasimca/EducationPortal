@@ -36,6 +36,8 @@ export class AppComponent {
       { label: 'Nominee', icon: 'fa fa-handshake-o', routerLink: '/nominee' },
       { label: 'Assignment', icon: 'fa fa-pencil-square-o', routerLink: '/assignment' },
       
+      { label: 'HolidayDetails', icon: 'fa fa-calendar-minus-o', routerLink: '/holidaydetails' },
+      { label: 'My Achievements', icon: 'fa fa-calendar-minus-o', routerLink: '/myachievement' },
     ]},
       { label: 'Profile', icon: 'fa fa-user-circle-o', 
       items: [

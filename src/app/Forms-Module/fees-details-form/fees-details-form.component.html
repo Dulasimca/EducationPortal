@@ -1,0 +1,81 @@
+<div class="p-col-12" style="padding-top:25px;">
+    <p-panel header="Fee Details">
+        <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
+            <form #f="ngForm" name="feeDetailsForm">
+                <div class="p-grid">
+                    <div class="p-col-12 p-md-12 p-lg-2"></div>
+                    <div class="p-col-12 p-md-10 p-lg-8">
+                        <p-card>
+                            <div #row1 class="p-col-12 p-md-12 p-lg-12">
+                                <div class="p-grid">
+                                    <div class="p-col-12 p-md-6 p-lg-3">
+                                        <div><label for="_feetype">Fee Type<span
+                                                    class="form-mandatory-field">*</span></label></div>
+                                        <p-dropdown name="_feetype" [options]="feeTypeOptions" [(ngModel)]="feeType"
+                                            required>
+                                        </p-dropdown>
+                                    </div>
+                                    <div class="p-col-12 p-md-6 p-lg-3">
+                                        <div><label for="_duedate">Due Date<span
+                                                    class="form-mandatory-field">*</span></label></div>
+                                        <p-calendar [(ngModel)]="dueDate" name="_duedate" [showIcon]="true" required>
+                                        </p-calendar>
+                                    </div>
+                                    <div class="p-col-12 p-md-6 p-lg-3">
+                                        <div><label for="_totalamnt">Total Amount<span
+                                                    class="form-mandatory-field">*</span></label>
+                                        </div>
+                                        <input type="text" name="_totalamnt" class="p-col-12" pInputText
+                                            [(ngModel)]="totalAmount" required />
+                                    </div>
+                                    <div class="p-col-12 p-md-6 p-lg-3">
+                                        <div><label for="_paidamnt">Paid Amount<span
+                                                    class="form-mandatory-field">*</span></label>
+                                        </div>
+                                        <input type="text" name="_paidamnt" class="p-col-12" pInputText
+                                            [(ngModel)]="paidAmount" required />
+                                    </div>
+                                </div>
+                            </div>
+                            <div #row2 class="p-col-12 p-md-12 p-lg-12">
+                                <div class="p-grid">
+                                    <div class="p-col-12 p-md-6 p-lg-3">
+                                        <div><label for="_outstandingamnt">Outstanding Amount<span
+                                                    class="form-mandatory-field">*</span></label>
+                                        </div>
+                                        <input type="text" name="_outstandingamnt" class="p-col-12" pInputText
+                                            [(ngModel)]="outstandingAmount" required />
+                                    </div>
+                                    <div class="p-col-12 p-md-6 p-lg-3">
+                                        <div><label for="_payingamnt">Paying Amount<span
+                                                    class="form-mandatory-field">*</span></label>
+                                        </div>
+                                        <input type="text" name="_payingamnt" class="p-col-12" pInputText
+                                            [(ngModel)]="payingAmount" required />
+                                    </div>
+                                    <div class="p-col-12 p-md-6 p-lg-3">
+                                        <div><label for="_fineamnt">Fine Amount<span
+                                                    class="form-mandatory-field">*</span></label>
+                                        </div>
+                                        <input type="text" name="_fineamnt" class="p-col-12" pInputText
+                                            [(ngModel)]="fineAmount" required />
+                                    </div>
+                                    <div class="p-col-12 p-md-4 p-lg-2 no-pad-top">
+                                        <div class="p-col-12"></div>
+                                        <div class="p-col-12"></div>
+                                        <button pButton name="_receipt" type="button" icon="pi pi-book" label="Receipt"
+                                            (click)="onDownload()"></button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div #row3 class="p-col-12 p-md-12 p-lg-12 text-center">
+                                <button pButton name="_save" type="button" label="Save" (click)="onSave()"
+                                    [disabled]="(!f.valid)"></button>
+                            </div>
+                        </p-card>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </p-panel>
+</div>

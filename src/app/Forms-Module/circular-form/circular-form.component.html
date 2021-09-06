@@ -1,51 +1,60 @@
 
-
+<form #circular="ngForm">
 <div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px; height: 520px;">
     <p-panel header="Circular">
     <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
     <p-card>
 
-<div  class="p-col-12 p-md-12 p-lg-12">
-    <div class="p-grid">
-        <div class="p-col-12 p-md-6 p-lg-3">
-            <div class="no-pad-top"><label>Date:</label> </div> 
-            <p-calendar [(ngModel)]="date" [showIcon]="true"></p-calendar>
-        </div>
-        
-            <div class="p-col-12 p-md-6 p-lg-3">
-                <div><label>Subject:</label></div>
-                <input type="text"  pInputText [(ngModel)]="Subject" />
-            </div>
-        
-            
+    <div  class="p-col-12 p-md-12 p-lg-12">
+        <div class="p-grid">
                 <div class="p-col-12 p-md-6 p-lg-3">
-                    <div><label>Instructions:</label></div>
-                   
-                    <textarea pInputTextarea autoResize="autoResize" [(ngModel)] ="Instructions"></textarea>
+                    <div class="no-pad-top"><label>Date:</label> </div> 
+                    <p-calendar [(ngModel)]="date" [showIcon]="true" name="date"></p-calendar>
+                    <input type="hidden" [ngModel]="3" name="school_id"/>
+                    <input type="hidden" name="RowId" ng-value="002"/>
                 </div>
-
-                <!-- <div class="p-col-12 p-md-6 p-lg-3">
-                    <button pButton name="upload" type="button" icon="pi pi-upload"
-                    label="Upload"></button>
-                </div> -->
-
-                <div class="p-col-12 p-md-6 p-lg-3 align-el-center">
-                    <div><label>Attach file:</label></div>
-                    <input class="p-col-12" name="_guardianimg" type="file" pInputText (change)="onFileUpload($event, 4)" accept=".png" />
-                </div>
-
                 
-        </div>
-</div>
+                    <div class="p-col-12 p-md-6 p-lg-3">
+                        <div><label>Subject:</label></div>
+                        <input type="text"  pInputText [(ngModel)]="Subject" name="Subject"/>
+                    
+                    </div>
+                        
+                    
+                   
+                        <input type="hidden"  pInputText [(ngModel)]="RowId" name="RowId" ng-value="005"/>
+                    
+                    
+                    
+                        <div class="p-col-12 p-md-6 p-lg-3">
+                            <div><label>Instructions:</label></div>
+                        
+                            <textarea pInputTextarea autoResize="autoResize" [(ngModel)] ="Details" name="Details"></textarea>
+                        </div>
 
-</p-card>
-<div class="p-col-12 p-md-6 p-lg12" style = "margin-left:35%;"> 
-    <button pButton type="button" label="Submit" > </button>
-<!-- </div>  -->
-<!-- <div class="p-col-12 p-md-6 p-lg-2" > -->
-    <button pButton type="button" label="View" style = "margin-left:5%;"></button>
+                        <!-- <div classs="p-col-12 p-md-6 p-lg-3">
+                            <button pButton name="upload" type="button" icon="pi pi-upload"
+                            label="Upload"></button>
+                        </div> -->
+
+                        <div class="p-col-12 p-md-6 p-lg-3 align-el-center">
+                            <div><label>Attach file:</label></div>
+                            <input class="p-col-12" name="_guardianimg" type="file" pInputText (change)="onFileUpload($event,4)" accept=".jpg" />
+                        </div>
+                    
+                </div>
+                
     </div>
-    </div>
+
+    </p-card>
+    <div class="p-col-12 p-md-6 p-lg12" style = "margin-left:35%;"> 
+        <button pButton name="_save" type="button" label="Submit" (click)="onSubmit()"></button>
+    <!-- </div>  -->
+    <!-- <div class="p-col-12 p-md-6 p-lg-2" > -->
+        <button pButton type="button" label="View" style = "margin-left:5%;"></button>
+        </div>
+        </div>
     </p-panel>
 
 </div>
+</form>

@@ -1,0 +1,75 @@
+<div class="p-col-12" style="padding-top:25px;">
+    <p-panel header="Question Bank Upload">
+        <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
+            <form #f="ngForm" name="questionBankForm">
+                <div class="p-grid">
+                    <div class="p-col-12 p-md-12 p-lg-2"></div>
+                    <div class="p-col-12 p-md-10 p-lg-8">
+                        <p-card>
+                            <div #row1 class="p-col-12 p-md-12 p-lg-12">
+                                <div class="p-grid">
+                                    <div class="p-col-12 p-md-6 p-lg-3">
+                                        <div><label for="_subject">Subject<span
+                                                    class="form-mandatory-field">*</span></label>
+                                        </div>
+                                        <p-dropdown name="_subject" [options]="subjectOptions" [(ngModel)]="subject"
+                                            required>
+                                        </p-dropdown>
+                                    </div>
+                                    <div class="p-col-12 p-md-6 p-lg-3">
+                                        <div><label for="_year">Year<span
+                                                    class="form-mandatory-field">*</span></label>
+                                        </div>
+                                        <p-dropdown name="_year" [options]="yearOptions" [(ngModel)]="year" required>
+                                        </p-dropdown>
+                                    </div>
+                                    <div class="p-col-12 p-md-6 p-lg-2">
+                                        <div><label for="_class">Class<span
+                                                    class="form-mandatory-field">*</span></label>
+                                        </div>
+                                        <p-dropdown name="_class" [options]="classOptions" [(ngModel)]="class" required>
+                                        </p-dropdown>
+                                    </div>
+                                </div>
+                            </div>
+                            <div #row2 class="p-col-12 p-md-12 p-lg-12">
+                                <div class="p-grid">
+                                    <div class="p-col-12 p-md-6 p-lg-2">
+                                        <div><label for="_medium">Medium<span
+                                                    class="form-mandatory-field">*</span></label>
+                                        </div>
+                                        <p-dropdown name="_medium" [options]="mediumOptions" [(ngModel)]="medium" required>
+                                        </p-dropdown>
+                                    </div>
+                                    <div class="p-col-12 p-md-6 p-lg-6">
+                                        <div><label for="_description">Description<span
+                                                    class="form-mandatory-field">*</span></label></div>
+                                        <input class="p-col-12" name="_description" type="text" pInputText
+                                            [(ngModel)]="description" />
+                                        <div class="note">*Note: test description eg: "Science 2mark questions with solution part-I"</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div #row3 class="p-col-12 p-md-12 p-lg-12">
+                                <div class="p-grid">
+                                    <div class="p-col-12 p-md-8 p-lg-5">
+                                        <input #fileSelector id="my-file-selector" pInputText class="p-col-12"
+                                            name="_pdf" type="file" (change)="uploadData($event);"
+                                            accept=".pdf" required>
+                                            <div class="note">
+                                                *Note: Please upload the pdf of question bank for selected subject.
+                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div #row5 class="p-col-12 p-md-12 p-lg-12 text-center">
+                                <button pButton name="_upload" type="button" label="Upload" (click)="onUpload()"
+                                [disabled]="(!f.valid)"></button>
+                            </div>
+                        </p-card>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </p-panel>
+</div>

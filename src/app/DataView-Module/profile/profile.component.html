@@ -1,36 +1,37 @@
 <div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px;">
-        <p-panel header="My Profile">
+    <p-panel header="My Profile">
         <div class="p-col-12 p-md-10 p-lg-6">
             <p-card>
                 <div style="text-align: center;">
-                    <div><img src="assets/layout/images/Student.jpg" style="width: 150px; height: 150px;" /></div>
-                    <div>ARUN KUMAR SWAMINATHAN</div>
-                    <div>Class - X / Section - A</div>
-                    <div>Roll No: 57</div>
+                    <div><img src="{{photo}}" style="width: 150px; height: 150px;" /></div>
+                    <div>{{name}}</div>
+                    <div>{{class}}</div>
+                    <div>{{rollNo}}</div>
                 </div>
                 <p-divider></p-divider>
-                <div> <span style="font-weight: bold;"> D.O.B </span> <span>03-10-1998</span></div>
+                <div> <span style="font-weight: bold;"> D.O.B </span> <span>{{dob}}</span></div>
                 <p-divider></p-divider>
-                <div> <span style="font-weight: bold;">D.O.J: </span> <span>13-06-2019</span></div>
+                <div> <span style="font-weight: bold;">D.O.J: </span> <span>{{doj}}</span></div>
                 <p-divider></p-divider>
-                <div> <span style="font-weight: bold;">Father's Contact: </span> <span>9712354678</span></div>
+                <div> <span style="font-weight: bold;">Father's Contact: </span> <span>{{fatherContact}}</span>
+                </div>
                 <p-divider></p-divider>
-                <div> <span style="font-weight: bold;">Mother's Contact: </span> <span>9712354678</span></div>
+                <div> <span style="font-weight: bold;">Mother's Contact: </span> <span>{{motherContact}}</span>
+                </div>
                 <p-divider></p-divider>
-                <div> <span style="font-weight: bold;">Gaurdian if any: </span> <span>9712354678</span></div>
+                <div> <span style="font-weight: bold;">Gaurdian if any: </span> <span>{{guardian}}</span></div>
                 <p-divider></p-divider>
-                <div> <span style="font-weight: bold;">Blood Goup: </span> <span>O +ve</span></div>
+                <div> <span style="font-weight: bold;">Blood Goup: </span> <span>{{bloodGroup}}</span></div>
                 <p-divider></p-divider>
                 <div> <span style="font-weight: bold;">Address: </span>
                     <p>
-                        No.7, Anna Nagar, Chennai, Tamilnadu - 600008
+                        {{address}}
                     </p>
                 </div>
-               
             </p-card>
             <div style="text-align: center;margin: 10px; color: #0400d8;">
-                <span style="font-weight: bold; text-decoration: none; padding: 10px;"> <a href="#"> Edit</a>  </span>
-                 </div>
+                <button pButton type="button" label="Edit" icon="pi pi-pencil" padding="10px"></button>
+            </div>
         </div>
     </p-panel>
 </div>

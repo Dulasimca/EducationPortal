@@ -1,7 +1,10 @@
 <div class="p-col-12" style="padding-top:25px;">
-    <p-panel header="Registration Form">
+    <p-blockUI [blocked]="blockScreen">
+        <p-progressSpinner class="spinner" strokeWidth="4" *ngIf="blockScreen"></p-progressSpinner>
+    </p-blockUI>
+    <p-panel header="Registration">
         <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
-            <form #f="ngForm" name="personalForm">
+            <form #f="ngForm" name="registrationForm">
                 <p-tabView>
                     <p-tabPanel header="Personal Info I">
                         <p-card>
@@ -92,7 +95,7 @@
                                                         class="form-mandatory-field">*</span></label>
                                             </div>
                                             <p-dropdown name="_district" [options]="districtOptions"
-                                                [(ngModel)]="district" required>
+                                                [(ngModel)]="district" (onClick)="onSelect('D')" required>
                                             </p-dropdown>
                                         </div>
                                         <div class="p-col-12 p-md-6 p-lg-2">
@@ -150,11 +153,11 @@
                                 <div #row1 class="p-col-12 p-md-12 p-lg-12">
                                     <div class="p-grid">
                                         <div class="p-col-12 p-md-6 p-lg-2">
-                                            <div><label for="_roleid">Role ID<span
+                                            <div><label for="_roleid">Role<span
                                                         class="form-mandatory-field">*</span></label>
                                             </div>
                                             <p-dropdown name="_roleid" [options]="roleIdOptions" [(ngModel)]="roleId"
-                                                required>
+                                            (onClick)="onSelect('R')" required>
                                             </p-dropdown>
                                         </div>
                                         <div class="p-col-12 p-md-6 p-lg-3">
@@ -165,21 +168,25 @@
                                                 [(ngModel)]="schoolName" required>
                                             </p-dropdown>
                                         </div>
-                                        <div class="p-col-12 p-md-6 p-lg-1">
+                                        <div class="p-col-12 p-md-6 p-lg-2">
                                             <div><label for="_class">Class<span
                                                         class="form-mandatory-field">*</span></label></div>
                                             <p-dropdown name="_class" [options]="classOptions" [(ngModel)]="class"
-                                                required>
+                                            (onClick)="onSelect('C')" required>
                                             </p-dropdown>
                                         </div>
-                                        <div class="p-col-12 p-md-6 p-lg-1">
+                                        <div class="p-col-12 p-md-6 p-lg-2">
                                             <div><label for="_section"> Section<span
                                                         class="form-mandatory-field">*</span></label>
                                             </div>
                                             <p-dropdown name="_section" [options]="sectionOptions" [(ngModel)]="section"
-                                                required>
+                                               (onClick)="onSelect('S')" required>
                                             </p-dropdown>
                                         </div>
+                                    </div>
+                                </div>
+                                <div #row2 class="p-col-12 p-md-12 p-lg-12">
+                                    <div class="p-grid">
                                         <div class="p-col-12 p-md-6 p-lg-2">
                                             <div><label for="_doj">D.O.J<span
                                                         class="form-mandatory-field">*</span></label></div>
@@ -187,10 +194,6 @@
                                             inputId="dateofjoining" required>
                                             </p-calendar>
                                         </div>
-                                    </div>
-                                </div>
-                                <div #row2 class="p-col-12 p-md-12 p-lg-12">
-                                    <div class="p-grid">
                                         <div class="p-col-12 p-md-6 p-lg-2">
                                             <div><label for="_medium">Medium<span
                                                         class="form-mandatory-field">*</span></label></div>
@@ -306,6 +309,12 @@
                                         </div>
                                     </p-fieldset>
                                 </div>
+                            </div>
+                        </p-card>
+                    </p-tabPanel>
+                    <p-tabPanel header="Guardian Info">
+                        <p-card>
+                            <div class="p-col-12 no-pad-top">
                                 <div #row1 class="p-col-12 p-md-12 p-lg-12">
                                     <p-fieldset legend="Guardian's Info" [toggleable]="true">
                                         <div class="p-grid">
@@ -338,11 +347,12 @@
                                     </p-fieldset>
                                 </div>
                             </div>
-                        </p-card>
+                            </p-card>
                     </p-tabPanel>
                     <div class="p-col-12 p-md-12 p-lg-12 text-center">
-                        <button pButton name="_save" type="button" label="Submit" [disabled]="(!f.valid)"
+                        <button pButton name="_save" type="button" label="Submit" 
                             (click)="onSubmit()"></button>
+                            <!-- [disabled]="(!f.valid)" -->
                     </div>
                 </p-tabView>
             </form>

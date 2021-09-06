@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSignIn() {
-    const params = { 'value': this.username.trim(), 'Type': '2' };
+    const params = { 'Value': this.username.trim(), 'Type': '2' };
     console.log('params', params);
     this.restApiService.getByParameters(PathConstants.Registration_Get, params).subscribe(response => {
       if(response !== undefined && response !== null) {

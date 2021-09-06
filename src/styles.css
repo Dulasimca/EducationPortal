@@ -5,15 +5,17 @@ body {
     overflow-x: hidden;
     overflow-y: auto !important;
   }
-html, body { height: 650px !important; }
-
+html, body { width: 100% !important; height: 100% !important; }
 body { margin: 0 !important}
 
 /* common styles #Region 1*/
 .cursor-pointer {
     cursor: pointer !important;
   }
-
+.container {
+    width: 100% !important;
+    height: 100% !important;
+}
   .pic-right {
     text-align: end;    
 }
@@ -176,8 +178,12 @@ background-color: #b8baf3;
  margin-left: 16% !important;
  transition-duration: 1s;
 }
+.move-left {
+    margin-left: 0 !important;
+    transition-duration: 0.7s;
+}
 .menubar-bar-text-unset {
-    text-align: end !important; font-size: 25px !important; margin-left: 10% !important;
+    text-align: end !important; font-size: 25px !important; margin-left: 5% !important;
 }
 .menubar-bar-text-set {
     text-align: end !important; font-size: 25px !important; margin-left: 0% !important;
@@ -197,17 +203,28 @@ background-color: #b8baf3;
     left: 0 !important;
     padding-left: 0 !important;
     padding-top: 0 !important;
-    transition-duration: 1s !important;
     background: rgb(11, 43, 102) !important;
+    transition-duration: 1s;
 }
 .side-nav {
     width: 100% !important;
+    margin: 0 !important;
+    height: 100% !important;
+    transition-duration: 1s;
 }
 .side-nav-container {
     width: 100% !important;
+    transition-duration: 1s;
 }
-.layout-wrapper {
-    margin-left: 16%; display: flex;
+.layout-wrapper-set {
+    margin-left: 16% !important; display: flex;
+    transition-duration: 1s;
+}
+.layout-wrapper-unset {
+    margin-left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    transition-duration: 0.7s;
 }
 
 /* end #Regioin 3*/

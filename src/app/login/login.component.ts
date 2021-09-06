@@ -5,6 +5,7 @@ import { PathConstants } from '../Common-Module/PathConstants';
 import { User } from '../Interfaces/user';
 import { AuthService } from '../Services/auth.service';
 import { RestAPIService } from '../Services/restAPI.service';
+import { MasterService } from '../Services/master-data.service';
 
 @Component({
   selector: 'app-login',
@@ -14,10 +15,11 @@ import { RestAPIService } from '../Services/restAPI.service';
 export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService, private restApiService: RestAPIService,
-    private messageService: MessageService) { }
+    private messageService: MessageService, private masterService: MasterService) { }
   username: string;
   password: string;
   id: number;
+  showPswd: boolean;
   ngOnInit() {
     
   }
@@ -33,6 +35,7 @@ export class LoginComponent implements OnInit {
               'id': i.slno
             }
             this.authService.login(obj);
+            this.masterService.initializeMaster();
           } else {
             this.messageService.clear();
             this.messageService.add()
@@ -41,5 +44,16 @@ export class LoginComponent implements OnInit {
       }
     })
    }
+
+  onShowPswd() {
+    var inputValue = (<HTMLInputElement>document.getElementById('pswd'));
+    if(inputValue.type === 'password') {
+      inputValue.type = 'text';
+      this.showPswd = !this.showPswd;
+    } else {
+      this.showPswd = !this.showPswd;
+      inputValue.type = 'password';
+    }
+  }
 
 }

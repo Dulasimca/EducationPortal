@@ -31,6 +31,8 @@ export class AppComponent {
       { label: 'Gallery', icon: 'fa fa-picture-o', routerLink: '/gallery' },
       { label: 'Download Session', icon: 'fa fa-download', routerLink: '/downloadsession' },
       { label: 'Circular', icon: 'fa fa-calendar-minus-o', routerLink: '/circular' },
+      { label: 'HolidayDetails', icon: 'fa fa-calendar-minus-o', routerLink: '/holidaydetails' },
+      { label: 'My Achievements', icon: 'fa fa-calendar-minus-o', routerLink: '/myachievement' },
     ]},
       { label: 'Profile', icon: 'fa fa-user-circle-o', 
       items: [

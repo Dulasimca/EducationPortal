@@ -28,6 +28,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { FieldsetModule } from 'primeng/fieldset';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { ToastModule } from 'primeng/toast';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -174,8 +175,8 @@ FullCalendarModule.registerPlugins([
     FieldsetModule,
     FileUploadModule,
     HttpClientModule,
-    MatDatepickerModule
-
+    MatDatepickerModule,
+    ToastModule
   ],
   providers: [PrimeNGConfig, FilterService, AuthGuard, AuthService, RestAPIService,
     NgxAttendanceLibraryService, DatePipe],

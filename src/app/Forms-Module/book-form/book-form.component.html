@@ -32,7 +32,7 @@
 
                         <div class="p-col-12 p-md-6 p-lg-3">
                             <input class="p-col-12" name="_guardianimg" type="file" pInputText
-                                (change)="onFileUpload($event, 4)" accept=".png" />
+                                (change)="onFileUpload($event, 4)" accept=".pdf" />
                         </div>
 
                         <!-- <div class="p-col-12 p-md-4 p-lg-2">
@@ -48,7 +48,7 @@
                 </div>
             </p-card>
             <div class="p-col-12 p-md-6 p-lg12" style = "margin-left:35%;"> 
-                <button pButton type="button" label="Submit" > </button>
+                <button pButton type="button" label="Submit" (click)="onSubmit()" > </button>
             <!-- </div>  -->
             <!-- <div class="p-col-12 p-md-6 p-lg-2" > -->
                 <button pButton type="button" label="View" style = "margin-left:5%;"></button>

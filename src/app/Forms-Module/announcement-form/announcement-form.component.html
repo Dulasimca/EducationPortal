@@ -6,32 +6,34 @@
                 <div class="p-grid">
                     <div class="p-col-12 p-md-6 p-lg-3">
                         <div class="no-pad-top"><label>Date:</label> <br>
-                        <p-calendar [(ngModel)]="date" [showIcon]="true"></p-calendar>
+                        <p-calendar [(ngModel)]="date" [showIcon]="true" name="date"></p-calendar>
                         </div>
                     </div>
                     <div class="p-col-12 p-md-6 p-lg-3">      
                       <div class="p-col-12 p-md-12 p-lg-3 no-pad-top " >
                         <label> Title:</label><br>
-                        <input id="float-input"  type="text" size="23" pInputText> 
+                        <!-- <input id="float-input"  type="text" size="23" pInputText>  -->
+                        <input type="text"  pInputText [(ngModel)]="Topic" name="Topic"/>
                         </div>
                     </div>
                     <div class="p-col-12 p-md-6 p-lg-5">
                          <label>Attach File:</label> <br>
-                           <input class="p-col-12" name="_annoncement" type="file" pInputText
-                            (change)="onFileUpload($event, 1)" accept=".png" />
+                           <input class="p-col-12" name="announce" type="file" pInputText
+                            (change)="onFileUpload($event, 1)" accept=".jpg" />
                     </div>
                     <div class="p-col-12 p-md-6 p-lg-12">
                         <label>Announcement:</label> <br>
-                        <textarea pInputTextarea [(ngModel)]="Announcement" pInputTextarea autoResize="autoResize" size="20" rows="5"
+                        <textarea pInputTextarea [(ngModel)]="Announcement" name="announce"pInputTextarea autoResize="autoResize" size="20" rows="5"
                            cols="20"></textarea>
-                        <button pButton type="button" label="Submit" onclick="onSave()" style="margin-left: 30%;" ></button>
+                           <div class="p-col-12 p-md-6 p-lg12" style = "margin-left:35%;"> 
+                            <button pButton name="_save" type="button" label="Submit" (click)="onSubmit()"></button>
                         <button pButton type="button" label="View" onclick="onView()" style="margin-left: 4%;"></button>
                     </div>
                     <!-- <div class="p-col-12 p-md-6 p-lg-3">      
                         <div class="p-col-12 p-md-12 p-lg-12 no-pad-top " >
                        
-                   </div>          
-                </div> -->
+                   </div>-->          
+                </div> 
             </div>
             </div>
         </p-card>

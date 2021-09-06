@@ -28,6 +28,7 @@ import { TooltipModule } from 'primeng/tooltip';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { FieldsetModule } from 'primeng/fieldset';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { ToastModule } from 'primeng/toast';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { BlockUI, BlockUIModule } from 'primeng/blockui';
 
@@ -178,6 +179,7 @@ FullCalendarModule.registerPlugins([
     FileUploadModule,
     HttpClientModule,
     MatDatepickerModule,
+    ToastModule,
     ProgressSpinnerModule,
     BlockUIModule
   ],

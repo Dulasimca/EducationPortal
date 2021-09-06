@@ -18,12 +18,12 @@ export class CircularFormComponent implements OnInit {
   Details:string;
   RowId: string;
   school_id:string;
-  Price: string;
+ 
 
   date: Date = new Date();
   data: any = [];
 
-  _guardianimg: any[] = [];
+  guardianimg: any[] = [];
   
   constructor(private restApiService: RestAPIService, private http: HttpClient) { }
 
@@ -50,7 +50,7 @@ export class CircularFormComponent implements OnInit {
      
       // 'ID': (this.regId !== undefined && this.regId !== null) ? this.regId : 0,
       // 'slno': (this.slno !== undefined && this.slno !== null) ? this.slno : 0,
-      'RowID': (this.RowId !== undefined && this.RowId !== null) ? this.RowId : 4,
+      'RowID': (this.RowId !== undefined && this.RowId !== null) ? this.RowId : 0,
       'SchoolID': (this.school_id !== undefined && this.school_id !== null) ? this.school_id : 1,
       'CircularDate': (this.date !== undefined && this.date !== null) ? this.date : 0,
       //'CircularDate' : this.Circulardate

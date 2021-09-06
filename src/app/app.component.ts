@@ -25,6 +25,10 @@ export class AppComponent {
       { label: 'Admin', icon: 'fa fa-user-secret', 
     items: [
       { label: 'Registration', icon: 'fa fa-registered', routerLink: '/registration' },
+      { label: 'Announcement', icon: 'fa fa-bullhorn', routerLink: '/announcement' },
+      { label: 'Assignment', icon: 'fa fa-pencil-square-o', routerLink: '/assignment' },
+      { label: 'Holiday Details', icon: 'fa fa-calendar', routerLink: '/holidaydetails' },
+      { label: 'Nominee', icon: 'fa fa-handshake-o', routerLink: '/nominee' },
       { label: 'Book', icon: 'fa fa-book', routerLink: '/book' },
       { label: 'NewsLetter', icon: 'fa fa-peenvelope-on', routerLink: '/newsletter' },
       { label: 'Results', icon: 'fa fa-file-text-o', routerLink: '/results' },

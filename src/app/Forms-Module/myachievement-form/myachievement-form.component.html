@@ -11,15 +11,23 @@
                 </div>
                       <div class="p-col-12 p-md-6 p-lg-3" style="text-align: left; margin-top: 5px;">
                         <label> Events:</label><br>
-                        <input id="float-input"  type="text" size="24" pInputText> 
+                        <input  type="text" name="Events" size="24" pInputText [(ngModel)]="Events"/> 
                     </div>
+                    <!-- <div><label>Occassion/Festival/Events:</label></div><br>
+                    <input type="text" name="_Events" size="25" pInputText [(ngModel)]="Events"/>
+            </div> -->
+
+
                     <div class="p-col-12 p-md-6 p-lg-3" style="text-align: left; margin-top: 5px;">
                         <label> Place:</label><br>
-                        <input id="float-input"  type="text" size="24" pInputText> 
+                        <!-- <input id="float-input"  type="text" size="24" pInputText>  -->
+                        <input  type="text" name="Place" size="24" pInputText [(ngModel)]="Place"/> 
                     </div>
                     <div class="p-col-12 p-md-6 p-lg-3" style="text-align: left; margin-top: 5px;">
                         <label> Status:</label><br>
-                        <input id="float-input"  type="text" size="24" pInputText> 
+                        <!-- <input id="float-input"  type="text" size="24" pInputText>  -->
+                        <input  type="text" name="Status" size="24" pInputText [(ngModel)]="Status"/> 
+                        
                     </div>
                   
            
@@ -27,7 +35,7 @@
             </div>
         </p-card>
         <div class="p-col-12 p-md-12 p-lg-12">
-            <button pButton type="button" label="Submit" onclick="onSave()" style="margin-left: 30%;"></button>
+            <button pButton type="button" label="Submit" (click)="onSubmit()" style="margin-left: 30%;"></button>
        <!-- </div>
        <div class="p-col-6 p-md-6 p-lg-12"> -->
             <button pButton type="button" label="View" onclick="onView()" style="margin-left: 5%;"></button>

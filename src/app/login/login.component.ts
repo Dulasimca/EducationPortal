@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
     const obj: User = {
       'username': this.username,
       'password': this.password,
-      'id': 1
+      'id': 
     }
     this.authService.login(obj);
     this.masterService.initializeMaster();

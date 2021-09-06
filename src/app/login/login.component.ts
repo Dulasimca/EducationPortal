@@ -1,4 +1,4 @@
-import { HttpParams } from '@angular/common/http';
+import { HttpErrorResponse, HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { PathConstants } from '../Common-Module/PathConstants';
@@ -6,6 +6,7 @@ import { User } from '../Interfaces/user';
 import { AuthService } from '../Services/auth.service';
 import { RestAPIService } from '../Services/restAPI.service';
 import { MasterService } from '../Services/master-data.service';
+import { ResponseMessage } from '../Common-Module/Message';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +26,9 @@ export class LoginComponent implements OnInit {
   }
 
   onSignIn() {
-    this.restApiService.getByParameters(PathConstants.Registration_Get, new HttpParams().set('type',2)).subscribe(response => {
+    const params = { 'value': this.username.trim(), 'Type': '2' };
+    console.log('params', params);
+    this.restApiService.getByParameters(PathConstants.Registration_Get, params).subscribe(response => {
       if(response !== undefined && response !== null) {
         response.forEach(i => {
           if(i.EmailId === this.username.trim() && i.password === this.password.trim()) {
@@ -38,8 +41,25 @@ export class LoginComponent implements OnInit {
             this.masterService.initializeMaster();
           } else {
             this.messageService.clear();
-            this.messageService.add()
-          }
+            this.messageService.add({
+              key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+              summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.LoginFailed
+            });         
+           }
+        })
+      } else {
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+          summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+        });         
+       }
+    }, (err: HttpErrorResponse) => {
+      if (err.status === 0 || err.status === 400) {
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+          summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
         })
       }
     })

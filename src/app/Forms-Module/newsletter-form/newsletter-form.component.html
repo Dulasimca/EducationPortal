@@ -12,7 +12,7 @@
 
                 <div class="p-col-12 p-md-4 p-lg-3">
                     <div><label>Topic</label></div>
-                    <input type="text" pInputText [(ngModel)]="Subject" />
+                    <input type="text"  pInputText [(ngModel)]="Topic" name="Topic"/>
                 </div>
                 <!-- <div class="p-col-12 p-md-4 p-lg-4">
                     <button pButton name="upload" type="button" icon="pi pi-upload"
@@ -29,7 +29,7 @@
         </div>
         </p-card>
         <div class="p-col-12 p-md-6 p-lg12" style = "margin-left:35%;"> 
-            <button pButton type="button" label="Submit" > </button>
+            <button pButton name="_save" type="button" label="Submit" (click)="onSubmit()"></button>
         <!-- </div>  -->
         <!-- <div class="p-col-12 p-md-6 p-lg-2" > -->
             <button pButton type="button" label="View" style = "margin-left:5%;"></button>

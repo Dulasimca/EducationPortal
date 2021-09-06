@@ -89,7 +89,7 @@ const routes: Routes = [
  
  //Adithya
    { path: 'announcement', component: AnnouncementFormComponent, canActivate: [AuthGuard] },
-   { path: 'assignment', component: AssignmentFormComponent, canActivate: [AuthGuard] },
+   { path: 'assignment', component: AssignmentFormComponent },
    { path: 'myachievement', component: MyachievementFormComponent, canActivate: [AuthGuard] },
    { path: 'holidaydetails', component: HolidaydetailsFormComponent, canActivate: [AuthGuard] },
    { path: 'nominee', component: NomineeFormComponent, canActivate: [AuthGuard] },

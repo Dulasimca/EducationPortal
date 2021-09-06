@@ -31,6 +31,11 @@ export class AppComponent {
       { label: 'Gallery', icon: 'fa fa-picture-o', routerLink: '/gallery' },
       { label: 'Download Session', icon: 'fa fa-download', routerLink: '/downloadsession' },
       { label: 'Circular', icon: 'fa fa-calendar-minus-o', routerLink: '/circular' },
+      //{ label: 'NewsLetter', icon: 'fa fa-newspaper-o', routerLink: '/newsletters' },
+      { label: 'Announcement', icon: 'fa fa-bullhorn', routerLink: '/announcement' },
+      { label: 'Nominee', icon: 'fa fa-handshake-o', routerLink: '/nominee' },
+      { label: 'Assignment', icon: 'fa fa-pencil-square-o', routerLink: '/assignment' },
+      
       { label: 'HolidayDetails', icon: 'fa fa-calendar-minus-o', routerLink: '/holidaydetails' },
       { label: 'My Achievements', icon: 'fa fa-calendar-minus-o', routerLink: '/myachievement' },
     ]},
@@ -57,6 +62,7 @@ export class AppComponent {
           { label: 'Assignments', icon: 'fa fa-pencil-square-o', routerLink: '/assignments' },
           { label: 'Circulars', icon: 'fa fa-calendar-minus-o', routerLink: '/circulars' },
           { label: 'NewsLetter', icon: 'fa fa-newspaper-o', routerLink: '/newsletters' },
+          
         ]
       },
       { label: 'Question Bank', icon: 'fa fa-file-text-o', routerLink: '/question-bank' },

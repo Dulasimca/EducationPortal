@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SelectItem } from 'primeng/api/selectitem';
 
 @Component({
   selector: 'app-my-school',
@@ -8,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class MySchoolComponent implements OnInit {
 
  
-  curriculum: any = []
+  curriculum:  SelectItem[];
   headMasterName: string;
   email: any;
   address: any;
@@ -26,8 +27,8 @@ export class MySchoolComponent implements OnInit {
   ngOnInit(): void {
 
     this.curriculum = [
-      {name : 'Stateboard'},
-      {name : 'CBSE'},
+      { label: 'Stateboard', value: '01' },
+      { label: 'CBSE', value: '02' },
     ]
     
   }

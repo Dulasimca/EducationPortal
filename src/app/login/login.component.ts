@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from '../Interfaces/user';
 import { AuthService } from '../Services/auth.service';
+import { MasterService } from '../Services/master-data.service';
 
 @Component({
   selector: 'app-login',
@@ -9,10 +10,11 @@ import { AuthService } from '../Services/auth.service';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService, private masterService: MasterService) { }
   username: string = 'arun';
   password: string = '1233';
   id: number;
+  showPswd: boolean;
   ngOnInit() {
     
   }
@@ -24,7 +26,19 @@ export class LoginComponent implements OnInit {
       'id': 1
     }
     this.authService.login(obj);
+    this.masterService.initializeMaster();
     // this.router.navigate(['/dashboard']);
+  }
+
+  onShowPswd() {
+    var inputValue = (<HTMLInputElement>document.getElementById('pswd'));
+    if(inputValue.type === 'password') {
+      inputValue.type = 'text';
+      this.showPswd = !this.showPswd;
+    } else {
+      this.showPswd = !this.showPswd;
+      inputValue.type = 'password';
+    }
   }
 
 }

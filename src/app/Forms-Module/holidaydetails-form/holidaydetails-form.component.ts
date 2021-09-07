@@ -30,6 +30,13 @@ export class HolidaydetailsFormComponent implements OnInit {
       { label: 'Holidays', value: 'H'},
     ];
   }
+
+  onFileUpload($event, id) {
+    console.log('eve', $event);
+    const reader = new FileReader();
+    var selectedFile = $event.target.files[0];
+    console.log('file', selectedFile);
+  }
  
   onSubmit() {
     const params = {    

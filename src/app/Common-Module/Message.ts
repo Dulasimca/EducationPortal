@@ -13,6 +13,7 @@ export class ResponseMessage {
     public static readonly SuccessMessage = 'Saved Successfully!';
     public static readonly ErrorMessage = 'Please Contact Administrator!';
     public static readonly WarningMessage = 'Please try after sometime!';
+    public static readonly LoginFailed = 'Login failed!! Please enter valid credentails!'
     public static readonly NoRecordMessage = 'No Record Found!';
     public static readonly ErrorGeneratingDocNo = 'Error occurred in generating document number!';
     public static readonly NoRecForCombination = 'No Record for this combination!'

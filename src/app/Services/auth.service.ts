@@ -24,12 +24,18 @@ export class AuthService {
 
   login(user: User){
     if (user.username !== '' && user.password !== '' ) { 
+      localStorage.setItem('UserInfo', JSON.stringify(user));
       this.loggedIn.next(true);
       this.router.navigate(['/dashboard']);
     }
   }
 
+  get UserInfo() {
+    return JSON.parse(localStorage.getItem('UserInfo'));
+  }
+
   public logout() {
+    localStorage.removeItem('UserInfo');
     this.loggedIn.next(false);
     this.router.navigate(['/login']);
   }

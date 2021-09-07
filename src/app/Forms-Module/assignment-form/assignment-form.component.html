@@ -6,28 +6,28 @@
                 <div class="p-grid">
                     <div class="p-col-12 p-md-6 p-lg-3">
                     <div class="no-pad-top"><label>Date:</label> <br>
-                 <p-calendar [(ngModel)]="date" [showIcon]="true"></p-calendar>
+                 <p-calendar [(ngModel)]="assignDate" [showIcon]="true" name="assignDate"></p-calendar>
                     </div>
                     </div>
                     <div class="p-col-12 p-md-6 p-lg-3">
                         <label> Due Date:</label><br>
-                            <p-calendar [(ngModel)]="date" [showIcon]="true"></p-calendar>
+                            <p-calendar [(ngModel)]="dueDate" [showIcon]="true" name="dueDate"></p-calendar>
                     </div>
                     <div class="p-col-12 p-md-6 p-lg-3" style="text-align: left; margin-top: 5px;">
                         <label> Assigned Work:</label><br>
-                        <input id="float-input"  type="text" size="24" pInputText> 
+                        <input id="float-input"  type="text" size="24" pInputText [(ngModel)]="assignmentwork" name="assignmentwork">  
                     </div>
                     <div class="p-col-12 p-md-6 p-lg-3" style="text-align: left; margin-top: 5px;">
                         <label> Assigned Type:</label><br>
-                        <input id="float-input"  type="text" size="24" pInputText> 
+                        <input id="float-input"  type="text" size="24" pInputText [(ngModel)]="type" name="type"> 
                     </div>
                     <div class="p-col-12 p-md-6 p-lg-3" style="text-align: left; margin-top: 5px;">
                         <label> Subject Name:</label><br>
-                        <input id="float-input"  type="text" size="24" pInputText>
+                        <input id="float-input"  type="text" size="24" pInputText [(ngModel)]="subName" name="subName">
                     </div>  
                     <div class="p-col-12 p-md-6 p-lg-3" style="text-align: left; margin-top: 5px;">
                         <label> Attach File:</label><br>
-                       <input class="p-col-12" name="_assignmentfile" type="file" pInputText
+                       <input class="p-col-12" name="assignmentfile" type="file" pInputText
                         (change)="onFileUpload($event, 1)" accept=".png" />  
                     </div>  
                
@@ -36,8 +36,10 @@
             </div>
         </p-card>
         <div class="p-col-12 p-md-12 p-lg-12">
-            <button pButton type="button" label="Submit" onclick="onSave()" style="margin-left: 30%;"></button>
-     <!-- </div>
+            <button pButton name="_save" type="button" label="Submit" (click)="onSubmit()" style="margin-left: 30%;"></button>
+
+           <!-- <button pButton type="button" label="Submit" onclick="onSubmit()" ></button>
+      </div>
      <div class="p-col-6 p-md-6 p-lg-12"> -->
          <button pButton type="button" label="View" onclick="onView()" style="margin-left: 5%;"></button>
      </div>

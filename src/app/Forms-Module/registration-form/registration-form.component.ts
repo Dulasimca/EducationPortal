@@ -235,14 +235,14 @@ export class RegistrationFormComponent implements OnInit {
         this.blockScreen = false;
         this.messageService.clear();
         this.messageService.add({
-          key: 't-err', severity: ResponseMessage.SEVERITY_SUCCESS,
+          key: 't-msg', severity: ResponseMessage.SEVERITY_SUCCESS,
           summary: ResponseMessage.SUMMARY_SUCCESS, detail: ResponseMessage.SuccessMessage
         });
       } else {
         this.blockScreen = false;
         this.messageService.clear();
         this.messageService.add({
-          key: 't-err', severity: ResponseMessage.SEVERITY_ERROR,
+          key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
           summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
         });
       }
@@ -251,7 +251,7 @@ export class RegistrationFormComponent implements OnInit {
       if (err.status === 0 || err.status === 400) {
         this.messageService.clear();
         this.messageService.add({
-          key: 't-err', severity: ResponseMessage.SEVERITY_ERROR,
+          key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
           summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
         })
       }

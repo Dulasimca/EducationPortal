@@ -12,17 +12,12 @@ export class AssignmentFormComponent implements OnInit {
 
   dueDate: Date = new Date();
   assignDate: Date = new Date();
-
   assignmentwork: string;
   type:string;
   subName:string;
-
   data: any = []; 
   cols: any;
-
   uploadedFiles: any[] = [];
-  
-
   assignmentfile: any[] = [];
 
 
@@ -32,12 +27,11 @@ export class AssignmentFormComponent implements OnInit {
     
   }
   onFileUpload($event, id) {
-    // for(let file of event.files) {
-    //     this.uploadedFiles.push(file);
-    // }
-
-   // this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
-}
+    console.log('eve', $event);
+    const reader = new FileReader();
+    var selectedFile = $event.target.files[0];
+    console.log('file', selectedFile);
+  }
 
 onSubmit() {
    
@@ -47,12 +41,12 @@ onSubmit() {
     'Class': 1,     
     'AssignmentDate': this.assignDate, // (this._guardianimg !== undefined && this._guardianimg !== null) ? this._guardianimg.values: 0,
     'AssignmentDueDate': this.dueDate,
+    'assignmentwork': this.assignmentwork,
     'AssignmentType': '123.png',
+    'subName': this.subName,
     'Flag' : true
 
   };
-
-  
   console.log(params);
   this.restApiService.post(PathConstants.Assignment_Post, params).subscribe(res => {
     console.log('rs', res);

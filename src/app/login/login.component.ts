@@ -33,9 +33,10 @@ export class LoginComponent implements OnInit {
         response.forEach(i => {
           if(i.EmailId === this.username.trim() && i.password === this.password.trim()) {
             const obj: User = {
-              'username': this.username.trim(),
+              'username': i.FirstName,
               'password': this.password.trim(),
-              'id': i.slno
+              'id': i.slno,
+              'email': this.username.trim()
             }
             this.authService.login(obj);
             this.masterService.initializeMaster();

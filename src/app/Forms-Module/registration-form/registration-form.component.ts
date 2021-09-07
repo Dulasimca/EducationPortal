@@ -213,6 +213,7 @@ export class RegistrationFormComponent implements OnInit {
       'LastchoolTelephone': this.lastSchoolContactNo,
       'DistrictId': this.district,
       'Postalcode': this.pincode,
+      'Password': '123',
 
       'FatherName': this.fatherName,
       'FatherOccupation': this.fatherOccupation,

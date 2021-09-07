@@ -4,4 +4,6 @@ export interface User {
     id: any;
     email: string;
     schoolId: any;
+    classId: any;
+    lastname: string;
 }

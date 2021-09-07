@@ -2,7 +2,8 @@ export class PathConstants {
     public static readonly Registration_Post = 'RegistrationForm/Post';
     public static readonly Registration_Get = 'RegistrationForm/Get';
 
-    public static readonly OnlineAssessment = 'OnlineAssessment/Post';
+    public static readonly OnlineAssessment_Post = 'OnlineAssessment/Post';
+    public static readonly OnlineAssessment_Get = 'OnlineAssessment/Get';
 
     public static readonly Book_Post = 'Books/Post';
     public static readonly Holiday_Post = 'Holidays/Post';
@@ -14,5 +15,4 @@ export class PathConstants {
     public static readonly NewsLetter_Post = 'NewsLetter/post';
     public static readonly Announcement_Post = 'Announcement/Post';
     public static readonly Assignment_Post = 'Assignments/Post'; 
-
 }

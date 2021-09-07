@@ -151,7 +151,7 @@ export class TestDetailsFormComponent implements OnInit {
       'SubjectId': this.subject,
       'Flag': 1,
     };
-    this.restApiService.post(PathConstants.OnlineAssessment, params).subscribe(res => {
+    this.restApiService.post(PathConstants.OnlineAssessment_Post, params).subscribe(res => {
       if(res) {
         this.blockScreen = false;
         this.messageService.clear();

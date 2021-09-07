@@ -34,10 +34,12 @@ export class LoginComponent implements OnInit {
           if(i.EmailId === this.username.trim() && i.password === this.password.trim()) {
             const obj: User = {
               'username': i.FirstName,
+              'lastname': i.LastName,
               'password': this.password.trim(),
               'id': i.slno,
               'email': this.username.trim(),
-              'schoolId': i.SchoolId
+              'schoolId': i.SchoolId,
+              'classId': i.ClassId
             }
             this.authService.login(obj);
             this.masterService.initializeMaster();

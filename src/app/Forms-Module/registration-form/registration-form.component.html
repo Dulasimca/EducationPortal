@@ -173,7 +173,7 @@
                                             <div><label for="_class">Class<span
                                                         class="form-mandatory-field">*</span></label></div>
                                             <p-dropdown name="_class" [options]="classOptions" [(ngModel)]="class"
-                                            (onClick)="onSelect('C')" required>
+                                            optionLabel="label" (onClick)="onSelect('C')" required>
                                             </p-dropdown>
                                         </div>
                                         <div class="p-col-12 p-md-6 p-lg-2">
@@ -181,7 +181,7 @@
                                                         class="form-mandatory-field">*</span></label>
                                             </div>
                                             <p-dropdown name="_section" [options]="sectionOptions" [(ngModel)]="section"
-                                               (onClick)="onSelect('S')" required>
+                                               optionLabel="label" (onClick)="onSelect('S')" required>
                                             </p-dropdown>
                                         </div>
                                     </div>

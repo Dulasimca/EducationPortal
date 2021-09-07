@@ -89,7 +89,7 @@ export class OnlineTestComponent implements OnInit {
   onSelect(question: Question, option: Option) {
     if (question.questionTypeId === 1) {
       question.options.forEach(x => {
-        if (x.id !== option.id) x.selected = false;
+        if (x.optionId !== option.optionId) x.selected = false;
       });
     }
     // once selected the option move to next question automatically
@@ -119,7 +119,7 @@ export class OnlineTestComponent implements OnInit {
     this.test.questions.forEach(x =>
       answers.push({
         quizId: this.test.id,
-        questionId: x.id,
+        questionId: x.questionId,
         answered: x.answered
       })
     );

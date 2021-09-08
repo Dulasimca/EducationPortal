@@ -10,18 +10,19 @@
             </div>
 
         </div>
-        <div class="p-col-5 p-md-6 p-lg-6 no-pad-top"
+        <div class="p-col-5 p-md-6 p-lg-7 no-pad-top"
             [ngClass]="{'menubar-bar-text-unset': !isOpen, 'menubar-bar-text-set': isOpen}">
             Government of Tamilnadu - Educational Services Platform
             <div style="text-align: center; font-size: 20px;color: whitesmoke">Government Higher Secondary School -
                 Trichy</div>
         </div>
-        <div class="p-col-2"></div>
-        <div class="p-col-2 p-md-3 p-lg-2 no-pad-top no-pad-bottom" [ngClass]="{'menubar-bar-info-set': isOpen}">
-            <div class="p-grid" style="color: whitesmoke">
+        <div class="p-col-1"></div>
+        <div class="p-col-2 p-md-3 p-lg-2 no-pad-top no-pad-bottom">
+            <div class="p-grid" style="color: whitesmoke" [ngClass]="{'menubar-bar-info-set': isOpen, 'menubar-bar-info-unset': !isOpen}">
                 <img src="assets/layout/images/student-icon1.png" style="width: 50px; height: 55px; margin-top: 8px;" />
-                &nbsp; &nbsp; <div style="font-size: 13px; align-self: center; margin-top: 10px;"> ARUN KUMAR S <i
-                        class="pi pi-angle-down"></i></div>
+                &nbsp; &nbsp; <div style="font-size: 13px; align-self: center; margin-top: 10px;">
+                     <span style="text-transform: uppercase"><b>{{userName}}</b></span> 
+                     <i class="pi pi-angle-down"></i></div>
             </div>
         </div>
     </mat-toolbar>

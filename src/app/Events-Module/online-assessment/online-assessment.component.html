@@ -1,10 +1,11 @@
 <div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px;">
-        <p-panel header="Online Assessments">
+    <p-toast position="top-center" key="t-msg"></p-toast>
+    <p-panel header="Online Assessments">
         <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
             <p-card>
                 <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
                    <div class="no-pad-top"><label>Date:</label> </div>  
-                    <p-calendar [(ngModel)]="date" [showIcon]="true"></p-calendar>
+                    <p-calendar [(ngModel)]="date" [showIcon]="true" (onSelect)="onLoadAssessment()"></p-calendar>
                     <button pButton type="button" label="Refresh" style="margin-left: 40%;" icon="pi pi-refresh" ></button>
 
                 </div>
@@ -18,29 +19,25 @@
                     * Please select the answer sheet file less than 25MB.<br>
                 </div>
                 <div>
-                    <p-table [value]="data">
-                        <ng-template pTemplate="header">
+                    <p-table [columns]="assessmentCols" [value]="assessmentData" [paginator]="true" [rows]="10" [loading]="loading">
+                        <ng-template pTemplate="header" let-columns>
                             <tr>
                                 <th style="width: 90px">S.No</th>
-                                <th>Test Name</th>
-                                <th>Subject</th>
-                                <th>Total Marks</th>
-                                <th>Start Time</th>
+                                <th *ngFor="let col of columns">
+                                    {{col.header}}
+                                </th>
                                 <th>Start Test</th>
-                                <th>Duration</th>
-                                <th>Upload</th>
+                                <!-- <th>Upload</th> -->
                             </tr>
                         </ng-template>
-                        <ng-template pTemplate="body" let rowIndex=rowIndex let-data>
+                        <ng-template pTemplate="body" let-rowIndex="rowIndex" let-rowData let-columns="columns">
                             <tr>
-                                <td style="width: 90px">{{data.slno}}</td>
-                                <td>{{data.test}}</td>
-                                <td>{{data.subject}}</td>
-                                <td>{{data.marks}}</td>
-                                <td>{{data.time}}</td>
-                                <td><i class="pi pi-play" style="padding-left: 10px; color: #52de38; font-size: 1.5rem;"></i></td>
-                                <td>{{data.duration}}</td>
-                                <td><i class="pi pi-upload" style="padding-left: 10px; color: #52de38; font-size: 1.5rem;"></i></td>
+                                <td style="width: 90px">{{rowIndex+1}}</td>
+                                <td *ngFor="let col of columns">
+                                    {{rowData[col.field]}}
+                                </td>
+                                <td (click)="onStart()"><i class="pi pi-play" style="padding-left: 10px; color: #52de38; font-size: 1.5rem;"></i></td>
+                                <!-- <td><i class="pi pi-upload" style="padding-left: 10px; color: #52de38; font-size: 1.5rem;"></i></td> -->
                             </tr>
                         </ng-template>
                     </p-table>

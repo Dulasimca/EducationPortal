@@ -29,14 +29,17 @@ export class LoginComponent implements OnInit {
     const params = { 'Value': this.username.trim(), 'Type': '2' };
     console.log('params', params);
     this.restApiService.getByParameters(PathConstants.Registration_Get, params).subscribe(response => {
-      if(response !== undefined && response !== null) {
+      if(response !== undefined && response !== null && response.length !== 0) {
         response.forEach(i => {
           if(i.EmailId === this.username.trim() && i.password === this.password.trim()) {
             const obj: User = {
               'username': i.FirstName,
+              'lastname': i.LastName,
               'password': this.password.trim(),
               'id': i.slno,
-              'email': this.username.trim()
+              'email': this.username.trim(),
+              'schoolId': i.SchoolId,
+              'classId': i.ClassId
             }
             this.authService.login(obj);
             this.masterService.initializeMaster();
@@ -51,7 +54,7 @@ export class LoginComponent implements OnInit {
       } else {
         this.messageService.clear();
         this.messageService.add({
-          key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+          key: 't-msg', severity: ResponseMessage.SEVERITY_INFO,
           summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
         });         
        }

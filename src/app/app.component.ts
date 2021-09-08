@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { User } from './Interfaces/user';
 import { AuthService } from './Services/auth.service';
 
 @Component({
@@ -14,12 +15,13 @@ export class AppComponent {
   isOpen: boolean = false;
   isLoggedIn$: Observable<boolean>;
   isSignedIn: boolean;
-  constructor(private router: Router, private authService: AuthService) { }
+  userName: string;
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
     this.isLoggedIn$ = this.authService.isLoggedIn;
     // this.isSignedIn = this.authService.checkLog;
-    console.log('sign', this.isSignedIn, this.isLoggedIn$);
+    const user: User = this.authService.UserInfo;
     this.items = [
       { label: 'Dashboard', icon: 'fa fa-desktop', routerLink: '/dashboard' },
       { label: 'Admin', icon: 'fa fa-user-secret', 
@@ -31,6 +33,8 @@ export class AppComponent {
       { label: 'Nominee', icon: 'fa fa-handshake-o', routerLink: '/nominee' },
       { label: 'Book', icon: 'fa fa-book', routerLink: '/book' },
       { label: 'NewsLetter', icon: 'fa fa-newspaper-o', routerLink: '/newsletter' },
+      { label: 'Questions-upload', icon:'fa fa-upload', routerLink: '/test-details' },
+      // { label: 'Online-Test', icon:'fa fa-laptop', routerLink: '/online-test' },
       { label: 'Results', icon: 'fa fa-file-text-o', routerLink: '/results' },
       { label: 'Gallery', icon: 'fa fa-picture-o', routerLink: '/gallery' },
       { label: 'Download Session', icon: 'fa fa-download', routerLink: '/downloadsession' },
@@ -40,6 +44,8 @@ export class AppComponent {
       
       { label: 'HolidayDetails', icon: 'fa fa-calendar-minus-o', routerLink: '/holidaydetails' },
       
+      
+      { label: 'My Achievements', icon: 'fa fa-calendar-minus-o', routerLink: '/myachievement' },
     ]},
       { label: 'Profile', icon: 'fa fa-user-circle-o', 
       items: [
@@ -83,7 +89,9 @@ export class AppComponent {
       { label: 'Download Session', icon: 'fa fa-download', routerLink: '/classroom-download' },
       // { label: 'Online Test', icon: 'fa fa-download', routerLink: '/classroom-download' },
 
-    ];  }
+    ];  
+    this.userName = user.username;
+  }
 
     onLogout(){
       this.authService.logout();                   

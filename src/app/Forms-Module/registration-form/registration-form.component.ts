@@ -54,17 +54,14 @@ export class RegistrationFormComponent implements OnInit {
   yearRange: string;
   fatherName: string;
   fatherOccupation: string;
-  fatherBloodGroup: string;
   fatherContactNo: number;
   fatherEmailId: string;
   motherName: string;
   motherOccupation: string;
-  motherBloodGroup: string;
   motherContactNo: number;
   motherEmailId: string;
   guardianName: string;
   guardianOccupation: string;
-  guardianBloodGroup: string;
   guardianContactNo: number;
   guardianEmailId: string;
   uploadedFiles: any[] = [];
@@ -197,6 +194,7 @@ export class RegistrationFormComponent implements OnInit {
       'DateofBirth': this.dob,
       'DateofJoining': this.doj,
       'Gender': this.gender,
+      'BloodGroup': this.bloodGroup,
       'City': this.city,
       'State': this.state,
       'Nationality': this.nationality,

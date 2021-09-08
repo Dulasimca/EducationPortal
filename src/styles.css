@@ -189,7 +189,11 @@ background-color: #b8baf3;
     text-align: end !important; font-size: 25px !important; margin-left: 0% !important;
 }
 .menubar-bar-info-set {
-    margin-left: -4% !important;
+    margin-left: -25% !important;
+    /* margin-left: -4% !important; */
+}
+.menubar-bar-info-unset {
+    float: right !important;
 }
 .side-nav-panel {
     width: 16% !important;
@@ -402,6 +406,34 @@ td[_ngcontent-fng-c4] {
     transition: box-shadow .2s;
 }
 
+.p-toast .p-toast-message.p-toast-message-error {
+    background: #ff9494 !important;
+    border: solid  #cc0808 !important;
+    border-width: 0 0 0 6px;
+    color: #3d0606 !important;
+}
+
+.p-toast .p-toast-message.p-toast-message-success {
+    background: #9fda78 !important;
+    border: solid  #24af24 !important;
+    border-width: 0 0 0 6px;
+    color: #084913 !important;
+}
+
+.p-toast .p-toast-message.p-toast-message-warning {
+    background: #fce085 !important;
+    border: solid  #c49104 !important;
+    border-width: 0 0 0 6px;
+    color: #5c4404 !important;
+}
+
+.p-toast .p-toast-message.p-toast-message-info {
+    background: #a6beff !important;
+    border: solid  #3e48da !important;
+    border-width: 0 0 0 6px;
+    color: #060b50 !important;
+}
+
 /* end #Region 4 */
 
 /* customised angular material style #Region 5 */
@@ -412,40 +444,3 @@ mat-toolbar {
 }
 
 /* end  #Region 5*/
-
-/* .layout-wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    min-height: 100vh;
-    background: url(../../../layout/images/effect-ondark.png);
-    background-repeat: no-repeat;
-}
-.layout-wrapper.layout-sidebar .layout-main {
-    margin-left: 92px;
-}
-.layout-wrapper .layout-main {
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    -ms-flex-pack: justify;
-    justify-content: space-between;
-    min-height: 100vh;
-    -moz-transition: margin-left 0.3s;
-    -o-transition: margin-left 0.3s;
-    -webkit-transition: margin-left 0.3s;
-    transition: margin-left 0.3s;
-}
-.layout-wrapper .layout-main .layout-main-content {
-    flex: 1 1 0;
-    padding: 30px;
-} */
-/* .layout-wrapper {
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 999;
-    transition: all 0.2s;
-} */

@@ -1,4 +1,7 @@
 <div class="p-col-12" style="padding-top:25px;">
+    <p-blockUI [blocked]="blockScreen">
+        <p-progressSpinner class="spinner" strokeWidth="4" *ngIf="blockScreen"></p-progressSpinner>
+    </p-blockUI>
     <p-panel header="Online Test Details">
         <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
             <form #f="ngForm" name="testDetailsForm">
@@ -26,7 +29,8 @@
                                         <div><label for="_class">Class<span
                                                     class="form-mandatory-field">*</span></label>
                                         </div>
-                                        <p-dropdown name="_class" [options]="classOptions" [(ngModel)]="class" required>
+                                        <p-dropdown name="_class" [options]="classOptions" (onClick)="onSelect()"
+                                            [(ngModel)]="class" required>
                                         </p-dropdown>
                                     </div>
                                 </div>
@@ -86,13 +90,17 @@
                             <div #row4 class="p-col-12 p-md-12 p-lg-12">
                                 <div class="p-grid">
                                     <div class="p-col-12 p-md-8 p-lg-5">
-                                        <input #fileSelector id="my-file-selector" pInputText class="p-col-12"
-                                            name="_excel" type="file" (change)="uploadData($event);"
-                                            accept=".xls,.xlsx,.csv" required>
+                                        <div class="p-inputgroup">
+                                            <input #fileSelector id="my-file-selector" pInputText class="p-col-12"
+                                                name="_excel" type="file" (change)="uploadData($event);"
+                                                accept=".xls,.xlsx,.csv" [disabled]="(!questionType)" required>
+                                            <button pButton type="button" icon="pi pi-times-circle"
+                                            [disabled]="(!questionType)" (click)="onRemoveFile()"></button>
+                                        </div>
                                     </div>
                                     <div class="p-col-12 p-md-4 p-lg-2">
-                                        <button pButton type="button" icon="pi pi-file-excel" class="p-button-success"
-                                            (click)="onDownload()">
+                                        <button pButton type="button" icon="pi pi-file-excel" label="Sample"
+                                            class="p-button-success" (click)="onDownload()">
                                         </button>
                                     </div>
                                     <div class="note">

@@ -23,16 +23,32 @@
                     </div>
                     <div class="p-col-12 p-md-6 p-lg-12">
                         <label>Announcement:</label> <br>
-                        <textarea pInputTextarea [(ngModel)]="Announcement" name="announce"pInputTextarea autoResize="autoResize" size="20" rows="5"
+                        <textarea pInputTextarea [(ngModel)]="Announcement" name="Announcement"pInputTextarea autoResize="autoResize" size="20" rows="5"
                            cols="20"></textarea>
                            <div class="p-col-12 p-md-6 p-lg12" style = "margin-left:35%;"> 
                             <button pButton name="_save" type="button" label="Submit" (click)="onSubmit()"></button>
-                        <button pButton type="button" label="View" onclick="onView()" style="margin-left: 4%;"></button>
-                    </div>
-                    <!-- <div class="p-col-12 p-md-6 p-lg-3">      
-                        <div class="p-col-12 p-md-12 p-lg-12 no-pad-top " >
-                       
-                   </div>-->          
+                        <button pButton type="button" label="View" (click)="onView()" style="margin-left: 4%;"></button>
+                        <button pButton type="button" label="Clear" (click)="clear()" style="margin-left: 5%;"></button>
+                    </div>  
+                    <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,15,20]"
+                    totalRecords="totalRecords" pageLinks="3">
+                    <ng-template pTemplate="header" let-columns>
+                      <tr>
+                        <th *ngFor="let col of columns">
+                          {{col.header}}
+                        </th>
+                      </tr>
+                    </ng-template>
+                    
+                    <ng-template pTemplate="body" let-rowData let-columns="columns">
+                      <tr>
+                        <td *ngFor="let col of columns">
+                          {{rowData[col.field]}}
+                        </td>
+                      </tr>
+                    </ng-template>
+                  </p-table>
+
                 </div> 
             </div>
             </div>

@@ -90,6 +90,7 @@ import { CalendarDetailsFormComponent } from './Forms-Module/calendar-details-fo
 import { AttendanceDetailsFormComponent } from './Forms-Module/attendance-details-form/attendance-details-form.component';
 import { DatePipe } from '@angular/common';
 import { MasterService } from './Services/master-data.service';
+import { FeeFormComponent } from './Forms-Module/fee-form/fee-form.component';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -148,6 +149,7 @@ FullCalendarModule.registerPlugins([
     FeesDetailsFormComponent,
     CalendarDetailsFormComponent,
     AttendanceDetailsFormComponent,
+    FeeFormComponent,
   ],
   imports: [
     BrowserModule,

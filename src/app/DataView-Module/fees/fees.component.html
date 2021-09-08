@@ -3,10 +3,13 @@
         <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
             <p-card>
                 <div class="p-col-12 p-md-6 p-lg-2 no-pad-top">
-                   <div class="no-pad-top"><label>To Academic:</label> </div>  
+                   <div class="no-pad-top"><label>To Academic:</label>  
                    <p-dropdown [options]="year"></p-dropdown>
-                    <button pButton type="button" label="Online Payment" style="margin-left: 40%;"></button>
+                </div> 
+                   <div class="p-col-12 p-md-6 p-lg-3">
+                    <button pButton type="button" label="Online Payment" style="margin-right: 40%;"></button>
                 </div>
+            </div>
                 <p-divider></p-divider>
                 <div>
                     <p-table [value]="receiptData">

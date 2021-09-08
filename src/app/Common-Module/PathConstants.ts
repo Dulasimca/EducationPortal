@@ -12,6 +12,8 @@ export class PathConstants {
 
     public static readonly NewsLetter_Post = 'NewsLetter/post';
     public static readonly Announcement_Post = 'Announcement/Post';
+    public static readonly Announcement_Get = 'Announcement/Get';
     public static readonly Assignment_Post = 'Assignments/Post'; 
+    public static readonly Assignment_Get = 'Assignments/Get'; 
 
 }

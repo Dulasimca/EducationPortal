@@ -36,12 +36,10 @@ export class AppComponent {
       { label: 'Download Session', icon: 'fa fa-download', routerLink: '/downloadsession' },
       { label: 'Circular', icon: 'fa fa-calendar-minus-o', routerLink: '/circular' },
       //{ label: 'NewsLetter', icon: 'fa fa-newspaper-o', routerLink: '/newsletters' },
-      { label: 'Announcement', icon: 'fa fa-bullhorn', routerLink: '/announcement' },
-      { label: 'Nominee', icon: 'fa fa-handshake-o', routerLink: '/nominee' },
-      { label: 'Assignment', icon: 'fa fa-pencil-square-o', routerLink: '/assignment' },
+      { label: 'Fee', icon: 'fa fa-money', routerLink: '/fee' },
       
       { label: 'HolidayDetails', icon: 'fa fa-calendar-minus-o', routerLink: '/holidaydetails' },
-      { label: 'My Achievements', icon: 'fa fa-calendar-minus-o', routerLink: '/myachievement' },
+      
     ]},
       { label: 'Profile', icon: 'fa fa-user-circle-o', 
       items: [

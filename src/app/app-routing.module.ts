@@ -39,6 +39,9 @@ import { AssignmentFormComponent } from './Forms-Module/assignment-form/assignme
 import { MyachievementFormComponent } from './Forms-Module/myachievement-form/myachievement-form.component';
 import { HolidaydetailsFormComponent } from './Forms-Module/holidaydetails-form/holidaydetails-form.component';
 import { NomineeFormComponent } from './Forms-Module/nominee-form/nominee-form.component';
+import { FeeFormComponent } from './Forms-Module/fee-form/fee-form.component';
+
+
 import { AuthGuard } from './Services/auth.guard';
 import { OnlineTestComponent } from './Events-Module/online-test/online-test.component';
 import { TestDetailsFormComponent } from './Forms-Module/test-details-form/test-details-form.component';
@@ -93,6 +96,7 @@ const routes: Routes = [
    { path: 'myachievement', component: MyachievementFormComponent, canActivate: [AuthGuard] },
    { path: 'holidaydetails', component: HolidaydetailsFormComponent, canActivate: [AuthGuard] },
    { path: 'nominee', component: NomineeFormComponent, canActivate: [AuthGuard] },
+   { path: 'fee', component: FeeFormComponent, canActivate: [AuthGuard] },
    //Srikanth
    { path: 'circular', component: CircularFormComponent, canActivate: [AuthGuard] },
    { path: 'newsletter', component: NewsletterFormComponent, canActivate: [AuthGuard] },

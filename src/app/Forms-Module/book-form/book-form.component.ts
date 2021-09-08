@@ -17,17 +17,35 @@ export class BookFormComponent implements OnInit {
   Author:string;
   yearOptions: SelectItem[];
   selectedyear: string;
+  cols: any; 
+  form:any;
+  data: any = [];
   uploadedFiles: any[] = [];
   constructor(private restApiService: RestAPIService, private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.yearOptions = [
-      { label: '2019-2020', value: '2020' },
-      { label: '2020-2021', value: '2021' },
-      { label: '2021-2022', value: '2122' },
-    ];
+
     
+    this.yearOptions = [
+      { label: '2019-2020', value: '2019-2020' },
+      { label: '2020-2021', value: '2020-2021' },
+      { label: '2021-2022', value: '2021-2022' },
+    ];
+    this.cols = [
+      {field: 'Years',header: 'Year'},
+      {field:'subjects',header: 'Subject'},
+      {field: 'authorReference',header: 'Author/Reference'},
+      {field: 'Pdffilename',header: 'Book Upload'},
+      {field: 'CreatedDate',header: 'Upload date'},
+      
+      
+    ];
+
+
+    
+
   }
+
   onFileUpload($event, id) {
     console.log('eve', $event);
     const reader = new FileReader();
@@ -46,13 +64,44 @@ export class BookFormComponent implements OnInit {
       'ClassId': 1,
       'subjects': this.Subject,     
       'authorReference': this.Author,
-      'Pdffilename': 'mn.pdf',      
+      'Pdffilename': 'mn.pdf',  
+      'Years': this.selectedyear,   
       'Flag': 1,  
       
      
     };
+    console.log(params);
     this.restApiService.post(PathConstants.Book_Post, params).subscribe(res => {
       console.log('rs', res);
+      alert("saved");
+      //form.resetForm();
+      this.onview();
     })
+   
+    
+    // this.restApiService.get(PathConstants.Book_Get, params).subscribe(res => {
+    //   console.log('rs', res);
+    // })
+  }
+  onview() {
+    const params = { 
+      'SchoolID': 1,
+    }
+    
+    this.restApiService.getByParameters(PathConstants.Book_Get, params).subscribe(res => {
+      if(res !== null && res !== undefined && res.length !==0) {
+        console.log(res);
+        this.data = res;
+      }
+      
+    })
+
+  }
+  onClear()
+  {
+  //this.date = '',
+  this.Subject = '',
+  this.Author = '',
+  this.selectedyear = ''
   }
 }

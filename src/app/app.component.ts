@@ -42,10 +42,10 @@ export class AppComponent {
       //{ label: 'NewsLetter', icon: 'fa fa-newspaper-o', routerLink: '/newsletters' },
       { label: 'Fee', icon: 'fa fa-money', routerLink: '/fee' },
       
-      { label: 'HolidayDetails', icon: 'fa fa-calendar-minus-o', routerLink: '/holidaydetails' },
       
       
-      { label: 'My Achievements', icon: 'fa fa-calendar-minus-o', routerLink: '/myachievement' },
+      
+      
     ]},
       { label: 'Profile', icon: 'fa fa-user-circle-o', 
       items: [

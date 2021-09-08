@@ -22,12 +22,19 @@ export class HolidaydetailsFormComponent implements OnInit {
   date: Date = new Date();
   Day: string;
   Status: string;
+  data: any = []; 
+  cols: any;
   constructor(private restApiService: RestAPIService, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.typeOptions = [
-      { label: 'Leave', value: 'L'},
-      { label: 'Holidays', value: 'H'},
+      { label: 'Leave', value: 'Leave'},
+      { label: 'Holidays', value: 'Holiday'},
+    ];
+    this.cols = [
+      { field: 'Holiday', header: 'Type' },
+      { field: 'EventDetailS', header: 'Events' },
+      { field: 'eventdate', header: 'Date' }     
     ];
   }
 
@@ -51,7 +58,18 @@ export class HolidaydetailsFormComponent implements OnInit {
       console.log('rs', res);
     })
   }
+  onView() {
+    const params = {
+      'SchoolID': 1,
+    }
+    this.restApiService.getByParameters(PathConstants.Holiday_Get, params).subscribe(res => {
+      if(res !== null && res !== undefined && res.length !== 0) {
+      console.log( res);
+      this.data = res;
+      }
+    });
  
   }
+}
 
 

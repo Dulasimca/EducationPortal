@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MessageService, SelectItem } from 'primeng/api';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
@@ -7,6 +7,8 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ResponseMessage } from 'src/app/Common-Module/Message';
 import { MasterService } from 'src/app/Services/master-data.service';
 import * as _ from 'lodash';
+import { Profile } from 'src/app/Interfaces/profile';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-registration-form',
@@ -16,23 +18,23 @@ import * as _ from 'lodash';
 export class RegistrationFormComponent implements OnInit {
   firstName: string;
   lastName: string;
-  roleId: string;
+  roleId: any;
   roleIdOptions: SelectItem[];
   dob: any = new Date();
   doj: Date = new Date();
   gender: string;
   genderOptions: SelectItem[];
-  district: string;
+  district: any;
   districtOptions: SelectItem[];
-  schoolName: string;
-  schoolNameOptions: SelectItem[];
+  school: any;
+  schoolOptions: SelectItem[];
   mobileNo: number;
   altMobileNo: number;
   currentAddress: string;
   permanentAddress: string;
-  class: string;
+  class: any;
   classOptions: SelectItem[];
-  section: string;
+  section: any;
   sectionOptions: SelectItem[];
   lastSchoolName: string;
   lastSchoolNameOptions: SelectItem[];
@@ -74,6 +76,11 @@ export class RegistrationFormComponent implements OnInit {
   sections?: any;
   classes?: any;
   roles?: any;
+  @ViewChild('f', { static: false }) _registrationForm: NgForm;
+  @ViewChild('studentImg', { static: false }) studentImg: ElementRef;
+  @ViewChild('fatherImg', { static: false }) fatherImg: ElementRef;
+  @ViewChild('motherImg', { static: false }) motherImg: ElementRef;
+  @ViewChild('guardianImg', { static: false }) guardianImg: ElementRef;
 
   constructor(private restApiService: RestAPIService, private http: HttpClient,
     private messageService: MessageService, private masterService: MasterService) { }
@@ -88,7 +95,7 @@ export class RegistrationFormComponent implements OnInit {
     const current_year = new Date().getFullYear();
     const start_year_range = current_year - 30;
     this.yearRange = start_year_range + ':' + current_year;
-    this.schoolNameOptions = [
+    this.schoolOptions = [
       { label: '-select-', value: null },
       { label: 'xyz', value: 1 },
       { label: 'tdt', value: 2 },
@@ -139,6 +146,7 @@ export class RegistrationFormComponent implements OnInit {
     let roleIdSelection = [];
     switch (type) {
       case 'D':
+        console.log('class', this.class);
         this.districts.forEach(d => {
           districtSelection.push({ label: d.name, value: d.code });
         })
@@ -177,61 +185,67 @@ export class RegistrationFormComponent implements OnInit {
   }
 
   onFileUpload($event, id) {
-    console.log('eve', $event);
     const reader = new FileReader();
     var selectedFile = $event.target.files[0];
-    console.log('file', selectedFile);
   }
 
   onSubmit() {
     this.blockScreen = true;
-    const params = {
-      'ID': (this.regId !== undefined && this.regId !== null) ? this.regId : 0,
-      'slno': (this.slno !== undefined && this.slno !== null) ? this.slno : 0,
-      'FirstName': this.firstName,
-      'LastName': this.lastName,
-      'RoleId': this.roleId,
-      'DateofBirth': this.dob,
-      'DateofJoining': this.doj,
-      'Gender': this.gender,
-      'BloodGroup': this.bloodGroup,
-      'City': this.city,
-      'State': this.state,
-      'Nationality': this.nationality,
-      'Class': this.class,
-      'Section': this.section,
-      'StudentPhotoFileName': '',
-      'Caste': this.caste,
-      'Addressinfo': this.currentAddress,
-      'PermanentAddress': this.permanentAddress,
-      'SchoolId': this.schoolName,
-      'PhoneNumber': this.mobileNo,
-      'EmailId': this.studentEmailId,
-      'Nameoflastschool': this.lastSchoolName,
-      'LastchoolTelephone': this.lastSchoolContactNo,
-      'DistrictId': this.district,
-      'Postalcode': this.pincode,
-      'Password': '123',
-
-      'FatherName': this.fatherName,
-      'FatherOccupation': this.fatherOccupation,
-      'FatherMobileNo': this.fatherContactNo,
-      'FatherEmailid': this.fatherEmailId,
-      'FatherPhotoFileName': '',
-      'MotherName': this.motherName,
-      'MotherOccupation': this.motherOccupation,
-      'MotherMobileNo': this.motherContactNo,
-      'MotherEmailid': this.motherEmailId,
-      'MotherPhotoFilName': '',
-      'GaurdianName': this.guardianName,
-      'GaurdianOccupation': this.guardianOccupation,
-      'GaurdianEmailid': this.guardianEmailId,
-      'GaurdianMobileNo': this.guardianContactNo,
-      'GaurdianPhotoFileName': '',
+    const params: Profile = {
+      ID: (this.regId !== undefined && this.regId !== null) ? this.regId : 0,
+      slno: (this.slno !== undefined && this.slno !== null) ? this.slno : 0,
+      FirstName: this.firstName,
+      LastName: this.lastName,
+      RoleId: this.roleId,
+      DateofBirth: this.dob,
+      DateofJoining: this.doj,
+      Gender: this.gender,
+      BloodGroup: this.bloodGroup,
+      City: this.city,
+      State: this.state,
+      Nationality: this.nationality,
+      Class: this.class.label,
+      ClassId: this.class.value,
+      Section: this.section.label,
+      SectionId: this.section.value,
+      StudentPhotoFileName: '',
+      Caste: this.caste,
+      Addressinfo: this.currentAddress,
+      PermanentAddress: this.permanentAddress,
+      SchoolName: this.school.label,
+      SchoolId: this.school.value,
+      PhoneNumber: this.mobileNo,
+      AltNumber: this.altMobileNo,
+      Medium: this.medium,
+      UserId: 0,
+      Flag: 1,
+      EmailId: this.studentEmailId,
+      Nameoflastschool: this.lastSchoolName,
+      LastchoolTelephone: this.lastSchoolContactNo,
+      District: this.district.label,
+      DistrictId: this.district.value,
+      Postalcode: this.pincode,
+      Password: '123',
+      FatherName: this.fatherName,
+      FatherOccupation: this.fatherOccupation,
+      FatherMobileNo: this.fatherContactNo,
+      FatherEmailid: this.fatherEmailId,
+      FatherPhotoFileName: '',
+      MotherName: this.motherName,
+      MotherOccupation: this.motherOccupation,
+      MotherMobileNo: this.motherContactNo,
+      MotherEmailid: this.motherEmailId,
+      MotherPhotoFilName: '',
+      GaurdianName: this.guardianName,
+      GaurdianOccupation: this.guardianOccupation,
+      GaurdianEmailid: this.guardianEmailId,
+      GaurdianMobileNo: this.guardianContactNo,
+      GaurdianPhotoFileName: '',
     };
     this.restApiService.post(PathConstants.Registration_Post, params).subscribe(res => {
       if (res.item1) {
         this.blockScreen = false;
+        this.clearForm();
         this.messageService.clear();
         this.messageService.add({
           key: 't-msg', severity: ResponseMessage.SEVERITY_SUCCESS,
@@ -255,5 +269,15 @@ export class RegistrationFormComponent implements OnInit {
         })
       }
     })
+  }
+
+  clearForm() {
+    this._registrationForm.reset();
+    this._registrationForm.form.markAsUntouched();
+    this._registrationForm.form.markAsPristine();
+    this.studentImg.nativeElement.value = null;
+    this.fatherImg.nativeElement.value = null;
+    this.motherImg.nativeElement.value = null;
+    this.guardianImg.nativeElement.value = null;
   }
 }

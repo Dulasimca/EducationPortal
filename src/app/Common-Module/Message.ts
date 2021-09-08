@@ -2,6 +2,7 @@ export class ResponseMessage {
     public static readonly SEVERITY_SUCCESS = 'success';
     public static readonly SEVERITY_ERROR = 'error';
     public static readonly SEVERITY_WARNING = 'warn';
+    public static readonly SEVERITY_INFO = 'info';
     public static readonly SUMMARY_SUCCESS = 'Success Message';
     public static readonly SUMMARY_WARNING = 'Warning Message';
     public static readonly SUMMARY_ALERT = 'Alert Message!';

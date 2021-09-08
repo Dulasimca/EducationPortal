@@ -3,6 +3,8 @@ import { TestConfig } from 'src/app/Helper-Module/testconfig';
 import { Test } from 'src/app/Helper-Module/test';
 import { Question } from 'src/app/Helper-Module/question';
 import { Option } from 'src/app/Helper-Module/option';
+import { RestAPIService } from 'src/app/Services/restAPI.service';
+import { AssessmentService } from 'src/app/Services/online-test.service';
 @Component({
   selector: 'app-online-test',
   templateUrl: './online-test.component.html',
@@ -39,7 +41,7 @@ export class OnlineTestComponent implements OnInit {
     size: 1,
     count: 1
   };
-  constructor() { }
+  constructor(private restApiService: RestAPIService, private testService: AssessmentService) { }
 
   ngOnInit(): void {
     this.testName = 'Mid Term Test';
@@ -89,7 +91,7 @@ export class OnlineTestComponent implements OnInit {
   onSelect(question: Question, option: Option) {
     if (question.questionTypeId === 1) {
       question.options.forEach(x => {
-        if (x.id !== option.id) x.selected = false;
+        if (x.optionId !== option.optionId) x.selected = false;
       });
     }
     // once selected the option move to next question automatically
@@ -119,13 +121,15 @@ export class OnlineTestComponent implements OnInit {
     this.test.questions.forEach(x =>
       answers.push({
         quizId: this.test.id,
-        questionId: x.id,
+        questionId: x.questionId,
         answered: x.answered
       })
     );
     }
 
   loadQues() {
+    var result =  this.testService.getResponse();
+    console.log('result', result);
     this.data = {
        "id": 1,
       "name": "English Test",

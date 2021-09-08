@@ -23,7 +23,7 @@
                     </div>
                     <div class="p-col-12 p-md-6 p-lg-3" style="text-align: left; margin-top: 5px;">
                         <label> Subject Name:</label><br>
-                        <input id="float-input"  type="text" size="24" pInputText [(ngModel)]="subName" name="subName">
+                        <input id="float-input"  type="text" size="24" pInputText [(ngModel)]="subjectname" name="subjectname">
                     </div>  
                     <div class="p-col-12 p-md-6 p-lg-3" style="text-align: left; margin-top: 5px;">
                         <label> Attach File:</label><br>
@@ -41,8 +41,27 @@
            <!-- <button pButton type="button" label="Submit" onclick="onSubmit()" ></button>
       </div>
      <div class="p-col-6 p-md-6 p-lg-12"> -->
-         <button pButton type="button" label="View" onclick="onView()" style="margin-left: 5%;"></button>
+         <button pButton type="button" label="View" (click)="onView()" style="margin-left: 5%;"></button>
+         <button pButton type="button" label="Clear" (click)="clear()" style="margin-left: 5%;"></button>
      </div>
+     <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,15,20]"
+  totalRecords="totalRecords" pageLinks="3">
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th *ngFor="let col of columns">
+        {{col.header}}
+      </th>
+    </tr>
+  </ng-template>
+  
+  <ng-template pTemplate="body" let-rowData let-columns="columns">
+    <tr>
+      <td *ngFor="let col of columns">
+        {{rowData[col.field]}}
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
         </div>
     </p-panel>
 </div>

@@ -14,7 +14,7 @@ export class AssignmentFormComponent implements OnInit {
   assignDate: Date = new Date();
   assignmentwork: string;
   type:string;
-  subName:string;
+  subjectname:string;
   data: any = []; 
   cols: any;
   uploadedFiles: any[] = [];
@@ -24,6 +24,14 @@ export class AssignmentFormComponent implements OnInit {
   constructor(private restApiService: RestAPIService, private http: HttpClient) { }
 
   ngOnInit(): void {
+    this.cols = [
+      { field: 'AssignmentDate', header: 'Date' },
+      { field: 'AssignmentDueDate', header: 'Due Date' },
+      { field: 'AssignmentWork', header: 'Assigned Work' },
+      { field: 'AssignmentType', header: 'Assigned Type' },
+      { field: 'Subjectname', header: 'Subject Name' }
+    
+  ];
     
   }
   onFileUpload($event, id) {
@@ -42,15 +50,42 @@ onSubmit() {
     'AssignmentDate': this.assignDate, // (this._guardianimg !== undefined && this._guardianimg !== null) ? this._guardianimg.values: 0,
     'AssignmentDueDate': this.dueDate,
     'assignmentwork': this.assignmentwork,
-    'AssignmentType': '123.png',
-    'subName': this.subName,
+    'AssignmentType': this.type,
+    'subjectname': this.subjectname,
     'Flag' : true
 
   };
   console.log(params);
   this.restApiService.post(PathConstants.Assignment_Post, params).subscribe(res => {
     console.log('rs', res);
+   
   });
 }
+onView() {
+  const params = {
+    'SchoolID': 1,
+    'Class': 1
+  }
+  this.restApiService.getByParameters(PathConstants.Assignment_Get, params).subscribe(res => {
+    if(res !== null && res !== undefined && res.length !== 0) {
+    console.log( res);
+    this.data = res;
+    }
+  });
+
+}
+onEdit(rowData) {
+
+}
+onDelete(rowData) {
+
+}
+clear() {
+  this.assignmentwork="",
+  this.type="",
+  this.subjectname=""
+
+}
+
 
 }

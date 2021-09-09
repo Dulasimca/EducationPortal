@@ -14,6 +14,7 @@ import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { ResponseMessage } from 'src/app/Common-Module/Message';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ExcelService } from 'src/app/Services/excel.service';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
 @Component({
@@ -46,6 +47,7 @@ export class TestDetailsFormComponent implements OnInit {
   options: Option[] = [];
   blockScreen: boolean;
   @ViewChild('fileSelector', { static: false }) fileSelector: ElementRef;
+  @ViewChild('f', { static: false }) _testForm: NgForm;
 
   constructor(private authService: AuthService, public masterService: MasterService,
     private restApiService: RestAPIService, private messageService: MessageService,
@@ -136,6 +138,7 @@ export class TestDetailsFormComponent implements OnInit {
   }
 
   onSave() {
+    this.blockScreen = true;
     const params = {
       'RowId': this.RowId,
       'Classcode': this.class,
@@ -154,6 +157,8 @@ export class TestDetailsFormComponent implements OnInit {
     this.restApiService.post(PathConstants.OnlineAssessment_Post, params).subscribe(res => {
       if(res) {
         this.blockScreen = false;
+        this.onRemoveFile();
+        this.onClearForm();
         this.messageService.clear();
         this.messageService.add({
           key: 't-msg', severity: ResponseMessage.SEVERITY_SUCCESS,
@@ -184,5 +189,9 @@ export class TestDetailsFormComponent implements OnInit {
     const path = "../../assets/files/questions.xlsx";
     const filename = 'Sample_Excel' + ".xlsx";
     saveAs(path, filename);
+  }
+
+  onClearForm() {
+   this._testForm.reset();
   }
 }

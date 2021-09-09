@@ -21,4 +21,7 @@ export class ResponseMessage {
     public static readonly NetworkErrorMessage = 'Please check your Network Connectivity!';
     public static readonly ValidDateErrorMessage = 'Please select a valid date range!';
     public static readonly PasswordMatchErrorMessage = 'Password did not match!';
+    public static readonly GreetingMsgI = 'Good Morning !';
+    public static readonly GreetingMsgII = 'Good Afternoon !';
+    public static readonly GreetingMsgIII = 'Good Evening !';
 }

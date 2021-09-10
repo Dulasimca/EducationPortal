@@ -5,12 +5,17 @@ import { Question } from 'src/app/Helper-Module/question';
 import { Option } from 'src/app/Helper-Module/option';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { AssessmentService } from 'src/app/Services/online-test.service';
+import { PathConstants } from 'src/app/Common-Module/PathConstants';
+import { ResponseMessage } from 'src/app/Common-Module/Message';
+import { MessageService } from 'primeng/api';
+import { HttpErrorResponse } from '@angular/common/http';
 @Component({
     selector: 'app-online-test',
     templateUrl: './online-test.component.html',
     styleUrls: ['./online-test.component.css']
 })
 export class OnlineTestComponent implements OnInit {
+    blockScreen: boolean;
     testName: string;
     subjectcName: string;
     totalMarks: number;
@@ -44,12 +49,68 @@ export class OnlineTestComponent implements OnInit {
         size: 1,
         count: 1
     };
-    constructor(private restApiService: RestAPIService, private testService: AssessmentService) { }
+    disableSave: boolean;
+    constructor(private restApiService: RestAPIService, private testService: AssessmentService,
+        private messageService: MessageService) { }
 
     ngOnInit(): void {
         this.ellapsedTime = "00:00";
         this.loadQues();
         this.loadTest();
+    }
+
+    loadQues() {
+        var result = this.testService.getResponse();
+        var i = 0;
+        let questions = [];
+        let options = [];
+        if (result.length !== 0 && result !== undefined && result !== null) {
+            for (let k = 0; k < result.length; k++) {
+                const _currQID = result[k].QuestionId;
+                const _nxtQID = (result[k + 1] !== undefined) ? result[k + 1].QuestionId : '';
+                if (result[k + 1] !== undefined && _currQID === _nxtQID) {
+                    options.push({
+                        "id": result[k].OptionId,
+                        "questionId": result[k].QuestionId,
+                        "name": result[k].OptionName.toString(),
+                        "isAnswer": result[k].IsAnswer,
+                        "selected": false
+                    })
+                } else if (_currQID !== _nxtQID) {
+                    options.push({
+                        "id": result[k].OptionId,
+                        "questionId": result[k].QuestionId,
+                        "name": result[k].OptionName.toString(),
+                        "isAnswer": result[k].IsAnswer,
+                        "selected": false
+                    })
+                    questions.push({
+                        "id": result[k].QuestionId,
+                        "name": result[k].QuestionDetails,
+                        "questionTypeId": result[k].questiontype,
+                        "options": options,
+                        "answered": false,
+                        "questionType": {
+                            "id": 1,
+                            "name": "Multiple Choice",
+                            "isActive": true
+                        }
+                    });
+                    options = [];
+                }
+            }
+            this.testName = result[i].TestName;
+            this.subjectcName = (result[i].SubjectId === 2) ? 'English' : 'Science';
+            this.totalMarks = result[i].totalmarks;
+            this.questionTypeID = result[i].questiontype;
+            this.totalDuration = result[i].totalduration;
+            this.data = {
+                "id": result[i].RowId,
+                "name": result[i].TestName,
+                "description": result[i].TestDescription,
+                "questions": questions
+            }
+        }
     }
 
     loadTest() {
@@ -92,16 +153,20 @@ export class OnlineTestComponent implements OnInit {
         if (question.questionTypeId === this.questionTypeID) {
             console.log('inside if');
             question.answered = this.isAnswered(question);
+            console.log('ques', question);
+            console.log('opts', question.options);
             question.options.forEach(x => {
+                console.log('x', x.optionId);
+                console.log('op', option.optionId);
                 if (x.optionId !== option.optionId) x.selected = false;
-                if(x.selected) {
-                this.answerData.push({
-                    "optionId": x.optionId,
-                    "selected": x.selected,
-                    "answered": question.answered,
-                    "questionId": question.questionId
-                })
-            }
+                if (x.selected) {
+                    this.answerData.push({
+                        "optionId": x.optionId,
+                        "selected": x.selected,
+                        "answered": question.answered,
+                        "questionId": question.questionId
+                    })
+                }
             });
             console.log('ans', this.answerData);
         }
@@ -128,86 +193,65 @@ export class OnlineTestComponent implements OnInit {
     }
 
     onSubmit() {
+        this.disableSave = true;
+        this.blockScreen = true;
         let answers = [];
-        console.log('ques', this.test.questions);
         this.test.questions.forEach(x => {
             if (x.answered) {
                 x.options.forEach(y => {
                     if (y.selected) {
                         answers.push({
-                            quizId: this.test.id,
-                            questionId: x.questionId,
-                            answered: x.answered,
-                            optionId: y.optionId,
-                            selected: y.selected,
+                            AnswerId: 0,
+                            TestId: this.test.id,
+                            QuestionId: x.questionId,
+                            isAnswered: x.answered,
+                            OptionId: y.optionId,
+                            isSelected: y.selected,
                         })
                     }
                 })
             } else {
                 answers.push({
-                    quizId: this.test.id,
-                    questionId: x.questionId,
-                    answered: x.answered,
-                    optionId: null,
-                    selected: false,
+                    AnswerId: 0,
+                    TestId: this.test.id,
+                    QuestionId: x.questionId,
+                    isAnswered: x.answered,
+                    OptionId: 0, //no question answered
+                    isSelected: false, //answer is not selected
                 })
             }
         });
-    }
-
-    loadQues() {
-        var result = this.testService.getResponse();
-        var i = 0;
-        let questions = [];
-        let options = [];
-        if (result.length !== 0 && result !== undefined && result !== null) {
-            for(let k = 0; k < result.length; k++) {
-                const _currQID = result[k].QuestionId;
-                const _nxtQID = (result[k+1] !== undefined) ? result[k+1].QuestionId : '';
-                if (result[k + 1] !== undefined && _currQID === _nxtQID) {
-                    options.push({
-                        "id": result[k].AnswerId,
-                        "questionId": result[k].QuestionId,
-                        "name": result[k].OptionName.toString(),
-                        "isAnswer": result[k].IsAnswer,
-                        "selected": false
-                    })
-                } else if (_currQID !== _nxtQID) {
-                    options.push({
-                        "id": result[k].AnswerId,
-                        "questionId": result[k].QuestionId,
-                        "name": result[k].OptionName.toString(),
-                        "isAnswer": result[k].IsAnswer,
-                        "selected": false
-                    })
-                    questions.push({
-                        "id": result[k].QuestionId,
-                        "name": result[k].QuestionDetails,
-                        "questionTypeId": result[k].questiontype,
-                        "options": options,
-                        "answered": false,
-                        "questionType": {
-                            "id": 1,
-                            "name": "Multiple Choice",
-                            "isActive": true
-                        }
-                    });
-                    options = [];
-                } 
+        console.log('answer', answers);
+        this.restApiService.post(PathConstants.OnlineAssessment_Asnwer_Post, answers).subscribe(res => {
+            if (res) {
+                this.blockScreen = false;
+                this.disableSave = false;
+                answers = [];
+                this.messageService.clear();
+                this.messageService.add({
+                    key: 't-msg', severity: ResponseMessage.SEVERITY_SUCCESS,
+                    summary: ResponseMessage.SUMMARY_SUCCESS, detail: ResponseMessage.SuccessMessage
+                });
+            } else {
+                this.blockScreen = false;
+                this.disableSave = false;
+                this.messageService.clear();
+                this.messageService.add({
+                    key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+                    summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+                });
             }
-            this.testName = result[i].TestName;
-            this.subjectcName = (result[i].SubjectId === 2) ? 'English' : 'Science';
-            this.totalMarks = result[i].totalmarks;
-            this.questionTypeID = result[i].questiontype;
-            this.totalDuration = result[i].totalduration;
-            this.data = {
-                "id": result[i].RowId,
-                "name": result[i].TestName,
-                "description": result[i].TestDescription,
-                "questions": questions
+        }, (err: HttpErrorResponse) => {
+            this.disableSave = false;
+            this.blockScreen = false;
+            if (err.status === 0 || err.status === 400) {
+                this.messageService.clear();
+                this.messageService.add({
+                    key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+                    summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+                })
             }
-            console.log('res', result);
-        }
+        })
     }
 
 }

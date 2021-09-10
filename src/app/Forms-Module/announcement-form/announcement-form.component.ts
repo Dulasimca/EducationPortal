@@ -23,9 +23,10 @@ export class AnnouncementFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.cols = [
-      { field: 'date', header: 'DATE' },
-      { field: 'tag', header: 'TAG' },
-      { field: 'Announcement', header: 'ANNOUNCEMENT' }
+      { field: 'Announcementdate', header: 'DATE' },
+      { field: 'AnnouncementTag', header: 'TAG' },
+      { field: 'Announcement', header: 'ANNOUNCEMENT' },
+      { field: 'Announcementfilename', header: 'Announcementfilename'}
       ];
   }
   onFileUpload($event, id) {
@@ -49,9 +50,9 @@ export class AnnouncementFormComponent implements OnInit {
       'RowID': 0,
       'SchoolID': 1,      
       'Announcementdate': this.date,     
-      'AnnouncementTag':'1', // (this._guardianimg !== undefined && this._guardianimg !== null) ? this._guardianimg.values: 0,
-      'Announcement': '123.png',
-      'Announcementfilename': '123.png',
+      'AnnouncementTag':this.Topic, // (this._guardianimg !== undefined && this._guardianimg !== null) ? this._guardianimg.values: 0,
+      'Announcement': this.Announcement,
+      'Announcementfilename': "Education.pdf",
       'Flag' : true
 
     };
@@ -60,6 +61,23 @@ export class AnnouncementFormComponent implements OnInit {
       console.log('rs', res);
     });
   }
+  onView() {
+    const params = {
+      'SchoolID': 1,
+    }
+    this.restApiService.getByParameters(PathConstants.Announcement_Get, params).subscribe(res => {
+      if(res !== null && res !== undefined && res.length !== 0) {
+      console.log( res);
+      this.data = res;
+      }
+    });
+
+  }
+  clear() {
+    this.Topic="",
+    this.Announcement=""
+  }
+  
   
  
 }

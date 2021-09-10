@@ -24,5 +24,12 @@ export class AssessmentResultsComponent implements OnInit {
 
   ngOnInit(): void {
   }
+  
+  onFileUpload($event, id) {
+    console.log('eve', $event);
+    const reader = new FileReader();
+    var selectedFile = $event.target.files[0];
+    console.log('file', selectedFile);
+  }
 
 }

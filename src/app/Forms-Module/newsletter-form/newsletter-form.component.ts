@@ -15,7 +15,7 @@ export class NewsletterFormComponent implements OnInit {
   Topic: string;
 
   uploadedFiles: any[] = [];
-
+  cols: any; 
   date: Date = new Date();
   data: any = [];
 
@@ -25,16 +25,25 @@ export class NewsletterFormComponent implements OnInit {
 
 
   ngOnInit(): void {
+
+    this.cols = [
+      {field:'NewsDate',header: 'Date'},
+      {field:'Topic',header: 'Topic'},
+      {field: 'CreatedDate',header: 'Download date'},
+      
+    ];
   }
+
+
   onFileUpload($event, id) {
     console.log('eve', $event);
     const reader = new FileReader();
     var selectedFile = $event.target.files[0];
     console.log('file', selectedFile);
-   // reader.readAsDataURL(selectedFile);
-   // console.log('url', reader.readAsDataURL(selectedFile));
-    //var endpoint = '../../assets/layout/circular_image';
-    //this.http.post(endpoint, selectedFile).subscribe
+   reader.readAsDataURL(selectedFile);
+   console.log('url', reader.readAsDataURL(selectedFile));
+    var endpoint = '../../assets/layout/circular_image';
+    this.http.post(endpoint, selectedFile).subscribe
     (res => 
     {
 
@@ -45,13 +54,39 @@ export class NewsletterFormComponent implements OnInit {
     const params = {
       'RowID': 0,
       'SchoolID': 1,      
-      'Topic': this.Topic,     
+      'Topic': this.Topic,    
+      'NewsDate': this.date, 
       'Download':'1', // (this._guardianimg !== undefined && this._guardianimg !== null) ? this._guardianimg.values: 0,
       'Flag': 1,
     };
     console.log(params);
     this.restApiService.post(PathConstants.NewsLetter_Post, params).subscribe(res => {
       console.log('rs', res);
+      alert("saved");
+      //form.resetForm();
+      this.onview();
     });
+  }
+
+  onview() {
+    const params = { 
+      'SchoolID': 1,
+    }
+    
+    this.restApiService.getByParameters(PathConstants.NewsLetter_Get, params).subscribe(res => {
+      if(res !== null && res !== undefined && res.length !==0) {
+        console.log(res);
+        this.data = res;
+      }
+      
+    })
+
+  }
+
+  onClear()
+  {
+  //this.date = '',
+  this.Topic = ''
+ 
   }
 }

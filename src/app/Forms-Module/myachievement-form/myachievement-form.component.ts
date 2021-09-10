@@ -15,10 +15,18 @@ export class MyachievementFormComponent implements OnInit {
   Status: any;
   Place : any;
   Events: any;
+  data: any = []; 
+  cols: any;
 
   constructor(private restApiService: RestAPIService, private http: HttpClient) { }
 
   ngOnInit(): void {
+    this.cols = [
+      { field: 'eventdate', header: 'Date' },
+      { field: 'EventDetailS', header: 'Events' },
+      { field: 'Place', header: 'Place' },
+      { field: 'AchievementStatus', header: 'Status' }  
+  ];
    
 
   }
@@ -37,5 +45,24 @@ export class MyachievementFormComponent implements OnInit {
     this.restApiService.post(PathConstants.Myachievement_Post, params).subscribe(res => {
       console.log('rs', res);
     })
+  }
+  onView() {
+    const params = {
+      'SchoolID': 1,
+    }
+    this.restApiService.getByParameters(PathConstants.Myachievement_Get, params).subscribe(res => {
+      if(res !== null && res !== undefined && res.length !== 0) {
+      console.log( res);
+      this.data = res;
+      }
+    });
+  
+  }
+  clear() {
+
+    this.Events="",
+    this.Place="",
+    this.Status=""
+    
   }
 }

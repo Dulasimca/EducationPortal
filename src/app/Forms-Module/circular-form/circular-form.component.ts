@@ -18,7 +18,7 @@ export class CircularFormComponent implements OnInit {
   Details:string;
   RowId: string;
   school_id:string;
- 
+  cols: any;
 
   date: Date = new Date();
   data: any = [];
@@ -28,6 +28,15 @@ export class CircularFormComponent implements OnInit {
   constructor(private restApiService: RestAPIService, private http: HttpClient) { }
 
   ngOnInit(): void {
+
+    this.cols = [
+      {field: 'CircularDate',header: 'Circular Date'},
+      {field:'Subject',header: 'Subject'},
+      {field: 'Details',header: 'Details'},
+     // {field: 'CreatedDate',header: 'Upload date'},
+      
+    ];
+
   }
   onFileUpload($event, id) {
     console.log('eve', $event);
@@ -48,23 +57,35 @@ export class CircularFormComponent implements OnInit {
    
     const params = {
      
-      // 'ID': (this.regId !== undefined && this.regId !== null) ? this.regId : 0,
-      // 'slno': (this.slno !== undefined && this.slno !== null) ? this.slno : 0,
-      'RowID': (this.RowId !== undefined && this.RowId !== null) ? this.RowId : 0,
-      'SchoolID': (this.school_id !== undefined && this.school_id !== null) ? this.school_id : 1,
-      'CircularDate': (this.date !== undefined && this.date !== null) ? this.date : 0,
-      //'CircularDate' : this.Circulardate
+      
+      'RowID':  0,
+      'SchoolID':  1,
+      'CircularDate': this.date, 
       'Subject': this.Subject,
       'Details': this.Details,
       'Download':'123.png',// (this._guardianimg !== undefined && this._guardianimg !== null) ? this._guardianimg.values: 0,
       'Flag':  true
-      //'Download':
-      //'Flag' 
+     
     };
     console.log(params);
     this.restApiService.post(PathConstants.Circular_Post, params).subscribe(res => {
       console.log('rs', res);
     });
+  }
+
+  onview() {
+    const params = { 
+      'SchoolID': 1,
+    }
+    
+    this.restApiService.getByParameters(PathConstants.Circular_Get, params).subscribe(res => {
+      if(res !== null && res !== undefined && res.length !==0) {
+        console.log(res);
+        this.data = res;
+      }
+      
+    })
+
   }
 
 // onSave(form: NgForm) { 
@@ -90,6 +111,13 @@ export class CircularFormComponent implements OnInit {
 
   // })
 
+
+  onClear()
+  {
+  //this.date = '',
+  this.Subject = '',
+  this.Details = ''
+  }
 
 }
 

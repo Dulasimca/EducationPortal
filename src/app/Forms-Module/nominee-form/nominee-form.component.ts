@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { SelectItem } from 'primeng/api';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { RestAPIService } from 'src/app/Services/restAPI.service';
+import { MessageService} from 'primeng/api';
+import { MasterService } from 'src/app/Services/master-data.service';
 
 @Component({
   selector: 'app-nominee-form',
@@ -7,19 +11,32 @@ import { SelectItem } from 'primeng/api';
   styleUrls: ['./nominee-form.component.css']
 })
 export class NomineeFormComponent implements OnInit {
+
+  date: Date = new Date();
   Classname: string;
   section: string;
   name: string;
   positionOptions:SelectItem[];
+  classOptions:SelectItem[];
+  nameOptions:SelectItem[];
+  sectionOptions:SelectItem[];
+  districtOptions: SelectItem[];
   position: string;
+  class?: any;
+  masterData?: any = [];
+  data?: any = [];
 
-  constructor() { }
+  constructor(private restApiService: RestAPIService, private http: HttpClient,
+    private messageService: MessageService, private masterService: MasterService) { }
 
   ngOnInit(): void {
+    this.class = this.masterService.getMaster('D');
+
     this.positionOptions = [
       { label: 'Class Representative', value: 'C'},
       { label: 'School Representative', value: 'S'},
     ];
+
   }
   
   onSubmit() {
@@ -39,5 +56,15 @@ export class NomineeFormComponent implements OnInit {
      // console.log('rs', res);
    // });
   }
+  onSelect(type) {
+    let classOptions = [];
+    switch (type) {
+      case 'C':
+        this.data.Table3.forEach(c => {
+          this.masterData.push({ name: c.Classname1, code: c.Classcode });
+        })
+        break;
 
+}
+  }
 }

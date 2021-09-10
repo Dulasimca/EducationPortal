@@ -46,8 +46,38 @@
         <button pButton name="_save" type="button" label="Submit" (click)="onSubmit()"></button>
     <!-- </div>  -->
     <!-- <div class="p-col-12 p-md-6 p-lg-2" > -->
-        <button pButton type="button" label="View" style = "margin-left:5%;"></button>
+        <button pButton type="button" label="View" style = "margin-left:5%;" (click)="onview()"></button>
+        <button pButton type="button" label="clear" style = "margin-left:5%;" (click)="onClear()"></button>
         </div>
+
+        <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,15,20]"
+  totalRecords="totalRecords" pageLinks="3">
+  <ng-template pTemplate="header" let-columns>
+    <tr>
+      <th *ngFor="let col of columns">
+        {{col.header}}
+      </th>
+    </tr>
+  </ng-template>
+  
+  <ng-template pTemplate="body" let-rowData let-columns="columns">
+    <tr>
+      <td *ngFor="let col of columns">
+        {{rowData[col.field]}}
+      </td>
+      <!-- <td> -->
+        <!-- <button (click)="onEdit(rowData)" pButton type="button" icon="pi pi-user-edit" class="ui-button-primary" ></button> -->
+
+
+      <!-- </td> -->
+      <!-- <td> -->
+        <!--<i class="pi pi-trash"  (click)="onDelete(rowData)"  ></i>-->
+        <!-- <button (click)="onDelete(rowData)" pButton type="button" icon="pi pi-trash" class="ui-button-danger"></button> -->
+
+      <!-- </td> -->
+    </tr>
+  </ng-template>
+</p-table> 
         </div>
     </p-panel>
 

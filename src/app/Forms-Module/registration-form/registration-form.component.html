@@ -96,7 +96,7 @@
                                                         class="form-mandatory-field">*</span></label>
                                             </div>
                                             <p-dropdown name="_district" [options]="districtOptions"
-                                                [(ngModel)]="district" (onClick)="onSelect('D')" required>
+                                            optionLabel="label" [(ngModel)]="district" (onClick)="onSelect('D')" required>
                                             </p-dropdown>
                                         </div>
                                         <div class="p-col-12 p-md-6 p-lg-2">
@@ -165,15 +165,15 @@
                                             <div><label for="_schlname">School Name<span
                                                         class="form-mandatory-field">*</span></label>
                                             </div>
-                                            <p-dropdown name="_schlname" [options]="schoolNameOptions"
-                                                [(ngModel)]="schoolName" required>
+                                            <p-dropdown name="_schlname" [options]="schoolOptions"
+                                            optionLabel="label" [(ngModel)]="school" required>
                                             </p-dropdown>
                                         </div>
                                         <div class="p-col-12 p-md-6 p-lg-2">
                                             <div><label for="_class">Class<span
                                                         class="form-mandatory-field">*</span></label></div>
                                             <p-dropdown name="_class" [options]="classOptions" [(ngModel)]="class"
-                                            (onClick)="onSelect('C')" required>
+                                            optionLabel="label" (onClick)="onSelect('C')" required>
                                             </p-dropdown>
                                         </div>
                                         <div class="p-col-12 p-md-6 p-lg-2">
@@ -181,7 +181,7 @@
                                                         class="form-mandatory-field">*</span></label>
                                             </div>
                                             <p-dropdown name="_section" [options]="sectionOptions" [(ngModel)]="section"
-                                               (onClick)="onSelect('S')" required>
+                                               optionLabel="label" (onClick)="onSelect('S')" required>
                                             </p-dropdown>
                                         </div>
                                     </div>
@@ -219,9 +219,9 @@
                                 <div #row3 class="p-col-12 p-md-12 p-lg-12">
                                     <div class="p-grid">
                                         <div class="p-col-12 p-md-6 p-lg-4">
-                                            <div><label for="_studentimg">Student Photo<span
+                                            <div><label for="_studentimg">Student's Photo<span
                                                         class="form-mandatory-field">*</span></label></div>
-                                            <input class="p-col-12" name="_studentimg" type="file" pInputText
+                                            <input #studentImg class="p-col-12" name="_studentimg" type="file" pInputText
                                                 (change)="onFileUpload($event, 1)" accept=".png" required />
                                         </div>
                                     </div>
@@ -263,9 +263,9 @@
                                                     [(ngModel)]="fatherEmailId" required />
                                             </div>
                                             <div class="p-col-12 p-md-6 p-lg-4">
-                                                <div><label for="_fatherimg">Father Photo<span
+                                                <div><label for="_fatherimg">Father's Photo<span
                                                     class="form-mandatory-field">*</span></label></div>
-                                                <input class="p-col-12" name="_fatherimg" type="file" pInputText
+                                                <input #fatherImg class="p-col-12" name="_fatherimg" type="file" pInputText
                                                     (change)="onFileUpload($event, 2)" accept=".png" required />
                                             </div>
                                         </div>
@@ -302,9 +302,9 @@
                                                     [(ngModel)]="motherEmailId" required />
                                             </div>
                                             <div class="p-col-12 p-md-6 p-lg-4">
-                                                <div><label for="_motherimg">Father Photo<span
+                                                <div><label for="_motherimg">Mother's Photo<span
                                                     class="form-mandatory-field">*</span></label></div>
-                                                <input class="p-col-12" name="_motherimg" type="file" pInputText
+                                                <input #motherImg class="p-col-12" name="_motherimg" type="file" pInputText
                                                     (change)="onFileUpload($event, 3)" accept=".png" required />
                                             </div>
                                         </div>
@@ -340,8 +340,8 @@
                                                     [(ngModel)]="guardianEmailId" />
                                             </div>
                                             <div class="p-col-12 p-md-6 p-lg-4">
-                                                <div><label for="_guardianimg">Father Photo</label></div>
-                                                <input class="p-col-12" name="_guardianimg" type="file" pInputText
+                                                <div><label for="_guardianimg">Guardian's Photo</label></div>
+                                                <input #guardianImg class="p-col-12" name="_guardianimg" type="file" pInputText
                                                     (change)="onFileUpload($event, 4)" accept=".png" />
                                             </div>
                                         </div>
@@ -352,8 +352,7 @@
                     </p-tabPanel>
                     <div class="p-col-12 p-md-12 p-lg-12 text-center">
                         <button pButton name="_save" type="button" label="Submit" 
-                            (click)="onSubmit()"></button>
-                            <!-- [disabled]="(!f.valid)" -->
+                            (click)="onSubmit()" [disabled]="(!f.valid)"></button>
                     </div>
                 </p-tabView>
             </form>

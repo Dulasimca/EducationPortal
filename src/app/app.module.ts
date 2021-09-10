@@ -90,6 +90,9 @@ import { CalendarDetailsFormComponent } from './Forms-Module/calendar-details-fo
 import { AttendanceDetailsFormComponent } from './Forms-Module/attendance-details-form/attendance-details-form.component';
 import { DatePipe } from '@angular/common';
 import { MasterService } from './Services/master-data.service';
+import { FeeFormComponent } from './Forms-Module/fee-form/fee-form.component';
+import { ExcelService } from './Services/excel.service';
+import { AssessmentService } from './Services/online-test.service';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -148,6 +151,7 @@ FullCalendarModule.registerPlugins([
     FeesDetailsFormComponent,
     CalendarDetailsFormComponent,
     AttendanceDetailsFormComponent,
+    FeeFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -184,7 +188,7 @@ FullCalendarModule.registerPlugins([
     BlockUIModule
   ],
   providers: [PrimeNGConfig, FilterService, AuthGuard, AuthService, RestAPIService,
-    NgxAttendanceLibraryService, DatePipe, MessageService, MasterService],
+    NgxAttendanceLibraryService, DatePipe, MessageService, MasterService, ExcelService, AssessmentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

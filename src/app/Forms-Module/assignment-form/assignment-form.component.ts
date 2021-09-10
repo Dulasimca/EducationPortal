@@ -12,27 +12,34 @@ export class AssignmentFormComponent implements OnInit {
 
   dueDate: Date = new Date();
   assignDate: Date = new Date();
-
-  assignmentName: string;
+  assignmentwork: string;
   type:string;
-  subName:string;
-
+  subjectname:string;
   data: any = []; 
   cols: any;
+  uploadedFiles: any[] = [];
   assignmentfile: any[] = [];
+
 
   constructor(private restApiService: RestAPIService, private http: HttpClient) { }
 
   ngOnInit(): void {
+    this.cols = [
+      { field: 'AssignmentDate', header: 'Date' },
+      { field: 'AssignmentDueDate', header: 'Due Date' },
+      { field: 'AssignmentWork', header: 'Assigned Work' },
+      { field: 'AssignmentType', header: 'Assigned Type' },
+      { field: 'Subjectname', header: 'Subject Name' }
+    
+  ];
     
   }
   onFileUpload($event, id) {
-    // for(let file of event.files) {
-    //     this.uploadedFiles.push(file);
-    // }
-
-   // this.messageService.add({severity: 'info', summary: 'File Uploaded', detail: ''});
-}
+    console.log('eve', $event);
+    const reader = new FileReader();
+    var selectedFile = $event.target.files[0];
+    console.log('file', selectedFile);
+  }
 
 onSubmit() {
    
@@ -42,16 +49,43 @@ onSubmit() {
     'Class': 1,     
     'AssignmentDate': this.assignDate, // (this._guardianimg !== undefined && this._guardianimg !== null) ? this._guardianimg.values: 0,
     'AssignmentDueDate': this.dueDate,
-    'AssignmentType': '123.png',
+    'assignmentwork': this.assignmentwork,
+    'AssignmentType': this.type,
+    'subjectname': this.subjectname,
     'Flag' : true
 
   };
-
-  
   console.log(params);
   this.restApiService.post(PathConstants.Assignment_Post, params).subscribe(res => {
     console.log('rs', res);
+   
   });
 }
+onView() {
+  const params = {
+    'SchoolID': 1,
+    'Class': 1
+  }
+  this.restApiService.getByParameters(PathConstants.Assignment_Get, params).subscribe(res => {
+    if(res !== null && res !== undefined && res.length !== 0) {
+    console.log( res);
+    this.data = res;
+    }
+  });
+
+}
+onEdit(rowData) {
+
+}
+onDelete(rowData) {
+
+}
+clear() {
+  this.assignmentwork="",
+  this.type="",
+  this.subjectname=""
+
+}
+
 
 }

@@ -5,22 +5,32 @@
             <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
                 <div class="p-grid">
                     <div class="p-col-12 p-md-6 p-lg-3">
+                        <div><label>Date:</label></div><br>
+                       
+                     <p-calendar [(ngModel)]="date" [showIcon]="true"></p-calendar>
+                        </div>
+                       
+                       
+                    <div class="p-col-12 p-md-6 p-lg-3">
                         <div><label>Class:</label></div><br>
-                        <div class="p-col-12 p-md-6 p-lg-3">
-                        <input type="text" name="Classname" size="23" pInputText [(ngModel)]="Classname"/>
-                </div>
+                        
+                            <p-dropdown [options]="classOptions" (onClick)="onSelect('C')" [(ngModel)]="class" name="class">
+                            </p-dropdown>
+               
                     </div>
                     <div class="p-col-12 p-md-12 p-lg-3">
                         <div><label>Section:</label></div><br>
-                        <div class="p-col-12 p-md-6 p-lg-3">
-                        <input type="text" name="section" size="23" pInputText [(ngModel)]="section"/>
-                </div>
+                        
+                            <p-dropdown [options]="sectionOptions" [(ngModel)]="position" name="section">
+                            </p-dropdown>
+                            
                     </div>
                 <div class="p-col-12 p-md-12 p-lg-3">
                     <div><label>Name:</label></div><br>
-                    <div class="p-col-12 p-md-6 p-lg-3">
-                        <input type="text" name="name" size="23" pInputText [(ngModel)]="name"/>
-                </div>
+                    
+                        <p-dropdown [options]="nameOptions" [(ngModel)]="position" name="name">
+                        </p-dropdown>
+                
                 </div>
                 <div class="p-col-12 p-md-12 p-lg-3">
                     <div><label>Position:</label></div><br>

@@ -12,6 +12,7 @@ export class ResponseMessage {
     public static readonly SUMMARY_ERROR = 'Error Message';
     public static readonly SUMMARY_INVALID = 'Invalid Date!'
     public static readonly SuccessMessage = 'Saved Successfully!';
+    public static readonly SubmitMessage = 'Submitted Successfully!';
     public static readonly ErrorMessage = 'Please Contact Administrator!';
     public static readonly WarningMessage = 'Please try after sometime!';
     public static readonly LoginFailed = 'Login failed!! Please enter valid credentails!'

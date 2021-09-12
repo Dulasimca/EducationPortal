@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TestConfig } from 'src/app/Helper-Module/testconfig';
 import { Test } from 'src/app/Helper-Module/test';
 import { Question } from 'src/app/Helper-Module/question';
@@ -9,13 +9,13 @@ import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { ResponseMessage } from 'src/app/Common-Module/Message';
 import { MessageService } from 'primeng/api';
 import { HttpErrorResponse } from '@angular/common/http';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 @Component({
     selector: 'app-online-test',
     templateUrl: './online-test.component.html',
     styleUrls: ['./online-test.component.css']
 })
 export class OnlineTestComponent implements OnInit {
-    blockScreen: boolean;
     testName: string;
     subjectcName: string;
     totalMarks: number;
@@ -49,7 +49,10 @@ export class OnlineTestComponent implements OnInit {
         size: 1,
         count: 1
     };
-    disableSave: boolean;
+    isSaved: boolean;
+    isSubmitted: boolean;
+    @BlockUI() blockUI: NgBlockUI;
+
     constructor(private restApiService: RestAPIService, private testService: AssessmentService,
         private messageService: MessageService) { }
 
@@ -126,7 +129,7 @@ export class OnlineTestComponent implements OnInit {
     tick() {
         const now = new Date();
         const diff = (now.getTime() - this.startTime.getTime()) / 1000;
-        if (diff >= this.config.duration) {
+        if (diff >= this.config.duration && !this.isSaved) {
             this.onSubmit();
         }
         this.ellapsedTime = this.parseTime(diff);
@@ -193,8 +196,8 @@ export class OnlineTestComponent implements OnInit {
     }
 
     onSubmit() {
-        this.disableSave = true;
-        this.blockScreen = true;
+        this.blockUI.start();
+        this.isSubmitted = true;
         let answers = [];
         this.test.questions.forEach(x => {
             if (x.answered) {
@@ -221,20 +224,21 @@ export class OnlineTestComponent implements OnInit {
                 })
             }
         });
-        console.log('answer', answers);
         this.restApiService.post(PathConstants.OnlineAssessment_Asnwer_Post, answers).subscribe(res => {
             if (res) {
-                this.blockScreen = false;
-                this.disableSave = false;
+                this.blockUI.stop();
+                this.isSaved = true;
                 answers = [];
+                this.test = new Test(null);
                 this.messageService.clear();
                 this.messageService.add({
                     key: 't-msg', severity: ResponseMessage.SEVERITY_SUCCESS,
-                    summary: ResponseMessage.SUMMARY_SUCCESS, detail: ResponseMessage.SuccessMessage
+                    summary: ResponseMessage.SUMMARY_SUCCESS, detail: ResponseMessage.SubmitMessage
                 });
             } else {
-                this.blockScreen = false;
-                this.disableSave = false;
+                this.isSaved = false;
+                this.isSubmitted = false;
+                this.blockUI.stop();
                 this.messageService.clear();
                 this.messageService.add({
                     key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
@@ -242,8 +246,9 @@ export class OnlineTestComponent implements OnInit {
                 });
             }
         }, (err: HttpErrorResponse) => {
-            this.disableSave = false;
-            this.blockScreen = false;
+            this.isSaved = false;
+            this.isSubmitted = false;
+            this.blockUI.stop();
             if (err.status === 0 || err.status === 400) {
                 this.messageService.clear();
                 this.messageService.add({
@@ -253,5 +258,7 @@ export class OnlineTestComponent implements OnInit {
             }
         })
     }
+
+    onViewResult() { }
 
 }

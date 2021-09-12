@@ -1,10 +1,9 @@
-<div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px;">
-  <p-blockUI [blocked]="blockScreen">
-    <p-progressSpinner class="spinner" strokeWidth="4" *ngIf="blockScreen"></p-progressSpinner>
-</p-blockUI>
+
 <p-toast position="top-center" key="t-msg"></p-toast>
+<block-ui>
+<div #main class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px;">
   <p-panel header="Online Test">
-    <div class="p-col-12 p-md-12 p-lg-12 no-pad-top card">
+    <div *ngIf="!isSaved" class="p-col-12 p-md-12 p-lg-12 no-pad-top card">
       <div class="p-col-12 p-md-12 p-lg-12 no-pad-top no-pad-bottom text-center">
         <h3 style="margin: 0 !important;">{{testName}}</h3>
       </div>
@@ -40,23 +39,37 @@
           <div class="p-col-12 p-md-12 p-lg-12">
             <div class="text-left">
               <button id="btn-sm" pButton class="btn-margin" icon="pi pi-angle-double-left" type="button" label="First"
-                *ngIf="config.allowBack" (click)="goTo(0);" ></button>
+                *ngIf="config.allowBack" (click)="goTo(0);"></button>
               <button id="btn-sm" pButton class="btn-margin" type="button" icon="pi pi-angle-left" label="Prev"
                 *ngIf="config.allowBack" (click)="goTo(pager.index - 1);"></button>
-              <button id="btn-sm" pButton class="btn-margin" type="button" icon="pi pi-angle-right" iconPos="right" label="Next"
-                *ngIf="config.allowNext" (click)="goTo(pager.index + 1);"></button>
-              <button id="btn-sm" pButton class="btn-margin" type="button" icon="pi pi-angle-double-right" iconPos="right"
-                label="Last" *ngIf="config.allowBack" (click)="goTo(pager.count - 1);"></button>
+              <button id="btn-sm" pButton class="btn-margin" type="button" icon="pi pi-angle-right" iconPos="right"
+                label="Next" *ngIf="config.allowNext" (click)="goTo(pager.index + 1);"></button>
+              <button id="btn-sm" pButton class="btn-margin" type="button" icon="pi pi-angle-double-right"
+                iconPos="right" label="Last" *ngIf="config.allowBack" (click)="goTo(pager.count - 1);"></button>
             </div>
           </div>
           <div class="p-col-12 p-md-12 p-lg-12">
             <div class="text-center">
-              <button pButton class="btn" type="button" label="Submit" (click)="onSubmit()" 
-              [disabled]="blockScreen"></button>
+              <button pButton class="btn" type="button" label="Submit" (click)="onSubmit()"
+              [disabled]="isSubmitted" ></button>
             </div>
-        </div>
+          </div>
         </div>
       </div>
     </div>
+    <div *ngIf="isSaved" class="p-col-12 p-md-12 p-lg-12 no-pad-top card">
+      <p-card>
+        <div class="p-col-8">
+            you can view the result of the test by clicking below button!!!
+        <div class="p-col-12 p-md-12 p-lg-12">
+          <div class="text-center">
+            <button pButton class="btn" type="button" label="View Result" icon="pi pi-eye" (click)="onViewResult()"
+             ></button>
+          </div>
+        </div>
+      </div>
+      </p-card>
+    </div>
   </p-panel>
 </div>
+</block-ui>

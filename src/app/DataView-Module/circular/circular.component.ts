@@ -1,4 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { SelectItem } from 'primeng/api';
+import { PathConstants } from 'src/app/Common-Module/PathConstants';
+import { RestAPIService } from 'src/app/Services/restAPI.service';
+import { saveAs } from 'file-saver';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @Component({
   selector: 'app-circular',
@@ -7,16 +14,43 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CircularComponent implements OnInit {
   data: any = [];
-  
-  constructor() { }
+  cols: any;
+
+  constructor(private restApiService: RestAPIService, private http: HttpClient) { }
 
   ngOnInit() {
-    this.data = [ {'slno': 1, 'subject': 'Smart Classroom', 'date': '01-08-2021', 'instructions': 'The smart class had been established by UIIC. The smart class would benefit students to learn latest technology.'},
-    {'slno': 2, 'subject': 'COVID Vaccination', 'date': '08-09-2021', 'instructions': 'COVID-19 Vaccination for students, Lecturers and support staff of skill training. '},
-    {'slno': 3, 'subject': 'Award Ceremony', 'date': '10-08-2021', 'instructions': 'Circular regarding date extension for "Best Student Award" programme.'},
-    {'slno': 4, 'subject': 'Government order', 'date': '21-08-2021', 'instructions': 'Circular regarding not approving government school premises/land for any purposes.'},
-    {'slno': 5, 'subject': 'Tuition Fee', 'date': '11-09-2021', 'instructions': 'Collection of Tution fees from the students studying in English Medium classes in Government/Government Aided High and Higher Secondary Schools orders issued.'}]
+
+    this.onview()
+  
+
+    this.cols = [
+      {field: 'CircularDate',header: 'Circular Date'},
+      {field:'Subject',header: 'Subject'},
+      {field: 'Details',header: 'Details'},
+      // {field: 'Download',header: 'Circular Download'},
+    
+      
+    ];
+
   }
+  onview() {
+    const params = { 
+      'SchoolID': 1,
+    }
+    
+    this.restApiService.getByParameters(PathConstants.Circular_Get, params).subscribe(res => {
+      if(res !== null && res !== undefined && res.length !==0) {
+        console.log(res);
+        this.data = res;
+      }
+      
+    })
 
-
+  }
+  onDownload() {
+    const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheethtml.sheet;charset=UTF-8';
+    const path = "../../assets/files/sample_Project.pdf";
+    const filename = 'sample_Project' + ".pdf";
+    saveAs(path, filename);
+  }
 }

@@ -29,7 +29,8 @@ export class NewsletterFormComponent implements OnInit {
     this.cols = [
       {field:'NewsDate',header: 'Date'},
       {field:'Topic',header: 'Topic'},
-      {field: 'CreatedDate',header: 'Download date'},
+      {field:'Download',header: 'Newsletter Upload'},
+      {field: 'CreatedDate',header: 'Upload date'},
       
     ];
   }
@@ -56,15 +57,15 @@ export class NewsletterFormComponent implements OnInit {
       'SchoolID': 1,      
       'Topic': this.Topic,    
       'NewsDate': this.date, 
-      'Download':'1', // (this._guardianimg !== undefined && this._guardianimg !== null) ? this._guardianimg.values: 0,
+      'Download':'Newsletter.pdf', // (this._guardianimg !== undefined && this._guardianimg !== null) ? this._guardianimg.values: 0,
       'Flag': 1,
     };
     console.log(params);
     this.restApiService.post(PathConstants.NewsLetter_Post, params).subscribe(res => {
       console.log('rs', res);
-      alert("saved");
+     // alert("saved");
       //form.resetForm();
-      this.onview();
+      //this.onview();
     });
   }
 
@@ -89,4 +90,5 @@ export class NewsletterFormComponent implements OnInit {
   this.Topic = ''
  
   }
+  
 }

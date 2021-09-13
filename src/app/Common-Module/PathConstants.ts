@@ -1,9 +1,12 @@
 export class PathConstants {
+    public static readonly Google_Drive_URL = 'https://drive.google.com/drive/u/2/my-drive'
+
     public static readonly Registration_Post = 'RegistrationForm/Post';
     public static readonly Registration_Get = 'RegistrationForm/Get';
 
     public static readonly OnlineAssessment_Post = 'OnlineAssessment/Post';
     public static readonly OnlineAssessment_Get = 'OnlineAssessment/Get';
+    public static readonly OnlineAssessment_Asnwer_Post = 'AssessmentResult/Post';
 
     public static readonly Book_Post = 'Books/Post';
     public static readonly Book_Get = 'Books/Get';

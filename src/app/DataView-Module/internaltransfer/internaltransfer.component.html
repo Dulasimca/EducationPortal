@@ -7,13 +7,13 @@
                         <div class="p-grid">
                             <div class="p-col-12 p-md-6 p-lg-2 no-pad-left">
                                 <label for="_district">District<span class="form-mandatory-field">*</span> </label>
-                                <p-dropdown [options]="district" [(ngModel)]="selectedDistrict" name="_district"
-                                    optionLabel="name" placeholder="select a district"></p-dropdown>
+                                <p-dropdown [options]="districtOptions" [(ngModel)]="selectedDistrict" name="_district"
+                                 (onClick)="onSelect('D')" ></p-dropdown>
                             </div>
                             <div class="p-col-12 p-md-6 p-lg-2 no-pad-left" style="margin: left -3px;">
                                 <label for="_school">School<span class="form-mandatory-field">*</span> </label>
                                 <p-dropdown [options]="school" [(ngModel)]="selectedSchool" name="_school"
-                                    optionLabel="name" placeholder="select a school"></p-dropdown>
+                                    ></p-dropdown>
                             </div>
                             <div class="p-col-12 p-md-6 p-lg-2 no-pad-left" style="margin: left -3px;">
                                 <label for="_dateofapply">Date of Apply<span

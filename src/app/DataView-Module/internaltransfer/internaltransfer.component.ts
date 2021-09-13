@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { SelectItem } from 'primeng/api/selectitem';
+import { MasterService } from 'src/app/Services/master-data.service';
 
 @Component({
   selector: 'app-internaltransfer',
@@ -8,22 +9,42 @@ import { SelectItem } from 'primeng/api/selectitem';
 })
 export class InternaltransferComponent implements OnInit {
   date: Date = new Date();
-  district : SelectItem[];
   school : SelectItem[];
   display: boolean = false;
-  selectedDistrict: any;
+  selectedDistrict: string;
   selectedSchool: any;
   
-  constructor() { }
+  districtOptions: SelectItem[];
+
+  districts?: any;
+
+  
+  constructor(private masterService: MasterService) { }
 
   ngOnInit() {
-    this.district = [ 
-      
-    ]
+    this.districts = this.masterService.getMaster('D');
+
 
     this.school = [
-     
+      { label: '-select-', value: null },
+      { label: 'Government higher Secondary School,Coimbatore', value: 'S01' },
+      { label: 'Government Girls higher Secondary School,Madurai', value: 'S02' },
+      { label: 'Adharsh Vidyalaya public school,Dindugal', value: 'S03' },
+      { label: 'Artisto Public School,Cuddalore', value: 'S04' }
     ]
+  }
+
+  onSelect(type) {
+    let districtSelection = [];
+    switch (type) {
+      case 'D':
+        this.districts.forEach(d => {
+          districtSelection.push({ label: d.name, value: d.code });
+        })
+        this.districtOptions = districtSelection;
+        this.districtOptions.unshift({ label: '-select', value: null });
+        break;
+      }
   }
 
   onTransfer() {

@@ -20,6 +20,7 @@
         <div class="p-col-12 p-md-6 p-lg-12">
             <button pButton name="save" type="button" label="Submit" (click)="onSubmit()" style="margin-left: 30%;"></button>
             <button pButton type="button" label="View" (click)="onView()" style="margin-left: 5%;"></button>
+            <button pButton type="button" label="Clear" (click)="clear()" style="margin-left: 5%;"></button>
         </div>
         <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,15,20]"
   totalRecords="totalRecords" pageLinks="3">

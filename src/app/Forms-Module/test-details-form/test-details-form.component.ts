@@ -15,6 +15,7 @@ import { ResponseMessage } from 'src/app/Common-Module/Message';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ExcelService } from 'src/app/Services/excel.service';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 
 @Component({
@@ -45,9 +46,9 @@ export class TestDetailsFormComponent implements OnInit {
   classes?: any;
   questions: Question[] = [];
   options: Option[] = [];
-  blockScreen: boolean;
   @ViewChild('fileSelector', { static: false }) fileSelector: ElementRef;
   @ViewChild('f', { static: false }) _testForm: NgForm;
+  @BlockUI() blockUI: NgBlockUI;
 
   constructor(private authService: AuthService, public masterService: MasterService,
     private restApiService: RestAPIService, private messageService: MessageService,
@@ -138,7 +139,7 @@ export class TestDetailsFormComponent implements OnInit {
   }
 
   onSave() {
-    this.blockScreen = true;
+    this.blockUI.start();
     const params = {
       'RowId': this.RowId,
       'Classcode': this.class,
@@ -156,7 +157,7 @@ export class TestDetailsFormComponent implements OnInit {
     };
     this.restApiService.post(PathConstants.OnlineAssessment_Post, params).subscribe(res => {
       if(res) {
-        this.blockScreen = false;
+        this.blockUI.stop();
         this.onRemoveFile();
         this.onClearForm();
         this.messageService.clear();
@@ -165,7 +166,7 @@ export class TestDetailsFormComponent implements OnInit {
           summary: ResponseMessage.SUMMARY_SUCCESS, detail: ResponseMessage.SuccessMessage
         });
       } else {
-        this.blockScreen = false;
+        this.blockUI.stop();
         this.messageService.clear();
         this.messageService.add({
           key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
@@ -173,7 +174,7 @@ export class TestDetailsFormComponent implements OnInit {
         });
       }
     }, (err: HttpErrorResponse) => {
-      this.blockScreen = false;
+      this.blockUI.stop();
       if (err.status === 0 || err.status === 400) {
         this.messageService.clear();
         this.messageService.add({

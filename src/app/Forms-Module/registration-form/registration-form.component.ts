@@ -10,6 +10,7 @@ import * as _ from 'lodash';
 import { Profile } from 'src/app/Interfaces/profile';
 import { NgForm } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
 @Component({
   selector: 'app-registration-form',
@@ -71,7 +72,6 @@ export class RegistrationFormComponent implements OnInit {
   regId: any;
   slno: any;
   imagePreview: any;
-  blockScreen: boolean;
   //masters
   districts?: any;
   sections?: any;
@@ -82,6 +82,7 @@ export class RegistrationFormComponent implements OnInit {
   @ViewChild('fatherImg', { static: false }) fatherImg: ElementRef;
   @ViewChild('motherImg', { static: false }) motherImg: ElementRef;
   @ViewChild('guardianImg', { static: false }) guardianImg: ElementRef;
+  @BlockUI() blockUI: NgBlockUI;
 
   constructor(private restApiService: RestAPIService, private datePipe: DatePipe,
     private messageService: MessageService, private masterService: MasterService) { }
@@ -154,7 +155,7 @@ export class RegistrationFormComponent implements OnInit {
         this.districtOptions = districtSelection;
         this.districtOptions.unshift({ label: '-select', value: null });
         break;
-      case 'C':
+      case 'C': 
         this.classes.forEach(c => {
           classSelection.push({ label: c.name, value: c.code })
         });
@@ -191,7 +192,7 @@ export class RegistrationFormComponent implements OnInit {
   }
 
   onSubmit() {
-   this.blockScreen = true;
+    this.blockUI.start();
     const params: Profile = {
       ID: (this.regId !== undefined && this.regId !== null) ? this.regId : 0,
       slno: (this.slno !== undefined && this.slno !== null) ? this.slno : 0,
@@ -246,15 +247,15 @@ export class RegistrationFormComponent implements OnInit {
     this.restApiService.post(PathConstants.Registration_Post, params).subscribe(res => {
       if(res !== undefined && res !== null) {
       if (res.item1) {
-       this.blockScreen = false;
-       this.clearForm();
+        this.blockUI.stop();
+        this.clearForm();
         this.messageService.clear();
         this.messageService.add({
           key: 't-msg', severity: ResponseMessage.SEVERITY_SUCCESS,
           summary: ResponseMessage.SUMMARY_SUCCESS, detail: ResponseMessage.SuccessMessage
         });
       } else {
-        this.blockScreen = false;
+        this.blockUI.stop();
         this.messageService.clear();
         this.messageService.add({
           key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
@@ -269,7 +270,7 @@ export class RegistrationFormComponent implements OnInit {
       });
     }
     }, (err: HttpErrorResponse) => {
-      this.blockScreen = false;
+      this.blockUI.stop();
       if (err.status === 0 || err.status === 400) {
         this.messageService.clear();
         this.messageService.add({

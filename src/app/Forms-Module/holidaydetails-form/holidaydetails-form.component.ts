@@ -19,7 +19,7 @@ export class HolidaydetailsFormComponent implements OnInit {
   selectedType: string;
   typeOptions: SelectItem[];
   Events: string;
-  date: Date = new Date();
+  date: any = new Date();
   Day: string;
   Status: string;
   data: any = []; 
@@ -28,8 +28,8 @@ export class HolidaydetailsFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.typeOptions = [
-      { label: 'Leave', value: 'Leave'},
-      { label: 'Holidays', value: 'Holiday'},
+      { label: 'Leave', value: '0'},
+      { label: 'Holidays', value: '1'},
     ];
     this.cols = [
       { field: 'Holiday', header: 'Type' },
@@ -50,7 +50,7 @@ export class HolidaydetailsFormComponent implements OnInit {
       'RowId': 0,
       'SchoolId': 1,
       'EventDetailS':this.Events,
-      'Holiday': 1,     
+      'Holiday': this.selectedType,     
       'eventdate': this.date, 
       'Flag': 1,      
     };
@@ -69,6 +69,10 @@ export class HolidaydetailsFormComponent implements OnInit {
       }
     });
  
+  }
+  clear() {
+    this.Events=""
+
   }
 }
 

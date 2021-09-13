@@ -33,6 +33,7 @@ export class CircularFormComponent implements OnInit {
       {field: 'CircularDate',header: 'Circular Date'},
       {field:'Subject',header: 'Subject'},
       {field: 'Details',header: 'Details'},
+      {field: 'Download',header: 'Circular Upload'},
      // {field: 'CreatedDate',header: 'Upload date'},
       
     ];
@@ -63,7 +64,7 @@ export class CircularFormComponent implements OnInit {
       'CircularDate': this.date, 
       'Subject': this.Subject,
       'Details': this.Details,
-      'Download':'123.png',// (this._guardianimg !== undefined && this._guardianimg !== null) ? this._guardianimg.values: 0,
+      'Download':'Circular.pdf',// (this._guardianimg !== undefined && this._guardianimg !== null) ? this._guardianimg.values: 0,
       'Flag':  true
      
     };

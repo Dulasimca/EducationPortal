@@ -64,7 +64,7 @@ export class BookFormComponent implements OnInit {
       'ClassId': 1,
       'subjects': this.Subject,     
       'authorReference': this.Author,
-      'Pdffilename': 'mn.pdf',  
+      'Pdffilename': 'Book.pdf',  
       'Years': this.selectedyear,   
       'Flag': 1,  
       
@@ -73,9 +73,9 @@ export class BookFormComponent implements OnInit {
     console.log(params);
     this.restApiService.post(PathConstants.Book_Post, params).subscribe(res => {
       console.log('rs', res);
-      alert("saved");
+      //alert("saved");
       //form.resetForm();
-      this.onview();
+      //this.onview();
     })
    
     

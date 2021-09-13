@@ -33,6 +33,12 @@ export class PathConstants {
     public static readonly Fee_Post = 'Fee/Post'; 
     public static readonly Fee_Get = 'Fee/Get'; 
 
+     
+    public static readonly MySchool_Get = 'MySchool/Get'; 
+    public static readonly MySchool_Post = 'MySchool/Post'; 
+
+
+
 
 
 }

@@ -1,4 +1,5 @@
 <div class="p-col-12" style="padding-top:25px;">
+    <p-toast position="top-center" key="t-msg"></p-toast>
     <p-panel header="My School">
         <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
             <form #f="ngForm" name="mySchoolForm">
@@ -9,7 +10,7 @@
                                 <div class="p-col-12 p-md-6 p-lg-2">
                                     <label for="_curriculum">Curriculum<span
                                             class="form-mandatory-field">*</span></label>
-                                    <p-dropdown [options]="curriculum" [(ngModel)]="selectedCurriculum"
+                                    <p-dropdown [options]="curriculumOptions" [(ngModel)]="curriculum"
                                         name="_curriculum" optionLabel="label" placeholder="select curriculum" required>
                                     </p-dropdown>
                                 </div>
@@ -28,7 +29,7 @@
                                 <div class="p-col-12 p-md-6 p-lg-3">
                                     <div><label for="_address">Address<span
                                                 class="form-mandatory-field">*</span></label></div>
-                                    <textarea pInputTextarea [(ngModel)]="address" name="_address" rows="2" cols="36"
+                                    <textarea pInputTextarea [(ngModel)]="address" name="_address" rows="2" cols="34"
                                         required></textarea>
                                 </div>
                                 <div class="p-col-12 p-md-6 p-lg-2">
@@ -62,7 +63,7 @@
                                     </div>
                                 </div>
                                 <div class="p-col-12 p-md-6 p-lg-6" style="text-align:right;">
-                                    <button pButton name="save" type="button" label="Save"
+                                    <button pButton name="save" type="button" label="Save"  (click)="onSave()"
                                         [disabled]="(!f.valid)"></button>
                                 </div>
                                 <div class="p-col-12 p-md-6 p-lg-6">

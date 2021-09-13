@@ -1,11 +1,20 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { i18nMetaToJSDoc } from '@angular/compiler/src/render3/view/i18n/meta';
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { MessageService } from 'primeng/api';
- 
+import { MessageService, SelectItem } from 'primeng/api';
+import { min } from 'rxjs';
+import * as _ from 'lodash';
+
+
 import { ResponseMessage } from 'src/app/Common-Module/Message';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
+import { Profile } from 'src/app/Interfaces/profile';
+import { MasterService } from 'src/app/Services/master-data.service';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
+import { UserService } from 'src/app/Services/user.service';
+import { DatePipe } from '@angular/common';
+// import { isUint16Array } from 'util/types';
 
 @Component({
   selector: 'app-personal-details',
@@ -13,104 +22,152 @@ import { RestAPIService } from 'src/app/Services/restAPI.service';
   styleUrls: ['./personal-details.component.css']
 })
 export class PersonalDetailsComponent implements OnInit {
-  name: string;
-  class: any;
-  section: any;
-  dob: any;
-  doj: any;
-  bloodGroup: any;
-  guardianName: string;
-  fatherName: string;
-  motherName: string;
-  fatherOccupation: string;
-  motherOccupation: string;
-  fatherBloodGroup: any;
-  motherBloodGroup: any;
-  fatherContact: number;
-  motherContact: number;
-  address: any;
+  responseData: Profile[] = [];
+  obj: Profile;
   yearRange: string;
-  motherEmail: any;
-  fatherEmail: any;
-  guardianEmail: any;
-  guardianOccupation: any;
-  guardianBloodGroup: any;
-  guardianContact: any;
- 
+  classOptions: SelectItem[];
+  sectionOptions:  SelectItem[];
+  genderOptions: SelectItem[];
+   //masters
+   sections?: any;
+   classes?: any;
 
-  constructor(private restApiService: RestAPIService,  private messageService: MessageService, private http: HttpClient) { }
+  constructor(private restApiService: RestAPIService, private messageService: MessageService,
+    private datePipe: DatePipe, private userService: UserService, private masterService: MasterService) { }
 
-  ngOnInit()  {
+  ngOnInit() {
+    this.responseData = this.userService.getResponse();
+    this.userService.getResponse();
     const current_year = new Date().getFullYear();
     const start_year_range = current_year - 30;
     this.yearRange = start_year_range + ':' + current_year;
+    this.loadData();
+    ///loading master data
+    this.sections = this.masterService.getMaster('S');
+    this.classes = this.masterService.getMaster('C');
+
+    this.genderOptions = [
+      { label: '-select-', value: null },
+      { label: 'Female', value: 'Female' },
+      { label: 'Male', value: 'Male' },
+      { label: 'Others', value: 'Others' },
+    ];
   }
 
-  onFileUpload($event){
+  onFileUpload($event) {
 
   }
+  loadData() {
+    console.log('data', this.responseData);
+    if (this.responseData !== null && this.responseData !== undefined) {
+      if (this.responseData.length !== 0)
+        this.responseData.forEach(i => {
+          this.obj = {
+            RoleId: i.RoleId,
+            slno: i.slno,
+            ID: i.ID,
+            FirstName: i.FirstName,
+            LastName: i.LastName,
+            Password: i.Password,
+            DateofBirth: this.datePipe.transform(i.DateofBirth, 'MM/dd/yyyy'),
+            DateofJoining: this.datePipe.transform(i.DateofJoining, 'MM/dd/yyyy'),
+            Gender: i.Gender,
+            Medium: i.Medium,
+            Nationality: i.Nationality,
+            BloodGroup: i.BloodGroup,
+            Class: i.Class,
+            ClassId: i.ClassId,
+            Section: i.Section,
+            SectionId: i.SectionId,
+            StudentPhotoFileName: i.StudentPhotoFileName,
+            Caste: i.Caste,
+            Addressinfo: i.Addressinfo,
+            PermanentAddress: i.PermanentAddress,
+            SchoolName: i.SchoolName,
+            SchoolId: i.SchoolId,
+            PhoneNumber: i.PhoneNumber,
+            AltNumber: i.AltNumber,
+            Nameoflastschool: i.Nameoflastschool,
+            LastchoolTelephone: i.LastchoolTelephone,
+            District: i.District,
+            DistrictId: i.DistrictId,
+            Postalcode: i.Postalcode,
+            EmailId: i.EmailId,
+            City: i.City,
+            State: i.State,
+            Flag: i.Flag,
+            UserId: i.UserId,
+            FatherName: i.FatherName,
+            FatherEmailid: i.FatherEmailid,
+            FatherMobileNo: i.FatherMobileNo,
+            FatherOccupation: i.FatherOccupation,
+            FatherPhotoFileName: i.FatherPhotoFileName,
+            MotherName: i.MotherName,
+            MotherEmailid: i.MotherEmailid,
+            MotherOccupation: i.MotherOccupation,
+            MotherMobileNo: i.MotherMobileNo,
+            MotherPhotoFilName: i.MotherPhotoFilName,
+            GaurdianName: i.GaurdianName,
+            GaurdianEmailid: i.GaurdianEmailid,
+            GaurdianMobileNo: i.GaurdianMobileNo,
+            GaurdianOccupation: i.GaurdianOccupation,
+            GaurdianPhotoFileName: i.GaurdianPhotoFileName
+          }
+          console.log('obj', this.obj);
+          this.classOptions = [{ label: i.Class, value: i.ClassId }];
+          this.sectionOptions = [{ label: i.Section, value: i.SectionId }];
+           
+        })
+    }
 
-  onSave() {
-    const params = {
-      'FirstName' : this.name,
-      'Class': this.class,
-      'Section': this.section,
-      'DateofBirth': this.dob,
-      'DateofJoining': this.doj,
-      'BloodGroup' : this.bloodGroup,
-      'Addressinfo' : this.address,
+  }
+  onSelect(type) {
+    let classSelection = [];
+    let sectionSelection = [];
+    switch (type) {
+    case 'C':
+      this.classes.forEach(c => {
+        classSelection.push({ label: c.name, value: c.code })
+      });
+      let sortedClass = _.sortBy(classSelection, 'value');
+      this.classOptions = sortedClass;
+      this.classOptions.unshift({ label: '-select', value: null });
+      console.log('class', this.obj.Class);
+      break;
+    case 'S':
+      this.sections.forEach(s => {
+        sectionSelection.push({ label: s.name, value: s.code })
+      });
+      this.sectionOptions = sectionSelection;
+      this.sectionOptions.unshift({ label: '-select', value: null });
+      break;
+    }
+  }
 
-      'FatherName': this.fatherName,
-      'FatherOccupation': this.fatherOccupation,
-      'FatherMobileNo': this.fatherContact,
-      'FatherEmailid': this.fatherEmail,
-      'MotherName': this.motherName,
-      'MotherOccupation': this.motherOccupation,
-      'MotherMobileNo': this.motherContact,
-      'MotherEmailid': this.motherEmail,
-      'GaurdianName': this.guardianName,
-      'GaurdianOccupation': this.guardianOccupation,
-      'GaurdianEmailid': this.guardianEmail,
-      'GaurdianMobileNo': this.guardianContact,
-
-    };
-//     this.restApiService.post(PathConstants.Registration_Post, params).subscribe(response => {
-//       if (response) {
-//         // this.blockScreen = false;
-//         this.messageService.clear();
-//         this.messageService.add({
-//           key: 't-msg', severity: ResponseMessage.SEVERITY_SUCCESS,
-//           summary: ResponseMessage.SUMMARY_SUCCESS, detail: ResponseMessage.SuccessMessage
-//         });
-//       } else {
-//         // this.blockScreen = false;
-//         this.messageService.clear();
-//         this.messageService.add({
-//           key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
-//           summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
-//         });
-//       }
-//     }, (err: HttpErrorResponse) => {
-//       // this.blockScreen = false;
-//       if (err.status === 0 || err.status === 400) {
-//         this.messageService.clear();
-//         this.messageService.add({
-//           key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
-//           summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
-//         })
-//       }
-    
-//   });
-console.log(params);
-this.restApiService.post(PathConstants.Registration_Post, params).subscribe(res => {
-  console.log('rs', res);
- 
-});
+  onSave() { 
+    this.restApiService.post(PathConstants.Registration_Post, this.obj).subscribe(res => {
+      if (res) {
+        // this.clearForm();
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_SUCCESS,
+          summary: ResponseMessage.SUMMARY_SUCCESS, detail: ResponseMessage.SuccessMessage
+        });
+      } else {
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+          summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+        });
+      }
+    }, (err: HttpErrorResponse) => {
+      if (err.status === 0 || err.status === 400) {
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+          summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+        })
+      }
+    })
+  }
 }
-} 
-
-  
-    
-
-
-  

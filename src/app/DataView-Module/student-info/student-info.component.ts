@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
+import { Profile } from 'src/app/Interfaces/profile';
 import { User } from 'src/app/Interfaces/user';
 import { AuthService } from 'src/app/Services/auth.service';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
+import { UserService } from 'src/app/Services/user.service';
 
 @Component({
   selector: 'app-student-info',
@@ -12,29 +14,30 @@ import { RestAPIService } from 'src/app/Services/restAPI.service';
 })
 export class StudentInfoComponent implements OnInit {
 
-name : string;
-class : any;
-section : any;
-rollNo : any;
-dob : any;
-doj : any;
-bloodGroup : any;
-address : any;
-fatherName : string;
-fatherOccupation : any;
-fatherEmail : any;
-fatherContact : number;
-motherName : string;
-motherOccupation : any;
-motherEmail : any;
-motherContact : number;
-image : any;
+name: string;
+class: any;
+section: any;
+rollNo: any;
+dob: any;
+doj: any;
+bloodGroup: any;
+address: any;
+fatherName: string;
+fatherOccupation: any;
+fatherEmail: any;
+fatherContact: number;
+motherName: string;
+motherOccupation: any;
+motherEmail: any;
+motherContact: number;
+image: any;
+responseData: Profile;
 
 
 
   activeIndex: any = 0;
 
-  constructor(private router: Router, private authService: AuthService, private restApiService : RestAPIService) { }
+  constructor(private router: Router, private authService: AuthService, private restApiService : RestAPIService, private userService: UserService) { }
 
   ngOnInit() {
     // this.router.events.subscribe((e) => {
@@ -51,6 +54,7 @@ image : any;
     const params = { 'Value': user.email, 'Type': '2' };
     this.restApiService.getByParameters(PathConstants.Registration_Get, params).subscribe(response => {
       if(response !== undefined && response !== null && response.length !== 0) {
+        this.responseData = response;
         response.forEach(i => {
           this.name = (i.FirstName !== undefined && i.FirstName !== null) ? ((i.FirstName.toString().trim() !== '') ? i.FirstName : '-') : '-',
           this.class = (i.Class !== undefined && i.Class !== null) ? ((i.Class.toString().trim() !== '') ? i.Class : '-') : '-',
@@ -74,14 +78,11 @@ image : any;
     });
   
   }
-  onEdit(selectedField){
+  onEdit(){
     this.router.navigate(['/personal-details']);
-      if(selectedField !== null && selectedField !== undefined) {
-        this.name = selectedField.FirstName;
-        this.dob = selectedField.DateofBirth
-        // this.class = selectedField.
+    this.userService.setResponse(this.responseData);
       }
     }
-  }
+  
 
 

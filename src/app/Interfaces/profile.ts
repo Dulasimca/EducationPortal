@@ -5,8 +5,8 @@ export interface Profile {
     FirstName: string;
     LastName: string;
     Password: string;
-    DateofBirth: Date;
-    DateofJoining: Date;
+    DateofBirth: any;
+    DateofJoining: any;
     Gender: string;
     Medium: string;
     Nationality: string;

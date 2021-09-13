@@ -9,6 +9,7 @@ import { MasterService } from 'src/app/Services/master-data.service';
 import * as _ from 'lodash';
 import { Profile } from 'src/app/Interfaces/profile';
 import { NgForm } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-registration-form',
@@ -82,7 +83,7 @@ export class RegistrationFormComponent implements OnInit {
   @ViewChild('motherImg', { static: false }) motherImg: ElementRef;
   @ViewChild('guardianImg', { static: false }) guardianImg: ElementRef;
 
-  constructor(private restApiService: RestAPIService, private http: HttpClient,
+  constructor(private restApiService: RestAPIService, private datePipe: DatePipe,
     private messageService: MessageService, private masterService: MasterService) { }
 
   ngOnInit() {
@@ -190,15 +191,15 @@ export class RegistrationFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.blockScreen = true;
+   this.blockScreen = true;
     const params: Profile = {
       ID: (this.regId !== undefined && this.regId !== null) ? this.regId : 0,
       slno: (this.slno !== undefined && this.slno !== null) ? this.slno : 0,
       FirstName: this.firstName,
       LastName: this.lastName,
       RoleId: this.roleId,
-      DateofBirth: this.dob,
-      DateofJoining: this.doj,
+      DateofBirth: this.datePipe.transform(this.dob, 'MM/dd/yyyy'),
+      DateofJoining: this.datePipe.transform(this.doj, 'MM/dd/yyyy'),
       Gender: this.gender,
       BloodGroup: this.bloodGroup,
       City: this.city,
@@ -243,9 +244,10 @@ export class RegistrationFormComponent implements OnInit {
       GaurdianPhotoFileName: '',
     };
     this.restApiService.post(PathConstants.Registration_Post, params).subscribe(res => {
+      if(res !== undefined && res !== null) {
       if (res.item1) {
-        this.blockScreen = false;
-        this.clearForm();
+       this.blockScreen = false;
+       this.clearForm();
         this.messageService.clear();
         this.messageService.add({
           key: 't-msg', severity: ResponseMessage.SEVERITY_SUCCESS,
@@ -259,6 +261,13 @@ export class RegistrationFormComponent implements OnInit {
           summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
         });
       }
+    } else {
+      this.messageService.clear();
+      this.messageService.add({
+        key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+        summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+      });
+    }
     }, (err: HttpErrorResponse) => {
       this.blockScreen = false;
       if (err.status === 0 || err.status === 400) {

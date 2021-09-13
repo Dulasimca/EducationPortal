@@ -51,6 +51,7 @@ import { MySchoolComponent } from './Forms-Module/my-school/my-school.component'
 import { PersonalDetailsComponent } from './Forms-Module/personal-details/personal-details.component';
 import { AssessmentResultsComponent } from './Forms-Module/assessment-results/assessment-results.component';
 import { FeesDetailsFormComponent } from './Forms-Module/fees-details-form/fees-details-form.component';
+import { MyschoolViewComponent } from './DataView-Module/myschool-view/myschool-view.component';
 
 
 const routes: Routes = [
@@ -85,10 +86,12 @@ const routes: Routes = [
  { path: 'test-details', component: TestDetailsFormComponent, canActivate: [AuthGuard] },
  { path: 'question-bank-upload', component: QuestionBankUploadFormComponent},
  { path: 'myclass-results', component: MyclassResultComponent},
- { path: 'my-school', component: MySchoolComponent},
- { path: 'personal-details', component: PersonalDetailsComponent},
+ { path: 'my-school', component: MySchoolComponent, canActivate: [AuthGuard]},
+ { path: 'personal-details', component: PersonalDetailsComponent, canActivate: [AuthGuard]},
  { path: 'assessment-results', component: AssessmentResultsComponent},
  { path: 'fee-details', component: FeesDetailsFormComponent},
+ { path: 'myschool-view', component: MyschoolViewComponent},
+
  
  //Adithya
    { path: 'announcement', component: AnnouncementFormComponent, canActivate: [AuthGuard] },

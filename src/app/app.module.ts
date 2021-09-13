@@ -30,7 +30,8 @@ import { FieldsetModule } from 'primeng/fieldset';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ToastModule } from 'primeng/toast';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
-import { BlockUI, BlockUIModule } from 'primeng/blockui';
+// import { BlockUIModule } from 'primeng/blockui';
+import { BlockUIModule } from 'ng-block-ui';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -185,7 +186,8 @@ FullCalendarModule.registerPlugins([
     MatDatepickerModule,
     ToastModule,
     ProgressSpinnerModule,
-    BlockUIModule
+   // BlockUIModule
+   BlockUIModule.forRoot()
   ],
   providers: [PrimeNGConfig, FilterService, AuthGuard, AuthService, RestAPIService,
     NgxAttendanceLibraryService, DatePipe, MessageService, MasterService, ExcelService, AssessmentService],

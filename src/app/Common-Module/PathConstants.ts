@@ -1,4 +1,6 @@
 export class PathConstants {
+    public static readonly Google_Drive_URL = 'https://drive.google.com/drive/u/2/my-drive'
+
     public static readonly Registration_Post = 'RegistrationForm/Post';
     public static readonly Registration_Get = 'RegistrationForm/Get';
 

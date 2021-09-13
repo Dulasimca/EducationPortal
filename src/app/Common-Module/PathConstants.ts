@@ -35,6 +35,9 @@ export class PathConstants {
     public static readonly Assignment_Get = 'Assignments/Get'; 
     public static readonly Fee_Post = 'Fee/Post'; 
     public static readonly Fee_Get = 'Fee/Get'; 
+    public static readonly Nominee_Post = 'Nominees/Post'; 
+    public static readonly Nominee_Get = 'Nominees/Get'; 
+    public static readonly Nomineeview_Get = 'Student/Get'; 
 
 
 

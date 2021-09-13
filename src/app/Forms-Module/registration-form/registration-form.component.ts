@@ -153,7 +153,7 @@ export class RegistrationFormComponent implements OnInit {
         this.districtOptions = districtSelection;
         this.districtOptions.unshift({ label: '-select', value: null });
         break;
-      case 'C':
+      case 'C': 
         this.classes.forEach(c => {
           classSelection.push({ label: c.name, value: c.code })
         });

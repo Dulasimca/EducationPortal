@@ -1,34 +1,36 @@
-
-    
-                              
-
+                          
 <div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px;">
         <p-panel header="ANNOUNCEMENTS">
         <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
             <p-card>
                 <div>
-                    <p-table [value]="data">
-                        <ng-template pTemplate="header">
-                            <tr>
-                                <th style="width: 90px">S.No</th>
-                                <th>Date</th>
-                                <th>Announcement Tag</th>
-                                <th>Announcement</th>
-                                <th style="width: 120px;">Attachment</th>
-                            </tr>
-                        </ng-template>
-                        <ng-template pTemplate="body" let rowIndex=rowIndex let-data>
-                            <tr>
-                                <td style="width: 90px">{{data.slno}}</td>
-                                <td>{{data.date}}</td>
-                                <td>{{data.tag}}</td>
-                                <td>{{data.announcement}}</td>
-                                <td style="width: 120px;"><i class="pi pi-paperclip" style="color: #52de38; font-size: 1.3rem; margin-left: 25px;"></i></td>
-                            </tr>
-                        </ng-template>
-                    </p-table>
+                      <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,15,20]"
+                                    totalRecords="totalRecords" pageLinks="3">
+                                    <ng-template pTemplate="header" let-columns>
+                                      <tr>
+                                        <th *ngFor="let col of columns">
+                                          {{col.header}}
+                                        </th>
+                                        <th>
+                                           Download
+                                        </th>
+                                        </tr>
+                                    </ng-template>
+                                    
+                                    <ng-template pTemplate="body" let-rowData let-columns="columns">
+                                      <tr>
+                                        <td *ngFor="let col of columns">
+                                          {{rowData[col.field]}}
+                                        </td>
+                                     
+                                     <td style="width: 142px;"><i class="pi pi-file-o" (click)="onDownload()" style="color: #52de38; font-size: 1.3rem; margin-left: 25px;"></i></td>
+                                    </tr>
+                                </ng-template>
+                                  </p-table>
+                                </div>
+                            </p-card>
+                        </div>
+                    </p-panel>
                 </div>
-            </p-card>
-        </div>
-    </p-panel>
-</div>
+                
+             

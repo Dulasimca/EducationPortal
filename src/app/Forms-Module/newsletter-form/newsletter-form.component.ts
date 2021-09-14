@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
+import { DatePipe } from '@angular/common';
+
+
+
 
 @Component({
   selector: 'app-newsletter-form',
@@ -19,7 +23,7 @@ export class NewsletterFormComponent implements OnInit {
   data: any = [];
   guardianimg: any[] = [];
   
-  constructor(private restApiService: RestAPIService, private http: HttpClient) { }
+  constructor(private restApiService: RestAPIService, private datepipe: DatePipe, private http: HttpClient) { }
 
 
   ngOnInit(): void {
@@ -55,7 +59,7 @@ export class NewsletterFormComponent implements OnInit {
       'RowId': this.MRowId,
       'SchoolID': 1,      
       'Topic': this.Topic,    
-      'NewsDate': this.date, 
+      'NewsDate': this.datepipe.transform(this.date,'yyyy-MM-dd'), 
       'Download':'Newsletter.pdf', // (this._guardianimg !== undefined && this._guardianimg !== null) ? this._guardianimg.values: 0,
       'Flag': 1,
     };

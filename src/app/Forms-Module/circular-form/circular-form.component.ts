@@ -5,6 +5,9 @@ import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import {NgForm} from '@angular/forms';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { SelectItem } from 'primeng/api';
+import { DatePipe } from '@angular/common';
+
+
 
 
 @Component({
@@ -26,7 +29,7 @@ export class CircularFormComponent implements OnInit {
 
   guardianimg: any[] = [];
   
-  constructor(private restApiService: RestAPIService, private http: HttpClient) { }
+  constructor(private restApiService: RestAPIService, private datepipe: DatePipe, private http: HttpClient) { }
 
   ngOnInit(): void {
 
@@ -63,7 +66,7 @@ export class CircularFormComponent implements OnInit {
       
       'RowId': this.MRowId,
       'SchoolID':  1,
-      'CircularDate': this.date, 
+      'CircularDate': this.datepipe.transform(this.date,'yyyy-MM-dd'), 
       'Subject': this.Subject,
       'Details': this.Details,
       'Download':'Circular.pdf',// (this._guardianimg !== undefined && this._guardianimg !== null) ? this._guardianimg.values: 0,

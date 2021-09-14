@@ -13,6 +13,7 @@ import { MatNativeDateModule } from '@angular/material/core';
   styleUrls: ['./book-form.component.css']
 })
 export class BookFormComponent implements OnInit {
+  MRowId:0
   Subject: string;
   Author:string;
   yearOptions: SelectItem[];
@@ -32,6 +33,7 @@ export class BookFormComponent implements OnInit {
       { label: '2021-2022', value: '2021-2022' },
     ];
     this.cols = [
+      {field:'RowId',header: 'ID'},
       {field: 'Years',header: 'Year'},
       {field:'subjects',header: 'Subject'},
       {field: 'authorReference',header: 'Author/Reference'},
@@ -59,7 +61,7 @@ export class BookFormComponent implements OnInit {
   onSubmit() {
     const params = {
     
-      'RowId': '0',
+      'RowId': this.MRowId,
       'SchoolId': 1,
       'ClassId': 1,
       'subjects': this.Subject,     
@@ -78,11 +80,7 @@ export class BookFormComponent implements OnInit {
       //this.onview();
     })
    
-    
-    // this.restApiService.get(PathConstants.Book_Get, params).subscribe(res => {
-    //   console.log('rs', res);
-    // })
-  }
+     }
   onview() {
     const params = { 
       'SchoolID': 1,
@@ -104,4 +102,10 @@ export class BookFormComponent implements OnInit {
   this.Author = '',
   this.selectedyear = ''
   }
+  onRowSelect(event, selectedRow) {
+    this.MRowId = selectedRow.RowId;
+    this.Author = selectedRow.authorReference;
+    this.Subject = selectedRow.subjects;
+    this.selectedyear = selectedRow.Years;
+}
 }

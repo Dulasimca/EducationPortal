@@ -10,15 +10,13 @@ import { PathConstants } from 'src/app/Common-Module/PathConstants';
 })
 export class NewsletterFormComponent implements OnInit {
   RowId: string;
+  MRowId=0;
   SchoolID:string;
-  
   Topic: string;
-
   uploadedFiles: any[] = [];
   cols: any; 
   date: Date = new Date();
   data: any = [];
-
   guardianimg: any[] = [];
   
   constructor(private restApiService: RestAPIService, private http: HttpClient) { }
@@ -27,6 +25,7 @@ export class NewsletterFormComponent implements OnInit {
   ngOnInit(): void {
 
     this.cols = [
+      {field:'RowId',header: 'ID'},
       {field:'NewsDate',header: 'Date'},
       {field:'Topic',header: 'Topic'},
       {field:'Download',header: 'Newsletter Upload'},
@@ -53,7 +52,7 @@ export class NewsletterFormComponent implements OnInit {
   onSubmit() {
    
     const params = {
-      'RowID': 0,
+      'RowId': this.MRowId,
       'SchoolID': 1,      
       'Topic': this.Topic,    
       'NewsDate': this.date, 
@@ -86,9 +85,18 @@ export class NewsletterFormComponent implements OnInit {
 
   onClear()
   {
-  //this.date = '',
+  
   this.Topic = ''
  
   }
+  
+  onRowSelect(event, selectedRow) {
+    this.MRowId = selectedRow.RowId;
+    this.Topic = selectedRow.Topic;
+    this.date = selectedRow.NewsDate;
+    
+    
+  }
+
   
 }

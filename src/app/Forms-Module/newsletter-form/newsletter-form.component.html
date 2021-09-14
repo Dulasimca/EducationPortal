@@ -39,7 +39,9 @@
 
             <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,15,20]" totalRecords="totalRecords" pageLinks="3">
             <ng-template pTemplate="header" let-columns>
+
                 <tr>
+
                 <th *ngFor="let col of columns">
                     {{col.header}}
                 </th>
@@ -47,7 +49,7 @@
             </ng-template>
             
             <ng-template pTemplate="body" let-rowData let-columns="columns">
-                <tr>
+                <tr [pSelectableRow]="rowData" (dblclick)="onRowSelect($event, rowData)">
                 <td *ngFor="let col of columns">
                     {{rowData[col.field]}}
                 </td>

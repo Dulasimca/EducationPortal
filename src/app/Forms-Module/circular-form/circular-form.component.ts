@@ -17,6 +17,7 @@ export class CircularFormComponent implements OnInit {
   Subject: string;
   Details:string;
   RowId: string;
+  MRowId:0;
   school_id:string;
   cols: any;
 
@@ -30,6 +31,7 @@ export class CircularFormComponent implements OnInit {
   ngOnInit(): void {
 
     this.cols = [
+      {field:'RowId',header: 'ID'},
       {field: 'CircularDate',header: 'Circular Date'},
       {field:'Subject',header: 'Subject'},
       {field: 'Details',header: 'Details'},
@@ -59,7 +61,7 @@ export class CircularFormComponent implements OnInit {
     const params = {
      
       
-      'RowID':  0,
+      'RowId': this.MRowId,
       'SchoolID':  1,
       'CircularDate': this.date, 
       'Subject': this.Subject,
@@ -86,31 +88,8 @@ export class CircularFormComponent implements OnInit {
       }
       
     })
-
-  }
-
-// onSave(form: NgForm) { 
-//   //alert("hi")
-//   //alert(this.date)
    
-//   var detail = {
-//    'subject': (this.Subject !==undefined && this.Subject !==null) ? this.Subject : "",
-//    'instruction': (this.Instructions !==undefined && this.Instructions !==null) ? this.Instructions : "",
-//    'date': (this.date !==undefined && this.date !==null) ? this.date : "",
-//    'upload': (this._guardianimg !==undefined && this._guardianimg !==null) ? this._guardianimg : "",
-//    'school_id': (this.school_id !==undefined && this.school_id !==null) ? this.school_id : ""
-  
-//   }
-  //alert(detail);
-  //console.log(detail);
-  // this.http.post('http://localhost:7440/api/circular', detail).subscribe(response => {
-  //   if(response) {
-  //     alert("saved successfully");
-  //         form.resetForm();
-  //    //this.onview();
-  //   }
-
-  // })
+  }
 
 
   onClear()
@@ -119,6 +98,11 @@ export class CircularFormComponent implements OnInit {
   this.Subject = '',
   this.Details = ''
   }
-
+  onRowSelect(event, selectedRow) {
+    this.MRowId = selectedRow.RowId;
+    this.date = selectedRow.CircularDate;
+    this.Subject = selectedRow.Subject;
+    this.Details = selectedRow.Details;
 }
 
+}

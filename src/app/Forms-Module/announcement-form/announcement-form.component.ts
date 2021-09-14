@@ -50,7 +50,7 @@ export class AnnouncementFormComponent implements OnInit {
       'RowID': 0,
       'SchoolID': 1,      
       'Announcementdate': this.date,     
-      'AnnouncementTag':this.Topic, // (this._guardianimg !== undefined && this._guardianimg !== null) ? this._guardianimg.values: 0,
+      'AnnouncementTag':this.Topic, 
       'Announcement': this.Announcement,
       'Announcementfilename': "Education.pdf",
       'Flag' : true

@@ -28,6 +28,7 @@ export class HolidaydetailsFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.typeOptions = [
+      { label: '-select-', value: null },
       { label: 'Leave', value: '0'},
       { label: 'Holidays', value: '1'},
     ];

@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
 
+
 @Component({
   selector: 'app-fee-form',
   templateUrl: './fee-form.component.html',
@@ -19,12 +20,14 @@ export class FeeFormComponent implements OnInit {
   fine: string;
   data: any = []; 
   cols: any;
+  MRowId=0;
  
 
   constructor(private restApiService: RestAPIService, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.cols = [
+      { field: 'RowId', header: 'ID' },
       { field: 'duedate', header: 'Due Date' },
       { field: 'ReceiptBook', header: 'Receipt Book' },
       { field: 'FeeName', header: 'Fee Name' },
@@ -45,7 +48,7 @@ export class FeeFormComponent implements OnInit {
 
   onSubmit() {
     const params = {
-      'AssignId': 0,
+      'RowId': this.MRowId,
       'Academic':0,
       'SchoolID': 1,
       'StudentId':1,      
@@ -88,6 +91,17 @@ export class FeeFormComponent implements OnInit {
     this.paying="",
     this.fine=""
 
+  }
+  onRowSelect(event, selectedRow) {
+    this.MRowId=selectedRow.RowId;
+    this.dueDate=selectedRow.duedate;
+    this.receiptbook=selectedRow.ReceiptBook;
+    this.feename=selectedRow.FeeName;
+    this.actualamount=selectedRow.ActualAmount;
+    this.paidamount=selectedRow.PaidAmount;
+    this.outstanding=selectedRow.OutstandingAmount;
+    this.paying=selectedRow.PayingAmount;
+    this.fine=selectedRow.FineAmount;
   }
 
 }

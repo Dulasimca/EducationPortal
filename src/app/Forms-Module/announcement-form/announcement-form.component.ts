@@ -15,6 +15,7 @@ export class AnnouncementFormComponent implements OnInit {
   Topic:string;
   announce:string;
   data: any = []; 
+  MRowid=0;
   cols: any;
   uploadedFiles: any[] = [];
 
@@ -23,6 +24,7 @@ export class AnnouncementFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.cols = [
+      { field: 'RowId', header: 'ID' },
       { field: 'Announcementdate', header: 'DATE' },
       { field: 'AnnouncementTag', header: 'TAG' },
       { field: 'Announcement', header: 'ANNOUNCEMENT' },
@@ -47,7 +49,7 @@ export class AnnouncementFormComponent implements OnInit {
   onSubmit() {
    
     const params = {
-      'RowID': 0,
+      'RowID': this.MRowid,
       'SchoolID': 1,      
       'Announcementdate': this.date,     
       'AnnouncementTag':this.Topic, 
@@ -76,6 +78,20 @@ export class AnnouncementFormComponent implements OnInit {
   clear() {
     this.Topic="",
     this.Announcement=""
+  }
+  onRowSelect(event, selectedRow) {
+    this.MRowid=selectedRow.RowId;
+    this.date = selectedRow.Announcementdate;
+    this.Topic = selectedRow.AnnouncementTag;
+    this.announce = selectedRow.Announcementfilename;
+    this.Announcement = selectedRow.Announcement;
+    console.log(selectedRow.RowId);
+    // this.commodityOptions = [{ label: selectedRow.CommodityName, value: selectedRow.CommodityID }];
+    // this.TaxtypeOptions = [{ label: selectedRow.TaxType, value: selectedRow.Tax }];
+    // this.MeasurementOptions = [{ label: selectedRow.Measurement, value: selectedRow.measurement }];
+    // this.Pan = (selectedRow.TIN === 'URD') ? '' : selectedRow.Pan;
+    // this.Gst = (selectedRow.TIN === 'URD') ? 'URD' : selectedRow.GSTNo;
+    // this.State = (selectedRow.TIN === 'URD') ? '' : selectedRow.StateCode;
   }
   
   

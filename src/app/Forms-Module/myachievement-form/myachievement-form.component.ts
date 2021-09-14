@@ -17,11 +17,13 @@ export class MyachievementFormComponent implements OnInit {
   Events: any;
   data: any = []; 
   cols: any;
+  MRowId=0;
 
   constructor(private restApiService: RestAPIService, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.cols = [
+      { field: 'RowId', header: 'ID' },
       { field: 'eventdate', header: 'Date' },
       { field: 'EventDetailS', header: 'Events' },
       { field: 'Place', header: 'Place' },
@@ -32,7 +34,7 @@ export class MyachievementFormComponent implements OnInit {
   }
   onSubmit() {
     const params = {    
-      'RowId': 0,
+      'RowId': this.MRowId,
       'SchoolId': 1,         
       'StudentId':1,
       'eventdate': this.date,    
@@ -64,5 +66,12 @@ export class MyachievementFormComponent implements OnInit {
     this.Place="",
     this.Status=""
     
+  }
+  onRowSelect(event, selectedRow) {
+    this.MRowId=selectedRow.RowId;
+    this.date=selectedRow.eventdate;
+    this.Events=selectedRow.EventDetailS;
+    this.Place=selectedRow.Place;
+    this.Status=selectedRow.AchievementStatus;
   }
 }

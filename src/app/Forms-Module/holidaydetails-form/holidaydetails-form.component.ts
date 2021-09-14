@@ -24,6 +24,7 @@ export class HolidaydetailsFormComponent implements OnInit {
   Status: string;
   data: any = []; 
   cols: any;
+  MRowid=0;
   constructor(private restApiService: RestAPIService, private http: HttpClient) { }
 
   ngOnInit(): void {
@@ -33,6 +34,7 @@ export class HolidaydetailsFormComponent implements OnInit {
       { label: 'Holidays', value: '1'},
     ];
     this.cols = [
+      { field: 'RowId', header: 'ID' },
       { field: 'Holiday', header: 'Type' },
       { field: 'EventDetailS', header: 'Events' },
       { field: 'eventdate', header: 'Date' }     
@@ -48,7 +50,7 @@ export class HolidaydetailsFormComponent implements OnInit {
  
   onSubmit() {
     const params = {    
-      'RowId': 0,
+      'RowId': this.MRowid,
       'SchoolId': 1,
       'EventDetailS':this.Events,
       'Holiday': this.selectedType,     
@@ -74,6 +76,12 @@ export class HolidaydetailsFormComponent implements OnInit {
   clear() {
     this.Events=""
 
+  }
+  onRowSelect(event, selectedRow)  {
+    this.MRowid=selectedRow.RowId;
+    this.selectedType=selectedRow.Holiday;
+    this.Events=selectedRow.EventDetailS;
+    this.date=selectedRow.eventdate;
   }
 }
 

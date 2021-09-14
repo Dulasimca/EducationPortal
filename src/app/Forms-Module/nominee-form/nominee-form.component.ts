@@ -29,6 +29,7 @@ export class NomineeFormComponent implements OnInit {
   classes?: any;
   sections?: any;
   masterData?: any = [];
+  MRowId=0;
  
   data: any = []; 
   cols: any;
@@ -41,7 +42,8 @@ export class NomineeFormComponent implements OnInit {
     this.sections = this.masterService.getMaster('S');
 
     this.cols = [
-      { field: 'NomineeID', header: 'NomineeID' },
+      { field: 'RowId', header: 'ID' },
+      // { field: 'NomineeID', header: 'NomineeID' },
       { field: 'ElectionDate', header: 'Election Date' },
       { field: 'ElectionName', header: 'ElectionName' },
     
@@ -62,7 +64,7 @@ export class NomineeFormComponent implements OnInit {
   onSubmit() {
    
     const params = {
-      'RowID': 0,
+      'RowId': this.MRowId,
       'SchoolID': 1,        
       'ElectionID':1, 
       'NomineeID': 1,
@@ -135,6 +137,12 @@ export class NomineeFormComponent implements OnInit {
   }
   clear() {
     this.position=""
+  }
+  onRowSelect(event, selectedRow) {
+    this.MRowId=selectedRow.RowId;
+    this.date=selectedRow.ElectionDate;
+    this.position=selectedRow.ElectionName;
+     
   }
 
 }

@@ -31,7 +31,7 @@
                         <button pButton type="button" label="View" (click)="onView()" style="margin-left: 4%;"></button>
                         <button pButton type="button" label="Clear" (click)="clear()" style="margin-left: 5%;"></button>
                     </div>  
-                    <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,15,20]"
+                    <p-table [columns]="cols" [value]="data" [paginator]="true"  [rows]="10" [rowsPerPageOptions]="[5,10,15,20]"
                     totalRecords="totalRecords" pageLinks="3">
                     <ng-template pTemplate="header" let-columns>
                       <tr>
@@ -42,11 +42,13 @@
                     </ng-template>
                     
                     <ng-template pTemplate="body" let-rowData let-columns="columns">
-                      <tr>
+                      <tr [pSelectableRow]="rowData" (dblclick)="onRowSelect($event, rowData)">
+                     
                         <td *ngFor="let col of columns">
                           {{rowData[col.field]}}
                         </td>
                       </tr>
+                    
                     </ng-template>
                   </p-table>
 

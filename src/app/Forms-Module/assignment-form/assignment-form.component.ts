@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
+import { DatePipe } from '@angular/common';
+
 
 @Component({
   selector: 'app-assignment-form',
@@ -19,12 +21,15 @@ export class AssignmentFormComponent implements OnInit {
   cols: any;
   uploadedFiles: any[] = [];
   assignmentfile: any[] = [];
+  AssignmentDate:any;
+  MAssignId=0;
 
 
-  constructor(private restApiService: RestAPIService, private http: HttpClient) { }
+  constructor(private restApiService: RestAPIService, private http: HttpClient,private datepipe: DatePipe,) { }
 
   ngOnInit(): void {
     this.cols = [
+      { field: 'AssignId', header: 'ID'},
       { field: 'AssignmentDate', header: 'Date' },
       { field: 'AssignmentDueDate', header: 'Due Date' },
       { field: 'AssignmentWork', header: 'Assigned Work' },
@@ -44,10 +49,10 @@ export class AssignmentFormComponent implements OnInit {
 onSubmit() {
    
   const params = {
-    'AssignId': 0,
+    'AssignId': this.MAssignId,
     'SchoolID': 1,      
     'Class': 1,     
-    'AssignmentDate': this.assignDate, // (this._guardianimg !== undefined && this._guardianimg !== null) ? this._guardianimg.values: 0,
+    'AssignmentDate': this.assignDate,
     'AssignmentDueDate': this.dueDate,
     'assignmentwork': this.assignmentwork,
     'AssignmentType': this.type,
@@ -74,16 +79,21 @@ onView() {
   });
 
 }
-onEdit(rowData) {
-
-}
-onDelete(rowData) {
-
-}
 clear() {
   this.assignmentwork="",
   this.type="",
   this.subjectname=""
+
+}
+onRowSelect(event, selectedRow) {
+  this.MAssignId=selectedRow.AssignId;
+  this.assignDate=selectedRow.AssignmentDate;
+  this.dueDate = selectedRow.AssignmentDueDate;
+  this.assignmentwork = selectedRow.AssignmentWork;
+  this.type = selectedRow.AssignmentType;
+  this.subjectname = selectedRow.Subjectname;
+  console.log(selectedRow.AssignId);
+  
 
 }
 

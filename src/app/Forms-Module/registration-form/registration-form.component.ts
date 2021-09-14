@@ -11,6 +11,7 @@ import { Profile } from 'src/app/Interfaces/profile';
 import { NgForm } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-registration-form',
@@ -148,7 +149,6 @@ export class RegistrationFormComponent implements OnInit {
     let roleIdSelection = [];
     switch (type) {
       case 'D':
-        console.log('class', this.class);
         this.districts.forEach(d => {
           districtSelection.push({ label: d.name, value: d.code });
         })
@@ -199,8 +199,8 @@ export class RegistrationFormComponent implements OnInit {
       FirstName: this.firstName,
       LastName: this.lastName,
       RoleId: this.roleId,
-      DateofBirth: this.datePipe.transform(this.dob, 'MM/dd/yyyy'),
-      DateofJoining: this.datePipe.transform(this.doj, 'MM/dd/yyyy'),
+      DateofBirth: this.datePipe.transform(this.dob, 'yyyy-MM-dd'),
+      DateofJoining: this.datePipe.transform(this.doj, 'yyyy-MM-dd'),
       Gender: this.gender,
       BloodGroup: this.bloodGroup,
       City: this.city,

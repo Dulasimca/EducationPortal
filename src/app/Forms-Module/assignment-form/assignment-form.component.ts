@@ -12,8 +12,8 @@ import { DatePipe } from '@angular/common';
 })
 export class AssignmentFormComponent implements OnInit {
 
-  dueDate: Date = new Date();
-  assignDate: Date = new Date();
+  dueDate: any = new Date();
+  assignDate: any = new Date();
   assignmentwork: string;
   type:string;
   subjectname:string;
@@ -25,7 +25,7 @@ export class AssignmentFormComponent implements OnInit {
   MAssignId=0;
 
 
-  constructor(private restApiService: RestAPIService, private http: HttpClient,private datepipe: DatePipe,) { }
+  constructor(private restApiService: RestAPIService, private http: HttpClient,private datepipe: DatePipe) { }
 
   ngOnInit(): void {
     this.cols = [
@@ -51,9 +51,9 @@ onSubmit() {
   const params = {
     'AssignId': this.MAssignId,
     'SchoolID': 1,      
-    'Class': 1,     
-    'AssignmentDate': this.assignDate,
-    'AssignmentDueDate': this.dueDate,
+    'Class': 1,    
+    'AssignmentDate': this.datepipe.transform(this.assignDate, 'yyyy-MM-dd') ,
+    'AssignmentDueDate': this.datepipe.transform(this.dueDate, 'yyyy-MM-dd'),
     'assignmentwork': this.assignmentwork,
     'AssignmentType': this.type,
     'subjectname': this.subjectname,

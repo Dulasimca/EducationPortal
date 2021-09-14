@@ -3,6 +3,7 @@ import { saveAs } from 'file-saver';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
+
 @Component({
   selector: 'app-announcement',
   templateUrl: './announcement.component.html',

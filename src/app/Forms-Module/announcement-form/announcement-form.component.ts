@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-announcement-form',
@@ -19,7 +20,7 @@ export class AnnouncementFormComponent implements OnInit {
   cols: any;
   uploadedFiles: any[] = [];
 
-  constructor(private restApiService: RestAPIService, private http: HttpClient) { }
+  constructor(private restApiService: RestAPIService, private http: HttpClient,private datepipe: DatePipe) { }
 
 
   ngOnInit(): void {
@@ -51,7 +52,7 @@ export class AnnouncementFormComponent implements OnInit {
     const params = {
       'RowID': this.MRowid,
       'SchoolID': 1,      
-      'Announcementdate': this.date,     
+      'Announcementdate': this.datepipe.transform(this.date,'yyyy-MM-dd'),     
       'AnnouncementTag':this.Topic, 
       'Announcement': this.Announcement,
       'Announcementfilename': "Education.pdf",

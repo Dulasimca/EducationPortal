@@ -1,9 +1,10 @@
 <div class="p-col-12 p-md-12 p-lg-12" style="padding-top:15px;">
-            <div class="p-col-12 p-md-12 p-lg-12 no-pad">
+    <div class="p-col-12 p-md-12 p-lg-12 no-pad">
         <div class="p-col-12 no-pad">
-            <img src="assets\layout\images\school-lab.png" style="width: 100%; height: 320px;"/>
-        </div> <p-card>
-           
+            <img src="assets\layout\images\school-lab.png" style="width: 100%; height: 320px;" />
+        </div>
+        <p-card>
+
             <div class="p-col-12">
                 <p-tabView [(activeIndex)]="activeIndex">
                     <p-tabPanel header="Personal Info">
@@ -16,36 +17,41 @@
                                 <div class="p-grid">
                                     <div class="p-col-12 p-md-6 p-lg-5" style="padding-top: 25px; margin-left:15px;">
                                         <div class="p-grid">
-                                            <span style="font-weight: bold; margin-left: 15px;">Name</span>
-                                            <div class="p-col-7" style="padding-top: 0; margin-left: 25px;">{{name}}</div>
+                                            <span style="font-weight: bold; margin-left: 15px;">Name:</span>
+                                            <div class="p-col-7" style="padding-top: 0; margin-left: 25px;">{{name}}
+                                            </div>
                                         </div>
                                         <p-divider></p-divider>
                                         <div class="p-grid">
-                                            <span style="font-weight: bold; margin-left: 15px;">Class</span>
-                                            <div class="p-col-7" style="padding-top: 0; margin-left: 30px;">{{class}}-{{section}}</div>
+                                            <span style="font-weight: bold; margin-left: 15px;">Class:</span>
+                                            <div class="p-col-7" style="padding-top: 0; margin-left: 30px;">
+                                                {{class}}-{{section}}</div>
                                         </div>
                                         <p-divider></p-divider>
                                         <div class="p-grid">
-                                            <span style="font-weight: bold;margin-left: 15px;">D.O.B</span>
-                                            <div class="p-col-7" style="padding-top: 0; margin-left: 25px;">{{dob | date:'dd/MM/yyyy'}}</div>
+                                            <span style="font-weight: bold;margin-left: 15px;">D.O.B:</span>
+                                            <div class="p-col-7" style="padding-top: 0; margin-left: 25px;">{{dob |
+                                                date:'dd/MM/yyyy'}}</div>
                                         </div>
                                     </div>
                                     <div class="p-col-1"></div>
-                                    <div class="p-col-12 p-md-6 p-lg-5"  style="padding-top: 25px;">
+                                    <div class="p-col-12 p-md-6 p-lg-5" style="padding-top: 25px;">
                                         <div class="p-grid">
-                                            <span style="font-weight: bold;margin-left: 15px;">D.O.J</span>
-                                            <div class="p-col-7" style="padding-top: 0; margin-left: 13%;">{{doj | date:'dd/MM/yyyy'}}</div>
+                                            <span style="font-weight: bold;margin-left: 15px;">D.O.J:</span>
+                                            <div class="p-col-7" style="padding-top: 0; margin-left: 13%;">{{doj |
+                                                date:'dd/MM/yyyy'}}</div>
                                         </div>
                                         <p-divider></p-divider>
                                         <div class="p-grid">
-                                            <span style="font-weight: bold;margin-left: 15px;">Blood Group</span>
-                                            <div class="p-col-7" style="padding-top: 0; margin-left: 4%;">{{bloodGroup}}</div>
+                                            <span style="font-weight: bold;margin-left: 15px;">Blood Group:</span>
+                                            <div class="p-col-7" style="padding-top: 0; margin-left: 4%;">{{bloodGroup}}
+                                            </div>
                                         </div>
                                         <p-divider></p-divider>
                                         <div class="p-grid">
-                                            <span style="font-weight: bold;margin-left: 15px;">Address</span>
+                                            <span style="font-weight: bold;margin-left: 15px;">Address:</span>
                                             <div class="p-col-7" style="padding-top: 0; margin-left: 10%;">{{address}}
-                                                 </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -56,28 +62,28 @@
                         <p-card>
                             <div class="p-grid">
                                 <div class="p-col-12 p-md-6 p-lg-6 no-pad-top">
-                                    <div class="p-col-12 no-pad-top no-pad-right"
-                                        style="color: whitesmoke; background:  rgb(11, 43, 102) !important; 
+                                    <div class="p-col-12 no-pad-top no-pad-right" style="color: whitesmoke; background:  rgb(11, 43, 102) !important; 
                                         text-align: center; font-weight: bold;font-size: 17px !important;">Father's
                                         Info</div>
                                     <div class="p-grid">
-                                        <div class="p-col-12 p-md-12 p-lg-10" style="margin-left: 15px; padding-top: 25px; ">
+                                        <div class="p-col-12 p-md-12 p-lg-10"
+                                            style="margin-left: 15px; padding-top: 25px; ">
                                             <div class="p-grid">
                                                 <div class="p-col-6 p-md-6 p-lg-6"><b>Name: </b></div>
-                    <div class="p-col-6 p-md-6 p-lg-6">{{fatherName}} </div>
+                                                <div class="p-col-6 p-md-6 p-lg-6">{{fatherName}} </div>
                                             </div>
                                             <p-divider></p-divider>
-                                              <div class="p-grid">
+                                            <div class="p-grid">
                                                 <div class="p-col-6 p-md-6 p-lg-6"><b>Occupation: </b></div>
-                    <div class="p-col-6 p-md-6 p-lg-6">{{fatherOccupation}} </div>
+                                                <div class="p-col-6 p-md-6 p-lg-6">{{fatherOccupation}} </div>
                                             </div>
                                             <p-divider></p-divider>
-                                              <div class="p-grid">
+                                            <div class="p-grid">
                                                 <div class="p-col-6 p-md-6 p-lg-6"><b>Email Id: </b></div>
-                    <div class="p-col-6 p-md-6 p-lg-6">{{fatherEmail}} </div>
+                                                <div class="p-col-6 p-md-6 p-lg-6">{{fatherEmail}} </div>
                                             </div>
                                             <p-divider></p-divider>
-                                             <div class="p-grid">
+                                            <div class="p-grid">
                                                 <div class="p-col-6 p-md-6 p-lg-6"><b>Contact: </b></div>
                                                 <div class="p-col-6 p-md-6 p-lg-6">{{fatherContact}} </div>
                                             </div>
@@ -90,39 +96,39 @@
                                         text-align: center; font-weight: bold;margin-left: 15px;font-size: 17px !important;">Mother's
                                         Info</div>
                                     <div class="p-grid">
-                                        <div class="p-col-12 p-md-12 p-lg-10" style="margin-left: 15px; padding-top: 25px; ">
+                                        <div class="p-col-12 p-md-12 p-lg-10"
+                                            style="margin-left: 15px; padding-top: 25px; ">
                                             <div class="p-grid">
                                                 <div class="p-col-6 p-md-6 p-lg-6"><b>Name: </b></div>
-                    <div class="p-col-6 p-md-6 p-lg-6">{{motherName}} </div>
+                                                <div class="p-col-6 p-md-6 p-lg-6">{{motherName}} </div>
                                             </div>
-                                            <p-divider></p-divider>  
-                                             <div class="p-grid">
+                                            <p-divider></p-divider>
+                                            <div class="p-grid">
                                                 <div class="p-col-6 p-md-6 p-lg-6"><b>Occupation: </b></div>
-                    <div class="p-col-6 p-md-6 p-lg-6">{{motherOccupation}} </div>
+                                                <div class="p-col-6 p-md-6 p-lg-6">{{motherOccupation}} </div>
                                             </div>
                                             <p-divider></p-divider>
-                                               <div class="p-grid">
+                                            <div class="p-grid">
                                                 <div class="p-col-6 p-md-6 p-lg-6"><b>Email Id: </b></div>
-                    <div class="p-col-6 p-md-6 p-lg-6">{{motherEmail}} </div>
+                                                <div class="p-col-6 p-md-6 p-lg-6">{{motherEmail}} </div>
                                             </div>
                                             <p-divider></p-divider>
-                                              <div class="p-grid">
+                                            <div class="p-grid">
                                                 <div class="p-col-6 p-md-6 p-lg-6"><b>Contact: </b></div>
                                                 <div class="p-col-6 p-md-6 p-lg-6">{{motherContact}} </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                
-                            </div>      
+                            </div>
                         </p-card>
-
                     </p-tabPanel>
                 </p-tabView>
             </div>
-            <div class="p-col-12 p-md-12 p-lg-12" style="text-align: center;"> 
-            <button pButton type="button" label="Edit" icon="pi pi-pencil" padding="10px" (click)="onEdit()" ></button>
-        </div>
+            <div class="p-col-12 p-md-12 p-lg-12" style="text-align: center;">
+                <button pButton type="button" label="Edit" icon="pi pi-pencil" padding="10px"
+                    (click)="onEdit()"></button>
+            </div>
         </p-card>
     </div>
 </div>

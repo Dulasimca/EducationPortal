@@ -33,24 +33,13 @@ motherContact: number;
 image: any;
 responseData: Profile;
 
-
-
   activeIndex: any = 0;
 
   constructor(private router: Router, private authService: AuthService, private restApiService : RestAPIService, private userService: UserService) { }
 
   ngOnInit() {
-    // this.router.events.subscribe((e) => {
-    //   if (e instanceof NavigationEnd) {
-    //     console.log(e.url);
-    //     const value: string = e.url.toString();
-    //     const startIndex = (value.length - 1);
-    //     let index: any = value.slice(startIndex, value.length);
-    //     console.log('index', index);
-    //     index = (index * 1);
-    //     this.activeIndex = index;
+     
     const user: User = this.authService.UserInfo;
-    console.log('user', user);
     const params = { 'Value': user.email, 'Type': '2' };
     this.restApiService.getByParameters(PathConstants.Registration_Get, params).subscribe(response => {
       if(response !== undefined && response !== null && response.length !== 0) {
@@ -76,7 +65,6 @@ responseData: Profile;
         })
       }
     });
-  
   }
   onEdit(){
     this.router.navigate(['/personal-details']);

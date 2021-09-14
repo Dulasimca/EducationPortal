@@ -8,7 +8,6 @@
                     <div>{{class}}-{{section}}</div>
                 </div>
                 <p-divider></p-divider>
-                <!-- <div> <span style="font-weight: bold;"> Date of Birth: </span> <span>{{dob}}</span></div> -->
                 <div class="p-grid">
                     <div class="p-col-6 p-md-6 p-lg-6"><b>Roll Number: </b></div>
                     <div class="p-col-6 p-md-6 p-lg-6">{{rollNo}} </div>
@@ -23,43 +22,39 @@
                     <div class="p-col-6 p-md-6 p-lg-6"><b>Date of Join: </b></div>
                     <div class="p-col-6 p-md-6 p-lg-6">{{doj | date:'dd/MM/yyyy'}} </div>
                 </div>
-                <!-- <div> <span style="font-weight: bold;">Date of Join: </span> <span>{{doj}}</span></div> -->
                 <p-divider></p-divider>
                 <div class="p-grid">
                     <div class="p-col-6 p-md-6 p-lg-6"><b>Father's Contact: </b></div>
                     <div class="p-col-6 p-md-6 p-lg-6">{{fatherContact}}</div>
                 </div>
-                <!-- <div> <span style="font-weight: bold;">Father's Contact: </span> <span>{{fatherContact}}</span> -->
-                <p-divider></p-divider>
                 <p-divider></p-divider>
                 <div class="p-grid">
                     <div class="p-col-6 p-md-6 p-lg-6"><b>Mother's Contact: </b></div>
                     <div class="p-col-6 p-md-6 p-lg-6">{{motherContact}}</div>
                 </div>
-                <!-- <div> <span style="font-weight: bold;">Mother's Contact: </span> <span>{{motherContact}}</span>
-                </div> -->
                 <p-divider></p-divider>
                 <div class="p-grid">
-                    <div class="p-col-6 p-md-6 p-lg-6"><b>Guardian(if any):  </b></div>
+                    <div class="p-col-6 p-md-6 p-lg-6"><b>Guardian(if any): </b></div>
                     <div class="p-col-6 p-md-6 p-lg-6">{{guardian}}</div>
                 </div>
-                <!-- <div> <span style="font-weight: bold;">Guardian if any: </span> <span>{{guardian}}</span></div> -->
                 <p-divider></p-divider>
                 <div class="p-grid">
-                    <div class="p-col-6 p-md-6 p-lg-6"><b>Blood Group:  </b></div>
+                    <div class="p-col-6 p-md-6 p-lg-6"><b>Blood Group: </b></div>
                     <div class="p-col-6 p-md-6 p-lg-6">{{bloodGroup}}</div>
                 </div>
-                <!-- <div> <span style="font-weight: bold;">Blood Group: </span> <span>{{bloodGroup}}</span></div> -->
                 <p-divider></p-divider>
-                <div> <span style="font-weight: bold;">Address: </span>
-                    <p>
-                        {{address}}
-                    </p>
+                <div class="p-grid">
+                <div class="p-col-6 p-md-6 p-lg-6"><b>Address: </b></div>
+                    <!-- <p> -->
+                        <div class="p-col-6 p-md-6 p-lg-6"> {{address}}</div>
+                    <!-- </p> -->
                 </div>
             </p-card>
+        </div>
             <div style="text-align: center;margin: 10px; color: #0400d8;">
                 <button pButton type="button" label="Edit" icon="pi pi-pencil" (click)="onEdit()"></button>
             </div>
+        </p-panel>
         </div>
-    </p-panel>
-</div>
+    <!-- </p-panel> -->
+<!-- </div> -->

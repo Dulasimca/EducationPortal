@@ -1,39 +1,41 @@
+<block-ui>
 <div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px; height: 520px;">
+  <p-toast position="top-center" key="t-msg"></p-toast>
     <p-panel header="Nominee">
     <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
         <p-card>
             <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
                 <div class="p-grid">
                     <div class="p-col-12 p-md-6 p-lg-3">
-                        <div><label>Date:</label></div><br>
+                        <div><label>Date:</label></div>
                        
                      <p-calendar [(ngModel)]="date"  [showIcon]="true" name="date"></p-calendar>
                         </div>
                        
                        
                     <div class="p-col-12 p-md-6 p-lg-3">
-                        <div><label>Class:</label></div><br>
-                        
-                            <p-dropdown [options]="classOptions" (onClick)="onSelect('C')" [(ngModel)]="classes" name="classes">
-                            </p-dropdown>
+                      <div><label for="_class">Class</label></div>
+                      <p-dropdown name="_class" [options]="classOptions" [(ngModel)]="class" optionLabel="label" (onClick)="onSelect('C')"
+                        required>
+                      </p-dropdown>
                
                     </div>
                     <div class="p-col-12 p-md-12 p-lg-3">
-                        <div><label>Section:</label></div><br>
-                        
-                            <p-dropdown [options]="sectionOptions" (onClick)="onSelect('S')" [(ngModel)]="sections" name="sections">
-                            </p-dropdown>
+                      <div><label for="_section"> Section</label> </div>
+                      <p-dropdown name="_section" [options]="sectionOptions" [(ngModel)]="section" optionLabel="label"
+                        (onClick)="onSelect('S')" required>
+                      </p-dropdown>
                             
                     </div>
                 <div class="p-col-12 p-md-12 p-lg-3">
-                    <div><label>Name:</label></div><br>
+                    <div><label>Name:</label></div>
                     
                         <p-dropdown [options]="nameOptions" (click)="onSelect2()" [(ngModel)]="name" name="name">
                         </p-dropdown>
                 
                 </div>
                 <div class="p-col-12 p-md-12 p-lg-3">
-                    <div><label>Position:</label></div><br>
+                    <div><label>Position:</label></div>
                     
                     <p-dropdown [options]="positionOptions" [(ngModel)]="position" name="position">
                         </p-dropdown>
@@ -70,4 +72,5 @@
         
     </p-panel>
    </div>
+  </block-ui>
                     

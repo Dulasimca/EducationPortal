@@ -1,11 +1,13 @@
+<block-ui>
 <div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px; height: 520px;">
+  <p-toast position="top-center" key="t-msg"></p-toast>
     <p-panel header="Holiday Details">
     <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
         <p-card>
             <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
                 <div class="p-grid">
                     <div class="p-col-12 p-md-4 p-lg-2">
-                    <div><label>Type:</label></div><br>
+                    <div><label>_Type:</label></div><br>
                          <p-dropdown [options]="typeOptions" [(ngModel)]="selectedType" name="selectedType">
                              </p-dropdown>
                              </div>
@@ -48,4 +50,6 @@
        
     </p-panel>
    </div>
+   
+</block-ui>
                     

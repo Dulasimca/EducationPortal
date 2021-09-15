@@ -6,7 +6,11 @@ import {NgForm} from '@angular/forms';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { SelectItem } from 'primeng/api';
 import { DatePipe } from '@angular/common';
-
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ResponseMessage } from 'src/app/Common-Module/Message';
+import { MessageService } from 'primeng/api';
+import { MasterService } from 'src/app/Services/master-data.service';
 
 
 
@@ -28,8 +32,9 @@ export class CircularFormComponent implements OnInit {
   data: any = [];
 
   guardianimg: any[] = [];
-  
-  constructor(private restApiService: RestAPIService, private datepipe: DatePipe, private http: HttpClient) { }
+  @BlockUI() blockUI: NgBlockUI;
+  constructor(private restApiService: RestAPIService, private datepipe: DatePipe, private http: HttpClient,
+    private masterService: MasterService,private messageService: MessageService) { }
 
   ngOnInit(): void {
 
@@ -75,8 +80,40 @@ export class CircularFormComponent implements OnInit {
     };
     console.log(params);
     this.restApiService.post(PathConstants.Circular_Post, params).subscribe(res => {
-      console.log('rs', res);
-    });
+      if(res !== undefined && res !== null) {
+        if (res) {
+          this.blockUI.stop();
+          this.onClear();
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_SUCCESS,
+            summary: ResponseMessage.SUMMARY_SUCCESS, detail: ResponseMessage.SuccessMessage
+          });
+        } else {
+          this.blockUI.stop();
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+            summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+          });
+        }
+        } else {
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+          summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+        });
+        }
+        }, (err: HttpErrorResponse) => {
+        this.blockUI.stop();
+        if (err.status === 0 || err.status === 400) {
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+            summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+          })
+        }
+        })
   }
 
   onview() {

@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { SelectItem } from 'primeng/api';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { saveAs } from 'file-saver';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { MatNativeDateModule } from '@angular/material/core';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ResponseMessage } from 'src/app/Common-Module/Message';
+import { MessageService, SelectItem } from 'primeng/api';
+import { MasterService } from 'src/app/Services/master-data.service';
 
 
 
@@ -26,7 +30,9 @@ export class BookFormComponent implements OnInit {
   form:any;
   data: any = [];
   uploadedFiles: any[] = [];
-  constructor(private restApiService: RestAPIService, private http: HttpClient) { }
+  @BlockUI() blockUI: NgBlockUI;
+  constructor(private restApiService: RestAPIService, private http: HttpClient,
+    private masterService: MasterService,private messageService: MessageService) { }
 
   ngOnInit(): void {
 
@@ -63,6 +69,7 @@ export class BookFormComponent implements OnInit {
     })
   }
   onSubmit() {
+    this.blockUI.start();
     const params = {
     
       'RowId': this.MRowId,
@@ -79,13 +86,42 @@ export class BookFormComponent implements OnInit {
     };
     console.log(params);
     this.restApiService.post(PathConstants.Book_Post, params).subscribe(res => {
-      console.log('rs', res);
-      //alert("saved");
-      //form.resetForm();
-      //this.onview();
-    })
-   
-     }
+      if(res !== undefined && res !== null) {
+        if (res) {
+          this.blockUI.stop();
+          this.onClear();
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_SUCCESS,
+            summary: ResponseMessage.SUMMARY_SUCCESS, detail: ResponseMessage.SuccessMessage
+          });
+        } else {
+          this.blockUI.stop();
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+            summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+          });
+        }
+        } else {
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+          summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+        });
+        }
+        }, (err: HttpErrorResponse) => {
+        this.blockUI.stop();
+        if (err.status === 0 || err.status === 400) {
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+            summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+          })
+        }
+        })
+      }
+
   onview() {
     const params = { 
       'SchoolID': 1,

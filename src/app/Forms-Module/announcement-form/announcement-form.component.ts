@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { DatePipe } from '@angular/common';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { ResponseMessage } from 'src/app/Common-Module/Message';
+import { MessageService, SelectItem } from 'primeng/api';
 
 @Component({
   selector: 'app-announcement-form',
@@ -20,7 +23,9 @@ export class AnnouncementFormComponent implements OnInit {
   cols: any;
   uploadedFiles: any[] = [];
 
-  constructor(private restApiService: RestAPIService, private http: HttpClient,private datepipe: DatePipe) { }
+  @BlockUI() blockUI: NgBlockUI;
+
+  constructor(private restApiService: RestAPIService, private http: HttpClient,private datepipe: DatePipe,private messageService: MessageService) { }
 
 
   ngOnInit(): void {
@@ -32,22 +37,15 @@ export class AnnouncementFormComponent implements OnInit {
       { field: 'Announcementfilename', header: 'Announcementfilename'}
       ];
   }
-  onFileUpload($event, id) {
-    console.log('eve', $event);
-    const reader = new FileReader();
-    var selectedFile = $event.target.files[0];
-    console.log('file', selectedFile);
-   // reader.readAsDataURL(selectedFile);
-   // console.log('url', reader.readAsDataURL(selectedFile));
-    //var endpoint = '../../assets/layout/circular_image';
-    //this.http.post(endpoint, selectedFile).subscribe
-    (res => 
-    {
 
-   })
-  }
+    onFileUpload($event, id) {
+      const reader = new FileReader();
+      var selectedFile = $event.target.files[0];
+    }
+  
   
   onSubmit() {
+    this.blockUI.start();
    
     const params = {
       'RowID': this.MRowid,
@@ -61,9 +59,41 @@ export class AnnouncementFormComponent implements OnInit {
     };
     console.log(params);
     this.restApiService.post(PathConstants.Announcement_Post, params).subscribe(res => {
-      console.log('rs', res);
-    });
-  }
+      if(res !== undefined && res !== null) {
+        if (res) {
+          this.blockUI.stop();
+          this.clear();
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_SUCCESS,
+            summary: ResponseMessage.SUMMARY_SUCCESS, detail: ResponseMessage.SuccessMessage
+          });
+        } else {
+          this.blockUI.stop();
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+            summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+          });
+        }
+        } else {
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+          summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+        });
+        }
+        }, (err: HttpErrorResponse) => {
+        this.blockUI.stop();
+        if (err.status === 0 || err.status === 400) {
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+            summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+          })
+        }
+        })
+      }
   onView() {
     const params = {
       'SchoolID': 1,

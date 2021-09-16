@@ -10,6 +10,7 @@ import { saveAs } from 'file-saver';
   styleUrls: ['./newsletter.component.css']
 })
 export class NewsletterComponent implements OnInit {
+  MRowId=0
   data: any = [];
   cols: any;
   books : any = []
@@ -18,11 +19,11 @@ export class NewsletterComponent implements OnInit {
   ngOnInit() {
     
     this.cols = [
-      {field: 'Years',header: 'Year'},
-      {field:'subjects',header: 'Subject'},
-      {field: 'authorReference',header: 'Author/Reference'},
-      {field: 'Pdffilename',header: 'Book Download'},
-      {field: 'CreatedDate',header: 'Download date'},
+      {field:'RowId',header: 'ID'},
+      {field:'NewsDate',header: 'Date'},
+      {field:'Topic',header: 'Topic'},
+      {field:'Download',header: 'Newsletter Upload'},
+      {field: 'CreatedDate',header: 'Upload date'},
       
       
     ];
@@ -33,7 +34,7 @@ export class NewsletterComponent implements OnInit {
       'SchoolID': 1,
     }
     
-    this.restApiService.getByParameters(PathConstants.Book_Get, params).subscribe(res => {
+    this.restApiService.getByParameters(PathConstants.NewsLetter_Get, params).subscribe(res => {
       if(res !== null && res !== undefined && res.length !==0) {
         console.log(res);
         this.data = res;

@@ -13,6 +13,8 @@ import { MatNativeDateModule } from '@angular/material/core';
   styleUrls: ['./circular.component.css']
 })
 export class CircularComponent implements OnInit {
+
+  MRowId=0
   data: any = [];
   cols: any;
 
@@ -24,6 +26,7 @@ export class CircularComponent implements OnInit {
   
 
     this.cols = [
+      {field: 'RowId',header: 'ID'},
       {field: 'CircularDate',header: 'Circular Date'},
       {field:'Subject',header: 'Subject'},
       {field: 'Details',header: 'Details'},

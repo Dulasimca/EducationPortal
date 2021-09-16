@@ -10,22 +10,19 @@
                     <p-table [value]="data">
                         <ng-template pTemplate="header">
                             <tr>
-                                <th style="width: 90px">S.No</th>
+                                <th>ID</th>
+                                <th>S.No</th>
                                 <th>Subject</th>
-                                <!--<th>Start Date</th>
-                                <th>Start Time</th>-->
                                 <th>Duration</th>
                                 <th>Join Room</th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let rowIndex=rowIndex let-data>
                             <tr>
-                                <td style="width: 90px">{{data.slno}}</td>
+                                <td>{{data.ID}}</td>
+                                <td>{{data.slno}}</td>
                                 <td>{{data.subject}}</td>
-                                <!--<td>{{data.date}}</td>
-                                <td>{{data.time}}</td>-->
                                 <td>{{data.duration}}</td>
-                                <!--<td><i class="pi pi-sign-in" style="padding-left: 10px; color: #52de38; font-size: 1.5rem;"></i></td>-->
                                 <td><i class="pi pi-arrow-circle-down" style="padding-left: 10px; color: #52de38; font-size: 1.5rem;"></i><td>
                             </tr>
                         </ng-template>

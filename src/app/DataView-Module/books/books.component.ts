@@ -10,6 +10,7 @@ import { saveAs } from 'file-saver';
   styleUrls: ['./books.component.css']
 })
 export class BooksComponent implements OnInit {
+  MRowId=0 
   data: any = [];
   cols: any;
   books : any = []
@@ -18,6 +19,7 @@ export class BooksComponent implements OnInit {
   ngOnInit() {
     
     this.cols = [
+      {field: 'RowId',header: 'ID'},
       {field: 'Years',header: 'Year'},
       {field:'subjects',header: 'Subject'},
       {field: 'authorReference',header: 'Author/Reference'},

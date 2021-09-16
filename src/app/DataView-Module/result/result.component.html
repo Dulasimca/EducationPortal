@@ -10,7 +10,8 @@
                     <p-table [value]="data">
                         <ng-template pTemplate="header">
                             <tr>
-                                <th style="width: 90px">S.No</th>
+                                <th style="width: 90px">ID</th>
+                                <th>S.No</th>
                                 <th>Subject Name</th>
                                 <th>Test Name</th>
                                 <th>Result</th>
@@ -19,7 +20,8 @@
                         </ng-template>
                         <ng-template pTemplate="body" let rowIndex=rowIndex let-data>
                             <tr>
-                                <td style="width: 90px">{{data.slno}}</td>
+                                <td style="width: 90px">{{data.ID}}</td>
+                                <td>{{data.slno}}</td>
                                 <td>{{data.subject}}</td>
                                 <td>{{data.test}}</td>
                                 <td>

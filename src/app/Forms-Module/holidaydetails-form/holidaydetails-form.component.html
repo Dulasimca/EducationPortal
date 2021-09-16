@@ -7,16 +7,16 @@
             <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
                 <div class="p-grid">
                     <div class="p-col-12 p-md-4 p-lg-2">
-                    <div><label>_Type:</label></div><br>
-                         <p-dropdown [options]="typeOptions" [(ngModel)]="selectedType" name="selectedType">
-                             </p-dropdown>
+                      <div><label for="_Type">Type</label></div>
+                      <p-dropdown name="_Type" [options]="typeOptions" [(ngModel)]="selectedType" optionLabel="label" name="selectedType">
+                      </p-dropdown>
                              </div>
                              <div class="p-col-12 p-md-6 p-lg-3">
-                    <div><label>Occassion/Festival/Events:</label></div><br>
+                    <div><label>Occassion/Festival/Events:</label></div>
                         <input type="text" name="Events" size="25" pInputText [(ngModel)]="Events"/>
                 </div>
                 <div class="p-col-12 p-md-6 p-lg-3">
-                    <div><label>Date:</label></div><br>
+                    <div><label>Date:</label></div>
                       <p-calendar [(ngModel)]="date" name="date" [showIcon]="true"></p-calendar>
                       </div>     
         <div class="p-col-12 p-md-6 p-lg-12">

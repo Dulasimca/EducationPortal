@@ -33,7 +33,7 @@ export class HolidaydetailsFormComponent implements OnInit {
     this.typeOptions = [
       { label: '-select-', value: null },
       { label: 'Leave', value: '0'},
-      { label: 'Holidays', value: '1'},
+      { label: 'Holiday', value: '1'},
     ];
     this.cols = [
       { field: 'RowId', header: 'ID' },

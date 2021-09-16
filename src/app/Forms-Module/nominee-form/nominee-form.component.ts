@@ -1,13 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { RestAPIService } from 'src/app/Services/restAPI.service';
-import * as _ from 'lodash';
-import { MasterService } from 'src/app/Services/master-data.service';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { MessageService, SelectItem } from 'primeng/api';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
+import { RestAPIService } from 'src/app/Services/restAPI.service';
+import { saveAs } from 'file-saver';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { ResponseMessage } from 'src/app/Common-Module/Message';
+import { MasterService } from 'src/app/Services/master-data.service';
+import * as _ from 'lodash';
+import { Profile } from 'src/app/Interfaces/profile';
+import { NgForm } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
-import { ResponseMessage } from 'src/app/Common-Module/Message';
-import { MessageService, SelectItem } from 'primeng/api';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-nominee-form',
@@ -17,22 +21,27 @@ import { MessageService, SelectItem } from 'primeng/api';
 export class NomineeFormComponent implements OnInit {
 
   date: Date = new Date();
-  Classname: string;
-  section: any;
-  name: string;
+
+  sname: any;
+  snames?: any;
+  nameOptions:SelectItem[];
+
+  position: string;
   positionOptions:SelectItem[];
   positionSelection:SelectItem[];
-  classOptions:SelectItem[];
-  nameOptions:SelectItem[];
-  nameSelection:any =[];
-  sectionOptions:SelectItem[];
-  districtOptions: SelectItem[];
-  position: string;
+
+  class: any;
   classes?: any;
+  classOptions:SelectItem[];
+
+  section: any;
   sections?: any;
+  sectionOptions:SelectItem[];
+
+  districtOptions: SelectItem[];
+
   masterData?: any = [];
   MRowId=0;
-  class: any;
  
   data: any = []; 
   cols: any;
@@ -47,7 +56,7 @@ export class NomineeFormComponent implements OnInit {
 
     this.cols = [
       { field: 'RowId', header: 'ID' },
-      // { field: 'NomineeID', header: 'NomineeID' },
+      //{ field: 'NomineeID', header: 'NomineeID' },
       { field: 'ElectionDate', header: 'Election Date' },
       { field: 'ElectionName', header: 'ElectionName' },
     
@@ -71,7 +80,7 @@ export class NomineeFormComponent implements OnInit {
       'RowId': this.MRowId,
       'SchoolID': 1,        
       'ElectionID':1, 
-      'NomineeID': 1,
+      'NomineeID': this.sname.value,
       'ElectionName': this.position,
       'ElectionDate':this.datepipe.transform(this.date, 'yyyy-MM-dd') ,
       'Flag' : true
@@ -140,20 +149,21 @@ export class NomineeFormComponent implements OnInit {
 
   }
   onSelect2() {
-    // let nameOptions=[];
-    this.nameSelection=[];
-    const params = {
+       const params = {
       'SchoolID': 1,
       'ClassId': this.class.value, 
       'SectionId': this.section.value,
     }
     this.restApiService.getByParameters(PathConstants.Nomineeview_Get, params).subscribe(data => {
       if (data !== undefined) {
-          data.forEach(y => {
-          this.nameSelection.push({ 'label': y.FirstName, 'value': y.slno });
+       let nameSelection=[];
+        this.snames=data;
+         this.snames.forEach(y => {
+          nameSelection.push({ label: y.FirstName, value: y.slno });
           
         });
-        this.nameOptions=this.nameSelection;
+        this.nameOptions=nameSelection;
+        this.nameOptions.unshift({ label: '-select', value: null});
       }
     })
 
@@ -174,8 +184,8 @@ export class NomineeFormComponent implements OnInit {
   clear() {
     this.position="",
     this.classes="",
-    this.sections="",
-    this.name=""
+    this.sections=""
+
   }
   onRowSelect(event, selectedRow) {
     this.MRowId=selectedRow.RowId;

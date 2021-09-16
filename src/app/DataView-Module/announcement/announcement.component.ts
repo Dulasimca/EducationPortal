@@ -18,6 +18,7 @@ export class AnnouncementComponent implements OnInit {
 
   ngOnInit() {
     this.cols = [
+      { field: 'RowId', header: 'ID' },
       { field: 'Announcementdate', header: 'DATE' },
       { field: 'AnnouncementTag', header: 'TAG' },
       { field: 'Announcement', header: 'ANNOUNCEMENT' },

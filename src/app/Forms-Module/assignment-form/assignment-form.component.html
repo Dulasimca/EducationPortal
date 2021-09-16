@@ -7,29 +7,28 @@
             <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
                 <div class="p-grid">
                     <div class="p-col-12 p-md-6 p-lg-3">
-                    <div class="no-pad-top"><label>Date:</label> <br>
+                    <div><label>Date:</label> </div>
                  <p-calendar [(ngModel)]="assignDate" [showIcon]="true" name="assignDate"></p-calendar>
                     </div>
-                    </div>
                     <div class="p-col-12 p-md-6 p-lg-3">
-                        <label> Due Date:</label><br>
+                        <div><label> Due Date:</label></div>
                             <p-calendar [(ngModel)]="dueDate" [showIcon]="true" name="dueDate"></p-calendar>
                     </div>
-                    <div class="p-col-12 p-md-6 p-lg-3" style="text-align: left; margin-top: 5px;">
-                        <label> Assigned Work:</label><br>
+                    <div class="p-col-12 p-md-6 p-lg-3">
+                        <div><label> Assigned Work:</label></div>
                         <input id="float-input"  type="text" size="24" pInputText [(ngModel)]="assignmentwork" name="assignmentwork">  
                     </div>
-                    <div class="p-col-12 p-md-6 p-lg-3" style="text-align: left; margin-top: 5px;">
-                        <label> Assigned Type:</label><br>
+                    <div class="p-col-12 p-md-6 p-lg-3">
+                       <div> <label> Assigned Type:</label></div>
                         <input id="float-input"  type="text" size="24" pInputText [(ngModel)]="type" name="type"> 
                     </div>
-                    <div class="p-col-12 p-md-6 p-lg-3" style="text-align: left; margin-top: 5px;">
-                        <label> Subject Name:</label><br>
+                    <div class="p-col-12 p-md-6 p-lg-3">
+                        <div><label> Subject Name:</label></div>
                         <input id="float-input"  type="text" size="24" pInputText [(ngModel)]="subjectname" name="subjectname">
                     </div>  
-                    <div class="p-col-12 p-md-6 p-lg-3" style="text-align: left; margin-top: 5px;">
-                        <label> Attach File<span
-                          class="form-mandatory-field">*</span></label><br>
+                    <div class="p-col-12 p-md-6 p-lg-3">
+                        <div><label> Attach File<span
+                          class="form-mandatory-field">*</span></label></div>
                        <input class="p-col-12" name="assignmentfile" type="file" pInputText
                         (change)="onFileUpload($event, 1)" accept=".png" />  
                     </div>  
@@ -40,10 +39,6 @@
         </p-card>
         <div class="p-col-12 p-md-12 p-lg-12">
             <button pButton name="_save" type="button" label="Submit" (click)="onSubmit()" style="margin-left: 30%;"></button>
-
-           <!-- <button pButton type="button" label="Submit" onclick="onSubmit()" ></button>
-      </div>
-     <div class="p-col-6 p-md-6 p-lg-12"> -->
          <button pButton type="button" label="View" (click)="onView()" style="margin-left: 5%;"></button>
          <button pButton type="button" label="Clear" (click)="clear()" style="margin-left: 5%;"></button>
      </div>

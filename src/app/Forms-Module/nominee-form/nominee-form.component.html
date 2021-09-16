@@ -28,10 +28,10 @@
                             
                     </div>
                 <div class="p-col-12 p-md-12 p-lg-3">
-                    <div><label>Name:</label></div>
+                  <div><label for="_sname"> Name</label> </div>
                     
-                        <p-dropdown [options]="nameOptions" (click)="onSelect2()" [(ngModel)]="name" name="name">
-                        </p-dropdown>
+                  <p-dropdown name="_sname" [options]="nameOptions" (click)="onSelect2()" optionLabel="label" [(ngModel)]="sname" name="label">
+                  </p-dropdown>
                 
                 </div>
                 <div class="p-col-12 p-md-12 p-lg-3">

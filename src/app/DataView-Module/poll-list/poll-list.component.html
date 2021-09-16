@@ -3,26 +3,41 @@
         <div class="p-col-12 p-md-10 p-lg-8 no-pad-top">
             <p-card>
                 <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
-                    <span style="font-weight: bold;">Class Representative Selection for 10th 'B'</span>
+                    <span style="font-weight: bold;">Class Representative Selection for 10th 'A'</span>
                 </div>
                 <p-divider></p-divider>
-                <div class="p-grid">
-                    <div class="p-col-10">Sunitha Murugesan</div>
-                    <button pButton pRipple type="button" icon="pi pi-thumbs-up" style="margin-right: 10px;" class="p-button-rounded p-button-success p-button-outlined p-col-1"></button>
-                    <button pButton pRipple type="button" icon="pi pi-thumbs-down" class="p-button-rounded p-button-success p-button-outlined p-col-1"></button>
-                </div>
-                <p-divider></p-divider>
-                <div class="p-grid">
-                    <div  class="p-col-10">Balamurugan Kumar</div>
-                    <button pButton pRipple type="button" icon="pi pi-thumbs-up" style="margin-right: 10px;" class="p-button-rounded p-button-success p-button-outlined p-col-1"></button>
-                    <button pButton pRipple type="button" icon="pi pi-thumbs-down" class="p-button-rounded p-button-success p-button-outlined p-col-1"></button>
-                </div>
-                <p-divider></p-divider>
-                <div class="p-grid">
-                    <div  class="p-col-10">Vijay Kumar</div>
-                    <button pButton pRipple type="button" icon="pi pi-thumbs-up" style="margin-right: 10px;" class="p-button-rounded p-button-success p-col-1"></button>
-                    <button pButton pRipple type="button" icon="pi pi-thumbs-down" class="p-button-rounded p-button-success p-button-outlined p-col-1"></button>
-                </div>
+                <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,15,20]"
+                    totalRecords="totalRecords" pageLinks="3">
+                    <ng-template pTemplate="header" let-columns>
+                      <tr>
+                        <th *ngFor="let col of columns">
+                          {{col.header}}
+                        </th>
+                           <th>
+                               Thumbs-up
+                           </th>
+                           <th>
+                            Thumbs-down
+                        </th>
+                           
+                      </tr>
+                    </ng-template>
+                    
+                    <ng-template pTemplate="body" let-rowData let-columns="columns">
+                      <tr>
+                        <td *ngFor="let col of columns">
+                          {{rowData[col.field]}}
+                        </td>
+                        <td>
+                            <button pButton pRipple type="button" icon="pi pi-thumbs-up" style="margin-right: 10px;" class="p-button-rounded p-button-success p-button-outlined p-col-1"></button>
+                            </td>
+                            <td>
+                            <button pButton pRipple type="button" icon="pi pi-thumbs-down" class="p-button-rounded p-button-success p-button-outlined p-col-1"></button>
+                        </td>
+                       
+                    </tr>
+                </ng-template>
+                  </p-table>
                 <p-divider></p-divider>
             </p-card>
         </div>
@@ -33,24 +48,38 @@
                     <span style="font-weight: bold;">School Representative Selection </span>
                 </div>
                 <p-divider></p-divider>
-                <div class="p-grid">
-                    <div class="p-col-10">Jayanthi</div>
-                    <button pButton pRipple type="button" icon="pi pi-thumbs-up" style="margin-right: 10px;" class="p-button-rounded p-button-success p-button-outlined p-col-1"></button>
-                    <button pButton pRipple type="button" icon="pi pi-thumbs-down" class="p-button-rounded p-button-success p-button-outlined p-col-1"></button>
-                </div>
-                <p-divider></p-divider>
-                <div class="p-grid">
-                    <div  class="p-col-10">Vivek Raja</div>
-                    <button pButton pRipple type="button" icon="pi pi-thumbs-up" style="margin-right: 10px;" class="p-button-rounded p-button-success p-col-1"></button>
-                    <button pButton pRipple type="button" icon="pi pi-thumbs-down" class="p-button-rounded p-button-success p-button-outlined p-col-1"></button>
-                </div>
-               
-                <p-divider></p-divider>
-                <div class="p-grid">
-                    <div  class="p-col-10">Sivakumar</div>
-                    <button pButton pRipple type="button" icon="pi pi-thumbs-up" style="margin-right: 10px;" class="p-button-rounded p-button-success p-button-outlined p-col-1"></button>
-                    <button pButton pRipple type="button" icon="pi pi-thumbs-down" class="p-button-rounded p-button-success p-button-outlined p-col-1"></button>
-                </div>
+                <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,15,20]"
+                totalRecords="totalRecords" pageLinks="3">
+                <ng-template pTemplate="header" let-columns>
+                  <tr>
+                    <th *ngFor="let col of columns">
+                      {{col.header}}
+                    </th>
+                       <th>
+                           Thumbs-up
+                       </th>
+                       <th>
+                        Thumbs-down
+                    </th>
+                       
+                  </tr>
+                </ng-template>
+                
+                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                  <tr>
+                    <td *ngFor="let col of columns">
+                      {{rowData[col.field]}}
+                    </td>
+                    <td>
+                        <button pButton pRipple type="button" icon="pi pi-thumbs-up" style="margin-right: 10px;" class="p-button-rounded p-button-success p-button-outlined p-col-1"></button>
+                        </td>
+                        <td>
+                        <button pButton pRipple type="button" icon="pi pi-thumbs-down" class="p-button-rounded p-button-success p-button-outlined p-col-1"></button>
+                    </td>
+                   
+                </tr>
+            </ng-template>
+              </p-table>
                 <p-divider></p-divider>
             </p-card>
         </div>

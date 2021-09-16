@@ -21,6 +21,7 @@ export class FeesComponent implements OnInit {
 
   ngOnInit() {
     this.cols = [
+      { field: 'RowId', header: 'ID' },
       { field: 'duedate', header: 'Due Date' },
       { field: 'ReceiptBook', header: 'Receipt Book' },
       { field: 'FeeName', header: 'Fee Name' },

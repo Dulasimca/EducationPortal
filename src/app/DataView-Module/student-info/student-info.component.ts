@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { Profile } from 'src/app/Interfaces/profile';
 import { User } from 'src/app/Interfaces/user';
@@ -32,13 +32,19 @@ motherEmail: any;
 motherContact: number;
 image: any;
 responseData: Profile;
+activeIndex: any;
 
-  activeIndex: any = 0;
-
-  constructor(private router: Router, private authService: AuthService, private restApiService : RestAPIService, private userService: UserService) { }
+  constructor(private router: Router, private authService: AuthService, 
+    private restApiService : RestAPIService, private userService: UserService,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
-     
+    let currentUrl = this.router.url;
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate([currentUrl]);
+       this.activeIndex = Number.parseInt(this.route.snapshot.queryParamMap.get('id'));
+   console.log('param',this.route.snapshot.queryParamMap.get('id'), this.activeIndex)
     const user: User = this.authService.UserInfo;
     const params = { 'Value': user.email, 'Type': '2' };
     this.restApiService.getByParameters(PathConstants.Registration_Get, params).subscribe(response => {

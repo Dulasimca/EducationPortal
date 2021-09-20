@@ -27,7 +27,6 @@ export class LoginComponent implements OnInit {
 
   onSignIn() {
     const params = { 'Value': this.username.trim(), 'Type': '2' };
-    console.log('params', params);
     this.restApiService.getByParameters(PathConstants.Registration_Get, params).subscribe(response => {
       if(response !== undefined && response !== null && response.length !== 0) {
         response.forEach(i => {
@@ -40,8 +39,9 @@ export class LoginComponent implements OnInit {
               'email': this.username.trim(),
               'schoolId': i.SchoolId,
               'classId': i.ClassId
-            }
+            };
             this.authService.login(obj);
+            console.log('obj', obj);
             this.masterService.initializeMaster();
           } else {
             this.messageService.clear();

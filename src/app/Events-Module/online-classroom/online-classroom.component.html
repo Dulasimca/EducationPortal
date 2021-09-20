@@ -25,7 +25,7 @@
                                 <td>{{data.date}}</td>
                                 <td>{{data.time}}</td>
                                 <td>{{data.duration}}</td>
-                                <td>
+                                <td (click)="onJoinClassroom(data)">
                                     <!-- <div class="tooltip"> This session has been expired -->
                                     <i class="pi pi-sign-in" style="padding-left: 10px; color: #52de38; font-size: 1.5rem;" pTooltip="Session End"></i>
                                 <!-- </div> -->

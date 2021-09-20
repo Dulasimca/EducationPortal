@@ -28,6 +28,7 @@
     "@types/gapi": "0.0.41",
     "@types/gapi.auth2": "0.0.55",
     "@types/gapi.client.drive": "^3.0.13",
+    "@zoomus/websdk": "^1.9.8",
     "file-saver": "^2.0.5",
     "font-awesome": "^4.7.0",
     "hammerjs": "^2.0.8",

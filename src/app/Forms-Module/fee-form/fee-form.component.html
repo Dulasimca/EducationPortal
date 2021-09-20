@@ -1,40 +1,41 @@
-<div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px; height: 520px;">
+<block-ui>
+  <div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px; height: 520px;">
+    <p-toast position="top-center" key="t-msg"></p-toast>
     <p-panel header="Fee">
     <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
         <p-card>
             <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
                 <div class="p-grid">
                     <div class="p-col-12 p-md-6 p-lg-3">
-                    <div class="no-pad-top"><label>Due Date:</label> <br>
+                    <div><label>Due Date:</label> </div>
                  <p-calendar [(ngModel)]="dueDate" [showIcon]="true" name="dueDate"></p-calendar>
                     </div>
-                    </div>
-                    <div class="p-col-12 p-md-6 p-lg-3" style="text-align: left; margin-top: 5px;">
-                        <label> Receipt Book:</label><br>
+                    <div class="p-col-12 p-md-6 p-lg-3">
+                       <div> <label> Receipt Book:</label></div>
                         <input id="float-input"  type="text" size="24" pInputText [(ngModel)]="receiptbook" name="receiptbook">  
                     </div>
-                    <div class="p-col-12 p-md-6 p-lg-3" style="text-align: left; margin-top: 5px;">
-                        <label> Fee Name:</label><br>
+                    <div class="p-col-12 p-md-6 p-lg-3">
+                       <div> <label> Fee Name:</label></div>
                         <input id="float-input"  type="text" size="24" pInputText [(ngModel)]="feename" name="feename">  
                     </div>  
-                    <div class="p-col-12 p-md-6 p-lg-3" style="text-align: left; margin-top: 5px;">
-                        <label> Actual Amount:</label><br>
+                    <div class="p-col-12 p-md-6 p-lg-3">
+                       <div> <label> Actual Amount:</label></div>
                         <input id="float-input"  type="text" size="24" pInputText [(ngModel)]="actualamount" name="actualamount">  
                     </div>
-                    <div class="p-col-12 p-md-6 p-lg-3" style="text-align: left; margin-top: 5px;">
-                        <label> Paid Amount:</label><br>
+                    <div class="p-col-12 p-md-6 p-lg-3">
+                        <div><label> Paid Amount:</label></div>
                         <input id="float-input"  type="text" size="24" pInputText [(ngModel)]="paidamount" name="paidamount">  
                     </div>
-                    <div class="p-col-12 p-md-6 p-lg-3" style="text-align: left; margin-top: 5px;">
-                        <label> Outstanding Amount:</label><br>
+                    <div class="p-col-12 p-md-6 p-lg-3">
+                        <div><label> Outstanding Amount:</label></div>
                         <input id="float-input"  type="text" size="24" pInputText [(ngModel)]="outstanding" name="outstanding">  
                     </div>
-                    <div class="p-col-12 p-md-6 p-lg-3" style="text-align: left; margin-top: 5px;">
-                        <label> Paying Amount:</label><br>
+                    <div class="p-col-12 p-md-6 p-lg-3">
+                        <div><label> Paying Amount:</label></div>
                         <input id="float-input"  type="text" size="24" pInputText [(ngModel)]="paying" name="paying">  
                     </div>
-                    <div class="p-col-12 p-md-6 p-lg-3" style="text-align: left; margin-top: 5px;">
-                        <label> Fine:</label><br>
+                    <div class="p-col-12 p-md-6 p-lg-3">
+                        <div><label> Fine:</label></div>
                         <input id="float-input"  type="text" size="24" pInputText [(ngModel)]="fine" name="fine">  
                     </div>
                     <div class="p-col-12 p-md-12 p-lg-12">
@@ -53,7 +54,7 @@
   </ng-template>
   
   <ng-template pTemplate="body" let-rowData let-columns="columns">
-    <tr>
+    <tr [pSelectableRow]="rowData" (dblclick)="onRowSelect($event, rowData)">
       <td *ngFor="let col of columns">
         {{rowData[col.field]}}
       </td>
@@ -66,5 +67,6 @@
     </div>
     </p-panel>
 </div>
+</block-ui>
 
                     

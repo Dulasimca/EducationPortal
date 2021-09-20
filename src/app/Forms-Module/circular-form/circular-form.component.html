@@ -1,6 +1,7 @@
-
+<block-ui>
 <form #circular="ngForm">
 <div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px; height: 520px;">
+  <p-toast position="top-center" key="t-msg"></p-toast>
     <p-panel header="Circular">
     <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
     <p-card>
@@ -61,7 +62,7 @@
   </ng-template>
   
   <ng-template pTemplate="body" let-rowData let-columns="columns">
-    <tr>
+    <tr [pSelectableRow]="rowData" (dblclick)="onRowSelect($event, rowData)">
       <td *ngFor="let col of columns">
         {{rowData[col.field]}}
       </td>
@@ -83,3 +84,4 @@
 
 </div>
 </form>
+</block-ui>

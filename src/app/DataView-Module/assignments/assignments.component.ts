@@ -17,6 +17,7 @@ export class AssignmentsComponent implements OnInit {
 
   ngOnInit() {
     this.cols = [
+      { field: 'AssignId', header: 'ID'},
       { field: 'AssignmentDate', header: 'Date' },
       { field: 'AssignmentDueDate', header: 'Due Date' },
       { field: 'AssignmentWork', header: 'Assigned Work' },

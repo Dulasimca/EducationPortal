@@ -5,6 +5,13 @@ import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import {NgForm} from '@angular/forms';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 import { SelectItem } from 'primeng/api';
+import { DatePipe } from '@angular/common';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ResponseMessage } from 'src/app/Common-Module/Message';
+import { MessageService } from 'primeng/api';
+import { MasterService } from 'src/app/Services/master-data.service';
+
 
 
 @Component({
@@ -17,6 +24,7 @@ export class CircularFormComponent implements OnInit {
   Subject: string;
   Details:string;
   RowId: string;
+  MRowId:0;
   school_id:string;
   cols: any;
 
@@ -24,12 +32,14 @@ export class CircularFormComponent implements OnInit {
   data: any = [];
 
   guardianimg: any[] = [];
-  
-  constructor(private restApiService: RestAPIService, private http: HttpClient) { }
+  @BlockUI() blockUI: NgBlockUI;
+  constructor(private restApiService: RestAPIService, private datepipe: DatePipe, private http: HttpClient,
+    private masterService: MasterService,private messageService: MessageService) { }
 
   ngOnInit(): void {
 
     this.cols = [
+      {field:'RowId',header: 'ID'},
       {field: 'CircularDate',header: 'Circular Date'},
       {field:'Subject',header: 'Subject'},
       {field: 'Details',header: 'Details'},
@@ -59,9 +69,9 @@ export class CircularFormComponent implements OnInit {
     const params = {
      
       
-      'RowID':  0,
+      'RowId': this.MRowId,
       'SchoolID':  1,
-      'CircularDate': this.date, 
+      'CircularDate': this.datepipe.transform(this.date,'yyyy-MM-dd'), 
       'Subject': this.Subject,
       'Details': this.Details,
       'Download':'Circular.pdf',// (this._guardianimg !== undefined && this._guardianimg !== null) ? this._guardianimg.values: 0,
@@ -70,8 +80,40 @@ export class CircularFormComponent implements OnInit {
     };
     console.log(params);
     this.restApiService.post(PathConstants.Circular_Post, params).subscribe(res => {
-      console.log('rs', res);
-    });
+      if(res !== undefined && res !== null) {
+        if (res) {
+          this.blockUI.stop();
+          this.onClear();
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_SUCCESS,
+            summary: ResponseMessage.SUMMARY_SUCCESS, detail: ResponseMessage.SuccessMessage
+          });
+        } else {
+          this.blockUI.stop();
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+            summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+          });
+        }
+        } else {
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+          summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+        });
+        }
+        }, (err: HttpErrorResponse) => {
+        this.blockUI.stop();
+        if (err.status === 0 || err.status === 400) {
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+            summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+          })
+        }
+        })
   }
 
   onview() {
@@ -86,31 +128,8 @@ export class CircularFormComponent implements OnInit {
       }
       
     })
-
-  }
-
-// onSave(form: NgForm) { 
-//   //alert("hi")
-//   //alert(this.date)
    
-//   var detail = {
-//    'subject': (this.Subject !==undefined && this.Subject !==null) ? this.Subject : "",
-//    'instruction': (this.Instructions !==undefined && this.Instructions !==null) ? this.Instructions : "",
-//    'date': (this.date !==undefined && this.date !==null) ? this.date : "",
-//    'upload': (this._guardianimg !==undefined && this._guardianimg !==null) ? this._guardianimg : "",
-//    'school_id': (this.school_id !==undefined && this.school_id !==null) ? this.school_id : ""
-  
-//   }
-  //alert(detail);
-  //console.log(detail);
-  // this.http.post('http://localhost:7440/api/circular', detail).subscribe(response => {
-  //   if(response) {
-  //     alert("saved successfully");
-  //         form.resetForm();
-  //    //this.onview();
-  //   }
-
-  // })
+  }
 
 
   onClear()
@@ -119,6 +138,11 @@ export class CircularFormComponent implements OnInit {
   this.Subject = '',
   this.Details = ''
   }
-
+  onRowSelect(event, selectedRow) {
+    this.MRowId = selectedRow.RowId;
+    this.date = selectedRow.CircularDate;
+    this.Subject = selectedRow.Subject;
+    this.Details = selectedRow.Details;
 }
 
+}

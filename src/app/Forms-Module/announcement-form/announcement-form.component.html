@@ -1,36 +1,38 @@
+<block-ui>
 <div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px; height: 520px;">
+  <p-toast position="top-center" key="t-msg"></p-toast>
     <p-panel header="Announcement">
     <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
         <p-card>
             <div class="p-col-12 p-md-12 p-lg-12 no-pad-top ">
                 <div class="p-grid">
                     <div class="p-col-12 p-md-6 p-lg-3">
-                        <div class="no-pad-top"><label>Date:</label> <br>
+                        <div><label>Date:</label></div>
                         <p-calendar [(ngModel)]="date" [showIcon]="true" name="date"></p-calendar>
                         </div>
-                    </div>
                     <div class="p-col-12 p-md-6 p-lg-3">      
-                      <div class="p-col-12 p-md-12 p-lg-3 no-pad-top " >
-                        <label> Title:</label><br>
+                        <div><label> Title:</label></div>
                         <!-- <input id="float-input"  type="text" size="23" pInputText>  -->
                         <input type="text"  pInputText [(ngModel)]="Topic" name="Topic"/>
-                        </div>
+                        
                     </div>
                     <div class="p-col-12 p-md-6 p-lg-5">
-                         <label>Attach File:</label> <br>
+                         <div><label>Attach File<span
+                          class="form-mandatory-field">*</span></label></div>
                            <input class="p-col-12" name="announce" type="file" pInputText
-                            (change)="onFileUpload($event, 1)" accept=".jpg" />
+                            (change)="onFileUpload($event, 1)" accept=".pdf" />
                     </div>
                     <div class="p-col-12 p-md-6 p-lg-12">
-                        <label>Announcement:</label> <br>
+                       <div> <label>Announcement:</label> </div>
                         <textarea pInputTextarea [(ngModel)]="Announcement" name="Announcement"pInputTextarea autoResize="autoResize" size="20" rows="5"
                            cols="20"></textarea>
+                   
                            <div class="p-col-12 p-md-6 p-lg12" style = "margin-left:35%;"> 
                             <button pButton name="_save" type="button" label="Submit" (click)="onSubmit()"></button>
                         <button pButton type="button" label="View" (click)="onView()" style="margin-left: 4%;"></button>
                         <button pButton type="button" label="Clear" (click)="clear()" style="margin-left: 5%;"></button>
                     </div>  
-                    <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,15,20]"
+                    <p-table [columns]="cols" [value]="data" [paginator]="true"  [rows]="10" [rowsPerPageOptions]="[5,10,15,20]"
                     totalRecords="totalRecords" pageLinks="3">
                     <ng-template pTemplate="header" let-columns>
                       <tr>
@@ -41,11 +43,13 @@
                     </ng-template>
                     
                     <ng-template pTemplate="body" let-rowData let-columns="columns">
-                      <tr>
+                      <tr [pSelectableRow]="rowData" (dblclick)="onRowSelect($event, rowData)">
+                     
                         <td *ngFor="let col of columns">
                           {{rowData[col.field]}}
                         </td>
                       </tr>
+                    
                     </ng-template>
                   </p-table>
 
@@ -56,6 +60,6 @@
     </div>
  </p-panel>
 </div>
-
+</block-ui>
 
 

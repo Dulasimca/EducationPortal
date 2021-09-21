@@ -1,52 +1,41 @@
 <div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px; height: 520px;">
     <p-panel header="MCQ Test Result">
-    <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
-       <p-card>
-        <div  class="p-col-12 p-md-12 p-lg-12">
-            <div class="p-grid">
+        <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
+            <form #f="ngForm" name="ResultForm">
+                <p-card>
+                    <div class="p-col-12 p-md-12 p-lg-12">
+                        <div class="p-grid">
 
-                <div class="p-col-12 p-md-6 p-lg-3">
-                    <div><label>Year:</label></div>
-                         <p-dropdown [options]="yearOptions"   [(ngModel)]="selectedyear">
-                             </p-dropdown>
-                             </div>
-                             <div class="p-col-12 p-md-6 p-lg-1"></div>
-                    <div class="p-col-12 p-md-6 p-lg-3">
-                    <div><label>Subject Name:</label></div>
-                    <input type="text"  pInputText [(ngModel)]="Subject" />
-                </div>
+                            <div class="p-col-12 p-md-6 p-lg-3">
+                                <div><label>Year:</label></div>
+                                <p-dropdown [options]="yearOptions" name="selectedyear" [(ngModel)]="selectedyear"
+                                    required>
+                                </p-dropdown>
+                            </div>
+                            <div class="p-col-12 p-md-6 p-lg-1"></div>
+                            <div class="p-col-12 p-md-6 p-lg-3">
+                                <div><label>Subject Name:</label></div>
+                                <input type="text" name="Subject" pInputText [(ngModel)]="Subject" required />
+                            </div>
 
-                <div class="p-col-12 p-md-6 p-lg-1"></div>
-                <div class="p-col-12 p-md-6 p-lg-3">
-                    <div><label>Test Name:</label></div>
-                    <input type="text" pInputText [(ngModel)]="Test" />
-                </div>
+                            <div class="p-col-12 p-md-6 p-lg-1"></div>
+                            <div class="p-col-12 p-md-6 p-lg-3">
+                                <div><label>Test Name:</label></div>
+                                <input type="text" name="Test" pInputText [(ngModel)]="Test" required />
+                            </div>
+                        </div>
+                        <div class="p-col-12 p-md-6 p-lg-3">
+                            <input class="p-col-12" name="_Uploadresult" type="file" pInputText
+                                (change)="onFileUpload($event, 4)" accept=".png" required />
+                        </div>
+                    </div>
+                </p-card>
+            </form>
+            <div class="p-col-12 p-md-6 p-lg12" style="margin-left:35%;">
+                <button pButton type="button" label="Submit" [disabled]="(!f.valid)"></button>
+
+                <button pButton type="button" label="View" style="margin-left:5%;"></button>
             </div>
-
-            <div class="p-col-12 p-md-6 p-lg-3">
-                <input class="p-col-12" name="_guardianimg" type="file" pInputText
-                    (change)="onFileUpload($event, 4)" accept=".png" />
-            </div>
-           
-            <!-- <div class="p-col-12 p-md-4 p-lg-2">
-                <button pButton name="Result" type="button" icon="pi pi-upload"
-                                                    label="Upload Result"></button>
-            </div> -->
-            <!-- <div class="p-col-12 p-md-4 p-lg-6"></div>
-            <div class="p-col-12 p-md-4 p-lg-2"></div> 
-            <div class="p-col-12 p-md-6 p-lg-2">  -->
-                
-                
-                <!-- </div> -->
         </div>
-    </p-card>
-    <div class="p-col-12 p-md-6 p-lg12" style = "margin-left:35%;">
-        <button pButton type="button" label="Submit" ></button>
-    <!-- </div>  -->
-    <!-- <div class="p-col-12 p-md-6 p-lg-2"> -->
-        <button pButton type="button" label="View" style = "margin-left:5%;"></button>
-    </div>
-        </div>
-        </p-panel>
-        </div>
-        
+    </p-panel>
+</div>

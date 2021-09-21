@@ -12,11 +12,19 @@ import { MessageService, SelectItem } from 'primeng/api';
 export class PollListComponent implements OnInit {
   data: any = []; 
   cols: any;
+  positionOptions: SelectItem[];
+  selectedPosition: string;
   
   
   constructor(private restApiService: RestAPIService, private http: HttpClient) { }
 
   ngOnInit() { 
+    this.positionOptions = [
+      { label: '-select-', value: null },
+      { label: 'Class Representative', value: '0'},
+      { label: 'School Representative', value: '1'},
+    ];
+
     this.cols = [
       { field: 'RowId', header: 'ID' },
       { field: 'NomineeID', header: 'NomineeID' },
@@ -24,8 +32,7 @@ export class PollListComponent implements OnInit {
       
     ];
     this.onView();
-   
-  }
+    }
   onView() {
     const params = {
       'SchoolID': 2,

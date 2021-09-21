@@ -5,6 +5,7 @@ import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ResponseMessage } from 'src/app/Common-Module/Message';
 import { MessageService, SelectItem } from 'primeng/api';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -14,20 +15,20 @@ import { MessageService, SelectItem } from 'primeng/api';
 })
 export class FeeFormComponent implements OnInit {
   dueDate: Date = new Date();
-  receiptbook: string;
-  feename: string;
-  actualamount: string;
-  paidamount: string;
-  outstanding: string;
-  paying: string;
-  fine: string;
+  receiptbook: any;
+  feename: any;
+  actualamount: any;
+  paidamount: any;
+  outstanding: any;
+  paying: any;
+  fine: any;
   data: any = []; 
   cols: any;
   MRowId=0;
   @BlockUI() blockUI: NgBlockUI;
  
 
-  constructor(private restApiService: RestAPIService, private http: HttpClient,private messageService: MessageService) { }
+  constructor(private restApiService: RestAPIService, private http: HttpClient,private messageService: MessageService,private datepipe: DatePipe) { }
 
   ngOnInit(): void {
     this.cols = [
@@ -57,7 +58,7 @@ export class FeeFormComponent implements OnInit {
       'SchoolID': 1,
       'StudentId':1,      
       'Class': 1,     
-      'duedate': this.dueDate, // (this._guardianimg !== undefined && this._guardianimg !== null) ? this._guardianimg.values: 0,
+      'duedate': this.datepipe.transform(this.dueDate, 'MM/dd/yyyy') ,
       'ReceiptBook': this.receiptbook,
       'FeeName': this.feename,
       'ActualAmount': this.actualamount,

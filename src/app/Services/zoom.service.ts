@@ -19,16 +19,18 @@ ZoomMtg.i18n.reload('en-US');
     signatureEndpoint = 'http://localhost:4000';
     public signatureConfig: any;
     public meetingConfig: any;
-    apiKey = '0AeXbzH4QS2JC0vnzsuXyA';
-    meetingNumber = '7821688946';
+   // apiKey = '0AeXbzH4QS2JC0vnzsuXyA';
+   apiKey = 'lJXDJ2_mTtWmDHEMAtpW0A';
+    meetingNumber;
     role = 0;
     leaveUrl = 'http://localhost:4200';
-    userEmail = 'udhayachandrikam@gmail.com';
-    passWord = 'yKAFe2';
+    userEmail;
+    passWord;
     // pass in the registrant's token if your meeting or webinar requires registration. More info here:
     // Meetings: https://marketplace.zoom.us/docs/sdk/native-sdks/web/build/meetings/join#join-registered
     // Webinars: https://marketplace.zoom.us/docs/sdk/native-sdks/web/build/webinars/join#join-registered-webinar
-    registrantToken = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOm51bGwsImlzcyI6IjBBZVhiekg0UVMySkMwdm56c3VYeUEiLCJleHAiOjE2MzE2MDk4MTcsImlhdCI6MTYzMTYwNDQxN30.aV9M6ddHQZuvN1KMu5_u0r7Haw4uy_HxtRrBfGcorPU';
+  //  registrantToken = 'eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOm51bGwsImlzcyI6IjBBZVhiekg0UVMySkMwdm56c3VYeUEiLCJleHAiOjE2MzE2MDk4MTcsImlhdCI6MTYzMTYwNDQxN30.aV9M6ddHQZuvN1KMu5_u0r7Haw4uy_HxtRrBfGcorPU';
+    registrantToken = 'eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJtTW9pRG43aFJfS2JPNklDQkVkLUVRIn0.7Rh3BrAYrkvPmpBfeD5TptWQwMZQRjLz1GqHgdYJvR8';
     login_user: User;
 
     constructor(public httpClient: HttpClient, private http: HttpClient,
@@ -48,14 +50,37 @@ ZoomMtg.i18n.reload('en-US');
     //     })
     // }
 
+    setMeeting(data) {
+      console.log('zser', data);
+      this.meetingNumber = data.MeetingId;
+      this.passWord = data.Passcode;
+   //   this.userEmail = data.host_email;
+   this.userEmail = "dulasimca@gmail.com";
+    }
+
+    get HostEmail() {
+      return this.userEmail;
+    }
+
+    get MeetingNumber() {
+      return this.meetingNumber;
+    }
+
+    get MeetingPassword() {
+      return this.passWord;
+    }
+
     setConfig() {
+      console.log('num', this.MeetingNumber, this.MeetingPassword, this.HostEmail
+      , this.meetingNumber, this.passWord, this.userEmail);
         this.showZoomDiv();
         this.meetingConfig = {
           apiKey: this.apiKey,
-          apiSecret: 'doJJkUQShBtsQqUerBfM0ecPaxmFng5qRoD3',
-          meetingNumber: this.meetingNumber,
+        //  apiSecret: 'doJJkUQShBtsQqUerBfM0ecPaxmFng5qRoD3',
+        apiSecret: '0yIoVcQKeQX0tG9hZt0qRo9rKXx2sqLeTWjW',
+          meetingNumber: this.MeetingNumber,
           userName: this.login_user.username,
-          passWord: this.passWord,
+          passWord: this.MeetingPassword,
           leaveUrl: this.leaveUrl,
           role: this.role
         };

@@ -96,7 +96,6 @@ import { FeeFormComponent } from './Forms-Module/fee-form/fee-form.component';
 import { ExcelService } from './Services/excel.service';
 import { AssessmentService } from './Services/online-test.service';
 import { ClassroomDetailsComponent } from './Forms-Module/classroom-details/classroom-details.component';
-import { ZoomClassroomComponent } from './Events-Module/zoom-classroom/zoom-classroom.component';
 import { UserService } from './Services/user.service';
 import { MyschoolViewComponent } from './DataView-Module/myschool-view/myschool-view.component';
 import { ZoomComponent } from './Events-Module/zoom/zoom.component';
@@ -164,7 +163,6 @@ FullCalendarModule.registerPlugins([
     AttendanceDetailsFormComponent,
     FeeFormComponent,
     ClassroomDetailsComponent,
-    ZoomClassroomComponent,
     MyschoolViewComponent,
     ZoomComponent,
   ],

@@ -8,6 +8,7 @@ import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { User } from 'src/app/Interfaces/user';
 import { AuthService } from 'src/app/Services/auth.service';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
+import { ZoomService } from 'src/app/Services/zoom.service';
 
 @Component({
   selector: 'app-online-classroom',
@@ -22,7 +23,8 @@ export class OnlineClassroomComponent implements OnInit {
   loading: boolean;
  
   constructor(private restApiService: RestAPIService, private authService: AuthService,
-    private messageService: MessageService, private router: Router, private datePipe: DatePipe) { }
+    private messageService: MessageService, private router: Router, private datePipe: DatePipe,
+    private zoomService: ZoomService) { }
 
   ngOnInit() {
     this.meetingCols = [
@@ -67,12 +69,8 @@ export class OnlineClassroomComponent implements OnInit {
     })
   }
 
-  onJoinMeeting(zoom) {
-    console.log('z', zoom);
-    this.router.navigate(['join-classroom'], { queryParams: { url: zoom.MeetingURL, id: zoom.MeetingId, si: true } })
-  }
-
-  onJoinClassroom(data) {
+  onJoinClassroom() {
+    this.zoomService.setMeeting(this.meetingData[0]);
     this.router.navigate(['/online-classroom-join']);
   }
 }

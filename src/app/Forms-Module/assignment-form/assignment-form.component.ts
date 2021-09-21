@@ -56,8 +56,8 @@ onSubmit() {
     'AssignId': this.MAssignId,
     'SchoolID': 1,      
     'Class': 1,    
-    'AssignmentDate': this.datepipe.transform(this.assignDate, 'yyyy-MM-dd') ,
-    'AssignmentDueDate': this.datepipe.transform(this.dueDate, 'yyyy-MM-dd'),
+    'AssignmentDate': this.datepipe.transform(this.assignDate, 'MM/dd/yyyy') ,
+    'AssignmentDueDate': this.datepipe.transform(this.dueDate, 'MM/dd/yyyy'),
     'assignmentwork': this.assignmentwork,
     'AssignmentType': this.type,
     'subjectname': this.subjectname,
@@ -104,7 +104,7 @@ onSubmit() {
 onView() {
   const params = {
     'SchoolID': 1,
-    'Class': 1
+    'Class': 1 
   }
   this.restApiService.getByParameters(PathConstants.Assignment_Get, params).subscribe(res => {
     if(res !== null && res !== undefined && res.length !== 0) {

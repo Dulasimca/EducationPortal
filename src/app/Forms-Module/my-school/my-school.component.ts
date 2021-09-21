@@ -1,5 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { SelectItem } from 'primeng/api/selectitem';
 import { ResponseMessage } from 'src/app/Common-Module/Message';
@@ -25,8 +27,11 @@ export class MySchoolComponent implements OnInit {
   faxNo: any;
   curriculum: any;
 
+  @ViewChild('f', { static: false }) _mySchool: NgForm;
+
+
   constructor(private restApiService: RestAPIService, private messageService: MessageService,
-     private authService: AuthService) { }
+     private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.login_user = this.authService.UserInfo;
@@ -34,7 +39,6 @@ export class MySchoolComponent implements OnInit {
       { label: 'Stateboard', value: '01' },
       { label: 'CBSE', value: '02' },
     ]
-    
   }
   onSave() {
     const params = {
@@ -51,9 +55,8 @@ export class MySchoolComponent implements OnInit {
       'Flag': 1
     }
     this.restApiService.post(PathConstants.MySchool_Post,params).subscribe(res => {
-      console.log('')
       if (res) {
-        // this.clearForm();
+        this.clearform();
         this.messageService.clear();
         this.messageService.add({
           key: 't-msg', severity: ResponseMessage.SEVERITY_SUCCESS,
@@ -76,6 +79,10 @@ export class MySchoolComponent implements OnInit {
       }
     })
   }
-  
-
+  clearform() {
+    this._mySchool.reset();
+  }
+  onView() {
+    this.router.navigate(['/myschool-view'])
+  }
 }

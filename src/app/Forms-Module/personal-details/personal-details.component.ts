@@ -29,6 +29,7 @@ export class PersonalDetailsComponent implements OnInit {
   classOptions: SelectItem[];
   sectionOptions:  SelectItem[];
   genderOptions: SelectItem[];
+  mediumOptions: SelectItem[];
    //masters
    sections?: any;
    classes?: any;
@@ -54,10 +55,13 @@ export class PersonalDetailsComponent implements OnInit {
       { label: 'Male', value: 'Male' },
       { label: 'Others', value: 'Others' },
     ];
+    this.mediumOptions = [
+      { label: '-select-', value: null },
+      { label: 'Tamil', value: '1' },
+      { label: 'English', value: '2' }
+    ];
   }
-
   onFileUpload($event) {
-
   }
   loadData() {
     console.log('data', this.responseData);
@@ -118,10 +122,8 @@ export class PersonalDetailsComponent implements OnInit {
           console.log('obj', this.obj);
           this.classOptions = [{ label: i.Class, value: i.ClassId }];
           this.sectionOptions = [{ label: i.Section, value: i.SectionId }];
-           
         })
     }
-
   }
   onSelect(type) {
     let classSelection = [];
@@ -145,7 +147,6 @@ export class PersonalDetailsComponent implements OnInit {
       break;
     }
   }
-
   onSave() { 
     this.obj.Section = (this.obj.Section.label !== undefined && this.obj.Section.label !== null) ? 
     this.obj.Section.label : this.obj.Section;
@@ -158,7 +159,7 @@ export class PersonalDetailsComponent implements OnInit {
 
     this.restApiService.post(PathConstants.Registration_Post, this.obj).subscribe(res => {
       if (res) {
-        // this.clearForm();
+        this.clearForm();
         this.messageService.clear();
         this.messageService.add({
           key: 't-msg', severity: ResponseMessage.SEVERITY_SUCCESS,
@@ -182,6 +183,7 @@ export class PersonalDetailsComponent implements OnInit {
     })
   }
   clearForm() {
+    // this.obj = null;
     this._personalDetailsForm.reset();
     this._personalDetailsForm.form.markAsUntouched();
     this._personalDetailsForm.form.markAsPristine();

@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { i18nMetaToJSDoc } from '@angular/compiler/src/render3/view/i18n/meta';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MessageService, SelectItem } from 'primeng/api';
 import { min } from 'rxjs';
@@ -22,6 +22,7 @@ import { DatePipe } from '@angular/common';
   styleUrls: ['./personal-details.component.css']
 })
 export class PersonalDetailsComponent implements OnInit {
+
   responseData: Profile[] = [];
   obj: Profile;
   yearRange: string;
@@ -31,6 +32,7 @@ export class PersonalDetailsComponent implements OnInit {
    //masters
    sections?: any;
    classes?: any;
+  @ViewChild('f', { static: false }) _personalDetailsForm: NgForm;
 
   constructor(private restApiService: RestAPIService, private messageService: MessageService,
     private datePipe: DatePipe, private userService: UserService, private masterService: MasterService) { }
@@ -69,8 +71,8 @@ export class PersonalDetailsComponent implements OnInit {
             FirstName: i.FirstName,
             LastName: i.LastName,
             Password: i.Password,
-            DateofBirth: this.datePipe.transform(i.DateofBirth, 'MM/dd/yyyy'),
-            DateofJoining: this.datePipe.transform(i.DateofJoining, 'MM/dd/yyyy'),
+            DateofBirth: this.datePipe.transform(i.DateofBirth, 'yyyy-MM-dd'),
+            DateofJoining: this.datePipe.transform(i.DateofJoining, 'yyyy-MM-dd'),
             Gender: i.Gender,
             Medium: i.Medium,
             Nationality: i.Nationality,
@@ -145,6 +147,15 @@ export class PersonalDetailsComponent implements OnInit {
   }
 
   onSave() { 
+    this.obj.Section = (this.obj.Section.label !== undefined && this.obj.Section.label !== null) ? 
+    this.obj.Section.label : this.obj.Section;
+    this.obj.SectionId = (this.obj.Section.label !== undefined && this.obj.Section.label !== null) ? 
+    this.obj.Section.value : this.obj.SectionId;
+    this.obj.Class = (this.obj.Class.label !== undefined && this.obj.Class.label !== null) ? 
+    this.obj.Class.label : this.obj.Class;
+    this.obj.ClassId = (this.obj.Class.label !== undefined && this.obj.Class.label !== null) ? 
+    this.obj.Class.value : this.obj.ClassId;
+
     this.restApiService.post(PathConstants.Registration_Post, this.obj).subscribe(res => {
       if (res) {
         // this.clearForm();
@@ -170,4 +181,9 @@ export class PersonalDetailsComponent implements OnInit {
       }
     })
   }
+  clearForm() {
+    this._personalDetailsForm.reset();
+    this._personalDetailsForm.form.markAsUntouched();
+    this._personalDetailsForm.form.markAsPristine();
+}
 }

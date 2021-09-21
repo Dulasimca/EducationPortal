@@ -11,9 +11,9 @@ export interface Profile {
     Medium: string;
     Nationality: string;
     BloodGroup: string;
-    Class: string;
+    Class: any;
     ClassId: number;
-    Section: string;
+    Section: any;
     SectionId: number;
     StudentPhotoFileName: string;
     Caste: string;

@@ -39,7 +39,7 @@ export class MySchoolComponent implements OnInit {
   onSave() {
     const params = {
       'Slno': 0,    
-      'Curriculum': this.curriculum.value,
+      'Curriculum': this.curriculum.label,
       'HMName': this.headMasterName,
       'Emailid': this.email,
       'Addressinfo': this.address,

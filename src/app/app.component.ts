@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { Component, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { OverlayPanel } from 'primeng/overlaypanel';
 import { Observable } from 'rxjs';
 import { User } from './Interfaces/user';
 import { AuthService } from './Services/auth.service';
@@ -16,12 +18,18 @@ export class AppComponent {
   isLoggedIn$: Observable<boolean>;
   isSignedIn: boolean;
   userName: string;
-  constructor(private authService: AuthService) { }
+  showPanel: boolean;
+  loggedinTime: Date = new Date();
+  @ViewChild('op', { static: false }) _panel: OverlayPanel;
+
+  constructor(private authService: AuthService, private datepipe: DatePipe) { }
 
   ngOnInit() {
     this.isLoggedIn$ = this.authService.isLoggedIn;
     // this.isSignedIn = this.authService.checkLog;
     const user: User = this.authService.UserInfo;
+    this.userName = user.username;
+    // this.loggedin_time = this.datepipe.transform(new Date(), 'HH:MM a');
     this.items = [
       { label: 'Dashboard', icon: 'fa fa-desktop', routerLink: '/dashboard' },
       { label: 'Admin', icon: 'fa fa-user-secret', 
@@ -42,15 +50,11 @@ export class AppComponent {
       //{ label: 'NewsLetter', icon: 'fa fa-newspaper-o', routerLink: '/newsletters' },
       { label: 'Fee', icon: 'fa fa-money', routerLink: '/fee' },
       
-      
-      
-      
-      
     ]},
       { label: 'Profile', icon: 'fa fa-user-circle-o', 
       items: [
-        { label: 'My Profile', icon: 'fa fa-address-card', routerLink: '/student-info' },
-        { label: 'My Parent', icon: 'fa fa-users', routerLink: '/student-info' },
+        { label: 'My Profile', icon: 'fa fa-address-card', routerLink: '/student-info', queryParams: { 'id': 0, 'si': true} },
+        { label: 'My Parent', icon: 'fa fa-users', routerLink: '/student-info', queryParams: { 'id': 1, 'si': true} },
         { label: 'My Achievements', icon: 'fa fa-trophy', routerLink: '/myachievement' },
        // { label: 'My School', icon: 'fa fa-graduation-cap', },
       ] },
@@ -91,10 +95,10 @@ export class AppComponent {
       // { label: 'Online Test', icon: 'fa fa-download', routerLink: '/classroom-download' },
 
     ];  
-    this.userName = user.username;
   }
 
     onLogout(){
+      this._panel.hide();
       this.authService.logout();                   
     }
 

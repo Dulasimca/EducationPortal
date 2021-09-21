@@ -6,6 +6,7 @@ import { DatePipe } from '@angular/common';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ResponseMessage } from 'src/app/Common-Module/Message';
 import { MessageService, SelectItem } from 'primeng/api';
+import { AuthService } from 'src/app/Services/auth.service';
 
 @Component({
   selector: 'app-announcement-form',
@@ -25,7 +26,8 @@ export class AnnouncementFormComponent implements OnInit {
 
   @BlockUI() blockUI: NgBlockUI;
 
-  constructor(private restApiService: RestAPIService, private http: HttpClient,private datepipe: DatePipe,private messageService: MessageService) { }
+  constructor(private restApiService: RestAPIService, private http: HttpClient,private datepipe: DatePipe,private messageService: MessageService
+    ,private authService: AuthService) { }
 
 
   ngOnInit(): void {

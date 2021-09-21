@@ -1,76 +1,69 @@
 <block-ui>
-<div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px; height: 520px;">
-  <p-toast position="top-center" key="t-msg"></p-toast>
+  <div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px; height: 520px;">
+    <p-toast position="top-center" key="t-msg"></p-toast>
     <p-panel header="Nominee">
-    <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
-        <p-card>
+      <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
+        <form #f="ngForm" name="NomineeForm">
+          <p-card>
             <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
-                <div class="p-grid">
-                    <div class="p-col-12 p-md-6 p-lg-3">
-                        <div><label>Date:</label></div>
-                       
-                     <p-calendar [(ngModel)]="date"  [showIcon]="true" name="date"></p-calendar>
-                        </div>
-                       
-                       
-                    <div class="p-col-12 p-md-6 p-lg-3">
-                      <div><label for="_class">Class</label></div>
-                      <p-dropdown name="_class" [options]="classOptions" [(ngModel)]="class" optionLabel="label" (onClick)="onSelect('C')"
-                        required>
-                      </p-dropdown>
-               
-                    </div>
-                    <div class="p-col-12 p-md-12 p-lg-3">
-                      <div><label for="_section"> Section</label> </div>
-                      <p-dropdown name="_section" [options]="sectionOptions" [(ngModel)]="section" optionLabel="label"
-                        (onClick)="onSelect('S')" required>
-                      </p-dropdown>
-                            
-                    </div>
+              <div class="p-grid">
+                <div class="p-col-12 p-md-6 p-lg-3">
+                  <div><label>Date:</label></div>
+                  <p-calendar [(ngModel)]="date" [showIcon]="true" name="date" required></p-calendar>
+                </div>
+                <div class="p-col-12 p-md-6 p-lg-3">
+                  <div><label for="_class">Class</label></div>
+                  <p-dropdown name="_class" [options]="classOptions" [(ngModel)]="class" optionLabel="label"
+                    (onClick)="onSelect('C')" required>
+                  </p-dropdown>
+                </div>
+                <div class="p-col-12 p-md-12 p-lg-3">
+                  <div><label for="_section"> Section</label> </div>
+                  <p-dropdown name="_section" [options]="sectionOptions" [(ngModel)]="section" optionLabel="label"
+                    (onClick)="onSelect('S')" required>
+                  </p-dropdown>
+                </div>
                 <div class="p-col-12 p-md-12 p-lg-3">
                   <div><label for="_sname"> Name</label> </div>
-                    
-                  <p-dropdown name="_sname" [options]="nameOptions" (click)="onSelect2()" optionLabel="label" [(ngModel)]="sname" name="label">
+                  <p-dropdown name="_sname" [options]="nameOptions" (click)="onSelect2()" optionLabel="label"
+                    [(ngModel)]="sname" name="label" required>
                   </p-dropdown>
-                
                 </div>
                 <div class="p-col-12 p-md-12 p-lg-3">
-                    <div><label>Position:</label></div>
-                    
-                    <p-dropdown [options]="positionOptions" [(ngModel)]="position" name="position">
-                        </p-dropdown>
-                        
+                  <div><label>Position:</label></div>
+                  <p-dropdown [options]="positionOptions" [(ngModel)]="position" name="position" required>
+                  </p-dropdown>
                 </div>
-               
                 <div class="p-col-12 p-md-12 p-lg-12">
-                    <button pButton name="save" type="button" label="Submit" (click)="onSubmit()" style="margin-left: 30%;"></button>
-                    <button pButton type="button" label="View"  (click)="onView()" style="margin-left: 5%;"></button>
-                    <button pButton type="button" label="Clear" (click)="clear()" style="margin-left: 5%;"></button>
+                  <button pButton name="save" type="button" label="Submit" [disabled]="(!f.valid)" (click)="onSubmit()"
+                    style="margin-left: 30%;"></button>
+                  <button pButton type="button" label="View" (click)="onView()" style="margin-left: 5%;"></button>
+                  <button pButton type="button" label="Clear" (click)="clear()" style="margin-left: 5%;"></button>
                 </div>
-                <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,15,20]"
-  totalRecords="totalRecords" pageLinks="3">
-  <ng-template pTemplate="header" let-columns>
-    <tr>
-      <th *ngFor="let col of columns">
-        {{col.header}}
-      </th>
-    </tr>
-  </ng-template>
-  
-  <ng-template pTemplate="body" let-rowData let-columns="columns">
-    <tr [pSelectableRow]="rowData" (dblclick)="onRowSelect($event, rowData)">
-      <td *ngFor="let col of columns">
-        {{rowData[col.field]}}
-      </td>
-    </tr>
-  </ng-template>
-</p-table>
+                <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10"
+                  [rowsPerPageOptions]="[5,10,15,20]" totalRecords="totalRecords" pageLinks="3">
+                  <ng-template pTemplate="header" let-columns>
+                    <tr>
+                      <th *ngFor="let col of columns">
+                        {{col.header}}
+                      </th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-rowData let-columns="columns">
+                    <tr [pSelectableRow]="rowData" (dblclick)="onRowSelect($event, rowData)">
+                      <td *ngFor="let col of columns">
+                        {{rowData[col.field]}}
+                      </td>
+                    </tr>
+                  </ng-template>
+                </p-table>
+              </div>
             </div>
-        </div>
-        </p-card>
-        </div>
-        
+          </p-card>
+        </form>
+      </div>
+
     </p-panel>
-   </div>
-  </block-ui>
-                    
+
+  </div>
+</block-ui>

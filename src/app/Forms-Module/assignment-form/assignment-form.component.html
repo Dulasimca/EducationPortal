@@ -1,70 +1,67 @@
 <block-ui>
-<div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px; height: 520px;">
-  <p-toast position="top-center" key="t-msg"></p-toast>
+  <div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px; height: 520px;">
+    <p-toast position="top-center" key="t-msg"></p-toast>
     <p-panel header="Assignment">
-    <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
-        <p-card>
+      <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
+        <form #f="ngForm" name="AssignmentForm">
+          <p-card>
             <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
-                <div class="p-grid">
-                    <div class="p-col-12 p-md-6 p-lg-3">
-                    <div><label>Date:</label> </div>
-                 <p-calendar [(ngModel)]="assignDate" [showIcon]="true" name="assignDate"></p-calendar>
-                    </div>
-                    <div class="p-col-12 p-md-6 p-lg-3">
-                        <div><label> Due Date:</label></div>
-                            <p-calendar [(ngModel)]="dueDate" [showIcon]="true" name="dueDate"></p-calendar>
-                    </div>
-                    <div class="p-col-12 p-md-6 p-lg-3">
-                        <div><label> Assigned Work:</label></div>
-                        <input id="float-input"  type="text" size="24" pInputText [(ngModel)]="assignmentwork" name="assignmentwork">  
-                    </div>
-                    <div class="p-col-12 p-md-6 p-lg-3">
-                       <div> <label> Assigned Type:</label></div>
-                        <input id="float-input"  type="text" size="24" pInputText [(ngModel)]="type" name="type"> 
-                    </div>
-                    <div class="p-col-12 p-md-6 p-lg-3">
-                        <div><label> Subject Name:</label></div>
-                        <input id="float-input"  type="text" size="24" pInputText [(ngModel)]="subjectname" name="subjectname">
-                    </div>  
-                    <div class="p-col-12 p-md-6 p-lg-3">
-                        <div><label> Attach File<span
-                          class="form-mandatory-field">*</span></label></div>
-                       <input class="p-col-12" name="assignmentfile" type="file" pInputText
-                        (change)="onFileUpload($event, 1)" accept=".png" />  
-                    </div>  
-               
-       
+              <div class="p-grid">
+                <div class="p-col-12 p-md-6 p-lg-3">
+                  <div><label>Date:</label> </div>
+                  <p-calendar [(ngModel)]="assignDate" [showIcon]="true" name="assignDate" required></p-calendar>
+                </div>
+                <div class="p-col-12 p-md-6 p-lg-3">
+                  <div><label> Due Date:</label></div>
+                  <p-calendar [(ngModel)]="dueDate" [showIcon]="true" name="dueDate" required></p-calendar>
+                </div>
+                <div class="p-col-12 p-md-6 p-lg-3">
+                  <div><label> Assigned Work:</label></div>
+                  <input id="float-input" type="text" size="24" pInputText [(ngModel)]="assignmentwork"
+                    name="assignmentwork" required>
+                </div>
+                <div class="p-col-12 p-md-6 p-lg-3">
+                  <div> <label> Assigned Type:</label></div>
+                  <input id="float-input" type="text" size="24" pInputText [(ngModel)]="type" name="type" required>
+                </div>
+                <div class="p-col-12 p-md-6 p-lg-3">
+                  <div><label> Subject Name:</label></div>
+                  <input id="float-input" type="text" size="24" pInputText [(ngModel)]="subjectname" name="subjectname"
+                    required>
+                </div>
+                <div class="p-col-12 p-md-6 p-lg-3">
+                  <div><label> Attach File<span class="form-mandatory-field">*</span></label></div>
+                  <input class="p-col-12" name="assignmentfile" type="file" pInputText
+                    (change)="onFileUpload($event, 1)" accept=".png" required />
+                </div>
+              </div>
             </div>
-            </div>
-        </p-card>
+          </p-card>
+        </form>
         <div class="p-col-12 p-md-12 p-lg-12">
-            <button pButton name="_save" type="button" label="Submit" (click)="onSubmit()" style="margin-left: 30%;"></button>
-         <button pButton type="button" label="View" (click)="onView()" style="margin-left: 5%;"></button>
-         <button pButton type="button" label="Clear" (click)="clear()" style="margin-left: 5%;"></button>
-     </div>
-     <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,15,20]"
-  totalRecords="totalRecords" pageLinks="3">
-  <ng-template pTemplate="header" let-columns>
-    <tr>
-      <th *ngFor="let col of columns">
-        {{col.header}}
-      </th>
-    </tr>
-  </ng-template>
-  
-  <ng-template pTemplate="body" let-rowData let-columns="columns">
-    <tr [pSelectableRow]="rowData" (dblclick)="onRowSelect($event, rowData)">
-      <td *ngFor="let col of columns">
-        {{rowData[col.field]}}
-      </td>
-    </tr>
-  </ng-template>
-</p-table>
+          <button pButton name="_save" type="button" label="Submit" (click)="onSubmit()" [disabled]="(!f.valid)"
+            style="margin-left: 30%;"></button>
+          <button pButton type="button" label="View" (click)="onView()" style="margin-left: 5%;"></button>
+          <button pButton type="button" label="Clear" (click)="clear()" style="margin-left: 5%;"></button>
         </div>
+        <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,15,20]"
+          totalRecords="totalRecords" pageLinks="3">
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th *ngFor="let col of columns">
+                {{col.header}}
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <tr [pSelectableRow]="rowData" (dblclick)="onRowSelect($event, rowData)">
+              <td *ngFor="let col of columns">
+                {{rowData[col.field]}}
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
     </p-panel>
-</div>
+  </div>
 </block-ui>
-   
-
-
-

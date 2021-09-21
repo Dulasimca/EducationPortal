@@ -7,11 +7,9 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ResponseMessage } from 'src/app/Common-Module/Message';
 import { MasterService } from 'src/app/Services/master-data.service';
 import * as _ from 'lodash';
-import { Profile } from 'src/app/Interfaces/profile';
-import { NgForm } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
-import { map } from 'rxjs';
+
 
 @Component({
   selector: 'app-nominee-form',
@@ -56,7 +54,8 @@ export class NomineeFormComponent implements OnInit {
 
     this.cols = [
       { field: 'RowId', header: 'ID' },
-      //{ field: 'NomineeID', header: 'NomineeID' },
+      { field: 'NomineeID', header: 'NomineeID' },
+      { field: 'FirstName', header: 'Nominee Name' },
       { field: 'ElectionDate', header: 'Election Date' },
       { field: 'ElectionName', header: 'ElectionName' },
     
@@ -119,7 +118,7 @@ export class NomineeFormComponent implements OnInit {
           this.messageService.add({
             key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
             summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
-          })
+          })     
         }
         })
       }
@@ -170,7 +169,7 @@ export class NomineeFormComponent implements OnInit {
   }
   onView() {
     const params = {
-      'SchoolID': 1,
+      'SchoolID': 2,
     }
     this.restApiService.getByParameters(PathConstants.Nominee_Get, params).subscribe(res => {
       if(res !== null && res !== undefined && res.length !== 0) {
@@ -183,9 +182,9 @@ export class NomineeFormComponent implements OnInit {
   }
   clear() {
     this.position="",
-    this.classes="",
-    this.sections=""
-
+    this.class="",
+    this.section="",
+    this.sname=""
   }
   onRowSelect(event, selectedRow) {
     this.MRowId=selectedRow.RowId;

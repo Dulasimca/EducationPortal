@@ -18,6 +18,8 @@ import { MessageService, SelectItem } from 'primeng/api';
 export class HolidaydetailsFormComponent implements OnInit {
 
   selectedType: string;
+  Holiday: any;
+  HolidayOption: SelectItem[]
   typeOptions: SelectItem[];
   Events: string;
   date: any = new Date();
@@ -30,7 +32,7 @@ export class HolidaydetailsFormComponent implements OnInit {
   constructor(private restApiService: RestAPIService, private http: HttpClient,private datepipe: DatePipe,private messageService: MessageService) { }
 
   ngOnInit(): void {
-    this.typeOptions = [
+    this.HolidayOption = [
       { label: '-select-', value: null },
       { label: 'Leave', value: '0'},
       { label: 'Holiday', value: '1'},
@@ -56,8 +58,8 @@ export class HolidaydetailsFormComponent implements OnInit {
       'RowId': this.MRowid,
       'SchoolId': 1,
       'EventDetailS':this.Events,
-      'Holiday': this.selectedType,     
-      'eventdate': this.datepipe.transform(this.date,'yyyy-MM-dd'), 
+      'Holiday': this.Holiday.value,     
+      'eventdate': this.datepipe.transform(this.date,'MM/dd/yyyy'), 
       'Flag': 1,      
     };
     this.restApiService.post(PathConstants.Holiday_Post, params).subscribe(res => {
@@ -114,7 +116,7 @@ export class HolidaydetailsFormComponent implements OnInit {
   }
   onRowSelect(event, selectedRow)  {
     this.MRowid=selectedRow.RowId;
-    this.selectedType=selectedRow.Holiday;
+    this.HolidayOption= [{ label: selectedRow.Holiday, value: selectedRow.Holiday }];
     this.Events=selectedRow.EventDetailS;
     this.date=selectedRow.eventdate;
   }

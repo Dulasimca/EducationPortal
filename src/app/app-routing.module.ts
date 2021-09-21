@@ -94,7 +94,7 @@ const routes: Routes = [
  { path: 'personal-details', component: PersonalDetailsComponent, canActivate: [AuthGuard]},
  { path: 'assessment-results', component: AssessmentResultsComponent},
  { path: 'fee-details', component: FeesDetailsFormComponent},
- { path: 'myschool-view', component: MyschoolViewComponent},
+ { path: 'myschool-view', component: MyschoolViewComponent, canActivate: [AuthGuard]},
 
  
  //Adithya

@@ -6,76 +6,117 @@
                 <p-card>
                     <div class="p-col-12 no-pad-top" style="margin-left: -8px;">
                         <p-fieldset legend="Personal Info" [toggleable]="true">
-                            <div #row1 class="p-col-12 p-md-12 p-lg-12">
-                                <div class="p-grid">
-                                    <div class="p-col-12 p-md-6 p-lg-2">
-                                        <div><label for="_name">Name<span class="form-mandatory-field">*</span></label>
+                            <div class="p-grid">
+                                <div class="p-col-10">
+                                    <div #row1 class="p-col-12 p-md-12 p-lg-12">
+                                        <div class="p-grid">
+                                            <div class="p-col-12 p-md-6 p-lg-3">
+                                                <div><label for="_name">Name<span
+                                                            class="form-mandatory-field">*</span></label>
+                                                </div>
+                                                <input type="text" name="_name" class="p-col-12" pInputText
+                                                    [(ngModel)]="obj.FirstName" required />
+                                            </div>
+                                            <div class="p-col-12 p-md-6 p-lg-2">
+                                                <div><label for="_class">Class<span
+                                                            class="form-mandatory-field">*</span></label></div>
+                                                <p-dropdown name="_class" [options]="classOptions"
+                                                    [(ngModel)]="obj.Class" optionLabel="label"
+                                                    (onClick)="onSelect('C')" required>
+                                                </p-dropdown>
+                                            </div>
+                                            <div class="p-col-12 p-md-6 p-lg-2">
+                                                <div><label for="_section">Section<span
+                                                            class="form-mandatory-field">*</span></label></div>
+                                                <p-dropdown name="_section" [options]="sectionOptions"
+                                                    [(ngModel)]="obj.Section" optionLabel="label"
+                                                    (onClick)="onSelect('S')" required>
+                                                </p-dropdown>
+                                            </div>
+                                            <div class="p-col-12 p-md-6 p-lg-2">
+                                                <div><label for="_bloodgroup">Blood Group<span
+                                                            class="form-mandatory-field">*</span></label></div>
+                                                <input type="text" name="_bloodgroup" class="p-col-12" pInputText
+                                                    [(ngModel)]="obj.BloodGroup" required />
+                                            </div>
+                                            <div class="p-col-12 p-md-6 p-lg-3">
+                                                <div><label for="_dob"> Date of Birth<span
+                                                            class="form-mandatory-field">*</span></label></div>
+                                                <p-calendar [(ngModel)]="obj.DateofBirth" name="_dob" [showIcon]="true"
+                                                    [monthNavigator]="true" [yearNavigator]="true"
+                                                    yearRange="{{yearRange}}" inputId="dateofbirth"
+                                                    dateFormat="yy-mm-dd" required></p-calendar>
+                                            </div>
                                         </div>
-                                        <input type="text" name="_name" class="p-col-12" pInputText [(ngModel)]="obj.FirstName"
-                                            required />
                                     </div>
-                                    <div class="p-col-12 p-md-6 p-lg-2">
-                                        <div><label for="_class">Class<span
-                                            class="form-mandatory-field">*</span></label></div>
-                                <p-dropdown name="_class" [options]="classOptions" [(ngModel)]="obj.Class"
-                                optionLabel="label" (onClick)="onSelect('C')" required>
-                                </p-dropdown>
+                                    <div #row2 class="p-col-12 p-md-12 p-lg-12">
+                                        <div class="p-grid">
+
+                                            <div class="p-col-12 p-md-6 p-lg-3">
+                                                <div><label for="_studentemail">Email Id<span
+                                                            class="form-mandatory-field">*</span></label>
+                                                </div>
+                                                <input class="p-col-12" name="_studentemail" type="email" pInputText
+                                                    [(ngModel)]="obj.EmailId" required />
+                                            </div>
+                                            <div class="p-col-12 p-md-4 p-lg-2">
+                                                <div><label for="_gender">Gender<span
+                                                            class="form-mandatory-field">*</span></label></div>
+                                                <p-dropdown name="_gender" [options]="genderOptions"
+                                                    [(ngModel)]="obj.Gender" required>
+                                                </p-dropdown>
+                                            </div>
+                                            <div class="p-col-12 p-md-6 p-lg-2">
+                                                <div><label for="_medium">Medium<span
+                                                            class="form-mandatory-field">*</span></label></div>
+                                                <p-dropdown name="_medium" [options]="mediumOptions"
+                                                    [(ngModel)]="obj.Medium" required>
+                                                </p-dropdown>
+                                            </div>
+                                            <div class="p-col-12 p-md-6 p-lg-2">
+                                                <div><label for="_studentmobileno">Mobile Number<span
+                                                            class="form-mandatory-field">*</span></label>
+                                                </div>
+                                                <input class="p-col-12" name="_studentmobileno" type="tel" pInputText
+                                                    [(ngModel)]="obj.PhoneNumber" required />
+                                            </div>
+                                            <div class="p-col-12 p-md-6 p-lg-3">
+                                                <div><label for="_doj">Date of Join<span
+                                                            class="form-mandatory-field">*</span></label></div>
+                                                <p-calendar [(ngModel)]="obj.DateofJoining" name="_doj"
+                                                    [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true"
+                                                    yearRange="{{yearRange}}" inputId="dateofjoin" dateFormat="yy-mm-dd"
+                                                    required></p-calendar>
+                                            </div>
+                                            <div #row2 class="p-col-12 p-md-12 p-lg-12">
+                                                <div class="p-grid">
+                                                    <div class="p-col-12 p-md-6 p-lg-5">
+                                                        <div><label for="_section">Address<span
+                                                                    class="form-mandatory-field">*</span></label></div>
+                                                        <textarea pInputTextarea [(ngModel)]="obj.Addressinfo" rows="3"
+                                                            cols="43" required></textarea>
+                                                    </div>
+                                                    <div class="p-col-12 p-md-6 p-lg-2">
+                                                        <div><label for="_pincode">Pincode<span
+                                                                    class="form-mandatory-field">*</span></label>
+                                                        </div>
+                                                        <input class="p-col-12" name="_pincode" type="text" pInputText
+                                                            [(ngModel)]="obj.Postalcode" required />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="p-col-12 p-md-6 p-lg-2">
-                                        <div><label for="_section">Section<span
-                                                    class="form-mandatory-field">*</span></label></div>
-                                                    <p-dropdown name="_class" [options]="sectionOptions" [(ngModel)]="obj.Section"
-                                                    optionLabel="label" (onClick)="onSelect('S')" required>
-                                                    </p-dropdown>
-                                    </div>
-                                    <div class="p-col-12 p-md-4 p-lg-2">
-                                        <div><label for="_gender">Gender<span
-                                                    class="form-mandatory-field">*</span></label></div>
-                                        <p-dropdown name="_gender" [options]="genderOptions" [(ngModel)]="obj.Gender"
-                                            required>
-                                        </p-dropdown>
-                                    </div>
-                                    <div class="p-col-12 p-md-6 p-lg-2">
-                                        <div><label for="_dob"> Date of Birth<span
-                                                    class="form-mandatory-field">*</span></label></div>
-                                        <p-calendar [(ngModel)]="obj.DateofBirth" name="_dob"  [showIcon]="true" [monthNavigator]="true"
-                                            [yearNavigator]="true" yearRange="{{yearRange}}" inputId="dateofbirth"
-                                            dateFormat="yy-mm-dd" required></p-calendar>
-                                    </div>
-                                   
-                                    
-                                    <div class="p-col-12 p-md-12 p-lg-2 pic-right">
+                                </div>
+                                <div class="p-col-2">
+                                    <div class="p-col-12 p-md-12 p-lg-12">
                                         <div><img style="width: 110px; height: 110px;" />
-                                            <button class="img-edit"  pButton type="button"  >
+                                            <button class="img-edit" style="float: right; margin-top: -25px;" pButton
+                                                type="button">
                                                 <i class="pi pi-pencil edit-size"></i>
                                             </button>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div #row2 class="p-col-12 p-md-12 p-lg-12">
-                                <div class="p-grid">
-                                    <div class="p-col-12 p-md-6 p-lg-2">
-                                        <div><label for="_doj">Date of Join<span
-                                                    class="form-mandatory-field">*</span></label></div>
-                                        <p-calendar [(ngModel)]="obj.DateofJoining" name="_doj"  [showIcon]="true" [monthNavigator]="true"
-                                            [yearNavigator]="true" yearRange="{{yearRange}}" inputId="dateofjoin"
-                                            dateFormat="yy-mm-dd" required></p-calendar>
-                                    </div>
-                                    <div class="p-col-12 p-md-6 p-lg-2">
-                                        <div><label for="_bloodgroup">Blood Group<span
-                                                    class="form-mandatory-field">*</span></label></div>
-                                        <input type="text" name="_bloodgroup" class="p-col-12" pInputText
-                                            [(ngModel)]="obj.BloodGroup" required />
-                                    </div>
-                                    
-                                    <div class="p-col-12 p-md-6 p-lg-3">
-                                        <div><label for="_section">Address<span
-                                                    class="form-mandatory-field">*</span></label></div>
-                                        <textarea pInputTextarea [(ngModel)]="obj.Addressinfo" rows="4" cols="39"
-                                            required></textarea>
-                                    </div>
-                                    
                                 </div>
                             </div>
                         </p-fieldset>
@@ -88,34 +129,26 @@
                                         <input class="p-col-12" type="text" name="_fname" pInputText
                                             [(ngModel)]="obj.FatherName" required />
                                     </div>
-
                                     <div class="p-col-12 p-md-6 p-lg-2">
                                         <div><label for="_foccupation">Occupation<span
                                                     class="form-mandatory-field">*</span></label></div>
                                         <input class="p-col-12" type="text" name="_foccupation" pInputText
                                             [(ngModel)]="obj.FatherOccupation" required />
                                     </div>
- 
                                     <div class="p-col-12 p-md-6 p-lg-2">
                                         <div><label for="_fcontact">Contact Number <span
                                                     class="form-mandatory-field">*</span></label></div>
                                         <input class="p-col-12" type="tel" name="_fcontact" pInputText
                                             [(ngModel)]="obj.FatherMobileNo" required />
                                     </div>
-                                    
                                     <div class="p-col-12 p-md-6 p-lg-3">
                                         <div><label for="_femail">Email Id </label></div>
                                         <input class="p-col-12" type="text" name="_femail" pInputText
                                             [(ngModel)]="obj.FatherEmailid" required />
                                     </div>
-                                    <!-- <div class="p-col-12 p-md-6 p-lg-2">
-                                        <div><label for="_femail">Email Id</label></div>
-                                        <input class="p-col-12" type="email" name="_femail" pInputText
-                                            [(ngModel)]="fatherEmail" required />
-                                    </div> -->
                                     <div class="p-col-12 p-md-12 p-lg-2 pic-right">
                                         <div><img style="width: 110px; height: 110px;" />
-                                            <button class="img-edit"  pButton type="button"  >
+                                            <button class="img-edit" pButton type="button">
                                                 <i class="pi pi-pencil edit-size"></i>
                                             </button>
                                         </div>
@@ -129,7 +162,7 @@
                                     <div class="p-col-12 p-md-6 p-lg-2">
                                         <div><label for="_mname">Mother's Name<span
                                                     class="form-mandatory-field">*</span></label></div>
-                                        <input class="p-col-12" type="text" name="_memail" pInputText
+                                        <input class="p-col-12" type="text" name="_mname" pInputText
                                             [(ngModel)]="obj.MotherName" required />
                                     </div>
                                     <div class="p-col-12 p-md-6 p-lg-2">
@@ -138,12 +171,6 @@
                                         <input class="p-col-12" type="text" name="_moccupation" pInputText
                                             [(ngModel)]="obj.MotherOccupation" required />
                                     </div>
-                                    <!-- <div class="p-col-12 p-md-6 p-lg-2">
-                                        <div><label for="_mbloodgrp">Blood Group<span
-                                                    class="form-mandatory-field">*</span></label></div>
-                                        <input class="p-col-12" type="text" name="_mbloodgrp" pInputText
-                                            [(ngModel)]="motherBloodGroup" required />
-                                    </div> -->
                                     <div class="p-col-12 p-md-6 p-lg-2">
                                         <div><label for="_mcontact">Contact Number<span
                                                     class="form-mandatory-field">*</span></label></div>
@@ -157,7 +184,7 @@
                                     </div>
                                     <div class="p-col-12 p-md-12 p-lg-2 pic-right">
                                         <div><img style="width: 110px; height: 110px;" />
-                                            <button class="img-edit"  pButton type="button"  >
+                                            <button class="img-edit" pButton type="button">
                                                 <i class="pi pi-pencil edit-size"></i>
                                             </button>
                                         </div>
@@ -179,12 +206,6 @@
                                         <input class="p-col-12" type="text" name="_goccupation" pInputText
                                             [(ngModel)]="obj.GaurdianOccupation" required />
                                     </div>
-                                    <!-- <div class="p-col-12 p-md-6 p-lg-2">
-                                        <div><label for="_gbloodgrp">Blood Group<span
-                                                    class="form-mandatory-field">*</span></label></div>
-                                        <input class="p-col-12" type="text" name="_gbloodgrp" pInputText
-                                            [(ngModel)]="guardianBloodGroup" required />
-                                    </div> -->
                                     <div class="p-col-12 p-md-6 p-lg-2">
                                         <div><label for="_gcontact">Contact Number </label></div>
                                         <input class="p-col-12" type="tel" name="_gcontact" pInputText
@@ -197,7 +218,7 @@
                                     </div>
                                     <div class="p-col-12 p-md-12 p-lg-2 pic-right">
                                         <div><img style="width: 110px; height: 110px;" />
-                                            <button class="img-edit"  pButton type="button"  >
+                                            <button class="img-edit" pButton type="button">
                                                 <i class="pi pi-pencil edit-size"></i>
                                             </button>
                                         </div>

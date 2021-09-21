@@ -17,7 +17,8 @@ body { margin: 0 !important}
     height: 100% !important;
 }
   .pic-right {
-    text-align: end;    
+    text-align: end;  
+      
 }
  .txt-color {
    color: #495057 !important;
@@ -28,6 +29,7 @@ body { margin: 0 !important}
     border: 0.5px !important ;
     width: 15px!important;
     height: 25px !important;
+    
 }
 
 .edit-size {

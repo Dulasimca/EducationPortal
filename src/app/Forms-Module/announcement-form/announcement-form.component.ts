@@ -52,7 +52,7 @@ export class AnnouncementFormComponent implements OnInit {
     const params = {
       'RowID': this.MRowid,
       'SchoolID': 1,      
-      'Announcementdate': this.datepipe.transform(this.date,'yyyy-MM-dd'),     
+      'Announcementdate': this.datepipe.transform(this.date,'MM/dd/yyyy'),     
       'AnnouncementTag':this.Topic, 
       'Announcement': this.Announcement,
       'Announcementfilename': "Education.pdf",

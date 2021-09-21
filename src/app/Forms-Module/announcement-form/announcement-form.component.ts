@@ -36,7 +36,7 @@ export class AnnouncementFormComponent implements OnInit {
       { field: 'Announcementdate', header: 'DATE' },
       { field: 'AnnouncementTag', header: 'TAG' },
       { field: 'Announcement', header: 'ANNOUNCEMENT' },
-      { field: 'Announcementfilename', header: 'Announcementfilename'}
+      { field: 'Announcementfilename', header: 'ANNOUNCEMENT FILENAME'}
       ];
   }
 
@@ -96,7 +96,7 @@ export class AnnouncementFormComponent implements OnInit {
         }
         })
       }
-  onView() {
+     onView() {
     const params = {
       'SchoolID': 1,
     }

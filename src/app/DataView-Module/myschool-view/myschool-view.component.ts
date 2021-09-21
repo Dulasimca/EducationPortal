@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
+import { User } from 'src/app/Interfaces/user';
+import { AuthService } from 'src/app/Services/auth.service';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
 
 @Component({
@@ -16,13 +18,17 @@ export class MyschoolViewComponent implements OnInit {
   phoneNo: number;
   landlineNo: number;
   faxNo: any;
+  login_user: User;
 
-  constructor(private restApiService: RestAPIService) { }
+
+  constructor(private restApiService: RestAPIService, private authService: AuthService) { }
 
   ngOnInit(): void {
 
+    this.login_user = this.authService.UserInfo;
+
     const params = {
-     'SchoolID'  : 2,
+      'SchoolId': this.login_user.schoolId,
     };
     this.restApiService.getByParameters(PathConstants.MySchool_Get, params).subscribe(response => {
       // console.log('response', response);

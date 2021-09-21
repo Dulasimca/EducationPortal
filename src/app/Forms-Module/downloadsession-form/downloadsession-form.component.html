@@ -1,35 +1,34 @@
 <div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px; height: 520px;">
     <p-panel header="Classroom Download">
-    <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
-    <p-card>
+        <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
+            <p-card>
 
-<div  class="p-col-12 p-md-12 p-lg-12">
-    <div class="p-grid">
-        <div class="p-col-12 p-md-6 p-lg-3">
-            <div class="no-pad-top"><label>Date:</label> </div> 
-            <p-calendar [(ngModel)]="date" [showIcon]="true"></p-calendar>
-        </div>
-        
-            <div class="p-col-12 p-md-6 p-lg-3">
-                <div><label>Subject:</label></div>
-                <input type="text" size ="25" pInputText [(ngModel)]="Subject" />
-            </div>
-        
-            
-                <div class="p-col-12 p-md-6 p-lg-3">
-                    <div><label>Duration:</label></div>
-                   
-                    <input type="text" size ="25" pInputText [(ngModel)]="Duration"/>
+                <div class="p-col-12 p-md-12 p-lg-12">
+                    <div class="p-grid">
+                        <div class="p-col-12 p-md-6 p-lg-3">
+                            <div class="no-pad-top"><label>Date:</label> </div>
+                            <p-calendar [(ngModel)]="date" [showIcon]="true"></p-calendar>
+                        </div>
+
+                        <div class="p-col-12 p-md-6 p-lg-3">
+                            <div><label>Subject:</label></div>
+                            <input type="text" size="25" pInputText [(ngModel)]="Subject" />
+                        </div>
+
+
+                        <div class="p-col-12 p-md-6 p-lg-3">
+                            <div><label>Duration:</label></div>
+
+                            <input type="text" size="25" pInputText [(ngModel)]="Duration" />
+                        </div>
+                        <div class="p-col-12 p-md-6 p-lg-3">
+                            <div><label>Attach Session:</label></div>
+                            <input class="p-col-12" name="_UploadSession" type="file" pInputText
+                                (change)="onFileUpload($event, 4)" accept=".png" />
+                        </div>
+                    </div>
                 </div>
-
-                <!-- <div class="p-col-12 p-md-6 p-lg-12">
-                <button pButton name="downlod" type="button" icon="pi pi-download"
-                                                    label="Join Room"></button>
-                </div>                                      -->
-    </div>
-</div>
-    </p-card>
-    </div>
+            </p-card>
+        </div>
     </p-panel>
 </div>
-    

@@ -40,7 +40,7 @@
                                                     class="form-mandatory-field">*</span></label></div>
                                         <p-calendar [(ngModel)]="obj.DateofBirth" name="_dob"  [showIcon]="true" [monthNavigator]="true"
                                             [yearNavigator]="true" yearRange="{{yearRange}}" inputId="dateofbirth"
-                                            required></p-calendar>
+                                            dateFormat="yy-mm-dd" required></p-calendar>
                                     </div>
                                    
                                     
@@ -60,7 +60,7 @@
                                                     class="form-mandatory-field">*</span></label></div>
                                         <p-calendar [(ngModel)]="obj.DateofJoining" name="_doj"  [showIcon]="true" [monthNavigator]="true"
                                             [yearNavigator]="true" yearRange="{{yearRange}}" inputId="dateofjoin"
-                                            required></p-calendar>
+                                            dateFormat="yy-mm-dd" required></p-calendar>
                                     </div>
                                     <div class="p-col-12 p-md-6 p-lg-2">
                                         <div><label for="_bloodgroup">Blood Group<span

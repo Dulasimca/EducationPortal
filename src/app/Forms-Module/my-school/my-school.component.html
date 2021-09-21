@@ -26,33 +26,33 @@
                                     <input type="email" class="p-col-12" name="_email" pInputText [(ngModel)]="email"
                                         required />
                                 </div>
-                                <div class="p-col-12 p-md-6 p-lg-3">
-                                    <div><label for="_address">Address<span
-                                                class="form-mandatory-field">*</span></label></div>
-                                    <textarea pInputTextarea [(ngModel)]="address" name="_address" rows="2" cols="34"
-                                        required></textarea>
+                                <div class="p-col-12 p-md-6 p-lg-2">
+                                    <div><label for="_phoneno">Phone Number<span
+                                                class="form-mandatory-field">*</span></label>
+                                    </div>
+                                    <input type="tel" class="p-col-12" name="_phoneno" pInputText [(ngModel)]="phoneNo"
+                                        required />
                                 </div>
                                 <div class="p-col-12 p-md-6 p-lg-2">
-                                    <div><label for="_pincode">Pincode<span
-                                                class="form-mandatory-field">*</span></label></div>
-                                    <input type="text" class="p-col-12" name="_pincode" pInputText [(ngModel)]="pincode"
-                                        required />
+                                    <div><label for="_landlineno">Landline Number<span
+                                                class="form-mandatory-field">*</span></label>
+                                    </div>
+                                    <input type="tel" class="p-col-12" name="_landlineno" pInputText
+                                        [(ngModel)]="landlineNo" required />
                                 </div>
                                 <div #row1 class="p-col-12 p-md-12 p-lg-12">
                                     <div class="p-grid">
-                                        <div class="p-col-12 p-md-6 p-lg-2">
-                                            <div><label for="_phoneno">Phone Number<span
-                                                        class="form-mandatory-field">*</span></label>
-                                            </div>
-                                            <input type="tel" class="p-col-12" name="_phoneno" pInputText
-                                                [(ngModel)]="phoneNo" required />
+                                        <div class="p-col-12 p-md-6 p-lg-4">
+                                            <div><label for="_address">Address<span
+                                                        class="form-mandatory-field">*</span></label></div>
+                                            <textarea pInputTextarea [(ngModel)]="address" name="_address" rows="3"
+                                                cols="43" required></textarea>
                                         </div>
                                         <div class="p-col-12 p-md-6 p-lg-2">
-                                            <div><label for="_landlineno">Landline Number<span
-                                                        class="form-mandatory-field">*</span></label>
-                                            </div>
-                                            <input type="tel" class="p-col-12" name="_landlineno" pInputText
-                                                [(ngModel)]="landlineNo" required />
+                                            <div><label for="_pincode">Pincode<span
+                                                        class="form-mandatory-field">*</span></label></div>
+                                            <input type="text" class="p-col-12" name="_pincode" pInputText
+                                                [(ngModel)]="pincode" required />
                                         </div>
                                         <div class="p-col-12 p-md-6 p-lg-2">
                                             <div><label for="_faxno">Fax Number<span
@@ -63,7 +63,7 @@
                                     </div>
                                 </div>
                                 <div class="p-col-12 p-md-6 p-lg-6" style="text-align:right;">
-                                    <button pButton name="save" type="button" label="Save"  (click)="onSave()"
+                                    <button pButton name="save" type="button" label="Save" (click)="onSave()"
                                         [disabled]="(!f.valid)"></button>
                                 </div>
                                 <div class="p-col-12 p-md-6 p-lg-6">

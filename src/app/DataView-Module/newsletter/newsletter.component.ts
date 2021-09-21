@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { RestAPIService } from 'src/app/Services/restAPI.service';
+import { PathConstants } from 'src/app/Common-Module/PathConstants';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-newsletter',
@@ -6,19 +10,43 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./newsletter.component.css']
 })
 export class NewsletterComponent implements OnInit {
-  data : any = []
-  
-  constructor() { }
-  
+  MRowId=0
+  data: any = [];
+  cols: any;
+  books : any = []
+  constructor(private restApiService: RestAPIService, private http: HttpClient) { }
+
   ngOnInit() {
-    this.data = [ 
-      {'slno':'1', 'topic':'Student Handbook and Uniform Code'},
-      {'slno':'2', 'topic':'Blood Donation Camp'},
-      {'slno':'3', 'topic':'Rebel Sports Activities'},
-      {'slno':'4', 'topic':'Be a volunteer!'},
-      {'slno':'5', 'topic':'Library Etiquette and Manners'},
-      {'slno':'6', 'topic':'Valuable principles that will make you treat people better'},
-      {'slno':'7', 'topic':'Think Clean and Go Green!'},
-    ]
+    
+    this.cols = [
+      {field:'RowId',header: 'ID'},
+      {field:'NewsDate',header: 'Date'},
+      {field:'Topic',header: 'Topic'},
+      {field:'Download',header: 'Newsletter Upload'},
+      {field: 'CreatedDate',header: 'Upload date'},
+      
+      
+    ];
+    this.onview()
   }
+  onview() {
+    const params = { 
+      'SchoolID': 1,
+    }
+    
+    this.restApiService.getByParameters(PathConstants.NewsLetter_Get, params).subscribe(res => {
+      if(res !== null && res !== undefined && res.length !==0) {
+        console.log(res);
+        this.data = res;
+      }
+      
+    })
 }
+onDownload() {
+  const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheethtml.sheet;charset=UTF-8';
+  const path = "../../assets/files/sample_Project.pdf";
+  const filename = 'sample_Project' + ".pdf";
+  saveAs(path, filename);
+}
+}
+

@@ -1,67 +1,57 @@
-<div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px; height: 520px;">
+<block-ui>
+  <div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px; height: 520px;">
+    <p-toast position="top-center" key="t-msg"></p-toast>
     <p-panel header="My Achievement">
-    <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
-        <p-card>
+      <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
+        <form #f="ngForm" name="MyAchievementForm">
+          <p-card>
             <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
-                <div class="p-grid">
-                    <div class="p-col-12 p-md-6 p-lg-3">
-                    <div class="no-pad-top"><label>Date:</label> <br>
-            <p-calendar [(ngModel)]="date" name="date" [showIcon]="true"></p-calendar>
-                    </div>
+              <div class="p-grid">
+                <div class="p-col-12 p-md-6 p-lg-3">
+                  <div><label>Date:</label></div>
+
+                  <p-calendar [(ngModel)]="date" [showIcon]="true" name="date"  required></p-calendar>
                 </div>
-                      <div class="p-col-12 p-md-6 p-lg-3" style="text-align: left; margin-top: 5px;">
-                        <label> Events:</label><br>
-                        <input  type="text" name="Events" size="24" pInputText [(ngModel)]="Events"/> 
-                    </div>
-                    <!-- <div><label>Occassion/Festival/Events:</label></div><br>
-                    <input type="text" name="_Events" size="25" pInputText [(ngModel)]="Events"/>
-            </div> -->
-
-
-                    <div class="p-col-12 p-md-6 p-lg-3" style="text-align: left; margin-top: 5px;">
-                        <label> Place:</label><br>
-                        <!-- <input id="float-input"  type="text" size="24" pInputText>  -->
-                        <input  type="text" name="Place" size="24" pInputText [(ngModel)]="Place"/> 
-                    </div>
-                    <div class="p-col-12 p-md-6 p-lg-3" style="text-align: left; margin-top: 5px;">
-                        <label> Status:</label><br>
-                        <!-- <input id="float-input"  type="text" size="24" pInputText>  -->
-                        <input  type="text" name="Status" size="24" pInputText [(ngModel)]="Status"/> 
-                        
-                    </div>
-                    <div class="p-col-12 p-md-12 p-lg-12">
-                        <button pButton type="button" label="Submit" (click)="onSubmit()" style="margin-left: 30%;"></button>
-                   <!-- </div>
-                   <div class="p-col-6 p-md-6 p-lg-12"> -->
-                        <button pButton type="button" label="View" (click)="onView()" style="margin-left: 5%;"></button>
-                        <button pButton type="button" label="Clear" (click)="clear()" style="margin-left: 5%;"></button>
-                   </div>
-                   <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,15,20]"
-                   totalRecords="totalRecords" pageLinks="3">
-                   <ng-template pTemplate="header" let-columns>
-                     <tr>
-                       <th *ngFor="let col of columns">
-                         {{col.header}}
-                       </th>
-                     </tr>
-                   </ng-template>
-                   
-                   <ng-template pTemplate="body" let-rowData let-columns="columns">
-                     <tr>
-                       <td *ngFor="let col of columns">
-                         {{rowData[col.field]}}
-                       </td>
-                     </tr>
-                   </ng-template>
-                 </p-table>
-               </div>
+                <div class="p-col-12 p-md-6 p-lg-3">
+                  <div><label> Events:</label></div>
+                  <input type="text" name="Events" size="24" pInputText [(ngModel)]="Events" required />
+                </div>
+                <div class="p-col-12 p-md-12 p-lg-3">
+                  <div><label> Place:</label></div>
+                  <input type="text" name="Place" size="24" pInputText [(ngModel)]="Place" required />
+                </div>
+                <div class="p-col-12 p-md-12 p-lg-3">
+                  <div> <label> Status:</label></div>
+                  <input type="text" name="Status" size="24" pInputText [(ngModel)]="Status" required />
+                </div>
+                <div class="p-col-12 p-md-12 p-lg-12">
+                  <button pButton name="save" type="button" label="Submit" (click)="onSubmit()" [disabled]="(!f.valid)"
+                    style="margin-left: 30%;"></button>
+                  <button pButton type="button" label="View" (click)="onView()" style="margin-left: 5%;"></button>
+                  <button pButton type="button" label="Clear" (click)="clear()" style="margin-left: 5%;"></button>
+                </div>
+                <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10"
+                  [rowsPerPageOptions]="[5,10,15,20]" totalRecords="totalRecords" pageLinks="3">
+                  <ng-template pTemplate="header" let-columns>
+                    <tr>
+                      <th *ngFor="let col of columns">
+                        {{col.header}}
+                      </th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-rowData let-columns="columns">
+                    <tr [pSelectableRow]="rowData" (dblclick)="onRowSelect($event, rowData)">
+                      <td *ngFor="let col of columns">
+                        {{rowData[col.field]}}
+                      </td>
+                    </tr>
+                  </ng-template>
+                </p-table>
+              </div>
             </div>
-        </p-card>
-       
-        </div>
+          </p-card>
+        </form>
+      </div>
     </p-panel>
-</div>
-   
-
-
-
+  </div>
+</block-ui>

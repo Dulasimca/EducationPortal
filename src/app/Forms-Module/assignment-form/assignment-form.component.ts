@@ -1,7 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
+import { DatePipe } from '@angular/common';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { ResponseMessage } from 'src/app/Common-Module/Message';
+import { MessageService, SelectItem } from 'primeng/api';
+
 
 @Component({
   selector: 'app-assignment-form',
@@ -10,8 +15,8 @@ import { PathConstants } from 'src/app/Common-Module/PathConstants';
 })
 export class AssignmentFormComponent implements OnInit {
 
-  dueDate: Date = new Date();
-  assignDate: Date = new Date();
+  dueDate: any = new Date();
+  assignDate: any = new Date();
   assignmentwork: string;
   type:string;
   subjectname:string;
@@ -19,12 +24,16 @@ export class AssignmentFormComponent implements OnInit {
   cols: any;
   uploadedFiles: any[] = [];
   assignmentfile: any[] = [];
+  AssignmentDate:any;
+  MAssignId=0;
+  @BlockUI() blockUI: NgBlockUI;
 
 
-  constructor(private restApiService: RestAPIService, private http: HttpClient) { }
+  constructor(private restApiService: RestAPIService, private http: HttpClient,private datepipe: DatePipe,private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.cols = [
+      { field: 'AssignId', header: 'ID'},
       { field: 'AssignmentDate', header: 'Date' },
       { field: 'AssignmentDueDate', header: 'Due Date' },
       { field: 'AssignmentWork', header: 'Assigned Work' },
@@ -42,13 +51,13 @@ export class AssignmentFormComponent implements OnInit {
   }
 
 onSubmit() {
-   
+  this.blockUI.start();
   const params = {
-    'AssignId': 0,
+    'AssignId': this.MAssignId,
     'SchoolID': 1,      
-    'Class': 1,     
-    'AssignmentDate': this.assignDate, // (this._guardianimg !== undefined && this._guardianimg !== null) ? this._guardianimg.values: 0,
-    'AssignmentDueDate': this.dueDate,
+    'Class': 1,    
+    'AssignmentDate': this.datepipe.transform(this.assignDate, 'yyyy-MM-dd') ,
+    'AssignmentDueDate': this.datepipe.transform(this.dueDate, 'yyyy-MM-dd'),
     'assignmentwork': this.assignmentwork,
     'AssignmentType': this.type,
     'subjectname': this.subjectname,
@@ -57,10 +66,41 @@ onSubmit() {
   };
   console.log(params);
   this.restApiService.post(PathConstants.Assignment_Post, params).subscribe(res => {
-    console.log('rs', res);
-   
-  });
-}
+    if(res !== undefined && res !== null) {
+      if (res) {
+        this.blockUI.stop();
+        this.clear();
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_SUCCESS,
+          summary: ResponseMessage.SUMMARY_SUCCESS, detail: ResponseMessage.SuccessMessage
+        });
+      } else {
+        this.blockUI.stop(); 
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+          summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+        });
+      }
+      } else {
+      this.messageService.clear();
+      this.messageService.add({
+        key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+        summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+      });
+      }
+      }, (err: HttpErrorResponse) => {
+      this.blockUI.stop();
+      if (err.status === 0 || err.status === 400) {
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+          summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+        })
+      }
+      })
+    }
 onView() {
   const params = {
     'SchoolID': 1,
@@ -74,16 +114,21 @@ onView() {
   });
 
 }
-onEdit(rowData) {
-
-}
-onDelete(rowData) {
-
-}
 clear() {
   this.assignmentwork="",
   this.type="",
   this.subjectname=""
+
+}
+onRowSelect(event, selectedRow) {
+  this.MAssignId=selectedRow.AssignId;
+  this.assignDate=selectedRow.AssignmentDate;
+  this.dueDate = selectedRow.AssignmentDueDate;
+  this.assignmentwork = selectedRow.AssignmentWork;
+  this.type = selectedRow.AssignmentType;
+  this.subjectname = selectedRow.Subjectname;
+  console.log(selectedRow.AssignId);
+  
 
 }
 

@@ -1,11 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { SelectItem } from 'primeng/api';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { saveAs } from 'file-saver';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { MatNativeDateModule } from '@angular/material/core';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ResponseMessage } from 'src/app/Common-Module/Message';
+import { MessageService, SelectItem } from 'primeng/api';
+import { MasterService } from 'src/app/Services/master-data.service';
+
+
+
+
 
 @Component({
   selector: 'app-book-form',
@@ -13,6 +21,7 @@ import { MatNativeDateModule } from '@angular/material/core';
   styleUrls: ['./book-form.component.css']
 })
 export class BookFormComponent implements OnInit {
+  MRowId:0
   Subject: string;
   Author:string;
   yearOptions: SelectItem[];
@@ -21,7 +30,9 @@ export class BookFormComponent implements OnInit {
   form:any;
   data: any = [];
   uploadedFiles: any[] = [];
-  constructor(private restApiService: RestAPIService, private http: HttpClient) { }
+  @BlockUI() blockUI: NgBlockUI;
+  constructor(private restApiService: RestAPIService, private http: HttpClient,
+    private masterService: MasterService,private messageService: MessageService) { }
 
   ngOnInit(): void {
 
@@ -32,6 +43,7 @@ export class BookFormComponent implements OnInit {
       { label: '2021-2022', value: '2021-2022' },
     ];
     this.cols = [
+      {field:'RowId',header: 'ID'},
       {field: 'Years',header: 'Year'},
       {field:'subjects',header: 'Subject'},
       {field: 'authorReference',header: 'Author/Reference'},
@@ -57,32 +69,59 @@ export class BookFormComponent implements OnInit {
     })
   }
   onSubmit() {
+    this.blockUI.start();
     const params = {
     
-      'RowId': '0',
+      'RowId': this.MRowId,
       'SchoolId': 1,
       'ClassId': 1,
       'subjects': this.Subject,     
       'authorReference': this.Author,
-      'Pdffilename': 'mn.pdf',  
+      'Pdffilename': 'Book.pdf',  
       'Years': this.selectedyear,   
       'Flag': 1,  
+      
       
      
     };
     console.log(params);
     this.restApiService.post(PathConstants.Book_Post, params).subscribe(res => {
-      console.log('rs', res);
-      alert("saved");
-      //form.resetForm();
-      this.onview();
-    })
-   
-    
-    // this.restApiService.get(PathConstants.Book_Get, params).subscribe(res => {
-    //   console.log('rs', res);
-    // })
-  }
+      if(res !== undefined && res !== null) {
+        if (res) {
+          this.blockUI.stop();
+          this.onClear();
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_SUCCESS,
+            summary: ResponseMessage.SUMMARY_SUCCESS, detail: ResponseMessage.SuccessMessage
+          });
+        } else {
+          this.blockUI.stop();
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+            summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+          });
+        }
+        } else {
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+          summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+        });
+        }
+        }, (err: HttpErrorResponse) => {
+        this.blockUI.stop();
+        if (err.status === 0 || err.status === 400) {
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+            summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+          })
+        }
+        })
+      }
+
   onview() {
     const params = { 
       'SchoolID': 1,
@@ -104,4 +143,10 @@ export class BookFormComponent implements OnInit {
   this.Author = '',
   this.selectedyear = ''
   }
+  onRowSelect(event, selectedRow) {
+    this.MRowId = selectedRow.RowId;
+    this.Author = selectedRow.authorReference;
+    this.Subject = selectedRow.subjects;
+    this.selectedyear = selectedRow.Years;
+}
 }

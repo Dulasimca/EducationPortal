@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { ResponseMessage } from 'src/app/Common-Module/Message';
+import { MessageService, SelectItem } from 'primeng/api';
+
 
 @Component({
   selector: 'app-fee-form',
@@ -19,12 +23,15 @@ export class FeeFormComponent implements OnInit {
   fine: string;
   data: any = []; 
   cols: any;
+  MRowId=0;
+  @BlockUI() blockUI: NgBlockUI;
  
 
-  constructor(private restApiService: RestAPIService, private http: HttpClient) { }
+  constructor(private restApiService: RestAPIService, private http: HttpClient,private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.cols = [
+      { field: 'RowId', header: 'ID' },
       { field: 'duedate', header: 'Due Date' },
       { field: 'ReceiptBook', header: 'Receipt Book' },
       { field: 'FeeName', header: 'Fee Name' },
@@ -45,7 +52,7 @@ export class FeeFormComponent implements OnInit {
 
   onSubmit() {
     const params = {
-      'AssignId': 0,
+      'RowId': this.MRowId,
       'Academic':0,
       'SchoolID': 1,
       'StudentId':1,      
@@ -63,10 +70,41 @@ export class FeeFormComponent implements OnInit {
     };
     console.log(params);
     this.restApiService.post(PathConstants.Fee_Post, params).subscribe(res => {
-      console.log('rs', res);
-     
-    });
-  }
+      if(res !== undefined && res !== null) {
+        if (res) {
+          this.blockUI.stop();
+          this.clear();
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_SUCCESS,
+            summary: ResponseMessage.SUMMARY_SUCCESS, detail: ResponseMessage.SuccessMessage
+          });
+        } else {
+          this.blockUI.stop(); 
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+            summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+          });
+        }
+        } else {
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+          summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+        });
+        }
+        }, (err: HttpErrorResponse) => {
+        this.blockUI.stop();
+        if (err.status === 0 || err.status === 400) {
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+            summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+          })
+        }
+        })
+      }
   onView() {
     const params = {
       'SchoolID': 1,
@@ -88,6 +126,17 @@ export class FeeFormComponent implements OnInit {
     this.paying="",
     this.fine=""
 
+  }
+  onRowSelect(event, selectedRow) {
+    this.MRowId=selectedRow.RowId;
+    this.dueDate=selectedRow.duedate;
+    this.receiptbook=selectedRow.ReceiptBook;
+    this.feename=selectedRow.FeeName;
+    this.actualamount=selectedRow.ActualAmount;
+    this.paidamount=selectedRow.PaidAmount;
+    this.outstanding=selectedRow.OutstandingAmount;
+    this.paying=selectedRow.PayingAmount;
+    this.fine=selectedRow.FineAmount;
   }
 
 }

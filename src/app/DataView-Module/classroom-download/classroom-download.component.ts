@@ -12,10 +12,10 @@ export class ClassroomDownloadComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    this.data = [ {'slno': 1, 'subject': 'Tamil', 'date': '03-08-2021', 'time': '8.30 AM', 'duration': '45 mins' },
-    {'slno': 2, 'subject': 'English', 'date': '08-08-2021', 'time': '9.30 AM', 'duration': '45 mins' },
-    {'slno': 3, 'subject': 'Maths', 'date': '10-08-2021', 'time': '10.30 AM', 'duration': '45 mins' },
-    {'slno': 4, 'subject': 'Science', 'date': '10-08-2021', 'time': '11.30 AM', 'duration': '45 mins' },
-    {'slno': 5, 'subject': 'Social Science', 'date': '11-08-2021', 'time': '1.30 AM', 'duration': '45 mins' }]
+    this.data = [ {'ID':1, 'slno': 1, 'subject': 'Tamil',  'duration': '45 mins' },
+    {'ID':2, 'slno': 2, 'subject': 'English',  'duration': '45 mins' },
+    {'ID':3, 'slno': 3, 'subject': 'Maths',  'duration': '45 mins' },
+    {'ID':4, 'slno': 4, 'subject': 'Science',  'duration': '45 mins' },
+    {'ID':5, 'slno': 5, 'subject': 'Social Science',  'duration': '45 mins' }]
   }
 }

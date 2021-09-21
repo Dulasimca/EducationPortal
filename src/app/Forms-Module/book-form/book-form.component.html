@@ -1,16 +1,25 @@
+<block-ui>
+
 <div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px; height: 520px;">
+  <p-toast position="top-center" key="t-msg"></p-toast>
     <p-panel header="Books">
         <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
+          <form #f="ngForm" name="bookForm"> 
             <p-card>
-                <i>*Incase of any queries,contact school</i><br>
-                <i>*Please select your preference and click on proceed</i>
+              <div style="font-style: italic; font-size: 15px; color: rgb(11, 43, 102);">
+                * Incase of any queries,contact school
+            </div>
+            <div style="font-style: italic; font-size: 15px; color: rgb(11, 43, 102);">
+                * Please select your preference and click on proceed
+            </div>
                 <div  class="p-col-12 p-md-12 p-lg-12">
                     <div class="p-grid">
                         <div class="p-col-12 p-md-6 p-lg-3">
                             <div>
                                 <label>Year:</label>
                             </div>
-                            <p-dropdown [options]="yearOptions"  name = "selectedyear" [(ngModel)]="selectedyear"> </p-dropdown>
+                            <p-dropdown [options]="yearOptions"  name = "selectedyear" 
+                            [(ngModel)]="selectedyear" required > </p-dropdown>
                         </div>
                                     
                         <div class="p-col-12 p-md-6 p-lg-1"></div>
@@ -19,7 +28,7 @@
                             <div>
                                 <label>Subject/Stream Name:</label>
                             </div>
-                            <input type="text"  pInputText [(ngModel)]="Subject" />
+                            <input type="text" name = "Subject" pInputText [(ngModel)]="Subject" required />
                         </div>
                         <div class="p-col-12 p-md-6 p-lg-1"></div>
 
@@ -27,30 +36,23 @@
                             <div>
                                 <label>Author/Reference:</label>
                             </div>
-                            <input type="text" pInputText [(ngModel)]="Author" />
+                            <input type="text" name = "Author"pInputText [(ngModel)]="Author" required />
                         </div>
 
                         <div class="p-col-12 p-md-6 p-lg-3">
-                            <input class="p-col-12" name="_guardianimg" type="file" pInputText
-                                (change)="onFileUpload($event, 4)" accept=".pdf" />
+                            <input class="p-col-12" name="_Uploadbook" type="file" pInputText
+                                (change)="onFileUpload($event, 4)" accept=".pdf" required />
                         </div>
-
-                        <!-- <div class="p-col-12 p-md-4 p-lg-2">
-                            <button pButton name="upload" type="button" icon="pi pi-upload" label="Upload"></button>
-                        </div> -->
-                    
-                        
-                        <!-- <div class="p-col-12 p-md-4 p-lg-6"></div>
-                        <div class="p-col-12 p-md-4 p-lg-2"></div>   -->
-                        
-                        
+                      
                     </div>  
                 </div>
+             
             </p-card>
+           </form> 
             <div class="p-col-12 p-md-6 p-lg12" style = "margin-left:35%;"> 
-                <button pButton type="button" label="Submit" (click)="onSubmit()" > </button>
-            <!-- </div>  -->
-            <!-- <div class="p-col-12 p-md-6 p-lg-2" > -->
+              <button pButton name="save" type="button" label="Submit"  (click)="onSubmit()"
+              [disabled]="(!f.valid)" ></button>
+            
                 <button pButton type="button" label="View" (click)="onview()" style = "margin-left:5%;"></button>
                 <button pButton type="button" label="clear" (click)="onClear()" style = "margin-left:5%;"></button> 
               </div>
@@ -69,26 +71,17 @@
   </ng-template>
   
   <ng-template pTemplate="body" let-rowData let-columns="columns">
-    <tr>
+    <tr [pSelectableRow]="rowData" (dblclick)="onRowSelect($event, rowData)">
       <td *ngFor="let col of columns">
         {{rowData[col.field]}}
       </td>
-      <!-- <td> -->
-        <!-- <button (click)="onEdit(rowData)" pButton type="button" icon="pi pi-user-edit" class="ui-button-primary" ></button> -->
-
-
-      <!-- </td> -->
-      <!-- <td> -->
-        <!--<i class="pi pi-trash"  (click)="onDelete(rowData)"  ></i>-->
-        <!-- <button (click)="onDelete(rowData)" pButton type="button" icon="pi pi-trash" class="ui-button-danger"></button> -->
-
-      <!-- </td> -->
+     
     </tr>
   </ng-template>
 </p-table>  
     </div>         
 </p-panel>
 </div>
-
+</block-ui>
 
 

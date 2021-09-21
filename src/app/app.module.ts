@@ -32,6 +32,7 @@ import { ToastModule } from 'primeng/toast';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { BlockUIModule } from 'ng-block-ui';
 import {ProgressBarModule} from 'primeng/progressbar';
+import {OverlayPanelModule} from 'primeng/overlaypanel';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -96,6 +97,10 @@ import { ExcelService } from './Services/excel.service';
 import { AssessmentService } from './Services/online-test.service';
 import { ClassroomDetailsComponent } from './Forms-Module/classroom-details/classroom-details.component';
 import { ZoomClassroomComponent } from './Events-Module/zoom-classroom/zoom-classroom.component';
+import { UserService } from './Services/user.service';
+import { MyschoolViewComponent } from './DataView-Module/myschool-view/myschool-view.component';
+import { ZoomComponent } from './Events-Module/zoom/zoom.component';
+import { ZoomService } from './Services/zoom.service';
 
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
@@ -160,6 +165,8 @@ FullCalendarModule.registerPlugins([
     FeeFormComponent,
     ClassroomDetailsComponent,
     ZoomClassroomComponent,
+    MyschoolViewComponent,
+    ZoomComponent,
   ],
   imports: [
     BrowserModule,
@@ -194,10 +201,13 @@ FullCalendarModule.registerPlugins([
     ToastModule,
     ProgressSpinnerModule,
     ProgressBarModule,
-   BlockUIModule.forRoot()
+   // BlockUIModule
+    OverlayPanelModule,
+    BlockUIModule.forRoot()
   ],
   providers: [PrimeNGConfig, FilterService, AuthGuard, AuthService, RestAPIService,
-    NgxAttendanceLibraryService, DatePipe, MessageService, MasterService, ExcelService, AssessmentService],
+    NgxAttendanceLibraryService, DatePipe, MessageService, MasterService, ExcelService,
+    AssessmentService, UserService, ZoomService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

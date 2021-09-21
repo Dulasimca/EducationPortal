@@ -1,16 +1,18 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
 import { MessageService, SelectItem } from 'primeng/api';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { saveAs } from 'file-saver';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpEventType } from '@angular/common/http';
 import { ResponseMessage } from 'src/app/Common-Module/Message';
 import { MasterService } from 'src/app/Services/master-data.service';
 import * as _ from 'lodash';
 import { Profile } from 'src/app/Interfaces/profile';
 import { NgForm } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { DomSanitizer } from '@angular/platform-browser';
+import { catchError, map, of } from 'rxjs';
 
 @Component({
   selector: 'app-registration-form',
@@ -82,11 +84,13 @@ export class RegistrationFormComponent implements OnInit {
   @ViewChild('fatherImg', { static: false }) fatherImg: ElementRef;
   @ViewChild('motherImg', { static: false }) motherImg: ElementRef;
   @ViewChild('guardianImg', { static: false }) guardianImg: ElementRef;
+  files = [];
+  myFile:File;
+  s_URL: string;
+  sImgProgress: Number = 0;
   @BlockUI() blockUI: NgBlockUI;
-    s_URL: string;
-    sImgProgress: Number = 0;
 
-  constructor(private restApiService: RestAPIService, private http: HttpClient,
+  constructor(private restApiService: RestAPIService, private datePipe: DatePipe,
     private messageService: MessageService, private masterService: MasterService,
     public _d: DomSanitizer) { }
 
@@ -151,14 +155,13 @@ export class RegistrationFormComponent implements OnInit {
     let roleIdSelection = [];
     switch (type) {
       case 'D':
-        console.log('class', this.class);
         this.districts.forEach(d => {
           districtSelection.push({ label: d.name, value: d.code });
         })
         this.districtOptions = districtSelection;
         this.districtOptions.unshift({ label: '-select', value: null });
         break;
-      case 'C':
+      case 'C': 
         this.classes.forEach(c => {
           classSelection.push({ label: c.name, value: c.code })
         });
@@ -204,8 +207,8 @@ export class RegistrationFormComponent implements OnInit {
       FirstName: this.firstName,
       LastName: this.lastName,
       RoleId: this.roleId,
-      DateofBirth: this.dob,
-      DateofJoining: this.doj,
+      DateofBirth: this.datePipe.transform(this.dob, 'yyyy-MM-dd'),
+      DateofJoining: this.datePipe.transform(this.doj, 'yyyy-MM-dd'),
       Gender: this.gender,
       BloodGroup: this.bloodGroup,
       City: this.city,
@@ -250,6 +253,7 @@ export class RegistrationFormComponent implements OnInit {
       GaurdianPhotoFileName: '',
     };
     this.restApiService.post(PathConstants.Registration_Post, params).subscribe(res => {
+      if(res !== undefined && res !== null) {
       if (res.item1) {
         this.blockUI.stop();
         this.clearForm();
@@ -266,6 +270,13 @@ export class RegistrationFormComponent implements OnInit {
           summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
         });
       }
+    } else {
+      this.messageService.clear();
+      this.messageService.add({
+        key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+        summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+      });
+    }
     }, (err: HttpErrorResponse) => {
       this.blockUI.stop();
       if (err.status === 0 || err.status === 400) {

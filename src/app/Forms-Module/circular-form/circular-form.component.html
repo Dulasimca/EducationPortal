@@ -1,51 +1,40 @@
-
+<block-ui>
 <form #circular="ngForm">
 <div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px; height: 520px;">
+  <p-toast position="top-center" key="t-msg"></p-toast>
     <p-panel header="Circular">
     <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
+      <form #f="ngForm" name="NewsLetterForm">
     <p-card>
-
     <div  class="p-col-12 p-md-12 p-lg-12">
         <div class="p-grid">
                 <div class="p-col-12 p-md-6 p-lg-3">
                     <div class="no-pad-top"><label>Date:</label> </div> 
-                    <p-calendar [(ngModel)]="date" [showIcon]="true" name="date"></p-calendar>
-                    <!-- <input type="hidden" [ngModel]="3" name="school_id"/>
-                    <input type="hidden" name="RowId" ng-value="002"/> -->
-                </div>
-                
+                    <p-calendar [(ngModel)]="date" [showIcon]="true" name="date" required></p-calendar>
+                </div>    
                     <div class="p-col-12 p-md-6 p-lg-3">
                         <div><label>Subject:</label></div>
-                        <input type="text"  pInputText [(ngModel)]="Subject" name="Subject"/>
+                        <input type="text"  pInputText [(ngModel)]="Subject" name="Subject" required/>
                     
-                    </div>
-                
-                    
+                    </div>   
                         <div class="p-col-12 p-md-6 p-lg-3">
                             <div><label>Instructions:</label></div>
                         
-                            <textarea pInputTextarea autoResize="autoResize" [(ngModel)] ="Details" name="Details"></textarea>
+                            <textarea pInputTextarea autoResize="autoResize" [(ngModel)] ="Details" 
+                            name="Details" required></textarea>
                         </div>
-
-                        <!-- <div classs="p-col-12 p-md-6 p-lg-3">
-                            <button pButton name="upload" type="button" icon="pi pi-upload"
-                            label="Upload"></button>
-                        </div> -->
-
-                        <div class="p-col-12 p-md-6 p-lg-3 align-el-center">
+                       <div class="p-col-12 p-md-6 p-lg-3 align-el-center">
                             <div><label>Attach file:</label></div>
-                            <input class="p-col-12" name="_guardianimg" type="file" pInputText (change)="onFileUpload($event,4)" accept=".jpg" />
-                        </div>
-                    
-                </div>
-                
+                            <input class="p-col-12" name="_Uploadpdf" type="file" pInputText (change)="onFileUpload($event,4)" accept=".jpg" required/>
+                        </div>                
+                </div>           
     </div>
-
     </p-card>
+  </form>
     <div class="p-col-12 p-md-6 p-lg12" style = "margin-left:35%;"> 
-        <button pButton name="_save" type="button" label="Submit" (click)="onSubmit()"></button>
-    <!-- </div>  -->
-    <!-- <div class="p-col-12 p-md-6 p-lg-2" > -->
+        <button pButton name="_save" type="button" label="Submit" 
+        (click)="onSubmit()" [disabled]="(!f.valid)"></button>
+    
         <button pButton type="button" label="View" style = "margin-left:5%;" (click)="onview()"></button>
         <button pButton type="button" label="clear" style = "margin-left:5%;" (click)="onClear()"></button>
         </div>
@@ -61,21 +50,11 @@
   </ng-template>
   
   <ng-template pTemplate="body" let-rowData let-columns="columns">
-    <tr>
+    <tr [pSelectableRow]="rowData" (dblclick)="onRowSelect($event, rowData)">
       <td *ngFor="let col of columns">
         {{rowData[col.field]}}
       </td>
-      <!-- <td> -->
-        <!-- <button (click)="onEdit(rowData)" pButton type="button" icon="pi pi-user-edit" class="ui-button-primary" ></button> -->
-
-
-      <!-- </td> -->
-      <!-- <td> -->
-        <!--<i class="pi pi-trash"  (click)="onDelete(rowData)"  ></i>-->
-        <!-- <button (click)="onDelete(rowData)" pButton type="button" icon="pi pi-trash" class="ui-button-danger"></button> -->
-
-      <!-- </td> -->
-    </tr>
+      </tr>
   </ng-template>
 </p-table> 
         </div>
@@ -83,3 +62,4 @@
 
 </div>
 </form>
+</block-ui>

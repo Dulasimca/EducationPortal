@@ -71,4 +71,8 @@ export class OnlineClassroomComponent implements OnInit {
     console.log('z', zoom);
     this.router.navigate(['join-classroom'], { queryParams: { url: zoom.MeetingURL, id: zoom.MeetingId, si: true } })
   }
+
+  onJoinClassroom(data) {
+    this.router.navigate(['/online-classroom-join']);
+  }
 }

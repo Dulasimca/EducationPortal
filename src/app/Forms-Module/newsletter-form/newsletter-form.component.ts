@@ -65,7 +65,7 @@ export class NewsletterFormComponent implements OnInit {
       'RowId': this.MRowId,
       'SchoolID': 1,      
       'Topic': this.Topic,    
-      'NewsDate': this.datepipe.transform(this.date,'yyyy-MM-dd'), 
+      'NewsDate': this.datepipe.transform(this.date,'MM/dd/yyyy'), 
       'Download':'Newsletter.pdf', // (this._guardianimg !== undefined && this._guardianimg !== null) ? this._guardianimg.values: 0,
       'Flag': 1,
     };

@@ -5,5 +5,6 @@ export interface User {
     email: string;
     schoolId: any;
     classId: any;
+    sectioncode: any;
     lastname: string;
 }

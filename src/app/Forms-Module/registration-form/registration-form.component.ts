@@ -10,6 +10,7 @@ import * as _ from 'lodash';
 import { Profile } from 'src/app/Interfaces/profile';
 import { NgForm } from '@angular/forms';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-registration-form',
@@ -82,9 +83,12 @@ export class RegistrationFormComponent implements OnInit {
   @ViewChild('motherImg', { static: false }) motherImg: ElementRef;
   @ViewChild('guardianImg', { static: false }) guardianImg: ElementRef;
   @BlockUI() blockUI: NgBlockUI;
+    s_URL: string;
+    sImgProgress: Number = 0;
 
   constructor(private restApiService: RestAPIService, private http: HttpClient,
-    private messageService: MessageService, private masterService: MasterService) { }
+    private messageService: MessageService, private masterService: MasterService,
+    public _d: DomSanitizer) { }
 
   ngOnInit() {
     ///loading master data
@@ -188,10 +192,9 @@ export class RegistrationFormComponent implements OnInit {
   onFileUpload($event, id) {
     const reader = new FileReader();
     var selectedFile = $event.target.files[0];
-    this.http.post(PathConstants.Google_Drive_URL, selectedFile).subscribe(res => {
-      console.log('res', res);
-    })
-  }
+    const file = $event.srcElement.files[0];
+    this.s_URL = window.URL.createObjectURL(file);
+}
 
   onSubmit() {
     this.blockUI.start();

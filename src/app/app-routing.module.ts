@@ -51,6 +51,8 @@ import { MySchoolComponent } from './Forms-Module/my-school/my-school.component'
 import { PersonalDetailsComponent } from './Forms-Module/personal-details/personal-details.component';
 import { AssessmentResultsComponent } from './Forms-Module/assessment-results/assessment-results.component';
 import { FeesDetailsFormComponent } from './Forms-Module/fees-details-form/fees-details-form.component';
+import { ClassroomDetailsComponent } from './Forms-Module/classroom-details/classroom-details.component';
+import { ZoomClassroomComponent } from './Events-Module/zoom-classroom/zoom-classroom.component';
 
 
 const routes: Routes = [
@@ -83,6 +85,8 @@ const routes: Routes = [
  { path: 'registration', component: RegistrationFormComponent, canActivate: [AuthGuard] },
  { path: 'online-test', component: OnlineTestComponent, canActivate: [AuthGuard] },
  { path: 'test-details', component: TestDetailsFormComponent, canActivate: [AuthGuard] },
+ { path: 'classroom-details', component: ClassroomDetailsComponent, canActivate: [AuthGuard] },
+ { path: 'join-classroom', component: ZoomClassroomComponent, canActivate: [AuthGuard] },
  { path: 'question-bank-upload', component: QuestionBankUploadFormComponent},
  { path: 'myclass-results', component: MyclassResultComponent},
  { path: 'my-school', component: MySchoolComponent},

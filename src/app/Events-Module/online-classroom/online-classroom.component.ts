@@ -1,4 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { DatePipe } from '@angular/common';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
+import { ResponseMessage } from 'src/app/Common-Module/Message';
+import { PathConstants } from 'src/app/Common-Module/PathConstants';
+import { User } from 'src/app/Interfaces/user';
+import { AuthService } from 'src/app/Services/auth.service';
+import { RestAPIService } from 'src/app/Services/restAPI.service';
 
 @Component({
   selector: 'app-online-classroom',
@@ -7,15 +16,59 @@ import { Component, OnInit } from '@angular/core';
 })
 export class OnlineClassroomComponent implements OnInit {
   date: Date = new Date();
-  data: any = [];
-  
-  constructor() { }
+  meetingData: any = [];
+  meetingCols: any = [];
+  login_user: User;
+  loading: boolean;
+ 
+  constructor(private restApiService: RestAPIService, private authService: AuthService,
+    private messageService: MessageService, private router: Router, private datePipe: DatePipe) { }
 
   ngOnInit() {
-    this.data = [ {'slno': 1, 'subject': 'Tamil', 'date': '03-08-2021', 'time': '8.30 AM', 'duration': '45 mins' },
-    {'slno': 2, 'subject': 'English', 'date': '08-08-2021', 'time': '9.30 AM', 'duration': '45 mins' },
-    {'slno': 3, 'subject': 'Maths', 'date': '10-08-2021', 'time': '10.30 AM', 'duration': '45 mins' },
-    {'slno': 4, 'subject': 'Science', 'date': '10-08-2021', 'time': '11.30 AM', 'duration': '45 mins' },
-    {'slno': 5, 'subject': 'Social Science', 'date': '11-08-2021', 'time': '1.30 AM', 'duration': '45 mins' }]
+    this.meetingCols = [
+      { field: 'Topics', header: 'Subject' },
+      { field: 'Classname1', header: 'Class' },
+      { field: 'SectionName', header: 'Section' },
+      { field: 'Duration', header: 'Duration' },
+    ]
+    this.login_user = this.authService.UserInfo;
+    this.loadMeetingDetails();
+  }
+
+  loadMeetingDetails() {
+    this.loading = true;
+    const params = { 
+      'SchoolId': this.login_user.schoolId,
+      'Date': this.datePipe.transform(this.date, 'yyyy-MM-dd'),
+      'ClassId': this.login_user.classId,
+      'SectionCode': this.login_user.sectioncode
+     };
+    this.restApiService.getByParameters(PathConstants.Zoom_Get, params).subscribe((res: any) => {
+      if(res !== null && res !== undefined && res.length !== 0) {
+        this.meetingData = res;
+        this.loading = false;
+      } else {
+        this.loading = false;
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
+          summary: ResponseMessage.SUMMARY_WARNING, detail: ResponseMessage.NoRecordMessage
+        });
+      }
+    }, (err: HttpErrorResponse) => {
+      this.loading = false;
+      if (err.status === 0 || err.status === 400) {
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+          summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+        })
+      }
+    })
+  }
+
+  onJoinMeeting(zoom) {
+    console.log('z', zoom);
+    this.router.navigate(['join-classroom'], { queryParams: { url: zoom.MeetingURL, id: zoom.MeetingId, si: true } })
   }
 }

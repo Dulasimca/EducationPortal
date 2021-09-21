@@ -34,6 +34,7 @@ export class AppComponent {
       { label: 'Book', icon: 'fa fa-book', routerLink: '/book' },
       { label: 'NewsLetter', icon: 'fa fa-newspaper-o', routerLink: '/newsletter' },
       { label: 'Questions-upload', icon:'fa fa-upload', routerLink: '/test-details' },
+      { label: 'ClassRoom Details', icon:'fa fa-list-alt', routerLink: '/classroom-details' },
       { label: 'Results', icon: 'fa fa-file-text-o', routerLink: '/results' },
       { label: 'Gallery', icon: 'fa fa-picture-o', routerLink: '/gallery' },
       { label: 'Download Session', icon: 'fa fa-download', routerLink: '/downloadsession' },

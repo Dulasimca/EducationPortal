@@ -73,7 +73,19 @@ export class RegistrationFormComponent implements OnInit {
   uploadedFiles: any[] = [];
   regId: any;
   slno: any;
-  imagePreview: any;
+  myFile: File;
+  showSImg: boolean;
+  s_URL: string;
+  sImgProgress: Number = 0;
+  showFImg: boolean;
+  f_URL: string;
+  fImgProgress: Number = 0;
+  showMImg: boolean;
+  m_URL: string;
+  mImgProgress: Number = 0;
+  showGImg: boolean;
+  g_URL: string;
+  gImgProgress: Number = 0;
   //masters
   districts?: any;
   sections?: any;
@@ -84,10 +96,6 @@ export class RegistrationFormComponent implements OnInit {
   @ViewChild('fatherImg', { static: false }) fatherImg: ElementRef;
   @ViewChild('motherImg', { static: false }) motherImg: ElementRef;
   @ViewChild('guardianImg', { static: false }) guardianImg: ElementRef;
-  files = [];
-  myFile:File;
-  s_URL: string;
-  sImgProgress: Number = 0;
   @BlockUI() blockUI: NgBlockUI;
 
   constructor(private restApiService: RestAPIService, private datePipe: DatePipe,
@@ -132,11 +140,11 @@ export class RegistrationFormComponent implements OnInit {
       { label: 'Coimbatore', value: 'C005' }
     ];
     this.stateOptions = [
-       { label: '-select-', value: null },
+      { label: '-select-', value: null },
       { label: 'Tamilnadu', value: 1 },
     ];
     this.nationalityOptions = [
-       { label: '-select-', value: null },
+      { label: '-select-', value: null },
       { label: 'Indian', value: 'Indian' },
     ];
     this.casteOptions = [
@@ -161,7 +169,7 @@ export class RegistrationFormComponent implements OnInit {
         this.districtOptions = districtSelection;
         this.districtOptions.unshift({ label: '-select', value: null });
         break;
-      case 'C': 
+      case 'C':
         this.classes.forEach(c => {
           classSelection.push({ label: c.name, value: c.code })
         });
@@ -196,8 +204,25 @@ export class RegistrationFormComponent implements OnInit {
     const reader = new FileReader();
     var selectedFile = $event.target.files[0];
     const file = $event.srcElement.files[0];
-    this.s_URL = window.URL.createObjectURL(file);
-}
+    switch (id) {
+      case 1:
+        this.s_URL = window.URL.createObjectURL(file);
+        this.showSImg = (this.s_URL !== undefined && this.s_URL !== null) ? true : false;
+        break;
+      case 2:
+        this.f_URL = window.URL.createObjectURL(file);
+        this.showFImg = (this.s_URL !== undefined && this.s_URL !== null) ? true : false;
+        break;
+      case 3:
+        this.m_URL = window.URL.createObjectURL(file);
+        this.showMImg = (this.s_URL !== undefined && this.s_URL !== null) ? true : false;
+        break;
+      case 4:
+        this.g_URL = window.URL.createObjectURL(file);
+        this.showGImg = (this.s_URL !== undefined && this.s_URL !== null) ? true : false;
+        break;
+    }
+  }
 
   onSubmit() {
     this.blockUI.start();
@@ -253,30 +278,30 @@ export class RegistrationFormComponent implements OnInit {
       GaurdianPhotoFileName: '',
     };
     this.restApiService.post(PathConstants.Registration_Post, params).subscribe(res => {
-      if(res !== undefined && res !== null) {
-      if (res.item1) {
-        this.blockUI.stop();
-        this.clearForm();
-        this.messageService.clear();
-        this.messageService.add({
-          key: 't-msg', severity: ResponseMessage.SEVERITY_SUCCESS,
-          summary: ResponseMessage.SUMMARY_SUCCESS, detail: ResponseMessage.SuccessMessage
-        });
+      if (res !== undefined && res !== null) {
+        if (res.item1) {
+          this.blockUI.stop();
+          this.clearForm();
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_SUCCESS,
+            summary: ResponseMessage.SUMMARY_SUCCESS, detail: ResponseMessage.SuccessMessage
+          });
+        } else {
+          this.blockUI.stop();
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+            summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+          });
+        }
       } else {
-        this.blockUI.stop();
         this.messageService.clear();
         this.messageService.add({
           key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
           summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
         });
       }
-    } else {
-      this.messageService.clear();
-      this.messageService.add({
-        key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
-        summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
-      });
-    }
     }, (err: HttpErrorResponse) => {
       this.blockUI.stop();
       if (err.status === 0 || err.status === 400) {

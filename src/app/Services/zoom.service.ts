@@ -22,8 +22,8 @@ ZoomMtg.i18n.reload('en-US');
    // apiKey = '0AeXbzH4QS2JC0vnzsuXyA';
    apiKey = 'lJXDJ2_mTtWmDHEMAtpW0A';
     meetingNumber;
-    role = 0;
-    leaveUrl = 'http://localhost:4200';
+    role;
+    leaveUrl = 'http://localhost:4200/dashboard';
     userEmail;
     passWord;
     // pass in the registrant's token if your meeting or webinar requires registration. More info here:
@@ -36,6 +36,7 @@ ZoomMtg.i18n.reload('en-US');
     constructor(public httpClient: HttpClient, private http: HttpClient,
         @Inject(DOCUMENT) document, private authService: AuthService) {
         this.login_user = this.authService.UserInfo;
+        this.role = (this.login_user.roleId === 5) ? 1 : 0;
     }
 
     // getZoomUSers() {
@@ -54,8 +55,7 @@ ZoomMtg.i18n.reload('en-US');
       console.log('zser', data);
       this.meetingNumber = data.MeetingId;
       this.passWord = data.Passcode;
-   //   this.userEmail = data.host_email;
-   this.userEmail = "dulasimca@gmail.com";
+      this.userEmail = (this.login_user.roleId === 5) ? '' : data.HostEmail;
     }
 
     get HostEmail() {
@@ -82,7 +82,7 @@ ZoomMtg.i18n.reload('en-US');
           userName: this.login_user.username,
           passWord: this.MeetingPassword,
           leaveUrl: this.leaveUrl,
-          role: this.role
+          role:  this.role
         };
         this.signatureConfig = ZoomMtg.generateSignature({
           meetingNumber: this.meetingConfig.meetingNumber,
@@ -93,7 +93,7 @@ ZoomMtg.i18n.reload('en-US');
             console.log(res.result);
           }
         });
-        
+        console.log('con', this.signatureConfig, this.meetingConfig);
         ZoomMtg.init({
           showMeetingHeader: false,
           disableInvite: true,
@@ -138,6 +138,8 @@ ZoomMtg.i18n.reload('en-US');
 
       showZoomDiv() {
           document.getElementById('zmmtg-root').style.display = 'block';
+          document.getElementById('side-nav-bar').style.display = 'none';
+          document.getElementById('main-layout').className = 'layout-wrapper-initial';
       }
     
     
@@ -154,37 +156,6 @@ ZoomMtg.i18n.reload('en-US');
         //     }
         //   }).catch((error) => {
         //     console.log(error)
-        //   })
-        // }
-      
-        // startMeeting(signature) {
-      
-        //   document.getElementById('zmmtg-root').style.display = 'block'
-      
-        //   ZoomMtg.init({
-        //     leaveUrl: this.leaveUrl,
-        //     success: (success) => {
-        //       console.log(success)
-        //       ZoomMtg.join({
-        //         signature: signature,
-        //         meetingNumber: this.meetingNumber,
-        //         userName: this.userName,
-        //         apiKey: this.apiKey,
-        //         userEmail: this.userEmail,
-        //         passWord: this.passWord,
-        //         tk: this.registrantToken,
-        //         success: (success) => {
-        //           console.log(success)
-        //         },
-        //         error: (error) => {
-        //           console.log(error)
-        //         }
-        //       })
-      
-        //     },
-        //     error: (error) => {
-        //       console.log(error)
-        //     }
         //   })
         // }
   }

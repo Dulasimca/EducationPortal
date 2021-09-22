@@ -78,31 +78,10 @@
                                                 <input class="p-col-12" name="_altmobno" type="tel" pInputText
                                                     [(ngModel)]="altMobileNo" />
                                             </div>
-                                            <p-dropdown name="_lastschl" [options]="lastSchoolNameOptions"
-                                                [(ngModel)]="lastSchoolName">
-                                            </p-dropdown>
-                                        </div>
-                                        <div class="p-col-12 p-md-6 p-lg-2">
-                                            <div><label for="_lastschlcontact">Last School Contact</label></div>
-                                            <input class="p-col-12" name="_lastschlcontact" type="text" pInputText
-                                                [(ngModel)]="lastSchoolContactNo" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div #row3 class="p-col-12 p-md-12 p-lg-12">
-                                    <div class="p-grid">
-                                        <div class="p-col-12 p-md-6 p-lg-4">
-                                            <div><label for="_studentimg">Student's Photo<span
-                                                        class="form-mandatory-field">*</span></label></div>
-                                                        <img height="100px" width="100px" [src]="_d.bypassSecurityTrustUrl(s_URL)">
-                                            <input #studentImg class="p-col-12" name="_studentimg" type="file" pInputText
-                                                (change)="onFileUpload($event, 1)" accept=".png" required />
-                                                <p-progressBar [value]="sImgProgress"></p-progressBar>
                                         </div>
                                     </div>
                                     <div #row3 class="p-col-12 p-md-12 p-lg-12">
                                         <div class="p-grid">
-
                                             <div class="p-col-12 p-md-6 p-lg-2">
                                                 <div><label for="_city">City<span
                                                             class="form-mandatory-field">*</span></label>
@@ -192,7 +171,8 @@
                                             </div>
                                             <div class="p-col-12 p-md-6 p-lg-2">
                                                 <div><label for="_class">Class<span
-                                                            class="form-mandatory-field">*</span></label></div>
+                                                            class="form-mandatory-field">*</span></label>
+                                                </div>
                                                 <p-dropdown name="_class" [options]="classOptions" [(ngModel)]="class"
                                                     optionLabel="label" (onClick)="onSelect('C')" required>
                                                 </p-dropdown>
@@ -212,14 +192,16 @@
                                         <div class="p-grid">
                                             <div class="p-col-12 p-md-6 p-lg-2">
                                                 <div><label for="_doj">D.O.J<span
-                                                            class="form-mandatory-field">*</span></label></div>
+                                                            class="form-mandatory-field">*</span></label>
+                                                </div>
                                                 <p-calendar [(ngModel)]="doj" name="_doj" [showIcon]="true"
                                                     inputId="dateofjoining" required>
                                                 </p-calendar>
                                             </div>
                                             <div class="p-col-12 p-md-6 p-lg-2">
                                                 <div><label for="_medium">Medium<span
-                                                            class="form-mandatory-field">*</span></label></div>
+                                                            class="form-mandatory-field">*</span></label>
+                                                </div>
                                                 <p-dropdown name="_medium" [options]="mediumOptions"
                                                     [(ngModel)]="medium" required>
                                                 </p-dropdown>

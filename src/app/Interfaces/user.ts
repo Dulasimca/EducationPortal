@@ -7,4 +7,5 @@ export interface User {
     classId: any;
     sectioncode: any;
     lastname: string;
+    roleId: any;
 }

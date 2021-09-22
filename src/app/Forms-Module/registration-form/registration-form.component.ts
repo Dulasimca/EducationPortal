@@ -46,7 +46,7 @@ export class RegistrationFormComponent implements OnInit {
   studentEmailId: string;
   medium: string;
   mediumOptions: SelectItem[];
-  state: any = 1;
+  state: any;
   stateOptions: SelectItem[];
   pincode: number;
   city: string;

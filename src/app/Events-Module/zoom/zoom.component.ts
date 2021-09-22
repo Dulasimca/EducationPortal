@@ -11,6 +11,7 @@ export class ZoomComponent implements OnInit {
   constructor(private zoomService: ZoomService) { }
 
   ngOnInit(): void {
+    this.onJoin();
   }
 
   onJoin() {

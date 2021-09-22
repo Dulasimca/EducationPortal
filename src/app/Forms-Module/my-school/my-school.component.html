@@ -2,7 +2,7 @@
     <p-toast position="top-center" key="t-msg"></p-toast>
     <p-panel header="My School">
         <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
-            <form #f="ngForm" name="mySchoolForm">
+            <form #f="ngForm" name="mySchool">
                 <p-card>
                     <div class="p-col-12 no-pad-top" style="margin-left: -8px;">
                         <div #row1 class="p-col-12 p-md-12 p-lg-12">
@@ -11,7 +11,7 @@
                                     <label for="_curriculum">Curriculum<span
                                             class="form-mandatory-field">*</span></label>
                                     <p-dropdown [options]="curriculumOptions" [(ngModel)]="curriculum"
-                                        name="_curriculum" optionLabel="label" placeholder="select curriculum" required>
+                                        name="_curriculum" optionLabel="label" placeholder="-select-" required>
                                     </p-dropdown>
                                 </div>
                                 <div class="p-col-12 p-md-6 p-lg-2">
@@ -55,8 +55,7 @@
                                                 [(ngModel)]="pincode" required />
                                         </div>
                                         <div class="p-col-12 p-md-6 p-lg-2">
-                                            <div><label for="_faxno">Fax Number<span
-                                                        class="form-mandatory-field">*</span></label></div>
+                                            <div><label for="_faxno">Fax Number</label></div>
                                             <input type="text" class="p-col-12" name="_faxno" pInputText
                                                 [(ngModel)]="faxNo" required />
                                         </div>
@@ -67,7 +66,7 @@
                                         [disabled]="(!f.valid)"></button>
                                 </div>
                                 <div class="p-col-12 p-md-6 p-lg-6">
-                                    <button pButton name="view" type="button" label="View"></button>
+                                    <button pButton name="view" type="button" label="View" (click)="onView()"></button>
                                 </div>
                             </div>
                         </div>

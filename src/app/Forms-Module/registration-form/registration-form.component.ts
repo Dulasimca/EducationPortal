@@ -11,8 +11,8 @@ import { Profile } from 'src/app/Interfaces/profile';
 import { NgForm } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { DomSanitizer } from '@angular/platform-browser';
 import { catchError, map, of } from 'rxjs';
-declare var gapi: any;
 
 @Component({
   selector: 'app-registration-form',
@@ -86,11 +86,13 @@ export class RegistrationFormComponent implements OnInit {
   @ViewChild('guardianImg', { static: false }) guardianImg: ElementRef;
   files = [];
   myFile:File;
+  s_URL: string;
+  sImgProgress: Number = 0;
   @BlockUI() blockUI: NgBlockUI;
 
   constructor(private restApiService: RestAPIService, private datePipe: DatePipe,
     private messageService: MessageService, private masterService: MasterService,
-    private httpClient: HttpClient, private ngZone: NgZone) { }
+    public _d: DomSanitizer) { }
 
   ngOnInit() {
     ///loading master data
@@ -189,80 +191,13 @@ export class RegistrationFormComponent implements OnInit {
       this.currentAddress = (value && this.permanentAddress !== undefined) ? this.permanentAddress : '';
     }
   }
-  public upload(formData) {
-    var SERVER_URL: string = "https://file.io/";  
-    return this.httpClient.post<any>(SERVER_URL, formData, {  
-        reportProgress: true,  
-        observe: 'events'  
-      });  
-  }
-
-  uploadFile(file) {  
-    console.log('inside upload file');
-    const formData = new FormData();  
-    formData.append('file', file.data);  
-    file.inProgress = true;  
-    console.log('file', formData, file);
-    this.upload(formData).pipe(  
-      map(event => {  
-        switch (event.type) {  
-          case HttpEventType.UploadProgress:  
-            file.progress = Math.round(event.loaded * 100 / event.total);  
-            break;  
-          case HttpEventType.Response:  
-            return event;  
-        }  
-      }),  
-      catchError((error: HttpErrorResponse) => {  
-        file.inProgress = false;  
-        console.log('catch err');
-        return of(`${file.data.name} upload failed.`);  
-      })).subscribe((event: any) => {  
-        if (typeof (event) === 'object') {  
-          console.log('bdy',event.body); 
-  //         this.http.get('endpoint/', {responseType: "blob", headers: {'Accept': 'application/pdf'}})
-  // .subscribe(blob => {
-  //   saveAs(blob, 'download.pdf');
-  // });
-  this.httpClient.get('https://file.io/sbgJMPUPEqtv').subscribe(res => {
-    console.log('res', res);
-  })
-        }  
-      });  
-  }
-
- uploadFiles() { 
-    console.log('private method');
-    this.studentImg.nativeElement.value = '';  
-    this.files.forEach(file => {
-    console.log('private mthd file', file);
-      this.uploadFile(file);  
-    });  
-}
-
-onClick() {
-  console.log('inside main')
-  const fileUpload = this.studentImg.nativeElement;
-  console.log('file', fileUpload);
-  fileUpload.onchange = () => {  
-    for (let index = 0; index < fileUpload.files.length; index++)  
-    {  
-     const file = fileUpload.files[index];  
-     console.log('onfileupload', file);
-     this.files.push({ data: file, inProgress: false, progress: 0});  
-     console.log('push', this.files);
-    }  
-      this.uploadFiles();  
-    };  
-    fileUpload.click(); 
-}
-
 
   onFileUpload($event, id) {
     const reader = new FileReader();
     var selectedFile = $event.target.files[0];
-    
-  }
+    const file = $event.srcElement.files[0];
+    this.s_URL = window.URL.createObjectURL(file);
+}
 
   onSubmit() {
     this.blockUI.start();

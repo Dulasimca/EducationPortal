@@ -22,7 +22,10 @@ export class LoginComponent implements OnInit {
   id: number;
   showPswd: boolean;
   ngOnInit() {
-    
+    if(document.getElementById('side-nav-bar') !== null && document.getElementById('main-layout') !== undefined) {
+    document.getElementById('side-nav-bar').style.display = 'none';
+    document.getElementById('main-layout').className = 'layout-wrapper-initial';
+    }
   }
 
   onSignIn() {
@@ -39,7 +42,8 @@ export class LoginComponent implements OnInit {
               email: this.username.trim(),
               schoolId: i.SchoolId,
               classId: i.ClassId,
-              sectioncode: i.SectionId
+              sectioncode: i.SectionId,
+              roleId: i.RoleId
             }
             this.authService.login(obj);
             console.log('obj', obj);

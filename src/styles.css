@@ -234,6 +234,11 @@ background-color: #b8baf3;
     height: 100% !important;
     transition-duration: 0.7s;
 }
+.layout-wrapper-initial {
+    margin-left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+}
 
 /* end #Regioin 3*/
 

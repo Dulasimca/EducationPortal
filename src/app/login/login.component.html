@@ -6,6 +6,14 @@
         <div class="p-col-12" style="height: 100px; text-align: center;">
             <span style="font-size: 25px; color: whitesmoke; margin-top: 20px;"> Government of Tamilnadu - Educational
                 Services Platform </span><br>
+                <!-- <div class="lg-tabs" style="color: whitesmoke; text-decoration: underline;">
+                    <div class="p-grid">
+                    <div class="p-col-10"></div>
+                    <div class="p-col-4 p-md-4 p-lg-1 lg-tab" style="width: auto !important; font-size: 18px;">Student</div>
+                    <div class="p-col-4 p-md-4 p-lg-1 lg-tab" style="width: auto !important; font-size: 18px;">Staff</div>
+                    <div class="p-col-4 p-md-4 p-lg-1 lg-tab" style="width: auto !important; font-size: 18px;">Admin</div>
+                </div>
+                </div> -->
         </div>
         <div class="p-col-1 no-pad"></div>
         <div class="p-col-12 p-md-8 p-lg-4" style="box-shadow: inset 0 -3em 3em rgb(0 0 0 / 10%), 0 0 0 0.5px rgb(14 85 119), 0.3em 0.3em 1em rgb(0 0 0 / 30%);
@@ -38,7 +46,7 @@
                 </div>
                 <div class="p-col-12 no-pad-bottom" style="text-align: center; margin-top: 20px;">
                     <button pButton type="button" style="background: #0e3167; border-radius: 8px;" label="Sign In"
-                        icon="pi pi-sign-in" (click)="onSignIn()"></button>
+                        icon="pi pi-sign-in" (click)="onSignIn()" [disabled]="(!username || !password)"></button>
                 </div>
                 <div class="p-col-12 no-pad-top" style="text-align: center;">
                     <span style="color: blue; text-decoration: underline;"> Forgot Password? </span>

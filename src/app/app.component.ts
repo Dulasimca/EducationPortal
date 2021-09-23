@@ -14,21 +14,23 @@ import { AuthService } from './Services/auth.service';
 export class AppComponent {
   title = 'education-portal';
   items: any[];
-  isOpen: boolean = false;
+  isOpen: boolean = true;
   isLoggedIn$: Observable<boolean>;
   isSignedIn: boolean;
   userName: string;
   showPanel: boolean;
   loggedinTime: Date = new Date();
+  userImage: string;
   @ViewChild('op', { static: false }) _panel: OverlayPanel;
 
-  constructor(private authService: AuthService, private datepipe: DatePipe) { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
     this.isLoggedIn$ = this.authService.isLoggedIn;
     // this.isSignedIn = this.authService.checkLog;
     const user: User = this.authService.UserInfo;
-    this.userName = user.username;
+    this.userName = (user !== null && user !== undefined) ? user.username : '';
+    this.userImage = 'assets/layout/images/user-o-2x.png';
     // this.loggedin_time = this.datepipe.transform(new Date(), 'HH:MM a');
     this.items = [
       { label: 'Dashboard', icon: 'fa fa-desktop', routerLink: '/dashboard' },

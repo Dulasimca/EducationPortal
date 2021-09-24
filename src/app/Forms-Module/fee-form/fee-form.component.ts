@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
@@ -6,6 +6,7 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ResponseMessage } from 'src/app/Common-Module/Message';
 import { MessageService, SelectItem } from 'primeng/api';
 import { DatePipe } from '@angular/common';
+import { NgForm } from '@angular/forms';
 
 
 @Component({
@@ -26,12 +27,14 @@ export class FeeFormComponent implements OnInit {
   cols: any;
   MRowId=0;
   @BlockUI() blockUI: NgBlockUI;
+  @ViewChild('f', { static: false }) _FeeForm: NgForm;
  
 
   constructor(private restApiService: RestAPIService, private http: HttpClient,private messageService: MessageService,private datepipe: DatePipe) { }
 
   ngOnInit(): void {
     this.cols = [
+      { field: 'SlNo', header: 'Slno'},
       { field: 'RowId', header: 'ID' },
       { field: 'duedate', header: 'Due Date' },
       { field: 'ReceiptBook', header: 'Receipt Book' },
@@ -114,11 +117,19 @@ export class FeeFormComponent implements OnInit {
       if(res !== null && res !== undefined && res.length !== 0) {
       console.log( res);
       this.data = res;
+      let sno = 0;
+      this.data.forEach(s => {
+        sno += 1;
+        s.SlNo = sno;
+      });
       }
     });
   
   }
   clear() {
+    this._FeeForm.reset();
+    this._FeeForm.form.markAsUntouched();
+    this._FeeForm.form.markAsPristine();
     this.receiptbook="",
     this.feename="",
     this.actualamount="",

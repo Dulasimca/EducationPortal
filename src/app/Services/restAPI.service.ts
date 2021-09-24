@@ -9,6 +9,7 @@ import { delay, timeout, retry, catchError } from 'rxjs/operators';
 })
 
 export class RestAPIService {
+  // BASEURL = 'http://180.179.49.72:8084/EducationAPI/api/';
   BASEURL = 'http://localhost:7440/api/';
   public HttpOptions = {
     headers: new HttpHeaders({

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
@@ -6,6 +6,7 @@ import { DatePipe } from '@angular/common';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ResponseMessage } from 'src/app/Common-Module/Message';
 import { MessageService, SelectItem } from 'primeng/api';
+import { NgForm } from '@angular/forms';
 
 
 @Component({
@@ -17,6 +18,7 @@ export class AssignmentFormComponent implements OnInit {
 
   dueDate: any = new Date();
   assignDate: any = new Date();
+  TypeOption: SelectItem[]
   assignmentwork: string;
   type:string;
   subjectname:string;
@@ -25,14 +27,16 @@ export class AssignmentFormComponent implements OnInit {
   uploadedFiles: any[] = [];
   assignmentfile: any[] = [];
   AssignmentDate:any;
+  ClassWork: any;
   MAssignId=0;
   @BlockUI() blockUI: NgBlockUI;
-
+  @ViewChild('f', { static: false }) _AssignmentForm: NgForm;
 
   constructor(private restApiService: RestAPIService, private http: HttpClient,private datepipe: DatePipe,private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.cols = [
+      { field: 'SlNo', header: 'Slno'},
       { field: 'AssignId', header: 'ID'},
       { field: 'AssignmentDate', header: 'Date' },
       { field: 'AssignmentDueDate', header: 'Due Date' },
@@ -40,6 +44,11 @@ export class AssignmentFormComponent implements OnInit {
       { field: 'AssignmentType', header: 'Assigned Type' },
       { field: 'Subjectname', header: 'Subject Name' }
     
+  ];
+  this.TypeOption = [
+    { label: '-select-', value: null },
+    { label: 'Home Work', value: '0'},
+    { label: 'Class Work', value: '1'},
   ];
     
   }
@@ -56,8 +65,8 @@ onSubmit() {
     'AssignId': this.MAssignId,
     'SchoolID': 1,      
     'Class': 1,    
-    'AssignmentDate': this.datepipe.transform(this.assignDate, 'yyyy-MM-dd') ,
-    'AssignmentDueDate': this.datepipe.transform(this.dueDate, 'yyyy-MM-dd'),
+    'AssignmentDate': this.datepipe.transform(this.assignDate, 'MM/dd/yyyy') ,
+    'AssignmentDueDate': this.datepipe.transform(this.dueDate, 'MM/dd/yyyy'),
     'assignmentwork': this.assignmentwork,
     'AssignmentType': this.type,
     'subjectname': this.subjectname,
@@ -104,17 +113,25 @@ onSubmit() {
 onView() {
   const params = {
     'SchoolID': 1,
-    'Class': 1
+    'Class': 1 
   }
   this.restApiService.getByParameters(PathConstants.Assignment_Get, params).subscribe(res => {
     if(res !== null && res !== undefined && res.length !== 0) {
     console.log( res);
     this.data = res;
+    let sno = 0;
+    this.data.forEach(s => {
+      sno += 1;
+      s.SlNo = sno;
+    });
     }
   });
 
 }
 clear() {
+  this._AssignmentForm.reset();
+  this._AssignmentForm.form.markAsUntouched();
+  this._AssignmentForm.form.markAsPristine();
   this.assignmentwork="",
   this.type="",
   this.subjectname=""
@@ -125,7 +142,7 @@ onRowSelect(event, selectedRow) {
   this.assignDate=selectedRow.AssignmentDate;
   this.dueDate = selectedRow.AssignmentDueDate;
   this.assignmentwork = selectedRow.AssignmentWork;
-  this.type = selectedRow.AssignmentType;
+  this.TypeOption= [{ label: selectedRow.AssignmentType, value: selectedRow.AssignmentType }];
   this.subjectname = selectedRow.Subjectname;
   console.log(selectedRow.AssignId);
   

@@ -11,6 +11,11 @@
                   <div><label>Date:</label></div>
                   <p-calendar [(ngModel)]="date" [showIcon]="true" name="date" required></p-calendar>
                 </div>
+                <div class="p-col-12 p-md-12 p-lg-3">
+                  <div><label>Position:</label></div>
+                  <p-dropdown [options]="positionOptions" [(ngModel)]="position" name="position" required>
+                  </p-dropdown>
+                </div>
                 <div class="p-col-12 p-md-6 p-lg-3">
                   <div><label for="_class">Class</label></div>
                   <p-dropdown name="_class" [options]="classOptions" [(ngModel)]="class" optionLabel="label"
@@ -29,11 +34,7 @@
                     [(ngModel)]="sname" name="label"  required>
                   </p-dropdown>
                 </div>
-                <div class="p-col-12 p-md-12 p-lg-3">
-                  <div><label>Position:</label></div>
-                  <p-dropdown [options]="positionOptions" [(ngModel)]="position" name="position" required>
-                  </p-dropdown>
-                </div>
+                
                 <div class="p-col-12 p-md-12 p-lg-12">
                   <button pButton name="save" type="button" label="Submit" [disabled]="(!f.valid)" (click)="onSubmit()"
                     style="margin-left: 30%;"></button>
@@ -50,7 +51,7 @@
                     </tr>
                   </ng-template>
                   <ng-template pTemplate="body" let-rowData let-columns="columns">
-                    <tr [pSelectableRow]="rowData" (dblclick)="onRowSelect($event, rowData)">
+                    <tr [pSelectableRow]="rowData" class="cursor-pointer" (dblclick)="onRowSelect($event, rowData)">
                       <td *ngFor="let col of columns">
                         {{rowData[col.field]}}
                       </td>

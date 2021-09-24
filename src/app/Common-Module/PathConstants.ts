@@ -24,6 +24,7 @@ export class PathConstants {
     
     
     public static readonly Master_Get = 'MasterInfo';
+    public static readonly Menu = 'MenuMaster/Get';
 
     public static readonly Circular_Post = 'Circular/Post';
     public static readonly Circular_Get = 'Circular/Get';
@@ -46,6 +47,10 @@ export class PathConstants {
      
     public static readonly MySchool_Get = 'MySchool/Get'; 
     public static readonly MySchool_Post = 'MySchool/Post'; 
+
+    public static readonly PollList_Post = 'PollList/Post';
+    
+    public static readonly FileUpload_Post = 'Upload/AddFileDetails'; 
 
 
 

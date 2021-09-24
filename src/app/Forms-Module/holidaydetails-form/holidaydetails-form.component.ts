@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { HttpClient,HttpErrorResponse } from '@angular/common/http';
@@ -6,6 +6,7 @@ import { DatePipe } from '@angular/common';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ResponseMessage } from 'src/app/Common-Module/Message';
 import { MessageService, SelectItem } from 'primeng/api';
+import { NgForm } from '@angular/forms';
 
 
 
@@ -29,6 +30,7 @@ export class HolidaydetailsFormComponent implements OnInit {
   cols: any;
   MRowid=0;
   @BlockUI() blockUI: NgBlockUI;
+  @ViewChild('f', { static: false }) _HolidayDetailsForm: NgForm;
   constructor(private restApiService: RestAPIService, private http: HttpClient,private datepipe: DatePipe,private messageService: MessageService) { }
 
   ngOnInit(): void {
@@ -38,6 +40,7 @@ export class HolidaydetailsFormComponent implements OnInit {
       { label: 'Holiday', value: '1'},
     ];
     this.cols = [
+      { field: 'SlNo', header: 'Slno'},
       { field: 'RowId', header: 'ID' },
       { field: 'Holiday', header: 'Type' },
       { field: 'EventDetailS', header: 'Events' },
@@ -106,11 +109,19 @@ export class HolidaydetailsFormComponent implements OnInit {
       if(res !== null && res !== undefined && res.length !== 0) {
       console.log( res);
       this.data = res;
+      let sno = 0;
+      this.data.forEach(s => {
+        sno += 1;
+        s.SlNo = sno;
+      });
       }
     });
  
   }
   clear() {
+    this._HolidayDetailsForm.reset();
+    this._HolidayDetailsForm.form.markAsUntouched();
+    this._HolidayDetailsForm.form.markAsPristine();
     this.Events=""
 
   }

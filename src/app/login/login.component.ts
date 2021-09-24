@@ -7,6 +7,8 @@ import { AuthService } from '../Services/auth.service';
 import { RestAPIService } from '../Services/restAPI.service';
 import { MasterService } from '../Services/master-data.service';
 import { ResponseMessage } from '../Common-Module/Message';
+import { StyleSetting } from '../Helper-Module/style-setting';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-login',
@@ -22,10 +24,8 @@ export class LoginComponent implements OnInit {
   id: number;
   showPswd: boolean;
   ngOnInit() {
-    if(document.getElementById('side-nav-bar') !== null && document.getElementById('main-layout') !== undefined) {
-    document.getElementById('side-nav-bar').style.display = 'none';
-    document.getElementById('main-layout').className = 'layout-wrapper-initial';
-    }
+    var _setlayout = new StyleSetting();
+    _setlayout.setNavLayoutAtLogin();
   }
 
   onSignIn() {
@@ -33,7 +33,9 @@ export class LoginComponent implements OnInit {
     this.restApiService.getByParameters(PathConstants.Registration_Get, params).subscribe(response => {
       if(response !== undefined && response !== null && response.length !== 0) {
         response.forEach(i => {
-          if(i.EmailId === this.username.trim() && i.password === this.password.trim()) {
+          var response_email = (i.EmailId !== undefined && i.EmailId !== null) ? i.EmailId.toString().toLowerCase().trim() : '';
+          var response_pwd = (i.password !== undefined && i.password !== null) ? i.password.toString().toLowerCase().trim() : '';
+          if(response_email === this.username.toLowerCase().trim() && response_pwd === this.password.toLowerCase().trim()) {
             const obj: User = {
               username: (i.FirstName !== undefined && i.FirstName !== null) ? i.FirstName.toString().trim(): '',
               lastname: (i.LastName !== undefined && i.LastName !== null) ? i.LastName.toString().trim() : '',
@@ -50,7 +52,6 @@ export class LoginComponent implements OnInit {
        
             }
             this.authService.login(obj);
-            console.log('obj', obj);
             this.masterService.initializeMaster();
           } else {
             this.messageService.clear();

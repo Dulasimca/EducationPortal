@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { HttpClient,HttpErrorResponse } from '@angular/common/http';
@@ -6,6 +6,7 @@ import { DatePipe } from '@angular/common';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ResponseMessage } from 'src/app/Common-Module/Message';
 import { MessageService, SelectItem } from 'primeng/api';
+import { NgForm } from '@angular/forms';
 
 
 @Component({
@@ -24,18 +25,19 @@ export class MyachievementFormComponent implements OnInit {
   MRowId=0;
   @BlockUI() blockUI: NgBlockUI;
 
+  @ViewChild('f', { static: false }) _MyAchievementForm: NgForm;
+
   constructor(private restApiService: RestAPIService, private http: HttpClient,private datepipe: DatePipe,private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.cols = [
+      { field: 'SlNo', header: 'Slno'},
       { field: 'RowId', header: 'ID' },
       { field: 'eventdate', header: 'Date' },
       { field: 'EventDetailS', header: 'Events' },
       { field: 'Place', header: 'Place' },
       { field: 'AchievementStatus', header: 'Status' }  
   ];
-   
-
   }
   onSubmit() {
     const params = {    
@@ -93,12 +95,19 @@ export class MyachievementFormComponent implements OnInit {
       if(res !== null && res !== undefined && res.length !== 0) {
       console.log( res);
       this.data = res;
+      let sno = 0;
+      this.data.forEach(s => {
+        sno += 1;
+        s.SlNo = sno;
+      });
       }
     });
   
   }
   clear() {
-
+    this._MyAchievementForm.reset();
+    this._MyAchievementForm.form.markAsUntouched();
+    this._MyAchievementForm.form.markAsPristine();
     this.Events="",
     this.Place="",
     this.Status=""

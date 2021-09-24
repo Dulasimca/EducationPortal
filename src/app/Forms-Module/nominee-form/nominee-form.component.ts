@@ -9,6 +9,10 @@ import { MasterService } from 'src/app/Services/master-data.service';
 import * as _ from 'lodash';
 import { DatePipe } from '@angular/common';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { NgForm } from '@angular/forms';
+import { User } from 'src/app/Interfaces/user';
+import { AuthService } from 'src/app/Services/auth.service';
+
 
 
 @Component({
@@ -43,9 +47,12 @@ export class NomineeFormComponent implements OnInit {
 
   data: any = [];
   cols: any;
+  login_user: User;
   @BlockUI() blockUI: NgBlockUI;
+ 
+  @ViewChild('f', { static: false }) _NomineeForm: NgForm;
 
-  constructor(private restApiService: RestAPIService, private http: HttpClient,
+  constructor(private restApiService: RestAPIService, private http: HttpClient,private authService: AuthService,
     private messageService: MessageService, private masterService: MasterService, private datepipe: DatePipe) { }
 
   ngOnInit(): void {
@@ -53,14 +60,12 @@ export class NomineeFormComponent implements OnInit {
     this.sections = this.masterService.getMaster('S');
 
     this.cols = [
+      { field: 'SlNo', header: 'Slno'},
       { field: 'RowId', header: 'ID' },
       { field: 'NomineeID', header: 'NomineeID' },
       { field: 'FirstName', header: 'Nominee Name' },
       { field: 'ElectionDate', header: 'Election Date' },
       { field: 'ElectionName', header: 'ElectionName' },
-
-
-
     ];
 
     this.positionOptions = [
@@ -69,15 +74,15 @@ export class NomineeFormComponent implements OnInit {
       { label: 'School Representative', value: 'School Representative' },
 
     ];
-
-
-  }
+    this.login_user = this.authService.UserInfo;
+    }
 
   onSubmit() {
 
     const params = {
       'RowId': this.MRowId,
-      'SchoolID': 1,
+      'SchoolID':  this.login_user.schoolId,
+      // 'RoleId': this.login_user.,
       'ElectionID': 1,
       'NomineeID': this.sname.value,
       'ElectionName': this.position,
@@ -169,22 +174,31 @@ export class NomineeFormComponent implements OnInit {
   }
   onView() {
     const params = {
-      'SchoolID': 2,
+      'SchoolID': 1,
+      'ElectionID':1
     }
     this.restApiService.getByParameters(PathConstants.Nominee_Get, params).subscribe(res => {
       if (res !== null && res !== undefined && res.length !== 0) {
         console.log(res);
         this.data = res;
+      let sno = 0;
+      this.data.forEach(s => {
+        sno += 1;
+        s.SlNo = sno;
+      });
       }
     });
 
 
   }
   clear() {
+    this._NomineeForm.reset();
+    this._NomineeForm.form.markAsUntouched();
+    this._NomineeForm.form.markAsPristine();
     this.position = "",
-      this.class = "",
-      this.section = "",
-      this.sname = ""
+    this.class = "",
+    this.section = "",
+    this.sname = ""
   }
   onRowSelect(event, selectedRow) {
     this.MRowId = selectedRow.RowId;

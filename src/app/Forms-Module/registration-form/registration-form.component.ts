@@ -54,6 +54,7 @@ export class RegistrationFormComponent implements OnInit {
   nationality: string;
   nationalityOptions: SelectItem[];
   caste: string;
+  religion: string;
   casteOptions: SelectItem[];
   checked: boolean;
   bloodGroup: string;

@@ -43,6 +43,7 @@ export class FeeFormComponent implements OnInit {
   admnNo: any;
   class: any;
   today: any;
+  total: any;
   @BlockUI() blockUI: NgBlockUI;
 
   constructor(private restApiService: RestAPIService, private authService: AuthService,
@@ -169,10 +170,13 @@ export class FeeFormComponent implements OnInit {
     this.class = this.logged_user.class + ' - ' + this.logged_user.section;
     this.parentName = this.logged_user.fathername;
     this.today = this.datePipe.transform(new Date(), 'dd-MM-yyyy');
+    this.total = data.PaidAmount,
     this.receiptData.push({
       'feeparticulars': data.FeeName,
-      'totalamount': data.ActualAmount
+      'totalamount': data.ActualAmount,
+      'paidamount' : data.PaidAmount
     })
+    
   }
   
 

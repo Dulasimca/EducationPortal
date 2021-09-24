@@ -35,15 +35,19 @@ export class LoginComponent implements OnInit {
         response.forEach(i => {
           if(i.EmailId === this.username.trim() && i.password === this.password.trim()) {
             const obj: User = {
-              username: i.FirstName,
-              lastname: i.LastName,
+              username: (i.FirstName !== undefined && i.FirstName !== null) ? i.FirstName.toString().trim(): '',
+              lastname: (i.LastName !== undefined && i.LastName !== null) ? i.LastName.toString().trim() : '',
               password: this.password.trim(),
-              id: i.slno,
+              id: (i.slno !== undefined) ? i.slno : null,
               email: this.username.trim(),
-              schoolId: i.SchoolId,
-              classId: i.ClassId,
-              sectioncode: i.SectionId,
-              roleId: i.RoleId
+              schoolId: (i.SchoolId !== undefined) ? i.SchoolId : null,
+              classId: (i.ClassId !== undefined) ? i.ClassId : null,
+              sectioncode: (i.SectionId !== undefined) ? i.SectionId : null,
+              roleId: (i.RoleId !== undefined) ? i.RoleId : null,
+              fathername: (i.FatherName !== undefined && i.FatherName !== null) ? i.FatherName.toString().trim() : '',
+              class: (i.Class !== undefined && i.Class !== null) ? i.Class.toString().trim(): '',
+              section: (i.Section !== undefined && i.Section !== null) ? i.Section.toString().trim(): '',
+       
             }
             this.authService.login(obj);
             console.log('obj', obj);

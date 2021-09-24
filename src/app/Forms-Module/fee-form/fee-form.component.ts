@@ -5,6 +5,9 @@ import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ResponseMessage } from 'src/app/Common-Module/Message';
 import { MessageService, SelectItem } from 'primeng/api';
+import { User } from 'src/app/Interfaces/user';
+import { AuthService } from 'src/app/Services/auth.service';
+import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -24,12 +27,29 @@ export class FeeFormComponent implements OnInit {
   data: any = []; 
   cols: any;
   MRowId=0;
+  // feereceipt 
+  receiptCols: any;
+  receiptData: any = [];
+  showReceipt: boolean;
+  receiptYear: any;
+  logged_user: User;
+  receiptNo: any;
+  schoolName: any;
+  schoolAddress: any;
+  schoolContact: number;
+  studentName: string;
+  parentName: string;
+  date: number;
+  admnNo: any;
+  class: any;
+  today: any;
   @BlockUI() blockUI: NgBlockUI;
- 
 
-  constructor(private restApiService: RestAPIService, private http: HttpClient,private messageService: MessageService) { }
+  constructor(private restApiService: RestAPIService, private authService: AuthService,
+    private messageService: MessageService, private datePipe: DatePipe) { }
 
   ngOnInit(): void {
+    this.logged_user = this.authService.UserInfo;
     this.cols = [
       { field: 'RowId', header: 'ID' },
       { field: 'duedate', header: 'Due Date' },
@@ -41,6 +61,9 @@ export class FeeFormComponent implements OnInit {
       { field: 'PayingAmount', header: 'Paying Amount' },
       { field: 'FineAmount', header: 'Fine' }
     ];
+    
+    // this.generateReceipt(null)
+    
   }
 
   onFileUpload($event, id) {
@@ -68,11 +91,11 @@ export class FeeFormComponent implements OnInit {
       'Flag' : true
   
     };
-    console.log(params);
     this.restApiService.post(PathConstants.Fee_Post, params).subscribe(res => {
       if(res !== undefined && res !== null) {
         if (res) {
           this.blockUI.stop();
+          this.generateReceipt(params);
           this.clear();
           this.messageService.clear();
           this.messageService.add({
@@ -137,6 +160,24 @@ export class FeeFormComponent implements OnInit {
     this.outstanding=selectedRow.OutstandingAmount;
     this.paying=selectedRow.PayingAmount;
     this.fine=selectedRow.FineAmount;
+  }
+// feereceipt method
+  generateReceipt(data) {
+    console.log('data',data);
+    this.showReceipt = true;
+    this.studentName = this.logged_user.username;
+    this.class = this.logged_user.class + ' - ' + this.logged_user.section;
+    this.parentName = this.logged_user.fathername;
+    this.today = this.datePipe.transform(new Date(), 'dd-MM-yyyy');
+    this.receiptData.push({
+      'feeparticulars': data.FeeName,
+      'totalamount': data.ActualAmount
+    })
+  }
+  
+
+  onPrint() {
+// window.print();
   }
 
 }

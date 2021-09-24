@@ -39,7 +39,7 @@
                         <div><label> Fine:</label></div>
                         <input id="float-input"  type="text" size="24" pInputText [(ngModel)]="fine" name="fine" required>  
                     </div>
-                    <div class="p-col-12 p-md-12 p-lg-12">
+                    <div class="p-col-12 p-md-12 p-lg-12"> 
                         <button pButton name="_save" type="button" label="Submit" (click)="onSubmit()" [disabled] = "(!f.valid)" style="margin-left: 45%;"></button>
                         <button pButton type="button" label="View" (click)="onView()" style="margin-left: 5%;"></button>
                         <button pButton type="button" label="Clear" (click)="clear()" style="margin-left: 5%;"></button>
@@ -55,7 +55,7 @@
   </ng-template>
   
   <ng-template pTemplate="body" let-rowData let-columns="columns">
-    <tr [pSelectableRow]="rowData" (dblclick)="onRowSelect($event, rowData)">
+    <tr [pSelectableRow]="rowData" class="cursor-pointer" (dblclick)="onRowSelect($event, rowData)">
       <td *ngFor="let col of columns">
         {{rowData[col.field]}}
       </td>

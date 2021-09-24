@@ -1,4 +1,6 @@
+<block-ui>
 <div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px;">
+  <p-toast position="top-center" key="t-msg"></p-toast>
   <p-panel header="Poll List">
     <div class="p-col-12 p-md-10 p-lg-8 no-pad-top">
       <p-card>
@@ -10,9 +12,12 @@
             <div class="p-col-12 p-md-6 p-lg-3">
               <div><label for="_Position">Position</label></div>
               <p-dropdown name="_Position" [options]="positionOptions" [(ngModel)]="selectedPosition"
-                optionLabel="label"  name="selectedPosition">
-              </p-dropdown>
-            </div>
+               optionLabel="label"  name="selectedPosition">
+               </p-dropdown>
+               </div>
+               <div class="p-col-12 p-md-6 p-lg-3">
+                <button pButton type="button" label="View" (click)="onView()" style="margin-Top: 15%;"></button>
+               </div>
             <p-divider></p-divider>
             <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,15,20]"
               totalRecords="totalRecords" pageLinks="3">
@@ -35,15 +40,19 @@
                     {{rowData[col.field]}}
                   </td>
                   <td>
-                    <button pButton pRipple type="button" icon="pi pi-thumbs-up" style="margin-right: 10px;"
+                   <button pButton pRipple type="button"  icon="pi pi-thumbs-up" style="margin-right: 10px;" (click)="onVotinglist()"
+                    
                       class="p-button-rounded p-button-success p-button-outlined p-col-1"></button>
                   </td>
                   <td>
                     <button pButton pRipple type="button" icon="pi pi-thumbs-down"
-                      class="p-button-rounded p-button-success p-button-outlined p-col-1"></button>
+                    (click)="onVotinglist()" class="p-button-rounded p-button-success p-button-outlined p-col-1"></button>
                   </td>
                 </tr>
               </ng-template>
+            
+                
+             
             </p-table>
           </div>
         </div>
@@ -52,3 +61,4 @@
     </div>
   </p-panel>
 </div>
+</block-ui>

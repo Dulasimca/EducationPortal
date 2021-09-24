@@ -25,4 +25,6 @@ export class ResponseMessage {
     public static readonly GreetingMsgI = 'Good Morning !';
     public static readonly GreetingMsgII = 'Good Afternoon !';
     public static readonly GreetingMsgIII = 'Good Evening !';
+    public static readonly DOAprrovalMessage = 'Approval sent for ';
+    
 }

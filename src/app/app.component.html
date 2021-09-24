@@ -10,18 +10,18 @@
             </div>
 
         </div>
-        <div class="p-col-5 p-md-6 p-lg-7 no-pad-top"
+        <div id="main-top-bar" class="p-col-5 p-md-6 p-lg-7 no-pad-top"
             [ngClass]="{'menubar-bar-text-unset': !isOpen, 'menubar-bar-text-set': isOpen}">
             Government of Tamilnadu - Educational Services Platform
             <div style="text-align: center; font-size: 20px;color: whitesmoke">Government Higher Secondary School -
                 Trichy</div>
         </div>
         <div class="p-col-1"></div>
-        <div class="p-col-2 p-md-3 p-lg-2 no-pad-top no-pad-bottom">
+        <div id="main-top-bar-user" class="p-col-2 p-md-3 p-lg-2 no-pad-top no-pad-bottom">
             <div class="p-grid" style="color: whitesmoke"
                 [ngClass]="{'menubar-bar-info-set': isOpen, 'menubar-bar-info-unset': !isOpen}"
                 (click)="op.toggle($event)">
-                <img src="assets/layout/images/student-icon1.png" style="width: 50px; height: 55px; margin-top: 8px;" />
+                <img [src]="userImage" style="margin-top: 8px;" />
                 &nbsp; &nbsp; <div style="font-size: 13px; align-self: center; margin-top: 10px;">
                     <span style="text-transform: uppercase"><b>{{userName}}</b></span>
                     <i class="pi pi-angle-down"></i>
@@ -29,9 +29,9 @@
             </div>
         </div>
     </mat-toolbar>
-    <div [ngClass]="{'layout-wrapper-set': isOpen, 'layout-wrapper-unset': !isOpen}">
+    <div id="main-layout" [ngClass]="{'layout-wrapper-set': isOpen, 'layout-wrapper-unset': !isOpen}">
         <div class="p-grid side-nav">
-            <div *ngIf="isOpen" class="p-col-2 no-pad-right side-nav-panel">
+            <div id="side-nav-bar" *ngIf="isOpen" class="p-col-2 no-pad-right side-nav-panel">
                 <p-panelMenu [model]="items"></p-panelMenu>
             </div>
             <div class="side-nav-container">

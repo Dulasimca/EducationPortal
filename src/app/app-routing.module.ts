@@ -53,6 +53,7 @@ import { MySchoolComponent } from './Forms-Module/my-school/my-school.component'
 import { PersonalDetailsComponent } from './Forms-Module/personal-details/personal-details.component';
 import { AssessmentResultsComponent } from './Forms-Module/assessment-results/assessment-results.component';
 import { FeesDetailsFormComponent } from './Forms-Module/fees-details-form/fees-details-form.component';
+import { ClassroomDetailsComponent } from './Forms-Module/classroom-details/classroom-details.component';
 import { MyschoolViewComponent } from './DataView-Module/myschool-view/myschool-view.component';
 import { ZoomComponent } from './Events-Module/zoom/zoom.component';
 
@@ -87,6 +88,7 @@ const routes: Routes = [
  { path: 'registration', component: RegistrationFormComponent, canActivate: [AuthGuard] },
  { path: 'online-test', component: OnlineTestComponent, canActivate: [AuthGuard] },
  { path: 'test-details', component: TestDetailsFormComponent, canActivate: [AuthGuard] },
+ { path: 'classroom-details', component: ClassroomDetailsComponent, canActivate: [AuthGuard] },
  { path: 'question-bank-upload', component: QuestionBankUploadFormComponent},
  { path: 'online-classroom-join', component: ZoomComponent, canActivate: [AuthGuard] },
  { path: 'myclass-results', component: MyclassResultComponent},
@@ -94,7 +96,7 @@ const routes: Routes = [
  { path: 'personal-details', component: PersonalDetailsComponent, canActivate: [AuthGuard]},
  { path: 'assessment-results', component: AssessmentResultsComponent},
  { path: 'fee-details', component: FeesDetailsFormComponent},
- { path: 'myschool-view', component: MyschoolViewComponent},
+ { path: 'myschool-view', component: MyschoolViewComponent, canActivate: [AuthGuard]},
 
  
  //Adithya

@@ -1,40 +1,37 @@
 <div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px;">
-        <p-panel header="ASSIGNMENTS">
-        <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
-            <p-card>
-                <div>
-                    <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,15,20]"
-                    totalRecords="totalRecords" pageLinks="3">
-                    <ng-template pTemplate="header" let-columns>
-                      <tr>
-                        <th *ngFor="let col of columns">
-                          {{col.header}}
-                        </th>
-                        <th>
-                           Upload
-                        </th>
-                        <th>
-                            Download
-
-                        </th>
-                           
-                           
-                      </tr>
-                    </ng-template>
-                    
-                    <ng-template pTemplate="body" let-rowData let-columns="columns">
-                      <tr>
-                        <td *ngFor="let col of columns">
-                          {{rowData[col.field]}}
-                        </td>
-                     
-                      <td style="width: 100px;"><i class="pi pi-upload" (change)="uploadData($event);"  accept=".pdf" style="color: #52de38; font-size: 1.3rem; margin-left: 25px;"></i></td>
-                      <td style="width: 142px;"><i class="pi pi-file-o" (click)="onDownload()" style="color: #52de38; font-size: 1.3rem; margin-left: 25px;"></i></td>
-                    </tr>
-                </ng-template>
-                  </p-table>
-                </div>
-            </p-card>
+  <p-panel header="ASSIGNMENTS">
+    <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
+      <p-card>
+        <div>
+          <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,15,20]"
+            totalRecords="totalRecords" pageLinks="3">
+            <ng-template pTemplate="header"  let-columns>
+              <tr>
+                <th *ngFor="let col of columns">
+                  {{col.header}}
+                </th>
+                <th>
+                  Upload
+                </th>
+                <th>
+                  Download
+                </th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-rowData let-columns="columns">
+              <tr>
+                <td *ngFor="let col of columns">
+                  {{rowData[col.field]}}
+                </td>
+                <td style="width: 100px;"><i class="pi pi-upload" (change)="uploadData($event);" accept=".pdf"
+                    style="color: #52de38; font-size: 1.3rem; margin-left: 25px;"></i></td>
+                <td style="width: 142px;"><i class="pi pi-file-o" (click)="onDownload()"
+                    style="color: #52de38; font-size: 1.3rem; margin-left: 25px;"></i></td>
+              </tr>
+            </ng-template>
+          </p-table>
         </div>
-    </p-panel>
+      </p-card>
+    </div>
+  </p-panel>
 </div>

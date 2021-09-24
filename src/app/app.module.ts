@@ -30,8 +30,8 @@ import { FieldsetModule } from 'primeng/fieldset';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ToastModule } from 'primeng/toast';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
-// import { BlockUIModule } from 'primeng/blockui';
 import { BlockUIModule } from 'ng-block-ui';
+import {ProgressBarModule} from 'primeng/progressbar';
 import {OverlayPanelModule} from 'primeng/overlaypanel';
 
 import { AppComponent } from './app.component';
@@ -95,6 +95,7 @@ import { MasterService } from './Services/master-data.service';
 import { FeeFormComponent } from './Forms-Module/fee-form/fee-form.component';
 import { ExcelService } from './Services/excel.service';
 import { AssessmentService } from './Services/online-test.service';
+import { ClassroomDetailsComponent } from './Forms-Module/classroom-details/classroom-details.component';
 import { UserService } from './Services/user.service';
 import { MyschoolViewComponent } from './DataView-Module/myschool-view/myschool-view.component';
 import { ZoomComponent } from './Events-Module/zoom/zoom.component';
@@ -109,6 +110,9 @@ FullCalendarModule.registerPlugins([
   timeGridPlugin,
   interactionPlugin
 ]);
+// export function initGapi(gapiSession: GapiSession) {
+//   return () => gapiSession.initClient();
+// }
 
 @NgModule({
   declarations: [
@@ -162,6 +166,7 @@ FullCalendarModule.registerPlugins([
     CalendarDetailsFormComponent,
     AttendanceDetailsFormComponent,
     FeeFormComponent,
+    ClassroomDetailsComponent,
     MyschoolViewComponent,
     ZoomComponent,
     UploadDownloadformsComponent,
@@ -200,6 +205,7 @@ FullCalendarModule.registerPlugins([
     ProgressSpinnerModule,
     ReactiveFormsModule,  
       HttpClientModule,  
+    ProgressBarModule,
    // BlockUIModule
     OverlayPanelModule,
     BlockUIModule.forRoot()

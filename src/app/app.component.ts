@@ -14,21 +14,23 @@ import { AuthService } from './Services/auth.service';
 export class AppComponent {
   title = 'education-portal';
   items: any[];
-  isOpen: boolean = false;
+  isOpen: boolean = true;
   isLoggedIn$: Observable<boolean>;
   isSignedIn: boolean;
   userName: string;
   showPanel: boolean;
   loggedinTime: Date = new Date();
+  userImage: string;
   @ViewChild('op', { static: false }) _panel: OverlayPanel;
 
-  constructor(private authService: AuthService, private datepipe: DatePipe) { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
     this.isLoggedIn$ = this.authService.isLoggedIn;
     // this.isSignedIn = this.authService.checkLog;
     const user: User = this.authService.UserInfo;
-    this.userName = user.username;
+    this.userName = (user !== null && user !== undefined) ? user.username : '';
+    this.userImage = 'assets/layout/images/user-o-2x.png';
     // this.loggedin_time = this.datepipe.transform(new Date(), 'HH:MM a');
     this.items = [
       { label: 'Dashboard', icon: 'fa fa-desktop', routerLink: '/dashboard' },
@@ -42,6 +44,7 @@ export class AppComponent {
       { label: 'Book', icon: 'fa fa-book', routerLink: '/book' },
       { label: 'NewsLetter', icon: 'fa fa-newspaper-o', routerLink: '/newsletter' },
       { label: 'Questions-upload', icon:'fa fa-upload', routerLink: '/test-details' },
+      { label: 'ClassRoom Details', icon:'fa fa-list-alt', routerLink: '/classroom-details' },
       { label: 'My School', icon:'fa fa-building-o', routerLink: '/my-school' },
       { label: 'Results', icon: 'fa fa-file-text-o', routerLink: '/results' },
       { label: 'Gallery', icon: 'fa fa-picture-o', routerLink: '/gallery' },

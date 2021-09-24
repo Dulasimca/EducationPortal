@@ -11,8 +11,8 @@ import { Profile } from 'src/app/Interfaces/profile';
 import { NgForm } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { DomSanitizer } from '@angular/platform-browser';
 import { catchError, map, of } from 'rxjs';
-declare var gapi: any;
 
 @Component({
   selector: 'app-registration-form',
@@ -46,7 +46,7 @@ export class RegistrationFormComponent implements OnInit {
   studentEmailId: string;
   medium: string;
   mediumOptions: SelectItem[];
-  state: any = 1;
+  state: any;
   stateOptions: SelectItem[];
   pincode: number;
   city: string;
@@ -73,7 +73,19 @@ export class RegistrationFormComponent implements OnInit {
   uploadedFiles: any[] = [];
   regId: any;
   slno: any;
-  imagePreview: any;
+  myFile: File;
+  showSImg: boolean;
+  s_URL: string;
+  sImgProgress: Number = 0;
+  showFImg: boolean;
+  f_URL: string;
+  fImgProgress: Number = 0;
+  showMImg: boolean;
+  m_URL: string;
+  mImgProgress: Number = 0;
+  showGImg: boolean;
+  g_URL: string;
+  gImgProgress: Number = 0;
   //masters
   districts?: any;
   sections?: any;
@@ -84,13 +96,11 @@ export class RegistrationFormComponent implements OnInit {
   @ViewChild('fatherImg', { static: false }) fatherImg: ElementRef;
   @ViewChild('motherImg', { static: false }) motherImg: ElementRef;
   @ViewChild('guardianImg', { static: false }) guardianImg: ElementRef;
-  files = [];
-  myFile:File;
   @BlockUI() blockUI: NgBlockUI;
 
   constructor(private restApiService: RestAPIService, private datePipe: DatePipe,
     private messageService: MessageService, private masterService: MasterService,
-    private httpClient: HttpClient, private ngZone: NgZone) { }
+    public _d: DomSanitizer) { }
 
   ngOnInit() {
     ///loading master data
@@ -130,11 +140,11 @@ export class RegistrationFormComponent implements OnInit {
       { label: 'Coimbatore', value: 'C005' }
     ];
     this.stateOptions = [
-       { label: '-select-', value: null },
+      { label: '-select-', value: null },
       { label: 'Tamilnadu', value: 1 },
     ];
     this.nationalityOptions = [
-       { label: '-select-', value: null },
+      { label: '-select-', value: null },
       { label: 'Indian', value: 'Indian' },
     ];
     this.casteOptions = [
@@ -159,7 +169,7 @@ export class RegistrationFormComponent implements OnInit {
         this.districtOptions = districtSelection;
         this.districtOptions.unshift({ label: '-select', value: null });
         break;
-      case 'C': 
+      case 'C':
         this.classes.forEach(c => {
           classSelection.push({ label: c.name, value: c.code })
         });
@@ -189,79 +199,29 @@ export class RegistrationFormComponent implements OnInit {
       this.currentAddress = (value && this.permanentAddress !== undefined) ? this.permanentAddress : '';
     }
   }
-  public upload(formData) {
-    var SERVER_URL: string = "https://file.io/";  
-    return this.httpClient.post<any>(SERVER_URL, formData, {  
-        reportProgress: true,  
-        observe: 'events'  
-      });  
-  }
-
-  uploadFile(file) {  
-    console.log('inside upload file');
-    const formData = new FormData();  
-    formData.append('file', file.data);  
-    file.inProgress = true;  
-    console.log('file', formData, file);
-    this.upload(formData).pipe(  
-      map(event => {  
-        switch (event.type) {  
-          case HttpEventType.UploadProgress:  
-            file.progress = Math.round(event.loaded * 100 / event.total);  
-            break;  
-          case HttpEventType.Response:  
-            return event;  
-        }  
-      }),  
-      catchError((error: HttpErrorResponse) => {  
-        file.inProgress = false;  
-        console.log('catch err');
-        return of(`${file.data.name} upload failed.`);  
-      })).subscribe((event: any) => {  
-        if (typeof (event) === 'object') {  
-          console.log('bdy',event.body); 
-  //         this.http.get('endpoint/', {responseType: "blob", headers: {'Accept': 'application/pdf'}})
-  // .subscribe(blob => {
-  //   saveAs(blob, 'download.pdf');
-  // });
-  this.httpClient.get('https://file.io/sbgJMPUPEqtv').subscribe(res => {
-    console.log('res', res);
-  })
-        }  
-      });  
-  }
-
- uploadFiles() { 
-    console.log('private method');
-    this.studentImg.nativeElement.value = '';  
-    this.files.forEach(file => {
-    console.log('private mthd file', file);
-      this.uploadFile(file);  
-    });  
-}
-
-onClick() {
-  console.log('inside main')
-  const fileUpload = this.studentImg.nativeElement;
-  console.log('file', fileUpload);
-  fileUpload.onchange = () => {  
-    for (let index = 0; index < fileUpload.files.length; index++)  
-    {  
-     const file = fileUpload.files[index];  
-     console.log('onfileupload', file);
-     this.files.push({ data: file, inProgress: false, progress: 0});  
-     console.log('push', this.files);
-    }  
-      this.uploadFiles();  
-    };  
-    fileUpload.click(); 
-}
-
 
   onFileUpload($event, id) {
     const reader = new FileReader();
     var selectedFile = $event.target.files[0];
-    
+    const file = $event.srcElement.files[0];
+    switch (id) {
+      case 1:
+        this.s_URL = window.URL.createObjectURL(file);
+        this.showSImg = (this.s_URL !== undefined && this.s_URL !== null) ? true : false;
+        break;
+      case 2:
+        this.f_URL = window.URL.createObjectURL(file);
+        this.showFImg = (this.s_URL !== undefined && this.s_URL !== null) ? true : false;
+        break;
+      case 3:
+        this.m_URL = window.URL.createObjectURL(file);
+        this.showMImg = (this.s_URL !== undefined && this.s_URL !== null) ? true : false;
+        break;
+      case 4:
+        this.g_URL = window.URL.createObjectURL(file);
+        this.showGImg = (this.s_URL !== undefined && this.s_URL !== null) ? true : false;
+        break;
+    }
   }
 
   onSubmit() {
@@ -318,30 +278,30 @@ onClick() {
       GaurdianPhotoFileName: '',
     };
     this.restApiService.post(PathConstants.Registration_Post, params).subscribe(res => {
-      if(res !== undefined && res !== null) {
-      if (res.item1) {
-        this.blockUI.stop();
-        this.clearForm();
-        this.messageService.clear();
-        this.messageService.add({
-          key: 't-msg', severity: ResponseMessage.SEVERITY_SUCCESS,
-          summary: ResponseMessage.SUMMARY_SUCCESS, detail: ResponseMessage.SuccessMessage
-        });
+      if (res !== undefined && res !== null) {
+        if (res.item1) {
+          this.blockUI.stop();
+          this.clearForm();
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_SUCCESS,
+            summary: ResponseMessage.SUMMARY_SUCCESS, detail: ResponseMessage.SuccessMessage
+          });
+        } else {
+          this.blockUI.stop();
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+            summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+          });
+        }
       } else {
-        this.blockUI.stop();
         this.messageService.clear();
         this.messageService.add({
           key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
           summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
         });
       }
-    } else {
-      this.messageService.clear();
-      this.messageService.add({
-        key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
-        summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
-      });
-    }
     }, (err: HttpErrorResponse) => {
       this.blockUI.stop();
       if (err.status === 0 || err.status === 400) {

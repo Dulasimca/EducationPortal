@@ -15,6 +15,7 @@ export class MyclassResultComponent implements OnInit {
   class: SelectItem[];
   selectedSection: any;
   section: SelectItem[];
+  subjectName: any;
   testName: any;
   yearRange: string;
   dos: any;
@@ -27,8 +28,8 @@ export class MyclassResultComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.loginId = 1
-    ;
+    this.loginId = 1;
+    
   }
 
   uploadData($event) {

@@ -87,6 +87,11 @@ export class ClassroomDetailsComponent implements OnInit {
       if(res !== undefined && res !== null) {
         this.blockUI.stop();
         this.clearForm();
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_SUCCESS,
+          summary: ResponseMessage.SUMMARY_SUCCESS, detail: ResponseMessage.SuccessMessage
+        });
       } else {
         this.blockUI.stop();
         this.messageService.clear();

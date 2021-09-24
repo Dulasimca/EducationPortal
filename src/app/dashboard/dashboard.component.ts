@@ -1,6 +1,7 @@
 import { DatePipe, LocationStrategy } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ResponseMessage } from '../Common-Module/Message';
+import { StyleSetting } from '../Helper-Module/style-setting';
 import { User } from '../Interfaces/user';
 import { AuthService } from '../Services/auth.service';
 
@@ -19,6 +20,8 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit() {
     this.preventBackButton();
+    var _setlayout = new StyleSetting();
+    _setlayout.setMainLayout();
     this.user_info = this.authService.UserInfo;
     const current_time = new Date().getTime();
     let get_hour: any = this.datePipe.transform(current_time, 'HH');

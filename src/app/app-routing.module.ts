@@ -33,6 +33,8 @@ import { BookFormComponent } from './Forms-Module/book-form/book-form.component'
 import { ResultFormComponent } from './Forms-Module/result-form/result-form.component';
 import { GalleryFormComponent } from './Forms-Module/gallery-form/gallery-form.component';
 import { DownloadsessionFormComponent } from './Forms-Module/downloadsession-form/downloadsession-form.component';
+import { UploadDownloadformsComponent } from './Forms-Module/upload-downloadforms/upload-downloadforms.component';
+
 //Adithya
 import { AnnouncementFormComponent } from './Forms-Module/announcement-form/announcement-form.component';
 import { AssignmentFormComponent } from './Forms-Module/assignment-form/assignment-form.component';
@@ -111,7 +113,7 @@ const routes: Routes = [
    { path: 'results',component:ResultFormComponent, canActivate: [AuthGuard]},
    { path: 'gallery',component:GalleryFormComponent, canActivate: [AuthGuard]},
    { path: 'downloadsession', component:DownloadsessionFormComponent, canActivate: [AuthGuard]}, 
-   
+   { path: 'UploadDownloadform', component:UploadDownloadformsComponent},
 ];  
 
 

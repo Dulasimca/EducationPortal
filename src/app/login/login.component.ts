@@ -7,6 +7,8 @@ import { AuthService } from '../Services/auth.service';
 import { RestAPIService } from '../Services/restAPI.service';
 import { MasterService } from '../Services/master-data.service';
 import { ResponseMessage } from '../Common-Module/Message';
+import { StyleSetting } from '../Helper-Module/style-setting';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-login',
@@ -22,7 +24,8 @@ export class LoginComponent implements OnInit {
   id: number;
   showPswd: boolean;
   ngOnInit() {
-    
+    var _setlayout = new StyleSetting();
+    _setlayout.setNavLayoutAtLogin();
   }
 
   onSignIn() {
@@ -30,19 +33,25 @@ export class LoginComponent implements OnInit {
     this.restApiService.getByParameters(PathConstants.Registration_Get, params).subscribe(response => {
       if(response !== undefined && response !== null && response.length !== 0) {
         response.forEach(i => {
-          if(i.EmailId === this.username.trim() && i.password === this.password.trim()) {
+          var response_email = (i.EmailId !== undefined && i.EmailId !== null) ? i.EmailId.toString().toLowerCase().trim() : '';
+          var response_pwd = (i.password !== undefined && i.password !== null) ? i.password.toString().toLowerCase().trim() : '';
+          if(response_email === this.username.toLowerCase().trim() && response_pwd === this.password.toLowerCase().trim()) {
             const obj: User = {
-              username: i.FirstName,
-              lastname: i.LastName,
+              username: (i.FirstName !== undefined && i.FirstName !== null) ? i.FirstName.toString().trim(): '',
+              lastname: (i.LastName !== undefined && i.LastName !== null) ? i.LastName.toString().trim() : '',
               password: this.password.trim(),
-              id: i.slno,
+              id: (i.slno !== undefined) ? i.slno : null,
               email: this.username.trim(),
-              schoolId: i.SchoolId,
-              classId: i.ClassId,
-              sectioncode: i.SectionId
+              schoolId: (i.SchoolId !== undefined) ? i.SchoolId : null,
+              classId: (i.ClassId !== undefined) ? i.ClassId : null,
+              sectioncode: (i.SectionId !== undefined) ? i.SectionId : null,
+              roleId: (i.RoleId !== undefined) ? i.RoleId : null,
+              fathername: (i.FatherName !== undefined && i.FatherName !== null) ? i.FatherName.toString().trim() : '',
+              class: (i.Class !== undefined && i.Class !== null) ? i.Class.toString().trim(): '',
+              section: (i.Section !== undefined && i.Section !== null) ? i.Section.toString().trim(): '',
+       
             }
             this.authService.login(obj);
-            console.log('obj', obj);
             this.masterService.initializeMaster();
           } else {
             this.messageService.clear();

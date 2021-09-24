@@ -21,7 +21,8 @@ export class OnlineClassroomComponent implements OnInit {
   meetingCols: any = [];
   login_user: User;
   loading: boolean;
- 
+  toolTip: string;
+
   constructor(private restApiService: RestAPIService, private authService: AuthService,
     private messageService: MessageService, private router: Router, private datePipe: DatePipe,
     private zoomService: ZoomService) { }
@@ -38,6 +39,7 @@ export class OnlineClassroomComponent implements OnInit {
   }
 
   loadMeetingDetails() {
+    this.toolTip = (this.login_user.roleId === 5) ? 'Start Class' : 'Join Class';
     this.loading = true;
     const params = { 
       'SchoolId': this.login_user.schoolId,
@@ -69,8 +71,9 @@ export class OnlineClassroomComponent implements OnInit {
     })
   }
 
-  onJoinClassroom() {
-    this.zoomService.setMeeting(this.meetingData[0]);
+  onJoinClassroom(meetingInfo) {
+    console.log('meeting info', meetingInfo);
+    this.zoomService.setMeeting(meetingInfo);
     this.router.navigate(['/online-classroom-join']);
   }
 }

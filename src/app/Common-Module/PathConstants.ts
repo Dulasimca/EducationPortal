@@ -43,6 +43,8 @@ export class PathConstants {
     public static readonly MySchool_Get = 'MySchool/Get'; 
     public static readonly MySchool_Post = 'MySchool/Post'; 
 
+    public static readonly FileUpload_Post = 'Upload/AddFileDetails'; 
+
 
 
 

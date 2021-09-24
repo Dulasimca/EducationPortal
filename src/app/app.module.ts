@@ -99,7 +99,11 @@ import { UserService } from './Services/user.service';
 import { MyschoolViewComponent } from './DataView-Module/myschool-view/myschool-view.component';
 import { ZoomComponent } from './Events-Module/zoom/zoom.component';
 import { ZoomService } from './Services/zoom.service';
+import { UploadDownloadformsComponent } from './Forms-Module/upload-downloadforms/upload-downloadforms.component';
 
+import {ReactiveFormsModule} from '@angular/forms';  
+
+  
 FullCalendarModule.registerPlugins([
   dayGridPlugin,
   timeGridPlugin,
@@ -160,6 +164,7 @@ FullCalendarModule.registerPlugins([
     FeeFormComponent,
     MyschoolViewComponent,
     ZoomComponent,
+    UploadDownloadformsComponent,
   ],
   imports: [
     BrowserModule,
@@ -193,6 +198,8 @@ FullCalendarModule.registerPlugins([
     MatDatepickerModule,
     ToastModule,
     ProgressSpinnerModule,
+    ReactiveFormsModule,  
+      HttpClientModule,  
    // BlockUIModule
     OverlayPanelModule,
     BlockUIModule.forRoot()

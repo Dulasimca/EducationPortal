@@ -1,12 +1,12 @@
 <div class="p-col-12 no-pad" style="height: 100%; width: 100%; 
  background: linear-gradient(to bottom,  #112b52 0%, #0b2b66 50%, #124c7d 100%);">
- <!-- #0e3167 0%, #1e5799 50%, #207cca 100% -->
- <p-toast position="top-center" key="t-msg"></p-toast>
+    <!-- #0e3167 0%, #1e5799 50%, #207cca 100% -->
+    <p-toast position="top-center" key="t-msg"></p-toast>
     <div class="p-grid">
         <div class="p-col-12" style="height: 100px; text-align: center;">
             <span style="font-size: 25px; color: whitesmoke; margin-top: 20px;"> Government of Tamilnadu - Educational
                 Services Platform </span><br>
-                <!-- <div class="lg-tabs" style="color: whitesmoke; text-decoration: underline;">
+            <!-- <div class="lg-tabs" style="color: whitesmoke; text-decoration: underline;">
                     <div class="p-grid">
                     <div class="p-col-10"></div>
                     <div class="p-col-4 p-md-4 p-lg-1 lg-tab" style="width: auto !important; font-size: 18px;">Student</div>
@@ -20,23 +20,51 @@
         border-radius: 8px; background: white !important; padding: 0;">
             <div class="p-col-12 no-pad"
                 style="color:whitesmoke; font-weight: bold; text-align: center;background: #0e3167;height: 35px;">
-                <div style="padding-top: 5px;background: #0e3167 !important; font-size: 18px;"> Student Login </div>
+                <div style="padding-top: 5px;background: #0e3167 !important; font-size: 18px;"> {{loginHeader}} </div>
             </div>
             <div class="p-col-12 no-pad" style="background: white !important;border-radius: 8px; margin-top: 10px;">
                 <div class="p-col-12 no-pad" style="text-align: center;">
                     <img src="assets/layout/images/logo3x.png" />
+                    <img src="assets/layout/images/Stalin3x.jpg" />
+                </div>
+                <div class="p-co-12">
+                    <div class="tab-main text-center">
+                    <p-tabView #tabview (onChange)="onTabChange($event)">
+                        <p-tabPanel header="Student">
+                        </p-tabPanel>
+                        <p-tabPanel header="Staff">
+                        </p-tabPanel>
+                        <p-tabPanel header="Admin">
+                        </p-tabPanel>
+                    </p-tabView>
+                </div>
+                    <!-- <div class="lg-tabs text-center" style="color: black; text-decoration: underline;">
+                        <div class="p-grid">
+                            <div class="p-col-4 p-md-4 p-lg-1 lg-tab" style="width: auto !important; font-size: 18px;">
+                                Student</div>
+                            <div class="p-col-4 p-md-4 p-lg-1 lg-tab" style="width: auto !important; font-size: 18px;">
+                                Staff</div>
+                            <div class="p-col-4 p-md-4 p-lg-1 lg-tab" style="width: auto !important; font-size: 18px;">
+                                Admin</div>
+                        </div>
+                        <hr class="no-pad p-col-12" style="background: rgb(204, 201, 201)">
+                    </div> -->
                 </div>
                 <div class="p-col-12" style="text-align: center; margin-top: 5px;">
                     <i class="fa fa-user-circle-o"
                         style="font-size: 2rem; margin-left: 5px; margin-right: 10px; color: #0e3167;"></i>
-                    <input class="p-col-8" type="text" pInputText placeholder="Username" [(ngModel)]="username" required/>
+                    <input class="p-col-8" type="text" pInputText placeholder="Username" [(ngModel)]="username"
+                        required />
                 </div>
                 <div class="p-col-12" style="text-align: center;">
                     <i class="fa fa-lock"
                         style="font-size: 2.3rem; margin-left: 5px; margin-right: 15px;color: #0e3167;"></i>
-                    <input id="pswd" class="p-col-8" type="password" pInputText placeholder="Password" [(ngModel)]="password" />
-                    <i *ngIf="!showPswd" disabled class="fa fa-eye" style="margin-left: -20px;color: black;" (click)="onShowPswd()" aria-hidden="true"></i>
-                    <i *ngIf="showPswd" class="fa fa-eye-slash" style="margin-left: -20px;color: black;" (click)="onShowPswd()" aria-hidden="true"></i>
+                    <input id="pswd" class="p-col-8" type="password" pInputText placeholder="Password"
+                        [(ngModel)]="password" />
+                    <i *ngIf="!showPswd" disabled class="fa fa-eye" style="margin-left: -20px;color: black;"
+                        (click)="onShowPswd()" aria-hidden="true"></i>
+                    <i *ngIf="showPswd" class="fa fa-eye-slash" style="margin-left: -20px;color: black;"
+                        (click)="onShowPswd()" aria-hidden="true"></i>
                 </div>
                 <div class="p-col-12 no-pad-bottom no-pad-top" style="text-align: center;">
                     <span>
@@ -50,13 +78,14 @@
                 </div>
                 <div class="p-col-12 no-pad-top" style="text-align: center;">
                     <span style="color: blue; text-decoration: underline;"> Forgot Password? </span>
-                   
+
                 </div>
                 <div class="p-col-12 no-pad-top" style="text-align: end;">
-                    <span style="font-size: 13px;">Login Problems ? <br> Please E-Mail us on support@tneducation.com </span>
+                    <span style="font-size: 13px;">Login Problems ? <br> Please E-Mail us on support@tneducation.com
+                    </span>
                 </div>
                 <div class="p-grid">
-                    <!-- <div class="p-col-8"></div> -->  
+                    <!-- <div class="p-col-8"></div> -->
                     <div class="p-col-1"></div>
                     <div class="p-col-12 p-md-12 p-lg-3 no-pad-left no-pad-bottom" style="text-align: end;">
                         <img src="assets/layout/images/google-play2x.png" />

@@ -21,8 +21,9 @@
                     name="assignmentwork" required>
                 </div>
                 <div class="p-col-12 p-md-6 p-lg-3">
-                  <div> <label> Assigned Type:</label></div>
-                  <input id="float-input" type="text" size="24" pInputText [(ngModel)]="type" name="type" required>
+                  <div><label for="_Type">Assigned Type:</label></div>
+                  <p-dropdown name="_Type" [options]="TypeOption" [(ngModel)]="type" optionLabel="label" >
+                  </p-dropdown>
                 </div>
                 <div class="p-col-12 p-md-6 p-lg-3">
                   <div><label> Subject Name:</label></div>
@@ -54,7 +55,7 @@
             </tr>
           </ng-template>
           <ng-template pTemplate="body" let-rowData let-columns="columns">
-            <tr [pSelectableRow]="rowData" (dblclick)="onRowSelect($event, rowData)">
+            <tr [pSelectableRow]="rowData" class="cursor-pointer" (dblclick)="onRowSelect($event, rowData)">
               <td *ngFor="let col of columns">
                 {{rowData[col.field]}}
               </td>

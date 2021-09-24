@@ -72,7 +72,6 @@ export class OnlineClassroomComponent implements OnInit {
   }
 
   onJoinClassroom(meetingInfo) {
-    console.log('meeting info', meetingInfo);
     this.zoomService.setMeeting(meetingInfo);
     this.router.navigate(['/online-classroom-join']);
   }

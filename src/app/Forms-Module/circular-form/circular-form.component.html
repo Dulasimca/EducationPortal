@@ -50,7 +50,7 @@
   </ng-template>
   
   <ng-template pTemplate="body" let-rowData let-columns="columns">
-    <tr [pSelectableRow]="rowData" (dblclick)="onRowSelect($event, rowData)">
+    <tr [pSelectableRow]="rowData" class="cursor-pointer" (dblclick)="onRowSelect($event, rowData)">
       <td *ngFor="let col of columns">
         {{rowData[col.field]}}
       </td>
@@ -60,6 +60,6 @@
         </div>
     </p-panel>
 
-</div>
+</div>  
 </form>
 </block-ui>

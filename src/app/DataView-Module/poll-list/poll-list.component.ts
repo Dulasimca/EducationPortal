@@ -12,7 +12,7 @@ import { NgForm } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { catchError, map, of } from 'rxjs';
-import {ConfirmationService} from 'primeng/api';
+import {ConfirmationService, ConfirmEventType} from 'primeng/api';
 import { PrimeNGConfig } from "primeng/api";
 
 
@@ -27,11 +27,12 @@ export class PollListComponent implements OnInit {
   positionOptions: SelectItem[];
   selectedPosition: any;
   MRowid= 0;
+  position: string;
 
 
   @BlockUI() blockUI: NgBlockUI;
   
-  constructor(private restApiService: RestAPIService, private http: HttpClient,private messageService: MessageService) { }
+  constructor(private restApiService: RestAPIService, private http: HttpClient,private messageService: MessageService,private confirmationService: ConfirmationService) { }
 
   ngOnInit() { 
     this.positionOptions = [
@@ -108,6 +109,26 @@ export class PollListComponent implements OnInit {
       }
       clear(){
 
-      }  
+      } 
+      confirm1() {
+        this.confirmationService.confirm({
+          message: 'Are you sure that you want to proceed?',
+          header: 'Confirmation',
+          icon: 'pi pi-exclamation-triangle',
+          accept: () => {
+              this.messageService.add({severity:'info', summary:'Confirmed', detail:'You have accepted'});
+          },
+          reject: (type) => {
+              switch(type) {
+                  case ConfirmEventType.REJECT:
+                      this.messageService.add({severity:'error', summary:'Rejected', detail:'You have rejected'});
+                  break;
+                  case ConfirmEventType.CANCEL:
+                      this.messageService.add({severity:'warn', summary:'Cancelled', detail:'You have cancelled'});
+                  break;
+              }
+          }
+      });
+      }
     
   }

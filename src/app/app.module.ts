@@ -165,6 +165,7 @@ FullCalendarModule.registerPlugins([
     ClassroomDetailsComponent,
     MyschoolViewComponent,
     ZoomComponent,
+   // MenuComponent,
   ],
   imports: [
     BrowserModule,

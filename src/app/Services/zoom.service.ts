@@ -47,12 +47,10 @@ ZoomMtg.i18n.reload('en-US');
     //         }
     //     };
     //     this.http.get(URL, options).subscribe((res: any) => {
-    //         console.log('res', res);
     //     })
     // }
 
     setMeeting(data) {
-      console.log('zser', data);
       this.meetingNumber = data.MeetingId;
       this.passWord = data.Passcode;
       this.userEmail = (this.login_user.roleId === 5) ? '' : data.HostEmail;
@@ -71,8 +69,6 @@ ZoomMtg.i18n.reload('en-US');
     }
 
     setConfig() {
-      console.log('num', this.MeetingNumber, this.MeetingPassword, this.HostEmail
-      , this.meetingNumber, this.passWord, this.userEmail);
         this.showZoomDiv();
         this.meetingConfig = {
           apiKey: this.apiKey,
@@ -93,7 +89,6 @@ ZoomMtg.i18n.reload('en-US');
             console.log(res.result);
           }
         });
-        console.log('con', this.signatureConfig, this.meetingConfig);
         ZoomMtg.init({
           showMeetingHeader: false,
           disableInvite: true,

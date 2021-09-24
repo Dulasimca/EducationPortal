@@ -154,13 +154,8 @@ export class OnlineTestComponent implements OnInit {
 
     onSelect(question: Question, option: Option) {
         if (question.questionTypeId === this.questionTypeID) {
-            console.log('inside if');
             question.answered = this.isAnswered(question);
-            console.log('ques', question);
-            console.log('opts', question.options);
             question.options.forEach(x => {
-                console.log('x', x.optionId);
-                console.log('op', option.optionId);
                 if (x.optionId !== option.optionId) x.selected = false;
                 if (x.selected) {
                     this.answerData.push({
@@ -171,7 +166,6 @@ export class OnlineTestComponent implements OnInit {
                     })
                 }
             });
-            console.log('ans', this.answerData);
         }
         // once selected the option move to next question automatically
         if (this.config.autoMove) {

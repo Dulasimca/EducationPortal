@@ -163,6 +163,22 @@ background-color: #b8baf3;
     background-color: #f7d6ad;
     background-image: linear-gradient(to right, #f7d949, #ef8e3b);
 }
+.overview-box.sales-5 {
+    background-color: #f1aea8;
+    background-image: linear-gradient(to right,#d5665b,#910d09);
+}
+.overview-box.sales-6 {
+    background-color: #a5f7f5;
+    background-image: linear-gradient(to right, #33bbb8, #0b4c4b);
+}
+.overview-box.sales-7 {
+    background-color: #feffa9;
+    background-image: linear-gradient(to right, #efdb10,#ffa701);
+}
+.overview-box.sales-8 {
+    background-color: #f7c1d5;
+    background-image: linear-gradient(to right,#f94d8e,#cb0537);
+}
 .overview-box {
     padding-top: 18px;
     color: #ffffff;
@@ -178,7 +194,12 @@ background-color: #b8baf3;
 
 /* login */
 .lg-tabs div.lg-tab:hover {
-    background: #24af24;
+    /* background: #24af24; */
+    color: #5587f3;
+    font-size: 17px !important;
+}
+.tab-main .p-tabview .p-tabview-nav {
+    padding-left: 8rem !important;
 }
 /* end #Region 2*/
 

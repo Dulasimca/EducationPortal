@@ -64,7 +64,6 @@ export class PersonalDetailsComponent implements OnInit {
   onFileUpload($event) {
   }
   loadData() {
-    console.log('data', this.responseData);
     if (this.responseData !== null && this.responseData !== undefined) {
       if (this.responseData.length !== 0)
         this.responseData.forEach(i => {
@@ -119,7 +118,6 @@ export class PersonalDetailsComponent implements OnInit {
             GaurdianOccupation: i.GaurdianOccupation,
             GaurdianPhotoFileName: i.GaurdianPhotoFileName
           }
-          console.log('obj', this.obj);
           this.classOptions = [{ label: i.Class, value: i.ClassId }];
           this.sectionOptions = [{ label: i.Section, value: i.SectionId }];
         })
@@ -136,7 +134,6 @@ export class PersonalDetailsComponent implements OnInit {
       let sortedClass = _.sortBy(classSelection, 'value');
       this.classOptions = sortedClass;
       this.classOptions.unshift({ label: '-select', value: null });
-      console.log('class', this.obj.Class);
       break;
     case 'S':
       this.sections.forEach(s => {

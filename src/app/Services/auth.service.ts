@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, ReplaySubject } from 'rxjs';
 import { User } from '../Interfaces/user';
 
 @Injectable({
@@ -16,6 +16,7 @@ export class AuthService {
 
   constructor(private router: Router) { 
     JSON.stringify(localStorage.setItem('LOG', 'false'));
+    localStorage.removeItem('UserInfo');
   }
 
   get isLoggedIn() {
@@ -27,6 +28,18 @@ export class AuthService {
       localStorage.setItem('UserInfo', JSON.stringify(user));
       this.loggedIn.next(true);
       this.router.navigate(['/dashboard']);
+    }
+  }
+
+  checkStatus() {
+    console.log('chck sts');
+    if (localStorage.getItem('UserInfo')) {
+      console.log('yes user');
+      console.log('usr', localStorage.getItem('UserInfo'))
+      this.loggedIn.next(true);
+    } else {
+      console.log('no user');
+      this.loggedIn.next(false);
     }
   }
 

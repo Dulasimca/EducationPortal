@@ -2,6 +2,8 @@ export class PathConstants {
     public static readonly Google_Drive_URL = 'https://drive.google.com/drive/u/2/my-drive'
     public static readonly Zoom_Post = 'ZoomIntegration/Post'
     public static readonly Zoom_Get = 'ZoomIntegration/Get'
+    
+    public static readonly Menu_Master = 'MenuMaster/Get';
 
     public static readonly Registration_Post = 'RegistrationForm/Post';
     public static readonly Registration_Get = 'RegistrationForm/Get';

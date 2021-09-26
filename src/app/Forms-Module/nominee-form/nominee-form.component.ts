@@ -28,7 +28,7 @@ export class NomineeFormComponent implements OnInit {
   snames?: any;
   nameOptions: SelectItem[];
 
-  position: string;
+  position: any;
   positionOptions: SelectItem[];
   positionSelection: SelectItem[];
 
@@ -82,8 +82,8 @@ export class NomineeFormComponent implements OnInit {
     const params = {
       'RowId': this.MRowId,
       'SchoolID':  this.login_user.schoolId,
-      // 'RoleId': this.login_user.,
-      'ElectionID': 1,
+      'RoleId': this.login_user.roleId,
+      'ElectionID': this.position.value,
       'NomineeID': this.sname.value,
       'ElectionName': this.position,
       'ElectionDate': this.datepipe.transform(this.date, 'yyyy-MM-dd'),
@@ -154,9 +154,9 @@ export class NomineeFormComponent implements OnInit {
   }
   onSelect2() {
     const params = {
-      'SchoolID': 1,
-      'ClassId': this.class.value,
-      'SectionId': this.section.value,
+      'SchoolID': this.login_user.schoolId,
+      'ClassId':  this.login_user.classId,
+      'SectionId':  this.login_user.schoolId,
     }
     this.restApiService.getByParameters(PathConstants.Nomineeview_Get, params).subscribe(data => {
       if (data !== undefined) {
@@ -174,8 +174,8 @@ export class NomineeFormComponent implements OnInit {
   }
   onView() {
     const params = {
-      'SchoolID': 1,
-      'ElectionID':1
+      'SchoolID': this.login_user.schoolId,
+      'ElectionID':this.position.value,
     }
     this.restApiService.getByParameters(PathConstants.Nominee_Get, params).subscribe(res => {
       if (res !== null && res !== undefined && res.length !== 0) {

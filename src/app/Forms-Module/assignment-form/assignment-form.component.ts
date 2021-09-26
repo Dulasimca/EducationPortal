@@ -7,6 +7,11 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ResponseMessage } from 'src/app/Common-Module/Message';
 import { MessageService, SelectItem } from 'primeng/api';
 import { NgForm } from '@angular/forms';
+import{FileUploadConstant} from 'src/app/Common-Module/file-upload-constant'
+import { saveAs } from 'file-saver';
+import { Output, EventEmitter } from '@angular/core';
+import { User } from 'src/app/Interfaces/user';
+import { MasterService } from 'src/app/Services/master-data.service';
 
 
 @Component({
@@ -20,7 +25,7 @@ export class AssignmentFormComponent implements OnInit {
   assignDate: any = new Date();
   TypeOption: SelectItem[]
   assignmentwork: string;
-  type:string;
+  AType:any;
   subjectname:string;
   data: any = []; 
   cols: any;
@@ -29,6 +34,13 @@ export class AssignmentFormComponent implements OnInit {
   AssignmentDate:any;
   ClassWork: any;
   MAssignId=0;
+  public progress: number;
+  public message: string;
+  NewFileName:string;
+  login_user: User;
+  public formData = new FormData();
+
+  @Output() public onUploadFinished = new EventEmitter();
   @BlockUI() blockUI: NgBlockUI;
   @ViewChild('f', { static: false }) _AssignmentForm: NgForm;
 
@@ -36,7 +48,6 @@ export class AssignmentFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.cols = [
-      { field: 'SlNo', header: 'Slno'},
       { field: 'AssignId', header: 'ID'},
       { field: 'AssignmentDate', header: 'Date' },
       { field: 'AssignmentDueDate', header: 'Due Date' },
@@ -47,8 +58,8 @@ export class AssignmentFormComponent implements OnInit {
   ];
   this.TypeOption = [
     { label: '-select-', value: null },
-    { label: 'Home Work', value: '0'},
-    { label: 'Class Work', value: '1'},
+    { label: 'Home Work', value: 'Home Work'},
+    { label: 'Class Work', value: 'Class Work'},
   ];
     
   }
@@ -58,6 +69,48 @@ export class AssignmentFormComponent implements OnInit {
     var selectedFile = $event.target.files[0];
     console.log('file', selectedFile);
   }
+  public uploadFile = (files) => {
+    if (files.length === 0) {
+      return;
+    }
+    const params = {
+    
+      'AssignId': this.MAssignId,
+      'SchoolID': 1,      
+      'Class': 1,    
+      'AssignmentDate': this.datepipe.transform(this.assignDate, 'MM/dd/yyyy') ,
+      'AssignmentDueDate': this.datepipe.transform(this.dueDate, 'MM/dd/yyyy'),
+      'assignmentwork': this.assignmentwork,
+      'AssignmentType': this.AType.value,
+      'subjectname': this.subjectname,
+      'Flag' : true
+      
+      
+     
+    };
+    this.formData = new FormData()
+    let fileToUpload: any = <File>files[0];
+    let folderOptions=<FolderOptions>params[0];
+ 
+    const filename = fileToUpload.name + '^' + FileUploadConstant.Assignmentfolder;
+    this.formData.append('file', fileToUpload, filename);
+    console.log('file', fileToUpload);
+    console.log('formdata', this.formData);
+    this.NewFileName=fileToUpload.name;
+    this.http.post(this.restApiService.BASEURL +PathConstants.FileUpload_Post, this.formData)
+      .subscribe(event => 
+        {
+      //          if (event.type === HttpEventType.UploadProgress)
+      //    this.progress = Math.round(100 * event.loaded / event.total);
+      //   else if (event.type === HttpEventType.Response) {
+      //    this.message = 'Upload success.';
+        
+      //  //   this.onUploadFinished.emit(event.body);
+      //   }
+      }
+      );
+  }  
+  
 
 onSubmit() {
   this.blockUI.start();
@@ -68,7 +121,7 @@ onSubmit() {
     'AssignmentDate': this.datepipe.transform(this.assignDate, 'MM/dd/yyyy') ,
     'AssignmentDueDate': this.datepipe.transform(this.dueDate, 'MM/dd/yyyy'),
     'assignmentwork': this.assignmentwork,
-    'AssignmentType': this.type,
+    'AssignmentType': this.AType.value,
     'subjectname': this.subjectname,
     'Flag' : true
 
@@ -119,11 +172,6 @@ onView() {
     if(res !== null && res !== undefined && res.length !== 0) {
     console.log( res);
     this.data = res;
-    let sno = 0;
-    this.data.forEach(s => {
-      sno += 1;
-      s.SlNo = sno;
-    });
     }
   });
 
@@ -133,7 +181,7 @@ clear() {
   this._AssignmentForm.form.markAsUntouched();
   this._AssignmentForm.form.markAsPristine();
   this.assignmentwork="",
-  this.type="",
+  this.AType="",
   this.subjectname=""
 
 }
@@ -144,10 +192,16 @@ onRowSelect(event, selectedRow) {
   this.assignmentwork = selectedRow.AssignmentWork;
   this.TypeOption= [{ label: selectedRow.AssignmentType, value: selectedRow.AssignmentType }];
   this.subjectname = selectedRow.Subjectname;
-  console.log(selectedRow.AssignId);
   
 
 }
-
-
+onDownload(Filename) {
+  //const path = 'D:/Angular Project/EducationPortalAPI/Resources/Books';
+  const path = "../../assets/layout/"+FileUploadConstant.Assignmentfolder+"/"+Filename;
+  //const filename = 'files' + ".pdf";
+  saveAs(path, Filename);
+}
+}
+interface FolderOptions {
+  FolderPath?: string;
 }

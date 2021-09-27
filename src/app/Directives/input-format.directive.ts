@@ -7,7 +7,7 @@ export class InputFormatDirective {
 
   inputElement: ElementRef;
 
-  @Input('appInputRestriction') appInputRestriction: string;
+  @Input('appInputFormat') appInputFormat: string;
   arabicRegex = '[\u0600-\u06FF]';
 
   constructor(el: ElementRef) {
@@ -15,14 +15,14 @@ export class InputFormatDirective {
   }
 
   @HostListener('keypress', ['$event']) onKeyPress(event) {
-      if (this.appInputRestriction === 'integer') {
-          this.digitOnly(event);
-      } else if (this.appInputRestriction === 'noSpecialChars') {
+      if (this.appInputFormat === 'integer') {
+          this.integer(event);
+      } else if (this.appInputFormat === 'noSpecialChars') {
           this.noSpecialChars(event);
       }
   }
 
-  digitOnly(event) {
+  integer(event) {
       const e = <KeyboardEvent>event;
       if (e.key === 'Tab' || e.key === 'TAB') {
           return;
@@ -64,9 +64,9 @@ export class InputFormatDirective {
 
   @HostListener('paste', ['$event']) onPaste(event) {
       let regex;
-      if (this.appInputRestriction === 'integer') {
+      if (this.appInputFormat === 'integer') {
           regex = /[0-9]/g;
-      } else if (this.appInputRestriction === 'noSpecialChars') {
+      } else if (this.appInputFormat === 'noSpecialChars') {
           regex = /[a-zA-Z0-9\u0600-\u06FF]/g;
       }
       const e = <ClipboardEvent>event;

@@ -66,7 +66,7 @@ export class PersonalDetailsComponent implements OnInit {
   loadData() {
     if (this.responseData !== null && this.responseData !== undefined) {
       if (this.responseData.length !== 0)
-        this.responseData.forEach(i => {
+        this.responseData.forEach((i: any) => {
           this.obj = {
             RoleId: i.RoleId,
             slno: i.slno,
@@ -102,6 +102,7 @@ export class PersonalDetailsComponent implements OnInit {
             State: i.State,
             Flag: i.Flag,
             UserId: i.UserId,
+            Religion: i.religion,
             FatherName: i.FatherName,
             FatherEmailid: i.FatherEmailid,
             FatherMobileNo: i.FatherMobileNo,

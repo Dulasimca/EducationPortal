@@ -65,6 +65,8 @@ export class MasterService {
         this.masterData = [
           { label: '-select-', value: null },
           { label: 'Indian', value: 'Indian' },
+          { label: 'NRI', value: 'NRI' },
+          { label: 'Indian', value: 'Indian' },
         ];
         break;
       case 'G':

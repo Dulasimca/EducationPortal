@@ -4,17 +4,23 @@
         <p-panel header="Registration">
             <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
                 <div class="p-grid">
-                    <label class="p-col-2 no-pad-top" style="text-align: center;
-                    align-self: center;" for="_roleid">Registration for:<span
+                    <div class="p-col-2">
+                    <label for="_roleid">Registration for:<span
                                 class="form-mandatory-field">*</span></label>
-                    <!-- </div> -->
+                    </div>
+                    <div class="p-col-2" style="margin-left: -6%; margin-top: -2%;">
                  <p-dropdown class="p-col-2" name="_roleid" [options]="roleIdOptions"
-                        [(ngModel)]="roleId" (onClick)="onSelect('R')" required>
+                        [(ngModel)]="roleId" (onChange)="onChangeRole()" (onClick)="onSelect('R')" required>
                     </p-dropdown>
                 </div>
-                <form #f="ngForm" name="registrationForm">
+                </div>
+                <div> 
+                    <p style="font-size: smaller;">Note*:Please select a role to register</p>
+                </div>
+              
+                <form #f="ngForm" name="registrationForm" *ngIf="(this.roleId==6 || this.roleId==5)">
                     <p-tabView>
-                        <p-tabPanel header="Student Info I">
+                        <p-tabPanel header="{{tabTitleI}}">
                             <p-card>
                                 <div class="p-col-12 no-pad-top">
                                     <div #row1 class="p-col-12 p-md-12 p-lg-12">
@@ -80,8 +86,9 @@
                                                 <div><label for="_nationality">Nationality<span
                                                             class="form-mandatory-field">*</span></label>
                                                 </div>
-                                                <input class="p-col-12" name="_nationality" type="tel" pInputText
-                                                            [(ngModel)]="nationality" [disabled]="true" />
+                                                <p-dropdown name="_nationality" [options]="nationalityOptions" [(ngModel)]="nationality"
+                                                (onClick)="onSelect('N')" required>
+                                                </p-dropdown>
                                             </div>
                                            
                                         </div>
@@ -116,13 +123,13 @@
                                                             class="form-mandatory-field">*</span></label>
                                                 </div>
                                                 <input class="p-col-12" type="tel" name="_studentmobno" pInputText
-                                                   maxlength="10" [(ngModel)]="mobileNo" 
-                                                   appInputFormat="integer" required />
+                                                   minlength="10" maxlength="10" [(ngModel)]="mobileNo" 
+                                                   appInputFormat="digitOnly" required />
                                             </div>
                                             <div class="p-col-12 p-md-6 p-lg-2">
                                                 <div><label for="_altmobno">Alternate MobileNo</label></div>
                                                 <input class="p-col-12" name="_altmobno" type="tel" pInputText
-                                                maxlength="10" [(ngModel)]="altMobileNo" />
+                                                minlength="10" maxlength="10" appInputFormat="digitOnly" [(ngModel)]="altMobileNo" />
                                             </div>
                                             
                                         </div>
@@ -153,14 +160,15 @@
                                                             class="form-mandatory-field">*</span></label>
                                                 </div>
                                                 <input class="p-col-12" name="_pincode" type="text" pInputText
-                                                    [(ngModel)]="pincode" required />
+                                                minlength="6" maxlength="6" [(ngModel)]="pincode"  appInputFormat="digitOnly"
+                                                 required />
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </p-card>
                         </p-tabPanel>
-                        <p-tabPanel header="Student Info II">
+                        <p-tabPanel header="{{tabTitleII}}">
                             <p-card>
                                 <div class="p-col-12 no-pad-top">
                                     <div #row1 class="p-col-12 p-md-12 p-lg-12">
@@ -229,7 +237,7 @@
                                             <div class="p-col-12 p-md-6 p-lg-2">
                                                 <div><label for="_lastschlcontact">Last School Contact</label></div>
                                                 <input class="p-col-12" name="_lastschlcontact" type="text" pInputText
-                                                maxlength="10" [(ngModel)]="lastSchoolContactNo" />
+                                                minlength="8" maxlength="12"  [(ngModel)]="lastSchoolContactNo"  appInputFormat="digitOnly"/>
                                             </div>
                                         </div>
                                     </div>
@@ -249,7 +257,7 @@
                                 </div>
                             </p-card>
                         </p-tabPanel>
-                        <p-tabPanel header="Parent Info">
+                        <p-tabPanel *ngIf="(this.roleId==6)" header="Parent Info">
                             <p-card>
                                 <div class="p-col-12 no-pad-top">
                                     <div #row1 class="p-col-12 p-md-12 p-lg-12 no-pad-top">
@@ -273,7 +281,8 @@
                                                                 class="form-mandatory-field">*</span></label>
                                                     </div>
                                                     <input class="p-col-12" name="_fathercontact" type="tel" pInputText
-                                                    maxlength="10" [(ngModel)]="fatherContactNo" required />
+                                                     minlength="10" maxlength="10"  [(ngModel)]="fatherContactNo"  appInputFormat="digitOnly" 
+                                                     required />
                                                 </div>
                                                 <div class="p-col-12 p-md-6 p-lg-3">
                                                     <div><label for="_fatheremail">Email Id<span
@@ -314,7 +323,8 @@
                                                                 class="form-mandatory-field">*</span></label>
                                                     </div>
                                                     <input class="p-col-12" name="_mothercontact" type="tel" pInputText
-                                                    maxlength="10" [(ngModel)]="motherContactNo" required />
+                                                     minlength="10" maxlength="10"  [(ngModel)]="motherContactNo"  appInputFormat="digitOnly"
+                                                     required />
                                                 </div>
                                                 <div class="p-col-12 p-md-6 p-lg-3">
                                                     <div><label for="_motheremail">Email Id<span
@@ -337,7 +347,7 @@
                                 </div>
                             </p-card>
                         </p-tabPanel>
-                        <p-tabPanel header="Guardian Info">
+                        <p-tabPanel *ngIf="(this.roleId==6)" header="Guardian Info">
                             <p-card>
                                 <div class="p-col-12 no-pad-top">
                                     <div #row1 class="p-col-12 p-md-12 p-lg-12">
@@ -356,7 +366,8 @@
                                                 <div class="p-col-12 p-md-6 p-lg-2">
                                                     <div><label for="_guardiancontact">Contact</label></div>
                                                     <input class="p-col-12" name="_guardiancontact" 
-                                                    maxlength="10" pInputText [(ngModel)]="guardianContactNo" />
+                                                     minlength="10" maxlength="10"  pInputText [(ngModel)]="guardianContactNo"
+                                                     appInputFormat="digitOnly" />
                                                 </div>
                                                 <div class="p-col-12 p-md-6 p-lg-3">
                                                     <div><label for="_guardianemail">Email Id</label></div>

@@ -29,6 +29,7 @@ export interface Profile {
     DistrictId: number;
     Postalcode: any;
     EmailId: string;
+    Religion: string;
     City: string;
     State: string;
     Flag: number;

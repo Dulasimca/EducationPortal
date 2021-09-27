@@ -25,6 +25,7 @@ export class AppComponent {
   loggedinTime: Date = new Date();
   userImage: string;
   loading: boolean;
+  schoolName: string;
   @ViewChild('op', { static: false }) _panel: OverlayPanel;
 
   constructor(private authService: AuthService, private restApiService: RestAPIService) { }
@@ -42,6 +43,7 @@ export class AppComponent {
           console.log('loading', this.loading);
           console.log('es', response);
           this.userName = (user !== null && user !== undefined) ? user.username : '';
+          this.schoolName = (user !== null && user !== undefined) ? user.schoolname + ' - ' + user.taluk : '';
           this.items = response;
           this.items.forEach(i => {
             if (i.label === 'Profile') {

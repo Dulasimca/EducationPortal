@@ -52,6 +52,7 @@ export class RegistrationFormComponent implements OnInit {
   pincode: any;
   city: string;
   cityOptions: SelectItem[];
+  nationalityOptions: SelectItem[];
   nationality: string;
   caste: string;
   casteOptions: SelectItem[];
@@ -76,6 +77,8 @@ export class RegistrationFormComponent implements OnInit {
   uploadedFiles: any[] = [];
   regId: any;
   slno: any;
+  tabTitleI: string;
+  tabTitleII: string;
   myFile: File;
   showSImg: boolean;
   s_URL: string;
@@ -100,6 +103,7 @@ export class RegistrationFormComponent implements OnInit {
   cities?: any;
   bloodGroups?: any;
   religions?: any;
+  nationalities?: any;
   login_user: User;
   @ViewChild('f', { static: false }) _registrationForm: NgForm;
   @ViewChild('studentImg', { static: false }) studentImg: ElementRef;
@@ -115,6 +119,7 @@ export class RegistrationFormComponent implements OnInit {
   ngOnInit() {
     ///loading master data
     this.login_user = this.authService.UserInfo;
+   
     this.sections = this.masterService.getMaster('S');
     this.classes = this.masterService.getMaster('C');
     this.roles = this.masterService.getMaster('R');
@@ -123,6 +128,7 @@ export class RegistrationFormComponent implements OnInit {
     this.mediums = this.masterService.getMaster('M');
     this.bloodGroups = this.masterService.getMaster('B');
     this.religions = this.masterService.getMaster('RL');
+    this.nationalities = this.masterService.getMaster('N');
     console.log('master', this.bloodGroups, this.districts);
         ///end
     const current_year = new Date().getFullYear();
@@ -173,11 +179,15 @@ export class RegistrationFormComponent implements OnInit {
         this.sectionOptions.unshift({ label: '-select', value: null });
         break;
       case 'R':
+        if(this.roleIdOptions === undefined) {
         this.roles.forEach(r => {
+          if(r.code === 6 || r.code === 5) {
           roleIdSelection.push({ label: r.name, value: r.code })
+          }
         });
         this.roleIdOptions = roleIdSelection;
         this.roleIdOptions.unshift({ label: '-select', value: null });
+      }
         break;
       case 'CS':
         this.casteOptions = this.castes;
@@ -194,12 +204,25 @@ export class RegistrationFormComponent implements OnInit {
       case 'T':
         this.cityOptions = this.cities;
         break;
+        case 'N':
+          this.nationalityOptions = this.nationalities;
+          break;
     }
   }
 
   onCheckAddress(value) {
     if (value !== undefined && value !== null) {
       this.currentAddress = (value && this.permanentAddress !== undefined) ? this.permanentAddress : '';
+    }
+  }
+
+  onChangeRole() {
+    if(this.roleId === 6) {
+      this.tabTitleI = 'Student Info I';
+      this.tabTitleII = 'Student Info II';
+    } else {
+      this.tabTitleI = 'Teacher Info I';
+      this.tabTitleII = 'Teacher Info II';
     }
   }
 
@@ -264,6 +287,7 @@ export class RegistrationFormComponent implements OnInit {
       DistrictId: this.district.value,
       Postalcode: this.pincode,
       Password: '123',
+      Religion: this.religion,
       FatherName: this.fatherName,
       FatherOccupation: this.fatherOccupation,
       FatherMobileNo: this.fatherContactNo,

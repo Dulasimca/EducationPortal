@@ -15,19 +15,20 @@ export class InputFormatDirective {
   }
 
   @HostListener('keypress', ['$event']) onKeyPress(event) {
-      if (this.appInputFormat === 'integer') {
-          this.integer(event);
+      if (this.appInputFormat === 'digitOnly') {
+          this.digitOnly(event);
       } else if (this.appInputFormat === 'noSpecialChars') {
           this.noSpecialChars(event);
       }
   }
 
-  integer(event) {
+  digitOnly(event) {
       const e = <KeyboardEvent>event;
+      console.log('ev', event);
       if (e.key === 'Tab' || e.key === 'TAB') {
           return;
       }
-      if ([46, 8, 9, 27, 13, 110].indexOf(e.keyCode) !== -1 ||
+      if ([8, 9, 27, 13].indexOf(e.keyCode) !== -1 ||
           // Allow: Ctrl+A
           (e.keyCode === 65 && e.ctrlKey === true) ||
           // Allow: Ctrl+C
@@ -64,7 +65,7 @@ export class InputFormatDirective {
 
   @HostListener('paste', ['$event']) onPaste(event) {
       let regex;
-      if (this.appInputFormat === 'integer') {
+      if (this.appInputFormat === 'digitOnly') {
           regex = /[0-9]/g;
       } else if (this.appInputFormat === 'noSpecialChars') {
           regex = /[a-zA-Z0-9\u0600-\u06FF]/g;

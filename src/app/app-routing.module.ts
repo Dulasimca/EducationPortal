@@ -68,7 +68,7 @@ const routes: Routes = [
   { path: 'books', component: BooksComponent, canActivate: [AuthGuard] },
   { path: 'online-assessment', component: OnlineAssessmentComponent },
   { path: 'online-classroom', component: OnlineClassroomComponent, canActivate: [AuthGuard] },
-  { path: 'poll-list', component: PollListComponent, canActivate: [AuthGuard] },
+  { path: 'poll-list', component: PollListComponent, canActivate: [AuthGuard]},
   { path: 'student-info', component: StudentInfoComponent, canActivate: [AuthGuard] },
   {path: 'gallery-list',component: GalleryListComponent, canActivate: [AuthGuard] },
   {​​​​​​​​ path:'result', component:ResultComponent , canActivate: [AuthGuard] }​​​​​​​​,

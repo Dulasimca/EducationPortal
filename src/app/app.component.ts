@@ -43,6 +43,19 @@ export class AppComponent {
           console.log('es', response);
           this.userName = (user !== null && user !== undefined) ? user.username : '';
           this.items = response;
+          this.items.forEach(i => {
+            if (i.label === 'Profile') {
+              i.items.forEach(j => {
+                if (j.routerLink === '/student-info') {
+                  if (j.label === 'My Profile') {
+                    j.queryParams = { 'id': 0, 'si': true };
+                  } else {
+                    j.queryParams = { 'id': 1, 'si': true };
+                  }
+                }
+              })
+            }
+          })
           console.log('items', this.items);
         })
       }

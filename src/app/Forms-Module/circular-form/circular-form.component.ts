@@ -12,7 +12,9 @@ import { ResponseMessage } from 'src/app/Common-Module/Message';
 import { MessageService } from 'primeng/api';
 import { MasterService } from 'src/app/Services/master-data.service';
 
-
+import{FileUploadConstant} from 'src/app/Common-Module/file-upload-constant'
+import { Output, EventEmitter } from '@angular/core';
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-circular-form',
@@ -33,37 +35,62 @@ export class CircularFormComponent implements OnInit {
 
   guardianimg: any[] = [];
   @BlockUI() blockUI: NgBlockUI;
+  public progress: number;
+  public message: string;
+
+   NewFileName:string;
+  public formData = new FormData();
+
+  @Output() public onUploadFinished = new EventEmitter();
   constructor(private restApiService: RestAPIService, private datepipe: DatePipe, private http: HttpClient,
     private masterService: MasterService,private messageService: MessageService) { }
 
   ngOnInit(): void {
 
     this.cols = [
-      {field:'RowId',header: 'ID'},
+      //{field:'RowId',header: 'ID'},
       {field: 'CircularDate',header: 'Circular Date'},
       {field:'Subject',header: 'Subject'},
       {field: 'Details',header: 'Details'},
-      {field: 'Download',header: 'Circular Upload'},
+      //{field: 'Download',header: 'Circular Upload'},
      // {field: 'CreatedDate',header: 'Upload date'},
       
     ];
 
   }
-  onFileUpload($event, id) {
-    console.log('eve', $event);
-    const reader = new FileReader();
-    var selectedFile = $event.target.files[0];
-    console.log('file', selectedFile);
-   // reader.readAsDataURL(selectedFile);
-   // console.log('url', reader.readAsDataURL(selectedFile));
-    //var endpoint = '../../assets/layout/circular_image';
-    //this.http.post(endpoint, selectedFile).subscribe
-    (res => 
-    {
 
-   })
-  }
+  public uploadFile = (files) => {
+    if (files.length === 0) {
+      return;
+    }
+    const params = {
+     
+      
+      'RowId': this.MRowId,
+      'SchoolID':  1,
+      'CircularDate': this.datepipe.transform(this.date,'yyyy-MM-dd'), 
+      'Subject': this.Subject,
+      'Details': this.Details,
+      'Download':this.NewFileName,
+      'Flag':  true
+    };
+  
+  this.formData = new FormData()
+  let fileToUpload: any = <File>files[0];
+  let folderOptions=<FolderOptions>params[0];
 
+  const filename = fileToUpload.name + '^' + FileUploadConstant.Circularfolder;
+  this.formData.append('file', fileToUpload, filename);
+  console.log('file', fileToUpload);
+  console.log('formdata', this.formData);
+  this.NewFileName=fileToUpload.name;
+  this.http.post(this.restApiService.BASEURL +PathConstants.FileUpload_Post, this.formData)
+    .subscribe(event => 
+      {
+    
+    }
+    );
+}  
   onSubmit() {
    
     const params = {
@@ -74,7 +101,7 @@ export class CircularFormComponent implements OnInit {
       'CircularDate': this.datepipe.transform(this.date,'yyyy-MM-dd'), 
       'Subject': this.Subject,
       'Details': this.Details,
-      'Download':'Circular.pdf',// (this._guardianimg !== undefined && this._guardianimg !== null) ? this._guardianimg.values: 0,
+      'Download':this.NewFileName,
       'Flag':  true
      
     };
@@ -144,5 +171,15 @@ export class CircularFormComponent implements OnInit {
     this.Subject = selectedRow.Subject;
     this.Details = selectedRow.Details;
 }
-
+onDownload(Filename) {
+  //const path = 'D:/Angular Project/EducationPortalAPI/Resources/Books';
+  const path = "../../assets/layout/"+FileUploadConstant.Circularfolder+"/"+Filename;
+  //const filename = 'files' + ".pdf";
+  saveAs(path, Filename);
 }
+}
+interface FolderOptions {
+  FolderPath?: string;
+}
+
+

@@ -7,6 +7,8 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { MatNativeDateModule } from '@angular/material/core';
 
+import{FileUploadConstant} from 'src/app/Common-Module/file-upload-constant'
+
 @Component({
   selector: 'app-circular',
   templateUrl: './circular.component.html',
@@ -26,11 +28,11 @@ export class CircularComponent implements OnInit {
   
 
     this.cols = [
-      {field: 'RowId',header: 'ID'},
+      //{field: 'RowId',header: 'ID'},
       {field: 'CircularDate',header: 'Circular Date'},
       {field:'Subject',header: 'Subject'},
       {field: 'Details',header: 'Details'},
-      // {field: 'Download',header: 'Circular Download'},
+     // {field: 'Download',header: 'Circular Download'},
     
       
     ];
@@ -50,10 +52,16 @@ export class CircularComponent implements OnInit {
     })
 
   }
-  onDownload() {
-    const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheethtml.sheet;charset=UTF-8';
-    const path = "../../assets/files/sample_Project.pdf";
-    const filename = 'sample_Project' + ".pdf";
-    saveAs(path, filename);
+  onDownload(Filename) {
+    //const path = 'D:/Angular Project/EducationPortalAPI/Resources/Books';
+    const path = "../../assets/layout/"+FileUploadConstant.Circularfolder+"/"+Filename;
+    //const filename = 'files' + ".pdf";
+    saveAs(path, Filename);
   }
-}
+  }
+  
+  interface FolderOptions {
+    FolderPath?: string;
+  }
+  
+  

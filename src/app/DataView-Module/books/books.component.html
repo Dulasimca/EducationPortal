@@ -12,28 +12,28 @@
                 totalRecords="totalRecords" pageLinks="3">
                 <ng-template pTemplate="header" let-columns>
                   <tr>
+                    <th>S.No:</th>
                     <th *ngFor="let col of columns">
                       {{col.header}}
                     </th>
-                    
                     <th>
-                        Download
-
+                      Download
                     </th>
-                       
-                       
                   </tr>
                 </ng-template>
                 
-                <ng-template pTemplate="body" let-rowData let-columns="columns">
-                  <tr>
+                <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
+                  <tr [pSelectableRow]="rowData"  class="cursor-pointer">
+                    
+                  <!--<tr [pSelectableRow]="rowData"  class="cursor-pointer" (dblclick)="onRowSelect($event, rowData)">-->
+                   <td>{{rowIndex+1}}</td>
                     <td *ngFor="let col of columns">
                       {{rowData[col.field]}}
                     </td>
                  
                   
-                  <td style="width: 142px;"><i class="pi pi-file-o" (click)="onDownload()" 
-                    style="color: #52de38; font-size: 1.3rem; margin-left: 25px;"></i></td>
+                    <td style="width: 142px;"><i class="pi pi-download" (click)="onDownload(rowData.Pdffilename)" 
+                      style="color: #52de38; font-size: 1.3rem; margin-left: 25px;"></i></td>
                 </tr>
             </ng-template>
               </p-table>

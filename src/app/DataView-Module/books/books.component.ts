@@ -4,6 +4,13 @@ import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { HttpClient } from '@angular/common/http';
 import { saveAs } from 'file-saver';
 
+
+import { Output, EventEmitter } from '@angular/core';
+import { HttpEventType } from '@angular/common/http';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
+import{FileUploadConstant} from 'src/app/Common-Module/file-upload-constant'
+
+
 @Component({
   selector: 'app-books',
   templateUrl: './books.component.html',
@@ -19,11 +26,11 @@ export class BooksComponent implements OnInit {
   ngOnInit() {
     
     this.cols = [
-      {field: 'RowId',header: 'ID'},
+      //{field: 'RowId',header: 'ID'},
       {field: 'Years',header: 'Year'},
       {field:'subjects',header: 'Subject'},
       {field: 'authorReference',header: 'Author/Reference'},
-      {field: 'Pdffilename',header: 'Book Download'},
+      //{field: 'Pdffilename',header: 'Book Download'},
       {field: 'CreatedDate',header: 'Download date'},
       
       
@@ -43,10 +50,15 @@ export class BooksComponent implements OnInit {
       
     })
 }
-onDownload() {
-  const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheethtml.sheet;charset=UTF-8';
-  const path = "../../assets/files/sample_Project.pdf";
-  const filename = 'sample_Project' + ".pdf";
-  saveAs(path, filename);
+onDownload(Filename) {
+  //const path = 'D:/Angular Project/EducationPortalAPI/Resources/Books';
+  const path = "../../assets/layout/"+FileUploadConstant.Booksfolder+"/"+Filename;
+  //const filename = 'files' + ".pdf";
+  saveAs(path, Filename);
 }
 }
+
+interface FolderOptions {
+  FolderPath?: string;
+}
+

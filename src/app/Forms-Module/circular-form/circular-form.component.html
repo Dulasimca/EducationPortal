@@ -8,22 +8,22 @@
     <p-card>
     <div  class="p-col-12 p-md-12 p-lg-12">
         <div class="p-grid">
-                <div class="p-col-12 p-md-6 p-lg-3">
+                <div class="p-col-12 p-md-6 p-lg-4">
                     <div class="no-pad-top"><label>Date:</label> </div> 
                     <p-calendar [(ngModel)]="date" [showIcon]="true" name="date" required></p-calendar>
                 </div>    
-                    <div class="p-col-12 p-md-6 p-lg-3">
+                    <div class="p-col-12 p-md-6 p-lg-4">
                         <div><label>Subject:</label></div>
                         <input type="text"  pInputText [(ngModel)]="Subject" name="Subject" required/>
                     
                     </div>   
-                        <div class="p-col-12 p-md-6 p-lg-3">
+                        <div class="p-col-12 p-md-6 p-lg-4">
                             <div><label>Instructions:</label></div>
                         
                             <textarea pInputTextarea autoResize="autoResize" [(ngModel)] ="Details" 
                             name="Details" required></textarea>
                         </div>
-                       <div class="p-col-12 p-md-6 p-lg-3">
+                       <div class="p-col-12 p-md-6 p-lg-4">
                             <label>Attach file:</label>
                             <input type ="file" #file placeholder="Choose file" 
                             pInputText (change)="uploadFile(file.files)" accept=".pdf" required />
@@ -68,6 +68,6 @@
         </div>
     </p-panel>
 
-</div>
+</div>  
 </form>
 </block-ui>

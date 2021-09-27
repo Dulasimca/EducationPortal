@@ -11,4 +11,11 @@ export interface User {
     roleId: any;
     class: any;
     section: any;
+    medium: string;
+    mediumId: any;
+    taluk: string;
+    talukId: any;
+    district: string;
+    distrctId: any;
+    schoolname: string;
 }

@@ -4,6 +4,7 @@ import { DOCUMENT } from '@angular/common';
 import { ZoomMtg } from '@zoomus/websdk';
 import { AuthService } from './auth.service';
 import { User } from '../Interfaces/user';
+import { Router } from '@angular/router';
 
 ZoomMtg.preLoadWasm();
 ZoomMtg.prepareWebSDK();
@@ -23,7 +24,7 @@ ZoomMtg.i18n.reload('en-US');
    apiKey = 'lJXDJ2_mTtWmDHEMAtpW0A';
     meetingNumber;
     role;
-    leaveUrl = 'http://localhost:4200/dashboard';
+    leaveUrl;
     userEmail;
     passWord;
     // pass in the registrant's token if your meeting or webinar requires registration. More info here:
@@ -33,10 +34,11 @@ ZoomMtg.i18n.reload('en-US');
     registrantToken = 'eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJtTW9pRG43aFJfS2JPNklDQkVkLUVRIn0.7Rh3BrAYrkvPmpBfeD5TptWQwMZQRjLz1GqHgdYJvR8';
     login_user: User;
 
-    constructor(public httpClient: HttpClient, private http: HttpClient,
+    constructor(public httpClient: HttpClient, private router: Router,
         @Inject(DOCUMENT) document, private authService: AuthService) {
         this.login_user = this.authService.UserInfo;
         this.role = (this.login_user.roleId === 5) ? 1 : 0;
+        this.leaveUrl = this.router.navigateByUrl('/online-classroom');
     }
 
     // getZoomUSers() {
@@ -47,12 +49,10 @@ ZoomMtg.i18n.reload('en-US');
     //         }
     //     };
     //     this.http.get(URL, options).subscribe((res: any) => {
-    //         console.log('res', res);
     //     })
     // }
 
     setMeeting(data) {
-      console.log('zser', data);
       this.meetingNumber = data.MeetingId;
       this.passWord = data.Passcode;
       this.userEmail = (this.login_user.roleId === 5) ? '' : data.HostEmail;
@@ -71,8 +71,6 @@ ZoomMtg.i18n.reload('en-US');
     }
 
     setConfig() {
-      console.log('num', this.MeetingNumber, this.MeetingPassword, this.HostEmail
-      , this.meetingNumber, this.passWord, this.userEmail);
         this.showZoomDiv();
         this.meetingConfig = {
           apiKey: this.apiKey,
@@ -93,7 +91,6 @@ ZoomMtg.i18n.reload('en-US');
             console.log(res.result);
           }
         });
-        console.log('con', this.signatureConfig, this.meetingConfig);
         ZoomMtg.init({
           showMeetingHeader: false,
           disableInvite: true,

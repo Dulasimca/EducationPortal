@@ -36,7 +36,6 @@ export class OnlineAssessmentComponent implements OnInit {
       { field: 'duration', header: 'Duration' },
     ]
     this.login_user = this.authService.UserInfo;
-    this.onLoadAssessment();
   }
 
   onLoadAssessment() {

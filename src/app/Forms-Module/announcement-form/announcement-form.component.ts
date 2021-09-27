@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
@@ -7,6 +7,13 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ResponseMessage } from 'src/app/Common-Module/Message';
 import { MessageService, SelectItem } from 'primeng/api';
 import { AuthService } from 'src/app/Services/auth.service';
+import { NgForm } from '@angular/forms';
+import{FileUploadConstant} from 'src/app/Common-Module/file-upload-constant'
+import { saveAs } from 'file-saver';
+import { Output, EventEmitter } from '@angular/core';
+import { User } from 'src/app/Interfaces/user';
+import { MasterService } from 'src/app/Services/master-data.service';
+
 
 @Component({
   selector: 'app-announcement-form',
@@ -23,27 +30,74 @@ export class AnnouncementFormComponent implements OnInit {
   MRowid=0;
   cols: any;
   uploadedFiles: any[] = [];
+  @ViewChild('f', { static: false }) _AnnouncementForm: NgForm;
+  public progress: number;
+  public message: string;
+  NewFileName:string;
+  login_user: User;
+  
+  public formData = new FormData();
+
+  @Output() public onUploadFinished = new EventEmitter();
 
   @BlockUI() blockUI: NgBlockUI;
 
+
   constructor(private restApiService: RestAPIService, private http: HttpClient,private datepipe: DatePipe,private messageService: MessageService
-    ,private authService: AuthService) { }
+    ,private authService: AuthService,private masterService: MasterService) { }
 
 
   ngOnInit(): void {
     this.cols = [
-      { field: 'RowId', header: 'ID' },
+      // { field: 'RowId', header: 'ID' },
       { field: 'Announcementdate', header: 'DATE' },
       { field: 'AnnouncementTag', header: 'TAG' },
       { field: 'Announcement', header: 'ANNOUNCEMENT' },
-      { field: 'Announcementfilename', header: 'ANNOUNCEMENT FILENAME'}
+      // { field: 'Announcementfilename', header: 'ANNOUNCEMENT FILENAME'}
       ];
+      this.login_user = this.authService.UserInfo;
   }
 
-    onFileUpload($event, id) {
-      const reader = new FileReader();
-      var selectedFile = $event.target.files[0];
+  public uploadFile = (files) => {
+    if (files.length === 0) {
+      return;
     }
+    const params = {
+    
+      'RowID': this.MRowid,
+      'SchoolID': 1,      
+      'Announcementdate': this.datepipe.transform(this.date,'MM/dd/yyyy'),     
+      'AnnouncementTag':this.Topic, 
+      'Announcement': this.Announcement,
+      'Announcementfilename': this.NewFileName,
+      'Flag' : true  
+      
+      
+     
+    };
+    this.formData = new FormData()
+    let fileToUpload: any = <File>files[0];
+    let folderOptions=<FolderOptions>params[0];
+ 
+    const filename = fileToUpload.name + '^' + FileUploadConstant.Announcementfolder;
+    this.formData.append('file', fileToUpload, filename);
+    console.log('file', fileToUpload);
+    console.log('formdata', this.formData);
+    this.NewFileName=fileToUpload.name;
+    this.http.post(this.restApiService.BASEURL +PathConstants.FileUpload_Post, this.formData)
+      .subscribe(event => 
+        {
+      //          if (event.type === HttpEventType.UploadProgress)
+      //    this.progress = Math.round(100 * event.loaded / event.total);
+      //   else if (event.type === HttpEventType.Response) {
+      //    this.message = 'Upload success.';
+        
+      //  //   this.onUploadFinished.emit(event.body);
+      //   }
+      }
+      );
+  }  
+  
   
   
   onSubmit() {
@@ -52,10 +106,10 @@ export class AnnouncementFormComponent implements OnInit {
     const params = {
       'RowID': this.MRowid,
       'SchoolID': 1,      
-      'Announcementdate': this.datepipe.transform(this.date,'yyyy-MM-dd'),     
+      'Announcementdate': this.datepipe.transform(this.date,'MM/dd/yyyy'),     
       'AnnouncementTag':this.Topic, 
       'Announcement': this.Announcement,
-      'Announcementfilename': "Education.pdf",
+      'Announcementfilename': this.NewFileName,
       'Flag' : true
 
     };
@@ -100,7 +154,7 @@ export class AnnouncementFormComponent implements OnInit {
     const params = {
       'SchoolID': 1,
     }
-    this.restApiService.getByParameters(PathConstants.Announcement_Get, params).subscribe(res => {
+      this.restApiService.getByParameters(PathConstants.Announcement_Get, params).subscribe(res => {
       if(res !== null && res !== undefined && res.length !== 0) {
       console.log( res);
       this.data = res;
@@ -109,6 +163,9 @@ export class AnnouncementFormComponent implements OnInit {
 
   }
   clear() {
+    this._AnnouncementForm.reset();
+    this._AnnouncementForm.form.markAsUntouched();
+    this._AnnouncementForm.form.markAsPristine();
     this.Topic="",
     this.Announcement=""
   }
@@ -127,6 +184,14 @@ export class AnnouncementFormComponent implements OnInit {
     // this.State = (selectedRow.TIN === 'URD') ? '' : selectedRow.StateCode;
   }
   
-  
+  onDownload(Filename) {
+    //const path = 'D:/Angular Project/EducationPortalAPI/Resources/Books';
+    const path = "../../assets/layout/"+FileUploadConstant.Announcementfolder+"/"+Filename;
+    //const filename = 'files' + ".pdf";
+    saveAs(path, Filename);
+  }
  
+}
+interface FolderOptions {
+  FolderPath?: string;
 }

@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ResponseMessage } from 'src/app/Common-Module/Message';
 import { MessageService, SelectItem } from 'primeng/api';
+import { DatePipe } from '@angular/common';
+import { NgForm } from '@angular/forms';
 import { User } from 'src/app/Interfaces/user';
 import { AuthService } from 'src/app/Services/auth.service';
-import { DatePipe } from '@angular/common';
 
 
 @Component({
@@ -17,13 +18,13 @@ import { DatePipe } from '@angular/common';
 })
 export class FeeFormComponent implements OnInit {
   dueDate: Date = new Date();
-  receiptbook: string;
-  feename: string;
-  actualamount: string;
-  paidamount: string;
-  outstanding: string;
-  paying: string;
-  fine: string;
+  receiptbook: any;
+  feename: any;
+  actualamount: any;
+  paidamount: any;
+  outstanding: any;
+  paying: any;
+  fine: any;
   data: any = []; 
   cols: any;
   MRowId=0;
@@ -43,14 +44,18 @@ export class FeeFormComponent implements OnInit {
   admnNo: any;
   class: any;
   today: any;
+  total: any;
   @BlockUI() blockUI: NgBlockUI;
+  @ViewChild('f', { static: false }) _FeeForm: NgForm;
+ 
 
-  constructor(private restApiService: RestAPIService, private authService: AuthService,
-    private messageService: MessageService, private datePipe: DatePipe) { }
+
+  constructor(private restApiService: RestAPIService, private authService: AuthService,private messageService: MessageService, private datePipe: DatePipe) { }
 
   ngOnInit(): void {
     this.logged_user = this.authService.UserInfo;
     this.cols = [
+      { field: 'SlNo', header: 'Slno'},
       { field: 'RowId', header: 'ID' },
       { field: 'duedate', header: 'Due Date' },
       { field: 'ReceiptBook', header: 'Receipt Book' },
@@ -80,7 +85,7 @@ export class FeeFormComponent implements OnInit {
       'SchoolID': 1,
       'StudentId':1,      
       'Class': 1,     
-      'duedate': this.dueDate, // (this._guardianimg !== undefined && this._guardianimg !== null) ? this._guardianimg.values: 0,
+      'duedate': this.datePipe.transform(this.dueDate, 'MM/dd/yyyy') ,
       'ReceiptBook': this.receiptbook,
       'FeeName': this.feename,
       'ActualAmount': this.actualamount,
@@ -136,11 +141,19 @@ export class FeeFormComponent implements OnInit {
       if(res !== null && res !== undefined && res.length !== 0) {
       console.log( res);
       this.data = res;
+      let sno = 0;
+      this.data.forEach(s => {
+        sno += 1;
+        s.SlNo = sno;
+      });
       }
     });
   
   }
   clear() {
+    this._FeeForm.reset();
+    this._FeeForm.form.markAsUntouched();
+    this._FeeForm.form.markAsPristine();
     this.receiptbook="",
     this.feename="",
     this.actualamount="",
@@ -169,10 +182,13 @@ export class FeeFormComponent implements OnInit {
     this.class = this.logged_user.class + ' - ' + this.logged_user.section;
     this.parentName = this.logged_user.fathername;
     this.today = this.datePipe.transform(new Date(), 'dd-MM-yyyy');
+    this.total = data.PaidAmount,
     this.receiptData.push({
       'feeparticulars': data.FeeName,
-      'totalamount': data.ActualAmount
+      'totalamount': data.ActualAmount,
+      'paidamount' : data.PaidAmount
     })
+    
   }
   
 

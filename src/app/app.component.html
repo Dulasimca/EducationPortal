@@ -1,5 +1,5 @@
-<div #main class="no-pad container">
-    <mat-toolbar class="mat-elevation-z8" *ngIf="(isLoggedIn$ | async)">
+<div #main class="no-pad container" *ngIf="loading">
+    <mat-toolbar class="mat-elevation-z8">
         <div class="p-col-1 p-md-1 p-lg-1 no-pad-left" [ngClass]="{'move-right': isOpen, 'move-left': !isOpen}">
             <div class="no-pad" style="background: rgb(11, 43, 102) !important; display: flex;">
                 <i *ngIf="!isOpen" class="pi pi-bars" style="font-size: 1.6rem; color: whitesmoke; align-self: center;"
@@ -32,7 +32,7 @@
     <div id="main-layout" [ngClass]="{'layout-wrapper-set': isOpen, 'layout-wrapper-unset': !isOpen}">
         <div class="p-grid side-nav">
             <div id="side-nav-bar" *ngIf="isOpen" class="p-col-2 no-pad-right side-nav-panel">
-                <p-panelMenu [model]="items"></p-panelMenu>
+                 <p-panelMenu [model]="items"></p-panelMenu>
             </div>
             <div class="side-nav-container">
                 <router-outlet></router-outlet>
@@ -40,13 +40,15 @@
         </div>
     </div>
 </div>
+<div class="no-pad container" *ngIf="!loading">
+    <app-login></app-login>
+</div>
 <p-overlayPanel #op [showTransitionOptions]="'500ms'">
     <ng-template pTemplate>
         <div>Logged in - {{loggedinTime | date:'shortTime'}} </div>
         <div class="p-col-12"></div>
         <div class="p-col-12" style="margin-top: 10%;">
             <div class="text-center">
-                <!-- <button pButton class="btn" type="button" label="Logout" icon="pi pi-sign-out" (click)="onLogout()"></button> -->
                 <div (click)="onLogout()"> <i class="pi pi-sign-out" style="color: #52de38;"></i>Logout</div>
             </div>
         </div>

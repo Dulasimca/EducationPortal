@@ -3,4 +3,6 @@ export class FileUploadConstant {
     public static readonly Circularfolder = 'Circuar';
     public static readonly Newsletterfolder = 'Newsletter';
 
+    public static readonly Announcementfolder = 'Announcement';
+    public static readonly Assignmentfolder = 'Assignment';
 }

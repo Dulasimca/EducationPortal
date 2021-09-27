@@ -84,7 +84,10 @@
       </th>
     </tr>
   </ng-template>
-  
+<!--   
+  <ng-template pTemplate="body" let-rowData let-columns="columns">
+    <tr [pSelectableRow]="rowData" class="cursor-pointer" (dblclick)="onRowSelect($event, rowData)"> -->
+      
   <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
     <tr [pSelectableRow]="rowData"  class="cursor-pointer" (dblclick)="onRowSelect($event, rowData)">
      <td>{{rowIndex+1}}</td>

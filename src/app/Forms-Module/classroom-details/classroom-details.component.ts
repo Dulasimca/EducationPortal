@@ -22,6 +22,7 @@ export class ClassroomDetailsComponent implements OnInit {
   subjectOptions: SelectItem[];
   subject: any;
   meetingDate: Date;
+  meetingTime: Date;
   sectionOptions: SelectItem[];
   section: any;
   classOptions: SelectItem[];
@@ -81,7 +82,8 @@ export class ClassroomDetailsComponent implements OnInit {
       'MeetingDate': this.datePipe.transform(this.meetingDate, 'yyyy-MM-dd'),
       'SchoolId': this.login_user.schoolId,
       'Duration': this.duration,
-      'Topics': this.subject.label
+      'Topics': this.subject.label,
+      'MeetingTime': this.meetingTime
     }
     this.restApiService.post(PathConstants.Zoom_Post, params).subscribe((res: any) => {
       if(res !== undefined && res !== null) {

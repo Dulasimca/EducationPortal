@@ -1,5 +1,6 @@
 import { DatePipe, LocationStrategy } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { AppComponent } from '../app.component';
 import { ResponseMessage } from '../Common-Module/Message';
 import { StyleSetting } from '../Helper-Module/style-setting';
 import { User } from '../Interfaces/user';

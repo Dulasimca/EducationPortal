@@ -11,47 +11,52 @@
                                 <div #row1 class="p-col-12 p-md-12 p-lg-12">
                                     <div class="p-grid">
                                         <div class="p-col-6 p-md-6 p-lg-3">
-                                            <label for="_class">Class<span
-                                                class="form-mandatory-field">*</span></label>
+                                            <label for="_class">Class<span class="form-mandatory-field">*</span></label>
                                             <p-dropdown name="_class" [options]="classOptions" [(ngModel)]="class"
-                                            (onClick)="onSelect('C')" required>
+                                                (onClick)="onSelect('C')" required>
                                             </p-dropdown>
                                         </div>
                                         <div class="p-col-6 p-md-6 p-lg-2">
                                             <label for="_section">Section<span
-                                                class="form-mandatory-field">*</span></label>
+                                                    class="form-mandatory-field">*</span></label>
                                             <p-dropdown name="_section" [options]="sectionOptions" [(ngModel)]="section"
-                                            (onClick)="onSelect('S')" required>
-                                        </p-dropdown>
+                                                (onClick)="onSelect('S')" required>
+                                            </p-dropdown>
                                         </div>
                                         <div class="p-col-6 p-md-6 p-lg-3">
-                                            <label for="_mdate">Date<span
-                                                class="form-mandatory-field">*</span></label>
-                                            <p-calendar [(ngModel)]="meetingDate" name="_mdate" [showIcon]="true"
-                                            inputId="meetingDate" required>
-                                            </p-calendar>
+                                            <label for="_subject">Subject<span
+                                                    class="form-mandatory-field">*</span></label>
+                                            <p-dropdown name="_subject" [options]="subjectOptions" [(ngModel)]="subject"
+                                                optionLabel="label" required>
+                                            </p-dropdown>
                                         </div>
                                     </div>
                                 </div>
                                 <div #row2 class="p-col-12 p-md-12 p-lg-12">
                                     <div class="p-grid">
                                         <div class="p-col-6 p-md-6 p-lg-3">
-                                            <label for="_subject">Subject<span
-                                                class="form-mandatory-field">*</span></label>
-                                            <p-dropdown name="_subject" [options]="subjectOptions" [(ngModel)]="subject"
-                                            optionLabel="label" required>
-                                         </p-dropdown>
+                                            <label for="_mdate">Date<span class="form-mandatory-field">*</span></label>
+                                            <p-calendar [(ngModel)]="meetingDate" name="_mdate" [showIcon]="true"
+                                                inputId="meetingDate" required>
+                                            </p-calendar>
+                                        </div>
+                                        <div class="p-col-6 p-md-6 p-lg-3">
+                                            <label for="_time">Time</label>
+                                            <p-calendar [(ngModel)]="meetingTime" hourFormat="12" [timeOnly]="true"
+                                            icon="pi pi-clock" inputId="meetingTime">
+                                            </p-calendar>
                                         </div>
                                         <div class="p-col-6 p-md-6 p-lg-2">
                                             <label for="_duration">Duration<span
-                                                class="form-mandatory-field">*</span></label>
+                                                    class="form-mandatory-field">*</span></label>
                                             <input class="p-col-12" name="_duration" type="text" pInputText
-                                            [(ngModel)]="duration" required /> 
+                                                [(ngModel)]="duration" required />
                                         </div>
                                     </div>
                                 </div>
                                 <div #row3 class="p-col-12 p-md-12 p-lg-12 text-center">
-                                    <button pButton name="_save" type="button" label="Save"  [disabled]="(!f.valid)" (click)="onSave()"></button>
+                                    <button pButton name="_save" type="button" label="Save" [disabled]="(!f.valid)"
+                                        (click)="onSave()"></button>
                                 </div>
                             </p-card>
                         </div>
@@ -60,4 +65,4 @@
             </div>
         </p-panel>
     </div>
-    </block-ui>
+</block-ui>

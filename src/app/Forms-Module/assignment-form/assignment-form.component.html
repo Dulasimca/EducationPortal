@@ -21,8 +21,9 @@
                     name="assignmentwork" required>
                 </div>
                 <div class="p-col-12 p-md-6 p-lg-3">
-                  <div> <label> Assigned Type:</label></div>
-                  <input id="float-input" type="text" size="24" pInputText [(ngModel)]="type" name="type" required>
+                  <div><label for="_AType">Assigned Type:</label></div>
+                  <p-dropdown name="_AType" [options]="TypeOption" [(ngModel)]="AType" optionLabel="label" >
+                  </p-dropdown>
                 </div>
                 <div class="p-col-12 p-md-6 p-lg-3">
                   <div><label> Subject Name:</label></div>
@@ -31,8 +32,8 @@
                 </div>
                 <div class="p-col-12 p-md-6 p-lg-3">
                   <div><label> Attach File<span class="form-mandatory-field">*</span></label></div>
-                  <input class="p-col-12" name="assignmentfile" type="file" pInputText
-                    (change)="onFileUpload($event, 1)" accept=".png" required />
+                  <input type ="file" #file placeholder="Choose file" 
+                  pInputText (change)="uploadFile(file.files)" accept=".pdf" required />
                 </div>
               </div>
             </div>
@@ -48,16 +49,24 @@
           totalRecords="totalRecords" pageLinks="3">
           <ng-template pTemplate="header" let-columns>
             <tr>
+              <th>S.No:</th>
               <th *ngFor="let col of columns">
                 {{col.header}}
               </th>
+              <th>
+                Download
+              </th>
+
             </tr>
           </ng-template>
-          <ng-template pTemplate="body" let-rowData let-columns="columns">
-            <tr [pSelectableRow]="rowData" (dblclick)="onRowSelect($event, rowData)">
+          <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
+            <tr [pSelectableRow]="rowData" class="cursor-pointer" (dblclick)="onRowSelect($event, rowData)">
+              <td>{{rowIndex+1}}</td>
               <td *ngFor="let col of columns">
                 {{rowData[col.field]}}
               </td>
+              <td style="width: 142px;"><i class="pi pi-download" (click)="onDownload(rowData.Assignmentfilename)" 
+                style="color: #52de38; font-size: 1.3rem; margin-left: 25px;"></i></td>
             </tr>
           </ng-template>
         </p-table>

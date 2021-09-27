@@ -46,6 +46,65 @@ export class MasterService {
           this.masterData.push({ name: s.SectionName, code: s.Sectioncode });
         });
         break;
+      case 'CS':
+        this.masterData = [
+          { label: '-select-', value: null },
+          { label: 'MBC', value: 'MBC' },
+          { label: 'BC', value: 'BC' },
+          { label: 'OC', value: 'OC' },
+          { label: 'SC/ST', value: 'SC' },
+        ];
+        break;
+      case 'ST':
+        this.masterData = [
+          { label: '-select-', value: null },
+          { label: 'Tamilnadu', value: 'Tamilnadu' },
+        ];
+        break;
+      case 'N':
+        this.masterData = [
+          { label: '-select-', value: null },
+          { label: 'Indian', value: 'Indian' },
+        ];
+        break;
+      case 'G':
+        this.masterData = [
+          { label: '-select-', value: null },
+          { label: 'Female', value: 'Female' },
+          { label: 'Male', value: 'Male' },
+          { label: 'Transgender', value: 'Transgender' },
+        ];
+        break;
+      case 'M':
+        this.masterData = [
+          { label: '-select-', value: null },
+          { label: 'Tamil', value: '1' },
+          { label: 'English', value: '2' }
+        ];
+        break;
+        case 'RL':
+          this.masterData = [
+          { label: '-select-', value: null },
+          { label: 'Christian', value: 'Christian' },
+          { label: 'Hindu', value: 'Hindu' },
+          { label: 'Muslim', value: 'Muslim' },
+          { label: 'Others', value: 'Others' },
+          ];
+          break;
+          case 'B':
+            this.masterData = [
+              { label: '-select-', value: null },
+              { label: 'A+', value: 'A+' },
+              { label: 'A-', value: 'A-' },
+              { label: 'AB+', value: 'AB+' },
+              { label: 'AB-', value: 'AB-' },
+              { label: 'B+', value: 'B+' },
+              { label: 'B-', value: 'B-' },
+              { label: 'O+', value: 'O+' },
+              { label: 'O-', value: 'O-' },
+            ];
+            break;
+
     }
     return this.masterData;
   }

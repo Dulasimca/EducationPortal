@@ -3,9 +3,18 @@
         <p-toast position="top-center" key="t-msg"></p-toast>
         <p-panel header="Registration">
             <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
+                <div class="p-grid">
+                    <label class="p-col-2 no-pad-top" style="text-align: center;
+                    align-self: center;" for="_roleid">Registration for:<span
+                                class="form-mandatory-field">*</span></label>
+                    <!-- </div> -->
+                 <p-dropdown class="p-col-2" name="_roleid" [options]="roleIdOptions"
+                        [(ngModel)]="roleId" (onClick)="onSelect('R')" required>
+                    </p-dropdown>
+                </div>
                 <form #f="ngForm" name="registrationForm">
                     <p-tabView>
-                        <p-tabPanel header="Personal Info I">
+                        <p-tabPanel header="Student Info I">
                             <p-card>
                                 <div class="p-col-12 no-pad-top">
                                     <div #row1 class="p-col-12 p-md-12 p-lg-12">
@@ -28,7 +37,7 @@
                                                 <div><label for="_gender">Gender<span
                                                             class="form-mandatory-field">*</span></label></div>
                                                 <p-dropdown name="_gender" [options]="genderOptions"
-                                                    [(ngModel)]="gender" required>
+                                                (onClick)="onSelect('G')" [(ngModel)]="gender" required>
                                                 </p-dropdown>
                                             </div>
                                             <div class="p-col-12 p-md-6 p-lg-2">
@@ -47,47 +56,44 @@
                                                 <div style="white-space: pre;"><label for="_studentbloodgrp">Blood
                                                         Group<span class="form-mandatory-field">*</span></label>
                                                 </div>
-                                                <input class="p-col-12" name="_studentbloodgrp" type="text" pInputText
-                                                    [(ngModel)]="bloodGroup" required />
+                                                <p-dropdown name="_studentbloodgrp" [options]="bloodGroupOptions" [(ngModel)]="bloodGroup"
+                                                (onClick)="onSelect('B')" required>
+                                                </p-dropdown>
                                             </div>
                                             <div class="p-col-12 p-md-6 p-lg-2">
                                                 <div><label for="_caste"> Caste<span
                                                             class="form-mandatory-field">*</span></label>
                                                 </div>
                                                 <p-dropdown name="_caste" [options]="casteOptions" [(ngModel)]="caste"
-                                                    required>
+                                                (onClick)="onSelect('CS')" required>
+                                                </p-dropdown>
+                                            </div>
+                                            <div class="p-col-12 p-md-6 p-lg-2">
+                                                <div style="white-space: pre;"><label for="_religion">Religion
+                                                         <span class="form-mandatory-field">*</span></label>
+                                                </div>
+                                                <p-dropdown name="_religion" [options]="religionOptions" [(ngModel)]="religion"
+                                                (onClick)="onSelect('RL')" required>
                                                 </p-dropdown>
                                             </div>
                                             <div class="p-col-12 p-md-6 p-lg-2">
                                                 <div><label for="_nationality">Nationality<span
                                                             class="form-mandatory-field">*</span></label>
                                                 </div>
-                                                <p-dropdown name="_nationality" [options]="nationalityOptions"
-                                                    [(ngModel)]="nationality" required>
-                                                </p-dropdown>
+                                                <input class="p-col-12" name="_nationality" type="tel" pInputText
+                                                            [(ngModel)]="nationality" [disabled]="true" />
                                             </div>
-                                            <div class="p-col-12 p-md-6 p-lg-2">
-                                                <div><label for="_studentmobno">Mobile Number<span
-                                                            class="form-mandatory-field">*</span></label>
-                                                </div>
-                                                <input class="p-col-12" type="tel" name="_studentmobno" pInputText
-                                                    [(ngModel)]="mobileNo" required />
-                                            </div>
-                                            <div class="p-col-12 p-md-6 p-lg-2">
-                                                <div><label for="_altmobno">Alternate MobileNo</label></div>
-                                                <input class="p-col-12" name="_altmobno" type="tel" pInputText
-                                                    [(ngModel)]="altMobileNo" />
-                                            </div>
+                                           
                                         </div>
                                     </div>
                                     <div #row3 class="p-col-12 p-md-12 p-lg-12">
                                         <div class="p-grid">
                                             <div class="p-col-12 p-md-6 p-lg-2">
-                                                <div><label for="_city">City<span
+                                                <div><label for="_city">Taluk<span
                                                             class="form-mandatory-field">*</span></label>
                                                 </div>
                                                 <p-dropdown name="_city" [options]="cityOptions" [(ngModel)]="city"
-                                                    required>
+                                                (onClick)="onSelect('T')" [disabled]="true" required>
                                                 </p-dropdown>
                                             </div>
                                             <div class="p-col-12 p-md-6 p-lg-2">
@@ -96,23 +102,29 @@
                                                 </div>
                                                 <p-dropdown name="_district" [options]="districtOptions"
                                                     optionLabel="label" [(ngModel)]="district" (onClick)="onSelect('D')"
-                                                    required>
+                                                    [disabled]="true" required>
                                                 </p-dropdown>
                                             </div>
                                             <div class="p-col-12 p-md-6 p-lg-2">
                                                 <div><label for="_state">State<span
                                                             class="form-mandatory-field">*</span></label></div>
-                                                <p-dropdown name="_state" [options]="stateOptions" [(ngModel)]="state"
-                                                    required>
-                                                </p-dropdown>
+                                                            <input class="p-col-12" name="_state" type="tel" pInputText
+                                                            [(ngModel)]="state" [disabled]="true" />
                                             </div>
-                                            <div class="p-col-12 p-md-6 p-lg-4">
-                                                <div><label for="_studentemail">Email Id<span
+                                            <div class="p-col-12 p-md-6 p-lg-2">
+                                                <div><label for="_studentmobno">Mobile Number<span
                                                             class="form-mandatory-field">*</span></label>
                                                 </div>
-                                                <input class="p-col-12" name="_studentemail" type="email" pInputText
-                                                    [(ngModel)]="studentEmailId" required />
+                                                <input class="p-col-12" type="tel" name="_studentmobno" pInputText
+                                                   maxlength="10" [(ngModel)]="mobileNo" 
+                                                   appInputFormat="integer" required />
                                             </div>
+                                            <div class="p-col-12 p-md-6 p-lg-2">
+                                                <div><label for="_altmobno">Alternate MobileNo</label></div>
+                                                <input class="p-col-12" name="_altmobno" type="tel" pInputText
+                                                maxlength="10" [(ngModel)]="altMobileNo" />
+                                            </div>
+                                            
                                         </div>
                                     </div>
                                     <div #row4 class="p-col-12 p-md-12 p-lg-12">
@@ -128,7 +140,7 @@
                                                 <div> <label for="_currentaddr">Current Address<span
                                                             class="form-mandatory-field">*</span></label> </div>
                                                 <textarea pInputTextarea name="_currentaddr"
-                                                    [(ngModel)]="currentAddress" rows="3" cols="30" required></textarea>
+                                                    [(ngModel)]="currentAddress" rows="3" cols="29" required></textarea>
                                                 <div>
                                                     <p-checkbox name="_checked" [(ngModel)]="checked" binary="true"
                                                         inputId="binary" (onChange)="onCheckAddress(checked)">
@@ -148,19 +160,12 @@
                                 </div>
                             </p-card>
                         </p-tabPanel>
-                        <p-tabPanel header="Personal Info II">
+                        <p-tabPanel header="Student Info II">
                             <p-card>
                                 <div class="p-col-12 no-pad-top">
                                     <div #row1 class="p-col-12 p-md-12 p-lg-12">
                                         <div class="p-grid">
-                                            <div class="p-col-12 p-md-6 p-lg-2">
-                                                <div><label for="_roleid">Role<span
-                                                            class="form-mandatory-field">*</span></label>
-                                                </div>
-                                                <p-dropdown name="_roleid" [options]="roleIdOptions"
-                                                    [(ngModel)]="roleId" (onClick)="onSelect('R')" required>
-                                                </p-dropdown>
-                                            </div>
+                                            
                                             <div class="p-col-12 p-md-6 p-lg-3">
                                                 <div><label for="_schlname">School Name<span
                                                             class="form-mandatory-field">*</span></label>
@@ -186,10 +191,6 @@
                                                     required>
                                                 </p-dropdown>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div #row2 class="p-col-12 p-md-12 p-lg-12">
-                                        <div class="p-grid">
                                             <div class="p-col-12 p-md-6 p-lg-2">
                                                 <div><label for="_doj">D.O.J<span
                                                             class="form-mandatory-field">*</span></label>
@@ -198,12 +199,24 @@
                                                     inputId="dateofjoining" required>
                                                 </p-calendar>
                                             </div>
+                                        </div>
+                                    </div>
+                                    <div #row2 class="p-col-12 p-md-12 p-lg-12">
+                                        <div class="p-grid">
+                                            
+                                            <div class="p-col-12 p-md-6 p-lg-3">
+                                                <div><label for="_studentemail">Email Id<span
+                                                            class="form-mandatory-field">*</span></label>
+                                                </div>
+                                                <input class="p-col-12" name="_studentemail" type="email" pInputText
+                                                    [(ngModel)]="studentEmailId" required />
+                                            </div>
                                             <div class="p-col-12 p-md-6 p-lg-2">
                                                 <div><label for="_medium">Medium<span
                                                             class="form-mandatory-field">*</span></label>
                                                 </div>
                                                 <p-dropdown name="_medium" [options]="mediumOptions"
-                                                    [(ngModel)]="medium" required>
+                                                (onClick)="onSelect('M')" [(ngModel)]="medium" required>
                                                 </p-dropdown>
                                             </div>
                                             <div class="p-col-12 p-md-6 p-lg-3">
@@ -216,7 +229,7 @@
                                             <div class="p-col-12 p-md-6 p-lg-2">
                                                 <div><label for="_lastschlcontact">Last School Contact</label></div>
                                                 <input class="p-col-12" name="_lastschlcontact" type="text" pInputText
-                                                    [(ngModel)]="lastSchoolContactNo" />
+                                                maxlength="10" [(ngModel)]="lastSchoolContactNo" />
                                             </div>
                                         </div>
                                     </div>
@@ -260,7 +273,7 @@
                                                                 class="form-mandatory-field">*</span></label>
                                                     </div>
                                                     <input class="p-col-12" name="_fathercontact" type="tel" pInputText
-                                                        [(ngModel)]="fatherContactNo" required />
+                                                    maxlength="10" [(ngModel)]="fatherContactNo" required />
                                                 </div>
                                                 <div class="p-col-12 p-md-6 p-lg-3">
                                                     <div><label for="_fatheremail">Email Id<span
@@ -301,7 +314,7 @@
                                                                 class="form-mandatory-field">*</span></label>
                                                     </div>
                                                     <input class="p-col-12" name="_mothercontact" type="tel" pInputText
-                                                        [(ngModel)]="motherContactNo" required />
+                                                    maxlength="10" [(ngModel)]="motherContactNo" required />
                                                 </div>
                                                 <div class="p-col-12 p-md-6 p-lg-3">
                                                     <div><label for="_motheremail">Email Id<span
@@ -342,8 +355,8 @@
                                                 </div>
                                                 <div class="p-col-12 p-md-6 p-lg-2">
                                                     <div><label for="_guardiancontact">Contact</label></div>
-                                                    <input class="p-col-12" name="_guardiancontact" type="tel"
-                                                        pInputText [(ngModel)]="guardianContactNo" />
+                                                    <input class="p-col-12" name="_guardiancontact" 
+                                                    maxlength="10" pInputText [(ngModel)]="guardianContactNo" />
                                                 </div>
                                                 <div class="p-col-12 p-md-6 p-lg-3">
                                                     <div><label for="_guardianemail">Email Id</label></div>

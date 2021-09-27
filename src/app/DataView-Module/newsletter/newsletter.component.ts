@@ -4,6 +4,9 @@ import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { saveAs } from 'file-saver';
 
+
+import{FileUploadConstant} from 'src/app/Common-Module/file-upload-constant'
+
 @Component({
   selector: 'app-newsletter',
   templateUrl: './newsletter.component.html',
@@ -19,11 +22,11 @@ export class NewsletterComponent implements OnInit {
   ngOnInit() {
     
     this.cols = [
-      {field:'RowId',header: 'ID'},
+     // {field:'RowId',header: 'ID'},
       {field:'NewsDate',header: 'Date'},
       {field:'Topic',header: 'Topic'},
-      {field:'Download',header: 'Newsletter Upload'},
-      {field: 'CreatedDate',header: 'Upload date'},
+      //{field:'Download',header: 'Newsletter Upload'},
+      //{field: 'CreatedDate',header: 'Upload date'},
       
       
     ];
@@ -42,11 +45,16 @@ export class NewsletterComponent implements OnInit {
       
     })
 }
-onDownload() {
-  const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheethtml.sheet;charset=UTF-8';
-  const path = "../../assets/files/sample_Project.pdf";
-  const filename = 'sample_Project' + ".pdf";
-  saveAs(path, filename);
+onDownload(Filename) {
+  //const path = 'D:/Angular Project/EducationPortalAPI/Resources/Books';
+ // console.log( "../../assets/layout/"+FileUploadConstant.Newsletterfolder+"/"+Filename);
+  const path = "../../assets/layout/"+FileUploadConstant.Newsletterfolder+"/"+Filename;
+  //const filename = 'files' + ".pdf";
+  saveAs(path, Filename);
 }
+}
+
+interface FolderOptions {
+  FolderPath?: string;
 }
 

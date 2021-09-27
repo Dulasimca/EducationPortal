@@ -44,7 +44,7 @@
                           pInputText (change)="onFileUpload($event,4)" accept=".jpg" required/> -->
                           <label>Aattachment:</label>
                           <input type ="file" #file placeholder="Choose file" 
-                          pInputText (change)="uploadFile(file.files)" accept=".jpg" required />
+                          pInputText (change)="uploadFile(file.files)" accept=".pdf" required />
                         </div>
                         <div class="p-col-12 p-md-6 p-lg-3">
                           
@@ -86,7 +86,7 @@
   </ng-template>
   
   <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
-    <tr [pSelectableRow]="rowData" (dblclick)="onRowSelect($event, rowData)">
+    <tr [pSelectableRow]="rowData"  class="cursor-pointer" (dblclick)="onRowSelect($event, rowData)">
      <td>{{rowIndex+1}}</td>
       <td *ngFor="let col of columns">
         {{rowData[col.field]}}

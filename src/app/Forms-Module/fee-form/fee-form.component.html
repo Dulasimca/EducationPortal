@@ -131,6 +131,8 @@
       </div>
     </p-panel>
     <!-- feereceipt  -->
+     
+    <!-- <button printSectionId="printdiv" ngxPrint>print</button>  -->
     <p-dialog [(visible)]="showReceipt"[style]="{width: '50vw'}" [maximizable]="true">
       <ng-template pTemplate="header">
         <div>Fee Receipt</div>
@@ -139,6 +141,7 @@
         <!-- <div>{{schoolName}}</div> -->
         <!-- <div>{{schoolAddress}}</div> -->
         <!-- <div>{{schoolContact}}</div> -->
+        <div id="printdiv"> 
         <div class="p-col-12 no-pad" style="text-align: center;">
           <img style="width: 80px;" src="assets/layout/images/logo.jpg" />
         </div>
@@ -205,7 +208,7 @@
                 </tr>
               </ng-template>
             </p-table>
-            <div style="font-size: inherit; font-weight: 700; padding-left: 324px;">
+            <div style="font-size: inherit; font-weight: 700; padding-left: 328px;">
               FEE TOTAL  : Rs.{{total}}
             </div>
             <div class="p-col-12"></div>
@@ -213,8 +216,9 @@
           </div>
         </div>
       </div>
+    </div>
       <div class="p-col-12 p-md-12 p-lg-12 text-center">
-        <button pButton type="button" label="Print" (click)="onPrint()"></button>
+        <button  printSectionId="printdiv" ngxPrint pButton type="button" label="Print"></button>
       </div>
     </p-dialog>
   </div>

@@ -13,6 +13,8 @@ import { DatePipe } from '@angular/common';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { DomSanitizer } from '@angular/platform-browser';
 import { catchError, map, of } from 'rxjs';
+import { User } from 'src/app/Interfaces/user';
+import { AuthService } from 'src/app/Services/auth.service';
 
 @Component({
   selector: 'app-registration-form',
@@ -32,8 +34,8 @@ export class RegistrationFormComponent implements OnInit {
   districtOptions: SelectItem[];
   school: any;
   schoolOptions: SelectItem[];
-  mobileNo: number;
-  altMobileNo: number;
+  mobileNo: any;
+  altMobileNo: any;
   currentAddress: string;
   permanentAddress: string;
   class: any;
@@ -47,29 +49,29 @@ export class RegistrationFormComponent implements OnInit {
   medium: string;
   mediumOptions: SelectItem[];
   state: any;
-  stateOptions: SelectItem[];
-  pincode: number;
+  pincode: any;
   city: string;
   cityOptions: SelectItem[];
   nationality: string;
-  nationalityOptions: SelectItem[];
   caste: string;
-  religion: string;
   casteOptions: SelectItem[];
   checked: boolean;
+  religionOptions: SelectItem[];
+  religion: string;
+  bloodGroupOptions: SelectItem[];
   bloodGroup: string;
   yearRange: string;
   fatherName: string;
   fatherOccupation: string;
-  fatherContactNo: number;
+  fatherContactNo: any;
   fatherEmailId: string;
   motherName: string;
   motherOccupation: string;
-  motherContactNo: number;
+  motherContactNo: any;
   motherEmailId: string;
   guardianName: string;
   guardianOccupation: string;
-  guardianContactNo: number;
+  guardianContactNo: any;
   guardianEmailId: string;
   uploadedFiles: any[] = [];
   regId: any;
@@ -92,6 +94,13 @@ export class RegistrationFormComponent implements OnInit {
   sections?: any;
   classes?: any;
   roles?: any;
+  castes?: any;
+  genders?: any;
+  mediums?: any;
+  cities?: any;
+  bloodGroups?: any;
+  religions?: any;
+  login_user: User;
   @ViewChild('f', { static: false }) _registrationForm: NgForm;
   @ViewChild('studentImg', { static: false }) studentImg: ElementRef;
   @ViewChild('fatherImg', { static: false }) fatherImg: ElementRef;
@@ -101,18 +110,28 @@ export class RegistrationFormComponent implements OnInit {
 
   constructor(private restApiService: RestAPIService, private datePipe: DatePipe,
     private messageService: MessageService, private masterService: MasterService,
-    public _d: DomSanitizer) { }
+    public _d: DomSanitizer, private authService: AuthService) { }
 
   ngOnInit() {
     ///loading master data
-    this.districts = this.masterService.getMaster('D');
+    this.login_user = this.authService.UserInfo;
     this.sections = this.masterService.getMaster('S');
     this.classes = this.masterService.getMaster('C');
     this.roles = this.masterService.getMaster('R');
-    ///end
+    this.castes = this.masterService.getMaster('CS');
+    this.genders = this.masterService.getMaster('G');
+    this.mediums = this.masterService.getMaster('M');
+    this.bloodGroups = this.masterService.getMaster('B');
+    this.religions = this.masterService.getMaster('RL');
+    console.log('master', this.bloodGroups, this.districts);
+        ///end
     const current_year = new Date().getFullYear();
     const start_year_range = current_year - 30;
     this.yearRange = start_year_range + ':' + current_year;
+    this.state = 'Tamilnadu';
+    this.nationality = 'Indian';
+    this.cityOptions = [{ label: this.login_user.taluk, value: this.login_user.talukId }];
+    this.districtOptions = [{ label: this.login_user.district, value: this.login_user.distrctId }];
     this.schoolOptions = [
       { label: '-select-', value: null },
       { label: 'xyz', value: 1 },
@@ -122,38 +141,6 @@ export class RegistrationFormComponent implements OnInit {
       { label: '-select-', value: null },
       { label: 'zzzz', value: "S002" },
       { label: 'tyyyy', value: "S003" },
-    ];
-    this.genderOptions = [
-      { label: '-select-', value: null },
-      { label: 'Female', value: 'Female' },
-      { label: 'Male', value: 'Male' },
-      { label: 'Others', value: 'Others' },
-    ];
-    this.mediumOptions = [
-      { label: '-select-', value: null },
-      { label: 'Tamil', value: '1' },
-      { label: 'English', value: '2' }
-    ];
-    this.cityOptions = [
-      { label: '-select-', value: null },
-      { label: 'Chennai', value: 'C003' },
-      { label: 'Cuddalore', value: 'C004' },
-      { label: 'Coimbatore', value: 'C005' }
-    ];
-    this.stateOptions = [
-      { label: '-select-', value: null },
-      { label: 'Tamilnadu', value: 1 },
-    ];
-    this.nationalityOptions = [
-      { label: '-select-', value: null },
-      { label: 'Indian', value: 'Indian' },
-    ];
-    this.casteOptions = [
-      { label: '-select-', value: null },
-      { label: 'MBC', value: 'MBC' },
-      { label: 'BC', value: 'BC' },
-      { label: 'OC', value: 'OC' },
-      { label: 'SC/ST', value: 'SC' },
     ];
   }
 
@@ -191,6 +178,21 @@ export class RegistrationFormComponent implements OnInit {
         });
         this.roleIdOptions = roleIdSelection;
         this.roleIdOptions.unshift({ label: '-select', value: null });
+        break;
+      case 'CS':
+        this.casteOptions = this.castes;
+        break;
+      case 'G':
+        this.genderOptions = this.genders;
+        break;
+      case 'B':
+        this.bloodGroupOptions = this.bloodGroups;
+        break;
+      case 'RL':
+        this.religionOptions = this.religions;
+        break;
+      case 'T':
+        this.cityOptions = this.cities;
         break;
     }
   }
@@ -323,5 +325,8 @@ export class RegistrationFormComponent implements OnInit {
     this.fatherImg.nativeElement.value = null;
     this.motherImg.nativeElement.value = null;
     this.guardianImg.nativeElement.value = null;
+    this.state = 'Tamilnadu';
+    this.nationality = 'Indian';
+    this.cityOptions = [{ label: this.login_user.taluk, value: this.login_user.talukId }];
   }
 }

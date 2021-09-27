@@ -29,15 +29,15 @@
                 </div>
                 <div class="p-co-12">
                     <div class="tab-main text-center">
-                    <p-tabView #tabview (onChange)="onTabChange($event)">
-                        <p-tabPanel header="Student">
-                        </p-tabPanel>
-                        <p-tabPanel header="Staff">
-                        </p-tabPanel>
-                        <p-tabPanel header="Admin">
-                        </p-tabPanel>
-                    </p-tabView>
-                </div>
+                        <p-tabView #tabview (onChange)="onTabChange($event)">
+                            <p-tabPanel header="Student">
+                            </p-tabPanel>
+                            <p-tabPanel header="Staff">
+                            </p-tabPanel>
+                            <p-tabPanel header="Admin">
+                            </p-tabPanel>
+                        </p-tabView>
+                    </div>
                     <!-- <div class="lg-tabs text-center" style="color: black; text-decoration: underline;">
                         <div class="p-grid">
                             <div class="p-col-4 p-md-4 p-lg-1 lg-tab" style="width: auto !important; font-size: 18px;">
@@ -50,32 +50,38 @@
                         <hr class="no-pad p-col-12" style="background: rgb(204, 201, 201)">
                     </div> -->
                 </div>
-                <div class="p-col-12" style="text-align: center; margin-top: 5px;">
-                    <i class="fa fa-user-circle-o"
-                        style="font-size: 2rem; margin-left: 5px; margin-right: 10px; color: #0e3167;"></i>
-                    <input class="p-col-8" type="text" pInputText placeholder="Username" [(ngModel)]="username"
-                        required />
-                </div>
-                <div class="p-col-12" style="text-align: center;">
-                    <i class="fa fa-lock"
-                        style="font-size: 2.3rem; margin-left: 5px; margin-right: 15px;color: #0e3167;"></i>
-                    <input id="pswd" class="p-col-8" type="password" pInputText placeholder="Password"
-                        [(ngModel)]="password" />
-                    <i *ngIf="!showPswd" disabled class="fa fa-eye" style="margin-left: -20px;color: black;"
-                        (click)="onShowPswd()" aria-hidden="true"></i>
-                    <i *ngIf="showPswd" class="fa fa-eye-slash" style="margin-left: -20px;color: black;"
-                        (click)="onShowPswd()" aria-hidden="true"></i>
-                </div>
-                <div class="p-col-12 no-pad-bottom no-pad-top" style="text-align: center;">
-                    <span>
-                        <p-checkbox></p-checkbox>
-                        Remember me
-                    </span>
-                </div>
-                <div class="p-col-12 no-pad-bottom" style="text-align: center; margin-top: 20px;">
-                    <button pButton type="button" style="background: #0e3167; border-radius: 8px;" label="Sign In"
-                        icon="pi pi-sign-in" (click)="onSignIn()" [disabled]="(!username || !password)"></button>
-                </div>
+                <form [formGroup]="loginForm" novalidate>
+                    <div class="p-col-12" style="text-align: center; margin-top: 5px;">
+                        <i class="fa fa-user-circle-o"
+                            style="font-size: 2rem; margin-left: 5px; margin-right: 10px; color: #0e3167;"></i>
+                        <input class="p-col-8" type="text" pInputText placeholder="Username" [(ngModel)]="username"
+                        formControlName="user" required />
+                        <div *ngIf="loginForm.controls['user'].invalid && (loginForm.controls['user'].dirty || loginForm.controls['user'].touched)" class="alert alert-dloginer">
+                            <small *ngIf="loginForm.controls['user'].errors.required" id="username2-help" class="p-error">Username is not available.</small>
+                        </div>
+                    </div>
+                   
+                    <div class="p-col-12" style="text-align: center;">
+                        <i class="fa fa-lock"
+                            style="font-size: 2.3rem; margin-left: 5px; margin-right: 15px;color: #0e3167;"></i>
+                        <input id="pswd" class="p-col-8" type="password" pInputText placeholder="Password"
+                            [(ngModel)]="password"  formControlName="pwd" required/>
+                        <i *ngIf="!showPswd" disabled class="fa fa-eye" style="margin-left: -20px;color: black;"
+                            (click)="onShowPswd()" aria-hidden="true"></i>
+                        <i *ngIf="showPswd" class="fa fa-eye-slash" style="margin-left: -20px;color: black;"
+                            (click)="onShowPswd()" aria-hidden="true"></i>
+                    </div>
+                    <div class="p-col-12 no-pad-bottom no-pad-top" style="text-align: center;">
+                        <span>
+                            <p-checkbox></p-checkbox>
+                            Remember me
+                        </span>
+                    </div>
+                    <div class="p-col-12 no-pad-bottom" style="text-align: center; margin-top: 20px;">
+                        <button pButton type="button" style="background: #0e3167; border-radius: 8px;" label="Sign In"
+                            icon="pi pi-sign-in" (click)="onSignIn()" [disabled]="(!username || !password)"></button>
+                    </div>
+                </form>
                 <div class="p-col-12 no-pad-top" style="text-align: center;">
                     <span style="color: blue; text-decoration: underline;"> Forgot Password? </span>
 

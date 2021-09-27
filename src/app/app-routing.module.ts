@@ -66,7 +66,7 @@ const routes: Routes = [
   { path: 'events', component: EventCalendarComponent, canActivate: [AuthGuard] },
   { path: 'attendance', component: AttendanceComponent, canActivate: [AuthGuard] },
   { path: 'books', component: BooksComponent, canActivate: [AuthGuard] },
-  { path: 'online-assessment', component: OnlineAssessmentComponent, canActivate: [AuthGuard] },
+  { path: 'online-assessment', component: OnlineAssessmentComponent },
   { path: 'online-classroom', component: OnlineClassroomComponent, canActivate: [AuthGuard] },
   { path: 'poll-list', component: PollListComponent, canActivate: [AuthGuard] },
   { path: 'student-info', component: StudentInfoComponent, canActivate: [AuthGuard] },

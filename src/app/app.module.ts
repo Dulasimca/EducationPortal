@@ -102,7 +102,8 @@ import { ZoomComponent } from './Events-Module/zoom/zoom.component';
 import { ZoomService } from './Services/zoom.service';
 import { UploadDownloadformsComponent } from './Forms-Module/upload-downloadforms/upload-downloadforms.component';
 
-import {ReactiveFormsModule} from '@angular/forms';  
+import {ReactiveFormsModule} from '@angular/forms';
+import { InputFormatDirective } from './Directives/input-format.directive';
 
   
 FullCalendarModule.registerPlugins([
@@ -170,6 +171,7 @@ FullCalendarModule.registerPlugins([
     MyschoolViewComponent,
     ZoomComponent,
     UploadDownloadformsComponent,
+    InputFormatDirective,
   ],
   imports: [
     BrowserModule,

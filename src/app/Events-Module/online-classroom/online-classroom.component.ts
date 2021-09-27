@@ -16,7 +16,7 @@ import { ZoomService } from 'src/app/Services/zoom.service';
   styleUrls: ['./online-classroom.component.css']
 })
 export class OnlineClassroomComponent implements OnInit {
-  date: Date = new Date();
+  date: Date;
   meetingData: any = [];
   meetingCols: any = [];
   login_user: User;

@@ -45,6 +45,7 @@ export class FeeFormComponent implements OnInit {
   class: any;
   today: any;
   total: any;
+  login_user: User;
   @BlockUI() blockUI: NgBlockUI;
   @ViewChild('f', { static: false }) _FeeForm: NgForm;
  
@@ -68,7 +69,7 @@ export class FeeFormComponent implements OnInit {
     ];
     
     // this.generateReceipt(null)
-    
+    this.login_user = this.authService.UserInfo;
   }
 
   onFileUpload($event, id) {
@@ -82,9 +83,9 @@ export class FeeFormComponent implements OnInit {
     const params = {
       'RowId': this.MRowId,
       'Academic':0,
-      'SchoolID': 1,
+      'SchoolID': this.login_user.schoolId,
       'StudentId':1,      
-      'Class': 1,     
+      'Class': this.login_user.classId,     
       'duedate': this.datePipe.transform(this.dueDate, 'MM/dd/yyyy') ,
       'ReceiptBook': this.receiptbook,
       'FeeName': this.feename,
@@ -135,7 +136,7 @@ export class FeeFormComponent implements OnInit {
       }
   onView() {
     const params = {
-      'SchoolID': 1,
+      'SchoolID': this.login_user.schoolId,
     }
     this.restApiService.getByParameters(PathConstants.Fee_Get, params).subscribe(res => {
       if(res !== null && res !== undefined && res.length !== 0) {

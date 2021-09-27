@@ -65,7 +65,7 @@ export class AnnouncementFormComponent implements OnInit {
     const params = {
     
       'RowID': this.MRowid,
-      'SchoolID': 1,      
+      'SchoolID': this.login_user.schoolId,      
       'Announcementdate': this.datepipe.transform(this.date,'MM/dd/yyyy'),     
       'AnnouncementTag':this.Topic, 
       'Announcement': this.Announcement,
@@ -105,7 +105,7 @@ export class AnnouncementFormComponent implements OnInit {
    
     const params = {
       'RowID': this.MRowid,
-      'SchoolID': 1,      
+      'SchoolID': this.login_user.schoolId,      
       'Announcementdate': this.datepipe.transform(this.date,'MM/dd/yyyy'),     
       'AnnouncementTag':this.Topic, 
       'Announcement': this.Announcement,
@@ -152,7 +152,7 @@ export class AnnouncementFormComponent implements OnInit {
       }
      onView() {
     const params = {
-      'SchoolID': 1,
+      'SchoolID': this.login_user.schoolId,
     }
       this.restApiService.getByParameters(PathConstants.Announcement_Get, params).subscribe(res => {
       if(res !== null && res !== undefined && res.length !== 0) {

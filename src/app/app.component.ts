@@ -31,34 +31,34 @@ export class AppComponent {
   constructor(private authService: AuthService, private restApiService: RestAPIService) { }
 
   ngOnInit() {
-    console.log('inside app comp');
     this.isLoggedIn$ = this.authService.isLoggedIn;
     this.isLoggedIn$.subscribe(log => {
-      console.log('log', log);
       if (!log) { this.loading = log; } else {
         const user: User = this.authService.UserInfo;
-        console.log('user', user);
         this.restApiService.getByParameters(PathConstants.Menu_Master, { 'roleId': user.roleId }).subscribe(response => {
           this.loading = log;
-          console.log('loading', this.loading);
           console.log('es', response);
           this.userName = (user !== null && user !== undefined) ? user.username : '';
           this.schoolName = (user !== null && user !== undefined) ? user.schoolname + ' - ' + user.taluk : '';
           this.items = response;
           this.items.forEach(i => {
+            if(i.items.length === 0) {
+              delete i.items;
+            console.log('del', i.routerLink);
+        }
             if (i.label === 'Profile') {
               i.items.forEach(j => {
                 if (j.routerLink === '/student-info') {
-                  if (j.label === 'My Profile') {
+                  if (j.ID === 31) {
                     j.queryParams = { 'id': 0, 'si': true };
-                  } else {
+                  } else if(j.ID === 32) {
                     j.queryParams = { 'id': 1, 'si': true };
                   }
                 }
               })
             }
           })
-          console.log('items', this.items);
+          console.log('i', this.items);
         })
       }
     })
@@ -68,7 +68,7 @@ export class AppComponent {
   }
 
   onLogout() {
-    this._panel.hide();
+    this._panel.hide(); 
     this.authService.logout();
   }
 

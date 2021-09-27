@@ -81,12 +81,12 @@ export class NomineeFormComponent implements OnInit {
 
     const params = {
       'RowId': this.MRowId,
-      'SchoolID':  this.login_user.schoolId,
+      'SchoolID': this.login_user.schoolId,
       'RoleId': this.login_user.roleId,
-      'ElectionID': this.position.value,
+      'ElectionID': 1,
       'NomineeID': this.sname.value,
       'ElectionName': this.position,
-      'ElectionDate': this.datepipe.transform(this.date, 'yyyy-MM-dd'),
+      'ElectionDate': this.datepipe.transform(this.date, 'MM/dd/yyyy'),
       'Flag': true
 
     };
@@ -110,6 +110,8 @@ export class NomineeFormComponent implements OnInit {
           });
         }
       } else {
+        this.blockUI.stop();
+        this.clear();
         this.messageService.clear();
         this.messageService.add({
           key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
@@ -156,7 +158,7 @@ export class NomineeFormComponent implements OnInit {
     const params = {
       'SchoolID': this.login_user.schoolId,
       'ClassId':  this.login_user.classId,
-      'SectionId':  this.login_user.schoolId,
+      'SectionId':  this.login_user.sectioncode,
     }
     this.restApiService.getByParameters(PathConstants.Nomineeview_Get, params).subscribe(data => {
       if (data !== undefined) {
@@ -175,7 +177,7 @@ export class NomineeFormComponent implements OnInit {
   onView() {
     const params = {
       'SchoolID': this.login_user.schoolId,
-      'ElectionID':this.position.value,
+      'ElectionID':1,
     }
     this.restApiService.getByParameters(PathConstants.Nominee_Get, params).subscribe(res => {
       if (res !== null && res !== undefined && res.length !== 0) {

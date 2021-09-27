@@ -7,6 +7,8 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ResponseMessage } from 'src/app/Common-Module/Message';
 import { MessageService, SelectItem } from 'primeng/api';
 import { NgForm } from '@angular/forms';
+import { AuthService } from 'src/app/Services/auth.service';
+import { User } from 'src/app/Interfaces/user';
 
 
 @Component({
@@ -23,11 +25,13 @@ export class MyachievementFormComponent implements OnInit {
   data: any = []; 
   cols: any;
   MRowId=0;
+  login_user: User;
   @BlockUI() blockUI: NgBlockUI;
 
   @ViewChild('f', { static: false }) _MyAchievementForm: NgForm;
 
-  constructor(private restApiService: RestAPIService, private http: HttpClient,private datepipe: DatePipe,private messageService: MessageService) { }
+  constructor(private restApiService: RestAPIService, private http: HttpClient,private datepipe: DatePipe,private messageService: MessageService
+    , private authService: AuthService) { }
 
   ngOnInit(): void {
     this.cols = [
@@ -38,11 +42,12 @@ export class MyachievementFormComponent implements OnInit {
       { field: 'Place', header: 'Place' },
       { field: 'AchievementStatus', header: 'Status' }  
   ];
+  this.login_user = this.authService.UserInfo;
   }
   onSubmit() {
     const params = {    
       'RowId': this.MRowId,
-      'SchoolId': 1,         
+      'SchoolId': this.login_user.schoolId,         
       'StudentId':1,
       'eventdate': this.datepipe.transform(this.date, 'yyyy-MM-dd') ,    
       'EventDetailS':this.Events,
@@ -89,7 +94,7 @@ export class MyachievementFormComponent implements OnInit {
       }
   onView() {
     const params = {
-      'SchoolID': 1,
+      'SchoolID': this.login_user.schoolId,
     }
     this.restApiService.getByParameters(PathConstants.Myachievement_Get, params).subscribe(res => {
       if(res !== null && res !== undefined && res.length !== 0) {

@@ -3,6 +3,7 @@ import { saveAs } from 'file-saver';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
+import{FileUploadConstant} from 'src/app/Common-Module/file-upload-constant'
 
 @Component({
   selector: 'app-announcement',
@@ -22,7 +23,7 @@ export class AnnouncementComponent implements OnInit {
       { field: 'Announcementdate', header: 'DATE' },
       { field: 'AnnouncementTag', header: 'TAG' },
       { field: 'Announcement', header: 'ANNOUNCEMENT' },
-      { field: 'Announcementfilename', header: 'Announcementfilename'}
+      // { field: 'Announcementfilename', header: 'Announcementfilename'}
       ];
     this.onView()
   //   this.data = [ {'slno': 1, 'tag': 'COVID-19 Pandemic Guidelines', 'date': '03-08-2021', 'announcement': 'Digital/Online Education for schools in Tamil Nadu order issued.'},
@@ -32,12 +33,11 @@ export class AnnouncementComponent implements OnInit {
   //   {'slno': 5, 'tag': 'Tourism Announcement', 'date': '11-08-2021', 'announcement': 'Free Educational tour will be arranged for students and teachers with safety measures.'}
   // ]
   }
-  onDownload() {
-    const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheethtml.sheet;charset=UTF-8';
-    const path = "../../assets/files/Education.pdf";
-    const filename = 'Education_Pdf' + ".pdf";
-    saveAs(path, filename);
-
+  onDownload(Filename) {
+    //const path = 'D:/Angular Project/EducationPortalAPI/Resources/Books';
+    const path = "../../assets/layout/"+FileUploadConstant.Announcementfolder+"/"+Filename;
+    //const filename = 'files' + ".pdf";
+    saveAs(path, Filename);
   }
   onView() {
     const params = {

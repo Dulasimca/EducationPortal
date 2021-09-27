@@ -69,7 +69,19 @@ const routes: Routes = [
   { path: 'online-assessment', component: OnlineAssessmentComponent },
   { path: 'online-classroom', component: OnlineClassroomComponent, canActivate: [AuthGuard] },
   { path: 'poll-list', component: PollListComponent, canActivate: [AuthGuard] },
-  { path: 'student-info', component: StudentInfoComponent, canActivate: [AuthGuard] },
+ { path: 'student-info',
+    component: StudentInfoComponent, children: [
+        {
+            path: 'student-info/id:0',
+            component: StudentInfoComponent,
+        },
+        {
+            path: 'student-info/id:1',
+            component: StudentInfoComponent,
+        },
+    ]
+  },
+ // { path: 'student-info', component: StudentInfoComponent, canActivate: [AuthGuard] },
   {path: 'gallery-list',component: GalleryListComponent, canActivate: [AuthGuard] },
   {​​​​​​​​ path:'result', component:ResultComponent , canActivate: [AuthGuard] }​​​​​​​​,
   {​​​​​​​​ path:'subject-result', component:SubjectResultComponent , canActivate: [AuthGuard] }​​​​​​​​,

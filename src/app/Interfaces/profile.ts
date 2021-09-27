@@ -49,4 +49,9 @@ export interface Profile {
     GaurdianOccupation: string;
     GaurdianEmailid: string;
     GaurdianPhotoFileName: string;
+    Disability: string;
+    IncomeFilename: string;
+    NativityFilename: string;
+    CommunityFilename: string;
+    YearlyIncome: string;
 }

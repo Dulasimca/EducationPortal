@@ -182,7 +182,7 @@ export class FeeFormComponent implements OnInit {
     console.log('data',data);
     this.showReceipt = true;
     this.schoolName = this.logged_user.schoolname;
-    this.schoolAddress = this.logged_user.schooladd + '-' + this.logged_user.schoolpincode;
+    this.schoolAddress = this.logged_user.taluk + '-' + this.logged_user.pincode;
     this.studentName = this.logged_user.username;
     this.class = this.logged_user.class + ' - ' + this.logged_user.section;
     this.parentName = this.logged_user.fathername;

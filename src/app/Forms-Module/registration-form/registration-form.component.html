@@ -252,8 +252,9 @@
                                                 <img *ngIf="showSImg" width="100px" height="100px"
                                                     [src]="_d.bypassSecurityTrustUrl(s_URL)" />
                                                 <input #studentImg class="p-col-12" name="_studentimg" type="file"
-                                                    pInputText [(ngModel)]="myFile" (change)="onFileUpload($event, 1)"
+                                                    pInputText (change)="onFileUpload($event, 1)"
                                                     accept=".png" required />
+                                                    <!-- <p-progressBar *ngIf="showSImg" [value]="sImgProgress"></p-progressBar> -->
                                             </div>
                                             <div class="p-col-12 p-md-6 p-lg-3">
                                                 <div><label for="_disability" style="margin-right: 5px">Disbality if any

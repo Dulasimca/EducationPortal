@@ -15,6 +15,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { catchError, map, of } from 'rxjs';
 import { User } from 'src/app/Interfaces/user';
 import { AuthService } from 'src/app/Services/auth.service';
+import { FileUploadConstant } from 'src/app/Common-Module/file-upload-constant';
 
 @Component({
   selector: 'app-registration-form',
@@ -62,25 +63,31 @@ export class RegistrationFormComponent implements OnInit {
   bloodGroupOptions: SelectItem[];
   bloodGroup: string;
   yearRange: string;
+  studentFilename: string;
   fatherName: string;
   fatherOccupation: string;
   fatherContactNo: any;
   fatherEmailId: string;
+  fatherFilename: string;
+  incomeFilename: string;
+  communityFilename: string;
+  nativityFilename: string;
   motherName: string;
   motherOccupation: string;
   motherContactNo: any;
   motherEmailId: string;
+  motherFilename: string;
   guardianName: string;
   guardianOccupation: string;
   guardianContactNo: any;
   guardianEmailId: string;
+  guardianFilename: string;
   uploadedFiles: any[] = [];
   regId: any;
   slno: any;
   tabTitleI: string;
   tabTitleII: string;
   income: any;
-  myFile: File;
   showSImg: boolean;
   s_URL: string;
   sImgProgress: Number = 0;
@@ -93,6 +100,9 @@ export class RegistrationFormComponent implements OnInit {
   showGImg: boolean;
   g_URL: string;
   gImgProgress: Number = 0;
+  iImgProgress: Number = 0;
+  cImgProgress: Number = 0;
+  nImgProgress: Number = 0;
   isChecked: boolean = false;
   disability: string;
   //masters
@@ -117,15 +127,16 @@ export class RegistrationFormComponent implements OnInit {
   @ViewChild('nativityCertificate', { static: false }) nativityCertificate: ElementRef;
   @ViewChild('communityCertificate', { static: false }) communityCertificate: ElementRef;
   @BlockUI() blockUI: NgBlockUI;
+  public formData = new FormData();
 
   constructor(private restApiService: RestAPIService, private datePipe: DatePipe,
     private messageService: MessageService, private masterService: MasterService,
-    public _d: DomSanitizer, private authService: AuthService) { }
+    public _d: DomSanitizer, private authService: AuthService, private http: HttpClient) { }
 
   ngOnInit() {
     ///loading master data
     this.login_user = this.authService.UserInfo;
-   
+
     this.sections = this.masterService.getMaster('S');
     this.classes = this.masterService.getMaster('C');
     this.roles = this.masterService.getMaster('R');
@@ -136,7 +147,7 @@ export class RegistrationFormComponent implements OnInit {
     this.religions = this.masterService.getMaster('RL');
     this.nationalities = this.masterService.getMaster('N');
     console.log('master', this.bloodGroups, this.districts);
-        ///end
+    ///end
     const current_year = new Date().getFullYear();
     const start_year_range = current_year - 30;
     this.yearRange = start_year_range + ':' + current_year;
@@ -185,15 +196,15 @@ export class RegistrationFormComponent implements OnInit {
         this.sectionOptions.unshift({ label: '-select', value: null });
         break;
       case 'R':
-        if(this.roleIdOptions === undefined) {
-        this.roles.forEach(r => {
-          if(r.code === 6 || r.code === 5) {
-          roleIdSelection.push({ label: r.name, value: r.code })
-          }
-        });
-        this.roleIdOptions = roleIdSelection;
-        this.roleIdOptions.unshift({ label: '-select', value: null });
-      }
+        if (this.roleIdOptions === undefined) {
+          this.roles.forEach(r => {
+            if (r.code === 6 || r.code === 5) {
+              roleIdSelection.push({ label: r.name, value: r.code })
+            }
+          });
+          this.roleIdOptions = roleIdSelection;
+          this.roleIdOptions.unshift({ label: '-select', value: null });
+        }
         break;
       case 'CS':
         this.casteOptions = this.castes;
@@ -210,9 +221,9 @@ export class RegistrationFormComponent implements OnInit {
       case 'T':
         this.cityOptions = this.cities;
         break;
-        case 'N':
-          this.nationalityOptions = this.nationalities;
-          break;
+      case 'N':
+        this.nationalityOptions = this.nationalities;
+        break;
     }
   }
 
@@ -223,13 +234,42 @@ export class RegistrationFormComponent implements OnInit {
   }
 
   onChangeRole() {
-    if(this.roleId === 6) {
+    if (this.roleId === 6) {
       this.tabTitleI = 'Student Info I';
       this.tabTitleII = 'Student Info II';
     } else {
       this.tabTitleI = 'Teacher Info I';
       this.tabTitleII = 'Teacher Info II';
     }
+  }
+
+  public uploadFile = (files, progress) => {
+    if (files.length === 0) {
+      return;
+    }
+    this.formData = new FormData()
+    let fileToUpload: any = <File>files[0];
+    let actualFilename = '';
+    const folderName = (this.roleId === 6) ? FileUploadConstant.StudentRegistration : FileUploadConstant.TeacherRegistration
+    console.log('fn', folderName)
+    const filename = fileToUpload.name + '^' + folderName;
+    this.formData.append('file', fileToUpload, filename);
+    console.log('file', fileToUpload);
+    console.log('formdata', this.formData);
+    actualFilename = fileToUpload.name;
+    this.http.post(this.restApiService.BASEURL + PathConstants.FileUpload_Post, this.formData)
+      .subscribe((event: any) => {
+        //  if (event.type === HttpEventType.UploadProgress) {
+        //    progress = Math.round(100 * event.loaded / event.total);
+        //    console.log('prgs', progress);
+        //  }
+        //  else if (event.type === HttpEventType.Response) {
+        //   console.log('Upload success.');
+        //   }
+      }
+      );
+    console.log('retn', actualFilename);
+    return actualFilename;
   }
 
   onFileUpload($event, id) {
@@ -239,20 +279,36 @@ export class RegistrationFormComponent implements OnInit {
     switch (id) {
       case 1:
         this.s_URL = window.URL.createObjectURL(file);
+        console.log('url', this.s_URL);
         this.showSImg = (this.s_URL !== undefined && this.s_URL !== null) ? true : false;
+        this.studentFilename = this.uploadFile($event.target.files, this.sImgProgress);
+        console.log('file', this.studentFilename);
         break;
       case 2:
         this.f_URL = window.URL.createObjectURL(file);
         this.showFImg = (this.s_URL !== undefined && this.s_URL !== null) ? true : false;
+        this.fatherFilename = this.uploadFile($event.target.files, this.fImgProgress);
         break;
       case 3:
         this.m_URL = window.URL.createObjectURL(file);
         this.showMImg = (this.s_URL !== undefined && this.s_URL !== null) ? true : false;
+        this.motherFilename = this.uploadFile($event.target.files, this.mImgProgress);
         break;
       case 4:
         this.g_URL = window.URL.createObjectURL(file);
         this.showGImg = (this.s_URL !== undefined && this.s_URL !== null) ? true : false;
+        this.guardianFilename = this.uploadFile($event.target.files, this.gImgProgress);
         break;
+      case 5:
+        this.incomeFilename = this.uploadFile($event.target.files, this.iImgProgress);
+        break;
+      case 6:
+        this.communityFilename = this.uploadFile($event.target.files, this.cImgProgress);
+        break;
+      case 7:
+        this.nativityFilename = this.uploadFile($event.target.files, this.nImgProgress);
+        break;
+
     }
   }
 
@@ -275,7 +331,7 @@ export class RegistrationFormComponent implements OnInit {
       ClassId: this.class.value,
       Section: this.section.label,
       SectionId: this.section.value,
-      StudentPhotoFileName: '',
+      StudentPhotoFileName: this.studentFilename,
       Caste: this.caste,
       Addressinfo: this.currentAddress,
       PermanentAddress: this.permanentAddress,
@@ -298,17 +354,22 @@ export class RegistrationFormComponent implements OnInit {
       FatherOccupation: this.fatherOccupation,
       FatherMobileNo: this.fatherContactNo,
       FatherEmailid: this.fatherEmailId,
-      FatherPhotoFileName: '',
+      FatherPhotoFileName: this.fatherFilename,
       MotherName: this.motherName,
       MotherOccupation: this.motherOccupation,
       MotherMobileNo: this.motherContactNo,
       MotherEmailid: this.motherEmailId,
-      MotherPhotoFilName: '',
+      MotherPhotoFilName: this.motherFilename,
       GaurdianName: this.guardianName,
       GaurdianOccupation: this.guardianOccupation,
       GaurdianEmailid: this.guardianEmailId,
       GaurdianMobileNo: this.guardianContactNo,
-      GaurdianPhotoFileName: '',
+      GaurdianPhotoFileName: this.guardianFilename,
+      Disability: (this.disability !== undefined) ? this.disability.trim() : null,
+      IncomeFilename: this.incomeFilename,
+      NativityFilename: this.nativityFilename,
+      CommunityFilename: this.communityFilename,
+      YearlyIncome: this.income
     };
     this.restApiService.post(PathConstants.Registration_Post, params).subscribe(res => {
       if (res !== undefined && res !== null) {

@@ -79,6 +79,7 @@ export class RegistrationFormComponent implements OnInit {
   slno: any;
   tabTitleI: string;
   tabTitleII: string;
+  income: any;
   myFile: File;
   showSImg: boolean;
   s_URL: string;
@@ -92,6 +93,8 @@ export class RegistrationFormComponent implements OnInit {
   showGImg: boolean;
   g_URL: string;
   gImgProgress: Number = 0;
+  isChecked: boolean = false;
+  disability: string;
   //masters
   districts?: any;
   sections?: any;
@@ -110,6 +113,9 @@ export class RegistrationFormComponent implements OnInit {
   @ViewChild('fatherImg', { static: false }) fatherImg: ElementRef;
   @ViewChild('motherImg', { static: false }) motherImg: ElementRef;
   @ViewChild('guardianImg', { static: false }) guardianImg: ElementRef;
+  @ViewChild('incomeCertificate', { static: false }) incomeCertificate: ElementRef;
+  @ViewChild('nativityCertificate', { static: false }) nativityCertificate: ElementRef;
+  @ViewChild('communityCertificate', { static: false }) communityCertificate: ElementRef;
   @BlockUI() blockUI: NgBlockUI;
 
   constructor(private restApiService: RestAPIService, private datePipe: DatePipe,
@@ -349,6 +355,7 @@ export class RegistrationFormComponent implements OnInit {
     this.fatherImg.nativeElement.value = null;
     this.motherImg.nativeElement.value = null;
     this.guardianImg.nativeElement.value = null;
+    this.isChecked = false;
     this.state = 'Tamilnadu';
     this.nationality = 'Indian';
     this.cityOptions = [{ label: this.login_user.taluk, value: this.login_user.talukId }];

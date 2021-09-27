@@ -5,19 +5,18 @@
             <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
                 <div class="p-grid">
                     <div class="p-col-2">
-                    <label for="_roleid">Registration for:<span
-                                class="form-mandatory-field">*</span></label>
+                        <label for="_roleid">Registration for:<span class="form-mandatory-field">*</span></label>
                     </div>
-                    <div class="p-col-2" style="margin-left: -6%; margin-top: -2%;">
-                 <p-dropdown class="p-col-2" name="_roleid" [options]="roleIdOptions"
-                        [(ngModel)]="roleId" (onChange)="onChangeRole()" (onClick)="onSelect('R')" required>
-                    </p-dropdown>
+                    <div class="p-col-2" style="margin-left: -5%; margin-top: -2%;">
+                        <p-dropdown class="p-col-2" name="_roleid" [options]="roleIdOptions" [(ngModel)]="roleId"
+                            (onChange)="onChangeRole()" (onClick)="onSelect('R')" required>
+                        </p-dropdown>
+                    </div>
                 </div>
-                </div>
-                <div> 
+                <div>
                     <p style="font-size: smaller;">Note*: Please select a role to register</p>
                 </div>
-              
+
                 <form #f="ngForm" name="registrationForm" *ngIf="(this.roleId==6 || this.roleId==5)">
                     <p-tabView>
                         <p-tabPanel header="{{tabTitleI}}">
@@ -43,7 +42,7 @@
                                                 <div><label for="_gender">Gender<span
                                                             class="form-mandatory-field">*</span></label></div>
                                                 <p-dropdown name="_gender" [options]="genderOptions"
-                                                (onClick)="onSelect('G')" [(ngModel)]="gender" required>
+                                                    (onClick)="onSelect('G')" [(ngModel)]="gender" required>
                                                 </p-dropdown>
                                             </div>
                                             <div class="p-col-12 p-md-6 p-lg-2">
@@ -62,8 +61,8 @@
                                                 <div style="white-space: pre;"><label for="_studentbloodgrp">Blood
                                                         Group<span class="form-mandatory-field">*</span></label>
                                                 </div>
-                                                <p-dropdown name="_studentbloodgrp" [options]="bloodGroupOptions" [(ngModel)]="bloodGroup"
-                                                (onClick)="onSelect('B')" required>
+                                                <p-dropdown name="_studentbloodgrp" [options]="bloodGroupOptions"
+                                                    [(ngModel)]="bloodGroup" (onClick)="onSelect('B')" required>
                                                 </p-dropdown>
                                             </div>
                                             <div class="p-col-12 p-md-6 p-lg-2">
@@ -71,26 +70,26 @@
                                                             class="form-mandatory-field">*</span></label>
                                                 </div>
                                                 <p-dropdown name="_caste" [options]="casteOptions" [(ngModel)]="caste"
-                                                (onClick)="onSelect('CS')" required>
+                                                    (onClick)="onSelect('CS')" required>
                                                 </p-dropdown>
                                             </div>
                                             <div class="p-col-12 p-md-6 p-lg-2">
                                                 <div style="white-space: pre;"><label for="_religion">Religion
-                                                         <span class="form-mandatory-field">*</span></label>
+                                                        <span class="form-mandatory-field">*</span></label>
                                                 </div>
-                                                <p-dropdown name="_religion" [options]="religionOptions" [(ngModel)]="religion"
-                                                (onClick)="onSelect('RL')" required>
+                                                <p-dropdown name="_religion" [options]="religionOptions"
+                                                    [(ngModel)]="religion" (onClick)="onSelect('RL')" required>
                                                 </p-dropdown>
                                             </div>
                                             <div class="p-col-12 p-md-6 p-lg-2">
                                                 <div><label for="_nationality">Nationality<span
                                                             class="form-mandatory-field">*</span></label>
                                                 </div>
-                                                <p-dropdown name="_nationality" [options]="nationalityOptions" [(ngModel)]="nationality"
-                                                (onClick)="onSelect('N')" required>
+                                                <p-dropdown name="_nationality" [options]="nationalityOptions"
+                                                    [(ngModel)]="nationality" (onClick)="onSelect('N')" required>
                                                 </p-dropdown>
                                             </div>
-                                           
+
                                         </div>
                                     </div>
                                     <div #row3 class="p-col-12 p-md-12 p-lg-12">
@@ -100,7 +99,7 @@
                                                             class="form-mandatory-field">*</span></label>
                                                 </div>
                                                 <p-dropdown name="_city" [options]="cityOptions" [(ngModel)]="city"
-                                                (onClick)="onSelect('T')" [disabled]="true" required>
+                                                    (onClick)="onSelect('T')" [disabled]="true" required>
                                                 </p-dropdown>
                                             </div>
                                             <div class="p-col-12 p-md-6 p-lg-2">
@@ -115,23 +114,24 @@
                                             <div class="p-col-12 p-md-6 p-lg-2">
                                                 <div><label for="_state">State<span
                                                             class="form-mandatory-field">*</span></label></div>
-                                                            <input class="p-col-12" name="_state" type="tel" pInputText
-                                                            [(ngModel)]="state" [disabled]="true" />
+                                                <input class="p-col-12" name="_state" type="tel" pInputText
+                                                    [(ngModel)]="state" [disabled]="true" />
                                             </div>
                                             <div class="p-col-12 p-md-6 p-lg-2">
                                                 <div><label for="_studentmobno">Mobile Number<span
                                                             class="form-mandatory-field">*</span></label>
                                                 </div>
                                                 <input class="p-col-12" type="tel" name="_studentmobno" pInputText
-                                                   minlength="10" maxlength="10" [(ngModel)]="mobileNo" 
-                                                   appInputFormat="digitOnly" required />
+                                                    minlength="10" maxlength="10" [(ngModel)]="mobileNo"
+                                                    appInputFormat="digitOnly" required />
                                             </div>
                                             <div class="p-col-12 p-md-6 p-lg-2">
                                                 <div><label for="_altmobno">Alternate MobileNo</label></div>
                                                 <input class="p-col-12" name="_altmobno" type="tel" pInputText
-                                                minlength="10" maxlength="10" appInputFormat="digitOnly" [(ngModel)]="altMobileNo" />
+                                                    minlength="10" maxlength="10" appInputFormat="digitOnly"
+                                                    [(ngModel)]="altMobileNo" />
                                             </div>
-                                            
+
                                         </div>
                                     </div>
                                     <div #row4 class="p-col-12 p-md-12 p-lg-12">
@@ -160,8 +160,8 @@
                                                             class="form-mandatory-field">*</span></label>
                                                 </div>
                                                 <input class="p-col-12" name="_pincode" type="text" pInputText
-                                                minlength="6" maxlength="6" [(ngModel)]="pincode"  appInputFormat="digitOnly"
-                                                 required />
+                                                    minlength="6" maxlength="6" [(ngModel)]="pincode"
+                                                    appInputFormat="digitOnly" required />
                                             </div>
                                         </div>
                                     </div>
@@ -173,7 +173,7 @@
                                 <div class="p-col-12 no-pad-top">
                                     <div #row1 class="p-col-12 p-md-12 p-lg-12">
                                         <div class="p-grid">
-                                            
+
                                             <div class="p-col-12 p-md-6 p-lg-3">
                                                 <div><label for="_schlname">School Name<span
                                                             class="form-mandatory-field">*</span></label>
@@ -211,7 +211,7 @@
                                     </div>
                                     <div #row2 class="p-col-12 p-md-12 p-lg-12">
                                         <div class="p-grid">
-                                            
+
                                             <div class="p-col-12 p-md-6 p-lg-3">
                                                 <div><label for="_studentemail">Email Id<span
                                                             class="form-mandatory-field">*</span></label>
@@ -224,7 +224,7 @@
                                                             class="form-mandatory-field">*</span></label>
                                                 </div>
                                                 <p-dropdown name="_medium" [options]="mediumOptions"
-                                                (onClick)="onSelect('M')" [(ngModel)]="medium" required>
+                                                    (onClick)="onSelect('M')" [(ngModel)]="medium" required>
                                                 </p-dropdown>
                                             </div>
                                             <div class="p-col-12 p-md-6 p-lg-3">
@@ -237,20 +237,32 @@
                                             <div class="p-col-12 p-md-6 p-lg-2">
                                                 <div><label for="_lastschlcontact">Last School Contact</label></div>
                                                 <input class="p-col-12" name="_lastschlcontact" type="text" pInputText
-                                                minlength="8" maxlength="12"  [(ngModel)]="lastSchoolContactNo"  appInputFormat="digitOnly"/>
+                                                    minlength="8" maxlength="12" [(ngModel)]="lastSchoolContactNo"
+                                                    appInputFormat="digitOnly" />
                                             </div>
                                         </div>
                                     </div>
                                     <div #row3 class="p-col-12 p-md-12 p-lg-12">
                                         <div class="p-grid">
                                             <div class="p-col-12 p-md-6 p-lg-4">
-                                                <div><label for="_studentimg">Student's Photo<span
-                                                            class="form-mandatory-field">*</span></label></div>
+                                                <div><label *ngIf="(this.roleId==6)" for="_studentimg">Student's Photo<span
+                                                            class="form-mandatory-field">*</span></label>
+                                                            <label *ngIf="(this.roleId==5)" for="_studentimg">Teacher's Photo<span
+                                                                class="form-mandatory-field">*</span></label></div>
                                                 <img *ngIf="showSImg" width="100px" height="100px"
                                                     [src]="_d.bypassSecurityTrustUrl(s_URL)" />
                                                 <input #studentImg class="p-col-12" name="_studentimg" type="file"
                                                     pInputText [(ngModel)]="myFile" (change)="onFileUpload($event, 1)"
                                                     accept=".png" required />
+                                            </div>
+                                            <div class="p-col-12 p-md-6 p-lg-3">
+                                                <div><label for="_disability" style="margin-right: 5px">Disbality if any
+                                                    <span *ngIf="isChecked"
+                                                    class="form-mandatory-field">*</span></label>
+                                                <p-checkbox [(ngModel)]="isChecked" binary="true" inputId="binary">
+                                                </p-checkbox></div>
+                                                <input *ngIf="isChecked" class="p-col-12" name="_disability" type="text"
+                                                    pInputText [(ngModel)]="disability" required />
                                             </div>
                                         </div>
                                     </div>
@@ -262,42 +274,85 @@
                                 <div class="p-col-12 no-pad-top">
                                     <div #row1 class="p-col-12 p-md-12 p-lg-12 no-pad-top">
                                         <p-fieldset legend="Father's Info" [toggleable]="true">
-                                            <div class="p-grid">
-                                                <div class="p-col-12 p-md-6 p-lg-2">
-                                                    <div><label for="_fathername">Name<span
-                                                                class="form-mandatory-field">*</span></label>
+                                            <div #row1 class="p-col-12 p-md-12 p-lg-12 no-pad-top">
+                                                <div class="p-grid">
+                                                    <div class="p-col-12 p-md-6 p-lg-2">
+                                                        <div><label for="_fathername">Name<span
+                                                                    class="form-mandatory-field">*</span></label>
+                                                        </div>
+                                                        <input class="p-col-12" name="_fathername" type="text"
+                                                            pInputText [(ngModel)]="fatherName" required />
                                                     </div>
-                                                    <input class="p-col-12" name="_fathername" type="text" pInputText
-                                                        [(ngModel)]="fatherName" required />
-                                                </div>
-                                                <div class="p-col-12 p-md-6 p-lg-2">
-                                                    <div><label for="_fatheroccupation">Occupation<span
-                                                                class="form-mandatory-field">*</span></label></div>
-                                                    <input class="p-col-12" name="_fatheroccupation" type="text"
-                                                        pInputText [(ngModel)]="fatherOccupation" required />
-                                                </div>
-                                                <div class="p-col-12 p-md-6 p-lg-2">
-                                                    <div><label for="_fathercontact">Contact<span
-                                                                class="form-mandatory-field">*</span></label>
+                                                    <div class="p-col-12 p-md-6 p-lg-2">
+                                                        <div><label for="_fatheroccupation">Occupation<span
+                                                                    class="form-mandatory-field">*</span></label></div>
+                                                        <input class="p-col-12" name="_fatheroccupation" type="text"
+                                                            pInputText [(ngModel)]="fatherOccupation" required />
                                                     </div>
-                                                    <input class="p-col-12" name="_fathercontact" type="tel" pInputText
-                                                     minlength="10" maxlength="10"  [(ngModel)]="fatherContactNo"  appInputFormat="digitOnly" 
-                                                     required />
-                                                </div>
-                                                <div class="p-col-12 p-md-6 p-lg-3">
-                                                    <div><label for="_fatheremail">Email Id<span
-                                                                class="form-mandatory-field">*</span></label>
+                                                    <div class="p-col-12 p-md-6 p-lg-2">
+                                                        <div><label for="_fathercontact">Contact<span
+                                                                    class="form-mandatory-field">*</span></label>
+                                                        </div>
+                                                        <input class="p-col-12" name="_fathercontact" type="tel"
+                                                            pInputText minlength="10" maxlength="10"
+                                                            [(ngModel)]="fatherContactNo" appInputFormat="digitOnly"
+                                                            required />
                                                     </div>
-                                                    <input class="p-col-12" name="_fatheremail" type="email" pInputText
-                                                        [(ngModel)]="fatherEmailId" required />
+                                                    <div class="p-col-12 p-md-6 p-lg-3">
+                                                        <div><label for="_fatheremail">Email Id<span
+                                                                    class="form-mandatory-field">*</span></label>
+                                                        </div>
+                                                        <input class="p-col-12" name="_fatheremail" type="email"
+                                                            pInputText [(ngModel)]="fatherEmailId" required />
+                                                    </div>
+                                                    <div class="p-col-12 p-md-6 p-lg-2">
+                                                        <div><label for="_income">Yearly Income<span
+                                                                    class="form-mandatory-field">*</span></label></div>
+                                                        <input class="p-col-12" name="_income" type="text" pInputText
+                                                            [(ngModel)]="income" required />
+                                                    </div>
                                                 </div>
-                                                <div class="p-col-12 p-md-6 p-lg-4">
-                                                    <div><label for="_fatherimg">Father's Photo<span
-                                                                class="form-mandatory-field">*</span></label></div>
-                                                    <img *ngIf="showFImg" width="100px" height="100px"
-                                                        [src]="_d.bypassSecurityTrustUrl(f_URL)" /> <input #fatherImg
-                                                        class="p-col-12" name="_fatherimg" type="file" pInputText
-                                                        (change)="onFileUpload($event, 2)" accept=".png" required />
+                                            </div>
+                                            <div #row2 class="p-col-12 p-md-12 p-lg-12  no-pad-top">
+                                                <div class="p-grid">
+                                                    <div class="p-col-12 p-md-6 p-lg-4">
+                                                        <div><label for="_fatherimg">Father's Photo<span
+                                                                    class="form-mandatory-field">*</span></label></div>
+                                                        <img *ngIf="showFImg" width="100px" height="100px"
+                                                            [src]="_d.bypassSecurityTrustUrl(f_URL)" /> <input
+                                                            #fatherImg class="p-col-12" name="_fatherimg" type="file"
+                                                            pInputText (change)="onFileUpload($event, 2)" accept=".png"
+                                                            required />
+                                                    </div>
+                                                    <div class="p-col-12 p-md-6 p-lg-4">
+                                                        <div><label for="_incomecertificate">Income Certificate<span
+                                                                    class="form-mandatory-field">*</span></label></div>
+                                                        <input #incomeCertificate class="p-col-12"
+                                                            name="_incomecertificate" type="file" pInputText
+                                                            (change)="onFileUpload($event, 5)"
+                                                            accept=".pdf,.png,.jpg,.jpeg" required />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div #row3 class="p-col-12 p-md-12 p-lg-12  no-pad-top">
+                                                <div class="p-grid">
+                                                    <div class="p-col-12 p-md-6 p-lg-4">
+                                                        <div><label for="_communitycertificate">Community
+                                                                Certificate<span
+                                                                    class="form-mandatory-field">*</span></label></div>
+                                                        <input #communityCertificate class="p-col-12"
+                                                            name="_communitycertificate" type="file" pInputText
+                                                            (change)="onFileUpload($event, 6)"
+                                                            accept=".pdf,.png,.jpg,.jpeg" required />
+                                                    </div>
+                                                    <div class="p-col-12 p-md-6 p-lg-4">
+                                                        <div><label for="_nativitycertificate">Nativity Certificate<span
+                                                                    class="form-mandatory-field">*</span></label></div>
+                                                        <input #nativityCertificate class="p-col-12"
+                                                            name="_nativitycertificate" type="file" pInputText
+                                                            (change)="onFileUpload($event, 7)"
+                                                            accept=".pdf,.png,.jpg,.jpeg" required />
+                                                    </div>
                                                 </div>
                                             </div>
                                         </p-fieldset>
@@ -323,8 +378,8 @@
                                                                 class="form-mandatory-field">*</span></label>
                                                     </div>
                                                     <input class="p-col-12" name="_mothercontact" type="tel" pInputText
-                                                     minlength="10" maxlength="10"  [(ngModel)]="motherContactNo"  appInputFormat="digitOnly"
-                                                     required />
+                                                        minlength="10" maxlength="10" [(ngModel)]="motherContactNo"
+                                                        appInputFormat="digitOnly" required />
                                                 </div>
                                                 <div class="p-col-12 p-md-6 p-lg-3">
                                                     <div><label for="_motheremail">Email Id<span
@@ -365,9 +420,9 @@
                                                 </div>
                                                 <div class="p-col-12 p-md-6 p-lg-2">
                                                     <div><label for="_guardiancontact">Contact</label></div>
-                                                    <input class="p-col-12" name="_guardiancontact" 
-                                                     minlength="10" maxlength="10"  pInputText [(ngModel)]="guardianContactNo"
-                                                     appInputFormat="digitOnly" />
+                                                    <input class="p-col-12" name="_guardiancontact" minlength="10"
+                                                        maxlength="10" pInputText [(ngModel)]="guardianContactNo"
+                                                        appInputFormat="digitOnly" />
                                                 </div>
                                                 <div class="p-col-12 p-md-6 p-lg-3">
                                                     <div><label for="_guardianemail">Email Id</label></div>

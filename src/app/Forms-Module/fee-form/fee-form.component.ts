@@ -11,6 +11,7 @@ import { User } from 'src/app/Interfaces/user';
 import { AuthService } from 'src/app/Services/auth.service';
 
 
+
 @Component({
   selector: 'app-fee-form',
   templateUrl: './fee-form.component.html',
@@ -36,6 +37,7 @@ export class FeeFormComponent implements OnInit {
   logged_user: User;
   receiptNo: any;
   schoolName: any;
+  taluk: any;
   schoolAddress: any;
   schoolContact: number;
   studentName: string;
@@ -178,6 +180,8 @@ export class FeeFormComponent implements OnInit {
   generateReceipt(data) {
     console.log('data',data);
     this.showReceipt = true;
+    this.schoolName = this.logged_user.schoolname;
+    this.schoolAddress = this.logged_user.schooladd + '-' + this.logged_user.schoolpincode;
     this.studentName = this.logged_user.username;
     this.class = this.logged_user.class + ' - ' + this.logged_user.section;
     this.parentName = this.logged_user.fathername;

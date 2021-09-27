@@ -3,6 +3,11 @@ import { saveAs } from 'file-saver';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
+import { Output, EventEmitter } from '@angular/core';
+import { User } from 'src/app/Interfaces/user';
+import { DatePipe } from '@angular/common';
+import{FileUploadConstant} from 'src/app/Common-Module/file-upload-constant'
+import { AuthService } from 'src/app/Services/auth.service';
 
 @Component({
   selector: 'app-assignments',
@@ -12,10 +17,18 @@ import { PathConstants } from 'src/app/Common-Module/PathConstants';
 export class AssignmentsComponent implements OnInit {
   data: any = []; 
   cols: any;
+  public progress: number;
+  public message: string;
+  NewFileName:string;
+  login_user: User;
+  public formData = new FormData();
+
+  @Output() public onUploadFinished = new EventEmitter();
   
-  constructor(private restApiService: RestAPIService, private http: HttpClient) { }
+  constructor(private restApiService: RestAPIService, private http: HttpClient,private authService: AuthService) { }
 
   ngOnInit() {
+    this.login_user = this.authService.UserInfo;
     this.cols = [
       { field: 'AssignId', header: 'ID'},
       { field: 'AssignmentDate', header: 'Date' },
@@ -23,32 +36,48 @@ export class AssignmentsComponent implements OnInit {
       { field: 'AssignmentWork', header: 'Assigned Work' },
       { field: 'AssignmentType', header: 'Assigned Type' },
       { field: 'Subjectname', header: 'Subject Name' },
-      
-
-    
   ];
-
     this.onView()
-    // this.data = [ {'slno': 1,'create': '20-08-2021', 'subject': 'Science', 'date': '30-08-2021', 'work': 'Plant Anatomy, Animal Husbandry, Quantum Physics, Acids & Bases unit ', 'type': 'Class Work'},
-    // {'slno': 2, 'create': '28-08-2021','subject': 'English', 'date': '03-09-2021', 'work': 'Grammatical Part & Essay Part', 'type': 'Home Work'},
-    // {'slno': 3, 'create': '5-09-2021','subject': 'Maths', 'date': '10-09-2021', 'work': 'Algebra unit', 'type': 'Notes' },
-    // {'slno': 4, 'create': '6-09-2021', 'subject': 'Tamil', 'date': '12-09-2021', 'work': 'Ilakkanam topic', 'type': 'Home test' },
-    // {'slno': 5, 'create': '12-09-2021','subject': 'Social Science', 'date': '14-09-2021', 'work': 'History of Aryans, Geology topics.', 'type': 'Home Work' }]
   }
-  uploadData($event) {
-  
-    
+  onFileUpload($event, id) {
+    const reader = new FileReader();
+    var selectedFile = $event.target.files[0];
   }
-  onDownload() {
-    const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheethtml.sheet;charset=UTF-8';
-    const path = "../../assets/files/Assignment.pdf";
-    const filename = 'Assignment_Pdf' + ".pdf";
-    saveAs(path, filename);
+
+  public uploadFile = (files) => {
+    if (files.length === 0) {
+      return;
+    }
+    this.formData = new FormData()
+    let fileToUpload: any = <File>files[0];
+    const filename = fileToUpload.name + '^' + FileUploadConstant.Assignmentfolder;
+    this.formData.append('file', fileToUpload, filename);
+    console.log('file', fileToUpload);
+    console.log('formdata', this.formData);
+    this.NewFileName=fileToUpload.name;
+    this.http.post(this.restApiService.BASEURL +PathConstants.FileUpload_Post, this.formData)
+      .subscribe(event => 
+        {
+      //          if (event.type === HttpEventType.UploadProgress)
+      //    this.progress = Math.round(100 * event.loaded / event.total);
+      //   else if (event.type === HttpEventType.Response) {
+      //    this.message = 'Upload success.';
+        
+      //  //   this.onUploadFinished.emit(event.body);
+      //   }
+      }
+      );
+  }  
+
+  onDownload(Filename) {
+    const path = "../../assets/layout/"+FileUploadConstant.Assignmentfolder+"/"+Filename;
+    saveAs(path, Filename);
   }
+
   onView() {
     const params = {
-      'SchoolID': 1,
-      'Class': 1
+      'SchoolID': this.login_user.schoolId,
+      'Class': this.login_user.classId
     }
     this.restApiService.getByParameters(PathConstants.Assignment_Get, params).subscribe(res => {
       if(res !== null && res !== undefined && res.length !== 0) {
@@ -63,3 +92,4 @@ export class AssignmentsComponent implements OnInit {
 
 
 }
+

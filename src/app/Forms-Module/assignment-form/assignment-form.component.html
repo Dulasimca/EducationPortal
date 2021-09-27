@@ -22,7 +22,7 @@
                 </div>
                 <div class="p-col-12 p-md-6 p-lg-3">
                   <div><label for="_AType">Assigned Type:</label></div>
-                  <p-dropdown name="_AType" [options]="TypeOption" [(ngModel)]="AType" optionLabel="label" >
+                  <p-dropdown name="_AType" [options]="TypeOptions" [(ngModel)]="AType" (onClick)="onSelect()" optionLabel="label" >
                   </p-dropdown>
                 </div>
                 <div class="p-col-12 p-md-6 p-lg-3">
@@ -31,9 +31,9 @@
                     required>
                 </div>
                 <div class="p-col-12 p-md-6 p-lg-3">
-                  <div><label> Attach File<span class="form-mandatory-field">*</span></label></div>
+                  <label for="_assign">Attach File:<span class="form-mandatory-field">*</span></label>
                   <input type ="file" #file placeholder="Choose file" 
-                  pInputText (change)="uploadFile(file.files)" accept=".pdf" required />
+                        pInputText (change)="uploadFile(file.files)" accept=".pdf" required />
                 </div>
               </div>
             </div>

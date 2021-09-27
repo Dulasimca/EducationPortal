@@ -45,13 +45,13 @@ guardianEmailId: any;
     private route: ActivatedRoute) { }
 
   ngOnInit() {
+    const user: User = this.authService.UserInfo;
     let currentUrl = this.router.url;
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
     this.router.navigate([currentUrl]);
        this.activeIndex = Number.parseInt(this.route.snapshot.queryParamMap.get('id'));
    console.log('param',this.route.snapshot.queryParamMap.get('id'), this.activeIndex)
-    const user: User = this.authService.UserInfo;
     const params = { 'Value': user.email, 'Type': '2' };
     this.restApiService.getByParameters(PathConstants.Registration_Get, params).subscribe(response => {
       if(response !== undefined && response !== null && response.length !== 0) {

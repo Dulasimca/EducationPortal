@@ -13,7 +13,6 @@ import { DatePipe } from '@angular/common';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { catchError, map, of } from 'rxjs';
 import {ConfirmationService, ConfirmEventType} from 'primeng/api';
-import { PrimeNGConfig } from "primeng/api";
 import { User } from 'src/app/Interfaces/user';
 import { AuthService } from 'src/app/Services/auth.service';
 
@@ -33,9 +32,9 @@ export class PollListComponent implements OnInit {
   login_user: User;
 
 
-  @BlockUI() blockUI: NgBlockUI;
+  // @BlockUI() blockUI: NgBlockUI;
   
-  constructor(private restApiService: RestAPIService, private http: HttpClient,private messageService: MessageService,private confirmationService: ConfirmationService
+  constructor(private restApiService: RestAPIService, private http: HttpClient,private messageService: MessageService
     ,private authService: AuthService) { }
 
   ngOnInit() { 
@@ -79,7 +78,7 @@ export class PollListComponent implements OnInit {
     this.restApiService.post(PathConstants.PollList_Post, params).subscribe(res1 => {
       if(res1 !== undefined && res1 !== null) {
         if (res1) {
-          this.blockUI.stop();
+          // this.blockUI.stop();
           this.clear();
           this.messageService.clear();
           this.messageService.add({
@@ -87,7 +86,7 @@ export class PollListComponent implements OnInit {
             summary: ResponseMessage.SUMMARY_SUCCESS, detail: ResponseMessage.SuccessMessage
           });
         } else {
-          this.blockUI.stop();
+          // this.blockUI.stop();
           this.messageService.clear();
           this.messageService.add({
             key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
@@ -102,7 +101,7 @@ export class PollListComponent implements OnInit {
         });
         }
         }, (err: HttpErrorResponse) => {
-        this.blockUI.stop();
+        // this.blockUI.stop();
         if (err.status === 0 || err.status === 400) {
           this.messageService.clear();
           this.messageService.add({

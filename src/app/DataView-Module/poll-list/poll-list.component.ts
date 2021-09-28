@@ -1,18 +1,11 @@
-import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MessageService, SelectItem } from 'primeng/api';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
-import { saveAs } from 'file-saver';
-import { HttpClient, HttpErrorResponse, HttpEventType } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { ResponseMessage } from 'src/app/Common-Module/Message';
-import { MasterService } from 'src/app/Services/master-data.service';
 import * as _ from 'lodash';
-import { Profile } from 'src/app/Interfaces/profile';
-import { NgForm } from '@angular/forms';
-import { DatePipe } from '@angular/common';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
-import { catchError, map, of } from 'rxjs';
-import {ConfirmationService, ConfirmEventType} from 'primeng/api';
 import { User } from 'src/app/Interfaces/user';
 import { AuthService } from 'src/app/Services/auth.service';
 
@@ -32,10 +25,15 @@ export class PollListComponent implements OnInit {
   login_user: User;
 
 
+
   // @BlockUI() blockUI: NgBlockUI;
   
-  constructor(private restApiService: RestAPIService, private http: HttpClient,private messageService: MessageService
-    ,private authService: AuthService) { }
+  constructor(private restApiService: RestAPIService,private messageService: MessageService ,private authService: AuthService) { }
+
+  @BlockUI() blockUI: NgBlockUI;
+  
+  
+   
 
   ngOnInit() { 
     this.positionOptions = [

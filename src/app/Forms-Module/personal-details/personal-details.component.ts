@@ -117,7 +117,12 @@ export class PersonalDetailsComponent implements OnInit {
             GaurdianEmailid: i.GaurdianEmailid,
             GaurdianMobileNo: i.GaurdianMobileNo,
             GaurdianOccupation: i.GaurdianOccupation,
-            GaurdianPhotoFileName: i.GaurdianPhotoFileName
+            GaurdianPhotoFileName: i.GaurdianPhotoFileName,
+            YearlyIncome: i.YearlyIncome,
+            Disability: i.Disability,
+            IncomeFilename: i.IncomeFilename,
+            NativityFilename: i.NativityFilename,
+            CommunityFilename: i.CommunityFilename,
           }
           this.classOptions = [{ label: i.Class, value: i.ClassId }];
           this.sectionOptions = [{ label: i.Section, value: i.SectionId }];

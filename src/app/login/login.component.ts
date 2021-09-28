@@ -68,7 +68,9 @@ export class LoginComponent implements OnInit {
               distrctId: (i.DistrictId !== undefined) ? i.DistrictId : null,
               schoolname: (i.Schoolname !== undefined && i.Schoolname !== null) ? i.Schoolname.toString().trim() : '',
               taluk: (i.Taluk !== undefined && i.Taluk !== null) ? i.Taluk.toString().trim() : '',
-              talukId: (i.City !== undefined && i.City !== null) ? i.City.toString().trim() : ''
+              talukId: (i.City !== undefined && i.City !== null) ? i.City.toString().trim() : '',
+              pincode: (i.Postalcode !== undefined && i.Postalcode !== null) ? i.Postalcode.toString().trim() : ''
+
             }
             this.authService.login(obj);
             this.masterService.initializeMaster();

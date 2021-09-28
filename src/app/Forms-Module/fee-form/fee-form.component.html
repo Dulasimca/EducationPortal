@@ -131,25 +131,19 @@
       </div>
     </p-panel>
     <!-- feereceipt  -->
-     
-    <!-- <button printSectionId="printdiv" ngxPrint>print</button>  -->
     <p-dialog [(visible)]="showReceipt"[style]="{width: '50vw'}" [maximizable]="true">
       <ng-template pTemplate="header">
         <div>Fee Receipt</div>
       </ng-template>
       <div class="p-col-12" style="border: 1px solid black;">
-        <!-- <div>{{schoolName}}</div> -->
-        <!-- <div>{{schoolAddress}}</div> -->
-        <!-- <div>{{schoolContact}}</div> -->
         <div id="printdiv"> 
         <div class="p-col-12 no-pad" style="text-align: center;">
           <img style="width: 80px;" src="assets/layout/images/logo.jpg" />
         </div>
         <div style="text-align: center;">
-          <span style="font-weight: bold; font-family: serif;">
-            GOVERNMENT HIGHER SECONDARY SCHOOL
-            <br> E.B.Road,Tiruchirapalli,Tamil Nadu - 620008
-            <br> Phone: 0414-2443395</span>
+          <span style="font-weight: bold; font-family: serif; text-transform: uppercase;">
+           {{schoolName}} 
+            <br>{{schoolAddress}}</span>
         </div>
         <hr class="no-pad p-col-12" style="color: black;">
         <div class="p-col-12">

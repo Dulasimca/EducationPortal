@@ -1,3 +1,5 @@
+<block-ui>
+    <form #Gallery="ngForm">
 <div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px; height: 520px;">
     <p-panel header="Gallery">
         <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
@@ -13,22 +15,54 @@
                             </div>
                             <div class="p-col-12 p-md-6 p-lg-3">
                                 <div><label>Tittle:</label></div>
-                                <input type="text" name="tittle" pInputText [(ngModel)]="tittle" required />
+                                <input type="text" name="title" pInputText [(ngModel)]="title" required />
                             </div>
 
                             <div class="p-col-12 p-md-6 p-lg-4 align-el-center">
                                 <div><label>Attach file:</label></div>
-                                <input class="p-col-12" name="_Uploadgallery" type="file" pInputText
-                                    (change)="onFileUpload($event, 4)" accept=".png" required />
+                                <input type ="file" name ="file" #file placeholder="Choose file" 
+                            pInputText (change)="uploadFile(file.files)" accept=".jpg" required />
                             </div>
                         </div>
+                        
                     </div>
                 </p-card>
             </form>
-            <div class="p-col-12 p-md-6 p-lg12" style="margin-left:30%;">
-                <button pButton type="button" label="Submit" [disabled]="(!f.valid)"> </button>
-                <button pButton type="button" label="View" style="margin-left:10%;"></button>
-            </div>
-        </div>
+            <div class="p-col-12 p-md-6 p-lg12" style = "margin-left:35%;"> 
+                <button pButton name="_save" type="button" label="Submit" 
+                (click)="onSubmit()" [disabled]="(!f.valid)"></button>
+            
+                <button pButton type="button" label="View" style = "margin-left:5%;" (click)="onview()"></button>
+                <button pButton type="button" label="clear" style = "margin-left:5%;" (click)="onClear()"></button>
+                </div>
+        
+                <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,15,20]"
+          totalRecords="totalRecords" pageLinks="3">
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th>S.No:</th>
+              <th *ngFor="let col of columns">
+                {{col.header}}
+              </th>
+              <th>
+                Download
+              </th>
+            </tr>
+          </ng-template>
+          
+          <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
+            <tr [pSelectableRow]="rowData" class="cursor-pointer" (dblclick)="onRowSelect($event, rowData)">
+              <td>{{rowIndex+1}}</td>
+              <td *ngFor="let col of columns">
+                {{rowData[col.field]}}
+              </td>
+              <td style="width: 142px;"><i class="pi pi-download" (click)="onDownload(rowData.previewImageSrc)" 
+                style="color: #52de38; font-size: 1.3rem; margin-left: 25px;"></i></td>
+              </tr>
+          </ng-template>
+        </p-table> 
+                </div>
     </p-panel>
 </div>
+</form>
+</block-ui>

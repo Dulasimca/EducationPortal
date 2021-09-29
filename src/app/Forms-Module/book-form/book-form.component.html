@@ -22,8 +22,15 @@
                             [(ngModel)]="selectedyear" required > </p-dropdown>
                         </div>
                                     
-                        <div class="p-col-12 p-md-6 p-lg-1"></div>
-
+                       <div class="p-col-12 p-md-6 p-lg-1"></div> 
+                        <div class="p-col-12 p-md-6 p-lg-3">
+                          <div><label for="_ClassId">Class</label>
+                          </div>
+                          <p-dropdown name="_ClassId" [options]="classOptions" [(ngModel)]="ClassId"
+                              optionLabel="label" name= "ClassId" (onClick)="onSelect('C')" required >
+                          </p-dropdown> 
+                      </div>
+                      <div class="p-col-12 p-md-6 p-lg-1"></div>
                         <div class="p-col-12 p-md-6 p-lg-3">
                             <div>
                                 <label>Subject/Stream Name:</label>
@@ -32,7 +39,7 @@
                         </div>
                         <div class="p-col-12 p-md-6 p-lg-1"></div>
 
-                        <div class="p-col-12 p-md-6 p-lg-3">
+                        <div class="p-col-12 p-md-6 p-lg-4">
                             <div>
                                 <label>Author/Reference:</label>
                             </div>
@@ -48,9 +55,7 @@
                         </div>
                         <div class="p-col-12 p-md-6 p-lg-3">
                           
-                          <!-- <span class="upload" *ngIf="progress > 0">
-                            {{progress}}%
-                          </span> -->
+                         
                           <span class="upload" *ngIf="message">
                             {{message}}
                           </span>

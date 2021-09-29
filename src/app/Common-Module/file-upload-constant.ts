@@ -5,4 +5,6 @@ export class FileUploadConstant {
 
     public static readonly Announcementfolder = 'Announcement';
     public static readonly Assignmentfolder = 'Assignment';
+
+    public static readonly Galleryfolder = 'Gallery';
 }

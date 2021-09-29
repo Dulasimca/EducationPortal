@@ -86,7 +86,7 @@ export class FeeFormComponent implements OnInit {
       'RowId': this.MRowId,
       'Academic':0,
       'SchoolID': this.login_user.schoolId,
-      'StudentId':1,      
+      'StudentId':this.login_user.id,      
       'Class': this.login_user.classId,     
       'duedate': this.datePipe.transform(this.dueDate, 'MM/dd/yyyy') ,
       'ReceiptBook': this.receiptbook,
@@ -138,7 +138,10 @@ export class FeeFormComponent implements OnInit {
       }
   onView() {
     const params = {
-      'SchoolID': this.login_user.schoolId,
+      'schoolID': this.login_user.schoolId,
+      'studentID': this.login_user.id,
+      'yearID': '',
+      'type': 0
     }
     this.restApiService.getByParameters(PathConstants.Fee_Get, params).subscribe(res => {
       if(res !== null && res !== undefined && res.length !== 0) {

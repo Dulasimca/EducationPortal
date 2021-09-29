@@ -8,7 +8,7 @@ import { RestAPIService } from './restAPI.service';
 
 export class MasterService {
   masterData?: any = [];
-  districtData?: any = [];
+  accountingData?: any = [];
   data?: any = [];
   constructor(private restApiService: RestAPIService) { }
 
@@ -16,6 +16,10 @@ export class MasterService {
     this.restApiService.get(PathConstants.Master_Get).subscribe(res => {
       this.data = res;
     });
+    this.restApiService.get(PathConstants.AccountingYear).subscribe(res => {
+      this.accountingData = res;
+    });
+
   }
 
   getMaster(type): any {
@@ -109,6 +113,10 @@ export class MasterService {
 
     }
     return this.masterData;
+  }
+
+  getAccountingYear() {
+    return this.accountingData;
   }
 
 }

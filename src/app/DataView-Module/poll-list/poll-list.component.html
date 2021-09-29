@@ -1,4 +1,4 @@
-<block-ui>
+<!-- <block-ui> -->
 <div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px;">
   <p-toast position="top-center" key="t-msg"></p-toast>
   <p-panel header="Poll List">
@@ -34,7 +34,7 @@
                   </th>
                 </tr>
               </ng-template>
-              <ng-template pTemplate="body" let-rowData let-columns="columns">
+              <ng-template pTemplate="body" let-rowData let-columns="columns" class="cursor-pointer">
                 <tr>
                   <td *ngFor="let col of columns">
                     {{rowData[col.field]}}
@@ -62,4 +62,4 @@
     </div>
   </p-panel>
 </div>
-</block-ui>
+<!-- </block-ui> -->

@@ -39,7 +39,7 @@
                       </th>
                     </tr>
                   </ng-template>
-                  <ng-template pTemplate="body" let-rowData let-columns="columns">
+                  <ng-template pTemplate="body" let-rowData let-columns="columns" class="cursor-pointer">
                     <tr [pSelectableRow]="rowData" class="cursor-pointer" (dblclick)="onRowSelect($event, rowData)">
                       <td *ngFor="let col of columns">
                         {{rowData[col.field]}}

@@ -23,10 +23,17 @@ export class PollListComponent implements OnInit {
   MRowid= 0;
   position: string;
   login_user: User;
+
+
+
+  // @BlockUI() blockUI: NgBlockUI;
+  
+  constructor(private restApiService: RestAPIService,private messageService: MessageService ,private authService: AuthService) { }
+
   @BlockUI() blockUI: NgBlockUI;
   
-  constructor(private restApiService: RestAPIService, private messageService: MessageService
-    ,private authService: AuthService) { }
+  
+   
 
   ngOnInit() { 
     this.positionOptions = [
@@ -69,7 +76,7 @@ export class PollListComponent implements OnInit {
     this.restApiService.post(PathConstants.PollList_Post, params).subscribe(res1 => {
       if(res1 !== undefined && res1 !== null) {
         if (res1) {
-          this.blockUI.stop();
+          // this.blockUI.stop();
           this.clear();
           this.messageService.clear();
           this.messageService.add({
@@ -77,7 +84,7 @@ export class PollListComponent implements OnInit {
             summary: ResponseMessage.SUMMARY_SUCCESS, detail: ResponseMessage.SuccessMessage
           });
         } else {
-          this.blockUI.stop();
+          // this.blockUI.stop();
           this.messageService.clear();
           this.messageService.add({
             key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
@@ -92,7 +99,7 @@ export class PollListComponent implements OnInit {
         });
         }
         }, (err: HttpErrorResponse) => {
-        this.blockUI.stop();
+        // this.blockUI.stop();
         if (err.status === 0 || err.status === 400) {
           this.messageService.clear();
           this.messageService.add({

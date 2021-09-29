@@ -58,13 +58,6 @@ export class AssignmentsComponent implements OnInit {
     this.http.post(this.restApiService.BASEURL +PathConstants.FileUpload_Post, this.formData)
       .subscribe(event => 
         {
-      //          if (event.type === HttpEventType.UploadProgress)
-      //    this.progress = Math.round(100 * event.loaded / event.total);
-      //   else if (event.type === HttpEventType.Response) {
-      //    this.message = 'Upload success.';
-        
-      //  //   this.onUploadFinished.emit(event.body);
-      //   }
       }
       );
   }  
@@ -76,7 +69,7 @@ export class AssignmentsComponent implements OnInit {
 
   onView() {
     const params = {
-      'SchoolID': this.login_user.schoolId,
+      'SchoolID':this.login_user.schoolId,
       'Class': this.login_user.classId
     }
     this.restApiService.getByParameters(PathConstants.Assignment_Get, params).subscribe(res => {

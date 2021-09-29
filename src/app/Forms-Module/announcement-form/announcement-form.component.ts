@@ -176,18 +176,10 @@ export class AnnouncementFormComponent implements OnInit {
     this.announce = selectedRow.Announcementfilename;
     this.Announcement = selectedRow.Announcement;
     console.log(selectedRow.RowId);
-    // this.commodityOptions = [{ label: selectedRow.CommodityName, value: selectedRow.CommodityID }];
-    // this.TaxtypeOptions = [{ label: selectedRow.TaxType, value: selectedRow.Tax }];
-    // this.MeasurementOptions = [{ label: selectedRow.Measurement, value: selectedRow.measurement }];
-    // this.Pan = (selectedRow.TIN === 'URD') ? '' : selectedRow.Pan;
-    // this.Gst = (selectedRow.TIN === 'URD') ? 'URD' : selectedRow.GSTNo;
-    // this.State = (selectedRow.TIN === 'URD') ? '' : selectedRow.StateCode;
   }
   
   onDownload(Filename) {
-    //const path = 'D:/Angular Project/EducationPortalAPI/Resources/Books';
     const path = "../../assets/layout/"+FileUploadConstant.Announcementfolder+"/"+Filename;
-    //const filename = 'files' + ".pdf";
     saveAs(path, Filename);
   }
  

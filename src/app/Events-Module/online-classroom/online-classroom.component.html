@@ -4,7 +4,8 @@
             <p-card>
                 <div class="p-col-12 p-md-12 p-lg-12 no-pad-top" style="margin-top: -5px;">
                    <div class="no-pad-top"><label>Date:</label> </div>  
-                    <p-calendar [(ngModel)]="date" [showIcon]="true" (onSelect)="loadMeetingDetails()"></p-calendar>
+                    <p-calendar [(ngModel)]="date" [showIcon]="true"
+                    [minDate]="minDate" (onSelect)="loadMeetingDetails()"></p-calendar>
                 </div>
                 <div>
                     <p-table [columns]="meetingCols" [value]="meetingData" [paginator]="true" [rows]="10" [loading]="loading">
@@ -25,10 +26,8 @@
                                     {{rowData[col.field]}}
                                 </td>
                                 <td (click)="onJoinClassroom(rowData)">
-                                    <!-- <div class="tooltip"> This session has been expired -->
                                         <i *ngIf="(login_user.roleId==6)" class="pi pi-sign-in" style="padding-left: 10px; color: #52de38; font-size: 1.5rem;" pTooltip="Join Class"></i>
                                         <i *ngIf="(login_user.roleId!=6)" class="pi pi-play" style="padding-left: 10px; color: #52de38; font-size: 1.5rem;" pTooltip="Start Class"></i>
-                                <!-- </div> -->
                                 </td>
                             </tr>
                         </ng-template>

@@ -90,7 +90,7 @@ const routes: Routes = [
  { path: 'online-test', component: OnlineTestComponent, canActivate: [AuthGuard] },
  { path: 'test-details', component: TestDetailsFormComponent, canActivate: [AuthGuard] },
  { path: 'classroom-details', component: ClassroomDetailsComponent, canActivate: [AuthGuard] },
- { path: 'question-bank-upload', component: QuestionBankUploadFormComponent},
+ { path: 'question-bank-upload', component: QuestionBankUploadFormComponent, canActivate: [AuthGuard]},
  { path: 'online-classroom-join', component: ZoomComponent, canActivate: [AuthGuard] },
  { path: 'myclass-results', component: MyclassResultComponent},
  { path: 'my-school', component: MySchoolComponent, canActivate: [AuthGuard]},

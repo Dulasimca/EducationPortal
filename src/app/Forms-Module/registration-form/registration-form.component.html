@@ -178,9 +178,8 @@
                                                 <div><label for="_schlname">School Name<span
                                                             class="form-mandatory-field">*</span></label>
                                                 </div>
-                                                <p-dropdown name="_schlname" [options]="schoolOptions"
-                                                    optionLabel="label" [(ngModel)]="school" required>
-                                                </p-dropdown>
+                                                <input class="p-col-12" name="_schlname" type="text" pInputText
+                                                 [(ngModel)]="school" [disabled]="true" required />
                                             </div>
                                             <div class="p-col-12 p-md-6 p-lg-2">
                                                 <div><label for="_class">Class<span

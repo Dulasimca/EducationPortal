@@ -22,6 +22,7 @@ export class OnlineClassroomComponent implements OnInit {
   login_user: User;
   loading: boolean;
   toolTip: string;
+  minDate: Date;
 
   constructor(private restApiService: RestAPIService, private authService: AuthService,
     private messageService: MessageService, private router: Router, private datePipe: DatePipe,
@@ -33,8 +34,16 @@ export class OnlineClassroomComponent implements OnInit {
       { field: 'Classname1', header: 'Class' },
       { field: 'SectionName', header: 'Section' },
       { field: 'Duration', header: 'Duration' },
-    ]
+    ];
     this.login_user = this.authService.UserInfo;
+    let today = new Date();
+    let month = today.getMonth();
+    let year = today.getFullYear();
+    let prevMonth = (month === 0) ? 11 : month -1;
+    let prevYear = (prevMonth === 11) ? year - 1 : year;
+    this.minDate = new Date();
+    this.minDate.setMonth(prevMonth);
+    this.minDate.setFullYear(prevYear);
     this.loadMeetingDetails();
   }
 

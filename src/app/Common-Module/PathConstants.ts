@@ -16,6 +16,9 @@ export class PathConstants {
     public static readonly OnlineAssessment_Get = 'OnlineAssessment/Get';
     public static readonly OnlineAssessment_Asnwer_Post = 'AssessmentResult/Post';
 
+    public static readonly Question_Bank_Post = 'QuestionBank/Post';
+    public static readonly Question_Bank_Get = 'QuestionBank/Get';
+
     public static readonly Book_Post = 'Books/Post';
     public static readonly Book_Get = 'Books/Get';
 

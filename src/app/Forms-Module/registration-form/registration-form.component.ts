@@ -252,13 +252,6 @@ export class RegistrationFormComponent implements OnInit {
     actualFilename = fileToUpload.name;
     this.http.post(this.restApiService.BASEURL + PathConstants.FileUpload_Post, this.formData)
       .subscribe((event: any) => {
-        //  if (event.type === HttpEventType.UploadProgress) {
-        //    progress = Math.round(100 * event.loaded / event.total);
-        //    console.log('prgs', progress);
-        //  }
-        //  else if (event.type === HttpEventType.Response) {
-        //   console.log('Upload success.');
-        //   }
       }
       );
     console.log('retn', actualFilename);
@@ -272,10 +265,8 @@ export class RegistrationFormComponent implements OnInit {
     switch (id) {
       case 1:
         this.s_URL = window.URL.createObjectURL(file);
-        console.log('url', this.s_URL);
         this.showSImg = (this.s_URL !== undefined && this.s_URL !== null) ? true : false;
         this.studentFilename = this.uploadFile($event.target.files, this.sImgProgress);
-        console.log('file', this.studentFilename);
         break;
       case 2:
         this.f_URL = window.URL.createObjectURL(file);
@@ -383,6 +374,7 @@ export class RegistrationFormComponent implements OnInit {
           });
         }
       } else {
+        this.blockUI.stop();
         this.messageService.clear();
         this.messageService.add({
           key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,

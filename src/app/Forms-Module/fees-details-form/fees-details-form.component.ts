@@ -81,36 +81,8 @@ export class FeesDetailsFormComponent implements OnInit {
   
   }
 
-
-
-    
-//       this.data = res;
-//       this.onDownload(params);
-//       // this.feeData.push({
-//       //   'paidamount': this.data.Actua
-//       // })
-
-//       // this.data = res;
-//       let sno = 0;
-//       this.data.forEach(s => {
-//         sno += 1;
-//         s.SlNo = sno;
-//       });
-//       }
-//     });
-    
-    
-//   this.login_user = this.authService.UserInfo;
-
-  
-         
-    
-        
-//   // onSave() { }
-
-// }
 onDownload(data) {
-
+  
   this.showReceipt = true;
   this.schoolName = this.login_user.schoolname;
   this.schoolAddress = this.login_user.taluk + '-' + this.login_user.pincode;

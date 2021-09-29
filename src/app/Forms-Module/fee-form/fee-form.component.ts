@@ -9,6 +9,8 @@ import { DatePipe } from '@angular/common';
 import { NgForm } from '@angular/forms';
 import { User } from 'src/app/Interfaces/user';
 import { AuthService } from 'src/app/Services/auth.service';
+import { MasterService } from 'src/app/Services/master-data.service';
+import * as _ from 'lodash';
 
 
 
@@ -19,7 +21,11 @@ import { AuthService } from 'src/app/Services/auth.service';
 })
 export class FeeFormComponent implements OnInit {
   dueDate: Date = new Date();
-  receiptbook: any;
+  receiptOptions: SelectItem[];
+  studentOptions: SelectItem[];
+  receiptBook: any;
+  class: any;
+  section: any;
   feename: any;
   actualamount: any;
   paidamount: any;
@@ -44,19 +50,35 @@ export class FeeFormComponent implements OnInit {
   parentName: string;
   date: number;
   admnNo: any;
-  class: any;
   today: any;
   total: any;
   login_user: User;
+  classOptions: SelectItem[];
+  sectionOptions:  SelectItem[];
+  // master
+  sections?: any;
+  classes?: any;
   @BlockUI() blockUI: NgBlockUI;
   @ViewChild('f', { static: false }) _FeeForm: NgForm;
  
 
 
-  constructor(private restApiService: RestAPIService, private authService: AuthService,private messageService: MessageService, private datePipe: DatePipe) { }
+  constructor(private restApiService: RestAPIService, private authService: AuthService,private messageService: MessageService, private datePipe: DatePipe, private masterService: MasterService) { }
 
   ngOnInit(): void {
     this.logged_user = this.authService.UserInfo;
+    this.receiptOptions = [
+      { label: 'School Fees', value: '01' },
+      { label: 'Tuition Fees', value: '02' },
+      { label: 'Term Fees', value: '03' },
+    ];
+    this.studentOptions = [
+      { label: 'Arun Kumar', value: '01' },
+      { label: 'Reethvin', value: '02' }
+    ];
+    this.sections = this.masterService.getMaster('S');
+    this.classes = this.masterService.getMaster('C');
+  
     this.cols = [
       { field: 'SlNo', header: 'Slno'},
       { field: 'RowId', header: 'ID' },
@@ -75,10 +97,30 @@ export class FeeFormComponent implements OnInit {
   }
 
   onFileUpload($event, id) {
-    console.log('eve', $event);
     const reader = new FileReader();
     var selectedFile = $event.target.files[0];
     console.log('file', selectedFile);
+  }
+  onSelect(type) {
+    let classSelection = [];
+    let sectionSelection = [];
+    switch (type) {
+    case 'C':
+      this.classes.forEach(c => {
+        classSelection.push({ label: c.name, value: c.code })
+      });
+      let sortedClass = _.sortBy(classSelection, 'value');
+      this.classOptions = sortedClass;
+      this.classOptions.unshift({ label: '-select', value: null });
+      break;
+    case 'S':
+      this.sections.forEach(s => {
+        sectionSelection.push({ label: s.name, value: s.code })
+      });
+      this.sectionOptions = sectionSelection;
+      this.sectionOptions.unshift({ label: '-select', value: null });
+      break;
+    }
   }
 
   onSubmit() {
@@ -89,7 +131,7 @@ export class FeeFormComponent implements OnInit {
       'StudentId':this.login_user.id,      
       'Class': this.login_user.classId,     
       'duedate': this.datePipe.transform(this.dueDate, 'MM/dd/yyyy') ,
-      'ReceiptBook': this.receiptbook,
+      'ReceiptBook': this.receiptBook.label,
       'FeeName': this.feename,
       'ActualAmount': this.actualamount,
       'PaidAmount': this.paidamount,
@@ -158,21 +200,12 @@ export class FeeFormComponent implements OnInit {
   }
   clear() {
     this._FeeForm.reset();
-    this._FeeForm.form.markAsUntouched();
-    this._FeeForm.form.markAsPristine();
-    this.receiptbook="",
-    this.feename="",
-    this.actualamount="",
-    this.paidamount="",
-    this.outstanding="",
-    this.paying="",
-    this.fine=""
-
+    
   }
   onRowSelect(event, selectedRow) {
     this.MRowId=selectedRow.RowId;
     this.dueDate=selectedRow.duedate;
-    this.receiptbook=selectedRow.ReceiptBook;
+    this.receiptBook=selectedRow.ReceiptBook;
     this.feename=selectedRow.FeeName;
     this.actualamount=selectedRow.ActualAmount;
     this.paidamount=selectedRow.PaidAmount;
@@ -182,7 +215,6 @@ export class FeeFormComponent implements OnInit {
   }
 // feereceipt method
   generateReceipt(data) {
-    console.log('data',data);
     this.showReceipt = true;
     this.schoolName = this.logged_user.schoolname;
     this.schoolAddress = this.logged_user.taluk + '-' + this.logged_user.pincode;
@@ -199,9 +231,6 @@ export class FeeFormComponent implements OnInit {
     
   }
   
-
-  onPrint() {
-// window.print();
-  }
+ 
 
 }

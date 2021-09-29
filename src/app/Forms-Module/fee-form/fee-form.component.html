@@ -136,17 +136,14 @@
         <div>Fee Receipt</div>
       </ng-template>
       <div class="p-col-12" style="border: 1px solid black;">
-        <!-- <div>{{schoolName}}</div> -->
-        <!-- <div>{{schoolAddress}}</div> -->
-        <!-- <div>{{schoolContact}}</div> -->
+        <div id="printdiv"> 
         <div class="p-col-12 no-pad" style="text-align: center;">
           <img style="width: 80px;" src="assets/layout/images/logo.jpg" />
         </div>
         <div style="text-align: center;">
-          <span style="font-weight: bold; font-family: serif;">
-            GOVERNMENT HIGHER SECONDARY SCHOOL
-            <br> E.B.Road,Tiruchirapalli,Tamil Nadu - 620008
-            <br> Phone: 0414-2443395</span>
+          <span style="font-weight: bold; font-family: serif; text-transform: uppercase;">
+           {{schoolName}} 
+            <br>{{schoolAddress}}</span>
         </div>
         <hr class="no-pad p-col-12" style="color: black;">
         <div class="p-col-12">
@@ -205,7 +202,7 @@
                 </tr>
               </ng-template>
             </p-table>
-            <div style="font-size: inherit; font-weight: 700; padding-left: 324px;">
+            <div style="font-size: inherit; font-weight: 700; padding-left: 328px;">
               FEE TOTAL  : Rs.{{total}}
             </div>
             <div class="p-col-12"></div>
@@ -213,8 +210,9 @@
           </div>
         </div>
       </div>
+    </div>
       <div class="p-col-12 p-md-12 p-lg-12 text-center">
-        <button pButton type="button" label="Print" (click)="onPrint()"></button>
+        <button  printSectionId="printdiv" ngxPrint pButton type="button" label="Print"></button>
       </div>
     </p-dialog>
   </div>

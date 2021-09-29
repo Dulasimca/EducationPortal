@@ -7,6 +7,8 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ResponseMessage } from 'src/app/Common-Module/Message';
 import { MessageService, SelectItem } from 'primeng/api';
 import { NgForm } from '@angular/forms';
+import { AuthService } from 'src/app/Services/auth.service';
+import { User } from 'src/app/Interfaces/user';
 
 
 
@@ -29,9 +31,11 @@ export class HolidaydetailsFormComponent implements OnInit {
   data: any = []; 
   cols: any;
   MRowid=0;
+  login_user: User;
   @BlockUI() blockUI: NgBlockUI;
   @ViewChild('f', { static: false }) _HolidayDetailsForm: NgForm;
-  constructor(private restApiService: RestAPIService, private http: HttpClient,private datepipe: DatePipe,private messageService: MessageService) { }
+  constructor(private restApiService: RestAPIService, private http: HttpClient,private datepipe: DatePipe,private messageService: MessageService
+    , private authService: AuthService) { }
 
   ngOnInit(): void {
     this.HolidayOption = [
@@ -46,6 +50,7 @@ export class HolidaydetailsFormComponent implements OnInit {
       { field: 'EventDetailS', header: 'Events' },
       { field: 'eventdate', header: 'Date' }     
     ];
+    this.login_user = this.authService.UserInfo;
   }
 
   onFileUpload($event, id) {
@@ -59,7 +64,7 @@ export class HolidaydetailsFormComponent implements OnInit {
     this.blockUI.start();
     const params = {    
       'RowId': this.MRowid,
-      'SchoolId': 1,
+      'SchoolId': this.login_user.schoolId,
       'EventDetailS':this.Events,
       'Holiday': this.Holiday.value,     
       'eventdate': this.datepipe.transform(this.date,'MM/dd/yyyy'), 
@@ -103,7 +108,7 @@ export class HolidaydetailsFormComponent implements OnInit {
       }
   onView() {
     const params = {
-      'SchoolID': 1,
+      'SchoolID': this.login_user.schoolId,
     }
     this.restApiService.getByParameters(PathConstants.Holiday_Get, params).subscribe(res => {
       if(res !== null && res !== undefined && res.length !== 0) {

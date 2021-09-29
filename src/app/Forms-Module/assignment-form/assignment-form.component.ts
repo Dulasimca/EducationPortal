@@ -11,7 +11,7 @@ import{FileUploadConstant} from 'src/app/Common-Module/file-upload-constant'
 import { saveAs } from 'file-saver';
 import { Output, EventEmitter } from '@angular/core';
 import { User } from 'src/app/Interfaces/user';
-import { MasterService } from 'src/app/Services/master-data.service';
+import { AuthService } from 'src/app/Services/auth.service';
 
 
 @Component({
@@ -23,7 +23,8 @@ export class AssignmentFormComponent implements OnInit {
 
   dueDate: any = new Date();
   assignDate: any = new Date();
-  TypeOption: SelectItem[]
+  types: SelectItem[];
+  TypeOptions: SelectItem[]
   assignmentwork: string;
   AType:any;
   subjectname:string;
@@ -38,13 +39,14 @@ export class AssignmentFormComponent implements OnInit {
   public message: string;
   NewFileName:string;
   login_user: User;
+  assign: string;
   public formData = new FormData();
 
   @Output() public onUploadFinished = new EventEmitter();
   @BlockUI() blockUI: NgBlockUI;
   @ViewChild('f', { static: false }) _AssignmentForm: NgForm;
 
-  constructor(private restApiService: RestAPIService, private http: HttpClient,private datepipe: DatePipe,private messageService: MessageService) { }
+  constructor(private restApiService: RestAPIService, private http: HttpClient,private datepipe: DatePipe,private messageService: MessageService,private authService: AuthService) { }
 
   ngOnInit(): void {
     this.cols = [
@@ -53,16 +55,22 @@ export class AssignmentFormComponent implements OnInit {
       { field: 'AssignmentDueDate', header: 'Due Date' },
       { field: 'AssignmentWork', header: 'Assigned Work' },
       { field: 'AssignmentType', header: 'Assigned Type' },
-      { field: 'Subjectname', header: 'Subject Name' }
+      { field: 'Subjectname', header: 'Subject Name' },
+      // { field: 'Assignmentfilename', header: 'Assignmentfilename'}
     
   ];
-  this.TypeOption = [
+  this.types = [
     { label: '-select-', value: null },
     { label: 'Home Work', value: 'Home Work'},
     { label: 'Class Work', value: 'Class Work'},
   ];
-    
+  this.login_user = this.authService.UserInfo; 
   }
+
+  onSelect() {
+    this.TypeOptions = this.types;
+  }
+
   onFileUpload($event, id) {
     console.log('eve', $event);
     const reader = new FileReader();
@@ -74,23 +82,20 @@ export class AssignmentFormComponent implements OnInit {
       return;
     }
     const params = {
-    
       'AssignId': this.MAssignId,
-      'SchoolID': 1,      
-      'Class': 1,    
+      'SchoolID': this.login_user.schoolId,      
+      'Class':this.login_user.classId,    
       'AssignmentDate': this.datepipe.transform(this.assignDate, 'MM/dd/yyyy') ,
       'AssignmentDueDate': this.datepipe.transform(this.dueDate, 'MM/dd/yyyy'),
       'assignmentwork': this.assignmentwork,
       'AssignmentType': this.AType.value,
       'subjectname': this.subjectname,
+      'Assignmentfilename': this.NewFileName,
       'Flag' : true
-      
-      
      
     };
     this.formData = new FormData()
     let fileToUpload: any = <File>files[0];
-    let folderOptions=<FolderOptions>params[0];
  
     const filename = fileToUpload.name + '^' + FileUploadConstant.Assignmentfolder;
     this.formData.append('file', fileToUpload, filename);
@@ -114,15 +119,17 @@ export class AssignmentFormComponent implements OnInit {
 
 onSubmit() {
   this.blockUI.start();
+  console.log('t', this.AType);
   const params = {
     'AssignId': this.MAssignId,
-    'SchoolID': 1,      
-    'Class': 1,    
+    'SchoolID': this.login_user.schoolId,      
+    'Class': this.login_user.classId,   
     'AssignmentDate': this.datepipe.transform(this.assignDate, 'MM/dd/yyyy') ,
     'AssignmentDueDate': this.datepipe.transform(this.dueDate, 'MM/dd/yyyy'),
     'assignmentwork': this.assignmentwork,
     'AssignmentType': this.AType.value,
     'subjectname': this.subjectname,
+    'Assignmentfilename': this.NewFileName,
     'Flag' : true
 
   };
@@ -146,7 +153,8 @@ onSubmit() {
         });
       }
       } else {
-      this.messageService.clear();
+        this.blockUI.stop();
+        this.messageService.clear();
       this.messageService.add({
         key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
         summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
@@ -165,8 +173,8 @@ onSubmit() {
     }
 onView() {
   const params = {
-    'SchoolID': 1,
-    'Class': 1 
+    'SchoolID': this.login_user.schoolId,
+    'Class': this.login_user.classId, 
   }
   this.restApiService.getByParameters(PathConstants.Assignment_Get, params).subscribe(res => {
     if(res !== null && res !== undefined && res.length !== 0) {
@@ -180,19 +188,23 @@ clear() {
   this._AssignmentForm.reset();
   this._AssignmentForm.form.markAsUntouched();
   this._AssignmentForm.form.markAsPristine();
-  this.assignmentwork="",
-  this.AType="",
-  this.subjectname=""
+  // this.assignmentwork="",
+  // this.AType="",
+  // this.NewFileName="",
+  // this.subjectname=""
 
 }
 onRowSelect(event, selectedRow) {
   this.MAssignId=selectedRow.AssignId;
   this.assignDate=selectedRow.AssignmentDate;
   this.dueDate = selectedRow.AssignmentDueDate;
+  this.AType = { label: selectedRow.AssignmentType, value: selectedRow.AssignmentType };
   this.assignmentwork = selectedRow.AssignmentWork;
-  this.TypeOption= [{ label: selectedRow.AssignmentType, value: selectedRow.AssignmentType }];
+  this.assign = selectedRow.Assignmentfilename;
+  this.TypeOptions= [{ label: selectedRow.AssignmentType, value: selectedRow.AssignmentType }];
   this.subjectname = selectedRow.Subjectname;
-  
+  this.NewFileName = selectedRow.Assignmentfilename;  
+  console.log('t', this.AType);
 
 }
 onDownload(Filename) {
@@ -201,7 +213,4 @@ onDownload(Filename) {
   //const filename = 'files' + ".pdf";
   saveAs(path, Filename);
 }
-}
-interface FolderOptions {
-  FolderPath?: string;
 }

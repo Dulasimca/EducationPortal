@@ -18,4 +18,5 @@ export interface User {
     district: string;
     distrctId: any;
     schoolname: string;
+    pincode: any;
 }

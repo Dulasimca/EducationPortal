@@ -18,14 +18,14 @@
                 </th>
               </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-rowData let-columns="columns">
+            <ng-template pTemplate="body" let-rowData let-columns="columns" class="cursor-pointer">
               <tr>
                 <td *ngFor="let col of columns">
                   {{rowData[col.field]}}
                 </td>
-                <td style="width: 100px;"><i class="pi pi-upload" (change)="uploadData($event);" accept=".pdf"
-                    style="color: #52de38; font-size: 1.3rem; margin-left: 25px;"></i></td>
-                <td style="width: 142px;"><i class="pi pi-file-o" (click)="onDownload()"
+                <td style="width: 100px;"><i class="pi pi-upload" type ="file" #file pInput (change)="uploadFile(file.files)" accept=".pdf"
+                  style="color: #52de38; font-size: 1.3rem; margin-left: 25px;"></i></td>
+                  <td style="width: 142px;"><i class="pi pi-download" (click)="onDownload(rowData.Assignmentfilename)" 
                     style="color: #52de38; font-size: 1.3rem; margin-left: 25px;"></i></td>
               </tr>
             </ng-template>

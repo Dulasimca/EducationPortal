@@ -65,7 +65,7 @@ export class AnnouncementFormComponent implements OnInit {
     const params = {
     
       'RowID': this.MRowid,
-      'SchoolID': 1,      
+      'SchoolID': this.login_user.schoolId,      
       'Announcementdate': this.datepipe.transform(this.date,'MM/dd/yyyy'),     
       'AnnouncementTag':this.Topic, 
       'Announcement': this.Announcement,
@@ -105,7 +105,7 @@ export class AnnouncementFormComponent implements OnInit {
    
     const params = {
       'RowID': this.MRowid,
-      'SchoolID': 1,      
+      'SchoolID': this.login_user.schoolId,      
       'Announcementdate': this.datepipe.transform(this.date,'MM/dd/yyyy'),     
       'AnnouncementTag':this.Topic, 
       'Announcement': this.Announcement,
@@ -152,7 +152,7 @@ export class AnnouncementFormComponent implements OnInit {
       }
      onView() {
     const params = {
-      'SchoolID': 1,
+      'SchoolID': this.login_user.schoolId,
     }
       this.restApiService.getByParameters(PathConstants.Announcement_Get, params).subscribe(res => {
       if(res !== null && res !== undefined && res.length !== 0) {
@@ -176,18 +176,10 @@ export class AnnouncementFormComponent implements OnInit {
     this.announce = selectedRow.Announcementfilename;
     this.Announcement = selectedRow.Announcement;
     console.log(selectedRow.RowId);
-    // this.commodityOptions = [{ label: selectedRow.CommodityName, value: selectedRow.CommodityID }];
-    // this.TaxtypeOptions = [{ label: selectedRow.TaxType, value: selectedRow.Tax }];
-    // this.MeasurementOptions = [{ label: selectedRow.Measurement, value: selectedRow.measurement }];
-    // this.Pan = (selectedRow.TIN === 'URD') ? '' : selectedRow.Pan;
-    // this.Gst = (selectedRow.TIN === 'URD') ? 'URD' : selectedRow.GSTNo;
-    // this.State = (selectedRow.TIN === 'URD') ? '' : selectedRow.StateCode;
   }
   
   onDownload(Filename) {
-    //const path = 'D:/Angular Project/EducationPortalAPI/Resources/Books';
     const path = "../../assets/layout/"+FileUploadConstant.Announcementfolder+"/"+Filename;
-    //const filename = 'files' + ".pdf";
     saveAs(path, Filename);
   }
  

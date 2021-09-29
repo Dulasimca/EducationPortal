@@ -341,6 +341,12 @@ td[_ngcontent-fng-c4] {
     outline-offset: 0;
     box-shadow: 0 0 0 0.2rem #ffffff !important;
 }
+.p-icon {
+    color: #52de38;
+     font-size: 1.5rem;
+      padding-left: 33px;
+      width: 142px;
+}
 .p-checkbox .p-checkbox-box {
     border: 2px solid #ced4da;
     background: #ffffff;
@@ -475,15 +481,15 @@ td[_ngcontent-fng-c4] {
 }
 
 .p-overlaypanel {
-    background: rgb(11, 43, 102) !important;
-    color: whitesmoke !important;
+    color: rgb(11, 43, 102) !important;
+    background: whitesmoke !important;
     border: 0;
     border-radius: 3px;
     box-shadow: 0 11px 15px -7px rgb(0 0 0 / 20%), 0 24px 38px 3px rgb(0 0 0 / 14%), 0 9px 46px 8px rgb(0 0 0 / 12%);
 }
 .p-overlaypanel:after, .p-overlaypanel:before {
     border: solid hsla(0,0%,100%,0);
-    border-bottom: solid rgb(11, 43, 102) !important;
+    border-bottom: solid whitesmoke !important;
 }
 .p-fieldset-legend>a, .p-fieldset-legend>span {
     display: inline-flex !important;

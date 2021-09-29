@@ -56,9 +56,9 @@
                             style="font-size: 2rem; margin-left: 5px; margin-right: 10px; color: #0e3167;"></i>
                         <input class="p-col-8" type="text" pInputText placeholder="Username" [(ngModel)]="username"
                         formControlName="user" required />
-                        <div *ngIf="loginForm.controls['user'].invalid && (loginForm.controls['user'].dirty || loginForm.controls['user'].touched)" class="alert alert-dloginer">
+                        <!-- <div *ngIf="loginForm.controls['user'].invalid && (loginForm.controls['user'].dirty || loginForm.controls['user'].touched)" class="alert alert-dloginer">
                             <small *ngIf="loginForm.controls['user'].errors.required" id="username2-help" class="p-error">Username is not available.</small>
-                        </div>
+                        </div> -->
                     </div>
                    
                     <div class="p-col-12" style="text-align: center;">

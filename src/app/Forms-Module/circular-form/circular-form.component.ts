@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
@@ -15,7 +15,8 @@ import { MasterService } from 'src/app/Services/master-data.service';
 import{FileUploadConstant} from 'src/app/Common-Module/file-upload-constant'
 import { Output, EventEmitter } from '@angular/core';
 import { saveAs } from 'file-saver';
-
+import { User } from 'src/app/Interfaces/user';
+import { AuthService } from 'src/app/Services/auth.service';
 @Component({
   selector: 'app-circular-form',
   templateUrl: './circular-form.component.html',
@@ -40,13 +41,15 @@ export class CircularFormComponent implements OnInit {
 
    NewFileName:string;
   public formData = new FormData();
-
+  @ViewChild('f', { static: false }) CircularForm: NgForm;
+  login_user: User;
   @Output() public onUploadFinished = new EventEmitter();
   constructor(private restApiService: RestAPIService, private datepipe: DatePipe, private http: HttpClient,
-    private masterService: MasterService,private messageService: MessageService) { }
+    private masterService: MasterService,private messageService: MessageService,
+    private authService: AuthService) { }
 
   ngOnInit(): void {
-
+    this.login_user = this.authService.UserInfo;
     this.cols = [
       //{field:'RowId',header: 'ID'},
       {field: 'CircularDate',header: 'Circular Date'},
@@ -67,7 +70,7 @@ export class CircularFormComponent implements OnInit {
      
       
       'RowId': this.MRowId,
-      'SchoolID':  1,
+      'SchoolID':  this.login_user.schoolId,
       'CircularDate': this.datepipe.transform(this.date,'yyyy-MM-dd'), 
       'Subject': this.Subject,
       'Details': this.Details,
@@ -77,8 +80,7 @@ export class CircularFormComponent implements OnInit {
   
   this.formData = new FormData()
   let fileToUpload: any = <File>files[0];
-  let folderOptions=<FolderOptions>params[0];
-
+ 
   const filename = fileToUpload.name + '^' + FileUploadConstant.Circularfolder;
   this.formData.append('file', fileToUpload, filename);
   console.log('file', fileToUpload);
@@ -97,7 +99,7 @@ export class CircularFormComponent implements OnInit {
      
       
       'RowId': this.MRowId,
-      'SchoolID':  1,
+      'SchoolID': this.login_user.schoolId,
       'CircularDate': this.datepipe.transform(this.date,'yyyy-MM-dd'), 
       'Subject': this.Subject,
       'Details': this.Details,
@@ -145,7 +147,7 @@ export class CircularFormComponent implements OnInit {
 
   onview() {
     const params = { 
-      'SchoolID': 1,
+      'SchoolID': this.login_user.schoolId,
     }
     
     this.restApiService.getByParameters(PathConstants.Circular_Get, params).subscribe(res => {
@@ -161,25 +163,23 @@ export class CircularFormComponent implements OnInit {
 
   onClear()
   {
-  //this.date = '',
-  this.Subject = '',
-  this.Details = ''
+    this.CircularForm.reset();
+    this.CircularForm.form.markAsUntouched();
+    this.CircularForm.form.markAsPristine();
+    this.Subject = '',
+    this.Details = ''
   }
   onRowSelect(event, selectedRow) {
     this.MRowId = selectedRow.RowId;
     this.date = selectedRow.CircularDate;
     this.Subject = selectedRow.Subject;
     this.Details = selectedRow.Details;
+    this.NewFileName = selectedRow.Download;
 }
 onDownload(Filename) {
-  //const path = 'D:/Angular Project/EducationPortalAPI/Resources/Books';
   const path = "../../assets/layout/"+FileUploadConstant.Circularfolder+"/"+Filename;
-  //const filename = 'files' + ".pdf";
   saveAs(path, Filename);
 }
-}
-interface FolderOptions {
-  FolderPath?: string;
 }
 
 

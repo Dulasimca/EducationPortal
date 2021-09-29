@@ -61,7 +61,8 @@ export class PathConstants {
     
     public static readonly FileUpload_Post = 'Upload/AddFileDetails'; 
 
-
+    public static readonly Gallery_Post = 'Gallery/post';
+    public static readonly Gallery_Get = 'Gallery/Get'
 
 
 

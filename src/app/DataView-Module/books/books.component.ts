@@ -28,6 +28,7 @@ export class BooksComponent implements OnInit {
     this.cols = [
       //{field: 'RowId',header: 'ID'},
       {field: 'Years',header: 'Year'},
+      {field: 'ClassId',header:'Class'},
       {field:'subjects',header: 'Subject'},
       {field: 'authorReference',header: 'Author/Reference'},
       //{field: 'Pdffilename',header: 'Book Download'},

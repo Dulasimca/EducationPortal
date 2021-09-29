@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,ViewChild  } from '@angular/core';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { saveAs } from 'file-saver';
@@ -10,12 +10,14 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ResponseMessage } from 'src/app/Common-Module/Message';
 import { MessageService, SelectItem } from 'primeng/api';
 import { MasterService } from 'src/app/Services/master-data.service';
-
+import { NgForm } from '@angular/forms';
 import { Output, EventEmitter } from '@angular/core';
 import { HttpEventType } from '@angular/common/http';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
 import{FileUploadConstant} from 'src/app/Common-Module/file-upload-constant'
-
+import { User } from 'src/app/Interfaces/user';
+import { AuthService } from 'src/app/Services/auth.service';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-book-form',
@@ -30,6 +32,9 @@ export class BookFormComponent implements OnInit {
   selectedyear: string;
   cols: any; 
   form:any;
+  ClassId: any;
+  classOptions: SelectItem[];
+  classes?: any;
   data: any = [];
   uploadedFiles: any[] = [];
   Folder:any[]=[];
@@ -39,12 +44,16 @@ export class BookFormComponent implements OnInit {
 
    NewFileName:string;
   public formData = new FormData();
-
+  @ViewChild('f', { static: false }) _bookForm: NgForm;
+  login_user: User;
   @Output() public onUploadFinished = new EventEmitter();
   constructor(private restApiService: RestAPIService, private http: HttpClient,
-    private masterService: MasterService,private messageService: MessageService) { }
+    private masterService: MasterService,private messageService: MessageService,
+    private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.classes = this.masterService.getMaster('C');
+    this.login_user = this.authService.UserInfo;
     this.yearOptions = [
       { label: '2019-2020', value: '2019-2020' },
       { label: '2020-2021', value: '2020-2021' },
@@ -53,6 +62,7 @@ export class BookFormComponent implements OnInit {
     this.cols = [
      // {field:'RowId',header: 'ID'},
       {field: 'Years',header: 'Year'},
+      {field: 'ClassId',header:'Class'},
       {field:'subjects',header: 'Subject'},
       {field: 'authorReference',header: 'Author/Reference'},
    //   {field: 'Pdffilename',header: 'Book Name'},
@@ -61,28 +71,26 @@ export class BookFormComponent implements OnInit {
       
     ];
   }
- 
+  onSelect(type) {
+    let classSelection = [];
+    switch (type) {
+      case 'C':
+        this.classes.forEach(c => {
+          classSelection.push({ label: c.name, value: c.code })
+        });
+        let sortedClass = _.sortBy(classSelection, 'value');
+        this.classOptions = sortedClass;
+        this.classOptions.unshift({ label: '-select', value: null });
+        break;
+      }
+    }
   public uploadFile = (files) => {
     if (files.length === 0) {
       return;
     }
-    const params = {
     
-      'RowId': this.MRowId,
-      'SchoolId': 1,
-      'ClassId': 1,
-      'subjects': this.Subject,     
-      'authorReference': this.Author,
-      'Pdffilename': this.NewFileName,  
-      'Years': this.selectedyear,   
-      'Flag': 1,  
-      
-      
-     
-    };
     this.formData = new FormData()
     let fileToUpload: any = <File>files[0];
-    let folderOptions=<FolderOptions>params[0];
  
     const filename = fileToUpload.name + '^' + FileUploadConstant.Booksfolder;
     this.formData.append('file', fileToUpload, filename);
@@ -107,13 +115,13 @@ export class BookFormComponent implements OnInit {
     this.blockUI.start();
     const params = {
       'RowId': this.MRowId,
-      'SchoolId': 1,
-      'ClassId': 1,
+      'SchoolId': this.login_user.schoolId,
+      'ClassId':  this.ClassId.value,
       'subjects': this.Subject,     
       'authorReference': this.Author,
       'Pdffilename': this.NewFileName,  
       'Years': this.selectedyear,   
-      'Flag': 1,  
+      'Flag': true,  
     };
     console.log(params);
     this.restApiService.post(PathConstants.Book_Post, params).subscribe(res => {
@@ -158,41 +166,47 @@ export class BookFormComponent implements OnInit {
 
   onview() {
     const params = { 
-      'SchoolID': 1,
+      'SchoolID': this.login_user.schoolId,
     }
     
     this.restApiService.getByParameters(PathConstants.Book_Get, params).subscribe(res => {
       if(res !== null && res !== undefined && res.length !==0) {
-        console.log(res);
         this.data = res;
       }
       
-    })
+    });
 
   }
   onClear()
   {
-  //this.date = '',
-  this.Subject = '',
-  this.Author = '',
-  this.selectedyear = '',
-  this.message =''
+    this._bookForm.reset();
+    this._bookForm.form.markAsUntouched();
+    this._bookForm.form.markAsPristine();
+    this.Subject = '',
+    this.Author = '',
+    this.selectedyear = '',
+    this.message =''
   
   }
   onRowSelect(event, selectedRow) {
     this.MRowId = selectedRow.RowId;
+
+    let classSelection = [];
+    this.classes.forEach(c => {
+      if(selectedRow.ClassId==c.code)
+      classSelection.push({ label: c.name, value: c.code })
+    });
+    
+    let sortedClass = _.sortBy(classSelection, 'value');
+    this.classOptions = sortedClass;
     this.Author = selectedRow.authorReference;
     this.Subject = selectedRow.subjects;
     this.selectedyear = selectedRow.Years;
+    this.NewFileName=selectedRow.Pdffilename;
 }
 onDownload(Filename) {
-  //const path = 'D:/Angular Project/EducationPortalAPI/Resources/Books';
   const path = "../../assets/layout/"+FileUploadConstant.Booksfolder+"/"+Filename;
-  //const filename = 'files' + ".pdf";
   saveAs(path, Filename);
 }
 }
 
-interface FolderOptions {
-  FolderPath?: string;
-}

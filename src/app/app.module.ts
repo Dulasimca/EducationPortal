@@ -105,6 +105,8 @@ import { UploadDownloadformsComponent } from './Forms-Module/upload-downloadform
 import {ReactiveFormsModule} from '@angular/forms';
 import { InputFormatDirective } from './Directives/input-format.directive';
 import { NgxPrintModule } from 'ngx-print';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {ConfirmationService} from 'primeng/api';
 
   
 FullCalendarModule.registerPlugins([
@@ -212,11 +214,12 @@ FullCalendarModule.registerPlugins([
    // BlockUIModule
     OverlayPanelModule,
     NgxPrintModule,
+    ConfirmDialogModule,
     BlockUIModule.forRoot()
   ],
   providers: [PrimeNGConfig, FilterService, AuthGuard, AuthService, RestAPIService,
     NgxAttendanceLibraryService, DatePipe, MessageService, MasterService, ExcelService,
-    AssessmentService, UserService, ZoomService],
+    AssessmentService, UserService, ZoomService, ConfirmationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

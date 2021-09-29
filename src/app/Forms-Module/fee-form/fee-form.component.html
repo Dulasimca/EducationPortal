@@ -21,23 +21,23 @@
                     </div>  
                     <div class="p-col-12 p-md-6 p-lg-3">
                        <div> <label> Actual Amount:</label></div>
-                        <input id="float-input"  type="text" size="24" pInputText [(ngModel)]="actualamount" name="actualamount" required>  
+                        <input id="float-input" appInputFormat="digitOnly" type="text" size="24" pInputText [(ngModel)]="actualamount" name="actualamount" required>  
                     </div>
                     <div class="p-col-12 p-md-6 p-lg-3">
                         <div><label> Paid Amount:</label></div>
-                        <input id="float-input"  type="text" size="24" pInputText [(ngModel)]="paidamount" name="paidamount" required>  
+                        <input id="float-input" appInputFormat="digitOnly" type="text" size="24" pInputText [(ngModel)]="paidamount" name="paidamount" required>  
                     </div>
                     <div class="p-col-12 p-md-6 p-lg-3">
                         <div><label> Outstanding Amount:</label></div>
-                        <input id="float-input"  type="text" size="24" pInputText [(ngModel)]="outstanding" name="outstanding" required>  
+                        <input id="float-input" appInputFormat="digitOnly"  type="text" size="24" pInputText [(ngModel)]="outstanding" name="outstanding" required>  
                     </div>
                     <div class="p-col-12 p-md-6 p-lg-3">
                         <div><label> Paying Amount:</label></div>
-                        <input id="float-input"  type="text" size="24" pInputText [(ngModel)]="paying" name="paying"  required>  
+                        <input id="float-input" appInputFormat="digitOnly" type="text" size="24" pInputText [(ngModel)]="paying" name="paying"  required>  
                     </div>
                     <div class="p-col-12 p-md-6 p-lg-3">
                         <div><label> Fine:</label></div>
-                        <input id="float-input"  type="text" size="24" pInputText [(ngModel)]="fine" name="fine" required>  
+                        <input id="float-input" appInputFormat="digitOnly"  type="text" size="24" pInputText [(ngModel)]="fine" name="fine" required>  
                     </div>
                     <div class="p-col-12 p-md-12 p-lg-12"> 
                         <button pButton name="_save" type="button" label="Submit" (click)="onSubmit()" [disabled] = "(!f.valid)" style="margin-left: 45%;"></button>

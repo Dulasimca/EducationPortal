@@ -2,7 +2,6 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { MessageService, SelectItem } from 'primeng/api';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
-import { saveAs } from 'file-saver';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ResponseMessage } from 'src/app/Common-Module/Message';
 import { MasterService } from 'src/app/Services/master-data.service';
@@ -61,7 +60,7 @@ export class NomineeFormComponent implements OnInit {
 
     this.cols = [
       { field: 'SlNo', header: 'Slno'},
-      { field: 'RowId', header: 'ID' },
+      // { field: 'RowId', header: 'ID' },
       { field: 'NomineeID', header: 'NomineeID' },
       { field: 'FirstName', header: 'Nominee Name' },
       { field: 'ElectionDate', header: 'Election Date' },

@@ -9,7 +9,8 @@ import { MessageService, SelectItem } from 'primeng/api';
 import { NgForm } from '@angular/forms';
 import { AuthService } from 'src/app/Services/auth.service';
 import { User } from 'src/app/Interfaces/user';
-
+import{FileUploadConstant} from 'src/app/Common-Module/file-upload-constant'
+import { saveAs } from 'file-saver';
 
 @Component({
   selector: 'app-myachievement-form',
@@ -26,7 +27,10 @@ export class MyachievementFormComponent implements OnInit {
   cols: any;
   MRowId=0;
   login_user: User;
+  attach: string;
+  NewFileName:string;
   @BlockUI() blockUI: NgBlockUI;
+  public formData = new FormData();
 
   @ViewChild('f', { static: false }) _MyAchievementForm: NgForm;
 
@@ -36,11 +40,12 @@ export class MyachievementFormComponent implements OnInit {
   ngOnInit(): void {
     this.cols = [
       { field: 'SlNo', header: 'Slno'},
-      { field: 'RowId', header: 'ID' },
+      // { field: 'RowId', header: 'ID' },
       { field: 'eventdate', header: 'Date' },
       { field: 'EventDetailS', header: 'Events' },
       { field: 'Place', header: 'Place' },
-      { field: 'AchievementStatus', header: 'Status' }  
+      { field: 'AchievementStatus', header: 'Status' } 
+ 
   ];
   this.login_user = this.authService.UserInfo;
   }
@@ -49,10 +54,11 @@ export class MyachievementFormComponent implements OnInit {
       'RowId': this.MRowId,
       'SchoolId': this.login_user.schoolId,         
       'StudentId':1,
-      'eventdate': this.datepipe.transform(this.date, 'yyyy-MM-dd') ,    
+      'eventdate': this.datepipe.transform(this.date, 'MM/dd/yyyy') ,    
       'EventDetailS':this.Events,
       'Place': this.Place,  
       'AchievementStatus':this.Status,
+      'filename':this.NewFileName,
       'Flag': 1, 
 
     };
@@ -92,6 +98,24 @@ export class MyachievementFormComponent implements OnInit {
         }
         })
       }
+      public uploadFile = (files) => {
+        if (files.length === 0) {
+          return;
+        }
+        this.formData = new FormData()
+        let fileToUpload: any = <File>files[0];
+     
+        const filename = fileToUpload.name + '^' + FileUploadConstant.Achievementfolder;
+        this.formData.append('file', fileToUpload, filename);
+        console.log('file', fileToUpload);
+        console.log('formdata', this.formData);
+        this.NewFileName=fileToUpload.name;
+        this.http.post(this.restApiService.BASEURL +PathConstants.FileUpload_Post, this.formData)
+          .subscribe(event => 
+            {
+          }
+          );
+      }  
   onView() {
     const params = {
       'SchoolID': this.login_user.schoolId,
@@ -124,5 +148,9 @@ export class MyachievementFormComponent implements OnInit {
     this.Events=selectedRow.EventDetailS;
     this.Place=selectedRow.Place;
     this.Status=selectedRow.AchievementStatus;
+  }
+  onDownload(Filename) {
+    const path = "../../assets/layout/"+FileUploadConstant.Achievementfolder+"/"+Filename;
+    saveAs(path, Filename);
   }
 }

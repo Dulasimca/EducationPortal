@@ -5,8 +5,9 @@
         <div>
           <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,15,20]"
             totalRecords="totalRecords" pageLinks="3">
-            <ng-template pTemplate="header"  let-columns>
+            <ng-template pTemplate="header" let-columns>
               <tr>
+                <th>S.No</th>
                 <th *ngFor="let col of columns">
                   {{col.header}}
                 </th>
@@ -18,14 +19,22 @@
                 </th>
               </tr>
             </ng-template>
-            <ng-template pTemplate="body" let-rowData let-columns="columns" class="cursor-pointer">
+            <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
               <tr>
+                <td>{{rowIndex+1}}</td>
                 <td *ngFor="let col of columns">
                   {{rowData[col.field]}}
                 </td>
-                <td style="width: 100px;"><i class="pi pi-upload" type ="file" #file pInput (change)="uploadFile(file.files)" accept=".pdf"
-                  style="color: #52de38; font-size: 1.3rem; margin-left: 25px;"></i></td>
-                  <td style="width: 142px;"><i class="pi pi-download" (click)="onDownload(rowData.Assignmentfilename)" 
+                <td style="width: 100px;">
+
+                  <input style="display: none" type="file" (change)="uploadFile($event)" #fileInput>
+                  <i class="pi pi-upload" type="file" #file (click)="fileInput.click()" accept=".pdf"
+                    style="color: #52de38; font-size: 1.3rem; margin-left: 25px;">
+
+                  </i>
+
+                </td>
+                <td style="width: 142px;"><i class="pi pi-download" (click)="onDownload(rowData.Assignmentfilename)"
                     style="color: #52de38; font-size: 1.3rem; margin-left: 25px;"></i></td>
               </tr>
             </ng-template>

@@ -136,6 +136,7 @@ export class FeeFormComponent implements OnInit {
         }
         })
       }
+      
   onView() {
     const params = {
       'SchoolID': this.login_user.schoolId,

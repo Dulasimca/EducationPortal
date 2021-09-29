@@ -1,3 +1,4 @@
+<block-ui>
 <div class="p-col-12" style="padding-top:25px;">
     <p-panel header="Question Bank Upload">
         <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
@@ -52,6 +53,12 @@
                             </div>
                             <div #row3 class="p-col-12 p-md-12 p-lg-12">
                                 <div class="p-grid">
+                                    <div class="p-col-12 p-md-6 p-lg-3">
+                                        <div><label for="_pdate">Publish Date<span
+                                                    class="form-mandatory-field">*</span></label></div>
+                                        <p-calendar [(ngModel)]="publishDate" name="_pdate" [showIcon]="true" required>
+                                        </p-calendar>
+                                    </div>
                                     <div class="p-col-12 p-md-8 p-lg-5">
                                         <input #fileSelector id="my-file-selector" pInputText class="p-col-12"
                                             name="_pdf" type="file" (change)="uploadData($event);"
@@ -73,3 +80,4 @@
         </div>
     </p-panel>
 </div>
+</block-ui>

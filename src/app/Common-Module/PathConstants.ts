@@ -5,8 +5,12 @@ export class PathConstants {
     
     public static readonly Menu_Master = 'MenuMaster/Get';
 
+    public static readonly Login = 'Login/Get';
+
     public static readonly Registration_Post = 'RegistrationForm/Post';
     public static readonly Registration_Get = 'RegistrationForm/Get';
+
+    public static readonly Event_Calendar_Get = 'EventCalendar/Get';
 
     public static readonly OnlineAssessment_Post = 'OnlineAssessment/Post';
     public static readonly OnlineAssessment_Get = 'OnlineAssessment/Get';

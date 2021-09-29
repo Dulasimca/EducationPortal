@@ -1,81 +1,133 @@
 <div class="p-col-12" style="padding-top:25px;">
-    <p-panel header="Fee Details">
-        <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
-            <form #f="ngForm" name="feeDetailsForm">
-                <div class="p-grid">
-                    <div class="p-col-12 p-md-12 p-lg-2"></div>
-                    <div class="p-col-12 p-md-10 p-lg-8">
-                        <p-card>
-                            <div #row1 class="p-col-12 p-md-12 p-lg-12">
-                                <div class="p-grid">
-                                    <div class="p-col-12 p-md-6 p-lg-3">
-                                        <div><label for="_feetype">Fee Type<span
-                                                    class="form-mandatory-field">*</span></label></div>
-                                        <p-dropdown name="_feetype" [options]="feeTypeOptions" [(ngModel)]="feeType"
-                                            required>
-                                        </p-dropdown>
-                                    </div>
-                                    <div class="p-col-12 p-md-6 p-lg-3">
-                                        <div><label for="_duedate">Due Date<span
-                                                    class="form-mandatory-field">*</span></label></div>
-                                        <p-calendar [(ngModel)]="dueDate" name="_duedate" [showIcon]="true" required>
-                                        </p-calendar>
-                                    </div>
-                                    <div class="p-col-12 p-md-6 p-lg-3">
-                                        <div><label for="_totalamnt">Total Amount<span
-                                                    class="form-mandatory-field">*</span></label>
-                                        </div>
-                                        <input type="text" name="_totalamnt" class="p-col-12" pInputText
-                                            [(ngModel)]="totalAmount" required />
-                                    </div>
-                                    <div class="p-col-12 p-md-6 p-lg-3">
-                                        <div><label for="_paidamnt">Paid Amount<span
-                                                    class="form-mandatory-field">*</span></label>
-                                        </div>
-                                        <input type="text" name="_paidamnt" class="p-col-12" pInputText
-                                            [(ngModel)]="paidAmount" required />
-                                    </div>
-                                </div>
-                            </div>
-                            <div #row2 class="p-col-12 p-md-12 p-lg-12">
-                                <div class="p-grid">
-                                    <div class="p-col-12 p-md-6 p-lg-3">
-                                        <div><label for="_outstandingamnt">Outstanding Amount<span
-                                                    class="form-mandatory-field">*</span></label>
-                                        </div>
-                                        <input type="text" name="_outstandingamnt" class="p-col-12" pInputText
-                                            [(ngModel)]="outstandingAmount" required />
-                                    </div>
-                                    <div class="p-col-12 p-md-6 p-lg-3">
-                                        <div><label for="_payingamnt">Paying Amount<span
-                                                    class="form-mandatory-field">*</span></label>
-                                        </div>
-                                        <input type="text" name="_payingamnt" class="p-col-12" pInputText
-                                            [(ngModel)]="payingAmount" required />
-                                    </div>
-                                    <div class="p-col-12 p-md-6 p-lg-3">
-                                        <div><label for="_fineamnt">Fine Amount<span
-                                                    class="form-mandatory-field">*</span></label>
-                                        </div>
-                                        <input type="text" name="_fineamnt" class="p-col-12" pInputText
-                                            [(ngModel)]="fineAmount" required />
-                                    </div>
-                                    <div class="p-col-12 p-md-4 p-lg-2 no-pad-top">
-                                        <div class="p-col-12"></div>
-                                        <div class="p-col-12"></div>
-                                        <button pButton name="_receipt" type="button" icon="pi pi-book" label="Receipt"
-                                            (click)="onDownload()"></button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div #row3 class="p-col-12 p-md-12 p-lg-12 text-center">
-                                <button pButton name="_save" type="button" label="Save" (click)="onSave()"
-                                    [disabled]="(!f.valid)"></button>
-                            </div>
-                        </p-card>
-                    </div>
+  <p-panel header="Fee Details">
+    <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
+      <form #f="ngForm" name="feeDetailsForm">
+        <div class="p-grid">
+          <div class="p-col-12 p-md-6 p-lg-3">
+            <div>
+              <label>Academic Year:</label>
+            </div>
+            <p-dropdown [options]="yearOptions" name="_selectedyear" [(ngModel)]="selectedYear" (onClick)="onSelect()"
+              optionLabel="label" (onChange)="onLoad()" required> </p-dropdown>
+          </div>
+          <div>
+            <p-table [columns]="cols" class="p-datatble-gridlines" [value]="feeData">
+              <ng-template pTemplate="header" let-columns>
+                <tr>
+                  <th>S.No</th>
+                  <th *ngFor="let col of columns">
+                    {{col.header}}
+                  </th>
+                  <th>
+                    Invoice D/w
+                  </th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns"
+                class="cursor-pointer">
+                <tr>
+                  <td>{{rowIndex+1}}</td>
+                  <td *ngFor="let col of columns">
+                    {{rowData[col.field]}}
+                  </td>
+                  <td class="p-icon">
+                    <i style="font-size: large;" class="pi pi-print" (click)="onDownload(rowData)"></i>
+                  </td>
+                </tr>
+              </ng-template>
+
+            </p-table>
+          </div>
+<!-- feereceipt form  -->
+          <p-dialog [(visible)]="showReceipt" [style]="{width: '50vw'}" [draggable]="false">
+            <ng-template pTemplate="header">
+              <div>Fee Receipt</div>
+            </ng-template>
+            <div class="p-col-12" style="border: 1px solid black;">
+              <div id="printdiv">
+                <div class="p-col-12 no-pad" style="text-align: center;">
+                  <img style="width: 80px;" src="assets/layout/images/logo.jpg" />
                 </div>
-            </form>
+                <div style="text-align: center;">
+                  <span style="font-weight: bold; font-family: serif; text-transform: uppercase;">
+                    {{schoolName}}
+                    <br>{{schoolAddress}}</span>
+                </div>
+                <hr class="no-pad p-col-12" style="color: black;">
+                <div class="p-col-12">
+                  <div class="text-center">
+                    <!-- <span>{{receiptYear}}</span> -->
+                    <div style="font-weight: 900;">Receipt 2021-2022</div>
+                  </div>
+                  <div class="p-col-12"></div>
+                  <div class="p-grid">
+                    <div class="p-col-6 p-md-6 p-lg-6">
+                      <div class="p-col-12 no-pad-bottom">
+                        <span style="font-weight: 600;">Receipt No. :</span>
+                          <span style="padding-left: 3px;">{{receiptNo}}</span>
+                      </div>
+                      <div class="p-col-12 no-pad-bottom">
+                        <span style="font-weight: 600;">Student Name :</span>
+                        <span style="text-transform: uppercase; padding-left: 3px;">{{studentName}}</span>
+                      </div>
+                      <div class="p-col-12 no-pad-bottom">
+                        <span style="font-weight: 600;">Class :</span>
+                        <span>{{class}}</span>
+                      </div>
+                    </div>
+                    <div class="p-col-6 p-md-6 p-lg-6">
+                      <div class="p-col-12 no-pad-bottom">
+                        <span style="font-weight: 600;">Admission No. :</span><span> ST2021001</span>
+                        <!-- <span>{{admnNo}}</span> -->
+                      </div>
+                      <div class="p-col-12 no-pad-bottom">
+                        <span style="font-weight: 600;">Date :</span>
+                        <span>{{today}}</span>
+                      </div>
+                      <div class="p-col-12 no-pad-bottom">
+                        <span style="font-weight: 600;">Parent Name:</span>
+                        <span style="text-transform: uppercase; padding-left: 3px;">{{parentName}}</span>
+                      </div>
+                    </div>
+                    <div>
+                      <p-table styleClass="p-datatable-gridlines" [value]="receiptData">
+                        <ng-template pTemplate="header" let-columns>
+                          <tr>
+                            <th style="width: 53px;">S.No</th>
+                            <th>Fee Particulars</th>
+                            <th style="width: 3cm;">Pay Date</th>
+                            <th>Total Amount<br> (in rupees)</th>
+                            <th>Paid Amount<br> (in rupees)</th>
+                          </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
+                          <tr>
+                            <td>{{rowIndex+1}}</td>
+                            <td> {{rowData.feeparticulars}}</td>
+                            <td>{{rowData.paydate}}</td>
+                            <td>{{rowData.totalamount}}</td>
+                            <td>{{rowData.paidamount}}</td>
+                            <!-- <td>Total</td> -->
+                          </tr>
+                        </ng-template>
+                      </p-table>
+                      <div style="font-size: inherit; font-weight: 700; padding-left: 328px;">
+                        FEE TOTAL : Rs.{{total}}
+                      </div>
+                      <div class="p-col-12"></div>
+                      <p style="font-size: x-small;">Note*:The receipt is given to students to acknowledge payment of
+                        any fees to the school </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              </div>
+              <div class="p-col-12 p-md-12 p-lg-12 text-center">
+                <button printSectionId="printdiv" ngxPrint pButton type="button" label="Print"></button>
+              </div>
+          </p-dialog>
         </div>
-    </p-panel>
+      </form>
+    </div>
+  </p-panel>
 </div>

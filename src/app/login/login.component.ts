@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
   showPswd: boolean;
   loginHeader: string = 'Student Login';
   selectedIndex = 0;
-  loginForm: FormGroup;           
+  loginForm: FormGroup;
   @ViewChild('tabview', { static: false }) _tabView: TabView;
 
   constructor(private authService: AuthService, private restApiService: RestAPIService,
@@ -40,72 +40,82 @@ export class LoginComponent implements OnInit {
   }
 
   onSignIn() {
-    if(this.username.trim() !== '' && this.password.trim() !== '') {
-    const params = { 'Value': this.username.trim(), 'Type': '2' };
-    this.restApiService.getByParameters(PathConstants.Registration_Get, params).subscribe(response => {
-      if (response !== undefined && response !== null && response.length !== 0) {
-        response.forEach(i => {
-        //  if(this.selectedIndex)
-          var response_email = (i.EmailId !== undefined && i.EmailId !== null) ? i.EmailId.toString().toLowerCase().trim() : '';
-          var response_pwd = (i.password !== undefined && i.password !== null) ? i.password.toString().toLowerCase().trim() : '';
-          if (response_email === this.username.toLowerCase().trim() && response_pwd === this.password.toLowerCase().trim()) {
-            const obj: User = {
-              username: (i.FirstName !== undefined && i.FirstName !== null) ? i.FirstName.toString().trim(): '',
-              lastname: (i.LastName !== undefined && i.LastName !== null) ? i.LastName.toString().trim() : '',
-              password: this.password.trim(),
-              id: (i.slno !== undefined) ? i.slno : null,
-              email: this.username.trim(),
-              schoolId: (i.SchoolId !== undefined) ? i.SchoolId : null,
-              classId: (i.ClassId !== undefined) ? i.ClassId : null,
-              sectioncode: (i.SectionId !== undefined) ? i.SectionId : null,
-              roleId: (i.RoleId !== undefined) ? i.RoleId : null,
-              fathername: (i.FatherName !== undefined && i.FatherName !== null) ? i.FatherName.toString().trim() : '',
-              class: (i.Class !== undefined && i.Class !== null) ? i.Class.toString().trim(): '',
-              section: (i.Section !== undefined && i.Section !== null) ? i.Section.toString().trim(): '',
-              medium: (i.MediumName !== undefined && i.MediumName !== null) ? i.MediumName.toString().trim() : '',
-              mediumId: (i.Medium !== undefined) ? i.Medium : null,
-              district: (i.Districname !== undefined && i.Districname) ? i.Districname.toString().trim() : '',
-              distrctId: (i.DistrictId !== undefined) ? i.DistrictId : null,
-              schoolname: (i.Schoolname !== undefined && i.Schoolname !== null) ? i.Schoolname.toString().trim() : '',
-              taluk: (i.Taluk !== undefined && i.Taluk !== null) ? i.Taluk.toString().trim() : '',
-              talukId: (i.City !== undefined && i.City !== null) ? i.City.toString().trim() : '',
-              pincode: (i.Postalcode !== undefined && i.Postalcode !== null) ? i.Postalcode.toString().trim() : ''
-
+    if (this.username.trim() !== '' && this.password.trim() !== '') {
+      let role;
+      if (this.selectedIndex === 0) {
+        role = 6;
+      } else if (this.selectedIndex === 1) {
+        role = 5;
+      } else {
+        role = 3;
+      }
+      const params = {
+        'Value': this.username.trim(),
+        'Type': '2',
+        'RoleId': role,
+        'Password': this.password.trim()
+      };
+      this.restApiService.getByParameters(PathConstants.Login, params).subscribe(response => {
+        if(response !== undefined && response !== null) {
+          if(response.item1) {
+            if (response.item3.length !== 0) {
+              response.item3.forEach(i => {
+                  const obj: User = {
+                    username: (i.firstName !== undefined && i.firstName !== null) ? i.firstName.toString().trim() : '',
+                    lastname: (i.lastName !== undefined && i.lastName !== null) ? i.lastName.toString().trim() : '',
+                    password: (i.password !== undefined && i.password !== null) ? i.password.toString().trim() : '',
+                    id: (i.slno !== undefined) ? i.slno : null,
+                    email: (i.emailId !== undefined && i.emailId !== null) ? i.emailId.toString().trim() : '',
+                    schoolId: (i.schoolId !== undefined) ? i.schoolId : null,
+                    classId: (i.classId !== undefined) ? i.classId : null,
+                    sectioncode: (i.sectionId !== undefined) ? i.sectionId : null,
+                    roleId: (i.roleId !== undefined) ? i.roleId : null,
+                    fathername: (i.fatherName !== undefined && i.fatherName !== null) ? i.fatherName.toString().trim() : '',
+                    class: (i.class !== undefined && i.class !== null) ? i.class.toString().trim() : '',
+                    section: (i.section !== undefined && i.section !== null) ? i.section.toString().trim() : '',
+                    medium: (i.mediumName !== undefined && i.mediumName !== null) ? i.mediumName.toString().trim() : '',
+                    mediumId: (i.medium !== undefined) ? i.medium : null,
+                    district: (i.districname !== undefined && i.districname) ? i.districname.toString().trim() : '',
+                    distrctId: (i.districtId !== undefined) ? i.districtId : null,
+                    schoolname: (i.schoolname !== undefined && i.schoolname !== null) ? i.schoolname.toString().trim() : '',
+                    taluk: (i.taluk !== undefined && i.taluk !== null) ? i.taluk.toString().trim() : '',
+                    talukId: (i.city !== undefined && i.city !== null) ? i.city.toString().trim() : '',
+                    pincode: (i.postalcode !== undefined && i.postalcode !== null) ? i.postalcode.toString().trim() : ''
+                  }
+                  this.authService.login(obj);
+                  this.masterService.initializeMaster();
+              });
             }
-            this.authService.login(obj);
-            this.masterService.initializeMaster();
           } else {
             this.messageService.clear();
             this.messageService.add({
               key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
-              summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.LoginFailed
+              summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
             });
           }
-
-        })
-      } else {
-        this.messageService.clear();
-        this.messageService.add({
-          key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
-          summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
-        });
-      }
-    }, (err: HttpErrorResponse) => {
-      if (err.status === 0 || err.status === 400) {
-        this.messageService.clear();
-        this.messageService.add({
-          key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
-          summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
-        })
-      }
-    })
-  } else {
-    this.messageService.clear();
-    this.messageService.add({
-      key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
-      summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.LoginFailed
-    });
-  }
+        } else {
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+            summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+          });
+        }
+      }, (err: HttpErrorResponse) => {
+        if (err.status === 0 || err.status === 400) {
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+            summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+          })
+        }
+      })
+    } else {
+      this.messageService.clear();
+      this.messageService.add({
+        key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+        summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.LoginFailed
+      });
+    }
   }
 
   onShowPswd() {

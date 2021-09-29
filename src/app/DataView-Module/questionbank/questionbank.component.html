@@ -1,34 +1,37 @@
 <div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px;">
-        <p-panel header="QuestionBank">
+    <p-panel header="QuestionBank">
         <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
             <p-card>
                 <div class="p-col-12 p-md-12 p-lg-12 no-pad-top" style="margin-top: -5px;">
-                    <div class="no-pad-top"><label>Year:</label> </div>  
-                    <p-dropdown [options]="years" [(ngModel)]="selectedyear" optionLabel="name"></p-dropdown>
-
+                    <div class="p-grid">
+                        <div class="p-col-1 no-pad-top"><label>Year:</label> </div>
+                        <div class="p-col-2" style="margin-left: -3%"><p-dropdown [options]="yearOptions" [(ngModel)]="selectedYear" (onClick)="onSelect()"
+                            (onChange)="onLoad()"></p-dropdown>
+                        </div>
+                    </div>
                 </div>
                 <div>
                     <p-table [value]="data">
                         <ng-template pTemplate="header">
                             <tr>
                                 <th style="width: 100px">S.No</th>
-                                <th>Subject Name</th>
+                                <th>Subject</th>
+                                <th>Description</th>
+                                <th>Publish Date</th>
                                 <th>Download</th>
-                                </tr>
+                            </tr>
                         </ng-template>
-                        <ng-template pTemplate="body" let rowIndex=rowIndex let-data>
+                        <ng-template pTemplate="body" let-rowIndex="rowIndex" let-data>
                             <tr>
-                                <td style="width: 100px">{{data.slno}}</td>
+                                <td style="width: 100px">{{rowIndex+1}}</td>
                                 <td>{{data.subject}}</td>
-                                <!-- <td>{{data.download}}</td> -->
+                                <td>{{data.Description}}</td>
+                                <td>{{data.Publishdate | date}}</td>
                                 <td>
-    
-
-                                    <a href= "{​​​​​​​​{​​​​​​​​data.link}​​​​​​​​}​​​​​​​​"><i class="pi pi-file-pdf"  style="padding-left: 10px; color: #52de38; font-size: 1.5rem;"></i></a>
-                                    
-                                    
-                                      </td>
-                                </tr>
+                                    <a href="{​​​​​​​​{​​​​​​​​data.link}​​​​​​​​}​​​​​​​​"><i class="pi pi-file-pdf"
+                                            style="padding-left: 10px; color: #52de38; font-size: 1.5rem;"></i></a>
+                                </td>
+                            </tr>
                         </ng-template>
                     </p-table>
                 </div>

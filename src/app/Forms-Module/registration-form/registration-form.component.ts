@@ -2,8 +2,7 @@ import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core'
 import { MessageService, SelectItem } from 'primeng/api';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
-import { saveAs } from 'file-saver';
-import { HttpClient, HttpErrorResponse, HttpEventType } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ResponseMessage } from 'src/app/Common-Module/Message';
 import { MasterService } from 'src/app/Services/master-data.service';
 import * as _ from 'lodash';
@@ -12,7 +11,6 @@ import { NgForm } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { DomSanitizer } from '@angular/platform-browser';
-import { catchError, map, of } from 'rxjs';
 import { User } from 'src/app/Interfaces/user';
 import { AuthService } from 'src/app/Services/auth.service';
 import { FileUploadConstant } from 'src/app/Common-Module/file-upload-constant';
@@ -34,7 +32,6 @@ export class RegistrationFormComponent implements OnInit {
   district: any;
   districtOptions: SelectItem[];
   school: any;
-  schoolOptions: SelectItem[];
   mobileNo: any;
   altMobileNo: any;
   currentAddress: string;
@@ -136,7 +133,6 @@ export class RegistrationFormComponent implements OnInit {
   ngOnInit() {
     ///loading master data
     this.login_user = this.authService.UserInfo;
-
     this.sections = this.masterService.getMaster('S');
     this.classes = this.masterService.getMaster('C');
     this.roles = this.masterService.getMaster('R');
@@ -146,7 +142,6 @@ export class RegistrationFormComponent implements OnInit {
     this.bloodGroups = this.masterService.getMaster('B');
     this.religions = this.masterService.getMaster('RL');
     this.nationalities = this.masterService.getMaster('N');
-    console.log('master', this.bloodGroups, this.districts);
     ///end
     const current_year = new Date().getFullYear();
     const start_year_range = current_year - 30;
@@ -155,11 +150,6 @@ export class RegistrationFormComponent implements OnInit {
     this.nationality = 'Indian';
     this.cityOptions = [{ label: this.login_user.taluk, value: this.login_user.talukId }];
     this.districtOptions = [{ label: this.login_user.district, value: this.login_user.distrctId }];
-    this.schoolOptions = [
-      { label: '-select-', value: null },
-      { label: 'xyz', value: 1 },
-      { label: 'tdt', value: 2 },
-    ];
     this.lastSchoolNameOptions = [
       { label: '-select-', value: null },
       { label: 'zzzz', value: "S002" },
@@ -224,6 +214,9 @@ export class RegistrationFormComponent implements OnInit {
       case 'N':
         this.nationalityOptions = this.nationalities;
         break;
+      case 'M':
+        this.mediumOptions = this.mediums;
+        break;
     }
   }
 
@@ -259,13 +252,6 @@ export class RegistrationFormComponent implements OnInit {
     actualFilename = fileToUpload.name;
     this.http.post(this.restApiService.BASEURL + PathConstants.FileUpload_Post, this.formData)
       .subscribe((event: any) => {
-        //  if (event.type === HttpEventType.UploadProgress) {
-        //    progress = Math.round(100 * event.loaded / event.total);
-        //    console.log('prgs', progress);
-        //  }
-        //  else if (event.type === HttpEventType.Response) {
-        //   console.log('Upload success.');
-        //   }
       }
       );
     console.log('retn', actualFilename);
@@ -279,10 +265,8 @@ export class RegistrationFormComponent implements OnInit {
     switch (id) {
       case 1:
         this.s_URL = window.URL.createObjectURL(file);
-        console.log('url', this.s_URL);
         this.showSImg = (this.s_URL !== undefined && this.s_URL !== null) ? true : false;
         this.studentFilename = this.uploadFile($event.target.files, this.sImgProgress);
-        console.log('file', this.studentFilename);
         break;
       case 2:
         this.f_URL = window.URL.createObjectURL(file);
@@ -335,8 +319,8 @@ export class RegistrationFormComponent implements OnInit {
       Caste: this.caste,
       Addressinfo: this.currentAddress,
       PermanentAddress: this.permanentAddress,
-      SchoolName: this.school.label,
-      SchoolId: this.school.value,
+      SchoolName: this.login_user.schoolname,
+      SchoolId: this.login_user.schoolId,
       PhoneNumber: this.mobileNo,
       AltNumber: this.altMobileNo,
       Medium: this.medium,
@@ -390,6 +374,7 @@ export class RegistrationFormComponent implements OnInit {
           });
         }
       } else {
+        this.blockUI.stop();
         this.messageService.clear();
         this.messageService.add({
           key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,

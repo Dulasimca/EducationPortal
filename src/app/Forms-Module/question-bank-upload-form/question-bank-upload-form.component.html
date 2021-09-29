@@ -1,3 +1,4 @@
+<block-ui>
 <div class="p-col-12" style="padding-top:25px;">
     <p-panel header="Question Bank Upload">
         <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
@@ -12,7 +13,8 @@
                                         <div><label for="_subject">Subject<span
                                                     class="form-mandatory-field">*</span></label>
                                         </div>
-                                        <p-dropdown name="_subject" [options]="subjectOptions" [(ngModel)]="subject"
+                                        <p-dropdown name="_subject" [options]="subjectOptions"
+                                        optionLabel="label" [(ngModel)]="subject"
                                             required>
                                         </p-dropdown>
                                     </div>
@@ -20,14 +22,14 @@
                                         <div><label for="_year">Year<span
                                                     class="form-mandatory-field">*</span></label>
                                         </div>
-                                        <p-dropdown name="_year" [options]="yearOptions" [(ngModel)]="year" required>
+                                        <p-dropdown name="_year" [options]="yearOptions" (onClick)="onSelect('Y')" [(ngModel)]="year" required>
                                         </p-dropdown>
                                     </div>
                                     <div class="p-col-12 p-md-6 p-lg-2">
                                         <div><label for="_class">Class<span
                                                     class="form-mandatory-field">*</span></label>
                                         </div>
-                                        <p-dropdown name="_class" [options]="classOptions" [(ngModel)]="class" required>
+                                        <p-dropdown name="_class" [options]="classOptions" (onClick)="onSelect('C')"  [(ngModel)]="class" required>
                                         </p-dropdown>
                                     </div>
                                 </div>
@@ -38,7 +40,7 @@
                                         <div><label for="_medium">Medium<span
                                                     class="form-mandatory-field">*</span></label>
                                         </div>
-                                        <p-dropdown name="_medium" [options]="mediumOptions" [(ngModel)]="medium" required>
+                                        <p-dropdown name="_medium" [options]="mediumOptions" (onClick)="onSelect('M')"  [(ngModel)]="medium" required>
                                         </p-dropdown>
                                     </div>
                                     <div class="p-col-12 p-md-6 p-lg-6">
@@ -52,6 +54,12 @@
                             </div>
                             <div #row3 class="p-col-12 p-md-12 p-lg-12">
                                 <div class="p-grid">
+                                    <div class="p-col-12 p-md-6 p-lg-3">
+                                        <div><label for="_pdate">Publish Date<span
+                                                    class="form-mandatory-field">*</span></label></div>
+                                        <p-calendar [(ngModel)]="publishDate" name="_pdate" [showIcon]="true" required>
+                                        </p-calendar>
+                                    </div>
                                     <div class="p-col-12 p-md-8 p-lg-5">
                                         <input #fileSelector id="my-file-selector" pInputText class="p-col-12"
                                             name="_pdf" type="file" (change)="uploadData($event);"
@@ -73,3 +81,4 @@
         </div>
     </p-panel>
 </div>
+</block-ui>

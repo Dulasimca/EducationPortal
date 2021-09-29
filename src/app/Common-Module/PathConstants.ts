@@ -5,12 +5,19 @@ export class PathConstants {
     
     public static readonly Menu_Master = 'MenuMaster/Get';
 
+    public static readonly Login = 'Login/Get';
+
     public static readonly Registration_Post = 'RegistrationForm/Post';
     public static readonly Registration_Get = 'RegistrationForm/Get';
+
+    public static readonly Event_Calendar_Get = 'EventCalendar/Get';
 
     public static readonly OnlineAssessment_Post = 'OnlineAssessment/Post';
     public static readonly OnlineAssessment_Get = 'OnlineAssessment/Get';
     public static readonly OnlineAssessment_Asnwer_Post = 'AssessmentResult/Post';
+
+    public static readonly Question_Bank_Post = 'QuestionBank/Post';
+    public static readonly Question_Bank_Get = 'QuestionBank/Get';
 
     public static readonly Book_Post = 'Books/Post';
     public static readonly Book_Get = 'Books/Get';
@@ -25,6 +32,8 @@ export class PathConstants {
     
     public static readonly Master_Get = 'MasterInfo';
     public static readonly Menu = 'MenuMaster/Get';
+    public static readonly AccountingYear = 'AccountingYear';
+    
 
     public static readonly Circular_Post = 'Circular/Post';
     public static readonly Circular_Get = 'Circular/Get';
@@ -53,7 +62,8 @@ export class PathConstants {
     
     public static readonly FileUpload_Post = 'Upload/AddFileDetails'; 
 
-
+    public static readonly Gallery_Post = 'Gallery/post';
+    public static readonly Gallery_Get = 'Gallery/Get'
 
 
 

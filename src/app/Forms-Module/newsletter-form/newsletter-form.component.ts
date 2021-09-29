@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
@@ -8,11 +8,13 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ResponseMessage } from 'src/app/Common-Module/Message';
 import { MessageService } from 'primeng/api';
 import { MasterService } from 'src/app/Services/master-data.service';
-
+import {NgForm} from '@angular/forms';
 
 import{FileUploadConstant} from 'src/app/Common-Module/file-upload-constant'
 import { Output, EventEmitter } from '@angular/core';
 import { saveAs } from 'file-saver';
+import { User } from 'src/app/Interfaces/user';
+import { AuthService } from 'src/app/Services/auth.service';
 
 @Component({
   selector: 'app-newsletter-form',
@@ -35,14 +37,16 @@ export class NewsletterFormComponent implements OnInit {
 
   NewFileName:string;
   public formData = new FormData();
-
+  @ViewChild('f', { static: false }) NewsLetterForm: NgForm;
+  login_user: User;
   @Output() public onUploadFinished = new EventEmitter();
   constructor(private restApiService: RestAPIService, private datepipe: DatePipe, 
-    private http: HttpClient, private masterService: MasterService,private messageService: MessageService) { }
+    private http: HttpClient, private masterService: MasterService,private messageService: MessageService,
+    private authService: AuthService) { }
 
 
   ngOnInit(): void {
-
+    this.login_user = this.authService.UserInfo;
     this.cols = [
      // {field:'RowId',header: 'ID'},
       {field:'NewsDate',header: 'Date'},
@@ -60,16 +64,16 @@ export class NewsletterFormComponent implements OnInit {
      
       
       'RowId': this.MRowId,
-      'SchoolID': 1,      
+      'SchoolID': this.login_user.schoolId,      
       'Topic': this.Topic,    
       'NewsDate': this.datepipe.transform(this.date,'yyyy-MM-dd'), 
       'Download':this.NewFileName,
-      'Flag': 1,
+      'Flag': true,
     };
   
   this.formData = new FormData()
   let fileToUpload: any = <File>files[0];
-  let folderOptions=<FolderOptions>params[0];
+  
 
   const filename = fileToUpload.name + '^' + FileUploadConstant.Newsletterfolder;
   this.formData.append('file', fileToUpload, filename);
@@ -89,11 +93,11 @@ export class NewsletterFormComponent implements OnInit {
    
     const params = {
       'RowId': this.MRowId,
-      'SchoolID': 1,      
+      'SchoolID': this.login_user.schoolId,      
       'Topic': this.Topic,    
       'NewsDate': this.datepipe.transform(this.date,'yyyy-MM-dd'), 
       'Download':this.NewFileName, 
-      'Flag': 1,
+      'Flag': true
     };
     console.log(params);
     this.restApiService.post(PathConstants.NewsLetter_Post, params).subscribe(res => {
@@ -135,7 +139,7 @@ export class NewsletterFormComponent implements OnInit {
 
   onview() {
     const params = { 
-      'SchoolID': 1,
+      'SchoolID': this.login_user.schoolId,
     }
     
     this.restApiService.getByParameters(PathConstants.NewsLetter_Get, params).subscribe(res => {
@@ -150,8 +154,10 @@ export class NewsletterFormComponent implements OnInit {
 
   onClear()
   {
-  
-  this.Topic = ''
+    this.NewsLetterForm.reset();
+    this.NewsLetterForm.form.markAsUntouched();
+    this.NewsLetterForm.form.markAsPristine();
+    this.Topic = ''
  
   }
   
@@ -159,7 +165,7 @@ export class NewsletterFormComponent implements OnInit {
     this.MRowId = selectedRow.RowId;
     this.Topic = selectedRow.Topic;
     this.date = selectedRow.NewsDate;
-    
+    this.NewFileName = selectedRow.Download;
     
   }
   onDownload(Filename) {
@@ -168,9 +174,6 @@ export class NewsletterFormComponent implements OnInit {
     //const filename = 'files' + ".pdf";
     saveAs(path, Filename);
   }
-  }
-  interface FolderOptions {
-    FolderPath?: string;
   }
   
 

@@ -30,10 +30,11 @@ export class OnlineAssessmentComponent implements OnInit {
   ngOnInit() {
     this.assessmentCols = [
       { field: 'test', header: 'Test Name' },
-      { field: 'questiontype', header: 'Question Type' },
+      { field: 'description', header: 'Description' },
       { field: 'totalmarks', header: 'Total Marks' },
       { field: 'subject', header: 'Subject' },
       { field: 'duration', header: 'Duration' },
+      { field: 'time', header: 'Test Time'}
     ]
     this.login_user = this.authService.UserInfo;
   }
@@ -50,17 +51,21 @@ export class OnlineAssessmentComponent implements OnInit {
         this.loading = false;
         this.questionData = res.slice(0);
         res.forEach((i, index) => {
+          this.checkAssessmentTime(i);
+          i.AssessmentTime = this.datePipe.transform(i.AssessmentTime, 'hh:mm a');
           if (index >= 1 && i.RowId !== res[index - 1].RowId) {
             this.assessmentData.push({
-              test: i.TestName, subject: 'English',
-              duration: i.Duration + (i.durationtype === 1) ? 'Mins' : 'Hrs',
-              totalmarks: i.totalmarks, questiontype: 'Multiple Choice'
+              test: i.TestName, subject: i.Subject,
+              duration: i.totalduration + ((i.durationtype === 1) ? 'Mins' : 'Hrs'),
+              totalmarks: i.totalmarks, questiontype: 'Multiple Choice',
+              description: i.TestDescription, time: i.AssessmentTime
             })
           } else if (index === 0) {
             this.assessmentData.push({
-              test: i.TestName, subject: 'English',
-              duration: i.totalduration + (i.durationtype === 1) ? 'Mins' : 'Hrs',
-              totalmarks: i.totalmarks, questiontype: 'Multiple Choice'
+              test: i.TestName, subject: i.Subject,
+              duration: i.totalduration + ((i.durationtype === 1) ? 'Mins' : 'Hrs'),
+              totalmarks: i.totalmarks, questiontype: 'Multiple Choice',
+              description: i.TestDescription, time: i.AssessmentTime
             })
           }
         })
@@ -82,6 +87,23 @@ export class OnlineAssessmentComponent implements OnInit {
         })
       }
     })
+  }
+
+  checkAssessmentTime(row) {
+    const assessmentDate = new Date(row.AssessmentDate);
+    const assessmentTime = new Date(row.AssessmentTime);
+    console.log('assda', assessmentDate, assessmentTime);
+    const today = new Date();
+    if(assessmentDate > today) {
+      console.log('future');
+    } else if(assessmentDate === today) {
+      console.log('tody');
+      if(assessmentTime.getTime() > today.getTime()) {
+        console.log('time grtr');
+      } else {
+        console.log('same time');
+      }
+    }
   }
 
   onStart() {

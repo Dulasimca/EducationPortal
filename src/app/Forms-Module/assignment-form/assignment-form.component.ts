@@ -13,7 +13,6 @@ import { Output, EventEmitter } from '@angular/core';
 import { User } from 'src/app/Interfaces/user';
 import { AuthService } from 'src/app/Services/auth.service';
 import { MasterService } from 'src/app/Services/master-data.service';
-import * as _ from 'lodash';
 
 
 @Component({
@@ -174,8 +173,7 @@ onSubmit() {
           this.classes.forEach(c => {
             classSelection.push({ label: c.name, value: c.code })
           });
-          let sortedClass = _.sortBy(classSelection, 'value');
-          this.classOptions = sortedClass;
+          this.classOptions = classSelection;
           this.classOptions.unshift({ label: '-select', value: null });
           break;
         case 'S':

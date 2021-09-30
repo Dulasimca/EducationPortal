@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
@@ -10,7 +10,6 @@ import { NgForm } from '@angular/forms';
 import { User } from 'src/app/Interfaces/user';
 import { AuthService } from 'src/app/Services/auth.service';
 import { MasterService } from 'src/app/Services/master-data.service';
-import * as _ from 'lodash';
 
 
 
@@ -109,8 +108,7 @@ export class FeeFormComponent implements OnInit {
       this.classes.forEach(c => {
         classSelection.push({ label: c.name, value: c.code })
       });
-      let sortedClass = _.sortBy(classSelection, 'value');
-      this.classOptions = sortedClass;
+      this.classOptions = classSelection;
       this.classOptions.unshift({ label: '-select', value: null });
       break;
     case 'S':

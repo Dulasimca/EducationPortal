@@ -27,6 +27,7 @@ export class AppComponent {
   loading: boolean;
   schoolName: string;
   showIcon: boolean;
+  userClass: string;
   @ViewChild('op', { static: false }) _panel: OverlayPanel;
 
   constructor(private authService: AuthService, private restApiService: RestAPIService) { }
@@ -39,6 +40,7 @@ export class AppComponent {
         this.restApiService.getByParameters(PathConstants.Menu_Master, { 'roleId': user.roleId }).subscribe(response => {
           this.loading = log;
           this.userName = (user !== null && user !== undefined) ? user.username : '';
+          this.userClass = (user !== null && user !== undefined) ? user.classRoman + ' - ' + user.section : '';
           this.schoolName = (user !== null && user !== undefined) ? user.schoolname + ' - ' + user.taluk : '';
           this.items = response;
           this.items.forEach(i => {

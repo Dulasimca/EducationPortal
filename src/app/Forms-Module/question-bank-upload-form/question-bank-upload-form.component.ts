@@ -4,7 +4,6 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { MessageService, SelectItem } from 'primeng/api';
 import { User } from 'src/app/Interfaces/user';
 import { MasterService } from 'src/app/Services/master-data.service';
-import * as _ from 'lodash';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { FileUploadConstant } from 'src/app/Common-Module/file-upload-constant';
@@ -75,8 +74,7 @@ export class QuestionBankUploadFormComponent implements OnInit {
         this.classes.forEach(c => {
           classSelection.push({ label: c.name, value: c.code })
         });
-        let sortedClass = _.sortBy(classSelection, 'value');
-        this.classOptions = sortedClass;
+        this.classOptions = classSelection;
         this.classOptions.unshift({ label: '-select', value: null });
         break;
         case 'M':

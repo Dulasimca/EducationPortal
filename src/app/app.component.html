@@ -22,7 +22,9 @@
                 (click)="op.toggle($event)">
                 <img [src]="userImage" style="margin-top: 8px;" [ngClass]="{'user-icon': showIcon}" />
                 &nbsp; &nbsp; <div style="font-size: 13px; align-self: center; margin-top: 10px;">
-                    <span style="text-transform: uppercase"><b>{{userName}}</b></span>
+                    <span style="text-transform: uppercase"><b>{{userName}}</b><br/>
+                        <b>{{userClass}}</b>
+                    </span>
                     <i class="pi pi-angle-down"></i>
                 </div>
             </div>

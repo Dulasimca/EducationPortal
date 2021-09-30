@@ -60,7 +60,7 @@ export class NomineeFormComponent implements OnInit {
     this.cols = [
       { field: 'SlNo', header: 'Slno'},
       // { field: 'RowId', header: 'ID' },
-      { field: 'NomineeID', header: 'NomineeID' },
+      // { field: 'NomineeID', header: 'NomineeID' },
       { field: 'FirstName', header: 'Nominee Name' },
       { field: 'ElectionDate', header: 'Election Date' },
       { field: 'ElectionName', header: 'ElectionName' },

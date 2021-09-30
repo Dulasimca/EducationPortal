@@ -5,7 +5,7 @@
                 <div class="p-col-12 p-md-12 p-lg-12 no-pad-top" style="margin-top: -5px;">
                    <div class="no-pad-top"><label>Date:</label> </div>  
                     <p-calendar [(ngModel)]="date" [showIcon]="true"
-                    [minDate]="minDate" (onSelect)="loadMeetingDetails()"></p-calendar>
+                    [minDate]="minDate"  [disabledDates]="invalidDates" (onSelect)="loadMeetingDetails()"></p-calendar>
                 </div>
                 <div>
                     <p-table [columns]="meetingCols" [value]="meetingData" [paginator]="true" [rows]="10" [loading]="loading">

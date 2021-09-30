@@ -23,6 +23,7 @@ export class OnlineClassroomComponent implements OnInit {
   loading: boolean;
   toolTip: string;
   minDate: Date;
+  invalidDates: Array<Date>;
 
   constructor(private restApiService: RestAPIService, private authService: AuthService,
     private messageService: MessageService, private router: Router, private datePipe: DatePipe,
@@ -44,6 +45,11 @@ export class OnlineClassroomComponent implements OnInit {
     this.minDate = new Date();
     this.minDate.setMonth(prevMonth);
     this.minDate.setFullYear(prevYear);
+    let invalidDate = new Date();
+    invalidDate.setDate(today.getDate() - 1);
+    var firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+    console.log('tdy', today.getDate(), today.getDate()-1, invalidDate,firstDay);
+    this.invalidDates = [invalidDate, firstDay];
     this.loadMeetingDetails();
   }
 

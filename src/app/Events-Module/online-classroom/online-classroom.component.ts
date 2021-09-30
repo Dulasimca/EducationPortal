@@ -43,13 +43,13 @@ export class OnlineClassroomComponent implements OnInit {
     let prevMonth = (month === 0) ? 11 : month -1;
     let prevYear = (prevMonth === 11) ? year - 1 : year;
     this.minDate = new Date();
-    this.minDate.setMonth(prevMonth);
-    this.minDate.setFullYear(prevYear);
-    let invalidDate = new Date();
-    invalidDate.setDate(today.getDate() - 1);
-    var firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
-    console.log('tdy', today.getDate(), today.getDate()-1, invalidDate,firstDay);
-    this.invalidDates = [invalidDate, firstDay];
+    // this.minDate.setMonth(prevMonth);
+    // this.minDate.setFullYear(prevYear);
+    // let invalidDate = new Date();
+    // invalidDate.setDate(today.getDate() - 1);
+    // var firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+    // console.log('tdy', today.getDate(), today.getDate()-1, invalidDate,firstDay);
+    // this.invalidDates = [invalidDate, firstDay];
     this.loadMeetingDetails();
   }
 

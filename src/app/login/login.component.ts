@@ -82,7 +82,8 @@ export class LoginComponent implements OnInit {
                     taluk: (i.taluk !== undefined && i.taluk !== null) ? i.taluk.toString().trim() : '',
                     talukId: (i.city !== undefined && i.city !== null) ? i.city.toString().trim() : '',
                     pincode: (i.postalcode !== undefined && i.postalcode !== null) ? i.postalcode.toString().trim() : '',
-                    studentImg: (i.studentPhotoFileName !== undefined && i.studentPhotoFileName !== null) ? ('../../assets/layout/' + FileUploadConstant.StudentRegistration +'/'+ i.studentPhotoFileName) : ''
+                    studentImg: (i.studentPhotoFileName !== undefined && i.studentPhotoFileName !== null) ?
+                    (i.studentPhotoFileName.toString().trim() !== '' ? ('../../assets/layout/' + FileUploadConstant.StudentRegistration +'/'+ i.studentPhotoFileName) : '') : '' 
                   }
                   this.authService.login(obj);
                   console.log('au', obj);
@@ -93,7 +94,7 @@ export class LoginComponent implements OnInit {
             this.messageService.clear();
             this.messageService.add({
               key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
-              summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+              summary: ResponseMessage.SUMMARY_ERROR, detail: response.item2
             });
           }
         } else {

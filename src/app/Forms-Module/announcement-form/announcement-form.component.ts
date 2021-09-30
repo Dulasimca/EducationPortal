@@ -62,22 +62,8 @@ export class AnnouncementFormComponent implements OnInit {
     if (files.length === 0) {
       return;
     }
-    const params = {
-    
-      'RowID': this.MRowid,
-      'SchoolID': this.login_user.schoolId,      
-      'Announcementdate': this.datepipe.transform(this.date,'MM/dd/yyyy'),     
-      'AnnouncementTag':this.Topic, 
-      'Announcement': this.Announcement,
-      'Announcementfilename': this.NewFileName,
-      'Flag' : true  
-      
-      
-     
-    };
     this.formData = new FormData()
     let fileToUpload: any = <File>files[0];
-    let folderOptions=<FolderOptions>params[0];
  
     const filename = fileToUpload.name + '^' + FileUploadConstant.Announcementfolder;
     this.formData.append('file', fileToUpload, filename);
@@ -87,13 +73,6 @@ export class AnnouncementFormComponent implements OnInit {
     this.http.post(this.restApiService.BASEURL +PathConstants.FileUpload_Post, this.formData)
       .subscribe(event => 
         {
-      //          if (event.type === HttpEventType.UploadProgress)
-      //    this.progress = Math.round(100 * event.loaded / event.total);
-      //   else if (event.type === HttpEventType.Response) {
-      //    this.message = 'Upload success.';
-        
-      //  //   this.onUploadFinished.emit(event.body);
-      //   }
       }
       );
   }  
@@ -183,7 +162,4 @@ export class AnnouncementFormComponent implements OnInit {
     saveAs(path, Filename);
   }
  
-}
-interface FolderOptions {
-  FolderPath?: string;
 }

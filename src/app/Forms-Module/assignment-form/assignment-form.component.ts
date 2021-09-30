@@ -12,6 +12,8 @@ import { saveAs } from 'file-saver';
 import { Output, EventEmitter } from '@angular/core';
 import { User } from 'src/app/Interfaces/user';
 import { AuthService } from 'src/app/Services/auth.service';
+import { MasterService } from 'src/app/Services/master-data.service';
+import * as _ from 'lodash';
 
 
 @Component({
@@ -34,28 +36,40 @@ export class AssignmentFormComponent implements OnInit {
   assignmentfile: any[] = [];
   AssignmentDate:any;
   ClassWork: any;
+  classId: any;
   MAssignId=0;
   public progress: number;
   public message: string;
   NewFileName:string;
   login_user: User;
   assign: string;
+  classes?: any;
+  sections?: any;
+  sectionId: any;
+  masterData?: any = [];
+  sectionOptions: SelectItem[];
+  classOptions: SelectItem[];
   public formData = new FormData();
 
   @Output() public onUploadFinished = new EventEmitter();
   @BlockUI() blockUI: NgBlockUI;
   @ViewChild('f', { static: false }) _AssignmentForm: NgForm;
 
-  constructor(private restApiService: RestAPIService, private http: HttpClient,private datepipe: DatePipe,private messageService: MessageService,private authService: AuthService) { }
+  constructor(private restApiService: RestAPIService, private http: HttpClient,private datepipe: DatePipe
+    ,private messageService: MessageService,private authService: AuthService,private masterService: MasterService) { }
 
   ngOnInit(): void {
+    this.classes = this.masterService.getMaster('C');
+    this.sections = this.masterService.getMaster('S');
     this.cols = [
-      { field: 'AssignId', header: 'ID'},
+      // { field: 'AssignId', header: 'ID'},
       { field: 'AssignmentDate', header: 'Date' },
       { field: 'AssignmentDueDate', header: 'Due Date' },
       { field: 'AssignmentWork', header: 'Assigned Work' },
       { field: 'AssignmentType', header: 'Assigned Type' },
       { field: 'Subjectname', header: 'Subject Name' },
+      // { field: 'SectionId', header: 'Section' },
+
       // { field: 'Assignmentfilename', header: 'Assignmentfilename'}
     
   ];
@@ -81,19 +95,6 @@ export class AssignmentFormComponent implements OnInit {
     if (files.length === 0) {
       return;
     }
-    const params = {
-      'AssignId': this.MAssignId,
-      'SchoolID': this.login_user.schoolId,      
-      'Class':this.login_user.classId,    
-      'AssignmentDate': this.datepipe.transform(this.assignDate, 'MM/dd/yyyy') ,
-      'AssignmentDueDate': this.datepipe.transform(this.dueDate, 'MM/dd/yyyy'),
-      'assignmentwork': this.assignmentwork,
-      'AssignmentType': this.AType.value,
-      'subjectname': this.subjectname,
-      'Assignmentfilename': this.NewFileName,
-      'Flag' : true
-     
-    };
     this.formData = new FormData()
     let fileToUpload: any = <File>files[0];
  
@@ -105,13 +106,6 @@ export class AssignmentFormComponent implements OnInit {
     this.http.post(this.restApiService.BASEURL +PathConstants.FileUpload_Post, this.formData)
       .subscribe(event => 
         {
-      //          if (event.type === HttpEventType.UploadProgress)
-      //    this.progress = Math.round(100 * event.loaded / event.total);
-      //   else if (event.type === HttpEventType.Response) {
-      //    this.message = 'Upload success.';
-        
-      //  //   this.onUploadFinished.emit(event.body);
-      //   }
       }
       );
   }  
@@ -119,17 +113,17 @@ export class AssignmentFormComponent implements OnInit {
 
 onSubmit() {
   this.blockUI.start();
-  console.log('t', this.AType);
   const params = {
     'AssignId': this.MAssignId,
     'SchoolID': this.login_user.schoolId,      
-    'Class': this.login_user.classId,   
+    'Class': this.classId.value,  
     'AssignmentDate': this.datepipe.transform(this.assignDate, 'MM/dd/yyyy') ,
     'AssignmentDueDate': this.datepipe.transform(this.dueDate, 'MM/dd/yyyy'),
     'assignmentwork': this.assignmentwork,
     'AssignmentType': this.AType.value,
     'subjectname': this.subjectname,
     'Assignmentfilename': this.NewFileName,
+    'SectionId': this.sectionId.value,
     'Flag' : true
 
   };
@@ -171,6 +165,29 @@ onSubmit() {
       }
       })
     }
+    onSelect1(type) {
+      let classSelection = [];
+      let sectionSelection = [];
+  
+      switch (type) {
+        case 'C':
+          this.classes.forEach(c => {
+            classSelection.push({ label: c.name, value: c.code })
+          });
+          let sortedClass = _.sortBy(classSelection, 'value');
+          this.classOptions = sortedClass;
+          this.classOptions.unshift({ label: '-select', value: null });
+          break;
+        case 'S':
+          this.sections.forEach(s => {
+            sectionSelection.push({ label: s.name, value: s.code })
+          });
+          this.sectionOptions = sectionSelection;
+          this.sectionOptions.unshift({ label: '-select', value: null });
+          break; 
+      }
+  
+    }
 onView() {
   const params = {
     'SchoolID': this.login_user.schoolId,
@@ -204,13 +221,12 @@ onRowSelect(event, selectedRow) {
   this.TypeOptions= [{ label: selectedRow.AssignmentType, value: selectedRow.AssignmentType }];
   this.subjectname = selectedRow.Subjectname;
   this.NewFileName = selectedRow.Assignmentfilename;  
+  this.sectionId = selectedRow.SectionId;
   console.log('t', this.AType);
 
 }
 onDownload(Filename) {
-  //const path = 'D:/Angular Project/EducationPortalAPI/Resources/Books';
   const path = "../../assets/layout/"+FileUploadConstant.Assignmentfolder+"/"+Filename;
-  //const filename = 'files' + ".pdf";
   saveAs(path, Filename);
 }
 }

@@ -101,7 +101,7 @@ export class LoginComponent implements OnInit {
           this.messageService.clear();
           this.messageService.add({
             key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
-            summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+            summary: ResponseMessage.SUMMARY_WARNING, detail:  response.item2
           });
         }
       }, (err: HttpErrorResponse) => {

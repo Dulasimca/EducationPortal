@@ -24,6 +24,11 @@
                   <div> <label> Status:</label></div>
                   <input type="text" name="Status" size="24" pInputText [(ngModel)]="Status" required />
                 </div>
+                <div class="p-col-12 p-md-12 p-lg-3">
+                  <label for="_attach">Upload:</label>
+                  <input type ="file" #file placeholder="Choose file" 
+                  pInputText (change)="uploadFile(file.files)" accept=".pdf,.png,.jpg,.jpeg" required />
+                </div>
                 <div class="p-col-12 p-md-12 p-lg-12">
                   <button pButton name="save" type="button" label="Submit" (click)="onSubmit()" [disabled]="(!f.valid)"
                     style="margin-left: 30%;"></button>
@@ -37,15 +42,21 @@
                       <th *ngFor="let col of columns">
                         {{col.header}}
                       </th>
+
+                      <th>
+                        Download
+                      </th>
                     </tr>
                   </ng-template>
-                  <ng-template pTemplate="body" let-rowData let-columns="columns" class="cursor-pointer">
+                  <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
                     <tr [pSelectableRow]="rowData" class="cursor-pointer" (dblclick)="onRowSelect($event, rowData)">
                       <td *ngFor="let col of columns">
                         {{rowData[col.field]}}
                       </td>
+                      <td style="width: 142px;"><i class="pi pi-download" (click)="onDownload(rowData.filename)" 
+                        style="color: #52de38; font-size: 1.3rem; margin-left: 25px;"></i></td>
                     </tr>
-                  </ng-template>
+                      </ng-template>
                 </p-table>
               </div>
             </div>

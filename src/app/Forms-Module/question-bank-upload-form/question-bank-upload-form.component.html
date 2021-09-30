@@ -60,7 +60,7 @@
                                         <p-calendar [(ngModel)]="publishDate" name="_pdate" [showIcon]="true" required>
                                         </p-calendar>
                                     </div>
-                                    <div class="p-col-12 p-md-8 p-lg-5">
+                                    <div class="p-col-12 p-md-8 p-lg-5" style="margin-top: 5px;">
                                         <input #fileSelector id="my-file-selector" pInputText class="p-col-12"
                                             name="_pdf" type="file" (change)="uploadData($event);"
                                             accept=".pdf" required>

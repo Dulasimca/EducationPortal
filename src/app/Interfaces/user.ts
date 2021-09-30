@@ -19,4 +19,5 @@ export interface User {
     distrctId: any;
     schoolname: string;
     pincode: any;
+    studentImg: string;
 }

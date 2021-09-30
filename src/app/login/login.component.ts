@@ -10,6 +10,7 @@ import { ResponseMessage } from '../Common-Module/Message';
 import { StyleSetting } from '../Helper-Module/style-setting';
 import { TabView } from 'primeng/tabview';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FileUploadConstant } from '../Common-Module/file-upload-constant';
 
 @Component({
   selector: 'app-login',
@@ -63,7 +64,7 @@ export class LoginComponent implements OnInit {
                   const obj: User = {
                     username: (i.firstName !== undefined && i.firstName !== null) ? i.firstName.toString().trim() : '',
                     lastname: (i.lastName !== undefined && i.lastName !== null) ? i.lastName.toString().trim() : '',
-                    password: (i.password !== undefined && i.password !== null) ? i.password.toString().trim() : '',
+                    password: (i.encrptedPwd !== undefined && i.encrptedPwd !== null) ? i.encrptedPwd.toString().trim() : '',
                     id: (i.slno !== undefined) ? i.slno : null,
                     email: (i.emailId !== undefined && i.emailId !== null) ? i.emailId.toString().trim() : '',
                     schoolId: (i.schoolId !== undefined) ? i.schoolId : null,
@@ -80,9 +81,12 @@ export class LoginComponent implements OnInit {
                     schoolname: (i.schoolname !== undefined && i.schoolname !== null) ? i.schoolname.toString().trim() : '',
                     taluk: (i.taluk !== undefined && i.taluk !== null) ? i.taluk.toString().trim() : '',
                     talukId: (i.city !== undefined && i.city !== null) ? i.city.toString().trim() : '',
-                    pincode: (i.postalcode !== undefined && i.postalcode !== null) ? i.postalcode.toString().trim() : ''
+                    pincode: (i.postalcode !== undefined && i.postalcode !== null) ? i.postalcode.toString().trim() : '',
+                    studentImg: (i.studentPhotoFileName !== undefined && i.studentPhotoFileName !== null) ?
+                    (i.studentPhotoFileName.toString().trim() !== '' ? ('../../assets/layout/' + FileUploadConstant.StudentRegistration +'/'+ i.studentPhotoFileName) : '') : '' 
                   }
                   this.authService.login(obj);
+                  console.log('au', obj);
                   this.masterService.initializeMaster();
               });
             }
@@ -90,14 +94,14 @@ export class LoginComponent implements OnInit {
             this.messageService.clear();
             this.messageService.add({
               key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
-              summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+              summary: ResponseMessage.SUMMARY_ERROR, detail: response.item2
             });
           }
         } else {
           this.messageService.clear();
           this.messageService.add({
             key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
-            summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+            summary: ResponseMessage.SUMMARY_WARNING, detail:  response.item2
           });
         }
       }, (err: HttpErrorResponse) => {

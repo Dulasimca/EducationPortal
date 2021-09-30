@@ -11,17 +11,22 @@ export class InternaltransferComponent implements OnInit {
   date: Date = new Date();
   school : SelectItem[];
   display: boolean = false;
-  selectedDistrict: string;
+  district: string;
+  taluk: string;
   selectedSchool: any;
-  
   districtOptions: SelectItem[];
+  talukOptions: SelectItem[];
 
+// master
   districts?: any;
+  cities?: any;
+
 
   
   constructor(private masterService: MasterService) { }
 
   ngOnInit() {
+    
     this.districts = this.masterService.getMaster('D');
 
 

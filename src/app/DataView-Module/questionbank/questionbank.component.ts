@@ -7,6 +7,8 @@ import { User } from 'src/app/Interfaces/user';
 import { AuthService } from 'src/app/Services/auth.service';
 import { MasterService } from 'src/app/Services/master-data.service';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
+import { saveAs } from 'file-saver';
+import { FileUploadConstant } from 'src/app/Common-Module/file-upload-constant';
 
 @Component({
   selector: 'app-questionbank',
@@ -64,4 +66,12 @@ export class QuestionbankComponent implements OnInit {
       }
     })
   }
+
+  onDownload(Filename) {
+    //const path = 'D:/Angular Project/EducationPortalAPI/Resources/Books';
+    const path = "../../assets/layout/"+FileUploadConstant.QuestionBank+"/"+Filename;
+    //const filename = 'files' + ".pdf";
+    saveAs(path, Filename);
+  }
+
 }

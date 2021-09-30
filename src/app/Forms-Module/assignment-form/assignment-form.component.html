@@ -16,6 +16,18 @@
                   <p-calendar [(ngModel)]="dueDate" [showIcon]="true" name="dueDate" required></p-calendar>
                 </div>
                 <div class="p-col-12 p-md-6 p-lg-3">
+                  <div><label for="_classId">Class</label></div>
+                  <p-dropdown name="_classId" [options]="classOptions" [(ngModel)]="classId" optionLabel="label"
+                    (onClick)="onSelect1('C')" required>
+                  </p-dropdown>
+                </div>
+                <div class="p-col-12 p-md-6 p-lg-3">
+                  <div><label for="_sectionId"> Section</label> </div>
+                  <p-dropdown name="_sectionId" [options]="sectionOptions" [(ngModel)]="sectionId" optionLabel="label"
+                    (onClick)="onSelect1('S')" required>
+                  </p-dropdown>
+                </div>
+                <div class="p-col-12 p-md-6 p-lg-3">
                   <div><label> Assigned Work:</label></div>
                   <input id="float-input" type="text" size="24" pInputText [(ngModel)]="assignmentwork"
                     name="assignmentwork" required>
@@ -33,7 +45,7 @@
                 <div class="p-col-12 p-md-6 p-lg-3">
                   <label for="_assign">Attach File:<span class="form-mandatory-field">*</span></label>
                   <input type ="file" #file placeholder="Choose file" 
-                        pInputText (change)="uploadFile(file.files)" accept=".pdf" required />
+                     class="p-col-12"   pInputText (change)="uploadFile(file.files)" accept=".pdf" required />
                 </div>
               </div>
             </div>

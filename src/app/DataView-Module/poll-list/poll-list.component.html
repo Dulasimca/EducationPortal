@@ -12,48 +12,45 @@
             <div class="p-col-12 p-md-6 p-lg-3">
               <div><label for="_Position">Position</label></div>
               <p-dropdown name="_Position" [options]="positionOptions" [(ngModel)]="selectedPosition"
-               optionLabel="label"  name="selectedPosition">
+                (onChange)= "onView()" optionLabel="label"  name="selectedPosition">
                </p-dropdown>
-               </div>
-               <div class="p-col-12 p-md-6 p-lg-3">
-                <button pButton type="button" label="View" (click)="onView()" style="margin-Top: 15%;"></button>
                </div>
             <p-divider></p-divider>
             <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,15,20]"
               totalRecords="totalRecords" pageLinks="3">
               <ng-template pTemplate="header" let-columns>
                 <tr>
+                  <th>S.No:</th>
                   <th *ngFor="let col of columns">
                     {{col.header}}
                   </th>
                   <th>
                     Thumbs-up
                   </th>
-                  <th>
-                    Thumbs-down
-                  </th>
                 </tr>
               </ng-template>
-              <ng-template pTemplate="body" let-rowData let-columns="columns" class="cursor-pointer">
+              <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns" class="cursor-pointer">
                 <tr>
+                  <td>{{rowIndex+1}}</td>
                   <td *ngFor="let col of columns">
                     {{rowData[col.field]}}
                   </td>
-                  <td>
-                   <button pButton pRipple type="button"  icon="pi pi-thumbs-up" style="margin-right: 10px;" (click)="onVotinglist()"
-                    
+                  <td *ngIf="!isDataAvailable">
+                    <button pButton pRipple type="button"  icon="pi pi-thumbs-up" style="margin-right: 10px;" (click)="onVotinglist(rowData)"
+                       class="p-button-rounded p-button-success p-button-outlined p-col-1"></button>
+                   </td>
+                  <td *ngIf="rowData.isActive && isDataAvailable">
+                   <button pButton pRipple type="button"  icon="pi pi-thumbs-up" style="margin-right: 10px;"
                       class="p-button-rounded p-button-success p-button-outlined p-col-1"></button>
                   </td>
+                  <td *ngIf="!(rowData.isActive) && isDataAvailable">
+                    <button pButton type="button" icon="pi pi-thumbs-up" style="margin-right: 10px; color: black;"
+                       class="p-button-rounded p-button-outlined p-col-1" [disabled]="true"></button>
+                   </td>
                   <td>
-                    <button pButton pRipple type="button" icon="pi pi-thumbs-down"
-                    (click)="onVotinglist()" class="p-button-rounded p-button-success p-button-outlined p-col-1"></button>
-                    <!-- <p-button (click)="confirm1()" icon="pi pi-check" label="Confirm" styleClass="p-mr-2"></p-button> -->
                   </td>
                 </tr>
-              </ng-template>
-            
-                
-             
+              </ng-template>       
             </p-table>
           </div>
         </div>
@@ -61,5 +58,15 @@
       </p-card>
     </div>
   </p-panel>
+  <p-confirmDialog #cd  [style]="{width: '50vw'}">
+    <ng-template pTemplate="header">
+      <h3>Alert</h3>
+  </ng-template>
+  <ng-template pTemplate="footer">
+      <button type="button" pButton icon="pi pi-times" label="No" (click)="cd.reject()"></button>
+      <button type="button" pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"></button>
+  </ng-template>
+  </p-confirmDialog>
 </div>
+
 <!-- </block-ui> -->

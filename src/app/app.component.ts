@@ -26,6 +26,7 @@ export class AppComponent {
   userImage: string;
   loading: boolean;
   schoolName: string;
+  showIcon: boolean;
   @ViewChild('op', { static: false }) _panel: OverlayPanel;
 
   constructor(private authService: AuthService, private restApiService: RestAPIService) { }
@@ -37,38 +38,36 @@ export class AppComponent {
         const user: User = this.authService.UserInfo;
         this.restApiService.getByParameters(PathConstants.Menu_Master, { 'roleId': user.roleId }).subscribe(response => {
           this.loading = log;
-          console.log('es', response);
           this.userName = (user !== null && user !== undefined) ? user.username : '';
           this.schoolName = (user !== null && user !== undefined) ? user.schoolname + ' - ' + user.taluk : '';
           this.items = response;
           this.items.forEach(i => {
-            if(i.items.length === 0) {
+            if (i.items.length === 0) {
               delete i.items;
-            console.log('del', i.routerLink);
-        }
+            }
             if (i.label === 'Profile') {
               i.items.forEach(j => {
                 if (j.routerLink === '/student-info') {
                   if (j.ID === 31) {
                     j.queryParams = { 'id': 0, 'si': true };
-                  } else if(j.ID === 32) {
+                  } else if (j.ID === 32) {
                     j.queryParams = { 'id': 1, 'si': true };
                   }
                 }
               })
             }
           })
-          console.log('i', this.items);
+          this.userImage = (user.studentImg.trim() !== '') ? user.studentImg : 'assets/layout/images/user-o-2x.png';
+          this.showIcon = (user.studentImg.trim() !== '') ? true : false;
         })
       }
     })
 
-    this.userImage = 'assets/layout/images/user-o-2x.png';
     this.authService.checkStatus();
   }
 
   onLogout() {
-    this._panel.hide(); 
+    this._panel.hide();
     this.authService.logout();
   }
 

@@ -27,9 +27,9 @@
                                 <td>{{data.subject}}</td>
                                 <td>{{data.Description}}</td>
                                 <td>{{data.Publishdate | date}}</td>
-                                <td>
-                                    <a href="{​​​​​​​​{​​​​​​​​data.link}​​​​​​​​}​​​​​​​​"><i class="pi pi-file-pdf"
-                                            style="padding-left: 10px; color: #52de38; font-size: 1.5rem;"></i></a>
+                                <td (click)="onDownload(data.FileName)">
+                                    <i class="pi pi-file-pdf"
+                                            style="padding-left: 10px; color: #52de38; font-size: 1.5rem;"></i>
                                 </td>
                             </tr>
                         </ng-template>

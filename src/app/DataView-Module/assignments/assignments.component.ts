@@ -39,21 +39,15 @@ export class AssignmentsComponent implements OnInit {
   ];
     this.onView()
   }
-  onFileUpload($event, id) {
-    const reader = new FileReader();
-    var selectedFile = $event.target.files[0];
-  }
 
-  public uploadFile = (files) => {
-    if (files.length === 0) {
-      return;
-    }
+  public uploadFile = (event) => {
     this.formData = new FormData()
-    let fileToUpload: any = <File>files[0];
+    let fileToUpload: any = <File>event.target.files[0];
     const filename = fileToUpload.name + '^' + FileUploadConstant.Assignmentfolder;
     this.formData.append('file', fileToUpload, filename);
-    console.log('file', fileToUpload);
-    console.log('formdata', this.formData);
+    // console.log('file', fileToUpload);
+    // console.log('formdata', this.formData);
+    alert("Uploaded Successfully")
     this.NewFileName=fileToUpload.name;
     this.http.post(this.restApiService.BASEURL +PathConstants.FileUpload_Post, this.formData)
       .subscribe(event => 

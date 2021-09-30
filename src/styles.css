@@ -38,6 +38,12 @@ body { margin: 0 !important}
     right: 0;
     left: 0;
 }
+
+.user-icon {
+    border-radius: 90% !important;
+    height: 62px;
+    width: 62px;
+}
 /* text alignment #Region 1.1 */
 .text-center {
       text-align: center !important;

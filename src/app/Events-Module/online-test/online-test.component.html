@@ -24,8 +24,8 @@
                 <span [innerHTML]="question.questionName"></span>
               </h2>
               <div class="row text-left options">
-                <div class="col-6" *ngFor="let option of question.options">
-                  <div class="option-class">
+                <div class="p-col-12 p-md-12 p-lg-12" *ngFor="let option of question.options">
+                  <div class="p-col-12 p-md-12 p-lg-12 option-class">
                     <label class="font-normal" [attr.for]="option.optionId">
                       <input id="{{option.optionId}}" type="checkbox" [(ngModel)]="option.selected"
                         (change)="onSelect(question, option);" /> {{option.optionName}}

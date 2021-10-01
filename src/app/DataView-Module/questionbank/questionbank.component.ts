@@ -7,6 +7,9 @@ import { User } from 'src/app/Interfaces/user';
 import { AuthService } from 'src/app/Services/auth.service';
 import { MasterService } from 'src/app/Services/master-data.service';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
+import { saveAs } from 'file-saver';
+import { FileUploadConstant } from 'src/app/Common-Module/file-upload-constant';
+import { TableConstants } from 'src/app/Common-Module/TableConstants';
 
 @Component({
   selector: 'app-questionbank',
@@ -20,14 +23,17 @@ export class QuestionbankComponent implements OnInit {
   link: any;
   years?: any;
   logged_user: User;
-  
+  loading: boolean;
+  questionBankData: any = [];
+  questionBankCols: any;
   constructor(private restApiService: RestAPIService, private authService: AuthService,
     private messageService: MessageService, private masterService: MasterService) { }
 
   ngOnInit() {
     this.logged_user = this.authService.UserInfo;
     this.years = this.masterService.getAccountingYear();
-   }
+    this.questionBankCols = TableConstants.SQuestionBankColumns;
+  }
 
   onSelect() {
     let yearSelection = [];
@@ -38,23 +44,27 @@ export class QuestionbankComponent implements OnInit {
     this.yearOptions.unshift({ label: '-select-', value: null });
   }
 
-  onLoad() {
+  onLoadQuestionBank() {
+    this.loading = true;
     const params = {
       'Classcode': this.logged_user.classId,
       'QuestionYear': this.selectedYear,
       'SchoolID': this.logged_user.schoolId
     }
     this.restApiService.getByParameters(PathConstants.Question_Bank_Get, params).subscribe(res => {
-      if(res.length !== 0 && res !== undefined && res !== null) {
-      this.data = res;
+      if (res.length !== 0 && res !== undefined && res !== null) {
+        this.data = res;
+        this.loading = false;
       } else {
+        this.loading = false;
         this.messageService.clear();
-          this.messageService.add({
-            key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
-            summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
-          });
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+          summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+        });
       }
     }, (err: HttpErrorResponse) => {
+      this.loading = false;
       if (err.status === 0 || err.status === 400) {
         this.messageService.clear();
         this.messageService.add({
@@ -64,4 +74,10 @@ export class QuestionbankComponent implements OnInit {
       }
     })
   }
+
+  onDownload(Filename) {
+    const path = "../../assets/layout/" + FileUploadConstant.QuestionBank + "/" + Filename;
+    saveAs(path, Filename);
+  }
+
 }

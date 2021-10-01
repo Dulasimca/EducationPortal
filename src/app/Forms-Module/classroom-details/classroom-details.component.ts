@@ -4,7 +4,6 @@ import { User } from 'src/app/Interfaces/user';
 import { AuthService } from 'src/app/Services/auth.service';
 import { MasterService } from 'src/app/Services/master-data.service';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
-import * as _ from 'lodash';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { ResponseMessage } from 'src/app/Common-Module/Message';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -59,8 +58,7 @@ export class ClassroomDetailsComponent implements OnInit {
         this.classes.forEach(c => {
           classSelection.push({ label: c.name, value: c.code })
         });
-        let sortedClass = _.sortBy(classSelection, 'value');
-        this.classOptions = sortedClass;
+        this.classOptions = classSelection;
         this.classOptions.unshift({ label: '-select', value: null });
         break;
       case 'S':
@@ -92,7 +90,7 @@ export class ClassroomDetailsComponent implements OnInit {
         this.messageService.clear();
         this.messageService.add({
           key: 't-msg', severity: ResponseMessage.SEVERITY_SUCCESS,
-          summary: ResponseMessage.SUMMARY_SUCCESS, detail: ResponseMessage.SuccessMessage
+          summary: ResponseMessage.SUMMARY_SUCCESS, detail: ResponseMessage.MeetingSuccess
         });
       } else {
         this.blockUI.stop();

@@ -11,19 +11,20 @@ export class InternaltransferComponent implements OnInit {
   date: Date = new Date();
   school : SelectItem[];
   display: boolean = false;
-  selectedDistrict: string;
+  district: string;
+  taluk: string;
   selectedSchool: any;
-  
   districtOptions: SelectItem[];
-
+  talukOptions: SelectItem[];
+// master
   districts?: any;
-
+  cities?: any;
   
   constructor(private masterService: MasterService) { }
 
   ngOnInit() {
+    
     this.districts = this.masterService.getMaster('D');
-
 
     this.school = [
       { label: '-select-', value: null },
@@ -31,6 +32,13 @@ export class InternaltransferComponent implements OnInit {
       { label: 'Government Girls higher Secondary School,Madurai', value: 'S02' },
       { label: 'Adharsh Vidyalaya public school,Dindugal', value: 'S03' },
       { label: 'Artisto Public School,Cuddalore', value: 'S04' }
+    ];
+    this.talukOptions = [
+      {label: '-select', value: null},
+      {label: 'Chidambaram', value: 'T01'},
+      {label: 'Ambattur', value: 'T02'},
+      {label: 'Vellore', value: 'T03'},
+
     ]
   }
 

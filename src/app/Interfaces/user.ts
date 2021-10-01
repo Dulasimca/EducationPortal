@@ -6,6 +6,7 @@ export interface User {
     schoolId: any;
     classId: any;
     sectioncode: any;
+    classRoman: string;
     lastname: string;
     fathername: string;
     roleId: any;
@@ -19,4 +20,5 @@ export interface User {
     distrctId: any;
     schoolname: string;
     pincode: any;
+    studentImg: string;
 }

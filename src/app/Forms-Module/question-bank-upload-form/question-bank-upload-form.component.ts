@@ -4,13 +4,14 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { MessageService, SelectItem } from 'primeng/api';
 import { User } from 'src/app/Interfaces/user';
 import { MasterService } from 'src/app/Services/master-data.service';
-import * as _ from 'lodash';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { FileUploadConstant } from 'src/app/Common-Module/file-upload-constant';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { ResponseMessage } from 'src/app/Common-Module/Message';
 import { AuthService } from 'src/app/Services/auth.service';
+import { TableConstants } from 'src/app/Common-Module/TableConstants';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-question-bank-upload-form',
@@ -19,12 +20,12 @@ import { AuthService } from 'src/app/Services/auth.service';
 })
 export class QuestionBankUploadFormComponent implements OnInit {
   subjectOptions: SelectItem[];
-  subject: any;
+  subject: number;
   yearOptions: SelectItem[];
   year: number;
   description: string;
   classOptions: SelectItem[];
-  class: string;
+  class: number;
   mediumOptions: SelectItem[];
   medium: string;
   publishDate: Date;
@@ -33,6 +34,12 @@ export class QuestionBankUploadFormComponent implements OnInit {
   years?: any;
   logged_user: User;
   filename: string = '';
+  questionBankCols: any;
+  questionBankData: any = [];
+  loading: boolean;
+  selectedYear: number;
+  viewYearOptions: SelectItem[];
+  showTable: boolean;
   @ViewChild('fileSelector', { static: false }) fileSelector: ElementRef;
   @ViewChild('f', { static: false }) _questionBankForm: NgForm;
   @BlockUI() blockUI: NgBlockUI;
@@ -40,14 +47,14 @@ export class QuestionBankUploadFormComponent implements OnInit {
 
   constructor(private masterService: MasterService, private http: HttpClient,
     private restApiService: RestAPIService, private messageService: MessageService,
-    private authService: AuthService) { }
+    private authService: AuthService, private datepipe: DatePipe) { }
 
   ngOnInit(): void {
     this.logged_user = this.authService.UserInfo;
     this.classes = this.masterService.getMaster('C');
     this.mediums = this.masterService.getMaster('M');
     this.years = this.masterService.getAccountingYear();
-    console.log('acc', this.mediums);
+    this.questionBankCols = TableConstants.TQuestionBankColumns;
     this.subjectOptions = [
       { label: '-select-', value: null },
       { label: 'Tamil', value: 1 },
@@ -63,24 +70,24 @@ export class QuestionBankUploadFormComponent implements OnInit {
     let yearSelection = [];
     switch (type) {
       case 'Y':
-        console.log('y', this.years);
         this.years.forEach(y => {
           yearSelection.push({ label: y.ShortYear, value: y.Id });
 
         })
-        this.yearOptions = yearSelection;
+        this.yearOptions = yearSelection.slice(0);
         this.yearOptions.unshift({ label: '-select-', value: null });
+        this.viewYearOptions = yearSelection.slice(0);
+        this.viewYearOptions.unshift({ label: '-select-', value: null });
         break;
       case 'C':
         this.classes.forEach(c => {
           classSelection.push({ label: c.name, value: c.code })
         });
-        let sortedClass = _.sortBy(classSelection, 'value');
-        this.classOptions = sortedClass;
+        this.classOptions = classSelection;
         this.classOptions.unshift({ label: '-select', value: null });
         break;
-        case 'M':
-          this.mediumOptions = this.mediums;
+      case 'M':
+        this.mediumOptions = this.mediums;
         break;
     }
   }
@@ -114,7 +121,7 @@ export class QuestionBankUploadFormComponent implements OnInit {
       'SchoolID': this.logged_user.schoolId,
       'QuestionYear': this.year,
       'Classcode': this.class,
-      'subject': this.subject.label,
+      'subject': this.subject,
       'FileName': this.filename,
       'Description': this.description,
       'Medium': this.medium,
@@ -159,10 +166,113 @@ export class QuestionBankUploadFormComponent implements OnInit {
     })
   }
 
+  onLoadQuestionBank() {
+    this.questionBankData = [];
+    if (this.selectedYear !== undefined && this.selectedYear !== null) {
+      this.loading = true;
+      const params = {
+        'Classcode': this.logged_user.classId,
+        'QuestionYear': this.selectedYear,
+        'SchoolID': this.logged_user.schoolId
+      }
+      this.restApiService.getByParameters(PathConstants.Question_Bank_Get, params).subscribe(res => {
+        if (res.length !== 0 && res !== undefined && res !== null) {
+          res.forEach(q => {
+            if(q.Publishdate !== undefined && q.Publishdate !== null) {
+              q.Pdate = this.datepipe.transform(q.Publishdate, 'yyyy-MM-dd');
+            }
+          })
+          this.questionBankData = res;
+          this.loading = false;
+        } else {
+          this.loading = false;
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+            summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+          });
+        }
+      }, (err: HttpErrorResponse) => {
+        this.loading = false;
+        if (err.status === 0 || err.status === 400) {
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+            summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+          })
+        }
+      })
+    }
+  }
+
+  onEdit(row) {
+    if (row !== undefined && row !== null) {
+      console.log('row', row);
+      this.year = row.QuestionYear;
+      this.yearOptions = [{ label: row.ShortYear, value: row.QuestionYear }];
+      this.medium = row.Medium;
+      this.mediumOptions = [{ label: row.MediumName, value: row.Medium }];
+      this.subject = row.subject;
+      this.subjectOptions = [{ label: row.Subjectname, value: row.subject }];
+      this.class = row.Classcode;
+      this.classOptions = [{ label: row.Class, value: row.Classcode }];
+      this.description = row.Description;
+      this.publishDate = new Date(row.Publishdate);
+    }
+  }
+
+  onDelete(index) {
+    this.blockUI.start();
+    console.log('index', index);
+    if (index !== null && index !== undefined) {
+      this.restApiService.put(PathConstants.Question_Bank_Delete, index).subscribe(res => {
+        if (res !== undefined && res !== null) {
+          if (res) {
+            this.blockUI.stop();
+            this.onLoadQuestionBank();
+            this.messageService.clear();
+            this.messageService.add({
+              key: 't-msg', severity: ResponseMessage.SEVERITY_SUCCESS,
+              summary: ResponseMessage.SUMMARY_SUCCESS, detail: ResponseMessage.DeleteSuccessMsg
+            });
+          } else {
+            this.blockUI.stop();
+            this.messageService.clear();
+            this.messageService.add({
+              key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+              summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.DeleteFailMsg
+            });
+          }
+        } else {
+          this.blockUI.stop();
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+            summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+          });
+        }
+      }, (err: HttpErrorResponse) => {
+        this.loading = false;
+        if (err.status === 0 || err.status === 400) {
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+            summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+          })
+        }
+      })
+    }
+  }
+
+  onRemoveFile() {
+    this.fileSelector.nativeElement.value = null;
+  }
+
   clearForm() {
     this._questionBankForm.reset();
     this._questionBankForm.form.markAsUntouched();
     this._questionBankForm.form.markAsPristine();
     this.filename = '';
+    this.onRemoveFile();
   }
 }

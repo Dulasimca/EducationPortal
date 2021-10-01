@@ -42,8 +42,8 @@ export class RestAPIService {
     );
   }
 
-  delete(url, options): Observable<any> {
-    return this.httpClient.delete(this.BASEURL + url, options);
+  delete(url, value): Observable<any> {
+    return this.httpClient.delete(this.BASEURL + url, value);
   }
 
   handleError(error) {

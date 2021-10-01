@@ -6,27 +6,28 @@
                 <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
                    <div class="no-pad-top"><label>Date:</label> </div>  
                     <p-calendar [(ngModel)]="date" [showIcon]="true" (onSelect)="onLoadAssessment()"></p-calendar>
-                    <button pButton type="button" label="Refresh" style="margin-left: 40%;" icon="pi pi-refresh" ></button>
+                    <button pButton type="button" label="Refresh" style="margin-left: 40%;" icon="pi pi-refresh" (onClick)="onLoadAssessment()" ></button>
 
                 </div>
                 <p-divider></p-divider>
                 <div class="p-col-12 p-md-12 p-lg-12" style="color: rgb(248, 47, 88);">
-                    * Start button will be enabled at the specified start time of the test, 
+                    * Start button will be enabled on time mentioned below the table, 
                     Please click on the refresh button if start button doesn't appear on screen.<br>
-                    * Click to download the question paper uploaded by the teacher.<br>
-                    * Once completed writing down the test, Please scan or take a picture and upload it as pdf format.<br>
-                    * Note extra 15mins will be provided to upload the answer sheet document.<br>
-                    * Please select the answer sheet file less than 25MB.<br>
+                    * Once you click 'Start' button, you will navigate to exam page.<br>
+                    * Please do not attempt to refresh or go to other window/page,
+                     you will get logged out and test will be submitted automatically.<br>
+                    * Please read the questions throughly and answer appropriately.<br>
+                    * Please submit the test before the alloted time or test will get submitted automatically.<br>
                 </div>
-                <div>
+                <div class="p-col-12 p-md-12 p-lg-12">
                     <p-table [columns]="assessmentCols" [value]="assessmentData" [paginator]="true" [rows]="10" [loading]="loading">
-                        <ng-template pTemplate="header" let-columns>
+                        <ng-template pTemplate="header" let-rowData let-columns>
                             <tr>
                                 <th style="width: 90px">S.No</th>
                                 <th *ngFor="let col of columns">
                                     {{col.header}}
                                 </th>
-                                <th>Start Test</th>
+                                <th *ngIf="rowData.enable">Start Test</th>
                                 <!-- <th>Upload</th> -->
                             </tr>
                         </ng-template>
@@ -36,7 +37,7 @@
                                 <td *ngFor="let col of columns">
                                     {{rowData[col.field]}}
                                 </td>
-                                <td (click)="onStart()"><i class="pi pi-play" style="padding-left: 10px; color: #52de38; font-size: 1.5rem;"></i></td>
+                                <td *ngIf="rowData.enable" (click)="onStart()"><i class="pi pi-play" style="padding-left: 10px; color: #52de38; font-size: 1.5rem;"></i></td>
                                 <!-- <td><i class="pi pi-upload" style="padding-left: 10px; color: #52de38; font-size: 1.5rem;"></i></td> -->
                             </tr>
                         </ng-template>

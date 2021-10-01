@@ -1,11 +1,12 @@
 <div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px;">
-        <p-panel header="Subject Test Result">
+    <p-panel header="Subject Test Result">
         <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
             <p-card>
-                <div class="p-col-12 p-md-12 p-lg-12 no-pad-top" style="margin-top: -5px;">
-                    <div class="no-pad-top"><label>Year:</label> </div>  
-                    <p-dropdown [options]="years" [(ngModel)]="selectedyear" optionLabel="name"></p-dropdown>
-
+                <div class="p-col-12 p-md-6 p-lg-3">
+                    <div><label for="_year">Year<span class="form-mandatory-field">*</span></label>
+                    </div>
+                    <p-dropdown name="_year" [options]="years" [(ngModel)]="selectedyear" optionLabel="name" required>
+                    </p-dropdown>
                 </div>
                 <div>
                     <p-table [value]="data">
@@ -25,20 +26,78 @@
                                 <td style="width: 100px">{{data.slno}}</td>
                                 <td>{{data.subject}}</td>
                                 <td>{{data.test}}</td>
-                                <td>
-                                   
-                                    <span style="font-size: 13px;"> <a routerLink="/subject-test-result" routerLinkActive="active" target="_blank" rel="view" style="color: blue; text-decoration: underline;">View</a></span></td>
-                                <!-- <td>{{data.duration}}</td> -->
-                                <!-- <td><i class="pi pi-download" style="padding-left: 10px; color: #990f0f; font-size: 1.5rem;"></i></td> -->
-                                <!-- <td>{{data.Uploaded}}</td> -->
-                                <td><i class="pi pi-upload" style="padding-right: 20px; color: #990f0f; font-size: 1.5rem;"></i></td>
-                                <!-- <td>{{data.teacher}}</td> -->
-                                <td><i class="pi pi-download" style="padding-left: 10px; color: #990f0f; font-size: 1.5rem;"></i></td>
+                                <td class="cursor-pointer">
+                                    <span style="font-size: 13px;"> <a rel="view"
+                                            style="color: blue; text-decoration: underline;"
+                                            (click)="onView()">View</a></span>
+                                </td>
+                                <td><i class="pi pi-upload"
+                                        style="padding-right: 20px; color: #990f0f; font-size: 1.5rem;"></i></td>
+                                <td><i class="pi pi-download"
+                                        style="padding-left: 10px; color: #990f0f; font-size: 1.5rem;"></i></td>
                             </tr>
                         </ng-template>
                     </p-table>
                 </div>
+
             </p-card>
         </div>
     </p-panel>
 </div>
+
+<p-dialog [(visible)]="display" [style]="{width: '45vw'}">
+    <p-panel header="Subject Test Result">
+        <div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px;">
+            <div class="p-grid">
+                <div class="p-col-12 p-md-1 p-lg-2"></div>
+                <div class="p-col-12 p-md-10 p-lg-6">
+                    <div class="p-grid">
+                        <div class="p-col-6 p-md-6 p-lg-6"><b>Student Name: </b></div>
+                        <div class="p-col-6 p-md-6 p-lg-6">Arun Kumar S</div>
+                    </div>
+                    <p-divider></p-divider>
+                    <div class="p-grid">
+                        <div class="p-col-6 p-md-6 p-lg-6"><b>Class: </b></div>
+                        <div class="p-col-6 p-md-6 p-lg-6">10 - B </div>
+                    </div>
+                    <p-divider></p-divider>
+                    <div class="p-grid">
+                        <div class="p-col-6 p-md-6 p-lg-6"><b>Roll Number: </b></div>
+                        <div class="p-col-6 p-md-6 p-lg-6">1</div>
+                    </div>
+                    <p-divider></p-divider>
+                    <div class="p-grid">
+                        <div class="p-col-6 p-md-6 p-lg-6"><b>Subject Name: </b></div>
+                        <div class="p-col-6 p-md-6 p-lg-6">Tamil </div>
+                    </div>
+                    <p-divider></p-divider>
+                    <div class="p-grid">
+                        <div class="p-col-6 p-md-6 p-lg-6"><b>Test Name: </b></div>
+                        <div class="p-col-6 p-md-6 p-lg-6">MidTerm Test </div>
+                    </div>
+                    <p-divider></p-divider>
+                    <div class="p-grid">
+                        <div class="p-col-6 p-md-6 p-lg-6"><b>No. of Questions: </b></div>
+                        <div class="p-col-6 p-md-6 p-lg-6">25 </div>
+                    </div>
+                    <p-divider></p-divider>
+                    <div class="p-grid">
+                        <div class="p-col-6 p-md-6 p-lg-6"><b>Question Type: </b></div>
+                        <div class="p-col-6 p-md-6 p-lg-6">Two Marks </div>
+                    </div>
+                    <p-divider></p-divider>
+                    <div class="p-grid">
+                        <div class="p-col-6 p-md-6 p-lg-6"><b>Total Marks: </b></div>
+                        <div class="p-col-6 p-md-6 p-lg-6">50 marks</div>
+                    </div>
+                    <p-divider></p-divider>
+                    <div class="p-grid">
+                        <div class="p-col-6 p-md-6 p-lg-6"><b>Marks Obtained: </b></div>
+                        <div class="p-col-6 p-md-6 p-lg-6">44 marks</div>
+                    </div>
+                    <p-divider></p-divider>
+                </div>
+            </div>
+        </div>
+    </p-panel>
+</p-dialog>

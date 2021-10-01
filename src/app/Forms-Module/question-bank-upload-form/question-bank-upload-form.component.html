@@ -1,84 +1,144 @@
 <block-ui>
-<div class="p-col-12" style="padding-top:25px;">
-    <p-panel header="Question Bank Upload">
-        <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
-            <form #f="ngForm" name="questionBankForm">
-                <div class="p-grid">
-                    <div class="p-col-12 p-md-12 p-lg-2"></div>
-                    <div class="p-col-12 p-md-10 p-lg-8">
-                        <p-card>
-                            <div #row1 class="p-col-12 p-md-12 p-lg-12">
-                                <div class="p-grid">
-                                    <div class="p-col-12 p-md-6 p-lg-3">
-                                        <div><label for="_subject">Subject<span
-                                                    class="form-mandatory-field">*</span></label>
-                                        </div>
-                                        <p-dropdown name="_subject" [options]="subjectOptions"
-                                        optionLabel="label" [(ngModel)]="subject"
-                                            required>
-                                        </p-dropdown>
-                                    </div>
-                                    <div class="p-col-12 p-md-6 p-lg-3">
-                                        <div><label for="_year">Year<span
-                                                    class="form-mandatory-field">*</span></label>
-                                        </div>
-                                        <p-dropdown name="_year" [options]="yearOptions" (onClick)="onSelect('Y')" [(ngModel)]="year" required>
-                                        </p-dropdown>
-                                    </div>
-                                    <div class="p-col-12 p-md-6 p-lg-2">
-                                        <div><label for="_class">Class<span
-                                                    class="form-mandatory-field">*</span></label>
-                                        </div>
-                                        <p-dropdown name="_class" [options]="classOptions" (onClick)="onSelect('C')"  [(ngModel)]="class" required>
-                                        </p-dropdown>
-                                    </div>
-                                </div>
-                            </div>
-                            <div #row2 class="p-col-12 p-md-12 p-lg-12">
-                                <div class="p-grid">
-                                    <div class="p-col-12 p-md-6 p-lg-2">
-                                        <div><label for="_medium">Medium<span
-                                                    class="form-mandatory-field">*</span></label>
-                                        </div>
-                                        <p-dropdown name="_medium" [options]="mediumOptions" (onClick)="onSelect('M')"  [(ngModel)]="medium" required>
-                                        </p-dropdown>
-                                    </div>
-                                    <div class="p-col-12 p-md-6 p-lg-6">
-                                        <div><label for="_description">Description<span
-                                                    class="form-mandatory-field">*</span></label></div>
-                                        <input class="p-col-12" name="_description" type="text" pInputText
-                                            [(ngModel)]="description" />
-                                        <div class="note">*Note: test description eg: "Science 2mark questions with solution part-I"</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div #row3 class="p-col-12 p-md-12 p-lg-12">
-                                <div class="p-grid">
-                                    <div class="p-col-12 p-md-6 p-lg-3">
-                                        <div><label for="_pdate">Publish Date<span
-                                                    class="form-mandatory-field">*</span></label></div>
-                                        <p-calendar [(ngModel)]="publishDate" name="_pdate" [showIcon]="true" required>
-                                        </p-calendar>
-                                    </div>
-                                    <div class="p-col-12 p-md-8 p-lg-5">
-                                        <input #fileSelector id="my-file-selector" pInputText class="p-col-12"
-                                            name="_pdf" type="file" (change)="uploadData($event);"
-                                            accept=".pdf" required>
-                                            <div class="note">
-                                                *Note: Please upload the pdf of question bank for selected subject.
+    <div class="p-col-12" style="padding-top:25px;">
+        <p-panel header="Question Bank Upload">
+            <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
+                <form #f="ngForm" name="questionBankForm">
+                    <div class="p-grid">
+                        <div class="p-col-12 p-md-12 p-lg-2"></div>
+                        <div class="p-col-12 p-md-10 p-lg-8">
+                            <p-card>
+                                <div #row1 class="p-col-12 p-md-12 p-lg-12">
+                                    <div class="p-grid">
+                                        <div class="p-col-12 p-md-6 p-lg-3">
+                                            <div><label for="_subject">Subject<span
+                                                        class="form-mandatory-field">*</span></label>
                                             </div>
+                                            <p-dropdown name="_subject" [options]="subjectOptions"
+                                                [(ngModel)]="subject" required>
+                                            </p-dropdown>
+                                        </div>
+                                        <div class="p-col-12 p-md-6 p-lg-3">
+                                            <div><label for="_year">Year<span
+                                                        class="form-mandatory-field">*</span></label>
+                                            </div>
+                                            <p-dropdown name="_year" [options]="yearOptions" (onClick)="onSelect('Y')"
+                                                [(ngModel)]="year" required>
+                                            </p-dropdown>
+                                        </div>
+                                        <div class="p-col-12 p-md-6 p-lg-2">
+                                            <div><label for="_class">Class<span
+                                                        class="form-mandatory-field">*</span></label>
+                                            </div>
+                                            <p-dropdown name="_class" [options]="classOptions" (onClick)="onSelect('C')"
+                                                [(ngModel)]="class" required>
+                                            </p-dropdown>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div #row5 class="p-col-12 p-md-12 p-lg-12 text-center">
-                                <button pButton name="_upload" type="button" label="Upload" (click)="onUpload()"
-                                [disabled]="(!f.valid)"></button>
-                            </div>
-                        </p-card>
+                                <div #row2 class="p-col-12 p-md-12 p-lg-12">
+                                    <div class="p-grid">
+                                        <div class="p-col-12 p-md-6 p-lg-6">
+                                            <div><label for="_description">Description<span
+                                                        class="form-mandatory-field">*</span></label></div>
+                                            <input class="p-col-12" name="_description" type="text" pInputText
+                                                [(ngModel)]="description" />
+                                            <div class="note">*Note: eg: "Science 2mark questions with solution part-I"
+                                            </div>
+                                        </div>
+                                        <div class="p-col-12 p-md-6 p-lg-2">
+                                            <div><label for="_medium">Medium<span
+                                                        class="form-mandatory-field">*</span></label>
+                                            </div>
+                                            <p-dropdown name="_medium" [options]="mediumOptions"
+                                                (onClick)="onSelect('M')" [(ngModel)]="medium" required>
+                                            </p-dropdown>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div #row3 class="p-col-12 p-md-12 p-lg-12">
+                                    <div class="p-grid">
+                                        <div class="p-col-12 p-md-8 p-lg-5">
+                                            <div><label for="_pdate">Question Bank<span
+                                                class="form-mandatory-field">*</span></label></div>
+                                                <div class="p-inputgroup">
+                                                     <input #fileSelector id="my-file-selector" pInputText class="p-col-12"
+                                                    name="_pdf" type="file" (change)="uploadData($event);" accept=".pdf"
+                                                     required>
+                                                <button pButton type="button" icon="pi pi-times-circle"
+                                                    (click)="onRemoveFile()"></button>
+                                            </div>
+                                            <div>*Note: .pdf format</div>
+                                        </div>
+                                        <div class="p-col-12 p-md-6 p-lg-3">
+                                            <div><label for="_pdate">Publish Date<span
+                                                        class="form-mandatory-field">*</span></label></div>
+                                            <p-calendar [(ngModel)]="publishDate" name="_pdate" [showIcon]="true"
+                                                required>
+                                            </p-calendar>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div #row5 class="p-col-12 p-md-12 p-lg-12 text-center">
+                                    <button pButton name="_upload" type="button" label="Upload" (click)="onUpload()"
+                                        [disabled]="(!f.valid)"></button> &nbsp;
+                                    <button pButton name="_view" type="button" label="View"
+                                        (click)="showTable=true"></button>
+                                </div>
+                            </p-card>
+                        </div>
                     </div>
-                </div>
-            </form>
-        </div>
-    </p-panel>
-</div>
+                    <div #viewBlock *ngIf="showTable" class="p-col-12 p-md-12 p-lg-12 card"
+                        style="border: 1px solid #d5dfe9;">
+                        <div #row1 class="p-grid" style="background: #d3e0ec;">
+                            <div class="p-col-12 p-md-6 p-lg-6" style="text-align: start;">
+                                <span style="text-decoration: underline;">Question Bank Details:</span>
+                            </div>
+                            <div class="p-col-12 p-md-6 p-lg-6" style="text-align: end;">
+                                <button pButton name="_close" type="button" label="Close" icon="pi pi-times"
+                                    (click)="showTable=false"></button>
+                            </div>
+                        </div>
+                        <div #row2 class="p-col-12 p-md-12 p-lg-12">
+                            <div class="p-grid">
+                                <div class="p-col-1 no-pad-top"><label>Year:</label> </div>
+                                <div class="p-col-2" style="margin-left: -3%">
+                                    <p-dropdown [options]="viewYearOptions" [(ngModel)]="selectedYear"
+                                        (onClick)="onSelect('Y')" (onChange)="onLoadQuestionBank()"></p-dropdown>
+                                </div>
+                            </div>
+                        </div>
+                        <div #row3 class="p-col-12">
+                            <p-table [columns]="questionBankCols" [value]="questionBankData" [paginator]="true"
+                                [rows]="10" [loading]="loading">
+                                <ng-template pTemplate="header" let-rowData let-columns>
+                                    <tr>
+                                        <th style="width: 90px">S.No</th>
+                                        <th *ngFor="let col of columns">
+                                            {{col.header}}
+                                        </th>
+                                        <th>Edit</th>
+                                        <th>Delete</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-rowIndex="rowIndex" let-rowData let-columns="columns">
+                                    <tr>
+                                        <td style="width: 90px">{{rowIndex+1}}</td>
+                                        <td *ngFor="let col of columns">
+                                            {{rowData[col.field]}}
+                                        </td>
+                                        <td class="cursor-pointer" (click)="onEdit(rowData)"><i class="pi pi-pencil"
+                                                style="padding-left: 10px; color: #52de38; font-size: 1.5rem;"></i>
+                                        </td>
+                                        <td class="cursor-pointer" (click)="onDelete(rowData.RowId)"><i class="pi pi-trash"
+                                                style="padding-left: 10px; color: #52de38; font-size: 1.5rem;"></i>
+                                        </td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </p-panel>
+    </div>
 </block-ui>

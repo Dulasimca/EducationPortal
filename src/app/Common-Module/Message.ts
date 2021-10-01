@@ -27,5 +27,8 @@ export class ResponseMessage {
     public static readonly GreetingMsgII = 'Good Afternoon !';
     public static readonly GreetingMsgIII = 'Good Evening !';
     public static readonly DOAprrovalMessage = 'Approval sent for ';
+    public static readonly MeetingSuccess = 'Meeting created successfully!';
+    public static readonly DeleteSuccessMsg = 'Deleted successfully !';
+    public static readonly DeleteFailMsg = 'Record is not deleted !';
     
 }

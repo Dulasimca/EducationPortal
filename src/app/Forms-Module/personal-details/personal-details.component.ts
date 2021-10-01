@@ -1,12 +1,7 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { i18nMetaToJSDoc } from '@angular/compiler/src/render3/view/i18n/meta';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MessageService, SelectItem } from 'primeng/api';
-import { min } from 'rxjs';
-import * as _ from 'lodash';
-
-
 import { ResponseMessage } from 'src/app/Common-Module/Message';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { Profile } from 'src/app/Interfaces/profile';
@@ -14,6 +9,9 @@ import { MasterService } from 'src/app/Services/master-data.service';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { UserService } from 'src/app/Services/user.service';
 import { DatePipe } from '@angular/common';
+import { User } from 'src/app/Interfaces/user';
+import { AuthService } from 'src/app/Services/auth.service';
+import { FileUploadConstant } from 'src/app/Common-Module/file-upload-constant';
 // import { isUint16Array } from 'util/types';
 
 @Component({
@@ -30,13 +28,16 @@ export class PersonalDetailsComponent implements OnInit {
   sectionOptions:  SelectItem[];
   genderOptions: SelectItem[];
   mediumOptions: SelectItem[];
+  userImage: string;
+  fatherImage: string;
+  motherImage: string;
    //masters
    sections?: any;
    classes?: any;
   @ViewChild('f', { static: false }) _personalDetailsForm: NgForm;
 
   constructor(private restApiService: RestAPIService, private messageService: MessageService,
-    private datePipe: DatePipe, private userService: UserService, private masterService: MasterService) { }
+    private datePipe: DatePipe, private userService: UserService, private masterService: MasterService, private authService: AuthService) { }
 
   ngOnInit() {
     this.responseData = this.userService.getResponse();
@@ -45,6 +46,10 @@ export class PersonalDetailsComponent implements OnInit {
     const start_year_range = current_year - 30;
     this.yearRange = start_year_range + ':' + current_year;
     this.loadData();
+    // const user: User = this.authService.UserInfo;
+    // this.userImage = (user.studentImg.trim() !== '') ? user.studentImg : '';
+
+   
     ///loading master data
     this.sections = this.masterService.getMaster('S');
     this.classes = this.masterService.getMaster('C');
@@ -77,14 +82,15 @@ export class PersonalDetailsComponent implements OnInit {
             DateofBirth: this.datePipe.transform(i.DateofBirth, 'yyyy-MM-dd'),
             DateofJoining: this.datePipe.transform(i.DateofJoining, 'yyyy-MM-dd'),
             Gender: i.Gender,
-            Medium: i.Medium,
+            Medium: i.MediumName,
             Nationality: i.Nationality,
             BloodGroup: i.BloodGroup,
             Class: i.Class,
             ClassId: i.ClassId,
             Section: i.Section,
             SectionId: i.SectionId,
-            StudentPhotoFileName: i.StudentPhotoFileName,
+            StudentPhotoFileName: (i.StudentPhotoFileName !== undefined && i.StudentPhotoFileName !== null) ?
+            (i.StudentPhotoFileName.toString().trim() !== '' ? ('../../assets/layout/' + FileUploadConstant.StudentRegistration +'/'+ i.StudentPhotoFileName) : '') : '',
             Caste: i.Caste,
             Addressinfo: i.Addressinfo,
             PermanentAddress: i.PermanentAddress,
@@ -107,23 +113,28 @@ export class PersonalDetailsComponent implements OnInit {
             FatherEmailid: i.FatherEmailid,
             FatherMobileNo: i.FatherMobileNo,
             FatherOccupation: i.FatherOccupation,
-            FatherPhotoFileName: i.FatherPhotoFileName,
+            FatherPhotoFileName: (i.FatherPhotoFileName !== undefined && i.FatherPhotoFileName !== null) ?
+            (i.FatherPhotoFileName.toString().trim() !== '' ? ('../../assets/layout/' + FileUploadConstant.StudentRegistration +'/'+ i.FatherPhotoFileName) : '') : '',
             MotherName: i.MotherName,
             MotherEmailid: i.MotherEmailid,
             MotherOccupation: i.MotherOccupation,
             MotherMobileNo: i.MotherMobileNo,
-            MotherPhotoFilName: i.MotherPhotoFilName,
+            MotherPhotoFilName: (i.MotherPhotoFilName !== undefined && i.MotherPhotoFilName !== null) ?
+            (i.MotherPhotoFilName.toString().trim() !== '' ? ('../../assets/layout/' + FileUploadConstant.StudentRegistration +'/'+ i.MotherPhotoFilName) : '') : '',
             GaurdianName: i.GaurdianName,
             GaurdianEmailid: i.GaurdianEmailid,
             GaurdianMobileNo: i.GaurdianMobileNo,
             GaurdianOccupation: i.GaurdianOccupation,
-            GaurdianPhotoFileName: i.GaurdianPhotoFileName,
-            YearlyIncome: i.YearlyIncome,
+            GaurdianPhotoFileName: (i.GaurdianPhotoFileName !== undefined && i.GaurdianPhotoFileName !== null) ?
+            (i.GaurdianPhotoFileName.toString().trim() !== '' ? ('../../assets/layout/' + FileUploadConstant.StudentRegistration +'/'+ i.GaurdianPhotoFileName) : '') : '',
+            FatherYearlyIncome: i.FYearlyIncome,
+            MotherYearlyIncome: i.MYearlyIncome,
             Disability: i.Disability,
             IncomeFilename: i.IncomeFilename,
             NativityFilename: i.NativityFilename,
             CommunityFilename: i.CommunityFilename,
           }
+          
           this.classOptions = [{ label: i.Class, value: i.ClassId }];
           this.sectionOptions = [{ label: i.Section, value: i.SectionId }];
         })
@@ -137,8 +148,7 @@ export class PersonalDetailsComponent implements OnInit {
       this.classes.forEach(c => {
         classSelection.push({ label: c.name, value: c.code })
       });
-      let sortedClass = _.sortBy(classSelection, 'value');
-      this.classOptions = sortedClass;
+      this.classOptions = classSelection;
       this.classOptions.unshift({ label: '-select', value: null });
       break;
     case 'S':

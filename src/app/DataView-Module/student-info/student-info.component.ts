@@ -39,6 +39,7 @@ guardianName: string;
 guardianOccupation: any;
 guardianContact: number;
 guardianEmailId: any;
+roleId: any;
 
   constructor(private router: Router, private authService: AuthService, 
     private restApiService : RestAPIService, private userService: UserService,
@@ -46,6 +47,7 @@ guardianEmailId: any;
 
   ngOnInit() {
     const user: User = this.authService.UserInfo;
+    this.roleId = user.roleId;
     let currentUrl = this.router.url;
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.router.onSameUrlNavigation = 'reload';
@@ -64,7 +66,7 @@ guardianEmailId: any;
           this.gender = (i.Gender !== undefined && i.Gender !==null) ? ((i.Gender.toString().trim() !== '') ? i.Gender : '-') : '-',
           this.rollNo = (i.ID !== undefined && i.ID !== null) ? ((i.ID.toString().trim() !== '') ? i.ID : '-') : '-',
           this.dob = (i.DateofBirth !== undefined && i.DateofBirth !== null) ? ((i.DateofBirth.toString().trim() !== '') ? i.DateofBirth : '-') : '-',
-          this.medium = (i.Medium !== undefined && i.Medium !==null) ? ((i.Medium.toString().trim() !== '') ? i.Medium : '-') : '-',
+          this.medium = (i.MediumName !== undefined && i.MediumName !==null) ? ((i.MediumName.toString().trim() !== '') ? i.MediumName : '-') : '-',
           this.doj = (i.DateofJoining !== undefined && i.DateofJoining !== null) ? ((i.DateofJoining.toString().trim() !== '') ? i.DateofJoining : '-') : '-',
           this.address = (i.Addressinfo !== undefined && i.Addressinfo !== null) ? ((i.Addressinfo.toString().trim() !== '') ? i.Addressinfo : '-') : '-'
           this.fatherName = (i.FatherName !== undefined && i.FatherName !== null) ? ((i.FatherName.toString().trim() !== '') ? i.FatherName : '-') : '-',

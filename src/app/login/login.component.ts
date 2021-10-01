@@ -68,6 +68,7 @@ export class LoginComponent implements OnInit {
                     id: (i.slno !== undefined) ? i.slno : null,
                     email: (i.emailId !== undefined && i.emailId !== null) ? i.emailId.toString().trim() : '',
                     schoolId: (i.schoolId !== undefined) ? i.schoolId : null,
+                    classRoman: (i.classname2 !== undefined && i.classname2 !== null) ? i.classname2.toString().trim()  : '',
                     classId: (i.classId !== undefined) ? i.classId : null,
                     sectioncode: (i.sectionId !== undefined) ? i.sectionId : null,
                     roleId: (i.roleId !== undefined) ? i.roleId : null,
@@ -86,7 +87,6 @@ export class LoginComponent implements OnInit {
                     (i.studentPhotoFileName.toString().trim() !== '' ? ('../../assets/layout/' + FileUploadConstant.StudentRegistration +'/'+ i.studentPhotoFileName) : '') : '' 
                   }
                   this.authService.login(obj);
-                  console.log('au', obj);
                   this.masterService.initializeMaster();
               });
             }

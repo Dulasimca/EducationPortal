@@ -269,7 +269,7 @@
                                 </div>
                             </p-card>
                         </p-tabPanel>
-                        <p-tabPanel *ngIf="(this.roleId==6)" header="Parent Info">
+                        <p-tabPanel *ngIf="(this.roleId==6)" header="Parents Info">
                             <p-card>
                                 <div class="p-col-12 no-pad-top">
                                     <div #row1 class="p-col-12 p-md-12 p-lg-12 no-pad-top">
@@ -306,10 +306,10 @@
                                                             pInputText [(ngModel)]="fatherEmailId" required />
                                                     </div>
                                                     <div class="p-col-12 p-md-6 p-lg-2">
-                                                        <div><label for="_income">Yearly Income<span
+                                                        <div><label for="_fahterincome">Yearly Income<span
                                                                     class="form-mandatory-field">*</span></label></div>
-                                                        <input class="p-col-12" name="_income" type="text" pInputText
-                                                            [(ngModel)]="income" required />
+                                                        <input class="p-col-12" name="_fahterincome" type="text" pInputText
+                                                            [(ngModel)]="fatherIncome" required />
                                                     </div>
                                                 </div>
                                             </div>
@@ -387,6 +387,12 @@
                                                     </div>
                                                     <input class="p-col-12" name="_motheremail" type="email" pInputText
                                                         [(ngModel)]="motherEmailId" required />
+                                                </div>
+                                                <div class="p-col-12 p-md-6 p-lg-2">
+                                                    <div><label for="_motherincome">Yearly Income<span
+                                                                class="form-mandatory-field">*</span></label></div>
+                                                    <input class="p-col-12" name="_motherincome" type="text" pInputText
+                                                        [(ngModel)]="motherIncome" required />
                                                 </div>
                                                 <div class="p-col-12 p-md-6 p-lg-4">
                                                     <div><label for="_motherimg">Mother's Photo<span

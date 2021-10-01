@@ -5,7 +5,6 @@ import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ResponseMessage } from 'src/app/Common-Module/Message';
 import { MasterService } from 'src/app/Services/master-data.service';
-import * as _ from 'lodash';
 import { Profile } from 'src/app/Interfaces/profile';
 import { NgForm } from '@angular/forms';
 import { DatePipe } from '@angular/common';
@@ -66,6 +65,7 @@ export class RegistrationFormComponent implements OnInit {
   fatherContactNo: any;
   fatherEmailId: string;
   fatherFilename: string;
+  fatherIncome: any;
   incomeFilename: string;
   communityFilename: string;
   nativityFilename: string;
@@ -73,6 +73,7 @@ export class RegistrationFormComponent implements OnInit {
   motherOccupation: string;
   motherContactNo: any;
   motherEmailId: string;
+  motherIncome: any;
   motherFilename: string;
   guardianName: string;
   guardianOccupation: string;
@@ -84,7 +85,6 @@ export class RegistrationFormComponent implements OnInit {
   slno: any;
   tabTitleI: string;
   tabTitleII: string;
-  income: any;
   showSImg: boolean;
   s_URL: string;
   sImgProgress: Number = 0;
@@ -174,8 +174,7 @@ export class RegistrationFormComponent implements OnInit {
         this.classes.forEach(c => {
           classSelection.push({ label: c.name, value: c.code })
         });
-        let sortedClass = _.sortBy(classSelection, 'value');
-        this.classOptions = sortedClass;
+        this.classOptions = classSelection;
         this.classOptions.unshift({ label: '-select', value: null });
         break;
       case 'S':
@@ -353,7 +352,8 @@ export class RegistrationFormComponent implements OnInit {
       IncomeFilename: this.incomeFilename,
       NativityFilename: this.nativityFilename,
       CommunityFilename: this.communityFilename,
-      YearlyIncome: this.income
+      FatherYearlyIncome: this.fatherIncome,
+      MotherYearlyIncome: this.motherIncome
     };
     this.restApiService.post(PathConstants.Registration_Post, params).subscribe(res => {
       if (res !== undefined && res !== null) {

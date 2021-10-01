@@ -16,12 +16,9 @@ export class InternaltransferComponent implements OnInit {
   selectedSchool: any;
   districtOptions: SelectItem[];
   talukOptions: SelectItem[];
-
 // master
   districts?: any;
   cities?: any;
-
-
   
   constructor(private masterService: MasterService) { }
 
@@ -29,13 +26,19 @@ export class InternaltransferComponent implements OnInit {
     
     this.districts = this.masterService.getMaster('D');
 
-
     this.school = [
       { label: '-select-', value: null },
       { label: 'Government higher Secondary School,Coimbatore', value: 'S01' },
       { label: 'Government Girls higher Secondary School,Madurai', value: 'S02' },
       { label: 'Adharsh Vidyalaya public school,Dindugal', value: 'S03' },
       { label: 'Artisto Public School,Cuddalore', value: 'S04' }
+    ];
+    this.talukOptions = [
+      {label: '-select', value: null},
+      {label: 'Chidambaram', value: 'T01'},
+      {label: 'Ambattur', value: 'T02'},
+      {label: 'Vellore', value: 'T03'},
+
     ]
   }
 

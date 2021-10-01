@@ -38,11 +38,13 @@ export interface Profile {
     FatherMobileNo: any;
     FatherOccupation: string;
     FatherEmailid: string;
+    FatherYearlyIncome: any;
     FatherPhotoFileName: string;
     MotherName: string;
     MotherOccupation: string;
     MotherMobileNo: any;
     MotherEmailid: string;
+    MotherYearlyIncome
     MotherPhotoFilName: string;
     GaurdianName: string;
     GaurdianMobileNo: any;
@@ -53,5 +55,4 @@ export interface Profile {
     IncomeFilename: string;
     NativityFilename: string;
     CommunityFilename: string;
-    YearlyIncome: string;
 }

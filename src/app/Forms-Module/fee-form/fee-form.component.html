@@ -31,7 +31,7 @@
                 <div class="p-col-12 p-md-6 p-lg-2">
                   <div> <label for="_studentname">Student Name</label><span
                    class="form-mandatory-field">*</span></div>
-                  <p-dropdown [options]="studentOptions" [(ngModel)]="studentName"
+                  <p-dropdown [options]="studentOptions" [(ngModel)]="student"
                   name="_studentname" optionLabel="label" placeholder="-select-" required>
               </p-dropdown>
                </div>
@@ -121,7 +121,7 @@
           <div class="p-grid">
             <div class="p-col-6 p-md-6 p-lg-6">
               <div class="p-col-12 no-pad-bottom">
-                <span style="font-weight: 600;">Receipt No. :</span><span> ST-2021-22-3888</span>
+                <span style="font-weight: 600;">Receipt No. :</span> 
                 <span style="padding-left: 3px;">{{receiptNo}}</span>
               </div>
               <div class="p-col-12 no-pad-bottom">

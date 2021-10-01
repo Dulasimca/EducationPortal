@@ -27,11 +27,11 @@
                                         required />
                                 </div>
                                 <div class="p-col-12 p-md-6 p-lg-2">
-                                    <div><label for="_phoneno">Phone Number<span
+                                    <div><label for="_phoneno">Contact Number<span
                                                 class="form-mandatory-field">*</span></label>
                                     </div>
-                                    <input type="tel" class="p-col-12" name="_phoneno" pInputText [(ngModel)]="phoneNo"
-                                        required />
+                                    <input type="tel" class="p-col-12" name="_phoneno" maxlength="10" pInputText
+                                        [(ngModel)]="phoneNo" required />
                                 </div>
                                 <div class="p-col-12 p-md-6 p-lg-2">
                                     <div><label for="_landlineno">Landline Number<span
@@ -43,15 +43,15 @@
                                 <div #row1 class="p-col-12 p-md-12 p-lg-12">
                                     <div class="p-grid">
                                         <div class="p-col-12 p-md-6 p-lg-4">
-                                            <div><label for="_address">Address<span
+                                            <div><label for="_address"> School Address<span
                                                         class="form-mandatory-field">*</span></label></div>
                                             <textarea pInputTextarea [(ngModel)]="address" name="_address" rows="3"
-                                                cols="43" required></textarea>
+                                                cols="41" required></textarea>
                                         </div>
                                         <div class="p-col-12 p-md-6 p-lg-2">
                                             <div><label for="_pincode">Pincode<span
                                                         class="form-mandatory-field">*</span></label></div>
-                                            <input type="text" class="p-col-12" name="_pincode" pInputText
+                                            <input type="text" class="p-col-12" name="_pincode" maxlength="6" pInputText
                                                 [(ngModel)]="pincode" required />
                                         </div>
                                         <div class="p-col-12 p-md-6 p-lg-2">

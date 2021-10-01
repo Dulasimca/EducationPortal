@@ -1,7 +1,4 @@
-import { Platform } from '@angular/cdk/platform';
-import { DatePipe } from '@angular/common';
-import { Component, ComponentFactoryResolver, Injector, Type, ViewChild, ViewContainerRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, ViewChild } from '@angular/core';
 import { OverlayPanel } from 'primeng/overlaypanel';
 import { Observable } from 'rxjs';
 import { PathConstants } from './Common-Module/PathConstants';
@@ -28,6 +25,7 @@ export class AppComponent {
   schoolName: string;
   showIcon: boolean;
   userClass: string;
+  roleId: any;
   @ViewChild('op', { static: false }) _panel: OverlayPanel;
 
   constructor(private authService: AuthService, private restApiService: RestAPIService) { }
@@ -37,16 +35,15 @@ export class AppComponent {
     this.isLoggedIn$.subscribe(log => {
       if (!log) { this.loading = log; } else {
         const user: User = this.authService.UserInfo;
-        this.restApiService.getByParameters(PathConstants.Menu_Master, { 'roleId': user.roleId }).subscribe(response => {
+        this.roleId = Number.parseInt(user.roleId);
+        this.restApiService.getByParameters(PathConstants.Menu_Master, { 'roleId': this.roleId }).subscribe(response => {
           this.loading = log;
           this.userName = (user !== null && user !== undefined) ? user.username : '';
           this.userClass = (user !== null && user !== undefined) ? user.classRoman + ' - ' + user.section : '';
           this.schoolName = (user !== null && user !== undefined) ? user.schoolname + ' - ' + user.taluk : '';
-          this.items = response;
+          this.items = response.slice(0);
+          this.checkChildItems(response);
           this.items.forEach(i => {
-            if (i.items.length === 0) {
-              delete i.items;
-            }
             if (i.label === 'Profile') {
               i.items.forEach(j => {
                 if (j.routerLink === '/student-info') {
@@ -64,8 +61,20 @@ export class AppComponent {
         })
       }
     })
-
     this.authService.checkStatus();
+  }
+
+  checkChildItems(data: any) {
+    if (data.length !== 0) {
+      for (let i = 0; i < data.length; i++) {
+        if (data[i].items.length !== 0) {
+          //  continue;
+          this.checkChildItems(data[i].items);
+        } else {
+          delete data[i].items;
+        }
+      }
+    }
   }
 
   onLogout() {

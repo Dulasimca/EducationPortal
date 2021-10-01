@@ -127,7 +127,8 @@ export class PersonalDetailsComponent implements OnInit {
             GaurdianOccupation: i.GaurdianOccupation,
             GaurdianPhotoFileName: (i.GaurdianPhotoFileName !== undefined && i.GaurdianPhotoFileName !== null) ?
             (i.GaurdianPhotoFileName.toString().trim() !== '' ? ('../../assets/layout/' + FileUploadConstant.StudentRegistration +'/'+ i.GaurdianPhotoFileName) : '') : '',
-            YearlyIncome: i.YearlyIncome,
+            FatherYearlyIncome: i.FYearlyIncome,
+            MotherYearlyIncome: i.MYearlyIncome,
             Disability: i.Disability,
             IncomeFilename: i.IncomeFilename,
             NativityFilename: i.NativityFilename,

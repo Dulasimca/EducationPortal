@@ -45,20 +45,15 @@ export class HolidaydetailsFormComponent implements OnInit {
     ];
     this.cols = [
       { field: 'SlNo', header: 'Slno'},
-      { field: 'RowId', header: 'ID' },
-      { field: 'Holiday', header: 'Type' },
-      { field: 'EventDetailS', header: 'Events' },
+      // { field: 'RowId', header: 'ID' },
+      { field: 'HolidayType', header: 'Type' },
+      { field: 'eventname', header: 'Events' },
       { field: 'eventdate', header: 'Date' }     
     ];
     this.login_user = this.authService.UserInfo;
   }
 
-  onFileUpload($event, id) {
-    console.log('eve', $event);
-    const reader = new FileReader();
-    var selectedFile = $event.target.files[0];
-    console.log('file', selectedFile);
-  }
+
  
   onSubmit() {
     this.blockUI.start();

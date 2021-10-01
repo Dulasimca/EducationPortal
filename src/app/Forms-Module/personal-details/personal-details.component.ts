@@ -1,12 +1,7 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { i18nMetaToJSDoc } from '@angular/compiler/src/render3/view/i18n/meta';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MessageService, SelectItem } from 'primeng/api';
-import { min } from 'rxjs';
-import * as _ from 'lodash';
-
-
 import { ResponseMessage } from 'src/app/Common-Module/Message';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { Profile } from 'src/app/Interfaces/profile';
@@ -140,8 +135,7 @@ export class PersonalDetailsComponent implements OnInit {
       this.classes.forEach(c => {
         classSelection.push({ label: c.name, value: c.code })
       });
-      let sortedClass = _.sortBy(classSelection, 'value');
-      this.classOptions = sortedClass;
+      this.classOptions = classSelection;
       this.classOptions.unshift({ label: '-select', value: null });
       break;
     case 'S':

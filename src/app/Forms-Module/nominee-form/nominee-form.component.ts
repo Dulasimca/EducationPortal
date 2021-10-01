@@ -1,11 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MessageService, SelectItem } from 'primeng/api';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ResponseMessage } from 'src/app/Common-Module/Message';
 import { MasterService } from 'src/app/Services/master-data.service';
-import * as _ from 'lodash';
 import { DatePipe } from '@angular/common';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { NgForm } from '@angular/forms';
@@ -61,7 +60,7 @@ export class NomineeFormComponent implements OnInit {
     this.cols = [
       { field: 'SlNo', header: 'Slno'},
       // { field: 'RowId', header: 'ID' },
-      { field: 'NomineeID', header: 'NomineeID' },
+      // { field: 'NomineeID', header: 'NomineeID' },
       { field: 'FirstName', header: 'Nominee Name' },
       { field: 'ElectionDate', header: 'Election Date' },
       { field: 'ElectionName', header: 'ElectionName' },
@@ -137,8 +136,7 @@ export class NomineeFormComponent implements OnInit {
         this.classes.forEach(c => {
           classSelection.push({ label: c.name, value: c.code })
         });
-        let sortedClass = _.sortBy(classSelection, 'value');
-        this.classOptions = sortedClass;
+        this.classOptions = classSelection;
         this.classOptions.unshift({ label: '-select', value: null });
         break;
       case 'S':

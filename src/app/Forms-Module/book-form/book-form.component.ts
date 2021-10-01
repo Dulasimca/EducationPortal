@@ -2,9 +2,7 @@ import { Component, OnInit,ViewChild  } from '@angular/core';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { saveAs } from 'file-saver';
-import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { MatNativeDateModule } from '@angular/material/core';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ResponseMessage } from 'src/app/Common-Module/Message';
@@ -12,12 +10,9 @@ import { MessageService, SelectItem } from 'primeng/api';
 import { MasterService } from 'src/app/Services/master-data.service';
 import { NgForm } from '@angular/forms';
 import { Output, EventEmitter } from '@angular/core';
-import { HttpEventType } from '@angular/common/http';
-import { analyzeAndValidateNgModules } from '@angular/compiler';
 import{FileUploadConstant} from 'src/app/Common-Module/file-upload-constant'
 import { User } from 'src/app/Interfaces/user';
 import { AuthService } from 'src/app/Services/auth.service';
-import * as _ from 'lodash';
 
 @Component({
   selector: 'app-book-form',
@@ -78,8 +73,7 @@ export class BookFormComponent implements OnInit {
         this.classes.forEach(c => {
           classSelection.push({ label: c.name, value: c.code })
         });
-        let sortedClass = _.sortBy(classSelection, 'value');
-        this.classOptions = sortedClass;
+        this.classOptions = classSelection;
         this.classOptions.unshift({ label: '-select', value: null });
         break;
       }
@@ -197,8 +191,7 @@ export class BookFormComponent implements OnInit {
       classSelection.push({ label: c.name, value: c.code })
     });
     
-    let sortedClass = _.sortBy(classSelection, 'value');
-    this.classOptions = sortedClass;
+    this.classOptions = classSelection;
     this.Author = selectedRow.authorReference;
     this.Subject = selectedRow.subjects;
     this.selectedyear = selectedRow.Years;

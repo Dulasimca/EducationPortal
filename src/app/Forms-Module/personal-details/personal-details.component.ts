@@ -11,6 +11,7 @@ import { UserService } from 'src/app/Services/user.service';
 import { DatePipe } from '@angular/common';
 import { User } from 'src/app/Interfaces/user';
 import { AuthService } from 'src/app/Services/auth.service';
+import { FileUploadConstant } from 'src/app/Common-Module/file-upload-constant';
 // import { isUint16Array } from 'util/types';
 
 @Component({
@@ -27,6 +28,9 @@ export class PersonalDetailsComponent implements OnInit {
   sectionOptions:  SelectItem[];
   genderOptions: SelectItem[];
   mediumOptions: SelectItem[];
+  userImage: string;
+  fatherImage: string;
+  motherImage: string;
    //masters
    sections?: any;
    classes?: any;
@@ -42,6 +46,9 @@ export class PersonalDetailsComponent implements OnInit {
     const start_year_range = current_year - 30;
     this.yearRange = start_year_range + ':' + current_year;
     this.loadData();
+    // const user: User = this.authService.UserInfo;
+    // this.userImage = (user.studentImg.trim() !== '') ? user.studentImg : '';
+
    
     ///loading master data
     this.sections = this.masterService.getMaster('S');
@@ -82,7 +89,8 @@ export class PersonalDetailsComponent implements OnInit {
             ClassId: i.ClassId,
             Section: i.Section,
             SectionId: i.SectionId,
-            StudentPhotoFileName: i.StudentPhotoFileName,
+            StudentPhotoFileName: (i.StudentPhotoFileName !== undefined && i.StudentPhotoFileName !== null) ?
+            (i.StudentPhotoFileName.toString().trim() !== '' ? ('../../assets/layout/' + FileUploadConstant.StudentRegistration +'/'+ i.StudentPhotoFileName) : '') : '',
             Caste: i.Caste,
             Addressinfo: i.Addressinfo,
             PermanentAddress: i.PermanentAddress,
@@ -105,23 +113,27 @@ export class PersonalDetailsComponent implements OnInit {
             FatherEmailid: i.FatherEmailid,
             FatherMobileNo: i.FatherMobileNo,
             FatherOccupation: i.FatherOccupation,
-            FatherPhotoFileName: i.FatherPhotoFileName,
+            FatherPhotoFileName: (i.FatherPhotoFileName !== undefined && i.FatherPhotoFileName !== null) ?
+            (i.FatherPhotoFileName.toString().trim() !== '' ? ('../../assets/layout/' + FileUploadConstant.StudentRegistration +'/'+ i.FatherPhotoFileName) : '') : '',
             MotherName: i.MotherName,
             MotherEmailid: i.MotherEmailid,
             MotherOccupation: i.MotherOccupation,
             MotherMobileNo: i.MotherMobileNo,
-            MotherPhotoFilName: i.MotherPhotoFilName,
+            MotherPhotoFilName: (i.MotherPhotoFilName !== undefined && i.MotherPhotoFilName !== null) ?
+            (i.MotherPhotoFilName.toString().trim() !== '' ? ('../../assets/layout/' + FileUploadConstant.StudentRegistration +'/'+ i.MotherPhotoFilName) : '') : '',
             GaurdianName: i.GaurdianName,
             GaurdianEmailid: i.GaurdianEmailid,
             GaurdianMobileNo: i.GaurdianMobileNo,
             GaurdianOccupation: i.GaurdianOccupation,
-            GaurdianPhotoFileName: i.GaurdianPhotoFileName,
+            GaurdianPhotoFileName: (i.GaurdianPhotoFileName !== undefined && i.GaurdianPhotoFileName !== null) ?
+            (i.GaurdianPhotoFileName.toString().trim() !== '' ? ('../../assets/layout/' + FileUploadConstant.StudentRegistration +'/'+ i.GaurdianPhotoFileName) : '') : '',
             YearlyIncome: i.YearlyIncome,
             Disability: i.Disability,
             IncomeFilename: i.IncomeFilename,
             NativityFilename: i.NativityFilename,
             CommunityFilename: i.CommunityFilename,
           }
+          
           this.classOptions = [{ label: i.Class, value: i.ClassId }];
           this.sectionOptions = [{ label: i.Section, value: i.SectionId }];
         })

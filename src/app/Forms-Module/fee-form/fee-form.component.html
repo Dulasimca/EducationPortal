@@ -72,7 +72,7 @@
                       </div>
                       </div>
                     <div class="p-col-12 p-md-6 p-lg-6" style="text-align: right;"> 
-                        <button pButton type="button" label="Submit" (click)="onSubmit()"></button>
+                        <button pButton type="button" label="Submit" (click)="onSubmit()" [disabled]="(!f.valid)" ></button>
                     </div>
                     <div class="p-col-12 p-md-6 p-lg-6 "> 
                         <button pButton type="button" label="View" (click)="onView()"></button>

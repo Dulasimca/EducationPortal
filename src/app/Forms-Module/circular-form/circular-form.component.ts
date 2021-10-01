@@ -51,13 +51,11 @@ export class CircularFormComponent implements OnInit {
   ngOnInit(): void {
     this.login_user = this.authService.UserInfo;
     this.cols = [
-      //{field:'RowId',header: 'ID'},
+      
       {field: 'CircularDate',header: 'Circular Date'},
       {field:'Subject',header: 'Subject'},
-      {field: 'Details',header: 'Details'},
-      //{field: 'Download',header: 'Circular Upload'},
-     // {field: 'CreatedDate',header: 'Upload date'},
-      
+      {field: 'Details',header: 'Details', width: '500px'},
+     
     ];
 
   }

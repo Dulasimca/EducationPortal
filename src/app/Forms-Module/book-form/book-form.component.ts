@@ -33,8 +33,11 @@ export class BookFormComponent implements OnInit {
   cols: any; 
   form:any;
   ClassId: any;
+  medium: string;
+  mediumOptions: SelectItem[];
   classOptions: SelectItem[];
   classes?: any;
+  mediums?: any;
   data: any = [];
   uploadedFiles: any[] = [];
   Folder:any[]=[];
@@ -53,18 +56,22 @@ export class BookFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.classes = this.masterService.getMaster('C');
+    this.mediums = this.masterService.getMaster('M');
+    
     this.login_user = this.authService.UserInfo;
     this.yearOptions = [
-      { label: '2019-2020', value: '2019-2020' },
+      //{ label: '2019-2020', value: '2019-2020' },
       { label: '2020-2021', value: '2020-2021' },
       { label: '2021-2022', value: '2021-2022' },
+      { label: '2021-2023', value: '2021-2024' },
     ];
     this.cols = [
      // {field:'RowId',header: 'ID'},
       {field: 'Years',header: 'Year'},
-      {field: 'ClassId',header:'Class'},
+      {field: 'Class2',header:'Class'},
+      {field: 'medium',header:'Medium'},
       {field:'subjects',header: 'Subject'},
-      {field: 'authorReference',header: 'Author/Reference'},
+      {field: 'authorReference',header: 'Author/Reference', width: '300px'},
    //   {field: 'Pdffilename',header: 'Book Name'},
       {field: 'CreatedDate',header: 'Upload date'},
       
@@ -73,6 +80,7 @@ export class BookFormComponent implements OnInit {
   }
   onSelect(type) {
     let classSelection = [];
+   
     switch (type) {
       case 'C':
         this.classes.forEach(c => {
@@ -82,6 +90,10 @@ export class BookFormComponent implements OnInit {
         this.classOptions = sortedClass;
         this.classOptions.unshift({ label: '-select', value: null });
         break;
+        
+          case 'M':
+            this.mediumOptions = this.mediums;
+            break;
       }
     }
   public uploadFile = (files) => {
@@ -120,7 +132,8 @@ export class BookFormComponent implements OnInit {
       'subjects': this.Subject,     
       'authorReference': this.Author,
       'Pdffilename': this.NewFileName,  
-      'Years': this.selectedyear,   
+      'Years': this.selectedyear, 
+      'medium': this.medium,  
       'Flag': true,  
     };
     console.log(params);

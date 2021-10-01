@@ -25,7 +25,7 @@
                   <div #row1 class="p-col-12 p-md-12 p-lg-12">
                     <div class="p-grid">
                       <div class="p-col-12 p-md-6 p-lg-2">
-                        <label for="_Announcement">Announcement:</label>
+                        <label for="_Announcement">Description:</label>
                         <textarea pInputTextarea [(ngModel)]="Announcement" name="_Announcement" pInputTextarea
                           autoResize="autoResize" size="20" rows="5" cols="20" required></textarea>
                       </div>
@@ -44,7 +44,7 @@
                     <ng-template pTemplate="header" let-columns>
                       <tr>
                         <th>S.No:</th>
-                        <th *ngFor="let col of columns">
+                        <th *ngFor="let col of columns" [style.width]="col.width">
                           {{col.header}}
                         </th>
                         <th>

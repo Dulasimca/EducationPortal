@@ -22,12 +22,12 @@ import { AuthService } from 'src/app/Services/auth.service';
 export class NomineeFormComponent implements OnInit {
 
   date: Date = new Date();
-
+  roleId: any;
   sname: any;
   snames?: any;
   nameOptions: SelectItem[];
 
-  position: any;
+  position: string;
   positionOptions: SelectItem[];
   positionSelection: SelectItem[];
 
@@ -55,25 +55,33 @@ export class NomineeFormComponent implements OnInit {
     private messageService: MessageService, private masterService: MasterService, private datepipe: DatePipe) { }
 
   ngOnInit(): void {
+    this.login_user = this.authService.UserInfo;
     this.classes = this.masterService.getMaster('C');
     this.sections = this.masterService.getMaster('S');
 
     this.cols = [
-      { field: 'SlNo', header: 'Slno'},
-      // { field: 'RowId', header: 'ID' },
-      // { field: 'NomineeID', header: 'NomineeID' },
       { field: 'FirstName', header: 'Nominee Name' },
       { field: 'ElectionDate', header: 'Election Date' },
       { field: 'ElectionName', header: 'ElectionName' },
     ];
+     
+    if (this.login_user.roleId === 5) {
+      this.positionOptions = [
+        { label: '-select-', value: null },
+        { label: 'Class Representative', value: 'Class Representative' },
+        // { label: 'School Representative', value: 'School Representative' },
+  
+      ];
+    }else{
+      this.positionOptions = [
+        { label: '-select-', value: null },
+        { label: 'Class Representative', value: 'Class Representative' },
+        { label: 'School Representative', value: 'School Representative' },
+      ];
 
-    this.positionOptions = [
-      { label: '-select-', value: null },
-      { label: 'Class Representative', value: 'Class Representative' },
-      { label: 'School Representative', value: 'School Representative' },
+    }
 
-    ];
-    this.login_user = this.authService.UserInfo;
+  
     }
 
   onSubmit() {
@@ -86,6 +94,8 @@ export class NomineeFormComponent implements OnInit {
       'NomineeID': this.sname.value,
       'ElectionName': this.position,
       'ElectionDate': this.datepipe.transform(this.date, 'MM/dd/yyyy'),
+      'ClassId': this.class,
+      'SectionId': this.section,
       'Flag': true
 
     };
@@ -155,9 +165,9 @@ export class NomineeFormComponent implements OnInit {
   }
   onSelect2() {
     const params = {
-      'SchoolID': this.login_user.schoolId,
-      'ClassId':  this.login_user.classId,
-      'SectionId':  this.login_user.sectioncode,
+       'SchoolID': this.login_user.schoolId,
+       'ClassId':  this.classOptions.values,
+       'SectionId':  this.sectionOptions.values,
     }
     this.restApiService.getByParameters(PathConstants.Nomineeview_Get, params).subscribe(data => {
       if (data !== undefined) {
@@ -182,11 +192,6 @@ export class NomineeFormComponent implements OnInit {
       if (res !== null && res !== undefined && res.length !== 0) {
         console.log(res);
         this.data = res;
-      let sno = 0;
-      this.data.forEach(s => {
-        sno += 1;
-        s.SlNo = sno;
-      });
       }
     });
 
@@ -208,5 +213,6 @@ export class NomineeFormComponent implements OnInit {
 
 
   }
+
 
 }

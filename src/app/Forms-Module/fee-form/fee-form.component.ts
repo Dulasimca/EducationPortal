@@ -80,13 +80,12 @@ export class FeeFormComponent implements OnInit {
     this.classes = this.masterService.getMaster('C');
   
     this.cols = [
-      { field: 'SlNo', header: 'Slno'},
-      { field: 'RowId', header: 'ID' },
-      { field: 'duedate', header: 'Due Date' },
-      { field: 'ReceiptBook', header: 'Receipt Book' },
-      { field: 'FeeName', header: 'Fee Name' },
-      { field: 'ActualAmount', header: 'Actual Amount' },
-      { field: 'PaidAmount', header: 'Paid Amount' },
+      
+      { field: 'duedate', header: 'Due Date', width: '200px'},
+      { field: 'ReceiptBook', header: 'Receipt Book', width: '100px' },
+      { field: 'FeeName', header: 'Fee Name', width: '100px' },
+      { field: 'ActualAmount', header: 'Actual Amount',width: '100px' },
+      { field: 'PaidAmount', header: 'Paid Amount',width: '100px' },
       { field: 'OutstandingAmount', header: 'Outstanding Amount' },
       { field: 'PayingAmount', header: 'Paying Amount' },
       { field: 'FineAmount', header: 'Fine' }
@@ -190,11 +189,6 @@ export class FeeFormComponent implements OnInit {
       if(res !== null && res !== undefined && res.length !== 0) {
       console.log( res);
       this.data = res;
-      let sno = 0;
-      this.data.forEach(s => {
-        sno += 1;
-        s.SlNo = sno;
-      });
       }
     });
   

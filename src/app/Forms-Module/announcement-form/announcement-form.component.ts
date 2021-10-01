@@ -50,9 +50,9 @@ export class AnnouncementFormComponent implements OnInit {
   ngOnInit(): void {
     this.cols = [
       // { field: 'RowId', header: 'ID' },
-      { field: 'Announcementdate', header: 'DATE' },
-      { field: 'AnnouncementTag', header: 'TAG' },
-      { field: 'Announcement', header: 'ANNOUNCEMENT' },
+      { field: 'Announcementdate', header: 'DATE',width: '200px' },
+      { field: 'AnnouncementTag', header: 'TAG',width: '200px' },
+      { field: 'Announcement', header: 'ANNOUNCEMENT',width: '500px' },
       // { field: 'Announcementfilename', header: 'ANNOUNCEMENT FILENAME'}
       ];
       this.login_user = this.authService.UserInfo;

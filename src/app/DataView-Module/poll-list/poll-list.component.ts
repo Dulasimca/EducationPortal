@@ -93,7 +93,6 @@ export class PollListComponent implements OnInit {
     });
 
     this.data = nomineeList;
-    console.log('list', this.data);
   }
 
   onVotinglist(selectedRow) {

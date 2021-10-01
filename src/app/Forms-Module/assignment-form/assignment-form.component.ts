@@ -62,16 +62,11 @@ export class AssignmentFormComponent implements OnInit {
     this.classes = this.masterService.getMaster('C');
     this.sections = this.masterService.getMaster('S');
     this.cols = [
-      // { field: 'AssignId', header: 'ID'},
-      { field: 'AssignmentDate', header: 'Date' },
-      { field: 'AssignmentDueDate', header: 'Due Date' },
-      { field: 'AssignmentWork', header: 'Assigned Work' },
-      { field: 'AssignmentType', header: 'Assigned Type' },
-      { field: 'Subjectname', header: 'Subject Name' },
-      // { field: 'SectionId', header: 'Section' },
-
-      // { field: 'Assignmentfilename', header: 'Assignmentfilename'}
-    
+      { field: 'AssignmentDate', header: 'Date', width: '200px'},
+      { field: 'AssignmentDueDate', header: 'Due Date',  width: '200px'},
+      { field: 'AssignmentWork', header: 'Assigned Work',  width: '200px'},
+      { field: 'AssignmentType', header: 'Assigned Type',  width: '200px'},
+      { field: 'Subjectname', header: 'Subject Name',  width: '200px' },  
   ];
   this.types = [
     { label: '-select-', value: null },

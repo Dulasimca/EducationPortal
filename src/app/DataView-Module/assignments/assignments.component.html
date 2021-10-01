@@ -22,7 +22,7 @@
             <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
               <tr>
                 <td>{{rowIndex+1}}</td>
-                <td *ngFor="let col of columns">
+                <td *ngFor="let col of columns"  [style.width]="col.width">
                   {{rowData[col.field]}}
                 </td>
                 <td style="width: 100px;">

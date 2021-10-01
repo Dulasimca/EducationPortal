@@ -13,16 +13,18 @@
                   <p-calendar [(ngModel)]="date" [showIcon]="true" name="date"  required></p-calendar>
                 </div>
                 <div class="p-col-12 p-md-6 p-lg-3">
-                  <div><label> Events:</label></div>
-                  <input type="text" name="Events" size="24" pInputText [(ngModel)]="Events" required />
+                  <div><label for="_Category">Category:</label></div>
+                  <p-dropdown name="_Category" [options]="CategoryOption" [(ngModel)]="Category" optionLabel="label" >
+                  </p-dropdown>
                 </div>
                 <div class="p-col-12 p-md-12 p-lg-3">
                   <div><label> Place:</label></div>
                   <input type="text" name="Place" size="24" pInputText [(ngModel)]="Place" required />
                 </div>
                 <div class="p-col-12 p-md-12 p-lg-3">
-                  <div> <label> Status:</label></div>
-                  <input type="text" name="Status" size="24" pInputText [(ngModel)]="Status" required />
+                  <div><label for="_Award">Award:</label></div>
+                  <p-dropdown name="_Award" [options]="AwardOption" [(ngModel)]="Award" optionLabel="label" >
+                  </p-dropdown>
                 </div>
                 <div class="p-col-12 p-md-12 p-lg-3">
                   <label for="_attach">Upload:</label>
@@ -39,6 +41,7 @@
                   [rowsPerPageOptions]="[5,10,15,20]" totalRecords="totalRecords" pageLinks="3">
                   <ng-template pTemplate="header" let-columns>
                     <tr>
+                      <th>S.No:</th>
                       <th *ngFor="let col of columns">
                         {{col.header}}
                       </th>
@@ -50,6 +53,7 @@
                   </ng-template>
                   <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
                     <tr [pSelectableRow]="rowData" class="cursor-pointer" (dblclick)="onRowSelect($event, rowData)">
+                      <td>{{rowIndex+1}}</td>
                       <td *ngFor="let col of columns">
                         {{rowData[col.field]}}
                       </td>

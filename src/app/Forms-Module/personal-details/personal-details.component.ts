@@ -14,6 +14,8 @@ import { MasterService } from 'src/app/Services/master-data.service';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { UserService } from 'src/app/Services/user.service';
 import { DatePipe } from '@angular/common';
+import { User } from 'src/app/Interfaces/user';
+import { AuthService } from 'src/app/Services/auth.service';
 // import { isUint16Array } from 'util/types';
 
 @Component({
@@ -36,7 +38,7 @@ export class PersonalDetailsComponent implements OnInit {
   @ViewChild('f', { static: false }) _personalDetailsForm: NgForm;
 
   constructor(private restApiService: RestAPIService, private messageService: MessageService,
-    private datePipe: DatePipe, private userService: UserService, private masterService: MasterService) { }
+    private datePipe: DatePipe, private userService: UserService, private masterService: MasterService, private authService: AuthService) { }
 
   ngOnInit() {
     this.responseData = this.userService.getResponse();
@@ -45,6 +47,7 @@ export class PersonalDetailsComponent implements OnInit {
     const start_year_range = current_year - 30;
     this.yearRange = start_year_range + ':' + current_year;
     this.loadData();
+   
     ///loading master data
     this.sections = this.masterService.getMaster('S');
     this.classes = this.masterService.getMaster('C');
@@ -77,7 +80,7 @@ export class PersonalDetailsComponent implements OnInit {
             DateofBirth: this.datePipe.transform(i.DateofBirth, 'yyyy-MM-dd'),
             DateofJoining: this.datePipe.transform(i.DateofJoining, 'yyyy-MM-dd'),
             Gender: i.Gender,
-            Medium: i.Medium,
+            Medium: i.MediumName,
             Nationality: i.Nationality,
             BloodGroup: i.BloodGroup,
             Class: i.Class,

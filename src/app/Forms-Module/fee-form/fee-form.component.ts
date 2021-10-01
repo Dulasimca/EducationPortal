@@ -23,6 +23,7 @@ export class FeeFormComponent implements OnInit {
   dueDate: Date = new Date();
   receiptOptions: SelectItem[];
   studentOptions: SelectItem[];
+  student: any;
   receiptBook: any;
   class: any;
   section: any;
@@ -73,8 +74,8 @@ export class FeeFormComponent implements OnInit {
       { label: 'Term Fees', value: '03' },
     ];
     this.studentOptions = [
-      { label: 'Arun Kumar', value: '01' },
-      { label: 'Reethvin', value: '02' }
+      { label: 'Arun Kumar', value: 5 },
+      { label: 'Reethvin', value:  6}
     ];
     this.sections = this.masterService.getMaster('S');
     this.classes = this.masterService.getMaster('C');
@@ -128,8 +129,12 @@ export class FeeFormComponent implements OnInit {
       'RowId': this.MRowId,
       'Academic':0,
       'SchoolID': this.login_user.schoolId,
-      'StudentId':this.login_user.id,      
-      'Class': this.login_user.classId,     
+      'Student': this.student.label,
+      'StudentId':this.student.value,    
+      'Class': this.class.label,  
+      'ClassId': this.class.value, 
+      'Section': this.section.label,
+      'SectionId': this.section.value,  
       'duedate': this.datePipe.transform(this.dueDate, 'MM/dd/yyyy') ,
       'ReceiptBook': this.receiptBook.label,
       'FeeName': this.feename,
@@ -182,7 +187,7 @@ export class FeeFormComponent implements OnInit {
   onView() {
     const params = {
       'schoolID': this.login_user.schoolId,
-      'studentID': this.login_user.id,
+      'studentID': this.student.value,
       'yearID': '',
       'type': 0
     }
@@ -219,11 +224,12 @@ export class FeeFormComponent implements OnInit {
     this.showReceipt = true;
     this.schoolName = this.logged_user.schoolname;
     this.schoolAddress = this.logged_user.taluk + '-' + this.logged_user.pincode;
-    this.studentName = this.logged_user.username;
-    this.class = this.logged_user.class + ' - ' + this.logged_user.section;
+    this.studentName = data.Student;
+    this.class = data.Class + ' - ' + data.Section;
     this.parentName = this.logged_user.fathername;
     this.today = this.datePipe.transform(new Date(), 'dd-MM-yyyy');
     this.total = data.PaidAmount,
+    this.receiptNo = data.RowId,
     this.receiptData.push({
       'feeparticulars': data.FeeName,
       'totalamount': data.ActualAmount,

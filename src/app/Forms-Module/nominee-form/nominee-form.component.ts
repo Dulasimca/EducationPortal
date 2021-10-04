@@ -1,15 +1,19 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, NgZone, OnInit, ViewChild } from '@angular/core';
 import { MessageService, SelectItem } from 'primeng/api';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { ResponseMessage } from 'src/app/Common-Module/Message';
 import { MasterService } from 'src/app/Services/master-data.service';
+import { Profile } from 'src/app/Interfaces/profile';
+import { NgForm } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
-import { NgForm } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 import { User } from 'src/app/Interfaces/user';
 import { AuthService } from 'src/app/Services/auth.service';
+import { FileUploadConstant } from 'src/app/Common-Module/file-upload-constant';
+
 
 
 
@@ -25,11 +29,10 @@ export class NomineeFormComponent implements OnInit {
   sname: any;
   snames?: any;
   nameOptions: SelectItem[];
-
-  position: string;
+  detail: string;
+  position: any;
   positionOptions: SelectItem[];
-  positionSelection: SelectItem[];
-
+  
   class: any;
   classes?: any;
   classOptions: SelectItem[];
@@ -66,14 +69,14 @@ export class NomineeFormComponent implements OnInit {
      
     if (this.login_user.roleId === 5) {
       this.positionOptions = [
-        { label: '-select-', value: null },
+        { label: '-select-', value: '-select-' },
         { label: 'Class Representative', value: 'Class Representative' },
         // { label: 'School Representative', value: 'School Representative' },
   
       ];
     }else{
       this.positionOptions = [
-        { label: '-select-', value: null },
+        { label: '-select-', value: '-select-' },
         { label: 'Class Representative', value: 'Class Representative' },
         { label: 'School Representative', value: 'School Representative' },
       ];
@@ -89,12 +92,12 @@ export class NomineeFormComponent implements OnInit {
       'RowId': this.MRowId,
       'SchoolID': this.login_user.schoolId,
       'RoleId': this.login_user.roleId,
-      'ElectionID': 1,
+      'ElectionID': this.position,
       'NomineeID': this.sname.value,
       'ElectionName': this.position,
       'ElectionDate': this.datepipe.transform(this.date, 'MM/dd/yyyy'),
-      'ClassId': this.class,
-      'SectionId': this.section,
+      'ClassId': this.class.value,
+      'SectionId': this.section.value,
       'Flag': true
 
     };
@@ -164,9 +167,12 @@ export class NomineeFormComponent implements OnInit {
   onSelect2() {
     const params = {
        'SchoolID': this.login_user.schoolId,
-       'ClassId':  this.classOptions.values,
-       'SectionId':  this.sectionOptions.values,
+       'ClassId':  this.class.value,
+       'SectionId':  this.section.value
+
+       
     }
+    console.log(params)
     this.restApiService.getByParameters(PathConstants.Nomineeview_Get, params).subscribe(data => {
       if (data !== undefined) {
         let nameSelection = [];
@@ -184,14 +190,25 @@ export class NomineeFormComponent implements OnInit {
   onView() {
     const params = {
       'SchoolID': this.login_user.schoolId,
-      'ElectionID':1,
+      'ElectionID':this.position
     }
-    this.restApiService.getByParameters(PathConstants.Nominee_Get, params).subscribe(res => {
-      if (res !== null && res !== undefined && res.length !== 0) {
-        console.log(res);
-        this.data = res;
-      }
-    });
+  
+    if (this.position !== undefined && this.position !== '-select-' ){
+      this.restApiService.getByParameters(PathConstants.Nominee_Get, params).subscribe(res => {
+        if (res !== null && res !== undefined && res.length !== 0) {
+          console.log(res);
+          this.data = res;
+        }  });
+    }else{
+      this.messageService.clear();
+      this.messageService.add({
+        key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+        summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ElectionnameSelect
+      });
+
+    }
+   
+  
 
 
   }

@@ -52,7 +52,7 @@ export class PollListComponent implements OnInit {
     let nomineeList = [];
     const params = {
       'SchoolID': this.login_user.schoolId,
-      'ElectionID': this.selectedPosition.value,
+      'ElectionID': this.selectedPosition.label,
       'StudentID': this.login_user.id
     }
     this.restApiService.getByParameters(PathConstants.Nominee_Get, params).subscribe(res => {

@@ -114,8 +114,6 @@ export class MyachievementFormComponent implements OnInit {
      
         const filename = fileToUpload.name + '^' + FileUploadConstant.Achievementfolder;
         this.formData.append('file', fileToUpload, filename);
-        console.log('file', fileToUpload);
-        console.log('formdata', this.formData);
         this.NewFileName=fileToUpload.name;
         this.http.post(this.restApiService.BASEURL +PathConstants.FileUpload_Post, this.formData)
           .subscribe(event => 

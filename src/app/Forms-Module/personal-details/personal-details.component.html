@@ -111,11 +111,13 @@
                                 </div>
                                 <div class="p-col-2">
                                     <div class="p-col-12 p-md-12 p-lg-12">
-                                        <div><img [src]="obj.StudentPhotoFileName"
+                                        <div><img [src]="userImage"
                                                 style="width: 110px; height: 110px;" />
-                                            <button class="img-edit" style="float: right; margin-top: -25px;" pButton
-                                                type="button">
-                                                <i class="pi pi-pencil edit-size"></i>
+                                            <input style="display: none" name="_studentimage" type="file" (change)="onFileUpload($event, 1)"
+                                                #userFile>
+                                            <button class="img-edit" style="float: right; margin-top: -25px;" 
+                                                 icon="pi pi-pencil edit-size" pButton type="file" #file
+                                                (click)="userFile.click()">
                                             </button>
                                         </div>
                                     </div>
@@ -149,10 +151,13 @@
                                             [(ngModel)]="obj.FatherEmailid" required />
                                     </div>
                                     <div class="p-col-12 p-md-12 p-lg-2 pic-right">
-                                        <div><img [src]="obj.FatherPhotoFileName"
+                                        <div><img [src]="fatherImage"
                                                 style="width: 110px; height: 110px;" />
-                                            <button class="img-edit" pButton type="button">
-                                                <i class="pi pi-pencil edit-size"></i>
+                                                <input style="display: none" name="_fatherimage" type="file" (change)="onFileUpload($event, 2)"
+                                                #fatherFile>
+                                            <button class="img-edit" style="margin-top: -25px;"
+                                                icon="pi pi-pencil edit-size" pButton type="file" #file
+                                                (click)="fatherFile.click()">
                                             </button>
                                         </div>
                                     </div>
@@ -186,9 +191,12 @@
                                             [(ngModel)]="obj.MotherEmailid" required />
                                     </div>
                                     <div class="p-col-12 p-md-12 p-lg-2 pic-right">
-                                        <div><img [src]="obj.MotherPhotoFilName" style="width: 110px; height: 110px;" />
-                                            <button class="img-edit" pButton type="button">
-                                                <i class="pi pi-pencil edit-size"></i>
+                                        <div><img [src]="motherImage" style="width: 110px; height: 110px;" />
+                                            <input style="display: none" namE="_motherimage" type="file" (change)="onFileUpload($event, 3)"
+                                                #motherFile>
+                                            <button class="img-edit" style="margin-top: -25px;"
+                                                icon="pi pi-pencil edit-size" pButton type="file" #file
+                                                (click)="motherFile.click()">
                                             </button>
                                         </div>
                                     </div>
@@ -214,16 +222,19 @@
                                         <input class="p-col-12" type="tel" maxlength="10" name="_gcontact" pInputText
                                             [(ngModel)]="obj.GaurdianMobileNo" required />
                                     </div>
-                                    <div class="p-col-12 p-md-6 p-lg-2">
+                                    <div class="p-col-12 p-md-6 p-lg-3">
                                         <div><label for="_gemail">Email Id</label></div>
                                         <input class="p-col-12" type="email" name="_gemail" pInputText
                                             [(ngModel)]="obj.GaurdianEmailid" required />
                                     </div>
                                     <div class="p-col-12 p-md-12 p-lg-2 pic-right">
-                                        <div><img [src]="obj.GaurdianPhotoFileName"
+                                        <div><img [src]="guardinaImage"
                                                 style="width: 110px; height: 110px;" />
-                                            <button class="img-edit" pButton type="button">
-                                                <i class="pi pi-pencil edit-size"></i>
+                                                <input style="display: none" name="_guardianimage" type="file" (change)="onFileUpload($event, 4)"
+                                                #guardianFile>
+                                            <button class="img-edit" style="margin-top: -25px;"
+                                                icon="pi pi-pencil edit-size" pButton type="file" #file
+                                                (click)="guardianFile.click()">
                                             </button>
                                         </div>
                                     </div>

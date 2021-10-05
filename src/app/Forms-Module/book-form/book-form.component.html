@@ -30,11 +30,20 @@
                               optionLabel="label" name= "ClassId" (onClick)="onSelect('C')" required >
                           </p-dropdown> 
                       </div>
+                      <div class="p-col-12 p-md-6 p-lg-1"></div> 
+                      <div class="p-col-12 p-md-6 p-lg-3">
+                      <div><label for="_Medium">Medium</label>
+                      </div>
+                      <p-dropdown name="_medium" [options]="mediumOptions"
+                      (onClick)="onSelect('M')" [(ngModel)]="medium" required>
+                  </p-dropdown>
+                  </div>
+
                       <div class="p-col-12 p-md-6 p-lg-1"></div>
                         <div class="p-col-12 p-md-6 p-lg-3">
                             <div>
                                 <label>Subject/Stream Name:</label>
-                            </div>
+                            </div>  
                             <input type="text" name = "Subject" pInputText [(ngModel)]="Subject" required />
                         </div>
                         <div class="p-col-12 p-md-6 p-lg-1"></div>
@@ -78,10 +87,10 @@
     
 <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,15,20]"
   totalRecords="totalRecords" pageLinks="3">
-  <ng-template pTemplate="header" let-columns>
+  <ng-template pTemplate="header" let-columns >
     <tr>
       <th>S.No:</th>
-      <th *ngFor="let col of columns">
+      <th *ngFor="let col of columns" [style.width]="col.width">
         {{col.header}}
       </th>
       <th>

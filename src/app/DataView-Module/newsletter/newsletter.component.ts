@@ -22,12 +22,9 @@ export class NewsletterComponent implements OnInit {
   ngOnInit() {
     
     this.cols = [
-     // {field:'RowId',header: 'ID'},
+    
       {field:'NewsDate',header: 'Date'},
-      {field:'Topic',header: 'Topic'},
-      //{field:'Download',header: 'Newsletter Upload'},
-      //{field: 'CreatedDate',header: 'Upload date'},
-      
+      {field:'Topic',header: 'Topic'}, 
       
     ];
     this.onview()

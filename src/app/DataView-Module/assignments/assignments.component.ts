@@ -30,12 +30,12 @@ export class AssignmentsComponent implements OnInit {
   ngOnInit() {
     this.login_user = this.authService.UserInfo;
     this.cols = [
-      { field: 'AssignId', header: 'ID'},
-      { field: 'AssignmentDate', header: 'Date' },
-      { field: 'AssignmentDueDate', header: 'Due Date' },
-      { field: 'AssignmentWork', header: 'Assigned Work' },
-      { field: 'AssignmentType', header: 'Assigned Type' },
-      { field: 'Subjectname', header: 'Subject Name' },
+      // { field: 'AssignId', header: 'ID'},
+      { field: 'AssignmentDate', header: 'Date',width: '400px'},
+      { field: 'AssignmentDueDate', header: 'Due Date',width: '200px'  },
+      { field: 'AssignmentWork', header: 'Assigned Work',width: '200px'  },
+      { field: 'AssignmentType', header: 'Assigned Type',width: '200px'  },
+      { field: 'Subjectname', header: 'Subject Name',width: '200px'  },
   ];
     this.onView()
   }

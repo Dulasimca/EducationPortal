@@ -3,7 +3,7 @@
     <p-toast position="top-center" key="t-msg"></p-toast>
     <p-panel header="Nominee">
       <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
-        <form #f="ngForm" name="NomineeForm">
+        <form #f="ngForm" name="NomineeForm" >
           <p-card>
             <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
               <div class="p-grid">
@@ -12,8 +12,9 @@
                   <p-calendar [(ngModel)]="date" [showIcon]="true" name="date" required></p-calendar>
                 </div>
                 <div class="p-col-12 p-md-12 p-lg-3">
-                  <div><label>Position:</label></div>
-                  <p-dropdown [options]="positionOptions" [(ngModel)]="position" name="position" required>
+                  <div><label for="_position">Election Name</label></div>
+                  <p-dropdown [options]="positionOptions" [(ngModel)]="position" 
+                    name="position" required>
                   </p-dropdown>
                 </div>
                 <div class="p-col-12 p-md-6 p-lg-3">
@@ -45,13 +46,15 @@
                   [rowsPerPageOptions]="[5,10,15,20]" totalRecords="totalRecords" pageLinks="3">
                   <ng-template pTemplate="header" let-columns>
                     <tr>
+                      <th>S.No:</th>
                       <th *ngFor="let col of columns">
                         {{col.header}}
                       </th>
                     </tr>
                   </ng-template>
-                  <ng-template pTemplate="body" let-rowData let-columns="columns">
+                  <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
                     <tr [pSelectableRow]="rowData" class="cursor-pointer" (dblclick)="onRowSelect($event, rowData)">
+                      <td>{{rowIndex+1}}</td>
                       <td *ngFor="let col of columns">
                         {{rowData[col.field]}}
                       </td>

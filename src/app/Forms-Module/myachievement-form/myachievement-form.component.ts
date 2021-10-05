@@ -20,9 +20,11 @@ import { saveAs } from 'file-saver';
 export class MyachievementFormComponent implements OnInit {
 
   date: Date = new Date();
-  Status: any;
+  Award: any;
+  AwardOption :SelectItem[];
   Place : any;
-  Events: any;
+  Category : any;
+  CategoryOption:SelectItem[];
   data: any = []; 
   cols: any;
   MRowId=0;
@@ -39,13 +41,18 @@ export class MyachievementFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.cols = [
-      { field: 'SlNo', header: 'Slno'},
       // { field: 'RowId', header: 'ID' },
       { field: 'eventdate', header: 'Date' },
       { field: 'EventDetailS', header: 'Events' },
       { field: 'Place', header: 'Place' },
       { field: 'AchievementStatus', header: 'Status' } 
  
+  ];
+  this.CategoryOption = [
+    { label: '-select-', value: null },
+    { label: 'International', value: 'international'},
+    { label: 'National', value: 'national'},
+    { label: 'Domestic', value: 'domestic'},
   ];
   this.login_user = this.authService.UserInfo;
   }
@@ -55,9 +62,9 @@ export class MyachievementFormComponent implements OnInit {
       'SchoolId': this.login_user.schoolId,         
       'StudentId':1,
       'eventdate': this.datepipe.transform(this.date, 'MM/dd/yyyy') ,    
-      'EventDetailS':this.Events,
+      'EventDetailS':this.Category,
       'Place': this.Place,  
-      'AchievementStatus':this.Status,
+      'AchievementStatus':this.Award,
       'filename':this.NewFileName,
       'Flag': 1, 
 
@@ -107,8 +114,6 @@ export class MyachievementFormComponent implements OnInit {
      
         const filename = fileToUpload.name + '^' + FileUploadConstant.Achievementfolder;
         this.formData.append('file', fileToUpload, filename);
-        console.log('file', fileToUpload);
-        console.log('formdata', this.formData);
         this.NewFileName=fileToUpload.name;
         this.http.post(this.restApiService.BASEURL +PathConstants.FileUpload_Post, this.formData)
           .subscribe(event => 
@@ -124,11 +129,6 @@ export class MyachievementFormComponent implements OnInit {
       if(res !== null && res !== undefined && res.length !== 0) {
       console.log( res);
       this.data = res;
-      let sno = 0;
-      this.data.forEach(s => {
-        sno += 1;
-        s.SlNo = sno;
-      });
       }
     });
   
@@ -137,17 +137,17 @@ export class MyachievementFormComponent implements OnInit {
     this._MyAchievementForm.reset();
     this._MyAchievementForm.form.markAsUntouched();
     this._MyAchievementForm.form.markAsPristine();
-    this.Events="",
+    this.Category="",
     this.Place="",
-    this.Status=""
+    this.Award=""
     
   }
   onRowSelect(event, selectedRow) {
     this.MRowId=selectedRow.RowId;
     this.date=selectedRow.eventdate;
-    this.Events=selectedRow.EventDetailS;
+    this.Category=selectedRow.EventDetailS;
     this.Place=selectedRow.Place;
-    this.Status=selectedRow.AchievementStatus;
+    this.Award=selectedRow.AchievementStatus;
   }
   onDownload(Filename) {
     const path = "../../assets/layout/"+FileUploadConstant.Achievementfolder+"/"+Filename;

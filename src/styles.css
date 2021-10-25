@@ -234,7 +234,6 @@ background-color: #b8baf3;
 }
 .side-nav-panel {
     width: 16% !important;
-    margin-top: 0.5% !important;
     position: fixed !important;
     overflow-y: auto !important;
     height: 100% !important;

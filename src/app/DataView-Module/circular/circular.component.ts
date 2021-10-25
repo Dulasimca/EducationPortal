@@ -28,11 +28,11 @@ export class CircularComponent implements OnInit {
   
 
     this.cols = [
-      //{field: 'RowId',header: 'ID'},
+      
       {field: 'CircularDate',header: 'Circular Date'},
       {field:'Subject',header: 'Subject'},
-      {field: 'Details',header: 'Details'},
-     // {field: 'Download',header: 'Circular Download'},
+      {field: 'Details',header: 'Details', width: '500px'},
+   
     
       
     ];

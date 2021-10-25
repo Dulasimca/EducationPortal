@@ -44,7 +44,6 @@ export class HolidaydetailsFormComponent implements OnInit {
       { label: 'Holiday', value: '1'},
     ];
     this.cols = [
-      { field: 'SlNo', header: 'Slno'},
       // { field: 'RowId', header: 'ID' },
       { field: 'HolidayType', header: 'Type' },
       { field: 'eventname', header: 'Events' },
@@ -109,11 +108,6 @@ export class HolidaydetailsFormComponent implements OnInit {
       if(res !== null && res !== undefined && res.length !== 0) {
       console.log( res);
       this.data = res;
-      let sno = 0;
-      this.data.forEach(s => {
-        sno += 1;
-        s.SlNo = sno;
-      });
       }
     });
  

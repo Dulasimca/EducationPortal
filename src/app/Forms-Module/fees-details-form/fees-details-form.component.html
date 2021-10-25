@@ -14,7 +14,7 @@
             <p-table [columns]="cols" class="p-datatble-gridlines" [value]="feeData">
               <ng-template pTemplate="header" let-columns>
                 <tr>
-                  <th>S.No</th>
+                  <th style="width: 2.5cm;">S.No</th>
                   <th *ngFor="let col of columns">
                     {{col.header}}
                   </th>

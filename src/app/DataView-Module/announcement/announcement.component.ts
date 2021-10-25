@@ -19,18 +19,16 @@ export class AnnouncementComponent implements OnInit {
 
   ngOnInit() {
     this.cols = [
-      { field: 'RowId', header: 'ID' },
-      { field: 'Announcementdate', header: 'DATE' },
-      { field: 'AnnouncementTag', header: 'TAG' },
-      { field: 'Announcement', header: 'ANNOUNCEMENT' },
-      // { field: 'Announcementfilename', header: 'Announcementfilename'}
+    
+      { field: 'Announcementdate', header: 'Date', width: '100px' },
+      { field: 'AnnouncementTag', header: 'Title', width: '100px'},
+      { field: 'Announcement', header: 'Announcement', width :'400px' },
+ 
       ];
     this.onView()
   }
   onDownload(Filename) {
-    //const path = 'D:/Angular Project/EducationPortalAPI/Resources/Books';
     const path = "../../assets/layout/"+FileUploadConstant.Announcementfolder+"/"+Filename;
-    //const filename = 'files' + ".pdf";
     saveAs(path, Filename);
   }
   onView() {

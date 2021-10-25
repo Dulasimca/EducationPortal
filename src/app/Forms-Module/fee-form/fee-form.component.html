@@ -72,7 +72,7 @@
                       </div>
                       </div>
                     <div class="p-col-12 p-md-6 p-lg-6" style="text-align: right;"> 
-                        <button pButton type="button" label="Submit" (click)="onSubmit()"></button>
+                        <button pButton type="button" label="Submit" (click)="onSubmit()" [disabled]="(!f.valid)" ></button>
                     </div>
                     <div class="p-col-12 p-md-6 p-lg-6 "> 
                         <button pButton type="button" label="View" (click)="onView()"></button>
@@ -82,13 +82,15 @@
                            totalRecords="totalRecords" pageLinks="3">
                        <ng-template pTemplate="header" let-columns>
                           <tr>
-                   <th *ngFor="let col of columns">
+                            <th>S.No:</th>
+                   <th *ngFor="let col of columns" [style.width]="col.width">
                      {{col.header}}
                  </th>
                           </tr>
-                        </ng-template>
-                        <ng-template pTemplate="body" let-rowData let-columns="columns">
+                        </ng-template>  
+                        <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
                           <tr [pSelectableRow]="rowData" class="cursor-pointer" (dblclick)="onRowSelect($event, rowData)">
+                            <td>{{rowIndex+1}}</td>
                             <td *ngFor="let col of columns">
                               {{rowData[col.field]}}
                             </td>

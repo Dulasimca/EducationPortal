@@ -16,7 +16,7 @@ import { ZoomService } from 'src/app/Services/zoom.service';
   styleUrls: ['./online-classroom.component.css']
 })
 export class OnlineClassroomComponent implements OnInit {
-  date: Date;
+  date: Date = new Date();
   meetingData: any = [];
   meetingCols: any = [];
   login_user: User;
@@ -54,6 +54,7 @@ export class OnlineClassroomComponent implements OnInit {
   }
 
   loadMeetingDetails() {
+    this.meetingData = [];
     this.toolTip = (this.login_user.roleId === 5) ? 'Start Class' : 'Join Class';
     this.loading = true;
     const params = { 
@@ -64,6 +65,17 @@ export class OnlineClassroomComponent implements OnInit {
      };
     this.restApiService.getByParameters(PathConstants.Zoom_Get, params).subscribe((res: any) => {
       if(res !== null && res !== undefined && res.length !== 0) {
+        res.forEach(i => {
+          console.log('time', this.datePipe.transform(new Date(i.MeetingTime).getTime(), 'HH:MM'));
+          const now = new Date().getTime();
+          const record = new Date(i.MeetingTime).getTime();
+          if(now > record) {
+            i.isOver = true;
+          } else {
+            i.isOver = false;
+          }
+        })
+        console.log('res', res);
         this.meetingData = res;
         this.loading = false;
       } else {

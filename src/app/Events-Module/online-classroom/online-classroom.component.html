@@ -25,9 +25,13 @@
                                 <td *ngFor="let col of columns">
                                     {{rowData[col.field]}}
                                 </td>
-                                <td (click)="onJoinClassroom(rowData)">
-                                        <i *ngIf="(login_user.roleId==6)" class="pi pi-sign-in" style="padding-left: 10px; color: #52de38; font-size: 1.5rem;" pTooltip="Join Class"></i>
-                                        <i *ngIf="(login_user.roleId!=6)" class="pi pi-play" style="padding-left: 10px; color: #52de38; font-size: 1.5rem;" pTooltip="Start Class"></i>
+                                <td *ngIf="rowData.isOver">
+                                    <i *ngIf="(login_user.roleId==6)" class="pi pi-sign-in" style="padding-left: 10px; color: #aaafaa; font-size: 1.5rem;" pTooltip="Class Ended"></i>
+                                    <i *ngIf="(login_user.roleId!=6)" class="pi pi-play" style="padding-left: 10px; color: #aaafaa; font-size: 1.5rem;" pTooltip="Class Ended"></i>
+                                </td>
+                                <td *ngIf="!rowData.isOver" (click)="onJoinClassroom(rowData)">
+                                    <i *ngIf="(login_user.roleId==6)" class="pi pi-sign-in" style="padding-left: 10px; color: #52de38; font-size: 1.5rem;" pTooltip="Join Class"></i>
+                                    <i *ngIf="(login_user.roleId!=6)" class="pi pi-play" style="padding-left: 10px; color: #52de38; font-size: 1.5rem;" pTooltip="Start Class"></i>
                                 </td>
                             </tr>
                         </ng-template>

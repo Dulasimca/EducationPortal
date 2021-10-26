@@ -20,9 +20,9 @@
           <div class="p-col-12 p-md-12 p-lg-12">
             <div *ngFor="let question of filteredQuestions;">
               <div>Question {{pager.index + 1}} of {{pager.count}}</div>
-              <h2 style="font-weight: normal;">{{pager.index + 1}}.
+              <h3 style="font-weight: normal;">{{pager.index + 1}}.
                 <span [innerHTML]="question.questionName"></span>
-              </h2>
+              </h3>
               <div class="row text-left options">
                 <div class="p-col-12 p-md-12 p-lg-12" *ngFor="let option of question.options">
                   <div class="p-col-12 p-md-12 p-lg-12 option-class">

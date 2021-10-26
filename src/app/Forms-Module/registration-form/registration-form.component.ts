@@ -157,6 +157,7 @@ export class RegistrationFormComponent implements OnInit {
       { label: 'zzzz', value: "S002" },
       { label: 'tyyyy', value: "S003" },
     ];
+    this.school = this.login_user.schoolname;
   }
 
   onSelect(type) {

@@ -66,7 +66,6 @@ export class OnlineClassroomComponent implements OnInit {
     this.restApiService.getByParameters(PathConstants.Zoom_Get, params).subscribe((res: any) => {
       if(res !== null && res !== undefined && res.length !== 0) {
         res.forEach(i => {
-          console.log('time', this.datePipe.transform(new Date(i.MeetingTime).getTime(), 'HH:MM'));
           const now = new Date().getTime();
           const record = new Date(i.MeetingTime).getTime();
           if(now > record) {
@@ -75,7 +74,6 @@ export class OnlineClassroomComponent implements OnInit {
             i.isOver = false;
           }
         })
-        console.log('res', res);
         this.meetingData = res;
         this.loading = false;
       } else {
@@ -99,6 +97,7 @@ export class OnlineClassroomComponent implements OnInit {
   }
 
   onJoinClassroom(meetingInfo) {
+    console.log('info', meetingInfo);
     this.zoomService.setMeeting(meetingInfo);
     this.router.navigate(['/online-classroom-join']);
   }

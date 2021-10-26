@@ -12,4 +12,6 @@ export class FileUploadConstant {
     public static readonly TeacherRegistration = 'TeacherRegistration';
     public static readonly QuestionBank = 'QuestionBank';
 
+    public static readonly SubjectResultfolder = 'SubjectResult';
+
 }

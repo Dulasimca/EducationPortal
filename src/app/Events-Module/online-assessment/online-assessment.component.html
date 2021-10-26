@@ -27,7 +27,7 @@
                                 <th *ngFor="let col of columns">
                                     {{col.header}}
                                 </th>
-                                <th *ngIf="rowData.enable">Start Test</th>
+                                <th>Start Test</th>
                                 <!-- <th>Upload</th> -->
                             </tr>
                         </ng-template>
@@ -37,7 +37,7 @@
                                 <td *ngFor="let col of columns">
                                     {{rowData[col.field]}}
                                 </td>
-                                <td *ngIf="rowData.enable" (click)="onStart()"><i class="pi pi-play" style="padding-left: 10px; color: #52de38; font-size: 1.5rem;"></i></td>
+                                <td (click)="onStart()"><i class="pi pi-play" style="padding-left: 10px; color: #52de38; font-size: 1.5rem;"></i></td>
                                 <!-- <td><i class="pi pi-upload" style="padding-left: 10px; color: #52de38; font-size: 1.5rem;"></i></td> -->
                             </tr>
                         </ng-template>

@@ -56,6 +56,23 @@ export class MyachievementFormComponent implements OnInit {
     { label: 'National', value: 'national'},
     { label: 'Domestic', value: 'domestic'},
   ];
+  this.AwardOption = [
+     { label: '-select-', value: null},
+     { label: 'First', value: 'first'},
+     { label: 'Second', value: 'second'},
+     { label: 'Third', value: 'third'},
+     { label: 'Winner', value: 'winner'},
+     { label: 'Runner', value: 'runner'},
+     { label: 'Gold', value: 'gold'},
+     { label: 'Silver', value: 'silver'},
+     { label: 'Bronze', value: 'bronze'},
+     { label: 'First Rank', value: 'first rank'},
+     { label: 'Second Rank', value: 'second rank'},
+     { label: 'Third Rank', value: 'third rank'},
+
+
+  ];
+
   this.login_user = this.authService.UserInfo;
   }
   onSubmit() {

@@ -5,7 +5,7 @@ import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { DatePipe } from '@angular/common';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ResponseMessage } from 'src/app/Common-Module/Message';
-import { MessageService, SelectItem } from 'primeng/api';
+import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
 import { NgForm } from '@angular/forms';
 import{FileUploadConstant} from 'src/app/Common-Module/file-upload-constant'
 import { saveAs } from 'file-saver';
@@ -55,7 +55,8 @@ export class AssignmentFormComponent implements OnInit {
   @ViewChild('f', { static: false }) _AssignmentForm: NgForm;
 
   constructor(private restApiService: RestAPIService, private http: HttpClient,private datepipe: DatePipe
-    ,private messageService: MessageService,private authService: AuthService,private masterService: MasterService) { }
+    ,private messageService: MessageService,private authService: AuthService,private masterService: MasterService
+    ,private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
     this.classes = this.masterService.getMaster('C');
@@ -219,7 +220,16 @@ onRowSelect(event, selectedRow) {
 
 }
 onDownload(Filename) {
+  this.confirmationService.confirm({
+    message: 'Do you want to download?',
+    header: 'Confirmation',
+    icon: 'pi pi-exclamation-triangle',
+    accept: () => {
   const path = "../../assets/layout/"+FileUploadConstant.Assignmentfolder+"/"+Filename;
   saveAs(path, Filename);
+},
+reject: (type) => { }
+});
+
 }
 }

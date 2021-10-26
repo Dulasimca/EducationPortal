@@ -4,6 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import{FileUploadConstant} from 'src/app/Common-Module/file-upload-constant'
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-announcement',
@@ -15,7 +16,7 @@ export class AnnouncementComponent implements OnInit {
   data: any = []; 
   cols: any;
 
-  constructor(private restApiService: RestAPIService, private http: HttpClient) { }
+  constructor(private restApiService: RestAPIService, private http: HttpClient,private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
     this.cols = [
@@ -28,9 +29,19 @@ export class AnnouncementComponent implements OnInit {
     this.onView()
   }
   onDownload(Filename) {
+    this.confirmationService.confirm({
+      message: 'Do you want to download?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
     const path = "../../assets/layout/"+FileUploadConstant.Announcementfolder+"/"+Filename;
     saveAs(path, Filename);
+  },
+  reject: (type) => { }
+  });
+  
   }
+  
   onView() {
     const params = {
       'SchoolID': 1,

@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ResponseMessage } from 'src/app/Common-Module/Message';
-import { MessageService, SelectItem } from 'primeng/api';
+import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
 import { MasterService } from 'src/app/Services/master-data.service';
 import { NgForm } from '@angular/forms';
 import { Output, EventEmitter } from '@angular/core';
@@ -47,7 +47,7 @@ export class BookFormComponent implements OnInit {
   @Output() public onUploadFinished = new EventEmitter();
   constructor(private restApiService: RestAPIService, private http: HttpClient,
     private masterService: MasterService,private messageService: MessageService,
-    private authService: AuthService) { }
+    private authService: AuthService,private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
     this.classes = this.masterService.getMaster('C');
@@ -211,8 +211,17 @@ export class BookFormComponent implements OnInit {
     this.NewFileName=selectedRow.Pdffilename;
 }
 onDownload(Filename) {
+  this.confirmationService.confirm({
+    message: 'Do you want to download?',
+    header: 'Confirmation',
+    icon: 'pi pi-exclamation-triangle',
+    accept: () => {
   const path = "../../assets/layout/"+FileUploadConstant.Booksfolder+"/"+Filename;
   saveAs(path, Filename);
+},
+reject: (type) => { }
+});
+
 }
 }
 

@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { User } from 'src/app/Interfaces/user';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
+import{FileUploadConstant} from 'src/app/Common-Module/file-upload-constant'
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-subject-result',
@@ -57,6 +59,8 @@ export class SubjectResultComponent implements OnInit {
   }
 
 }
+
+
 
 interface year {
   name: string,

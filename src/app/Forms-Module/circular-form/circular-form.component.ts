@@ -4,7 +4,7 @@ import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import {NgForm} from '@angular/forms';
 import { analyzeAndValidateNgModules } from '@angular/compiler';
-import { SelectItem } from 'primeng/api';
+import { ConfirmationService, SelectItem } from 'primeng/api';
 import { DatePipe } from '@angular/common';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -46,7 +46,7 @@ export class CircularFormComponent implements OnInit {
   @Output() public onUploadFinished = new EventEmitter();
   constructor(private restApiService: RestAPIService, private datepipe: DatePipe, private http: HttpClient,
     private masterService: MasterService,private messageService: MessageService,
-    private authService: AuthService) { }
+    private authService: AuthService,private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
     this.login_user = this.authService.UserInfo;
@@ -175,8 +175,17 @@ export class CircularFormComponent implements OnInit {
     this.NewFileName = selectedRow.Download;
 }
 onDownload(Filename) {
+  this.confirmationService.confirm({
+    message: 'Do you want to download?',
+    header: 'Confirmation',
+    icon: 'pi pi-exclamation-triangle',
+    accept: () => {
   const path = "../../assets/layout/"+FileUploadConstant.Circularfolder+"/"+Filename;
   saveAs(path, Filename);
+},
+reject: (type) => { }
+});
+
 }
 }
 

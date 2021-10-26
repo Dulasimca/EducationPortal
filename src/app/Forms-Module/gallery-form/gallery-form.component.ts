@@ -8,7 +8,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ResponseMessage } from 'src/app/Common-Module/Message';
-import { MessageService, SelectItem } from 'primeng/api';
+import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
 import { MasterService } from 'src/app/Services/master-data.service';
 import { DatePipe } from '@angular/common';
 import { NgForm } from '@angular/forms';
@@ -46,7 +46,7 @@ export class GalleryFormComponent implements OnInit {
   @Output() public onUploadFinished = new EventEmitter();
   constructor(private restApiService: RestAPIService, private datepipe: DatePipe, private http: HttpClient,
     private masterService: MasterService,private messageService: MessageService,
-    private authService: AuthService) { }
+    private authService: AuthService,private confirmationService: ConfirmationService) { }
     
 
   ngOnInit(): void {
@@ -164,12 +164,22 @@ onRowSelect(event, selectedRow) {
  
 
 onDownload(Filename) {
+  this.confirmationService.confirm({
+    message: 'Do you want to download?',
+    header: 'Confirmation',
+    icon: 'pi pi-exclamation-triangle',
+    accept: () => {
 //const path = 'D:/Angular Project/EducationPortalAPI/Resources/Books';
 const path = "../../assets/layout/"+FileUploadConstant.Galleryfolder+"/"+Filename;
 //const filename = 'files' + ".pdf";
 saveAs(path, Filename);
-}
+},
+reject: (type) => { }
+});
 
 }
+}
+
+
 
 

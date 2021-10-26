@@ -17,7 +17,7 @@ export class AuthGuard implements CanActivate {
         take(1),                              // Since we are only checking the value from the Observalbe a single time (if the user is logged in or not), we will use the take operator 
         map((isLoggedIn: boolean) => {         // to verify the value emitted by the BehaviorSubject
           if (!isLoggedIn){
-            this.router.navigate(['/login']);  // if not logged in we will navigate to the login screen
+           // this.router.navigate(['/login']);  // if not logged in we will navigate to the login screen
             return false;
           }
           return true;

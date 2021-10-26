@@ -151,9 +151,6 @@ export class MyachievementFormComponent implements OnInit {
     this.Place=selectedRow.Place;
     this.Award=selectedRow.AchievementStatus;
   }
-  onVotinglist(selectedRow) {
-    
-  }
 
   onDownload(Filename) {
     this.confirmationService.confirm({

@@ -76,8 +76,10 @@
                     </div>
                     <div class="p-col-12 p-md-6 p-lg-6 "> 
                         <button pButton type="button" label="View" (click)="onView()"></button>
+                        <button pButton type="button" label="Pay" [disabled]="(!f.valid)" style="margin-left: 4%;"></button>
                         <!-- <button pButton type="button" label="Clear" (click)="clear()" style="margin-left: 5%;"></button> -->
                     </div>
+                    
                     <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,15,20]"
                            totalRecords="totalRecords" pageLinks="3">
                        <ng-template pTemplate="header" let-columns>

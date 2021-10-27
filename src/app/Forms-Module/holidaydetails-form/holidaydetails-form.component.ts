@@ -121,6 +121,7 @@ export class HolidaydetailsFormComponent implements OnInit {
   }
   onRowSelect(event, selectedRow)  {
     this.MRowid=selectedRow.RowId;
+    this.Holiday = selectedRow.Holiday;
     this.HolidayOption= [{ label: selectedRow.Holiday, value: selectedRow.Holiday }];
     this.Events=selectedRow.EventDetailS;
     this.date=selectedRow.eventdate;

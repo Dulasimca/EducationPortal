@@ -165,6 +165,7 @@ export class MyachievementFormComponent implements OnInit {
     this.MRowId=selectedRow.RowId;
     this.date=selectedRow.eventdate;
     this.Category=selectedRow.EventDetailS;
+    // this.CategoryOption= [{ label: selectedRow.Name, value: selectedRow.EventDetailS }];
     this.Place=selectedRow.Place;
     this.Award=selectedRow.AchievementStatus;
   }

@@ -28,7 +28,7 @@ export class BooksComponent implements OnInit {
       {field:'subjects',header: 'Subject'},
       {field: 'authorReference',header: 'Author/Reference', width: '300px'},
       //{field: 'Pdffilename',header: 'Book Download'},
-      {field: 'CreatedDate',header: 'Download date'},
+      {field: 'CreatedDate',header: 'Published date'},
       
       
     ];

@@ -12,7 +12,7 @@
                 totalRecords="totalRecords" pageLinks="3">
                 <ng-template pTemplate="header" let-columns>
                   <tr>
-                    <th>S.No:</th>
+                    <th style="width: 1.5cm;">S.No</th>
                     <th *ngFor="let col of columns" [style.width]="col.width">
                       {{col.header}}
                     </th>

@@ -29,6 +29,11 @@ export class PersonalDetailsComponent implements OnInit {
   sectionOptions:  SelectItem[];
   genderOptions: SelectItem[];
   mediumOptions: SelectItem[];
+  casteOptions: SelectItem[];
+  bloodGroupOptions: SelectItem[];
+  religionOptions: SelectItem[];
+  cityOptions: SelectItem[];
+  nationalityOptions: SelectItem[];
   userImage: any;
   fatherImage: any;
   motherImage: any;
@@ -36,6 +41,13 @@ export class PersonalDetailsComponent implements OnInit {
    //masters
    sections?: any;
    classes?: any;
+   genders?: any;
+   castes?: any;
+   mediums?: any;
+   bloodGroups?: any;
+   religions?: any;
+   nationalities?: any;
+   cities?: any;
    logged_user: User;
    folderName: string = '';
   @ViewChild('f', { static: false }) _personalDetailsForm: NgForm;
@@ -61,20 +73,14 @@ export class PersonalDetailsComponent implements OnInit {
     ///loading master data
     this.sections = this.masterService.getMaster('S');
     this.classes = this.masterService.getMaster('C');
+    this.castes = this.masterService.getMaster('CS');
+    this.genders = this.masterService.getMaster('G');
+    this.mediums = this.masterService.getMaster('M');
+    this.bloodGroups = this.masterService.getMaster('B');
+    this.religions = this.masterService.getMaster('RL');
+    this.nationalities = this.masterService.getMaster('N');
 
-    this.genderOptions = [
-      { label: '-select-', value: null },
-      { label: 'Female', value: 'Female' },
-      { label: 'Male', value: 'Male' },
-      { label: 'Others', value: 'Others' },
-    ];
-    this.mediumOptions = [
-      { label: '-select-', value: null },
-      { label: 'Tamil', value: '1' },
-      { label: 'English', value: '2' }
-    ];
-  }
-  
+  }  
   loadData() {
     if (this.responseData !== null && this.responseData !== undefined) {
       if (this.responseData.length !== 0)
@@ -143,6 +149,7 @@ export class PersonalDetailsComponent implements OnInit {
           }
           this.classOptions = [{ label: i.Class, value: i.ClassId }];
           this.sectionOptions = [{ label: i.Section, value: i.SectionId }];
+          this.mediumOptions = [{ label: i.Section, value: i.SectionId }];
           this.fatherImage = this.obj.FatherPhotoFileName;
           this.userImage = this.obj.StudentPhotoFileName;
           this.motherImage = this.obj.MotherPhotoFilName;
@@ -168,6 +175,27 @@ export class PersonalDetailsComponent implements OnInit {
       this.sectionOptions = sectionSelection;
       this.sectionOptions.unshift({ label: '-select', value: null });
       break;
+      case 'CS':
+        this.casteOptions = this.castes;
+        break;
+      case 'G':
+        this.genderOptions = this.genders;
+        break;
+      case 'B':
+        this.bloodGroupOptions = this.bloodGroups;
+        break;
+      case 'RL':
+        this.religionOptions = this.religions;
+        break;
+      case 'T':
+        this.cityOptions = this.cities;
+        break;
+      case 'N':
+        this.nationalityOptions = this.nationalities;
+        break;
+      case 'M':
+        this.mediumOptions = this.mediums;
+        break;
     }
   }
 

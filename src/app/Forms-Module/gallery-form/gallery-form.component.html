@@ -1,77 +1,73 @@
-<block-ui>
-    <form #Gallery="ngForm">
-<div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px; height: 520px;">
-    <p-panel header="Gallery">
+  <form #Gallery="ngForm">
+    <div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px; height: 520px;">
+      <p-panel header="Gallery">
         <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
-            <form #f="ngForm" name="GalleryForm">
-                <p-card>
-                    <div class="p-col-12 p-md-12 p-lg-12">
-                        <div class="p-grid">
-                            <div class="p-col-12 p-md-6 p-lg-3">
-                                <div class="no-pad-top">
-                                    <label>Date:</label>
-                                </div>
-                                <p-calendar [(ngModel)]="date" name="date" [showIcon]="true" required></p-calendar>
-                            </div>
-                            <div class="p-col-12 p-md-6 p-lg-3">
-                                <div><label>Tittle:</label></div>
-                                <input type="text" name="title" pInputText [(ngModel)]="title" required />
-                            </div>
-
-                            <div class="p-col-12 p-md-6 p-lg-4 align-el-center">
-                                <div><label>Attach file:</label></div>
-                                <input type ="file" name ="file" #file placeholder="Choose file" 
-                            pInputText (change)="uploadFile(file.files)" accept=".jpg" required />
-                            </div>
-                        </div>
-                        
+          <form #f="ngForm" name="GalleryForm">
+            <p-card>
+              <div class="p-col-12 p-md-12 p-lg-12">
+                <div class="p-grid">
+                  <div class="p-col-12 p-md-6 p-lg-2">
+                    <div class="no-pad-top">
+                      <label>Date</label>
                     </div>
-                </p-card>
-            </form>
-            <div class="p-col-12 p-md-6 p-lg12" style = "margin-left:35%;"> 
-                <button pButton name="_save" type="button" label="Submit" 
-                (click)="onSubmit()" [disabled]="(!f.valid)"></button>
-            
-                <button pButton type="button" label="View" style = "margin-left:5%;" (click)="onview()"></button>
-                <button pButton type="button" label="clear" style = "margin-left:5%;" (click)="onClear()"></button>
+                    <p-calendar [(ngModel)]="date" name="date" [showIcon]="true" required></p-calendar>
+                  </div>
+                  <div class="p-col-12 p-md-6 p-lg-3">
+                    <div><label>Title</label></div>
+                    <input type="text" name="title" pInputText [(ngModel)]="title" required />
+                  </div>
+
+                  <div class="p-col-12 p-md-6 p-lg-3">
+                    <div><label>Attach file</label></div>
+                    <input type="file" name="file" #file placeholder="Choose file" pInputText
+                      (change)="uploadFile(file.files)" accept=".jpg,.png,.jpeg" required />
+                  </div>
                 </div>
-        
-                <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,15,20]"
-          totalRecords="totalRecords" pageLinks="3">
-          <ng-template pTemplate="header" let-columns>
-            <tr>
-              <th>S.No:</th>
-              <th *ngFor="let col of columns">
-                {{col.header}}
-              </th>
-              <th>
-                Download
-              </th>
-            </tr>
-          </ng-template>
-          
-          <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
-            <tr [pSelectableRow]="rowData" class="cursor-pointer" (dblclick)="onRowSelect($event, rowData)">
-              <td>{{rowIndex+1}}</td>
-              <td *ngFor="let col of columns">
-                {{rowData[col.field]}}
-              </td>
-              <td style="width: 142px;"><i class="pi pi-download" (click)="onDownload(rowData.previewImageSrc)" 
-                style="color: #52de38; font-size: 1.3rem; margin-left: 25px;"></i></td>
+              </div>
+              <div class="p-col-12 p-md-6 p-lg12" style="margin-left:35%;">
+                <button pButton name="_save" type="button" label="Submit" (click)="onSubmit()"
+                  [disabled]="(!f.valid)"></button>
+
+                <button pButton type="button" label="View" style="margin-left:5%;" (click)="onview()"></button>
+              </div>
+            </p-card>
+          </form>
+          <div *ngIf="showtable"> 
+          <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,15,20]"
+            totalRecords="totalRecords" pageLinks="3">
+            <ng-template pTemplate="header" let-columns>
+              <tr>
+                <th style="width: 2cm">S.No</th>
+                <th *ngFor="let col of columns">
+                  {{col.header}}
+                </th>
+                <th>
+                  Edit
+                </th>
               </tr>
-          </ng-template>
-        </p-table> 
-                </div>
-    </p-panel>
-    <p-confirmDialog #cd  [style]="{width: '30vw'}">
-      <ng-template pTemplate="header">
-        <h3>Alert</h3>
-    </ng-template>
-    <ng-template pTemplate="footer">
-        <button type="button" pButton icon="pi pi-times" label="No" (click)="cd.reject()"></button>
-        <button type="button" pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"></button>
-    </ng-template>
-    </p-confirmDialog>
-</div>
-</form>
-</block-ui>
+            </ng-template>
+
+            <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
+              <tr [pSelectableRow]="rowData" class="cursor-pointer" (dblclick)="onRowSelect($event, rowData)">
+                <td>{{rowIndex+1}}</td>
+                <td *ngFor="let col of columns">
+                  {{rowData[col.field]}}
+                </td>
+                <td style="width: 142px;"></td>
+              </tr>
+            </ng-template>
+          </p-table>
+          </div>
+        </div>
+      </p-panel>
+      <p-confirmDialog #cd [style]="{width: '30vw'}">
+        <ng-template pTemplate="header">
+          <h3>Alert</h3>
+        </ng-template>
+        <ng-template pTemplate="footer">
+          <button type="button" pButton icon="pi pi-times" label="No" (click)="cd.reject()"></button>
+          <button type="button" pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"></button>
+        </ng-template>
+      </p-confirmDialog>
+    </div>
+  </form>

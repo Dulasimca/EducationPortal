@@ -33,6 +33,7 @@ export class MyachievementFormComponent implements OnInit {
   attach: string;
   NewFileName:string;
   isDataAvailable: boolean;
+  showtable: boolean;
   @BlockUI() blockUI: NgBlockUI;
   public formData = new FormData();
 
@@ -92,6 +93,7 @@ export class MyachievementFormComponent implements OnInit {
       if(res !== undefined && res !== null) {
         if (res) {
           this.blockUI.stop();
+          this.onView();
           this.clear();
           this.messageService.clear();
           this.messageService.add({
@@ -141,6 +143,7 @@ export class MyachievementFormComponent implements OnInit {
           );
       }  
   onView() {
+    this.showtable = true;
     const params = {
       'SchoolID': this.login_user.schoolId,
     }
@@ -165,8 +168,10 @@ export class MyachievementFormComponent implements OnInit {
     this.MRowId=selectedRow.RowId;
     this.date=selectedRow.eventdate;
     this.Category=selectedRow.EventDetailS;
+    this.CategoryOption= [{ label: selectedRow.EventDetailS, value: selectedRow.Category }];
     this.Place=selectedRow.Place;
     this.Award=selectedRow.AchievementStatus;
+    this.AwardOption = [{ label: selectedRow.AchievementStatus, value: selectedRow.Award}];
   }
 
   onDownload(Filename) {

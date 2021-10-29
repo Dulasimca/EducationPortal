@@ -50,6 +50,8 @@ export class RegistrationFormComponent implements OnInit {
   talukOptions: SelectItem[];
   nationalityOptions: SelectItem[];
   nationality: string;
+  motherTongue: any;
+  motherTongueOptions: SelectItem[];
   caste: string;
   casteOptions: SelectItem[];
   checked: boolean;

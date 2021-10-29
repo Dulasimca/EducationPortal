@@ -31,8 +31,8 @@
                 <td *ngFor="let col of columns">
                   {{rowData[col.field]}}
                 </td>
-                <td style="width: 142px;"><i class="pi pi-file-o" (click)="onDownload()"
-                    style="color: #52de38; font-size: 1.3rem; margin-left: 25px;"></i></td>
+                <td style="width: 142px;"><button pButton type="button" icon="pi pi-file-o" pTooltip="View receipt" (click)="onDownload()"
+                    style="color: #52de38; font-size: 1.3rem; margin-left: 25px;"></button></td>
               </tr>
             </ng-template>
           </p-table>

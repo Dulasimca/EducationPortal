@@ -105,6 +105,12 @@ export class MasterService {
           this.masterData.push({ name: t.Talukname, code: t.Talukid, dcode: t.Districcode });
         });
         break;
+      //holiday type
+      case 'HT':
+        this.data.Table13.forEach(s => {
+          this.masterData.push({ name: s.Name, code: s.Id });
+        });
+        break;
       //subject
       case 'SB':
         this.data.Table14.forEach(s => {

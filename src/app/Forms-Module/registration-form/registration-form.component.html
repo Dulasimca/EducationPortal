@@ -66,6 +66,14 @@
                                                 </p-dropdown>
                                             </div>
                                             <div class="p-col-12 p-md-6 p-lg-2">
+                                                <div><label for="_mothertongue">Mother Tongue<span
+                                                            class="form-mandatory-field">*</span></label>
+                                                </div>
+                                                <p-dropdown name="_mothertongue" [options]="motherTongueOptions" [(ngModel)]="motherTongue"
+                                                    (onClick)="onSelect('MT')" required>
+                                                </p-dropdown>
+                                            </div>
+                                            <div class="p-col-12 p-md-6 p-lg-2">
                                                 <div><label for="_caste"> Caste<span
                                                             class="form-mandatory-field">*</span></label>
                                                 </div>

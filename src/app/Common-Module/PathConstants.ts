@@ -28,6 +28,7 @@ export class PathConstants {
 
     public static readonly Holiday_Post = 'Holidays/Post';
     public static readonly Holiday_Get = 'Holidays/Get';
+    public static readonly Holiday_Put = 'Holidays/Put';
 
     public static readonly Myachievement_Post = 'MyAchievements/Post';
     public static readonly Myachievement_Get = 'MyAchievements/Get';
@@ -52,10 +53,11 @@ export class PathConstants {
     public static readonly Assignment_Get = 'Assignments/Get'; 
     public static readonly Fee_Post = 'Fee/Post'; 
     public static readonly Fee_Get = 'Fee/Get'; 
+    public static readonly FeeType_Get = 'FeeType'; 
     public static readonly Nominee_Post = 'Nominees/Post'; 
     public static readonly Nominee_Get = 'Nominees/Get'; 
     public static readonly Nomineeview_Get = 'Student/Get'; 
-
+    public static readonly StudentList_Get = 'StudentList/Get';
      
     public static readonly MySchool_Get = 'MySchool/Get'; 
     public static readonly MySchool_Post = 'MySchool/Post'; 

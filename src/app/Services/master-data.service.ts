@@ -115,6 +115,13 @@ export class MasterService {
                 this.masterData.push({ name: s.Name, code: s.Id });
               });
               break;
+              case 'EN':
+                this.data.Table16.forEach(e => {
+                  this.masterData.push({ name: e.Name, code: e.Id });
+                });
+                break;
+
+              
     }
     return this.masterData;
   }

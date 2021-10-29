@@ -13,7 +13,7 @@
                 </div>
                 <div class="p-col-12 p-md-12 p-lg-3">
                   <div><label for="_position">Election Name</label></div>
-                  <p-dropdown [options]="positionOptions" [(ngModel)]="position" 
+                  <p-dropdown [options]="positionOptions" (onClick)="onSelect('EN')" [(ngModel)]="position" 
                     name="position" required>
                   </p-dropdown>
                 </div>

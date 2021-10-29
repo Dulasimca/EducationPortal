@@ -18,33 +18,31 @@ export class InternaltransferComponent implements OnInit {
   talukOptions: SelectItem[];
 // master
   districts?: any;
-  cities?: any;
+  taluks?: any;
   
   constructor(private masterService: MasterService) { }
 
   ngOnInit() {
     
-    this.districts = this.masterService.getMaster('');
 
     this.school = [
       { label: '-select-', value: null },
-      { label: 'Government higher Secondary School,Coimbatore', value: 'S01' },
-      { label: 'Government Girls higher Secondary School,Madurai', value: 'S02' },
-      { label: 'Adharsh Vidyalaya public school,Dindugal', value: 'S03' },
-      { label: 'Artisto Public School,Cuddalore', value: 'S04' }
+      { label: 'Government higher Secondary School,Chennai', value: 'S01' },
+      { label: 'Vidyalaya Public School,Royapuram', value: 'S02' },
+      { label: 'Government higher Secondary School,Mylapore', value: 'S03' },
+      { label: 'Government higher Secondary School,Perambur', value: 'S04' },
+      { label: 'Government Girls higher Secondary School,Madurai', value: 'S05' },
+      { label: 'Adharsh Vidyalaya public school,Dindugal', value: 'S06' },
+      { label: 'Artisto Public School,Cuddalore', value: 'S07' }
     ];
-    this.talukOptions = [
-      {label: '-select', value: null},
-      {label: 'Chidambaram', value: 'T01'},
-      {label: 'Ambattur', value: 'T02'},
-      {label: 'Vellore', value: 'T03'},
-
-    ]
+    
   }
 
   onSelect(type) {
     this.districts = this.masterService.getMaster('D');
+    this.taluks = this.masterService.getMaster('T');
     let districtSelection = [];
+    let talukSelection = [];
     switch (type) {
       case 'D':
         this.districts.forEach(d => {
@@ -52,6 +50,13 @@ export class InternaltransferComponent implements OnInit {
         })
         this.districtOptions = districtSelection;
         this.districtOptions.unshift({ label: '-select', value: null });
+        break;
+        case 'T':
+        this.taluks.forEach(d => {
+          talukSelection.push({ label: d.name, value: d.code });
+        })
+        this.talukOptions = talukSelection;
+        this.talukOptions.unshift({ label: '-select', value: null });
         break;
       }
   }

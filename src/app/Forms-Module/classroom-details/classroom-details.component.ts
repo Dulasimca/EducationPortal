@@ -19,16 +19,18 @@ import { DatePipe } from '@angular/common';
 export class ClassroomDetailsComponent implements OnInit {
   duration: any;
   subjectOptions: SelectItem[];
-  subject: any;
+  subject: number;
   meetingDate: Date;
   meetingTime: Date;
   sectionOptions: SelectItem[];
-  section: any;
+  section: number;
   classOptions: SelectItem[];
-  class: any;
+  class: number;
+  disableSubject: boolean;
   login_user: User;
   sections?: any;
   classes?: any;
+  subjects?: any;
   @BlockUI() blockUI: NgBlockUI;
   @ViewChild('f', { static: false }) _classroomForm: NgForm;
 
@@ -38,21 +40,16 @@ export class ClassroomDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.login_user = this.authService.UserInfo;
-    this.sections = this.masterService.getMaster('S');
-    this.classes = this.masterService.getMaster('C');
-    this.subjectOptions = [
-      { label: '-select-', value: null },
-      { label: 'Tamil', value: 1 },
-      { label: 'English', value: 2 },
-      { label: 'Maths', value: 3 },
-      { label: 'Science', value: 4 },
-      { label: 'Social Science', value: 5 },
-    ];
+    this.masterService.getMaster('');
   }
 
   onSelect(type) {
+    this.subjects = this.masterService.getMaster('SB');
+    this.sections = this.masterService.getMaster('S');
+    this.classes = this.masterService.getMaster('C');
     let classSelection = [];
     let sectionSelection = [];
+    let subjectSelection = [];
     switch (type) {
       case 'C':
         this.classes.forEach(c => {
@@ -60,6 +57,11 @@ export class ClassroomDetailsComponent implements OnInit {
         });
         this.classOptions = classSelection;
         this.classOptions.unshift({ label: '-select', value: null });
+        if(this.class !== undefined && this.class !== null) {
+          this.disableSubject = false;
+        } else {
+          this.disableSubject = true;
+        }
         break;
       case 'S':
         this.sections.forEach(s => {
@@ -67,6 +69,13 @@ export class ClassroomDetailsComponent implements OnInit {
         });
         this.sectionOptions = sectionSelection;
         this.sectionOptions.unshift({ label: '-select', value: null });
+        break;
+        case 'SB':
+        this.subjects.forEach(c => {
+          subjectSelection.push({ label: c.name, value: c.code })
+        });
+        this.subjectOptions = subjectSelection;
+        this.subjectOptions.unshift({ label: '-select', value: null });
         break;
     }
   }
@@ -80,7 +89,7 @@ export class ClassroomDetailsComponent implements OnInit {
       'MeetingDate': this.datePipe.transform(this.meetingDate, 'yyyy-MM-dd'),
       'SchoolId': this.login_user.schoolId,
       'Duration': this.duration,
-      'Topics': this.subject.label,
+      'Topics': this.subject,
       'MeetingTime': this.datePipe.transform(this.meetingTime, 'shortTime')
     }
     this.restApiService.post(PathConstants.Zoom_Post, params).subscribe((res: any) => {

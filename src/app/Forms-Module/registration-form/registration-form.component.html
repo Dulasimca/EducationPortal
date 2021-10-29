@@ -93,8 +93,9 @@
                                                 <div><label for="_nationality">Nationality<span
                                                             class="form-mandatory-field">*</span></label>
                                                 </div>
-                                                <input class="p-col-12" name="_nationality" type="text" pInputText
-                                                [(ngModel)]="nationality" [disabled]="true" />
+                                                <p-dropdown name="_nationality" [options]="nationalityOptions"
+                                                [(ngModel)]="nationality" (onClick)="onSelect('N')" required>
+                                            </p-dropdown>
                                             </div>
 
                                         </div>

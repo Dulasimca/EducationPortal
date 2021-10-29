@@ -67,6 +67,8 @@ export class AppComponent {
       }
     })
     this.authService.checkStatus();
+    console.log('ope', this.isOpen);
+    console.log('hde', this.hideHeader);
   }
 
   clear() {
@@ -83,9 +85,9 @@ export class AppComponent {
     this._router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
         if (event.url === '/login' || event.url === '/') {
-          this.hideHeader = false;
-        } else {
           this.hideHeader = true;
+        } else {
+        this.hideHeader = false;
         }
       }
     });

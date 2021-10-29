@@ -1,5 +1,5 @@
 body {
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important;
+    font-family:  -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol !important;
     /* position: relative; */
     background: #eaf0f5;
     overflow-x: hidden;
@@ -254,11 +254,7 @@ background-color: #b8baf3;
     height: 100% !important;
     transition-duration: 1s ease-in-out;
 }
-.side-nav-container {
-    width: 100% !important;
-    transition-duration: 1s;
-    height: 100% !important;
-}
+
 .layout-wrapper-set {
     margin-left: 16% !important; display: flex;
     /* transition-duration: 1s !important; */
@@ -281,10 +277,24 @@ background-color: #b8baf3;
 .container-login {
     padding-top: 0rem;
     transition: none !important;
+    width: 100% !important;
+    height: 100% !important;
 }
-.container-pages {
-    padding-top: 3.2rem;
+.container-pages-open {
+    top: 4rem;
     transition: none !important;
+    width: 83% !important;
+    height: 100% !important;
+    position: absolute !important;
+    overflow: auto !important;
+}
+.container-pages-close {
+    top: 4rem;
+    transition: none !important;
+    width: 100% !important;
+    height: 100% !important;
+    position: absolute !important;
+    overflow: auto !important;
 }
 
 /* end #Regioin 3*/
@@ -401,7 +411,7 @@ td[_ngcontent-fng-c4] {
         z-index: 1;
 }
 .p-panelmenu .p-panelmenu-header>a {
-        padding: 1rem;
+        padding: .6rem !important;
         border: none !important;
         /* color: rgb(250, 250, 250)!important;
         background: rgb(11, 43, 102) !important; */
@@ -520,6 +530,12 @@ td[_ngcontent-fng-c4] {
     align-items: center;
     justify-content: center;
     text-decoration: none !important;
+}
+.p-datatable .p-datatable-footer, .p-datatable .p-datatable-thead>tr>th {
+    padding: .5rem !important;
+}
+.p-datatable .p-datatable-tbody>tr>td {
+    padding: 0.5rem !important;
 }
 
 /* end #Region 4 */

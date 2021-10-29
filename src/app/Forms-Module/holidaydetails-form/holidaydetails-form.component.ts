@@ -9,6 +9,7 @@ import { MessageService, SelectItem } from 'primeng/api';
 import { NgForm } from '@angular/forms';
 import { AuthService } from 'src/app/Services/auth.service';
 import { User } from 'src/app/Interfaces/user';
+import { MasterService } from 'src/app/Services/master-data.service';
 
 
 
@@ -21,7 +22,7 @@ import { User } from 'src/app/Interfaces/user';
 export class HolidaydetailsFormComponent implements OnInit {
 
   selectedType: string;
-  Holiday: any;
+  Holiday: number;
   HolidayOption: SelectItem[]
   typeOptions: SelectItem[];
   Events: string;
@@ -32,35 +33,31 @@ export class HolidaydetailsFormComponent implements OnInit {
   cols: any;
   MRowid=0;
   login_user: User;
+  holidays?: any;
   @BlockUI() blockUI: NgBlockUI;
   @ViewChild('f', { static: false }) _HolidayDetailsForm: NgForm;
   constructor(private restApiService: RestAPIService, private http: HttpClient,private datepipe: DatePipe,private messageService: MessageService
-    , private authService: AuthService) { }
+    , private authService: AuthService, private masterService: MasterService) { }
 
   ngOnInit(): void {
-    this.HolidayOption = [
-      { label: '-select-', value: null },
-      { label: 'Leave', value: '0'},
-      { label: 'Holiday', value: '1'},
-    ];
+  
     this.cols = [
       // { field: 'RowId', header: 'ID' },
-      { field: 'HolidayType', header: 'Type' },
-      { field: 'eventname', header: 'Events' },
+      { field: 'HolidayName', header: 'Type' },
+      { field: 'EventDetailS', header: 'Events' },
       { field: 'eventdate', header: 'Date' }     
     ];
+    this.holidays = this.masterService.getMaster('HT');
     this.login_user = this.authService.UserInfo;
   }
 
-
- 
   onSubmit() {
     this.blockUI.start();
     const params = {    
       'RowId': this.MRowid,
       'SchoolId': this.login_user.schoolId,
       'EventDetailS':this.Events,
-      'Holiday': this.Holiday.value,     
+      'Holiday': this.Holiday,    
       'eventdate': this.datepipe.transform(this.date,'MM/dd/yyyy'), 
       'Flag': 1,      
     };
@@ -100,6 +97,7 @@ export class HolidaydetailsFormComponent implements OnInit {
         }
         })
       }
+   
   onView() {
     const params = {
       'SchoolID': this.login_user.schoolId,
@@ -112,6 +110,19 @@ export class HolidaydetailsFormComponent implements OnInit {
     });
  
   }
+  onSelect(type) {
+    let holidaySelection = [];
+    switch (type) {
+      case 'HT':
+        this.holidays.forEach(c => {
+          holidaySelection.push({ label: c.name, value: c.code })
+        });
+        this.HolidayOption = holidaySelection;
+        this.HolidayOption.unshift({ label: '-select', value: null });
+        break;
+  }
+}
+  
   clear() {
     this._HolidayDetailsForm.reset();
     this._HolidayDetailsForm.form.markAsUntouched();
@@ -121,8 +132,8 @@ export class HolidaydetailsFormComponent implements OnInit {
   }
   onRowSelect(event, selectedRow)  {
     this.MRowid=selectedRow.RowId;
-    this.Holiday = selectedRow.Holiday;
-    this.HolidayOption= [{ label: selectedRow.Holiday, value: selectedRow.Holiday }];
+    this.Holiday = selectedRow.HolidayName;
+    this.HolidayOption= [{ label: selectedRow.Holiday, value: selectedRow.HolidayName }];
     this.Events=selectedRow.EventDetailS;
     this.date=selectedRow.eventdate;
   }

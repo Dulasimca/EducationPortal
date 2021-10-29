@@ -9,7 +9,7 @@
               <div class="p-grid">
                 <div class="p-col-12 p-md-4 p-lg-2">
                   <div><label for="_Holiday">Holiday Type</label></div>
-                  <p-dropdown name="_Holiday" [options]="HolidayOption" [(ngModel)]="Holiday" >
+                  <p-dropdown name="_Holiday" (onClick)="onSelect('HT')"[options]="HolidayOption" [(ngModel)]="Holiday" >
                   </p-dropdown>
                          </div>
                 <div class="p-col-12 p-md-6 p-lg-3">
@@ -20,11 +20,10 @@
                   <div><label>Date:</label></div>
                   <p-calendar [(ngModel)]="date" name="date" [showIcon]="true" required></p-calendar>
                 </div>
-                <div class="p-col-12 p-md-6 p-lg-12">
-                  <button pButton name="save" type="button" label="Submit" (click)="onSubmit()" [disabled]="(!f.valid)"
-                    style="margin-left: 30%;"></button>
-                  <button pButton type="button" label="View" (click)="onView()" style="margin-left: 5%;"></button>
-                  <button pButton type="button" label="Clear" (click)="clear()" style="margin-left: 5%;"></button>
+                <div class="p-col-12 p-md-12 p-lg-12" style="text-align: center;">
+                  <button pButton type="button" label="Submit" (click)="onSubmit()" [disabled]="(!f.valid)"></button>&nbsp;
+                  <button pButton type="button" label="View" (click)="onView()"></button>&nbsp;
+                  <button pButton type="button" label="Clear" (click)="clear()"></button>
                 </div>
                 <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10"
                   [rowsPerPageOptions]="[5,10,15,20]" totalRecords="totalRecords" pageLinks="3">

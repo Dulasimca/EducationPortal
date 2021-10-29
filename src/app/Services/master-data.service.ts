@@ -110,7 +110,11 @@ export class MasterService {
               { label: 'O-', value: 'O-' },
             ];
             break;
-
+            case 'HT':
+              this.data.Table13.forEach(s => {
+                this.masterData.push({ name: s.Name, code: s.Id });
+              });
+              break;
     }
     return this.masterData;
   }

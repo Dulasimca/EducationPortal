@@ -15,6 +15,8 @@ export class PathConstants {
     public static readonly OnlineAssessment_Post = 'OnlineAssessment/Post';
     public static readonly OnlineAssessment_Get = 'OnlineAssessment/Get';
     public static readonly OnlineAssessment_Asnwer_Post = 'AssessmentResult/Post';
+    public static readonly OnlineAssessmentCheck_Get = 'AssessmentResult/Get';
+
 
     public static readonly Question_Bank_Post = 'QuestionBank/Post';
     public static readonly Question_Bank_Get = 'QuestionBank/Get';
@@ -64,8 +66,7 @@ export class PathConstants {
     public static readonly FileUpload_Post = 'Upload/AddFileDetails'; 
 
     public static readonly Gallery_Post = 'Gallery/post';
-    public static readonly Gallery_Get = 'Gallery/Get'
-
+    public static readonly Gallery_Get = 'Gallery/Get';
 
 
 }

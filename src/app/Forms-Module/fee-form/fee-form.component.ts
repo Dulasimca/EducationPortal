@@ -76,8 +76,7 @@ export class FeeFormComponent implements OnInit {
       { label: 'Arun Kumar', value: 5 },
       { label: 'Reethvin', value:  6}
     ];
-    this.sections = this.masterService.getMaster('S');
-    this.classes = this.masterService.getMaster('C');
+    this.masterService.getMaster('');
   
     this.cols = [
       
@@ -101,6 +100,8 @@ export class FeeFormComponent implements OnInit {
     console.log('file', selectedFile);
   }
   onSelect(type) {
+    this.sections = this.masterService.getMaster('S');
+    this.classes = this.masterService.getMaster('C');
     let classSelection = [];
     let sectionSelection = [];
     switch (type) {

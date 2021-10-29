@@ -161,7 +161,12 @@ export class PersonalDetailsComponent implements OnInit {
     this.bloodGroups = this.masterService.getMaster('B');
     this.religions = this.masterService.getMaster('RL');
     this.nationalities = this.masterService.getMaster('N');
-
+    let nationalitySelection = [];
+    let casteSelection = [];
+    let mediumSelection = [];
+    let genderSelection = [];
+    let religionSelection = [];
+    let bloodgroupSelection = [];
     let classSelection = [];
     let sectionSelection = [];
     switch (type) {
@@ -180,25 +185,46 @@ export class PersonalDetailsComponent implements OnInit {
       this.sectionOptions.unshift({ label: '-select', value: null });
       break;
       case 'CS':
-        this.casteOptions = this.castes;
+        this.castes.forEach(s => {
+          casteSelection.push({ label: s.name, value: s.code })
+        });
+        this.casteOptions = casteSelection;
+        this.casteOptions.unshift({ label: '-select', value: null });
         break;
       case 'G':
-        this.genderOptions = this.genders;
+        this.genders.forEach(s => {
+          genderSelection.push({ label: s.name, value: s.code })
+        });
+        this.genderOptions = genderSelection;
+        this.genderOptions.unshift({ label: '-select', value: null });
         break;
       case 'B':
-        this.bloodGroupOptions = this.bloodGroups;
+        this.bloodGroups.forEach(s => {
+          bloodgroupSelection.push({ label: s.name, value: s.code })
+        });
+        this.bloodGroupOptions = bloodgroupSelection;
+        this.bloodGroupOptions.unshift({ label: '-select', value: null });
         break;
       case 'RL':
-        this.religionOptions = this.religions;
-        break;
-      case 'T':
-        this.cityOptions = this.cities;
+        this.religions.forEach(s => {
+          religionSelection.push({ label: s.name, value: s.code })
+        });
+        this.religionOptions = religionSelection;
+        this.religionOptions.unshift({ label: '-select', value: null });
         break;
       case 'N':
-        this.nationalityOptions = this.nationalities;
+        this.nationalities.forEach(s => {
+          nationalitySelection.push({ label: s.name, value: s.code })
+        });
+        this.nationalityOptions = nationalitySelection;
+        this.nationalityOptions.unshift({ label: '-select', value: null });
         break;
       case 'M':
-        this.mediumOptions = this.mediums;
+        this.mediums.forEach(s => {
+          mediumSelection.push({ label: s.name, value: s.code })
+        });
+        this.mediumOptions = mediumSelection;
+        this.mediumOptions.unshift({ label: '-select', value: null });
         break;
     }
   }

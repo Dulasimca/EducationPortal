@@ -51,8 +51,7 @@ export class QuestionBankUploadFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.logged_user = this.authService.UserInfo;
-    this.classes = this.masterService.getMaster('C');
-    this.mediums = this.masterService.getMaster('M');
+    this.masterService.getMaster('');
     this.years = this.masterService.getAccountingYear();
     this.questionBankCols = TableConstants.TQuestionBankColumns;
     this.subjectOptions = [
@@ -66,6 +65,9 @@ export class QuestionBankUploadFormComponent implements OnInit {
   }
 
   onSelect(type) {
+    this.classes = this.masterService.getMaster('C');
+    this.mediums = this.masterService.getMaster('M');
+    
     let classSelection = [];
     let yearSelection = [];
     switch (type) {

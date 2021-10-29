@@ -71,15 +71,8 @@ export class PersonalDetailsComponent implements OnInit {
 
    
     ///loading master data
-    this.sections = this.masterService.getMaster('S');
-    this.classes = this.masterService.getMaster('C');
-    this.castes = this.masterService.getMaster('CS');
-    this.genders = this.masterService.getMaster('G');
-    this.mediums = this.masterService.getMaster('M');
-    this.bloodGroups = this.masterService.getMaster('B');
-    this.religions = this.masterService.getMaster('RL');
-    this.nationalities = this.masterService.getMaster('N');
-
+    this.masterService.getMaster('');
+   
   }  
   loadData() {
     if (this.responseData !== null && this.responseData !== undefined) {
@@ -158,6 +151,15 @@ export class PersonalDetailsComponent implements OnInit {
     }
   }
   onSelect(type) {
+    this.sections = this.masterService.getMaster('S');
+    this.classes = this.masterService.getMaster('C');
+    this.castes = this.masterService.getMaster('CS');
+    this.genders = this.masterService.getMaster('G');
+    this.mediums = this.masterService.getMaster('M');
+    this.bloodGroups = this.masterService.getMaster('B');
+    this.religions = this.masterService.getMaster('RL');
+    this.nationalities = this.masterService.getMaster('N');
+
     let classSelection = [];
     let sectionSelection = [];
     switch (type) {

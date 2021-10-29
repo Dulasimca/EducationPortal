@@ -38,8 +38,7 @@ export class ClassroomDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.login_user = this.authService.UserInfo;
-    this.sections = this.masterService.getMaster('S');
-    this.classes = this.masterService.getMaster('C');
+    this.masterService.getMaster('');
     this.subjectOptions = [
       { label: '-select-', value: null },
       { label: 'Tamil', value: 1 },
@@ -51,6 +50,8 @@ export class ClassroomDetailsComponent implements OnInit {
   }
 
   onSelect(type) {
+    this.sections = this.masterService.getMaster('S');
+    this.classes = this.masterService.getMaster('C');
     let classSelection = [];
     let sectionSelection = [];
     switch (type) {
@@ -81,7 +82,7 @@ export class ClassroomDetailsComponent implements OnInit {
       'SchoolId': this.login_user.schoolId,
       'Duration': this.duration,
       'Topics': this.subject.label,
-      'MeetingTime': this.meetingTime
+      'MeetingTime': this.datePipe.transform(this.meetingTime, 'shortTime')
     }
     this.restApiService.post(PathConstants.Zoom_Post, params).subscribe((res: any) => {
       if(res !== undefined && res !== null) {

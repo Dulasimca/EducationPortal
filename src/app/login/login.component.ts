@@ -5,12 +5,12 @@ import { PathConstants } from '../Common-Module/PathConstants';
 import { User } from '../Interfaces/user';
 import { AuthService } from '../Services/auth.service';
 import { RestAPIService } from '../Services/restAPI.service';
-import { MasterService } from '../Services/master-data.service';
 import { ResponseMessage } from '../Common-Module/Message';
 import { StyleSetting } from '../Helper-Module/style-setting';
 import { TabView } from 'primeng/tabview';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FileUploadConstant } from '../Common-Module/file-upload-constant';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -28,8 +28,9 @@ export class LoginComponent implements OnInit {
   @ViewChild('tabview', { static: false }) _tabView: TabView;
 
   constructor(private authService: AuthService, private restApiService: RestAPIService,
-    private messageService: MessageService, private masterService: MasterService
-    , private fb: FormBuilder) { }
+    private messageService: MessageService, private router: Router
+    , private fb: FormBuilder) {
+     }
 
   ngOnInit() {
     var _setlayout = new StyleSetting();
@@ -87,7 +88,7 @@ export class LoginComponent implements OnInit {
                     (i.studentPhotoFileName.toString().trim() !== '' ? ('../../assets/layout/' + FileUploadConstant.StudentRegistration +'/'+ i.studentPhotoFileName) : '') : '' 
                   }
                   this.authService.login(obj);
-                  this.masterService.initializeMaster();
+                  // this.masterService.initializeMaster();
               });
             }
           } else {

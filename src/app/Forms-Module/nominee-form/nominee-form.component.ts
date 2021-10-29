@@ -59,9 +59,7 @@ export class NomineeFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.login_user = this.authService.UserInfo;
-    this.classes = this.masterService.getMaster('C');
-    this.sections = this.masterService.getMaster('S');
-    this.elections = this.masterService.getMaster('EN');
+    this.masterService.getMaster('');
     this.cols = [
       { field: 'FirstName', header: 'Nominee Name' },
       { field: 'ElectionDate', header: 'Election Date' },
@@ -142,6 +140,9 @@ export class NomineeFormComponent implements OnInit {
     })
   }
   onSelect(type) {
+    this.classes = this.masterService.getMaster('C');
+    this.sections = this.masterService.getMaster('S');
+    this.elections = this.masterService.getMaster('EN');
     let classSelection = [];
     let sectionSelection = [];
     let electionSelection = [];

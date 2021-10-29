@@ -72,8 +72,7 @@ export class FeeFormComponent implements OnInit {
         this.feeTypes = res;
       }
     });
-    this.sections = this.masterService.getMaster('S');
-    this.classes = this.masterService.getMaster('C');
+    this.masterService.getMaster('');
     this.cols = [
       { field: 'duedate', header: 'Due Date'},
       { field: 'Class', header: 'Class' },
@@ -112,6 +111,8 @@ export class FeeFormComponent implements OnInit {
     var selectedFile = $event.target.files[0];
   }
   onSelect(type) {
+    this.sections = this.masterService.getMaster('S');
+    this.classes = this.masterService.getMaster('C');
     let classSelection = [];
     let sectionSelection = [];
     let studentSelection = [];

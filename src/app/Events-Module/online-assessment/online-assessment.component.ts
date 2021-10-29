@@ -23,6 +23,8 @@ export class OnlineAssessmentComponent implements OnInit {
   loading: boolean;
   questionData: any = [];
   canStart: boolean;
+  assessmentId: number;
+  minDate: Date = new Date();
 
   constructor(private restApiService: RestAPIService, private authService: AuthService,
     private datePipe: DatePipe, private messageService: MessageService, private router: Router,
@@ -57,8 +59,8 @@ export class OnlineAssessmentComponent implements OnInit {
           this.questionData = res.slice(0);
           res.forEach((i, index) => {
             let canStart: boolean;
+            this.assessmentId = i.RowId;
             canStart = this.checkAssessmentTime(i);
-            i.AssessmentTime = this.datePipe.transform(i.AssessmentTime, 'hh:mm a');
             if (index >= 1 && i.RowId !== res[index - 1].RowId) {
               this.assessmentData.push({
                 test: i.TestName, subject: i.Subject,
@@ -114,7 +116,8 @@ export class OnlineAssessmentComponent implements OnInit {
   }
 
   onStart() {
-    this.testService.setResponse(this.questionData);
-    this.router.navigate(['/online-test']);
+    this.testService.setId(this.assessmentId);
+    this.testService.setQuestions(this.questionData);
+    this.router.navigate(['/assessment']);
   }
 }

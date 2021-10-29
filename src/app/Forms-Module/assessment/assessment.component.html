@@ -1,0 +1,32 @@
+<div #main class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px;">
+    <block-ui>
+        <p-panel header="Online Assessment">
+            <div class="p-col-12 p-md-12 p-lg-12">
+                <div style="color: rgb(248, 47, 88);">
+                    <div> * Please click 'start' button to begin the test </div>
+                    <div> * Once you started the test you cannot 'CLOSE/EXIT' 'REFRESH/RELOAD' the page.</div>
+                    <div> * If you try to attempt above mentioned actions, your test will get submitted automatically
+                        with warning!.</div>
+                    <div> * You must submit the test within alloted duration else test will get submitted automatically.
+                    </div>
+                </div>
+            </div>
+            <div class="p-col-12 p-md-12 p-lg-12 text-center">
+                <button pButton class="btn" type="button" label="Start" (click)="onStart()"></button>
+            </div>
+        </p-panel>
+    </block-ui>
+    <p-dialog #dialog [(visible)]="openDialog" [modal]="true" [style]="{width: '100%', height: '100%'}"
+        (onHide)="hide($event)">
+        <app-online-test #test></app-online-test>
+    </p-dialog>
+    <p-confirmDialog #cd [style]="{width: '30vw'}">
+        <ng-template pTemplate="header">
+            <h4>Warning</h4>
+        </ng-template>
+        <ng-template pTemplate="footer">
+            <button type="button" pButton icon="pi pi-times" label="Cancel" (click)="cd.reject()"></button>
+            <button type="button" pButton icon="pi pi-check" label="Submit" (click)="test.onSubmit()"></button>
+        </ng-template>
+    </p-confirmDialog>
+</div>

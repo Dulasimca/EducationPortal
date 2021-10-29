@@ -1,9 +1,9 @@
 
 <p-toast position="top-center" key="t-msg"></p-toast>
 <block-ui>
-<div #main class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px;">
+<div #main class="p-col-12 p-md-12 p-lg-12">
   <p-panel header="Online Test">
-    <div *ngIf="!isSaved" class="p-col-12 p-md-12 p-lg-12 no-pad-top card">
+    <div *ngIf="!isSaved" class="p-col-12 p-md-12 p-lg-12 no-pad-top">
       <div class="p-col-12 p-md-12 p-lg-12 no-pad-top no-pad-bottom text-center">
         <h3 style="margin: 0 !important;">{{testName}}</h3>
       </div>
@@ -16,7 +16,8 @@
           <span> Total Marks: </span> <span style="color: #3f6ea9;"> {{totalMarks}} </span>
           <br /><span> Duration: </span> <span style="color: #3f6ea9;"> {{ellapsedTime}} / {{duration}} </span>
         </div>
-        <div class="p-col-12 border-line-blue">
+        <hr class="border-line-blue">
+        <div class="p-col-12">
           <div class="p-col-12 p-md-12 p-lg-12">
             <div *ngFor="let question of filteredQuestions;">
               <div>Question {{pager.index + 1}} of {{pager.count}}</div>
@@ -50,7 +51,7 @@
           </div>
           <div class="p-col-12 p-md-12 p-lg-12">
             <div class="text-center">
-              <button pButton class="btn" type="button" label="Submit" (click)="onSubmit()"
+              <button pButton type="button" label="Submit" (click)="onSubmit()"
               [disabled]="isSubmitted" ></button>
             </div>
           </div>

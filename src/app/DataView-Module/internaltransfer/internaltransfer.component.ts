@@ -24,7 +24,7 @@ export class InternaltransferComponent implements OnInit {
 
   ngOnInit() {
     
-    this.districts = this.masterService.getMaster('D');
+    this.districts = this.masterService.getMaster('');
 
     this.school = [
       { label: '-select-', value: null },
@@ -43,6 +43,7 @@ export class InternaltransferComponent implements OnInit {
   }
 
   onSelect(type) {
+    this.districts = this.masterService.getMaster('D');
     let districtSelection = [];
     switch (type) {
       case 'D':

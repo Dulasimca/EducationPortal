@@ -1,57 +1,57 @@
-<div #main class="no-pad container" *ngIf="loading">
-    <mat-toolbar class="mat-elevation-z8">
-        <div class="p-col-1 p-md-1 p-lg-1 no-pad-left no-pad-bottom" [ngClass]="{'move-right': isOpen, 'move-left': !isOpen}">
-            <div class="no-pad" style="background: rgb(11, 43, 102) !important; display: flex;">
-                <i *ngIf="!isOpen" class="pi pi-bars" style="font-size: 1.6rem; color: whitesmoke; align-self: center;"
-                    (click)="isOpen=!isOpen"></i>
-                <i *ngIf="isOpen" class="pi pi-times" style="font-size: 1.6rem; color: whitesmoke; align-self: center;"
-                    (click)="isOpen=!isOpen"></i>
-                <img src="assets/layout/images/TN_Govt_Logo.png" style="margin-left: 2px;" />
-            </div>
-
+    <!--<div *ngIf="loading" >-->
+ <mat-toolbar color="primary" fxLayout="row">
+    <div fxFlex fxLayout="row" *ngIf="hideHeader" style="background: rgb(11, 43, 102) !important;">
+        <div fxFlex>
+            <span >
+                <i *ngIf="!isOpen" class="pi pi-bars" (click)="isOpen=!isOpen"
+                    style="font-size: 1.6rem; color: whitesmoke; align-self: center;"></i>
+                <i *ngIf="isOpen" class="pi pi-times" (click)="isOpen=!isOpen"
+                    style="font-size: 1.6rem; color: whitesmoke; align-self: center;"></i>
+            </span>
+            <img src="assets/layout/images/TN_Govt_Logo.png" class="menu-logo">
         </div>
-        <div id="main-top-bar" class="p-col-5 p-md-6 p-lg-7 no-pad-top no-pad-bottom"
-            [ngClass]="{'menubar-bar-text-unset': !isOpen, 'menubar-bar-text-set': isOpen}">
-            Government of Tamilnadu - Educational Services Platform
-            <div style="text-align: center; font-size: 20px;color: whitesmoke">{{schoolName}}</div>
-        </div>
-        <div class="p-col-1"></div>
-        <div id="main-top-bar-user" class="p-col-2 p-md-3 p-lg-2 no-pad-top no-pad-bottom">
-            <div class="p-grid" style="color: whitesmoke"
-                [ngClass]="{'menubar-bar-info-set': isOpen, 'menubar-bar-info-unset': !isOpen}"
-                (click)="op.toggle($event)">
-                <img [src]="userImage" style="margin-top: 8px;" [ngClass]="{'user-icon': showIcon}" />
-                &nbsp; &nbsp; <div style="font-size: 13px; align-self: center; margin-top: 10px;margin-left: -6px;">
-                    <span style="text-transform: uppercase"><b>{{userName}}</b>&nbsp;
-                    <i class="pi pi-angle-down"></i>
-                    <br/>
-                        <b *ngIf="(roleId == 6 || roleId == 5)">{{userClass}}</b>
-                    </span>
-                </div>
+        <div fxFlex.gt-sm="80%" fxFlex.lt-md="80%" fxFlex.lt-lg="80%" fxLayoutAlign="center center" 
+        fxFlexFill style="align-self: center;">
+            <div style="color: whitesmoke;font-size:21px;"
+                [ngStyle.lt-md]="{'font-size': '18px'}">
+                &nbsp;
+                 <span>Government of Tamilnadu - Educational Services Platform</span>
             </div>
         </div>
-    </mat-toolbar>
-    <div id="main-layout" [ngClass]="{'layout-wrapper-set': isOpen, 'layout-wrapper-unset': !isOpen}">
-        <div class="p-grid side-nav">
-            <div id="side-nav-bar" *ngIf="isOpen" class="p-col-2 no-pad-right side-nav-panel">
-                 <p-panelMenu [model]="items"></p-panelMenu>
-            </div>
-            <div class="side-nav-container">
-                <router-outlet></router-outlet>
-            </div>
+        <div fxFlex.gt-sm="20%" fxFlex.lt-md="20%" fxFlex.lt-lg="20%" fxLayoutAlign="center center" 
+        fxFlexFill (click)="op.toggle($event)">
+            <img [src]="userImage" [ngClass]="{'user-icon': showIcon}" />&nbsp;
+            <span style="text-transform: uppercase"><b>{{userName}}</b>&nbsp;
+                <i class="pi pi-angle-down"></i>
+                <br />
+                <b *ngIf="(roleId == 6 || roleId == 5)">{{userClass}}</b>
+            </span>
+        </div>  
+    </div>
+</mat-toolbar> 
+  
+<div id="main-layout" [ngClass]="{'layout-wrapper-set': isOpen, 'layout-wrapper-unset': !isOpen}">
+    <div class="p-grid side-nav">
+        <div id="side-nav-bar" *ngIf="isOpen" class="p-col-2 no-pad-right side-nav-panel">
+            <p-panelMenu [model]="items"></p-panelMenu>
+        </div>
+        <div [ngClass]="{'container-pages': hideHeader, 'container-login': !hideHeader }" class="side-nav-container">
+            <router-outlet></router-outlet>
         </div>
     </div>
 </div>
-<div class="no-pad container" *ngIf="!loading">
+<!-- </div> -->
+<!-- <div *ngIf="!loading" id="login-page" class="no-pad container" style="background: linear-gradient(to bottom, #112b52 0%, #0b2b66 50%, #124c7d 100%);">
     <app-login></app-login>
-</div>
+</div> -->
 <p-overlayPanel #op [showTransitionOptions]="'500ms'">
     <ng-template pTemplate>
         <div>Logged in - {{loggedinTime | date:'shortTime'}} </div>
         <div class="p-col-12"></div>
         <div class="p-col-12" style="margin-top: 10%;">
             <div class="text-center">
-                <div class="cursor-pointer" (click)="onLogout()"> <i class="pi pi-sign-out" style="color: #52de38;"></i>Logout</div>
+                <div class="cursor-pointer" (click)="onLogout()"> <i class="pi pi-sign-out"
+                        style="color: #52de38;"></i>Logout</div>
             </div>
         </div>
     </ng-template>

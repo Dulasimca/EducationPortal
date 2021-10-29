@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { TestConfig } from 'src/app/Helper-Module/testconfig';
 import { Test } from 'src/app/Helper-Module/test';
 import { Question } from 'src/app/Helper-Module/question';
@@ -7,10 +7,11 @@ import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { AssessmentService } from 'src/app/Services/online-test.service';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { ResponseMessage } from 'src/app/Common-Module/Message';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { HttpErrorResponse } from '@angular/common/http';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { Router } from '@angular/router';
+import { LocationStrategy } from '@angular/common';
 @Component({
     selector: 'app-online-test',
     templateUrl: './online-test.component.html',
@@ -53,68 +54,91 @@ export class OnlineTestComponent implements OnInit {
     isSaved: boolean;
     isSubmitted: boolean;
     @BlockUI() blockUI: NgBlockUI;
-
+    @HostListener("window:beforeunload", ["$event"]) unloadHandler(event: Event) {
+        console.log("Processing beforeunload...", event);
+        // Do more processing...
+        var msg = 'Do you want to submit ?'
+        this.onSubmit();
+        event.returnValue = false;
+        event.preventDefault();
+    }
     constructor(private restApiService: RestAPIService, private testService: AssessmentService,
-        private messageService: MessageService, private router: Router) { }
+        private messageService: MessageService, private router: Router,
+        private _locationStrategy: LocationStrategy) { }
 
     ngOnInit(): void {
         this.ellapsedTime = "00:00";
         this.loadQues();
         this.loadTest();
+        history.pushState(null, null, location.href);
+        this._locationStrategy.onPopState(() => {
+            history.pushState(null, null, location.href);
+        })
+        // window.addEventListener("beforeunload", function (e) {
+        //     var confirmationMessage = "Do you want to submit the test ?";
+        //     console.log("cond", e);
+        //     e.returnValue = confirmationMessage;  
+        //     return e.returnValue;  
+        // });
     }
 
     loadQues() {
-        var result = this.testService.getResponse();
+        var result = this.testService.getQuestions();
         var i = 0;
         let questions = [];
         let options = [];
-        if (result.length !== 0 && result !== undefined && result !== null) {
-            for (let k = 0; k < result.length; k++) {
-                const _currQID = result[k].QuestionId;
-                const _nxtQID = (result[k + 1] !== undefined) ? result[k + 1].QuestionId : '';
-                if (result[k + 1] !== undefined && _currQID === _nxtQID) {
-                    options.push({
-                        "id": result[k].OptionId,
-                        "questionId": result[k].QuestionId,
-                        "name": result[k].OptionName.toString(),
-                        "isAnswer": result[k].IsAnswer,
-                        "selected": false
-                    })
-                } else if (_currQID !== _nxtQID) {
-                    options.push({
-                        "id": result[k].OptionId,
-                        "questionId": result[k].QuestionId,
-                        "name": result[k].OptionName.toString(),
-                        "isAnswer": result[k].IsAnswer,
-                        "selected": false
-                    })
-                    questions.push({
-                        "id": result[k].QuestionId,
-                        "name": result[k].QuestionDetails,
-                        "questionTypeId": result[k].questiontype,
-                        "options": options,
-                        "answered": false,
-                        "questionType": {
-                            "id": 1,
-                            "name": "Multiple Choice",
-                            "isActive": true
-                        }
-                    });
-                    options = [];
+        if (result !== undefined && result !== null) {
+            if (result.length !== 0) {
+                for (let k = 0; k < result.length; k++) {
+                    const _currQID = result[k].QuestionId;
+                    const _nxtQID = (result[k + 1] !== undefined) ? result[k + 1].QuestionId : '';
+                    if (result[k + 1] !== undefined && _currQID === _nxtQID) {
+                        options.push({
+                            "id": result[k].OptionId,
+                            "questionId": result[k].QuestionId,
+                            "name": result[k].OptionName.toString(),
+                            "isAnswer": result[k].IsAnswer,
+                            "selected": false
+                        })
+                    } else if (_currQID !== _nxtQID) {
+                        options.push({
+                            "id": result[k].OptionId,
+                            "questionId": result[k].QuestionId,
+                            "name": result[k].OptionName.toString(),
+                            "isAnswer": result[k].IsAnswer,
+                            "selected": false
+                        })
+                        questions.push({
+                            "id": result[k].QuestionId,
+                            "name": result[k].QuestionDetails,
+                            "questionTypeId": result[k].questiontype,
+                            "options": options,
+                            "answered": false,
+                            "questionType": {
+                                "id": 1,
+                                "name": "Multiple Choice",
+                                "isActive": true
+                            }
+                        });
+                        options = [];
+                    }
+                }
+                this.testName = result[i].TestName;
+                this.subjectcName = (result[i].Subject);
+                this.totalMarks = result[i].totalmarks;
+                this.questionTypeID = result[i].questiontype;
+                this.totalDuration = result[i].totalduration;
+                this.data = {
+                    "id": result[i].RowId,
+                    "name": result[i].TestName,
+                    "description": result[i].TestDescription,
+                    "questions": questions
                 }
             }
-            this.testName = result[i].TestName;
-            this.subjectcName = (result[i].SubjectId === 2) ? 'English' : 'Science';
-            this.totalMarks = result[i].totalmarks;
-            this.questionTypeID = result[i].questiontype;
-            this.totalDuration = result[i].totalduration;
-            this.data = {
-                "id": result[i].RowId,
-                "name": result[i].TestName,
-                "description": result[i].TestDescription,
-                "questions": questions
-            }
+        } else {
+            this.data = [];
         }
+
     }
 
     loadTest() {
@@ -194,6 +218,8 @@ export class OnlineTestComponent implements OnInit {
         this.blockUI.start();
         this.isSubmitted = true;
         let answers = [];
+        console.log('submit');
+        if(this.test.questions !== undefined && this.test.questions !== null && this.test.questions.length !== 0) {
         this.test.questions.forEach(x => {
             if (x.answered) {
                 x.options.forEach(y => {
@@ -219,6 +245,9 @@ export class OnlineTestComponent implements OnInit {
                 })
             }
         });
+    } else {
+        this.test.questions = [];
+    }
         this.restApiService.post(PathConstants.OnlineAssessment_Asnwer_Post, answers).subscribe(res => {
             if (res) {
                 this.blockUI.stop();
@@ -256,5 +285,4 @@ export class OnlineTestComponent implements OnInit {
     }
 
     onViewResult() { }
-
 }

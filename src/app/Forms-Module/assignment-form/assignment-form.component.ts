@@ -60,8 +60,7 @@ export class AssignmentFormComponent implements OnInit {
     ,private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
-    this.classes = this.masterService.getMaster('C');
-    this.sections = this.masterService.getMaster('S');
+    this.masterService.getMaster('');
     this.cols = [
       { field: 'AssignmentDate', header: 'Date', width: '100px'},
       { field: 'AssignmentDueDate', header: 'Due Date',  width: '100px'},
@@ -162,6 +161,8 @@ onSubmit() {
       })
     }
     onSelect1(type) {
+      this.classes = this.masterService.getMaster('C');
+      this.sections = this.masterService.getMaster('S');  
       let classSelection = [];
       let sectionSelection = [];
   

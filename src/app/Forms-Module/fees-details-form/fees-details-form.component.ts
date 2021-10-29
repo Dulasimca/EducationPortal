@@ -41,8 +41,8 @@ export class FeesDetailsFormComponent implements OnInit {
     private masterService: MasterService, private datePipe: DatePipe) { }
 
   ngOnInit(): void {
-    this.years = this.masterService.getAccountingYear();
-    this.login_user = this.authService.UserInfo;
+    this.masterService.getAccountingYear();
+       this.login_user = this.authService.UserInfo;
     this.cols = [
       {field: 'FeeName', header: 'Fee Name'},
       { field: 'CreatedDate', header: 'Pay Date'},
@@ -52,6 +52,7 @@ export class FeesDetailsFormComponent implements OnInit {
   }
 
   onSelect() {
+    this.years = this.masterService.getAccountingYear();
     let yearSelection = [];
     this.years.forEach(y => {
       yearSelection.push({ label: y.ShortYear, value: y.Id });

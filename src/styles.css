@@ -239,26 +239,29 @@ background-color: #b8baf3;
     height: 100% !important;
     z-index: 999 !important;
     display: flex;
-    top: 0 !important;
+    top: 4rem !important;
     left: 0 !important;
     padding-left: 0 !important;
     padding-top: 0 !important;
-    background: rgb(11, 43, 102) !important;
-    transition-duration: 1s;
+    /* background: rgb(11, 43, 102) !important; */
+    background: white !important;
+    transition-duration: 1s ease-in-out;
+    box-shadow: 5px 10px 8px #888888;
 }
 .side-nav {
     width: 100% !important;
     margin: 0 !important;
     height: 100% !important;
-    transition-duration: 1s;
+    transition-duration: 1s ease-in-out;
 }
 .side-nav-container {
     width: 100% !important;
     transition-duration: 1s;
+    height: 100% !important;
 }
 .layout-wrapper-set {
     margin-left: 16% !important; display: flex;
-    transition-duration: 1s !important;
+    /* transition-duration: 1s !important; */
 }
 .layout-wrapper-unset {
     margin-left: 0 !important;
@@ -274,6 +277,14 @@ background-color: #b8baf3;
 .layout-wrapper-main {
     margin-left: 16%; display: flex;
     transition-duration: 0s;
+}
+.container-login {
+    padding-top: 0rem;
+    transition: none !important;
+}
+.container-pages {
+    padding-top: 3.2rem;
+    transition: none !important;
 }
 
 /* end #Regioin 3*/
@@ -392,8 +403,10 @@ td[_ngcontent-fng-c4] {
 .p-panelmenu .p-panelmenu-header>a {
         padding: 1rem;
         border: none !important;
-        color: rgb(250, 250, 250)!important;
-        background: rgb(11, 43, 102) !important;
+        /* color: rgb(250, 250, 250)!important;
+        background: rgb(11, 43, 102) !important; */
+        background: white !important;
+        color:  rgb(11, 43, 102) !important;
         font-weight: 600;
         border-radius: 3px;
         transition: box-shadow .2s;
@@ -406,8 +419,10 @@ td[_ngcontent-fng-c4] {
 .p-panelmenu .p-panelmenu-content {
         padding: .25rem 0;
         border: none !important;
-        background: rgb(11, 43, 102) !important;
-        color: rgb(250, 250, 250)!important;
+        /* background: rgb(11, 43, 102) !important; */
+        /* color: rgb(250, 250, 250)!important; */
+        background: white !important;
+        color:  rgb(11, 43, 102) !important;
         margin-bottom: 0;
         border-top: 0;
         border-top-right-radius: 0;
@@ -416,13 +431,15 @@ td[_ngcontent-fng-c4] {
         border-bottom-left-radius: 3px;
 }
 .p-panelmenu .p-panelmenu-content .p-menuitem .p-menuitem-link:not(.p-disabled):hover {
-        background: rgb(11, 43, 102) !important;
+        /* background: rgb(11, 43, 102) !important; */
+        background: #faf9f9 !important;   
 }
 .p-panelmenu .p-panelmenu-content .p-menuitem .p-menuitem-link:not(.p-disabled):hover .p-menuitem-icon, .p-panelmenu .p-panelmenu-content .p-menuitem .p-menuitem-link:not(.p-disabled):hover .p-submenu-icon {
         color: #52de38 !important;
 }
 .p-panelmenu .p-panelmenu-content .p-menuitem .p-menuitem-link:not(.p-disabled):hover .p-menuitem-text {
-        color: rgb(250, 250, 250)!important;
+        /* color: rgb(250, 250, 250)!important; */
+        color:  rgb(11, 43, 102) !important;
 }
 .p-panelmenu .p-panelmenu-header>a .p-panelmenu-icon {
         float: right !important;
@@ -432,12 +449,13 @@ td[_ngcontent-fng-c4] {
         margin-right: .5rem;
 }
 .p-panelmenu .p-panelmenu-content .p-menuitem .p-menuitem-link .p-menuitem-text {
-        color: rgb(250, 250, 250)!important;
+        /* color: rgb(250, 250, 250)!important; */
+        color: rgb(11, 43, 102) !important;
 }
 .p-button {
         color: #fff;
-        background: #2196f3;
-        border: 1px solid #2196f3;
+        background: rgb(11, 43, 102) !important;
+        border: 1px solid rgb(11, 43, 102) !important;
         padding: .35rem 1rem !important;
         font-size: 1rem;
         transition: background-color .2s,color .2s,border-color .2s,box-shadow .2s;
@@ -511,6 +529,10 @@ td[_ngcontent-fng-c4] {
 mat-toolbar {
     background: rgb(11, 43, 102) !important;
     color: whitesmoke;
+    top: 0 !important;
+    position: fixed !important;
+    left: 0 !important;
+    right: 0 !important;
 }
 
 /* end  #Region 5*/

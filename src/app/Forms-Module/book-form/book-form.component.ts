@@ -39,6 +39,7 @@ export class BookFormComponent implements OnInit {
   @BlockUI() blockUI: NgBlockUI;
   public progress: number;
   public message: string;
+  showtable: boolean;
 
    NewFileName:string;
   public formData = new FormData();
@@ -68,14 +69,14 @@ export class BookFormComponent implements OnInit {
       {field:'subjects',header: 'Subject'},
       {field: 'authorReference',header: 'Author/Reference', width: '300px'},
    //   {field: 'Pdffilename',header: 'Book Name'},
-      {field: 'CreatedDate',header: 'Upload date'},
+      {field: 'CreatedDate',header: 'Uploaded date'},
       
       
     ];
   }
   onSelect(type) {
     let classSelection = [];
-   
+    let mediumSelection = [];
     switch (type) {
       case 'C':
         this.classes.forEach(c => {
@@ -84,10 +85,14 @@ export class BookFormComponent implements OnInit {
         this.classOptions = classSelection;
         this.classOptions.unshift({ label: '-select', value: null });
         break;
-        
-          case 'M':
-            this.mediumOptions = this.mediums;
-            break;
+        case 'M':
+          this.mediums.forEach(m => {
+            mediumSelection.push({ label: m.name, value: m.code })
+          });
+          this.mediumOptions = mediumSelection;
+          this.mediumOptions.unshift({ label: '-select', value: null });
+          break;
+         
       }
     }
   public uploadFile = (files) => {
@@ -172,6 +177,7 @@ export class BookFormComponent implements OnInit {
       }
 
   onview() {
+    this.showtable = true;
     const params = { 
       'SchoolID': this.login_user.schoolId,
     }

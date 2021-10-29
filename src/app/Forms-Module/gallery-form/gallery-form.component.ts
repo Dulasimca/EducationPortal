@@ -32,7 +32,7 @@ export class GalleryFormComponent implements OnInit {
   date: Date = new Date();
   data: any = [];
   cols: any;
- 
+  showtable: boolean;
   
   guardianimg: any[] = [];
   @BlockUI() blockUI: NgBlockUI;
@@ -130,6 +130,7 @@ onSubmit() {
 }
 
 onview() {
+  this.showtable = true;
   const params = { 
     'SchoolID': this.login_user.schoolId,
   }

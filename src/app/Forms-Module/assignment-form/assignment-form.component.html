@@ -7,61 +7,70 @@
           <p-card>
             <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
               <div class="p-grid">
-                <div class="p-col-12 p-md-6 p-lg-3">
-                  <div><label>Date:</label> </div>
+                <div class="p-col-12 p-md-6 p-lg-2">
+                  <div><label>Assigning Date<span class="form-mandatory-field">*</span></label> </div>
                   <p-calendar [(ngModel)]="assignDate" [showIcon]="true" name="assignDate"  required></p-calendar>
                 </div>
-                <div class="p-col-12 p-md-6 p-lg-3">
-                  <div><label> Due Date:</label></div>
+                <div class="p-col-12 p-md-6 p-lg-2">
+                  <div><label> Due Date<span class="form-mandatory-field">*</span></label></div>
                   <p-calendar [(ngModel)]="dueDate" [showIcon]="true" name="dueDate" required></p-calendar>
                 </div>
-                <div class="p-col-12 p-md-6 p-lg-3">
-                  <div><label for="_classId">Class</label></div>
+                <div class="p-col-12 p-md-6 p-lg-2">
+                  <div><label for="_classId">Class<span class="form-mandatory-field">*</span></label></div>
                   <p-dropdown name="_classId" [options]="classOptions" [(ngModel)]="classId" optionLabel="label"
                     (onClick)="onSelect1('C')" required>
                   </p-dropdown>
                 </div>
-                <div class="p-col-12 p-md-6 p-lg-3">
-                  <div><label for="_sectionId"> Section</label> </div>
+                <div class="p-col-12 p-md-6 p-lg-2">
+                  <div><label for="_sectionId"> Section<span class="form-mandatory-field">*</span></label> </div>
                   <p-dropdown name="_sectionId" [options]="sectionOptions" [(ngModel)]="sectionId" optionLabel="label"
                     (onClick)="onSelect1('S')" required>
                   </p-dropdown>
                 </div>
-                <div class="p-col-12 p-md-6 p-lg-3">
-                  <div><label> Assigned Work:</label></div>
-                  <input id="float-input" type="text" size="24" pInputText [(ngModel)]="assignmentwork"
-                    name="assignmentwork" required>
-                </div>
-                <div class="p-col-12 p-md-6 p-lg-3">
-                  <div><label for="_AType">Assigned Type:</label></div>
+                <div class="p-col-12 p-md-6 p-lg-2">
+                  <div><label> Subject Name<span class="form-mandatory-field">*</span></label></div>
+                  <input class="p-col-12" type="text" pInputText [(ngModel)]="subjectname" name="subjectname"
+                    required>
+                </div> 
+            <div class=p-col-12></div>
+                <div #row2 class="p-col-12 p-md-12 p-lg-12 no-pad-top">
+                  <div class="p-grid">
+                <div class="p-col-12 p-md-6 p-lg-2">
+                  <div><label for="_AType">Assignment Type<span class="form-mandatory-field">*</span></label></div>
                   <p-dropdown name="_AType" [options]="TypeOptions" [(ngModel)]="AType" (onClick)="onSelect()" optionLabel="label" >
                   </p-dropdown>
                 </div>
                 <div class="p-col-12 p-md-6 p-lg-3">
-                  <div><label> Subject Name:</label></div>
-                  <input id="float-input" type="text" size="24" pInputText [(ngModel)]="subjectname" name="subjectname"
-                    required>
+                  <div><label> Assigning Work<span class="form-mandatory-field">*</span></label></div>
+                  <input class="p-col-12" type="text" pInputText [(ngModel)]="assignmentwork"
+                    name="assignmentwork" required>
                 </div>
-                <div class="p-col-12 p-md-6 p-lg-3">
-                  <label for="_assign">Attach File:<span class="form-mandatory-field">*</span></label>
+                <!-- <div class="p-col-12 p-md-6 p-lg-3">
+                  <label for="_assign">Attach File<span class="form-mandatory-field">*</span></label>
                   <input type ="file" #file placeholder="Choose file" 
                      class="p-col-12"   pInputText (change)="uploadFile(file.files)" accept=".pdf" required />
+                </div> -->
+            <div class=p-col-12></div>
+            <div class="p-col-5 p-md-5 p-lg-5" style="text-align: right;">
+              <button pButton type="button" label="Submit" icon="pi pi-save" (click)="onSubmit()" [disabled]="(!f.valid)"
+                 ></button>
                 </div>
+                <div  class="p-col-6 p-md-6 p-lg-6"> 
+              <button pButton type="button" label="View" icon="pi pi-eye" (click)="onView()"></button>
+              </div>
+              </div>
+              </div>
               </div>
             </div>
-          </p-card>
-        </form>
-        <div class="p-col-12 p-md-12 p-lg-12">
-          <button pButton name="_save" type="button" label="Submit" (click)="onSubmit()" [disabled]="(!f.valid)"
-            style="margin-left: 30%;"></button>
-          <button pButton type="button" label="View" (click)="onView()" style="margin-left: 5%;"></button>
-          <button pButton type="button" label="Clear" (click)="clear()" style="margin-left: 5%;"></button>
-        </div>
+  </p-card>
+</form>
+  </div>
+    <div *ngIf="Showtable"> 
         <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,15,20]"
           totalRecords="totalRecords" pageLinks="3">
           <ng-template pTemplate="header" let-columns>
             <tr>
-              <th style="width: 40px;">S.No:</th>
+              <th style="width: 40px;">S.No</th>
               <th *ngFor="let col of columns" [style.width]="col.width">
                 {{col.header}}
               </th>
@@ -83,7 +92,6 @@
           </ng-template>
         </p-table>
       </div>
-    </p-panel>
     <p-confirmDialog #cd  [style]="{width: '50vw'}">
       <ng-template pTemplate="header">
         <h3>Alert</h3>
@@ -93,5 +101,7 @@
         <button type="button" pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"></button>
     </ng-template>
     </p-confirmDialog>
+   
+  </p-panel>
   </div>
 </block-ui>

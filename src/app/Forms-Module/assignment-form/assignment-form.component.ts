@@ -49,6 +49,7 @@ export class AssignmentFormComponent implements OnInit {
   sectionOptions: SelectItem[];
   classOptions: SelectItem[];
   public formData = new FormData();
+  Showtable: boolean;
 
   @Output() public onUploadFinished = new EventEmitter();
   @BlockUI() blockUI: NgBlockUI;
@@ -80,30 +81,30 @@ export class AssignmentFormComponent implements OnInit {
     this.TypeOptions = this.types;
   }
 
-  onFileUpload($event, id) {
-    console.log('eve', $event);
-    const reader = new FileReader();
-    var selectedFile = $event.target.files[0];
-    console.log('file', selectedFile);
-  }
-  public uploadFile = (files) => {
-    if (files.length === 0) {
-      return;
-    }
-    this.formData = new FormData()
-    let fileToUpload: any = <File>files[0];
+  // onFileUpload($event, id) {
+  //   console.log('eve', $event);
+  //   const reader = new FileReader();
+  //   var selectedFile = $event.target.files[0];
+  //   console.log('file', selectedFile);
+  // }
+  // public uploadFile = (files) => {
+  //   if (files.length === 0) {
+  //     return;
+  //   }
+  //   this.formData = new FormData()
+  //   let fileToUpload: any = <File>files[0];
  
-    const filename = fileToUpload.name + '^' + FileUploadConstant.Assignmentfolder;
-    this.formData.append('file', fileToUpload, filename);
-    console.log('file', fileToUpload);
-    console.log('formdata', this.formData);
-    this.NewFileName=fileToUpload.name;
-    this.http.post(this.restApiService.BASEURL +PathConstants.FileUpload_Post, this.formData)
-      .subscribe(event => 
-        {
-      }
-      );
-  }  
+  //   const filename = fileToUpload.name + '^' + FileUploadConstant.Assignmentfolder;
+  //   this.formData.append('file', fileToUpload, filename);
+  //   console.log('file', fileToUpload);
+  //   console.log('formdata', this.formData);
+  //   this.NewFileName=fileToUpload.name;
+  //   this.http.post(this.restApiService.BASEURL +PathConstants.FileUpload_Post, this.formData)
+  //     .subscribe(event => 
+  //       {
+  //     }
+  //     );
+  // }  
   
 
 onSubmit() {
@@ -183,6 +184,7 @@ onSubmit() {
   
     }
 onView() {
+  this.Showtable = true;
   const params = {
     'SchoolID': this.login_user.schoolId,
     'Class': this.login_user.classId, 

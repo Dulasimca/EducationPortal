@@ -56,7 +56,7 @@ export class PersonalDetailsComponent implements OnInit {
 
   constructor(private restApiService: RestAPIService, private messageService: MessageService,
     private datePipe: DatePipe,  public _d: DomSanitizer, private userService: UserService, private masterService: MasterService, 
-    private authService: AuthService, private http: HttpClient, private router: Router) { }
+    private authService: AuthService, private http: HttpClient, private router:Router) { }
 
   ngOnInit() {
     this.logged_user = this.authService.UserInfo;

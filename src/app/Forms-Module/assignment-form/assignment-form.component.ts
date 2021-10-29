@@ -5,7 +5,7 @@ import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { DatePipe } from '@angular/common';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ResponseMessage } from 'src/app/Common-Module/Message';
-import { MessageService, SelectItem } from 'primeng/api';
+import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
 import { NgForm } from '@angular/forms';
 import{FileUploadConstant} from 'src/app/Common-Module/file-upload-constant'
 import { saveAs } from 'file-saver';
@@ -49,13 +49,15 @@ export class AssignmentFormComponent implements OnInit {
   sectionOptions: SelectItem[];
   classOptions: SelectItem[];
   public formData = new FormData();
+  Showtable: boolean;
 
   @Output() public onUploadFinished = new EventEmitter();
   @BlockUI() blockUI: NgBlockUI;
   @ViewChild('f', { static: false }) _AssignmentForm: NgForm;
 
   constructor(private restApiService: RestAPIService, private http: HttpClient,private datepipe: DatePipe
-    ,private messageService: MessageService,private authService: AuthService,private masterService: MasterService) { }
+    ,private messageService: MessageService,private authService: AuthService,private masterService: MasterService
+    ,private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
     this.classes = this.masterService.getMaster('C');
@@ -79,30 +81,30 @@ export class AssignmentFormComponent implements OnInit {
     this.TypeOptions = this.types;
   }
 
-  onFileUpload($event, id) {
-    console.log('eve', $event);
-    const reader = new FileReader();
-    var selectedFile = $event.target.files[0];
-    console.log('file', selectedFile);
-  }
-  public uploadFile = (files) => {
-    if (files.length === 0) {
-      return;
-    }
-    this.formData = new FormData()
-    let fileToUpload: any = <File>files[0];
+  // onFileUpload($event, id) {
+  //   console.log('eve', $event);
+  //   const reader = new FileReader();
+  //   var selectedFile = $event.target.files[0];
+  //   console.log('file', selectedFile);
+  // }
+  // public uploadFile = (files) => {
+  //   if (files.length === 0) {
+  //     return;
+  //   }
+  //   this.formData = new FormData()
+  //   let fileToUpload: any = <File>files[0];
  
-    const filename = fileToUpload.name + '^' + FileUploadConstant.Assignmentfolder;
-    this.formData.append('file', fileToUpload, filename);
-    console.log('file', fileToUpload);
-    console.log('formdata', this.formData);
-    this.NewFileName=fileToUpload.name;
-    this.http.post(this.restApiService.BASEURL +PathConstants.FileUpload_Post, this.formData)
-      .subscribe(event => 
-        {
-      }
-      );
-  }  
+  //   const filename = fileToUpload.name + '^' + FileUploadConstant.Assignmentfolder;
+  //   this.formData.append('file', fileToUpload, filename);
+  //   console.log('file', fileToUpload);
+  //   console.log('formdata', this.formData);
+  //   this.NewFileName=fileToUpload.name;
+  //   this.http.post(this.restApiService.BASEURL +PathConstants.FileUpload_Post, this.formData)
+  //     .subscribe(event => 
+  //       {
+  //     }
+  //     );
+  // }  
   
 
 onSubmit() {
@@ -182,6 +184,7 @@ onSubmit() {
   
     }
 onView() {
+  this.Showtable = true;
   const params = {
     'SchoolID': this.login_user.schoolId,
     'Class': this.login_user.classId, 
@@ -219,7 +222,16 @@ onRowSelect(event, selectedRow) {
 
 }
 onDownload(Filename) {
+  this.confirmationService.confirm({
+    message: 'Do you want to download?',
+    header: 'Confirmation',
+    icon: 'pi pi-exclamation-triangle',
+    accept: () => {
   const path = "../../assets/layout/"+FileUploadConstant.Assignmentfolder+"/"+Filename;
   saveAs(path, Filename);
+},
+reject: (type) => { }
+});
+
 }
 }

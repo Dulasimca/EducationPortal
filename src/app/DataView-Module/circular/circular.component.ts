@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SelectItem } from 'primeng/api';
+import { ConfirmationService, SelectItem } from 'primeng/api';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { saveAs } from 'file-saver';
@@ -20,7 +20,7 @@ export class CircularComponent implements OnInit {
   data: any = [];
   cols: any;
 
-  constructor(private restApiService: RestAPIService, private http: HttpClient) { }
+  constructor(private restApiService: RestAPIService, private http: HttpClient,private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
 
@@ -53,10 +53,18 @@ export class CircularComponent implements OnInit {
 
   }
   onDownload(Filename) {
+    this.confirmationService.confirm({
+      message: 'Do you want to download?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
     //const path = 'D:/Angular Project/EducationPortalAPI/Resources/Books';
     const path = "../../assets/layout/"+FileUploadConstant.Circularfolder+"/"+Filename;
     //const filename = 'files' + ".pdf";
     saveAs(path, Filename);
+  },
+  reject: (type) => { }
+  });
   }
   }
   

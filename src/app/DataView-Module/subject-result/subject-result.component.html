@@ -18,7 +18,7 @@
                                 <th>Result</th>
                                 <!-- <th>Download Result</th> -->
                                 <th>Uploaded Answer Sheet</th>
-                                <th>Teacher Answer Sheet</th>
+                                <th>Corrected Answer Sheet</th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let rowIndex=rowIndex let-data>
@@ -31,10 +31,10 @@
                                             style="color: blue; text-decoration: underline;"
                                             (click)="onView()">View</a></span>
                                 </td>
-                                <td><i class="pi pi-upload"
-                                        style="padding-right: 20px; color: #990f0f; font-size: 1.5rem;"></i></td>
-                                <td><i class="pi pi-download"
-                                        style="padding-left: 10px; color: #990f0f; font-size: 1.5rem;"></i></td>
+                                <td style="width: 142px;"><i class="pi pi-download" (click)="onDownload(StudentAnswersheet)" 
+                                    style="color: #52de38; font-size: 1.3rem; margin-left: 25px;"></i></td>
+                                        <td style="width: 142px;"><i class="pi pi-download" (click)="onDownload(TeacherAnswerSheet)" 
+                                            style="color: #52de38; font-size: 1.3rem; margin-left: 25px;"></i></td>
                             </tr>
                         </ng-template>
                     </p-table>
@@ -43,6 +43,15 @@
             </p-card>
         </div>
     </p-panel>
+    <p-confirmDialog #cd  [style]="{width: '30vw'}">
+        <ng-template pTemplate="header">
+          <h3>Alert</h3>
+      </ng-template>
+      <ng-template pTemplate="footer">
+          <button type="button" pButton icon="pi pi-times" label="No" (click)="cd.reject()"></button>
+          <button type="button" pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"></button>
+      </ng-template>
+      </p-confirmDialog>
 </div>
 
 <p-dialog [(visible)]="display" [style]="{width: '45vw'}">
@@ -100,4 +109,5 @@
             </div>
         </div>
     </p-panel>
+   
 </p-dialog>

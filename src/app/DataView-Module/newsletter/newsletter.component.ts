@@ -6,6 +6,7 @@ import { saveAs } from 'file-saver';
 
 
 import{FileUploadConstant} from 'src/app/Common-Module/file-upload-constant'
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-newsletter',
@@ -17,7 +18,7 @@ export class NewsletterComponent implements OnInit {
   data: any = [];
   cols: any;
   books : any = []
-  constructor(private restApiService: RestAPIService, private http: HttpClient) { }
+  constructor(private restApiService: RestAPIService, private http: HttpClient,private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
     
@@ -43,11 +44,19 @@ export class NewsletterComponent implements OnInit {
     })
 }
 onDownload(Filename) {
+  this.confirmationService.confirm({
+    message: 'Do you want to download?',
+    header: 'Confirmation',
+    icon: 'pi pi-exclamation-triangle',
+    accept: () => {
   //const path = 'D:/Angular Project/EducationPortalAPI/Resources/Books';
  // console.log( "../../assets/layout/"+FileUploadConstant.Newsletterfolder+"/"+Filename);
   const path = "../../assets/layout/"+FileUploadConstant.Newsletterfolder+"/"+Filename;
   //const filename = 'files' + ".pdf";
   saveAs(path, Filename);
+},
+reject: (type) => { }
+});
 }
 }
 

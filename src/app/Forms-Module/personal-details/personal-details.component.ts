@@ -1,4 +1,4 @@
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MessageService, SelectItem } from 'primeng/api';
@@ -12,6 +12,7 @@ import { DatePipe } from '@angular/common';
 import { User } from 'src/app/Interfaces/user';
 import { AuthService } from 'src/app/Services/auth.service';
 import { FileUploadConstant } from 'src/app/Common-Module/file-upload-constant';
+import { DomSanitizer } from '@angular/platform-browser';
 // import { isUint16Array } from 'util/types';
 
 @Component({
@@ -28,23 +29,42 @@ export class PersonalDetailsComponent implements OnInit {
   sectionOptions:  SelectItem[];
   genderOptions: SelectItem[];
   mediumOptions: SelectItem[];
-  userImage: string;
-  fatherImage: string;
-  motherImage: string;
+  casteOptions: SelectItem[];
+  bloodGroupOptions: SelectItem[];
+  religionOptions: SelectItem[];
+  cityOptions: SelectItem[];
+  nationalityOptions: SelectItem[];
+  userImage: any;
+  fatherImage: any;
+  motherImage: any;
+  guardinaImage: any;
    //masters
    sections?: any;
    classes?: any;
+   genders?: any;
+   castes?: any;
+   mediums?: any;
+   bloodGroups?: any;
+   religions?: any;
+   nationalities?: any;
+   cities?: any;
+   logged_user: User;
+   folderName: string = '';
   @ViewChild('f', { static: false }) _personalDetailsForm: NgForm;
+  public formData = new FormData();
 
   constructor(private restApiService: RestAPIService, private messageService: MessageService,
-    private datePipe: DatePipe, private userService: UserService, private masterService: MasterService, private authService: AuthService) { }
+    private datePipe: DatePipe,  public _d: DomSanitizer, private userService: UserService, private masterService: MasterService, private authService: AuthService, private http: HttpClient) { }
 
   ngOnInit() {
+    this.logged_user = this.authService.UserInfo;
     this.responseData = this.userService.getResponse();
     this.userService.getResponse();
     const current_year = new Date().getFullYear();
     const start_year_range = current_year - 30;
     this.yearRange = start_year_range + ':' + current_year;
+    const roleID = (this.logged_user.roleId !== null) ? Number.parseInt(this.logged_user.roleId) : null;
+    this.folderName = (roleID === 6) ? FileUploadConstant.StudentRegistration : FileUploadConstant.TeacherRegistration
     this.loadData();
     // const user: User = this.authService.UserInfo;
     // this.userImage = (user.studentImg.trim() !== '') ? user.studentImg : '';
@@ -53,21 +73,14 @@ export class PersonalDetailsComponent implements OnInit {
     ///loading master data
     this.sections = this.masterService.getMaster('S');
     this.classes = this.masterService.getMaster('C');
+    this.castes = this.masterService.getMaster('CS');
+    this.genders = this.masterService.getMaster('G');
+    this.mediums = this.masterService.getMaster('M');
+    this.bloodGroups = this.masterService.getMaster('B');
+    this.religions = this.masterService.getMaster('RL');
+    this.nationalities = this.masterService.getMaster('N');
 
-    this.genderOptions = [
-      { label: '-select-', value: null },
-      { label: 'Female', value: 'Female' },
-      { label: 'Male', value: 'Male' },
-      { label: 'Others', value: 'Others' },
-    ];
-    this.mediumOptions = [
-      { label: '-select-', value: null },
-      { label: 'Tamil', value: '1' },
-      { label: 'English', value: '2' }
-    ];
-  }
-  onFileUpload($event) {
-  }
+  }  
   loadData() {
     if (this.responseData !== null && this.responseData !== undefined) {
       if (this.responseData.length !== 0)
@@ -90,7 +103,7 @@ export class PersonalDetailsComponent implements OnInit {
             Section: i.Section,
             SectionId: i.SectionId,
             StudentPhotoFileName: (i.StudentPhotoFileName !== undefined && i.StudentPhotoFileName !== null) ?
-            (i.StudentPhotoFileName.toString().trim() !== '' ? ('../../assets/layout/' + FileUploadConstant.StudentRegistration +'/'+ i.StudentPhotoFileName) : '') : '',
+            (i.StudentPhotoFileName.toString().trim() !== '' ? ('../../assets/layout/' + this.folderName +'/'+ i.StudentPhotoFileName) : '') : '',
             Caste: i.Caste,
             Addressinfo: i.Addressinfo,
             PermanentAddress: i.PermanentAddress,
@@ -114,19 +127,19 @@ export class PersonalDetailsComponent implements OnInit {
             FatherMobileNo: i.FatherMobileNo,
             FatherOccupation: i.FatherOccupation,
             FatherPhotoFileName: (i.FatherPhotoFileName !== undefined && i.FatherPhotoFileName !== null) ?
-            (i.FatherPhotoFileName.toString().trim() !== '' ? ('../../assets/layout/' + FileUploadConstant.StudentRegistration +'/'+ i.FatherPhotoFileName) : '') : '',
+            (i.FatherPhotoFileName.toString().trim() !== '' ? ('../../assets/layout/' + this.folderName +'/'+ i.FatherPhotoFileName) : '') : '',
             MotherName: i.MotherName,
             MotherEmailid: i.MotherEmailid,
             MotherOccupation: i.MotherOccupation,
             MotherMobileNo: i.MotherMobileNo,
             MotherPhotoFilName: (i.MotherPhotoFilName !== undefined && i.MotherPhotoFilName !== null) ?
-            (i.MotherPhotoFilName.toString().trim() !== '' ? ('../../assets/layout/' + FileUploadConstant.StudentRegistration +'/'+ i.MotherPhotoFilName) : '') : '',
+            (i.MotherPhotoFilName.toString().trim() !== '' ? ('../../assets/layout/' + this.folderName +'/'+ i.MotherPhotoFilName) : '') : '',
             GaurdianName: i.GaurdianName,
             GaurdianEmailid: i.GaurdianEmailid,
             GaurdianMobileNo: i.GaurdianMobileNo,
             GaurdianOccupation: i.GaurdianOccupation,
             GaurdianPhotoFileName: (i.GaurdianPhotoFileName !== undefined && i.GaurdianPhotoFileName !== null) ?
-            (i.GaurdianPhotoFileName.toString().trim() !== '' ? ('../../assets/layout/' + FileUploadConstant.StudentRegistration +'/'+ i.GaurdianPhotoFileName) : '') : '',
+            (i.GaurdianPhotoFileName.toString().trim() !== '' ? ('../../assets/layout/' + this.folderName +'/'+ i.GaurdianPhotoFileName) : '') : '',
             FatherYearlyIncome: i.FYearlyIncome,
             MotherYearlyIncome: i.MYearlyIncome,
             Disability: i.Disability,
@@ -134,9 +147,13 @@ export class PersonalDetailsComponent implements OnInit {
             NativityFilename: i.NativityFilename,
             CommunityFilename: i.CommunityFilename,
           }
-          
           this.classOptions = [{ label: i.Class, value: i.ClassId }];
           this.sectionOptions = [{ label: i.Section, value: i.SectionId }];
+          this.mediumOptions = [{ label: i.Section, value: i.SectionId }];
+          this.fatherImage = this.obj.FatherPhotoFileName;
+          this.userImage = this.obj.StudentPhotoFileName;
+          this.motherImage = this.obj.MotherPhotoFilName;
+          this.guardinaImage = this.obj.GaurdianPhotoFileName;
         })
     }
   }
@@ -158,8 +175,30 @@ export class PersonalDetailsComponent implements OnInit {
       this.sectionOptions = sectionSelection;
       this.sectionOptions.unshift({ label: '-select', value: null });
       break;
+      case 'CS':
+        this.casteOptions = this.castes;
+        break;
+      case 'G':
+        this.genderOptions = this.genders;
+        break;
+      case 'B':
+        this.bloodGroupOptions = this.bloodGroups;
+        break;
+      case 'RL':
+        this.religionOptions = this.religions;
+        break;
+      case 'T':
+        this.cityOptions = this.cities;
+        break;
+      case 'N':
+        this.nationalityOptions = this.nationalities;
+        break;
+      case 'M':
+        this.mediumOptions = this.mediums;
+        break;
     }
   }
+
   onSave() { 
     this.obj.Section = (this.obj.Section.label !== undefined && this.obj.Section.label !== null) ? 
     this.obj.Section.label : this.obj.Section;
@@ -195,6 +234,65 @@ export class PersonalDetailsComponent implements OnInit {
       }
     })
   }
+
+  public uploadFile = (files) => {
+    if (files.length === 0) {
+      return;
+    }
+    this.formData = new FormData()
+    let fileToUpload: any = <File>files[0];
+    let actualFilename = '';
+   
+    const filename = fileToUpload.name + '^' + this.folderName;
+    this.formData.append('file', fileToUpload, filename);
+    console.log('file', fileToUpload);
+    console.log('formdata', this.formData);
+    actualFilename = fileToUpload.name;
+    this.http.post(this.restApiService.BASEURL + PathConstants.FileUpload_Post, this.formData)
+      .subscribe((event: any) => {
+      }
+      );
+    console.log('retn', actualFilename);
+    return actualFilename;
+  }
+
+  onFileUpload($event, id) {
+    const file = $event.srcElement.files[0];
+    switch (id) {
+      case 1:
+        const s_URL = window.URL.createObjectURL(file);
+        this.userImage = this._d.bypassSecurityTrustUrl(s_URL);
+        this.obj.StudentPhotoFileName = this.uploadFile($event.target.files);
+        break;
+      case 2:
+        const f_URL = window.URL.createObjectURL(file);
+        this.fatherImage = this._d.bypassSecurityTrustUrl(f_URL);
+        console.log('father', this.fatherImage);
+        this.obj.FatherPhotoFileName = this.uploadFile($event.target.files);
+        break;
+      case 3:
+        const m_URL = window.URL.createObjectURL(file);
+        this.motherImage = this._d.bypassSecurityTrustUrl(m_URL);
+        this.obj.MotherPhotoFilName = this.uploadFile($event.target.files);
+        break;
+      case 4:
+        const g_URL = window.URL.createObjectURL(file);
+        this.guardinaImage = this._d.bypassSecurityTrustUrl(g_URL);
+        this.obj.GaurdianPhotoFileName = this.uploadFile($event.target.files);
+        break;
+      // case 5:
+      //   this.obj.IncomeFilename = this.uploadFile($event.target.files);
+      //   break;
+      // case 6:
+      //   this.obj.CommunityFilename = this.uploadFile($event.target.files);
+      //   break;
+      // case 7:
+      //   this.obj.NativityFilename = this.uploadFile($event.target.files);
+      //   break;
+
+    }
+  }
+
   clearForm() {
     // this.obj = null;
     this._personalDetailsForm.reset();

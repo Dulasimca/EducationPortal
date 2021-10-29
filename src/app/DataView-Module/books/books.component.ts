@@ -3,12 +3,8 @@ import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { HttpClient } from '@angular/common/http';
 import { saveAs } from 'file-saver';
-
-
-import { Output, EventEmitter } from '@angular/core';
-import { HttpEventType } from '@angular/common/http';
-import { analyzeAndValidateNgModules } from '@angular/compiler';
 import{FileUploadConstant} from 'src/app/Common-Module/file-upload-constant'
+import { ConfirmationService } from 'primeng/api';
 
 
 @Component({
@@ -21,7 +17,7 @@ export class BooksComponent implements OnInit {
   data: any = [];
   cols: any;
   books : any = []
-  constructor(private restApiService: RestAPIService, private http: HttpClient) { }
+  constructor(private restApiService: RestAPIService, private http: HttpClient,private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
     
@@ -32,7 +28,7 @@ export class BooksComponent implements OnInit {
       {field:'subjects',header: 'Subject'},
       {field: 'authorReference',header: 'Author/Reference', width: '300px'},
       //{field: 'Pdffilename',header: 'Book Download'},
-      {field: 'CreatedDate',header: 'Download date'},
+      {field: 'CreatedDate',header: 'Published date'},
       
       
     ];
@@ -52,12 +48,22 @@ export class BooksComponent implements OnInit {
     })
 }
 onDownload(Filename) {
+  this.confirmationService.confirm({
+    message: 'Do you want to download?',
+    header: 'Confirmation',
+    icon: 'pi pi-exclamation-triangle',
+    accept: () => {
   //const path = 'D:/Angular Project/EducationPortalAPI/Resources/Books';
   const path = "../../assets/layout/"+FileUploadConstant.Booksfolder+"/"+Filename;
   //const filename = 'files' + ".pdf";
   saveAs(path, Filename);
+},
+reject: (type) => { }
+});
+
 }
 }
+
 
 interface FolderOptions {
   FolderPath?: string;

@@ -7,7 +7,7 @@
                     totalRecords="totalRecords" pageLinks="3">
                     <ng-template pTemplate="header" let-columns>
                       <tr>
-                        <th>S.No:</th>
+                        <th style="width: 2cm;">S.No</th>
                         <th *ngFor="let col of columns" [style.width]="col.width">
                           {{col.header}}
                         </th>
@@ -35,5 +35,14 @@
             </p-card>
         </div>
     </p-panel>
+    <p-confirmDialog #cd  [style]="{width: '30vw'}">
+      <ng-template pTemplate="header">
+        <h3>Alert</h3>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button type="button" pButton icon="pi pi-times" label="No" (click)="cd.reject()"></button>
+        <button type="button" pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"></button>
+    </ng-template>
+    </p-confirmDialog>
 </div>
  

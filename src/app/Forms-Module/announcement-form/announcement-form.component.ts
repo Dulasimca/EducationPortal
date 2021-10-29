@@ -5,7 +5,7 @@ import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { DatePipe } from '@angular/common';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ResponseMessage } from 'src/app/Common-Module/Message';
-import { MessageService, SelectItem } from 'primeng/api';
+import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
 import { AuthService } from 'src/app/Services/auth.service';
 import { NgForm } from '@angular/forms';
 import{FileUploadConstant} from 'src/app/Common-Module/file-upload-constant'
@@ -44,7 +44,7 @@ export class AnnouncementFormComponent implements OnInit {
 
 
   constructor(private restApiService: RestAPIService, private http: HttpClient,private datepipe: DatePipe,private messageService: MessageService
-    ,private authService: AuthService,private masterService: MasterService) { }
+    ,private authService: AuthService,private masterService: MasterService,private confirmationService: ConfirmationService) { }
 
 
   ngOnInit(): void {
@@ -158,8 +158,17 @@ export class AnnouncementFormComponent implements OnInit {
   }
   
   onDownload(Filename) {
+    this.confirmationService.confirm({
+      message: 'Do you want to download?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
     const path = "../../assets/layout/"+FileUploadConstant.Announcementfolder+"/"+Filename;
     saveAs(path, Filename);
-  }
+  },
+reject: (type) => { }
+});
+
+}
  
 }

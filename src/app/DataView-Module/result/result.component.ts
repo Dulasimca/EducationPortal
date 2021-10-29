@@ -12,6 +12,7 @@ export class ResultComponent implements OnInit {
   years: year[];
   selectedyear: year;
   data: any = [];
+  openDialog: boolean;
 
   constructor(private router: Router) { }
 

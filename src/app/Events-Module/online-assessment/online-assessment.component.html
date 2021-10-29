@@ -1,12 +1,12 @@
 <div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px;">
     <p-toast position="top-center" key="t-msg"></p-toast>
-    <p-panel header="Online Assessments">
+    <p-panel header="Online Assessment">
         <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
             <p-card>
                 <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
                    <div class="no-pad-top"><label>Date:</label> </div>  
                     <p-calendar [(ngModel)]="date" [showIcon]="true" (onSelect)="onLoadAssessment()"></p-calendar>
-                    <button pButton type="button" label="Refresh" style="margin-left: 40%;" icon="pi pi-refresh" (onClick)="onLoadAssessment()" ></button>
+                    <button pButton type="button" label="Refresh" style="margin-left: 40%;" icon="pi pi-refresh" (click)="onLoadAssessment()" ></button>
 
                 </div>
                 <p-divider></p-divider>
@@ -27,7 +27,7 @@
                                 <th *ngFor="let col of columns">
                                     {{col.header}}
                                 </th>
-                                <th *ngIf="rowData.enable">Start Test</th>
+                                <th>Start Test</th>
                                 <!-- <th>Upload</th> -->
                             </tr>
                         </ng-template>
@@ -37,7 +37,7 @@
                                 <td *ngFor="let col of columns">
                                     {{rowData[col.field]}}
                                 </td>
-                                <td *ngIf="rowData.enable" (click)="onStart()"><i class="pi pi-play" style="padding-left: 10px; color: #52de38; font-size: 1.5rem;"></i></td>
+                                <td (click)="onStart()"><i class="pi pi-play" style="padding-left: 10px; color: #52de38; font-size: 1.5rem;"></i></td>
                                 <!-- <td><i class="pi pi-upload" style="padding-left: 10px; color: #52de38; font-size: 1.5rem;"></i></td> -->
                             </tr>
                         </ng-template>

@@ -1,5 +1,5 @@
 <div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px;">
-  <p-panel header="ANNOUNCEMENTS">
+  <p-panel header="Announcement">
     <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
       <p-card>
         <div>
@@ -33,4 +33,13 @@
       </p-card>
     </div>
   </p-panel>
+  <p-confirmDialog #cd  [style]="{width: '30vw'}">
+    <ng-template pTemplate="header">
+      <h3>Alert</h3>
+  </ng-template>
+  <ng-template pTemplate="footer">
+      <button type="button" pButton icon="pi pi-times" label="No" (click)="cd.reject()"></button>
+      <button type="button" pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"></button>
+  </ng-template>
+  </p-confirmDialog>
 </div>

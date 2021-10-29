@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SelectItem } from 'primeng/api';
+import { ConfirmationService, SelectItem } from 'primeng/api';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
@@ -17,7 +17,7 @@ export class FeesComponent implements OnInit {
   data: any = []; 
   cols: any;
   
-  constructor(private restApiService: RestAPIService, private http: HttpClient) { }
+  constructor(private restApiService: RestAPIService, private http: HttpClient,private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
     this.cols = [
@@ -51,10 +51,19 @@ export class FeesComponent implements OnInit {
     // ];
   }
   onDownload() {
+    this.confirmationService.confirm({
+      message: 'Do you want to download?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
     const EXCEL_TYPE = 'application/vnd.openxmlformats-officedocument.spreadsheethtml.sheet;charset=UTF-8';
     const path = "../../assets/files/Invoice.pdf";
     const filename = 'Invoice_Pdf' + ".pdf";
     saveAs(path, filename);
+  },
+  reject: (type) => { }
+  });
+  
   }
   onView() {
     const params = {

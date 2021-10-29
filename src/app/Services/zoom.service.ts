@@ -71,6 +71,7 @@ ZoomMtg.i18n.reload('en-US');
     }
 
     setConfig() {
+      console.log('inside setcoifg')
         this.showZoomDiv();
         this.meetingConfig = {
           apiKey: this.apiKey,
@@ -88,7 +89,7 @@ ZoomMtg.i18n.reload('en-US');
           apiSecret: this.meetingConfig.apiSecret,
           role: this.meetingConfig.role,
           success: res => {
-            console.log(res.result);
+            console.log('success', res.result);
           }
         });
         ZoomMtg.init({
@@ -120,7 +121,7 @@ ZoomMtg.i18n.reload('en-US');
               userEmail: this.userEmail,
               passWord: this.meetingConfig.passWord,
               success: res => {
-                console.log('join meeting success');
+                console.log('join meeting success', res);
               }, 
               error: res => {
                 console.log('err', res);

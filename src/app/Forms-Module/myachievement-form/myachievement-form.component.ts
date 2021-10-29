@@ -5,12 +5,13 @@ import { HttpClient,HttpErrorResponse } from '@angular/common/http';
 import { DatePipe } from '@angular/common';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ResponseMessage } from 'src/app/Common-Module/Message';
-import { MessageService, SelectItem } from 'primeng/api';
+import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
 import { NgForm } from '@angular/forms';
 import { AuthService } from 'src/app/Services/auth.service';
 import { User } from 'src/app/Interfaces/user';
 import{FileUploadConstant} from 'src/app/Common-Module/file-upload-constant'
 import { saveAs } from 'file-saver';
+
 
 @Component({
   selector: 'app-myachievement-form',
@@ -31,13 +32,15 @@ export class MyachievementFormComponent implements OnInit {
   login_user: User;
   attach: string;
   NewFileName:string;
+  isDataAvailable: boolean;
+  showtable: boolean;
   @BlockUI() blockUI: NgBlockUI;
   public formData = new FormData();
 
   @ViewChild('f', { static: false }) _MyAchievementForm: NgForm;
 
   constructor(private restApiService: RestAPIService, private http: HttpClient,private datepipe: DatePipe,private messageService: MessageService
-    , private authService: AuthService) { }
+    , private authService: AuthService,private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
     this.cols = [
@@ -54,6 +57,23 @@ export class MyachievementFormComponent implements OnInit {
     { label: 'National', value: 'national'},
     { label: 'Domestic', value: 'domestic'},
   ];
+  this.AwardOption = [
+     { label: '-select-', value: null},
+     { label: 'First', value: 'first'},
+     { label: 'Second', value: 'second'},
+     { label: 'Third', value: 'third'},
+     { label: 'Winner', value: 'winner'},
+     { label: 'Runner', value: 'runner'},
+     { label: 'Gold', value: 'gold'},
+     { label: 'Silver', value: 'silver'},
+     { label: 'Bronze', value: 'bronze'},
+     { label: 'First Rank', value: 'first rank'},
+     { label: 'Second Rank', value: 'second rank'},
+     { label: 'Third Rank', value: 'third rank'},
+
+
+  ];
+
   this.login_user = this.authService.UserInfo;
   }
   onSubmit() {
@@ -73,6 +93,7 @@ export class MyachievementFormComponent implements OnInit {
       if(res !== undefined && res !== null) {
         if (res) {
           this.blockUI.stop();
+          this.onView();
           this.clear();
           this.messageService.clear();
           this.messageService.add({
@@ -122,6 +143,7 @@ export class MyachievementFormComponent implements OnInit {
           );
       }  
   onView() {
+    this.showtable = true;
     const params = {
       'SchoolID': this.login_user.schoolId,
     }
@@ -146,11 +168,23 @@ export class MyachievementFormComponent implements OnInit {
     this.MRowId=selectedRow.RowId;
     this.date=selectedRow.eventdate;
     this.Category=selectedRow.EventDetailS;
+    this.CategoryOption= [{ label: selectedRow.EventDetailS, value: selectedRow.Category }];
     this.Place=selectedRow.Place;
     this.Award=selectedRow.AchievementStatus;
+    this.AwardOption = [{ label: selectedRow.AchievementStatus, value: selectedRow.Award}];
   }
+
   onDownload(Filename) {
-    const path = "../../assets/layout/"+FileUploadConstant.Achievementfolder+"/"+Filename;
-    saveAs(path, Filename);
+    this.confirmationService.confirm({
+      message: 'Do you want to download?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        const path = "../../assets/layout/"+FileUploadConstant.Achievementfolder+"/"+Filename;
+        saveAs(path, Filename);
+      },
+      reject: (type) => { }
+    });
+   
   }
 }

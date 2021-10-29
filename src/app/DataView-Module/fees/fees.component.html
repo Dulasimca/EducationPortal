@@ -31,8 +31,8 @@
                 <td *ngFor="let col of columns">
                   {{rowData[col.field]}}
                 </td>
-                <td style="width: 142px;"><i class="pi pi-file-o" (click)="onDownload()"
-                    style="color: #52de38; font-size: 1.3rem; margin-left: 25px;"></i></td>
+                <td style="width: 142px;"><button pButton type="button" icon="pi pi-file-o" pTooltip="View receipt" (click)="onDownload()"
+                    style="color: #52de38; font-size: 1.3rem; margin-left: 25px;"></button></td>
               </tr>
             </ng-template>
           </p-table>
@@ -40,4 +40,13 @@
       </p-card>
     </div>
   </p-panel>
+  <p-confirmDialog #cd  [style]="{width: '30vw'}">
+    <ng-template pTemplate="header">
+      <h3>Alert</h3>
+  </ng-template>
+  <ng-template pTemplate="footer">
+      <button type="button" pButton icon="pi pi-times" label="No" (click)="cd.reject()"></button>
+      <button type="button" pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"></button>
+  </ng-template>
+  </p-confirmDialog>
 </div>

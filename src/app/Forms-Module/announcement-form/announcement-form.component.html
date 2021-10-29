@@ -17,6 +17,7 @@
                     <!-- <input id="float-input"  type="text" size="23" pInputText>  -->
                     <input type="text" pInputText [(ngModel)]="Topic" name="_Topic" required />
                   </div>
+                  <div class="p-col-12 p-md-4 p-lg-1"></div>
                   <div class="p-col-12 p-md-6 p-lg-5">
                     <label for="_announce">Attach File:</label>
                     <input type ="file" #file placeholder="Choose file" 
@@ -70,5 +71,14 @@
         </form>
       </div>
     </p-panel>
+    <p-confirmDialog #cd  [style]="{width: '30vw'}">
+      <ng-template pTemplate="header">
+        <h3>Alert</h3>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button type="button" pButton icon="pi pi-times" label="No" (click)="cd.reject()"></button>
+        <button type="button" pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"></button>
+    </ng-template>
+    </p-confirmDialog>
   </div>
 </block-ui>

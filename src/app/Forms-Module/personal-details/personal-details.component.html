@@ -33,11 +33,12 @@
                                                     (onClick)="onSelect('S')" required>
                                                 </p-dropdown>
                                             </div>
-                                            <div class="p-col-12 p-md-6 p-lg-2">
+                                             <div class="p-col-12 p-md-6 p-lg-2">
                                                 <div><label for="_bloodgroup">Blood Group<span
                                                             class="form-mandatory-field">*</span></label></div>
-                                                <input type="text" name="_bloodgroup" class="p-col-12" pInputText
-                                                    [(ngModel)]="obj.BloodGroup" required />
+                                                <p-dropdown name="_bloodgroup" [options]="bloodGroupOptions"
+                                                    [(ngModel)]="obj.BloodGroup" required>
+                                                </p-dropdown>
                                             </div>
                                             <div class="p-col-12 p-md-6 p-lg-3">
                                                 <div><label for="_dob"> Date of Birth<span
@@ -111,11 +112,13 @@
                                 </div>
                                 <div class="p-col-2">
                                     <div class="p-col-12 p-md-12 p-lg-12">
-                                        <div><img [src]="obj.StudentPhotoFileName"
+                                        <div><img [src]="userImage"
                                                 style="width: 110px; height: 110px;" />
-                                            <button class="img-edit" style="float: right; margin-top: -25px;" pButton
-                                                type="button">
-                                                <i class="pi pi-pencil edit-size"></i>
+                                            <input style="display: none" name="_studentimage" type="file" (change)="onFileUpload($event, 1)"
+                                                #userFile>
+                                            <button class="img-edit" style="float: right; margin-top: -25px;" 
+                                                 icon="pi pi-pencil edit-size" pButton type="file" #file
+                                                (click)="userFile.click()">
                                             </button>
                                         </div>
                                     </div>
@@ -146,13 +149,16 @@
                                     <div class="p-col-12 p-md-6 p-lg-3">
                                         <div><label for="_femail">Email Id </label></div>
                                         <input class="p-col-12" type="text" name="_femail" pInputText
-                                            [(ngModel)]="obj.FatherEmailid" required />
+                                            [(ngModel)]="obj.FatherEmailid" />
                                     </div>
                                     <div class="p-col-12 p-md-12 p-lg-2 pic-right">
-                                        <div><img [src]="obj.FatherPhotoFileName"
+                                        <div><img [src]="fatherImage"
                                                 style="width: 110px; height: 110px;" />
-                                            <button class="img-edit" pButton type="button">
-                                                <i class="pi pi-pencil edit-size"></i>
+                                                <input style="display: none" name="_fatherimage" type="file" (change)="onFileUpload($event, 2)"
+                                                #fatherFile>
+                                            <button class="img-edit" style="margin-top: -25px;"
+                                                icon="pi pi-pencil edit-size" pButton type="file" #file
+                                                (click)="fatherFile.click()">
                                             </button>
                                         </div>
                                     </div>
@@ -183,12 +189,15 @@
                                     <div class="p-col-12 p-md-6 p-lg-3">
                                         <div><label for="_memail">Email Id</label></div>
                                         <input class="p-col-12" type="email" name="_memail" pInputText
-                                            [(ngModel)]="obj.MotherEmailid" required />
+                                            [(ngModel)]="obj.MotherEmailid"/>
                                     </div>
                                     <div class="p-col-12 p-md-12 p-lg-2 pic-right">
-                                        <div><img [src]="obj.MotherPhotoFilName" style="width: 110px; height: 110px;" />
-                                            <button class="img-edit" pButton type="button">
-                                                <i class="pi pi-pencil edit-size"></i>
+                                        <div><img [src]="motherImage" style="width: 110px; height: 110px;" />
+                                            <input style="display: none" namE="_motherimage" type="file" (change)="onFileUpload($event, 3)"
+                                                #motherFile>
+                                            <button class="img-edit" style="margin-top: -25px;"
+                                                icon="pi pi-pencil edit-size" pButton type="file" #file
+                                                (click)="motherFile.click()">
                                             </button>
                                         </div>
                                     </div>
@@ -202,28 +211,31 @@
                                         <div><label for="_gname">Guardian's Name </label>
                                         </div>
                                         <input class="p-col-12" type="text" name="_gname" pInputText
-                                            [(ngModel)]="obj.GaurdianName" required />
+                                            [(ngModel)]="obj.GaurdianName"/>
                                     </div>
                                     <div class="p-col-12 p-md-6 p-lg-2">
                                         <div><label for="_goccupation">Occupation </label></div>
                                         <input class="p-col-12" type="text" name="_goccupation" pInputText
-                                            [(ngModel)]="obj.GaurdianOccupation" required />
+                                            [(ngModel)]="obj.GaurdianOccupation"/>
                                     </div>
                                     <div class="p-col-12 p-md-6 p-lg-2">
                                         <div><label for="_gcontact">Contact Number </label></div>
                                         <input class="p-col-12" type="tel" maxlength="10" name="_gcontact" pInputText
-                                            [(ngModel)]="obj.GaurdianMobileNo" required />
+                                            [(ngModel)]="obj.GaurdianMobileNo"/>
                                     </div>
-                                    <div class="p-col-12 p-md-6 p-lg-2">
+                                    <div class="p-col-12 p-md-6 p-lg-3">
                                         <div><label for="_gemail">Email Id</label></div>
                                         <input class="p-col-12" type="email" name="_gemail" pInputText
-                                            [(ngModel)]="obj.GaurdianEmailid" required />
+                                            [(ngModel)]="obj.GaurdianEmailid"/>
                                     </div>
                                     <div class="p-col-12 p-md-12 p-lg-2 pic-right">
-                                        <div><img [src]="obj.GaurdianPhotoFileName"
+                                        <div><img [src]="guardinaImage"
                                                 style="width: 110px; height: 110px;" />
-                                            <button class="img-edit" pButton type="button">
-                                                <i class="pi pi-pencil edit-size"></i>
+                                                <input style="display: none" name="_guardianimage" type="file" (change)="onFileUpload($event, 4)"
+                                                #guardianFile>
+                                            <button class="img-edit" style="margin-top: -25px;"
+                                                icon="pi pi-pencil edit-size" pButton type="file" #file
+                                                (click)="guardianFile.click()">
                                             </button>
                                         </div>
                                     </div>

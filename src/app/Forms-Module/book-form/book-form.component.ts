@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ResponseMessage } from 'src/app/Common-Module/Message';
-import { MessageService, SelectItem } from 'primeng/api';
+import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
 import { MasterService } from 'src/app/Services/master-data.service';
 import { NgForm } from '@angular/forms';
 import { Output, EventEmitter } from '@angular/core';
@@ -39,6 +39,7 @@ export class BookFormComponent implements OnInit {
   @BlockUI() blockUI: NgBlockUI;
   public progress: number;
   public message: string;
+  showtable: boolean;
 
    NewFileName:string;
   public formData = new FormData();
@@ -47,7 +48,7 @@ export class BookFormComponent implements OnInit {
   @Output() public onUploadFinished = new EventEmitter();
   constructor(private restApiService: RestAPIService, private http: HttpClient,
     private masterService: MasterService,private messageService: MessageService,
-    private authService: AuthService) { }
+    private authService: AuthService,private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
     this.classes = this.masterService.getMaster('C');
@@ -68,14 +69,14 @@ export class BookFormComponent implements OnInit {
       {field:'subjects',header: 'Subject'},
       {field: 'authorReference',header: 'Author/Reference', width: '300px'},
    //   {field: 'Pdffilename',header: 'Book Name'},
-      {field: 'CreatedDate',header: 'Upload date'},
+      {field: 'CreatedDate',header: 'Uploaded date'},
       
       
     ];
   }
   onSelect(type) {
     let classSelection = [];
-   
+    let mediumSelection = [];
     switch (type) {
       case 'C':
         this.classes.forEach(c => {
@@ -84,10 +85,14 @@ export class BookFormComponent implements OnInit {
         this.classOptions = classSelection;
         this.classOptions.unshift({ label: '-select', value: null });
         break;
-        
-          case 'M':
-            this.mediumOptions = this.mediums;
-            break;
+        case 'M':
+          this.mediums.forEach(m => {
+            mediumSelection.push({ label: m.name, value: m.code })
+          });
+          this.mediumOptions = mediumSelection;
+          this.mediumOptions.unshift({ label: '-select', value: null });
+          break;
+         
       }
     }
   public uploadFile = (files) => {
@@ -172,6 +177,7 @@ export class BookFormComponent implements OnInit {
       }
 
   onview() {
+    this.showtable = true;
     const params = { 
       'SchoolID': this.login_user.schoolId,
     }
@@ -211,8 +217,17 @@ export class BookFormComponent implements OnInit {
     this.NewFileName=selectedRow.Pdffilename;
 }
 onDownload(Filename) {
+  this.confirmationService.confirm({
+    message: 'Do you want to download?',
+    header: 'Confirmation',
+    icon: 'pi pi-exclamation-triangle',
+    accept: () => {
   const path = "../../assets/layout/"+FileUploadConstant.Booksfolder+"/"+Filename;
   saveAs(path, Filename);
+},
+reject: (type) => { }
+});
+
 }
 }
 

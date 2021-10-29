@@ -8,6 +8,7 @@ import { User } from 'src/app/Interfaces/user';
 import { DatePipe } from '@angular/common';
 import{FileUploadConstant} from 'src/app/Common-Module/file-upload-constant'
 import { AuthService } from 'src/app/Services/auth.service';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-assignments',
@@ -25,7 +26,7 @@ export class AssignmentsComponent implements OnInit {
 
   @Output() public onUploadFinished = new EventEmitter();
   
-  constructor(private restApiService: RestAPIService, private http: HttpClient,private authService: AuthService) { }
+  constructor(private restApiService: RestAPIService, private http: HttpClient,private authService: AuthService,private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
     this.login_user = this.authService.UserInfo;
@@ -57,8 +58,17 @@ export class AssignmentsComponent implements OnInit {
   }  
 
   onDownload(Filename) {
+    this.confirmationService.confirm({
+      message: 'Do you want to download?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
     const path = "../../assets/layout/"+FileUploadConstant.Assignmentfolder+"/"+Filename;
     saveAs(path, Filename);
+  },
+  reject: (type) => { }
+  });
+  
   }
 
   onView() {

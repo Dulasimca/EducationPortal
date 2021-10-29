@@ -51,6 +51,8 @@ export class RegistrationFormComponent implements OnInit {
   cityOptions: SelectItem[];
   nationalityOptions: SelectItem[];
   nationality: string;
+  motherTongue: any;
+  motherTongueOptions: SelectItem[];
   caste: string;
   casteOptions: SelectItem[];
   checked: boolean;
@@ -59,27 +61,27 @@ export class RegistrationFormComponent implements OnInit {
   bloodGroupOptions: SelectItem[];
   bloodGroup: string;
   yearRange: string;
-  studentFilename: string;
+  studentFilename: string = '';
   fatherName: string;
   fatherOccupation: string;
   fatherContactNo: any;
   fatherEmailId: string;
-  fatherFilename: string;
+  fatherFilename: string = '';
   fatherIncome: any;
-  incomeFilename: string;
-  communityFilename: string;
-  nativityFilename: string;
+  incomeFilename: string = '';
+  communityFilename: string = '';
+  nativityFilename: string = '';
   motherName: string;
   motherOccupation: string;
   motherContactNo: any;
   motherEmailId: string;
   motherIncome: any;
-  motherFilename: string;
+  motherFilename: string = '';
   guardianName: string;
   guardianOccupation: string;
   guardianContactNo: any;
   guardianEmailId: string;
-  guardianFilename: string;
+  guardianFilename: string = '';
   uploadedFiles: any[] = [];
   regId: any;
   slno: any;
@@ -148,13 +150,16 @@ export class RegistrationFormComponent implements OnInit {
     this.yearRange = start_year_range + ':' + current_year;
     this.state = 'Tamilnadu';
     this.nationality = 'Indian';
+    this.city = this.login_user.talukId;
     this.cityOptions = [{ label: this.login_user.taluk, value: this.login_user.talukId }];
+    this.district = [{ label: this.login_user.district, value: this.login_user.distrctId }];
     this.districtOptions = [{ label: this.login_user.district, value: this.login_user.distrctId }];
     this.lastSchoolNameOptions = [
       { label: '-select-', value: null },
       { label: 'zzzz', value: "S002" },
       { label: 'tyyyy', value: "S003" },
     ];
+    this.school = this.login_user.schoolname;
   }
 
   onSelect(type) {
@@ -404,6 +409,16 @@ export class RegistrationFormComponent implements OnInit {
     this.isChecked = false;
     this.state = 'Tamilnadu';
     this.nationality = 'Indian';
+    this.city = this.login_user.talukId;
     this.cityOptions = [{ label: this.login_user.taluk, value: this.login_user.talukId }];
+    this.district = [{ label: this.login_user.district, value: this.login_user.distrctId }];
+    this.districtOptions = [{ label: this.login_user.district, value: this.login_user.distrctId }];
+    this.incomeFilename = '';
+    this.motherFilename = '';
+    this.fatherFilename = '';
+    this.studentFilename = '';
+    this.guardianFilename = '';
+    this.nativityFilename = '';
+    this.communityFilename = '';
   }
 }

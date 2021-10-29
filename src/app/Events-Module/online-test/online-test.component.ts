@@ -10,6 +10,7 @@ import { ResponseMessage } from 'src/app/Common-Module/Message';
 import { MessageService } from 'primeng/api';
 import { HttpErrorResponse } from '@angular/common/http';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { Router } from '@angular/router';
 @Component({
     selector: 'app-online-test',
     templateUrl: './online-test.component.html',
@@ -54,7 +55,7 @@ export class OnlineTestComponent implements OnInit {
     @BlockUI() blockUI: NgBlockUI;
 
     constructor(private restApiService: RestAPIService, private testService: AssessmentService,
-        private messageService: MessageService) { }
+        private messageService: MessageService, private router: Router) { }
 
     ngOnInit(): void {
         this.ellapsedTime = "00:00";
@@ -229,6 +230,7 @@ export class OnlineTestComponent implements OnInit {
                     key: 't-msg', severity: ResponseMessage.SEVERITY_SUCCESS,
                     summary: ResponseMessage.SUMMARY_SUCCESS, detail: ResponseMessage.SubmitMessage
                 });
+                this.router.navigate(['/online-assessment']);
             } else {
                 this.isSaved = false;
                 this.isSubmitted = false;

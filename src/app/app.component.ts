@@ -43,19 +43,19 @@ export class AppComponent {
           this.schoolName = (user !== null && user !== undefined) ? user.schoolname + ' - ' + user.taluk : '';
           this.items = response.slice(0);
           this.checkChildItems(response);
-          this.items.forEach(i => {
-            if (i.label === 'Profile') {
-              i.items.forEach(j => {
-                if (j.routerLink === '/student-info') {
-                  if (j.ID === 31) {
-                    j.queryParams = { 'id': 0, 'si': true };
-                  } else if (j.ID === 32) {
-                    j.queryParams = { 'id': 1, 'si': true };
-                  }
-                }
-              })
-            }
-          })
+          // this.items.forEach(i => {
+          //   if (i.label === 'Profile') {
+          //     i.items.forEach(j => {
+          //       if (j.routerLink === '/student-info') {
+          //         if (j.ID === 31) {
+          //           j.queryParams = { 'id': 0, 'si': true };
+          //         } else if (j.ID === 32) {
+          //           j.queryParams = { 'id': 1, 'si': true };
+          //         }
+          //       }
+          //     })
+          //   }
+          // })
           this.userImage = (user.studentImg.trim() !== '') ? user.studentImg : 'assets/layout/images/user-o-2x.png';
           this.showIcon = (user.studentImg.trim() !== '') ? true : false;
         })

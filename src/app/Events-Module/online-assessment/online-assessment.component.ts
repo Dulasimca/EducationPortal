@@ -38,9 +38,12 @@ export class OnlineAssessmentComponent implements OnInit {
       { field: 'time', header: 'Start Time' }
     ]
     this.login_user = this.authService.UserInfo;
+    this.onLoadAssessment();
   }
 
   onLoadAssessment() {
+    this.assessmentData = [];
+    this.questionData = [];
     if (this.date !== null && this.date !== undefined) {
       this.loading = true;
       const params = {
@@ -94,20 +97,17 @@ export class OnlineAssessmentComponent implements OnInit {
       })
     }
   }
+
   checkAssessmentTime(row) {
     const assessmentDate = new Date(row.AssessmentDate);
     const assessmentTime = new Date(row.AssessmentTime);
     const today = new Date();
     if (assessmentDate > today) {
-      console.log('future');
       return false;
     } else if (assessmentDate === today) {
-      console.log('tody');
       if (assessmentTime.getTime() > today.getTime()) {
-        console.log('time grtr');
         return false;
       } else if (assessmentTime.getTime() === today.getTime()) {
-        console.log('same time');
         return true;
       }
     }

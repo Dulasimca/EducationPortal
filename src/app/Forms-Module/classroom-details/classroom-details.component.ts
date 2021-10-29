@@ -81,7 +81,7 @@ export class ClassroomDetailsComponent implements OnInit {
       'SchoolId': this.login_user.schoolId,
       'Duration': this.duration,
       'Topics': this.subject.label,
-      'MeetingTime': this.meetingTime
+      'MeetingTime': this.datePipe.transform(this.meetingTime, 'shortTime')
     }
     this.restApiService.post(PathConstants.Zoom_Post, params).subscribe((res: any) => {
       if(res !== undefined && res !== null) {

@@ -93,9 +93,8 @@
                                                 <div><label for="_nationality">Nationality<span
                                                             class="form-mandatory-field">*</span></label>
                                                 </div>
-                                                <p-dropdown name="_nationality" [options]="nationalityOptions"
-                                                    [(ngModel)]="nationality" (onClick)="onSelect('N')" required>
-                                                </p-dropdown>
+                                                <input class="p-col-12" name="_nationality" type="text" pInputText
+                                                [(ngModel)]="nationality" [disabled]="true" />
                                             </div>
 
                                         </div>
@@ -106,7 +105,7 @@
                                                 <div><label for="_city">Taluk<span
                                                             class="form-mandatory-field">*</span></label>
                                                 </div>
-                                                <p-dropdown name="_city" [options]="cityOptions" [(ngModel)]="city"
+                                                <p-dropdown name="_city" [options]="talukOptions" [(ngModel)]="taluk"
                                                     (onClick)="onSelect('T')" [disabled]="true" required>
                                                 </p-dropdown>
                                             </div>
@@ -122,8 +121,8 @@
                                             <div class="p-col-12 p-md-6 p-lg-2">
                                                 <div><label for="_state">State<span
                                                             class="form-mandatory-field">*</span></label></div>
-                                                <input class="p-col-12" name="_state" type="tel" pInputText
-                                                    [(ngModel)]="state" appInputFormat="noSpecialChars" [disabled]="true" />
+                                                <input class="p-col-12" name="_state" type="text" pInputText
+                                                    [(ngModel)]="state" [disabled]="true" />
                                             </div>
                                             <div class="p-col-12 p-md-6 p-lg-2">
                                                 <div><label for="_studentmobno">Mobile Number<span
@@ -237,9 +236,9 @@
                                             <div class="p-col-12 p-md-6 p-lg-3">
                                                 <div><label for="_lastschl">Last School Name</label>
                                                 </div>
-                                                <p-dropdown name="_lastschl" [options]="lastSchoolNameOptions"
-                                                    [(ngModel)]="lastSchoolName" appInputFormat="noSpecialChars">
-                                                </p-dropdown>
+                                                <input class="p-col-12" name="_lastschlcontact" type="text" pInputText
+                                                 [(ngModel)]="lastSchoolName" appInputFormat="noSpecialChars"
+                                                />
                                             </div>
                                             <div class="p-col-12 p-md-6 p-lg-2">
                                                 <div><label for="_lastschlcontact">Last School Contact</label></div>

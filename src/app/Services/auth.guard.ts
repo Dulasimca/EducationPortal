@@ -7,22 +7,22 @@ import { AuthService } from './auth.service';
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  constructor(private authService: AuthService, private router: Router) { }
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<boolean> {
-    return this.authService.isLoggedIn         //  to retrieve the isLoggedIn Observable getter from the AuthService
-      .pipe(
-        take(1),                              // Since we are only checking the value from the Observalbe a single time (if the user is logged in or not), we will use the take operator 
-        map((isLoggedIn: boolean) => {         // to verify the value emitted by the BehaviorSubject
-          if (!isLoggedIn){
-           // this.router.navigate(['/login']);  // if not logged in we will navigate to the login screen
-            return false;
-          }
-          return true;
-        })
-      )
+  constructor(private _authService: AuthService, private _router: Router) { }
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    const checkSession = this._authService.isSessionExpired;
+    if (checkSession) {
+      return true;
+    } else {
+      this._router.navigate(['/login']);
+      return false;
+    }
   }
-  
+
+  reloadCurrentRoute() {
+    let currentUrl = this._router.url;
+    this._router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
+      this._router.navigate([currentUrl]);
+    });
+  }
+
 }

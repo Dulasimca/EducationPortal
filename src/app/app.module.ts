@@ -101,12 +101,14 @@ import { MyschoolViewComponent } from './DataView-Module/myschool-view/myschool-
 import { ZoomComponent } from './Events-Module/zoom/zoom.component';
 import { ZoomService } from './Services/zoom.service';
 import { UploadDownloadformsComponent } from './Forms-Module/upload-downloadforms/upload-downloadforms.component';
-
+import { FlexLayoutModule } from '@angular/flex-layout';
+import {MatIconModule} from '@angular/material/icon';
 import {ReactiveFormsModule} from '@angular/forms';
 import { InputFormatDirective } from './Directives/input-format.directive';
 import { NgxPrintModule } from 'ngx-print';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ConfirmationService} from 'primeng/api';
+import { AssessmentComponent } from './Forms-Module/assessment/assessment.component';
 
   
 FullCalendarModule.registerPlugins([
@@ -175,6 +177,7 @@ FullCalendarModule.registerPlugins([
     ZoomComponent,
     UploadDownloadformsComponent,
     InputFormatDirective,
+    AssessmentComponent,
   ],
   imports: [
     BrowserModule,
@@ -215,6 +218,8 @@ FullCalendarModule.registerPlugins([
     OverlayPanelModule,
     NgxPrintModule,
     ConfirmDialogModule,
+    FlexLayoutModule,
+    MatIconModule,
     BlockUIModule.forRoot()
   ],
   providers: [PrimeNGConfig, FilterService, AuthGuard, AuthService, RestAPIService,

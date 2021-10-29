@@ -56,10 +56,10 @@ import { FeesDetailsFormComponent } from './Forms-Module/fees-details-form/fees-
 import { ClassroomDetailsComponent } from './Forms-Module/classroom-details/classroom-details.component';
 import { MyschoolViewComponent } from './DataView-Module/myschool-view/myschool-view.component';
 import { ZoomComponent } from './Events-Module/zoom/zoom.component';
-
+import { AssessmentComponent } from './Forms-Module/assessment/assessment.component';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent },
+  { path: '',   redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
@@ -87,7 +87,7 @@ const routes: Routes = [
  { path: 'internal-transfer', component: InternaltransferComponent, canActivate: [AuthGuard] },
  { path: 'fees', component: FeesComponent, canActivate: [AuthGuard] },
  { path: 'registration', component: RegistrationFormComponent, canActivate: [AuthGuard] },
- { path: 'online-test', component: OnlineTestComponent, canActivate: [AuthGuard] },
+// { path: 'online-test', component: OnlineTestComponent, canActivate: [AuthGuard] },
  { path: 'test-details', component: TestDetailsFormComponent, canActivate: [AuthGuard] },
  { path: 'classroom-details', component: ClassroomDetailsComponent, canActivate: [AuthGuard] },
  { path: 'question-bank-upload', component: QuestionBankUploadFormComponent, canActivate: [AuthGuard]},
@@ -98,6 +98,7 @@ const routes: Routes = [
  { path: 'assessment-results', component: AssessmentResultsComponent},
  { path: 'fee-details', component: FeesDetailsFormComponent},
  { path: 'myschool-view', component: MyschoolViewComponent, canActivate: [AuthGuard]},
+ { path: 'assessment', component: AssessmentComponent, canActivate: [AuthGuard]},
 
  
  //Adithya

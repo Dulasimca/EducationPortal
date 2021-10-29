@@ -30,8 +30,8 @@
                   <td *ngFor="let col of columns">
                     {{rowData[col.field]}}
                   </td>
-                  <td class="p-icon">
-                    <i style="font-size: large;" class="pi pi-print" (click)="onDownload(rowData)"></i>
+                  <td>
+                    <button pButton type="button" icon="pi pi-print edit-size" pTooltip="Show/print receipt" (click)="onDownload(rowData)"></button>
                   </td>
                 </tr>
               </ng-template>

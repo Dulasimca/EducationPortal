@@ -123,6 +123,12 @@ export class MasterService {
           this.masterData.push({ name: t.Name, code: t.Id });
         });
         break;
+        //ElectionName
+        case 'EN':
+          this.data.Table16.forEach(e => {
+            this.masterData.push({ name: e.Name, code: e.Id });
+          });
+          break;
     }
     return this.masterData;
   }

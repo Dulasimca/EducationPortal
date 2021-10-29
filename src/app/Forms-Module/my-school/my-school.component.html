@@ -18,7 +18,7 @@
                                     <div><label for="_hmname">Headmaster Name<span
                                                 class="form-mandatory-field">*</span></label></div>
                                     <input type="text" class="p-col-12" name="_hmname" pInputText
-                                        [(ngModel)]="headMasterName" required />
+                                        [(ngModel)]="headMasterName" appInputFormat="noSpecialChars" required />
                                 </div>
                                 <div class="p-col-12 p-md-6 p-lg-2">
                                     <div><label for="_email">Email Id<span class="form-mandatory-field">*</span></label>
@@ -30,8 +30,8 @@
                                     <div><label for="_phoneno">Contact Number<span
                                                 class="form-mandatory-field">*</span></label>
                                     </div>
-                                    <input type="tel" class="p-col-12" name="_phoneno" maxlength="10" pInputText
-                                        [(ngModel)]="phoneNo" required />
+                                    <input type="tel" class="p-col-12" name="_phoneno"minlength="10" maxlength="10" pInputText
+                                        [(ngModel)]="phoneNo"  appInputFormat="digitOnly" required />
                                 </div>
                                 <div class="p-col-12 p-md-6 p-lg-2">
                                     <div><label for="_landlineno">Landline Number<span
@@ -51,8 +51,8 @@
                                         <div class="p-col-12 p-md-6 p-lg-2">
                                             <div><label for="_pincode">Pincode<span
                                                         class="form-mandatory-field">*</span></label></div>
-                                            <input type="text" class="p-col-12" name="_pincode" maxlength="6" pInputText
-                                                [(ngModel)]="pincode" required />
+                                            <input type="text" class="p-col-12" name="_pincode" minlength="6" maxlength="6" pInputText
+                                                [(ngModel)]="pincode" appInputFormat="digitOnly" required />
                                         </div>
                                         <div class="p-col-12 p-md-6 p-lg-2">
                                             <div><label for="_faxno">Fax Number</label></div>
@@ -62,11 +62,11 @@
                                     </div>
                                 </div>
                                 <div class="p-col-12 p-md-6 p-lg-6" style="text-align:right;">
-                                    <button pButton name="save" type="button" label="Save" (click)="onSave()"
+                                    <button pButton name="save" type="button" label="Submit" icon="pi pi-save" (click)="onSave()"
                                         [disabled]="(!f.valid)"></button>
                                 </div>
                                 <div class="p-col-12 p-md-6 p-lg-6">
-                                    <button pButton name="view" type="button" label="View" (click)="onView()"></button>
+                                    <button pButton name="view" type="button" label="View" icon="pi pi-eye" (click)="onView()"></button>
                                 </div>
                             </div>
                         </div>

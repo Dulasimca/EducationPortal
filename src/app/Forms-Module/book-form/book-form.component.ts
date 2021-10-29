@@ -51,9 +51,8 @@ export class BookFormComponent implements OnInit {
     private authService: AuthService,private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
-    this.classes = this.masterService.getMaster('C');
-    this.mediums = this.masterService.getMaster('M');
-    
+  
+    this.masterService.getMaster('');
     this.login_user = this.authService.UserInfo;
     this.yearOptions = [
       //{ label: '2019-2020', value: '2019-2020' },
@@ -75,6 +74,8 @@ export class BookFormComponent implements OnInit {
     ];
   }
   onSelect(type) {
+    this.classes = this.masterService.getMaster('C');
+    this.mediums = this.masterService.getMaster('M');
     let classSelection = [];
     let mediumSelection = [];
     switch (type) {
@@ -195,11 +196,12 @@ export class BookFormComponent implements OnInit {
     this._bookForm.reset();
     this._bookForm.form.markAsUntouched();
     this._bookForm.form.markAsPristine();
+    this.yearOptions = [];
     this.Subject = '',
     this.Author = '',
     this.selectedyear = '',
     this.message =''
-  
+    this.data = [];
   }
   onRowSelect(event, selectedRow) {
     this.MRowId = selectedRow.RowId;

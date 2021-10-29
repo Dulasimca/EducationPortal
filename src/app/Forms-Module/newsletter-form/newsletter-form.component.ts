@@ -30,6 +30,7 @@ export class NewsletterFormComponent implements OnInit {
   cols: any; 
   date: Date = new Date();
   data: any = [];
+  showtable: boolean;
   guardianimg: any[] = [];
   @BlockUI() blockUI: NgBlockUI;
   public progress: number;
@@ -137,7 +138,8 @@ export class NewsletterFormComponent implements OnInit {
         })
   }
 
-  onview() {
+  onView() {
+    this.showtable = true;
     const params = { 
       'SchoolID': this.login_user.schoolId,
     }
@@ -157,7 +159,8 @@ export class NewsletterFormComponent implements OnInit {
     this.NewsLetterForm.reset();
     this.NewsLetterForm.form.markAsUntouched();
     this.NewsLetterForm.form.markAsPristine();
-    this.Topic = ''
+    this.Topic = '';
+    this.data = [];
  
   }
   

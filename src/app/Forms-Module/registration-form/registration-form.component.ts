@@ -74,7 +74,7 @@ export class RegistrationFormComponent implements OnInit {
   motherOccupation: string;
   motherContactNo: any;
   motherEmailId: string;
-  motherIncome: any;
+  motherIncome: any;      
   motherFilename: string = '';
   guardianName: string;
   guardianOccupation: string;
@@ -168,6 +168,7 @@ export class RegistrationFormComponent implements OnInit {
     let genderSelection = [];
     let bloodGroupSelection = [];
     let nationalitySelection = [];
+    let languageSelection = [];
     switch (type) {
       case 'C':
         this.classes.forEach(c => {
@@ -236,6 +237,13 @@ export class RegistrationFormComponent implements OnInit {
         this.mediumOptions = mediumSelection;
         this.mediumOptions.unshift({ label: '-select-', value: null });
         break;
+        case 'MT':
+          this.languages.forEach(c => {
+            languageSelection.push({ label: c.name, value: c.code })
+          });
+          this.motherTongueOptions = languageSelection;
+          this.motherTongueOptions.unshift({ label: '-select', value: null });
+          break;
     }
   }
 

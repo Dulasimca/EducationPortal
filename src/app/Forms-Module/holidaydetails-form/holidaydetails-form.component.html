@@ -14,7 +14,7 @@
                          </div>
                 <div class="p-col-12 p-md-6 p-lg-3">
                   <div><label>Occassion/Festival/Events:</label></div>
-                  <input type="text" name="Events" size="25" pInputText [(ngModel)]="Events"  required />
+                  <input type="text" name="Events" size="25" pInputText [(ngModel)]="Events" appInputFormat="noSpecialChars" required />
                 </div>
                 <div class="p-col-12 p-md-6 p-lg-3">
                   <div><label>Date:</label></div>
@@ -29,13 +29,12 @@
                   [rowsPerPageOptions]="[5,10,15,20]" totalRecords="totalRecords" pageLinks="3">
                   <ng-template pTemplate="header" let-columns>
                     <tr>
-                      <th>S.No:</th>
+                      <th style="width: 100px;">S.No:</th>
                       <th *ngFor="let col of columns" styleClass="p-datatable-gridlines">
                         {{col.header}}
                       </th>
-                      <th>
-                        Delete
-                      </th>
+                      <th style="width: 100px;">Delete</th>
+                        
                     </tr>
                   </ng-template>
                   <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">

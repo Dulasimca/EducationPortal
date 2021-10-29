@@ -40,14 +40,13 @@ export class HolidaydetailsFormComponent implements OnInit {
     , private authService: AuthService, private masterService: MasterService) { }
 
   ngOnInit(): void {
-
+    this.masterService.getMaster('');
     this.cols = [
       // { field: 'RowId', header: 'ID' },
       { field: 'HolidayName', header: 'Type' },
       { field: 'EventDetailS', header: 'Events' },
       { field: 'eventdate', header: 'Date' }
     ];
-    this.holidays = this.masterService.getMaster('HT');
     this.login_user = this.authService.UserInfo;
   }
 
@@ -124,6 +123,8 @@ export class HolidaydetailsFormComponent implements OnInit {
 
   }
   onSelect(type) {
+    this.holidays = this.masterService.getMaster('HT');
+    
     let holidaySelection = [];
     switch (type) {
       case 'HT':

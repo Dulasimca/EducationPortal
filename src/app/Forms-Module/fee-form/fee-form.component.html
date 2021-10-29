@@ -44,30 +44,30 @@
                     </div>
                     <div class="p-col-12 p-md-6 p-lg-2">
                        <div> <label for="_feename"> Fee Name</label><span class="form-mandatory-field">*</span></div>
-                       <input type="text" class="p-col-12" name="_feename" pInputText [(ngModel)]="feename"
+                       <input type="text" class="p-col-12" name="_feename" pInputText [(ngModel)]="feename" appInputFormat="noSpecialChars"
                        required />
                     </div>  
                     <div #row1 class="p-col-12 p-md-12 p-lg-12">
                       <div class="p-grid">
                     <div class="p-col-12 p-md-6 p-lg-2">
                        <div> <label for="_actualamount"> Actual Amount</label><span class="form-mandatory-field">*</span></div>
-                       <input type="text" class="p-col-12" name="_actualamount" pInputText [(ngModel)]="actualamount" required>
+                       <input type="text" class="p-col-12" name="_actualamount" pInputText [(ngModel)]="actualamount" appInputFormat="digitOnly" required>
                     </div>
                     <div class="p-col-12 p-md-6 p-lg-2">
                       <div> <label for="_paidamount"> Paid Amount</label><span class="form-mandatory-field">*</span></div>
-                      <input type="text" class="p-col-12" name="_paidamount" pInputText [(ngModel)]="paidamount" required>
+                      <input type="text" class="p-col-12" name="_paidamount" pInputText [(ngModel)]="paidamount" appInputFormat="digitOnly" required>
                     </div>
                     <div class="p-col-12 p-md-6 p-lg-2">
                       <div> <label for="_outstandingamount">Outstanding Amount</label><span class="form-mandatory-field">*</span></div>
-                      <input type="text" class="p-col-12" name="_outstandingamount" pInputText [(ngModel)]="outstanding" required>
+                      <input type="text" class="p-col-12" name="_outstandingamount" pInputText [(ngModel)]="outstanding" appInputFormat="digitOnly" required>
                     </div>
                     <div class="p-col-12 p-md-6 p-lg-2">
                       <div> <label for="_payamount">Paying Amount</label><span class="form-mandatory-field">*</span></div>
-                      <input type="text" class="p-col-12" name="_payamount" pInputText [(ngModel)]="paying" required>
+                      <input type="text" class="p-col-12" name="_payamount" pInputText [(ngModel)]="paying" appInputFormat="digitOnly" required>
                     </div>
                     <div class="p-col-12 p-md-6 p-lg-2">
                       <div> <label for="_fine">Fine Amount</label><span class="form-mandatory-field">*</span></div>
-                      <input type="text" class="p-col-12" name="_fine" pInputText [(ngModel)]="fine" required>
+                      <input type="text" class="p-col-12" name="_fine" pInputText [(ngModel)]="fine" appInputFormat="digitOnly" required>
                     </div>
                       </div>
                       </div>

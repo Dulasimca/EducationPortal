@@ -195,11 +195,12 @@ export class BookFormComponent implements OnInit {
     this._bookForm.reset();
     this._bookForm.form.markAsUntouched();
     this._bookForm.form.markAsPristine();
+    this.yearOptions = [];
     this.Subject = '',
     this.Author = '',
     this.selectedyear = '',
     this.message =''
-  
+    this.data = [];
   }
   onRowSelect(event, selectedRow) {
     this.MRowId = selectedRow.RowId;

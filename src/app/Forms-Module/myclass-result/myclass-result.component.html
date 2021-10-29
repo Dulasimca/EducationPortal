@@ -27,13 +27,13 @@
                                         <label for="_subjectname">Subject Name<span
                                                 class="form-mandatory-field">*</span></label>
                                         <input type="text" class="p-col-12" name="_subjectname" pInputText
-                                            [(ngModel)]="subjectName" required />
+                                            [(ngModel)]="subjectName" appInputFormat="noSpecialChars" required />
                                     </div>
                                     <div class="p-col-12 p-md-6 p-lg-2">
                                         <label for="_testname">Test Name<span
                                                 class="form-mandatory-field">*</span></label>
                                         <input type="text" class="p-col-12" name="_testname" pInputText
-                                            [(ngModel)]="testName" required />
+                                            [(ngModel)]="testName" appInputFormat="noSpecialChars" required />
                                     </div>
                                     <div #row2 class="p-col-12 p-md-12 p-lg-12">
                                         <div class="p-grid">

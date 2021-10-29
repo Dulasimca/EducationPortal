@@ -201,6 +201,7 @@ clear() {
   this._AssignmentForm.reset();
   this._AssignmentForm.form.markAsUntouched();
   this._AssignmentForm.form.markAsPristine();
+  this.data = [];
   // this.assignmentwork="",
   // this.AType="",
   // this.NewFileName="",

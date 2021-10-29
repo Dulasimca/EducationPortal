@@ -5,10 +5,10 @@
         <form #f="ngForm" name="bookForm">
           <p-card>
             <div style="font-style: italic; font-size: 15px; color: rgb(11, 43, 102);">
-              * Incase of any queries,contact school
+              * Upload current regulation books
             </div>
             <div style="font-style: italic; font-size: 15px; color: rgb(11, 43, 102);">
-              * Please select your preference and click on proceed
+              *Both Tamil & English medium books upload is must.
             </div>
             <div class="p-col-12 p-md-12 p-lg-12">
               <div class="p-grid">
@@ -37,13 +37,13 @@
                   <div>
                     <label for="_subject">Subject/Stream Name<span class="form-mandatory-field">*</span></label>
                   </div>
-                  <input class="p-col-12" type="text" name="_subject" pInputText [(ngModel)]="Subject" required />
+                  <input class="p-col-12" type="text" name="_subject" pInputText [(ngModel)]="Subject" appInputFormat="noSpecialChars" required />
                 </div>
                 <div class="p-col-12 p-md-12 p-lg-3">
                   <div>
                     <label for="_author">Author/Reference<span class="form-mandatory-field">*</span></label>
                   </div>
-                  <input class="p-col-12" type="text" name="_author" pInputText [(ngModel)]="Author" required />
+                  <input class="p-col-12" type="text" name="_author" pInputText [(ngModel)]="Author" appInputFormat="noSpecialChars" required />
                 </div>
                 <div class="p-col-12 p-md-12 p-lg-4">
                   <!-- <input class="p-col-12" name="_Uploadpdf" type="file"
@@ -51,6 +51,7 @@
                   <label>Attachment<span class="form-mandatory-field">*</span></label>
                   <input type="file" #file placeholder="Choose file" pInputText (change)="uploadFile(file.files)"
                     accept=".pdf" required />
+                    <p style="font-size: small; font-style: italic;">Note*:in pdf format only</p>
                 </div>
                 <!-- <div class="p-col-12 p-md-6 p-lg-3">
                   <span class="upload" *ngIf="message">
@@ -59,10 +60,12 @@
                 </div> -->
               </div>
             </div>
-            <div class="p-col-12 p-md-6 p-lg12" style="margin-left:35%;">
+            <div class="p-col-12 p-md-6 p-lg-12" style="margin-left:30%;">
               <button pButton name="save" type="button" label="Submit" icon="pi pi-save" (click)="onSubmit()"
                 [disabled]="(!f.valid)"></button>
-              <button pButton type="button" label="View" (click)="onview()" icon="pi pi-eye" style="margin-left:5%;"></button>
+              <button pButton type="button" label="View" (click)="onview()" icon="pi pi-eye" style="margin-left:2%;"></button>
+              <button pButton type="button" label="Clear" (click)="onClear()"
+              icon="pi pi-times-circle" style="margin-left: 2%;"></button>
             </div>
           </p-card>
         </form>

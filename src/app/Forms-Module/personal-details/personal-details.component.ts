@@ -13,6 +13,7 @@ import { User } from 'src/app/Interfaces/user';
 import { AuthService } from 'src/app/Services/auth.service';
 import { FileUploadConstant } from 'src/app/Common-Module/file-upload-constant';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 // import { isUint16Array } from 'util/types';
 
 @Component({
@@ -54,7 +55,8 @@ export class PersonalDetailsComponent implements OnInit {
   public formData = new FormData();
 
   constructor(private restApiService: RestAPIService, private messageService: MessageService,
-    private datePipe: DatePipe,  public _d: DomSanitizer, private userService: UserService, private masterService: MasterService, private authService: AuthService, private http: HttpClient) { }
+    private datePipe: DatePipe,  public _d: DomSanitizer, private userService: UserService, private masterService: MasterService, 
+    private authService: AuthService, private http: HttpClient, private router: Router) { }
 
   ngOnInit() {
     this.logged_user = this.authService.UserInfo;
@@ -217,6 +219,7 @@ export class PersonalDetailsComponent implements OnInit {
           key: 't-msg', severity: ResponseMessage.SEVERITY_SUCCESS,
           summary: ResponseMessage.SUMMARY_SUCCESS, detail: ResponseMessage.SuccessMessage
         });
+        this.router.navigate(['/profile'])
       } else {
         this.messageService.clear();
         this.messageService.add({
@@ -298,5 +301,11 @@ export class PersonalDetailsComponent implements OnInit {
     this._personalDetailsForm.reset();
     this._personalDetailsForm.form.markAsUntouched();
     this._personalDetailsForm.form.markAsPristine();
+    this.genderOptions = [];
+    this.mediumOptions = [];
+    this.bloodGroupOptions = [];
+    this.classOptions = [];
+    this.sectionOptions = [];
+    
 }
 }

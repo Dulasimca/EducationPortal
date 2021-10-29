@@ -15,13 +15,15 @@
                             <div class="p-col-12 p-md-6 p-lg-1"></div>
                             <div class="p-col-12 p-md-6 p-lg-3">
                                 <div><label>Subject Name:</label></div>
-                                <input type="text" name="Subject" pInputText [(ngModel)]="Subject" required />
+                                <input type="text" name="Subject" pInputText [(ngModel)]="Subject"
+                                appInputFormat="noSpecialChars" required />
                             </div>
 
                             <div class="p-col-12 p-md-6 p-lg-1"></div>
                             <div class="p-col-12 p-md-6 p-lg-3">
                                 <div><label>Test Name:</label></div>
-                                <input type="text" name="Test" pInputText [(ngModel)]="Test" required />
+                                <input type="text" name="Test" pInputText [(ngModel)]="Test"
+                                appInputFormat="noSpecialChars" required />
                             </div>
                         </div>
                         <div class="p-col-12 p-md-6 p-lg-3">

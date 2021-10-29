@@ -33,8 +33,9 @@ export class AnnouncementFormComponent implements OnInit {
   @ViewChild('f', { static: false }) _AnnouncementForm: NgForm;
   public progress: number;
   public message: string;
-  NewFileName:string;
+  NewFileName:string = '';
   login_user: User;
+  showtable: boolean;
   
   public formData = new FormData();
 
@@ -130,6 +131,7 @@ export class AnnouncementFormComponent implements OnInit {
         })
       }
      onView() {
+       this.showtable = true;
     const params = {
       'SchoolID': this.login_user.schoolId,
     }
@@ -146,7 +148,9 @@ export class AnnouncementFormComponent implements OnInit {
     this._AnnouncementForm.form.markAsUntouched();
     this._AnnouncementForm.form.markAsPristine();
     this.Topic="",
-    this.Announcement=""
+    this.Announcement="",
+    this.NewFileName = '',
+    this.data = []
   }
   onRowSelect(event, selectedRow) {
     this.MRowid=selectedRow.RowId;

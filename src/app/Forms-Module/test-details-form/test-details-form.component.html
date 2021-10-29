@@ -88,13 +88,13 @@
                                             <div><label for="_totalmarks">Total Marks<span
                                                         class="form-mandatory-field">*</span></label></div>
                                             <input class="p-col-12" name="_totalmarks" type="text" pInputText
-                                                [(ngModel)]="totalMarks" required />
+                                                [(ngModel)]="totalMarks" appInputFormat="digitOnly" required />
                                         </div>
                                         <div class="p-col-12 p-md-4 p-lg-3">
                                             <div><label for="_totalduration">Total Duration<span
                                                         class="form-mandatory-field">*</span></label></div>
                                             <input class="p-col-12" name="_totalduration" type="text" pInputText
-                                                [(ngModel)]="totalDuration" required />
+                                                [(ngModel)]="totalDuration" appInputFormat="digitOnly" required />
                                             <div class="note">*Note: in minutes/hour</div>
                                         </div>
                                         <div class="p-col-12 p-md-4 p-lg-3">

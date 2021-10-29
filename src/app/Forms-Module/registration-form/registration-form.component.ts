@@ -75,7 +75,7 @@ export class RegistrationFormComponent implements OnInit {
   motherOccupation: string;
   motherContactNo: any;
   motherEmailId: string;
-  motherIncome: any;
+  motherIncome: any;      
   motherFilename: string = '';
   guardianName: string;
   guardianOccupation: string;

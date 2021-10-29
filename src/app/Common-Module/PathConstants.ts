@@ -26,6 +26,7 @@ export class PathConstants {
 
     public static readonly Holiday_Post = 'Holidays/Post';
     public static readonly Holiday_Get = 'Holidays/Get';
+    public static readonly Holiday_Put = 'Holidays/Put';
 
     public static readonly Myachievement_Post = 'MyAchievements/Post';
     public static readonly Myachievement_Get = 'MyAchievements/Get';

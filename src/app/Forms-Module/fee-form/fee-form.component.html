@@ -72,7 +72,7 @@
                   </div>
                 </div>
                 <div class="p-col-12 p-md-12 p-lg-12" style="text-align: center;">
-                  <button pButton type="button" label="Submit" (click)="onSubmit()" [disabled]="(!f.valid || f.dirty)"></button>&nbsp;
+                  <button pButton type="button" label="Submit" (click)="onSubmit()" [disabled]="(!f.valid || !f.dirty)"></button>&nbsp;
                   <button pButton type="button" label="View" (click)="onView()"></button>&nbsp;
                   <button pButton type="button" label="Pay" [disabled]="true"></button>
                   <!-- <button pButton type="button" label="Clear" (click)="clear()" style="margin-left: 5%;"></button> -->

@@ -30,7 +30,7 @@
                 <div class="p-col-12 p-md-6 p-lg-2">
                   <div><label> Subject Name<span class="form-mandatory-field">*</span></label></div>
                   <input class="p-col-12" type="text" pInputText [(ngModel)]="subjectname" name="subjectname"
-                    required>
+                  appInputFormat="noSpecialChars" required>
                 </div> 
             <div class=p-col-12></div>
                 <div #row2 class="p-col-12 p-md-12 p-lg-12 no-pad-top">
@@ -43,7 +43,7 @@
                 <div class="p-col-12 p-md-6 p-lg-3">
                   <div><label> Assigning Work<span class="form-mandatory-field">*</span></label></div>
                   <input class="p-col-12" type="text" pInputText [(ngModel)]="assignmentwork"
-                    name="assignmentwork" required>
+                    name="assignmentwork" appInputFormat="noSpecialChars" required>
                 </div>
                 <!-- <div class="p-col-12 p-md-6 p-lg-3">
                   <label for="_assign">Attach File<span class="form-mandatory-field">*</span></label>
@@ -57,6 +57,7 @@
                 </div>
                 <div  class="p-col-6 p-md-6 p-lg-6"> 
               <button pButton type="button" label="View" icon="pi pi-eye" (click)="onView()"></button>
+              <button pButton type="button" label="Clear" icon="pi pi-times-circle" (click)="clear()" style="margin-left: 2%;"></button>
               </div>
               </div>
               </div>

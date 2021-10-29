@@ -29,7 +29,7 @@ export class GalleryFormComponent implements OnInit {
   title:string;
   MRowId:0;
   uploadedFiles: any[] = [];
-  date: Date = new Date();
+  date: any;
   data: any = [];
   cols: any;
   showtable: boolean;
@@ -88,14 +88,14 @@ onSubmit() {
     'Date': this.datepipe.transform(this.date,'yyyy-MM-dd'), 
     'imagefilename': this.NewFileName,
     'title':this.title,
-    'Flag':  true
+    'Flag':  1
    
   };
-  console.log(params);
   this.restApiService.post(PathConstants.Gallery_Post, params).subscribe(res => {
     if(res !== undefined && res !== null) {
       if (res) {
-        this.blockUI.stop();
+  console.log(res,'ii');
+        // this.blockUI.stop();
         this.onClear();
         this.messageService.clear();
         this.messageService.add({

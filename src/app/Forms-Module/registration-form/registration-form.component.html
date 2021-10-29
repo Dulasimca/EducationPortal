@@ -29,14 +29,14 @@
                                                             class="form-mandatory-field">*</span></label>
                                                 </div>
                                                 <input type="text" name="_firstname" class="p-col-12" pInputText
-                                                    [(ngModel)]="firstName" required />
+                                                    [(ngModel)]="firstName" appInputFormat="noSpecialChars" required />
                                             </div>
                                             <div class="p-col-12 p-md-6 p-lg-3">
                                                 <div><label for="_lastname">Lastname<span
                                                             class="form-mandatory-field">*</span></label>
                                                 </div>
                                                 <input type="text" name="_lastname" class="p-col-12" pInputText
-                                                    [(ngModel)]="lastName" required />
+                                                    [(ngModel)]="lastName" appInputFormat="noSpecialChars" required />
                                             </div>
                                             <div class="p-col-12 p-md-4 p-lg-2">
                                                 <div><label for="_gender">Gender<span
@@ -186,7 +186,7 @@
                                                             class="form-mandatory-field">*</span></label>
                                                 </div>
                                                 <input class="p-col-12" name="_schlname" type="text" pInputText
-                                                 [(ngModel)]="school" [disabled]="true" required />
+                                                 [(ngModel)]="school" [disabled]="true" appInputFormat="noSpecialChars" required />
                                             </div>
                                             <div class="p-col-12 p-md-6 p-lg-2">
                                                 <div><label for="_class">Class<span
@@ -288,13 +288,13 @@
                                                                     class="form-mandatory-field">*</span></label>
                                                         </div>
                                                         <input class="p-col-12" name="_fathername" type="text"
-                                                            pInputText [(ngModel)]="fatherName" required />
+                                                            pInputText [(ngModel)]="fatherName" appInputFormat="noSpecialChars" required />
                                                     </div>
                                                     <div class="p-col-12 p-md-6 p-lg-2">
                                                         <div><label for="_fatheroccupation">Occupation<span
                                                                     class="form-mandatory-field">*</span></label></div>
                                                         <input class="p-col-12" name="_fatheroccupation" type="text"
-                                                            pInputText [(ngModel)]="fatherOccupation" required />
+                                                            pInputText [(ngModel)]="fatherOccupation" appInputFormat="noSpecialChars" required />
                                                     </div>
                                                     <div class="p-col-12 p-md-6 p-lg-2">
                                                         <div><label for="_fathercontact">Contact<span
@@ -372,13 +372,13 @@
                                                                 class="form-mandatory-field">*</span></label>
                                                     </div>
                                                     <input class="p-col-12" name="_mothername" type="text" pInputText
-                                                        [(ngModel)]="motherName" required />
+                                                        [(ngModel)]="motherName" appInputFormat="noSpecialChars" required />
                                                 </div>
                                                 <div class="p-col-12 p-md-6 p-lg-2">
                                                     <div><label for="_motheroccupation">Occupation<span
                                                                 class="form-mandatory-field">*</span></label></div>
                                                     <input class="p-col-12" name="_motheroccupation" type="text"
-                                                        pInputText [(ngModel)]="motherOccupation" required />
+                                                        pInputText [(ngModel)]="motherOccupation" appInputFormat="noSpecialChars" required />
                                                 </div>
                                                 <div class="p-col-12 p-md-6 p-lg-2">
                                                     <div><label for="_mothercontact">Contact<span
@@ -424,12 +424,12 @@
                                                 <div class="p-col-12 p-md-6 p-lg-2">
                                                     <div><label for="_guardianname">Name</label></div>
                                                     <input class="p-col-12" name="_guardianname" type="text" pInputText
-                                                        [(ngModel)]="guardianName" />
+                                                        [(ngModel)]="guardianName" appInputFormat="noSpecialChars" />
                                                 </div>
                                                 <div class="p-col-12 p-md-6 p-lg-2">
                                                     <div><label for="_guardianoccupation">Occupation</label></div>
                                                     <input class="p-col-12" name="_guardianoccupation" type="text"
-                                                        pInputText [(ngModel)]="guardianOccupation" />
+                                                        pInputText [(ngModel)]="guardianOccupation" appInputFormat="noSpecialChars"/>
                                                 </div>
                                                 <div class="p-col-12 p-md-6 p-lg-2">
                                                     <div><label for="_guardiancontact">Contact</label></div>

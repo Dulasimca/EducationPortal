@@ -20,7 +20,7 @@
                 <div class="p-col-12 p-md-12 p-lg-2">
                   <div><label for=_place>Place<span class="form-mandatory-field">*</span></label></div>
                   <input class="p-col-12" type="text" name="_place" pInputText [(ngModel)]="Place" style="text-transform: capitalize;"
-                  placeholder="Event held on" required />
+                  placeholder="Event held on" appInputFormat="noSpecialChars" required />
                 </div>
                 <div class="p-col-12 p-md-12 p-lg-2">
                   <div><label for="_Award">Award Title<span class="form-mandatory-field">*</span></label></div>

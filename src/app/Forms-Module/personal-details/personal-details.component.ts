@@ -100,7 +100,7 @@ export class PersonalDetailsComponent implements OnInit {
             Section: i.Section,
             SectionId: i.SectionId,
             StudentPhotoFileName: (i.StudentPhotoFileName !== undefined && i.StudentPhotoFileName !== null) ?
-            (i.StudentPhotoFileName.toString().trim() !== '' ? ('../../assets/layout/' + this.folderName +'/'+ i.StudentPhotoFileName) : '') : '',
+            (i.StudentPhotoFileName.toString().trim() !== '' ? i.StudentPhotoFileName : '') : '',
             Caste: i.Caste,
             Addressinfo: i.Addressinfo,
             PermanentAddress: i.PermanentAddress,
@@ -124,19 +124,19 @@ export class PersonalDetailsComponent implements OnInit {
             FatherMobileNo: i.FatherMobileNo,
             FatherOccupation: i.FatherOccupation,
             FatherPhotoFileName: (i.FatherPhotoFileName !== undefined && i.FatherPhotoFileName !== null) ?
-            (i.FatherPhotoFileName.toString().trim() !== '' ? ('../../assets/layout/' + this.folderName +'/'+ i.FatherPhotoFileName) : '') : '',
+            (i.FatherPhotoFileName.toString().trim() !== '' ? i.FatherPhotoFileName : '') : '',
             MotherName: i.MotherName,
             MotherEmailid: i.MotherEmailid,
             MotherOccupation: i.MotherOccupation,
             MotherMobileNo: i.MotherMobileNo,
             MotherPhotoFilName: (i.MotherPhotoFilName !== undefined && i.MotherPhotoFilName !== null) ?
-            (i.MotherPhotoFilName.toString().trim() !== '' ? ('../../assets/layout/' + this.folderName +'/'+ i.MotherPhotoFilName) : '') : '',
+            (i.MotherPhotoFilName.toString().trim() !== '' ? i.MotherPhotoFilName : '') : '',
             GaurdianName: i.GaurdianName,
             GaurdianEmailid: i.GaurdianEmailid,
             GaurdianMobileNo: i.GaurdianMobileNo,
             GaurdianOccupation: i.GaurdianOccupation,
             GaurdianPhotoFileName: (i.GaurdianPhotoFileName !== undefined && i.GaurdianPhotoFileName !== null) ?
-            (i.GaurdianPhotoFileName.toString().trim() !== '' ? ('../../assets/layout/' + this.folderName +'/'+ i.GaurdianPhotoFileName) : '') : '',
+            (i.GaurdianPhotoFileName.toString().trim() !== '' ? i.GaurdianPhotoFileName : '') : '',
             FYearlyIncome: i.FYearlyIncome,
             MYearlyIncome: i.MYearlyIncome,
             Disability: i.Disability,
@@ -149,10 +149,10 @@ export class PersonalDetailsComponent implements OnInit {
           this.mediumOptions = [{ label: i.MediumName, value: i.Medium }];
           this.bloodGroupOptions = [{ label: i.BloodGroupName, value: i.BloodGroup }];
           this.genderOptions = [{ label: i.GenderName, value: i.Gender }];
-          this.fatherImage = this.obj.FatherPhotoFileName;
-          this.userImage = this.obj.StudentPhotoFileName;
-          this.motherImage = this.obj.MotherPhotoFilName;
-          this.guardinaImage = this.obj.GaurdianPhotoFileName;
+          this.fatherImage = '../../assets/layout/' + this.folderName +'/'+ this.obj.FatherPhotoFileName;
+          this.userImage = '../../assets/layout/' + this.folderName +'/'+ this.obj.StudentPhotoFileName;
+          this.motherImage = '../../assets/layout/' + this.folderName +'/'+ this.obj.MotherPhotoFilName;
+          this.guardinaImage = '../../assets/layout/' + this.folderName +'/'+ this.obj.GaurdianPhotoFileName;
           this.password = i.password;
         })
       }

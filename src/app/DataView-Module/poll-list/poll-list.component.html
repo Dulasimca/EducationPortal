@@ -1,4 +1,4 @@
-<!-- <block-ui> -->
+<block-ui>
 <div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px;">
   <p-toast position="top-center" key="t-msg"></p-toast>
   <p-panel header="Poll List">
@@ -9,10 +9,10 @@
                 </div> -->
         <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
           <div class="p-grid">
-            <div class="p-col-12 p-md-6 p-lg-3">
+            <div class="p-col-12 p-md-6 p-lg-4">
               <div><label for="_Position">Position</label></div>
               <p-dropdown name="_Position" [options]="positionOptions" [(ngModel)]="selectedPosition"
-                (onChange)= "onView()" optionLabel="label"  name="selectedPosition">
+                (onChange)= "onView()"  name="selectedPosition">
                </p-dropdown>
                </div>
             <p-divider></p-divider>
@@ -41,7 +41,7 @@
                    </td>
                   <td *ngIf="rowData.isActive && isDataAvailable">
                    <button pButton pRipple type="button"  icon="pi pi-thumbs-up" style="margin-right: 10px;"
-                      class="p-button-rounded p-button-success p-button-outlined p-col-1"></button>
+                      [disabled]="true" class="p-button-rounded p-button-success p-button-outlined p-col-1"></button>
                   </td>
                   <td *ngIf="!(rowData.isActive) && isDataAvailable">
                     <button pButton type="button" icon="pi pi-thumbs-up" style="margin-right: 10px; color: black;"
@@ -68,5 +68,4 @@
   </ng-template>
   </p-confirmDialog>
 </div>
-
-<!-- </block-ui> -->
+</block-ui>

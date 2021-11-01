@@ -71,7 +71,7 @@
                                                 <div><label for="_medium">Medium<span
                                                             class="form-mandatory-field">*</span></label></div>
                                                 <p-dropdown name="_medium" [options]="mediumOptions"
-                                                    [(ngModel)]="obj.Medium" required>
+                                                (onClick)="onSelect('M')" [(ngModel)]="obj.Medium" required>
                                                 </p-dropdown>
                                             </div>
                                             <div class="p-col-12 p-md-6 p-lg-2">

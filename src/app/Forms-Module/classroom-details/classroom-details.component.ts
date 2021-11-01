@@ -72,7 +72,9 @@ export class ClassroomDetailsComponent implements OnInit {
         break;
         case 'SB':
         this.subjects.forEach(c => {
-          subjectSelection.push({ label: c.name, value: c.code })
+          if ((c.class * 1) === this.class) {
+            subjectSelection.push({ label: c.name, value: c.code })
+          }
         });
         this.subjectOptions = subjectSelection;
         this.subjectOptions.unshift({ label: '-select', value: null });

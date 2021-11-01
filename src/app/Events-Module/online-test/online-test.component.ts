@@ -10,8 +10,9 @@ import { ResponseMessage } from 'src/app/Common-Module/Message';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { HttpErrorResponse } from '@angular/common/http';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
-import { Router } from '@angular/router';
+import { NavigationEnd, Router } from '@angular/router';
 import { LocationStrategy } from '@angular/common';
+import { filter } from 'rxjs';
 @Component({
     selector: 'app-online-test',
     templateUrl: './online-test.component.html',
@@ -54,17 +55,30 @@ export class OnlineTestComponent implements OnInit {
     isSaved: boolean;
     isSubmitted: boolean;
     @BlockUI() blockUI: NgBlockUI;
-    @HostListener("window:beforeunload", ["$event"]) unloadHandler(event: Event) {
-        console.log("Processing beforeunload...", event);
-        // Do more processing...
-        var msg = 'Do you want to submit ?'
-        this.onSubmit();
-        event.returnValue = false;
-        event.preventDefault();
-    }
+    // @HostListener("window:beforeunload", ["$event"]) unloadHandler(event: Event) {
+    //     console.log("Processing beforeunload...", event);
+    //     // Do more processing...
+    //     var msg = 'Do you want to submit ?'
+    //     this.onSubmit();
+    //     event.returnValue = false;
+    //     event.preventDefault();
+    // }
+    
     constructor(private restApiService: RestAPIService, private testService: AssessmentService,
         private messageService: MessageService, private router: Router,
-        private _locationStrategy: LocationStrategy) { }
+        private _locationStrategy: LocationStrategy) {
+            this.router.events
+            .pipe(filter((rs): rs is NavigationEnd => rs instanceof NavigationEnd))
+            .subscribe(event => {
+                console.log('eve', event);
+              if (
+                event.id === 1 &&
+                event.url === event.urlAfterRedirects 
+              ) {
+                  console.log('if', event);
+              }
+            })
+         }
 
     ngOnInit(): void {
         this.ellapsedTime = "00:00";

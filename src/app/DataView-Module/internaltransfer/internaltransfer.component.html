@@ -27,7 +27,7 @@
                             </div>
                             <div class="p-col-1"></div>
                             <div class="p-col-12 p-md-4 p-lg-2" style="align-self: center; margin-top: 20px;">
-                                <button pButton type="button" label="Transfer" (click)="onTransfer()"></button>
+                                <button pButton type="button" label="Transfer" (click)="onTransfer()" [disabled]="(!f.valid)"></button>
                             </div>
                         </div>
                     </div>

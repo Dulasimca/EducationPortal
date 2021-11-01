@@ -380,8 +380,8 @@ export class RegistrationFormComponent implements OnInit {
       IncomeFilename: this.incomeFilename,
       NativityFilename: this.nativityFilename,
       CommunityFilename: this.communityFilename,
-      FatherYearlyIncome: this.fatherIncome,
-      MotherYearlyIncome: this.motherIncome
+      FYearlyIncome: this.fatherIncome,
+      MYearlyIncome: this.motherIncome
     };
     this.restApiService.post(PathConstants.Registration_Post, params).subscribe(res => {
       if (res !== undefined && res !== null) {

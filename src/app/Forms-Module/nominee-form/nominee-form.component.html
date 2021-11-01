@@ -36,18 +36,18 @@
                   </p-dropdown>
                 </div>
                 
-                <div class="p-col-12 p-md-12 p-lg-12">
+                <div class="p-col-12 p-md-12 p-lg-12 text-center">
                   <button pButton name="save" type="button" label="Submit" [disabled]="(!f.valid)" (click)="onSubmit()"
-                    style="margin-left: 30%;"></button>
-                  <button pButton type="button" label="View" (click)="onView()" style="margin-left: 5%;"></button>
-                  <button pButton type="button" label="Clear" (click)="clear()" style="margin-left: 5%;"></button>
+                    ></button>&nbsp;
+                  <button pButton type="button" label="View" (click)="onView()"></button>&nbsp;
+                  <button pButton type="button" label="Clear" (click)="clear()"></button>
                 </div>
                 <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10"
                   [rowsPerPageOptions]="[5,10,15,20]" totalRecords="totalRecords" pageLinks="3">
                   <ng-template pTemplate="header" let-columns>
                     <tr>
-                      <th>S.No:</th>
-                      <th *ngFor="let col of columns">
+                      <th style="width: 100px;">S.No:</th>
+                      <th *ngFor="let col of columns" styleClass="p-datatable-gridlines">
                         {{col.header}}
                       </th>
                     </tr>

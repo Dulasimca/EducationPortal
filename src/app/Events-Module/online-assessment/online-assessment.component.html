@@ -37,7 +37,8 @@
                                 <td *ngFor="let col of columns">
                                     {{rowData[col.field]}}
                                 </td>
-                                <td (click)="onStart()"><i class="pi pi-play" style="padding-left: 10px; color: #52de38; font-size: 1.5rem;"></i></td>
+                                <td *ngIf="(rowData.isSubmitted == 'false')" (click)="onStart()"><i class="pi pi-play" style="padding-left: 10px; color: #52de38; font-size: 1.5rem;" pTooltip="Start Test"></i></td>
+                                <td *ngIf="(rowData.isSubmitted == 'true')"><i class="pi pi-play" style="padding-left: 10px; color: #aaafaa; font-size: 1.5rem;" pTooltip="Test Ended"></i></td>
                                 <!-- <td><i class="pi pi-upload" style="padding-left: 10px; color: #52de38; font-size: 1.5rem;"></i></td> -->
                             </tr>
                         </ng-template>

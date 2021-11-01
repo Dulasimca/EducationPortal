@@ -67,7 +67,7 @@ export class OnlineAssessmentComponent implements OnInit {
                 duration: i.totalduration + ((i.durationtype === 1) ? 'Mins' : 'Hrs'),
                 totalmarks: i.totalmarks, questiontype: 'Multiple Choice',
                 description: i.TestDescription, time: i.AssessmentTime,
-                enable: canStart
+                enable: canStart, isSubmitted: (i.isSubmitted) ? 'true': 'false'
               })
             } else if (index === 0) {
               this.assessmentData.push({
@@ -75,7 +75,7 @@ export class OnlineAssessmentComponent implements OnInit {
                 duration: i.totalduration + ((i.durationtype === 1) ? 'Mins' : 'Hrs'),
                 totalmarks: i.totalmarks, questiontype: 'Multiple Choice',
                 description: i.TestDescription, time: i.AssessmentTime,
-                enable: canStart
+                enable: canStart, isSubmitted: (i.isSubmitted) ? 'true': 'false'
               })
             }
           })

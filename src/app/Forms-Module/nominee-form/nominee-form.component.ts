@@ -32,7 +32,7 @@ export class NomineeFormComponent implements OnInit {
   detail: string;
   position: any;
   positionOptions: SelectItem[];
-  
+
   class: any;
   classes?: any;
   elections?: any;
@@ -51,10 +51,10 @@ export class NomineeFormComponent implements OnInit {
   cols: any;
   login_user: User;
   @BlockUI() blockUI: NgBlockUI;
- 
+
   @ViewChild('f', { static: false }) _NomineeForm: NgForm;
 
-  constructor(private restApiService: RestAPIService, private http: HttpClient,private authService: AuthService,
+  constructor(private restApiService: RestAPIService, private http: HttpClient, private authService: AuthService,
     private messageService: MessageService, private masterService: MasterService, private datepipe: DatePipe) { }
 
   ngOnInit(): void {
@@ -65,13 +65,13 @@ export class NomineeFormComponent implements OnInit {
       { field: 'ElectionDate', header: 'Election Date' },
       { field: 'ElectionName', header: 'ElectionName' },
     ];
-     
+
     // if (this.login_user.roleId === 5) {
     //   this.positionOptions = [
     //     { label: '-select-', value: '-select-' },
     //     { label: 'Class Representative', value: 'Class Representative' },
     //     // { label: 'School Representative', value: 'School Representative' },
-  
+
     //   ];
     // }else{
     //   this.positionOptions = [
@@ -82,8 +82,8 @@ export class NomineeFormComponent implements OnInit {
 
     // }
 
-  
-    }
+
+  }
 
   onSubmit() {
 
@@ -93,7 +93,6 @@ export class NomineeFormComponent implements OnInit {
       'RoleId': this.login_user.roleId,
       'ElectionID': this.position,
       'NomineeID': this.sname.value,
-      'ElectionName': this.position,
       'ElectionDate': this.datepipe.transform(this.date, 'MM/dd/yyyy'),
       'ClassId': this.class.value,
       'SectionId': this.section.value,
@@ -164,7 +163,9 @@ export class NomineeFormComponent implements OnInit {
         break;
       case 'EN':
         this.elections.forEach(e => {
-          electionSelection.push({ label: e.name, value: e.code })
+          if((this.login_user.roleId * 1)===3 && (e.Id * 1) === 1) {
+            electionSelection.push({ label: e.name, value: e.code })
+          }
         });
         this.positionOptions = electionSelection;
         this.positionOptions.unshift({ label: '-select', value: null });
@@ -174,11 +175,11 @@ export class NomineeFormComponent implements OnInit {
   }
   onSelect2() {
     const params = {
-       'SchoolID': this.login_user.schoolId,
-       'ClassId':  this.class.value,
-       'SectionId':  this.section.value
+      'SchoolID': this.login_user.schoolId,
+      'ClassId': this.class.value,
+      'SectionId': this.section.value
 
-       
+
     }
     console.log(params)
     this.restApiService.getByParameters(PathConstants.Nomineeview_Get, params).subscribe(data => {
@@ -196,46 +197,41 @@ export class NomineeFormComponent implements OnInit {
 
   }
   onView() {
+    this.data = [];
     const params = {
       'SchoolID': this.login_user.schoolId,
-      'ElectionID':this.position
+      'ElectionID': this.position
     }
-  
-    if (this.position !== undefined && this.position !== '-select-' ){
+    if (this.position !== undefined && this.position !== null) {
       this.restApiService.getByParameters(PathConstants.Nominee_Get, params).subscribe(res => {
         if (res !== null && res !== undefined && res.length !== 0) {
           console.log(res);
           this.data = res;
-        }  });
-    }else{
-      this.messageService.clear();
-      this.messageService.add({
-        key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
-        summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ElectionnameSelect
+        } else {
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+            summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ElectionnameSelect
+          });
+
+        }
       });
-
     }
-   
-  
-
-
   }
   clear() {
     this._NomineeForm.reset();
     this._NomineeForm.form.markAsUntouched();
     this._NomineeForm.form.markAsPristine();
     this.position = "",
-    this.class = "",
-    this.section = "",
-    this.sname = ""
+      this.class = "",
+      this.section = "",
+      this.sname = "",
+      this.date = new Date();
   }
   onRowSelect(event, selectedRow) {
     this.MRowId = selectedRow.RowId;
     this.date = selectedRow.ElectionDate;
     this.position = selectedRow.ElectionName;
-
-
+    this.positionOptions = [{ label: selectedRow.position, value: selectedRow.ElectionName }];
   }
-
-
 }

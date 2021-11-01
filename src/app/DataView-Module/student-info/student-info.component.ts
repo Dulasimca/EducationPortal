@@ -1,3 +1,4 @@
+import { NumberInput } from '@angular/cdk/coercion';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
@@ -24,6 +25,10 @@ doj: any;
 medium: any;
 bloodGroup: any;
 address: any;
+studentMail: any;
+studentContact: number;
+religion: any;
+caste: any;
 fatherName: string;
 fatherOccupation: any;
 fatherEmail: any;
@@ -64,6 +69,10 @@ roleId: any;
           this.section = (i.Section !== undefined && i.Section !==null) ? ((i.Section.toString().trim() !== '') ? i.Section : '-') : '-',
           this.bloodGroup = (i.BloodGroupName !== undefined && i.BloodGroupName !==null) ? ((i.BloodGroupName.toString().trim() !== '') ? i.BloodGroupName : '-') : '-',
           this.gender = (i.GenderName !== undefined && i.GenderName !==null) ? ((i.GenderName.toString().trim() !== '') ? i.GenderName : '-') : '-',
+          this.religion = (i.Religion !== undefined && i.Religion !==null) ? ((i.Religion.toString().trim() !== '') ? i.Religion : '-') : '-',
+          this.caste = (i.Caste !== undefined && i.Caste !==null) ? ((i.Caste.toString().trim() !== '') ? i.Caste : '-') : '-',
+          this.studentMail = (i.EmailId !== undefined && i.EmailId !==null) ? ((i.EmailId.toString().trim() !== '') ? i.EmailId : '-') : '-',
+          this.studentContact = (i.PhoneNumber !== undefined && i.PhoneNumber !==null) ? ((i.PhoneNumber.toString().trim() !== '') ? i.PhoneNumber : '-') : '-',
           this.rollNo = (i.ID !== undefined && i.ID !== null) ? ((i.ID.toString().trim() !== '') ? i.ID : '-') : '-',
           this.dob = (i.DateofBirth !== undefined && i.DateofBirth !== null) ? ((i.DateofBirth.toString().trim() !== '') ? i.DateofBirth : '-') : '-',
           this.medium = (i.MediumName !== undefined && i.MediumName !==null) ? ((i.MediumName.toString().trim() !== '') ? i.MediumName : '-') : '-',

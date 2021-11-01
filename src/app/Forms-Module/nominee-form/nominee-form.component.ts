@@ -163,9 +163,13 @@ export class NomineeFormComponent implements OnInit {
         break;
       case 'EN':
         this.elections.forEach(e => {
-          if((this.login_user.roleId * 1)===3 && (e.Id * 1) === 1) {
+          if((this.login_user.roleId * 1) === 3) {
+            if((e.code * 1) === 1) {
             electionSelection.push({ label: e.name, value: e.code })
-          }
+            } 
+          } else {
+            electionSelection.push({ label: e.name, value: e.code })
+            }
         });
         this.positionOptions = electionSelection;
         this.positionOptions.unshift({ label: '-select', value: null });

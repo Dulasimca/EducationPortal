@@ -58,11 +58,38 @@
                                 <div #row3 class="p-col-12 p-md-12 p-lg-12 text-center">
                                     <button pButton name="_save" type="button" label="Save" [disabled]="(!f.valid)"
                                         (click)="onSave()"></button>
+                                        <button pButton name="_view" type="button" label="View"
+                                        (click)="onView()"></button>
                                 </div>
                             </p-card>
                         </div>
                     </div>
                 </form>
+            </div>
+            <div *ngIf="showTable" class="p-col-12 p-md-12 p-lg-12">
+                <p-table [columns]="classroomDetailsCols" [value]="classroomDetails" [paginator]="true"
+                 [rows]="10">
+                    <ng-template pTemplate="header" let-columns>
+                        <tr>
+                            <th style="width: 90px">S.No</th>
+                            <th *ngFor="let col of columns">
+                                {{col.header}}
+                            </th>
+                            <th >Edit</th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-rowIndex="rowIndex"  let-rowData let-columns="columns">
+                        <tr>
+                            <td style="width: 90px">{{rowIndex+1}}</td>
+                            <td *ngFor="let col of columns">
+                                {{rowData[col.field]}}
+                            </td>
+                            <td (click)="onEdit(rowData)">
+                                <i class="pi pi-pencil" style="padding-left: 10px; color: #52de38; font-size: 1.5rem;"></i>
+                            </td>
+                        </tr>
+                    </ng-template>
+                </p-table>
             </div>
         </p-panel>
     </div>

@@ -14,8 +14,13 @@
                 </div>
                 <div class="p-col-12 p-md-12 p-lg-2">
                   <div><label for="_Category">Category<span class="form-mandatory-field">*</span></label></div>
-                  <p-dropdown name="_Category" [options]="CategoryOption" [(ngModel)]="Category" >
+                  <p-dropdown name="_Category" (onClick)="onSelect('C')" [options]="CategoryOption" [(ngModel)]="Category" >
                   </p-dropdown>
+                </div>
+                <div class="p-col-12 p-md-12 p-lg-2">
+                  <div><label for=_place>Event Name<span class="form-mandatory-field">*</span></label></div>
+                  <input class="p-col-12" type="text" name="_event" pInputText [(ngModel)]="event" style="text-transform: capitalize;"
+                   appInputFormat="noSpecialChars" required />
                 </div>
                 <div class="p-col-12 p-md-12 p-lg-2">
                   <div><label for=_place>Place<span class="form-mandatory-field">*</span></label></div>
@@ -24,7 +29,7 @@
                 </div>
                 <div class="p-col-12 p-md-12 p-lg-2">
                   <div><label for="_Award">Award Title<span class="form-mandatory-field">*</span></label></div>
-                  <p-dropdown name="_Award" [options]="AwardOption" [(ngModel)]="Award">
+                  <p-dropdown name="_Award" [options]="AwardOption"  [(ngModel)]="Award">
                   </p-dropdown>
                 </div>
                 <div class="p-col-12 p-md-12 p-lg-3">

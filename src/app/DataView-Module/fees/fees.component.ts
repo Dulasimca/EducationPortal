@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfirmationService, SelectItem } from 'primeng/api';
+import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { saveAs } from 'file-saver';
+import { ResponseMessage } from 'src/app/Common-Module/Message';
 
 @Component({
   selector: 'app-fees',
@@ -17,7 +18,8 @@ export class FeesComponent implements OnInit {
   data: any = []; 
   cols: any;
   
-  constructor(private restApiService: RestAPIService, private http: HttpClient,private confirmationService: ConfirmationService) { }
+  constructor(private restApiService: RestAPIService, private messageService: MessageService,
+    private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
     this.cols = [
@@ -33,23 +35,8 @@ export class FeesComponent implements OnInit {
     ];
     this.onView()
     this.year = [ {label: '2021-2022', value: '12' }, { label: '2020-2021', value: '01'}];
-    // this.receiptData = [
-    //   { 'slno': 1, 'date': '02-01-2021', 'receipt': 'Tution Fee', 'feename': '1st Term Tution Fee', 'a_ammt': '1200',
-    // 'pd_amnt': '0', 'o_amnt': '1200', 'p_amnt': '1200', 'fine': '0'},
-    // { 'slno': 2, 'date': '10-04-2021', 'receipt': 'Tution Fee', 'feename': '2nd Term Tution Fee', 'a_ammt': '1110',
-    // 'pd_amnt': '0', 'o_amnt': '1110', 'p_amnt': '1110', 'fine': '0'},
-    // { 'slno': 3, 'date': '12-07-2021', 'receipt': 'Tution Fee', 'feename': '3rd Term Tution Fee', 'a_ammt': '995',
-    // 'pd_amnt': '0', 'o_amnt': '995', 'p_amnt': '995', 'fine': '0'},
-    // { 'slno': 4, 'date': '21-10-2021', 'receipt': 'Tution Fee', 'feename': '4th Term Tution Fee', 'a_ammt': '800',
-    // 'pd_amnt': '0', 'o_amnt': '800', 'p_amnt': '800', 'fine': '0'},
-    // ];
-    // this.paymentData = [
-    //   { 'slno': 1, 'date': '02-01-2021', 'method' : 'Online' , 'amount' : '1000' , 'number' : 'ER-2021-22-372'},
-    //   { 'slno': 2, 'date': '21-03-2021', 'method' : 'Online' , 'amount' : '1800' , 'number' : 'TF-2021-28-367'},
-    //   { 'slno': 3, 'date': '15-05-2021', 'method' : 'Online' , 'amount' : '2500' , 'number' : 'TF-2021-72-379'},
-
-    // ];
   }
+
   onDownload() {
     this.confirmationService.confirm({
       message: 'Do you want to download?',
@@ -63,8 +50,8 @@ export class FeesComponent implements OnInit {
   },
   reject: (type) => { }
   });
-  
   }
+  
   onView() {
     this.data = [];
     const params = {
@@ -73,6 +60,12 @@ export class FeesComponent implements OnInit {
     this.restApiService.getByParameters(PathConstants.Fee_Get, params).subscribe(res => {
       if(res !== null && res !== undefined && res.length !== 0) {
       this.data = res;
+      } else {
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
+          summary: ResponseMessage.SUMMARY_WARNING, detail: ResponseMessage.NoRecordMessage
+        });
       }
     });
   

@@ -22,6 +22,7 @@ export class MyachievementFormComponent implements OnInit {
 
   date: Date = new Date();
   Award: any;
+  event: any;
   AwardOption :SelectItem[];
   Place : any;
   Category : any;
@@ -46,7 +47,8 @@ export class MyachievementFormComponent implements OnInit {
     this.cols = [
       // { field: 'RowId', header: 'ID' },
       { field: 'eventdate', header: 'Date' },
-      { field: 'EventDetailS', header: 'Events' },
+      { field: 'EventDetailS', header: 'Category' },
+      { field: 'Category', header: 'Events' },
       { field: 'Place', header: 'Place' },
       { field: 'AchievementStatus', header: 'Status' } 
  
@@ -70,8 +72,6 @@ export class MyachievementFormComponent implements OnInit {
      { label: 'First Rank', value: 'first rank'},
      { label: 'Second Rank', value: 'second rank'},
      { label: 'Third Rank', value: 'third rank'},
-
-
   ];
 
   this.login_user = this.authService.UserInfo;
@@ -83,6 +83,7 @@ export class MyachievementFormComponent implements OnInit {
       'StudentId':1,
       'eventdate': this.datepipe.transform(this.date, 'MM/dd/yyyy') ,    
       'EventDetailS':this.Category,
+      'Category': this.event,
       'Place': this.Place,  
       'AchievementStatus':this.Award,
       'filename':this.NewFileName,
@@ -161,7 +162,8 @@ export class MyachievementFormComponent implements OnInit {
     this._MyAchievementForm.form.markAsPristine();
     this.Category="",
     this.Place="",
-    this.Award=""
+    this.Award="",
+    this.date = new Date();
     
   }
   onRowSelect(event, selectedRow) {
@@ -172,6 +174,7 @@ export class MyachievementFormComponent implements OnInit {
     this.Place=selectedRow.Place;
     this.Award=selectedRow.AchievementStatus;
     this.AwardOption = [{ label: selectedRow.AchievementStatus, value: selectedRow.Award}];
+    this.event = selectedRow.Category;
   }
 
   onDownload(Filename) {
@@ -185,6 +188,35 @@ export class MyachievementFormComponent implements OnInit {
       },
       reject: (type) => { }
     });
+   
+  }
+  onSelect(type) {
+    switch(type){
+      case 'A':
+        this.AwardOption = [
+           { label: '-select-', value: null},
+           { label: 'First', value: 'first'},
+           { label: 'Second', value: 'second'},
+           { label: 'Third', value: 'third'},
+           { label: 'Winner', value: 'winner'},
+           { label: 'Runner', value: 'runner'},
+           { label: 'Gold', value: 'gold'},
+           { label: 'Silver', value: 'silver'},
+           { label: 'Bronze', value: 'bronze'},
+           { label: 'First Rank', value: 'first rank'},
+           { label: 'Second Rank', value: 'second rank'},
+           { label: 'Third Rank', value: 'third rank'},      
+        ];
+        break;
+        case 'C':
+          this.CategoryOption = [
+            { label: '-select-', value: null },
+            { label: 'International', value: 'international'},
+            { label: 'National', value: 'national'},
+            { label: 'Domestic', value: 'domestic'},
+          ];
+          break;
+    }
    
   }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ConfirmationService, SelectItem } from 'primeng/api';
+import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { saveAs } from 'file-saver';
@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { MatNativeDateModule } from '@angular/material/core';
 
 import{FileUploadConstant} from 'src/app/Common-Module/file-upload-constant'
+import { ResponseMessage } from 'src/app/Common-Module/Message';
 
 @Component({
   selector: 'app-circular',
@@ -15,12 +16,11 @@ import{FileUploadConstant} from 'src/app/Common-Module/file-upload-constant'
   styleUrls: ['./circular.component.css']
 })
 export class CircularComponent implements OnInit {
-
   MRowId=0
   data: any = [];
   cols: any;
 
-  constructor(private restApiService: RestAPIService, private http: HttpClient,private confirmationService: ConfirmationService) { }
+  constructor(private restApiService: RestAPIService, private confirmationService: ConfirmationService, private messageService: MessageService) { }
 
   ngOnInit() {
 
@@ -39,14 +39,19 @@ export class CircularComponent implements OnInit {
 
   }
   onview() {
+    this.data = [];
     const params = { 
       'SchoolID': 1,
     }
-    
     this.restApiService.getByParameters(PathConstants.Circular_Get, params).subscribe(res => {
       if(res !== null && res !== undefined && res.length !==0) {
-        console.log(res);
         this.data = res;
+      } else {
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
+          summary: ResponseMessage.SUMMARY_WARNING, detail: ResponseMessage.NoRecordMessage
+        });
       }
       
     })
@@ -68,8 +73,5 @@ export class CircularComponent implements OnInit {
   }
   }
   
-  interface FolderOptions {
-    FolderPath?: string;
-  }
   
   

@@ -69,18 +69,16 @@ export class PersonalDetailsComponent implements OnInit {
     const roleID = (this.logged_user.roleId !== null) ? Number.parseInt(this.logged_user.roleId) : null;
     this.folderName = (roleID === 6) ? FileUploadConstant.StudentRegistration : FileUploadConstant.TeacherRegistration
     this.loadData();
-    // const user: User = this.authService.UserInfo;
-    // this.userImage = (user.studentImg.trim() !== '') ? user.studentImg : '';
-
-   
-    ///loading master data
     this.masterService.getMaster('');
    
   }  
   loadData() {
+    console.log('inside method')
     if (this.responseData !== null && this.responseData !== undefined) {
+      console.log('inside if1')
       if (this.responseData.length !== 0) {
-        this.responseData.forEach((i: any) => {
+    console.log('inside if2')
+    this.responseData.forEach((i: any) => {
           console.log('p',this.responseData)
           this.obj = {
             RoleId: i.RoleId,
@@ -155,7 +153,12 @@ export class PersonalDetailsComponent implements OnInit {
           this.guardinaImage = '../../assets/layout/' + this.folderName +'/'+ this.obj.GaurdianPhotoFileName;
           this.password = i.password;
         })
+      } else {
+    console.log('inside else 1')
       }
+    } else {
+    console.log('inside else 2')
+
     }
   }
   onSelect(type) {

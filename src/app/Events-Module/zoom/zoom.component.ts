@@ -11,10 +11,9 @@ import { User } from 'src/app/Interfaces/user';
 export class ZoomComponent implements OnInit {
   loggedIn_user: User;
 
-  constructor(private zoomService: ZoomService, private authService: AuthService) { }
+  constructor(private zoomService: ZoomService) { }
 
   ngOnInit(): void {
-  //  this.loggedIn_user = this.authService.UserInfo;
     this.onJoin();
   }
 

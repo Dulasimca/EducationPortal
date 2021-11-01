@@ -53,6 +53,7 @@ export class PersonalDetailsComponent implements OnInit {
    folderName: string = '';
   @ViewChild('f', { static: false }) _personalDetailsForm: NgForm;
   public formData = new FormData();
+  password: any;
 
   constructor(private restApiService: RestAPIService, private messageService: MessageService,
     private datePipe: DatePipe,  public _d: DomSanitizer, private userService: UserService, private masterService: MasterService, 
@@ -78,8 +79,9 @@ export class PersonalDetailsComponent implements OnInit {
   }  
   loadData() {
     if (this.responseData !== null && this.responseData !== undefined) {
-      if (this.responseData.length !== 0)
+      if (this.responseData.length !== 0) {
         this.responseData.forEach((i: any) => {
+          console.log('p',this.responseData)
           this.obj = {
             RoleId: i.RoleId,
             slno: i.slno,
@@ -90,7 +92,7 @@ export class PersonalDetailsComponent implements OnInit {
             DateofBirth: this.datePipe.transform(i.DateofBirth, 'yyyy-MM-dd'),
             DateofJoining: this.datePipe.transform(i.DateofJoining, 'yyyy-MM-dd'),
             Gender: i.Gender,
-            Medium: i.MediumName,
+            Medium: i.Medium,
             Nationality: i.Nationality,
             BloodGroup: i.BloodGroup,
             Class: i.Class,
@@ -135,8 +137,8 @@ export class PersonalDetailsComponent implements OnInit {
             GaurdianOccupation: i.GaurdianOccupation,
             GaurdianPhotoFileName: (i.GaurdianPhotoFileName !== undefined && i.GaurdianPhotoFileName !== null) ?
             (i.GaurdianPhotoFileName.toString().trim() !== '' ? ('../../assets/layout/' + this.folderName +'/'+ i.GaurdianPhotoFileName) : '') : '',
-            FatherYearlyIncome: i.FYearlyIncome,
-            MotherYearlyIncome: i.MYearlyIncome,
+            FYearlyIncome: i.FYearlyIncome,
+            MYearlyIncome: i.MYearlyIncome,
             Disability: i.Disability,
             IncomeFilename: i.IncomeFilename,
             NativityFilename: i.NativityFilename,
@@ -144,12 +146,16 @@ export class PersonalDetailsComponent implements OnInit {
           }
           this.classOptions = [{ label: i.Class, value: i.ClassId }];
           this.sectionOptions = [{ label: i.Section, value: i.SectionId }];
-          this.mediumOptions = [{ label: i.Section, value: i.SectionId }];
+          this.mediumOptions = [{ label: i.MediumName, value: i.Medium }];
+          this.bloodGroupOptions = [{ label: i.BloodGroupName, value: i.BloodGroup }];
+          this.genderOptions = [{ label: i.GenderName, value: i.Gender }];
           this.fatherImage = this.obj.FatherPhotoFileName;
           this.userImage = this.obj.StudentPhotoFileName;
           this.motherImage = this.obj.MotherPhotoFilName;
           this.guardinaImage = this.obj.GaurdianPhotoFileName;
+          this.password = i.password;
         })
+      }
     }
   }
   onSelect(type) {
@@ -238,7 +244,9 @@ export class PersonalDetailsComponent implements OnInit {
     this.obj.Class.label : this.obj.Class;
     this.obj.ClassId = (this.obj.Class.label !== undefined && this.obj.Class.label !== null) ? 
     this.obj.Class.value : this.obj.ClassId;
-
+    this.obj['Password'] = this.password;
+    //Object.assign(this.obj, {'Password': this.password})
+    console.log('obj', this.obj)
     this.restApiService.post(PathConstants.Registration_Post, this.obj).subscribe(res => {
       if (res) {
         this.clearForm();
@@ -247,7 +255,9 @@ export class PersonalDetailsComponent implements OnInit {
           key: 't-msg', severity: ResponseMessage.SEVERITY_SUCCESS,
           summary: ResponseMessage.SUMMARY_SUCCESS, detail: ResponseMessage.SuccessMessage
         });
-        this.router.navigate(['/profile'])
+        setTimeout(()=> {
+          this.router.navigate(['/profile'])
+        }, 500)
       } else {
         this.messageService.clear();
         this.messageService.add({
@@ -334,6 +344,7 @@ export class PersonalDetailsComponent implements OnInit {
     this.bloodGroupOptions = [];
     this.classOptions = [];
     this.sectionOptions = [];
+    this.userImage = '';
     
 }
 }

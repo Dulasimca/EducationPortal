@@ -109,11 +109,9 @@ export class OnlineClassroomComponent implements OnInit {
   onJoinClassroom(meetingInfo) {
     console.log('info', meetingInfo);
     var zoomParams: Meeting = {
-   //   meetingNumber: meetingInfo.MeetingId,
-   meetingNumber: '81109773373',
+      meetingNumber: meetingInfo.MeetingId,
       meetingURL: meetingInfo.MeetingURL,
-    //  passWord: meetingInfo.Passcode,
-    passWord: 'T7FDXW',
+      passWord: meetingInfo.Passcode,
       apiKey: this.zoomSettings[0].APIkey,
       apiSecret: this.zoomSettings[0].APISecret,
       registrantToken: this.zoomSettings[0].JWTToken,

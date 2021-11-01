@@ -35,7 +35,6 @@ export class ZoomService {
   constructor(public httpClient: HttpClient, private router: Router,
     @Inject(DOCUMENT) document, private authService: AuthService) {
     this.login_user = this.authService.UserInfo;
-    this.role = '1';
   }
 
   setMeeting(data) {

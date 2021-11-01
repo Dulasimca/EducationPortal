@@ -94,7 +94,21 @@ export class OnlineTestComponent implements OnInit {
         //     e.returnValue = confirmationMessage;  
         //     return e.returnValue;  
         // });
+    const params = {
+        'RowId': this.testService.getId()
     }
+    if(this.testService.getId() !== undefined && this.testService.getId() !== null) {
+    this.restApiService.put(PathConstants.OnlineAssessment_Put, params).subscribe(res => {
+        if(res !== undefined && res !== null) {
+            if(res) {
+                console.log('visited test & updated');
+            } else {
+                console.log('visited test butn not updated');
+            }
+        }
+    })
+    }
+}
 
     loadQues() {
         var result = this.testService.getQuestions();

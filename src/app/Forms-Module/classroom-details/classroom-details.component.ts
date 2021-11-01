@@ -31,6 +31,9 @@ export class ClassroomDetailsComponent implements OnInit {
   sections?: any;
   classes?: any;
   subjects?: any;
+  classroomDetailsCols: any;
+  classroomDetails: any[] = [];
+  showTable: boolean;
   @BlockUI() blockUI: NgBlockUI;
   @ViewChild('f', { static: false }) _classroomForm: NgForm;
 
@@ -41,6 +44,13 @@ export class ClassroomDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.login_user = this.authService.UserInfo;
     this.masterService.getMaster('');
+    this.classroomDetailsCols = [
+      { field: 'SubjectName', header: 'Subject' },
+      { field: 'Classname1', header: 'Class' },
+      { field: 'SectionName', header: 'Section' },
+      { field: 'MeetingTime', header: 'Time' },
+      { field: 'Duration', header: 'Duration' },
+    ];
   }
 
   onSelect(type) {
@@ -79,6 +89,42 @@ export class ClassroomDetailsComponent implements OnInit {
         this.subjectOptions = subjectSelection;
         this.subjectOptions.unshift({ label: '-select', value: null });
         break;
+    }
+  }
+
+  onView() {
+    this.showTable = true;
+    const params = { 
+      'SchoolId': this.login_user.schoolId,
+      'Date': this.datePipe.transform(new Date(), 'yyyy-MM-dd'),
+      'ClassId': this.login_user.classId,
+      'SectionCode': this.login_user.sectioncode
+     };
+    this.restApiService.getByParameters(PathConstants.Zoom_Get, params).subscribe((res: any) => {
+      if(res !== null && res !== undefined && res.length !== 0) {
+        this.classroomDetails = res;
+      } else {
+        this.showTable = false;
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
+          summary: ResponseMessage.SUMMARY_WARNING, detail: ResponseMessage.NoRecordMessage
+        });
+      }
+    });
+  }
+
+  onEdit(selectedRow) {
+    if(selectedRow !== undefined && selectedRow !== null) {
+      this.class = selectedRow.ClassId;
+      this.classOptions = [{ label: selectedRow.Classname1, value: selectedRow.ClassId }];
+      this.section = selectedRow.SectionCode;
+      this.sectionOptions = [{ label: selectedRow.SectionName, value: selectedRow.SectionCode }];
+      this.subject = selectedRow.SubjectId;
+      this.subjectOptions = [{ label: selectedRow.SubjectName, value: selectedRow.SubjectId }];
+      this.meetingDate = new Date(selectedRow.MeetingDate);
+      this.meetingTime = selectedRow.MeetingTime;
+      this.duration = selectedRow.Duration;
     }
   }
 

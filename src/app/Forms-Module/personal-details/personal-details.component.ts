@@ -53,6 +53,7 @@ export class PersonalDetailsComponent implements OnInit {
    folderName: string = '';
   @ViewChild('f', { static: false }) _personalDetailsForm: NgForm;
   public formData = new FormData();
+  password: any;
 
   constructor(private restApiService: RestAPIService, private messageService: MessageService,
     private datePipe: DatePipe,  public _d: DomSanitizer, private userService: UserService, private masterService: MasterService, 
@@ -78,8 +79,9 @@ export class PersonalDetailsComponent implements OnInit {
   }  
   loadData() {
     if (this.responseData !== null && this.responseData !== undefined) {
-      if (this.responseData.length !== 0)
+      if (this.responseData.length !== 0) {
         this.responseData.forEach((i: any) => {
+          console.log('p',this.responseData)
           this.obj = {
             RoleId: i.RoleId,
             slno: i.slno,
@@ -135,8 +137,8 @@ export class PersonalDetailsComponent implements OnInit {
             GaurdianOccupation: i.GaurdianOccupation,
             GaurdianPhotoFileName: (i.GaurdianPhotoFileName !== undefined && i.GaurdianPhotoFileName !== null) ?
             (i.GaurdianPhotoFileName.toString().trim() !== '' ? ('../../assets/layout/' + this.folderName +'/'+ i.GaurdianPhotoFileName) : '') : '',
-            FatherYearlyIncome: i.FYearlyIncome,
-            MotherYearlyIncome: i.MYearlyIncome,
+            FYearlyIncome: i.FYearlyIncome,
+            MYearlyIncome: i.MYearlyIncome,
             Disability: i.Disability,
             IncomeFilename: i.IncomeFilename,
             NativityFilename: i.NativityFilename,
@@ -151,7 +153,9 @@ export class PersonalDetailsComponent implements OnInit {
           this.userImage = this.obj.StudentPhotoFileName;
           this.motherImage = this.obj.MotherPhotoFilName;
           this.guardinaImage = this.obj.GaurdianPhotoFileName;
+          this.password = i.password;
         })
+      }
     }
   }
   onSelect(type) {
@@ -240,9 +244,12 @@ export class PersonalDetailsComponent implements OnInit {
     this.obj.Class.label : this.obj.Class;
     this.obj.ClassId = (this.obj.Class.label !== undefined && this.obj.Class.label !== null) ? 
     this.obj.Class.value : this.obj.ClassId;
-
+    this.obj['Password'] = this.password;
+    //Object.assign(this.obj, {'Password': this.password})
+    console.log('obj', this.obj)
     this.restApiService.post(PathConstants.Registration_Post, this.obj).subscribe(res => {
       if (res) {
+        console.log('rs',res)
         this.clearForm();
         this.messageService.clear();
         this.messageService.add({

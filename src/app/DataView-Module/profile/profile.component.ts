@@ -42,7 +42,7 @@ export class ProfileComponent implements OnInit {
           this.name = (i.FirstName !== undefined && i.FirstName !== null) ? ((i.FirstName.toString().trim() !== '') ? i.FirstName : '-') : '-',
           this.class = (i.Class !== undefined && i.Class !== null) ? ((i.Class.toString().trim() !== '') ? i.Class : '-') : '-',
           this.section = (i.Section !== undefined && i.Section !==null) ? ((i.Section.toString().trim() !== '') ? i.Section : '-') : '-',
-          this.bloodGroup = (i.BloodGroup !== undefined && i.BloodGroup !==null) ? ((i.BloodGroup.toString().trim() !== '') ? i.BloodGroup : '-') : '-',
+          this.bloodGroup = (i.BloodGroupName !== undefined && i.BloodGroupName !==null) ? ((i.BloodGroupName.toString().trim() !== '') ? i.BloodGroupName : '-') : '-',
           this.rollNo = (i.ID !== undefined && i.ID !== null) ? ((i.ID.toString().trim() !== '') ? i.ID : '-') : '-',
           this.dob = (i.DateofBirth !== undefined && i.DateofBirth !== null) ? ((i.DateofBirth.toString().trim() !== '') ? i.DateofBirth : '-') : '-',
           this.doj = (i.DateofJoining !== undefined && i.DateofJoining !== null) ? ((i.DateofJoining.toString().trim() !== '') ? i.DateofJoining : '-') : '-',

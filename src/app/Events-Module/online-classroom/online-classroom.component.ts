@@ -36,6 +36,7 @@ export class OnlineClassroomComponent implements OnInit {
       { field: 'SubjectName', header: 'Subject' },
       { field: 'Classname1', header: 'Class' },
       { field: 'SectionName', header: 'Section' },
+      { field: 'MeetingTime', header: 'Time' },
       { field: 'Duration', header: 'Duration' },
     ];
     this.login_user = this.authService.UserInfo;

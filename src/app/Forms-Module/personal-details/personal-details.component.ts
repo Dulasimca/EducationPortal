@@ -90,7 +90,7 @@ export class PersonalDetailsComponent implements OnInit {
             DateofBirth: this.datePipe.transform(i.DateofBirth, 'yyyy-MM-dd'),
             DateofJoining: this.datePipe.transform(i.DateofJoining, 'yyyy-MM-dd'),
             Gender: i.Gender,
-            Medium: i.MediumName,
+            Medium: i.Medium,
             Nationality: i.Nationality,
             BloodGroup: i.BloodGroup,
             Class: i.Class,
@@ -144,7 +144,9 @@ export class PersonalDetailsComponent implements OnInit {
           }
           this.classOptions = [{ label: i.Class, value: i.ClassId }];
           this.sectionOptions = [{ label: i.Section, value: i.SectionId }];
-          this.mediumOptions = [{ label: i.Section, value: i.SectionId }];
+          this.mediumOptions = [{ label: i.MediumName, value: i.Medium }];
+          this.bloodGroupOptions = [{ label: i.BloodGroupName, value: i.BloodGroup }];
+          this.genderOptions = [{ label: i.GenderName, value: i.Gender }];
           this.fatherImage = this.obj.FatherPhotoFileName;
           this.userImage = this.obj.StudentPhotoFileName;
           this.motherImage = this.obj.MotherPhotoFilName;

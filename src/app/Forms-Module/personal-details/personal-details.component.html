@@ -1,5 +1,5 @@
 <div class="p-col-12" style="padding-top:25px;">
-    <p-toast position="Bottom-center" key="t-msg"></p-toast>
+    <p-toast position="Top-Center" key="t-msg"></p-toast>
     <p-panel header="Personal Details">
         <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
             <form #f="ngForm" name="personalDetailsForm">
@@ -244,7 +244,7 @@
                             </p-fieldset>
                         </div>
                         <div class="p-col-12 p-md-12 p-lg-12 text-center">
-                            <button pButton type="button" label="Submit" (click)="onSave()"></button>
+                            <button pButton type="button" label="Submit" (click)="onSave()" [disabled]="(!f.dirty)"></button>
                         </div>
                     </div>
                 </p-card>

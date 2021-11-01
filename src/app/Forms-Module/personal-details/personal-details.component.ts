@@ -249,14 +249,15 @@ export class PersonalDetailsComponent implements OnInit {
     console.log('obj', this.obj)
     this.restApiService.post(PathConstants.Registration_Post, this.obj).subscribe(res => {
       if (res) {
-        console.log('rs',res)
         this.clearForm();
         this.messageService.clear();
         this.messageService.add({
           key: 't-msg', severity: ResponseMessage.SEVERITY_SUCCESS,
           summary: ResponseMessage.SUMMARY_SUCCESS, detail: ResponseMessage.SuccessMessage
         });
-        this.router.navigate(['/profile'])
+        setTimeout(()=> {
+          this.router.navigate(['/profile'])
+        }, 500)
       } else {
         this.messageService.clear();
         this.messageService.add({
@@ -343,6 +344,7 @@ export class PersonalDetailsComponent implements OnInit {
     this.bloodGroupOptions = [];
     this.classOptions = [];
     this.sectionOptions = [];
+    this.userImage = '';
     
 }
 }

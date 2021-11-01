@@ -37,7 +37,7 @@
                                                 <div><label for="_bloodgroup">Blood Group<span
                                                             class="form-mandatory-field">*</span></label></div>
                                                 <p-dropdown name="_bloodgroup" [options]="bloodGroupOptions"
-                                                    [(ngModel)]="obj.BloodGroup" required>
+                                                (onClick)="onSelect('B')" [(ngModel)]="obj.BloodGroup" required>
                                                 </p-dropdown>
                                             </div>
                                             <div class="p-col-12 p-md-6 p-lg-3">
@@ -64,7 +64,7 @@
                                                 <div><label for="_gender">Gender<span
                                                             class="form-mandatory-field">*</span></label></div>
                                                 <p-dropdown name="_gender" [options]="genderOptions"
-                                                    [(ngModel)]="obj.Gender" required>
+                                                (onClick)="onSelect('G')"  [(ngModel)]="obj.Gender" required>
                                                 </p-dropdown>
                                             </div>
                                             <div class="p-col-12 p-md-6 p-lg-2">

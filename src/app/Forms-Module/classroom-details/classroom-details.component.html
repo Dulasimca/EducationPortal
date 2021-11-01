@@ -27,7 +27,7 @@
                                             <label for="_subject">Subject<span
                                                     class="form-mandatory-field">*</span></label>
                                             <p-dropdown name="_subject" [options]="subjectOptions" [(ngModel)]="subject"
-                                                optionLabel="label" required>
+                                               [disabled]="!disableSubject" optionLabel="label" required>
                                             </p-dropdown>
                                         </div>
                                     </div>

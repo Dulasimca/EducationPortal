@@ -32,6 +32,7 @@ export class QuestionBankUploadFormComponent implements OnInit {
   mediums?: any;
   classes?: any;
   years?: any;
+  subjects?: any;
   logged_user: User;
   filename: string = '';
   questionBankCols: any;
@@ -40,6 +41,7 @@ export class QuestionBankUploadFormComponent implements OnInit {
   selectedYear: number;
   viewYearOptions: SelectItem[];
   showTable: boolean;
+  disableSubject: boolean;
   @ViewChild('fileSelector', { static: false }) fileSelector: ElementRef;
   @ViewChild('f', { static: false }) _questionBankForm: NgForm;
   @BlockUI() blockUI: NgBlockUI;
@@ -52,24 +54,19 @@ export class QuestionBankUploadFormComponent implements OnInit {
   ngOnInit(): void {
     this.logged_user = this.authService.UserInfo;
     this.masterService.getMaster('');
-    this.years = this.masterService.getAccountingYear();
+    this.masterService.getAccountingYear();
     this.questionBankCols = TableConstants.TQuestionBankColumns;
-    this.subjectOptions = [
-      { label: '-select-', value: null },
-      { label: 'Tamil', value: 1 },
-      { label: 'English', value: 2 },
-      { label: 'Maths', value: 3 },
-      { label: 'Science', value: 4 },
-      { label: 'Social Science', value: 5 },
-    ];
   }
 
   onSelect(type) {
+    this.years = this.masterService.getAccountingYear();
     this.classes = this.masterService.getMaster('C');
     this.mediums = this.masterService.getMaster('M');
-    
+    this.subjects = this.masterService.getMaster('SB');
     let classSelection = [];
     let yearSelection = [];
+    let mediumSelection = [];
+    let subjectSelection = [];
     switch (type) {
       case 'Y':
         this.years.forEach(y => {
@@ -87,9 +84,25 @@ export class QuestionBankUploadFormComponent implements OnInit {
         });
         this.classOptions = classSelection;
         this.classOptions.unshift({ label: '-select', value: null });
+        if(this.class !== undefined && this.class !== null) {
+          this.disableSubject = false;
+        } else {
+          this.disableSubject = true;
+        }
         break;
       case 'M':
-        this.mediumOptions = this.mediums;
+        this.mediums.forEach(c => {
+          mediumSelection.push({ label: c.name, value: c.code })
+        });
+        this.mediumOptions = mediumSelection;
+        this.mediumOptions.unshift({ label: '-select', value: null });
+        break;
+      case 'S':
+        this.subjects.forEach(c => {
+          subjectSelection.push({ label: c.name, value: c.code })
+        });
+        this.subjectOptions = subjectSelection;
+        this.subjectOptions.unshift({ label: '-select', value: null });
         break;
     }
   }
@@ -180,7 +193,7 @@ export class QuestionBankUploadFormComponent implements OnInit {
       this.restApiService.getByParameters(PathConstants.Question_Bank_Get, params).subscribe(res => {
         if (res.length !== 0 && res !== undefined && res !== null) {
           res.forEach(q => {
-            if(q.Publishdate !== undefined && q.Publishdate !== null) {
+            if (q.Publishdate !== undefined && q.Publishdate !== null) {
               q.Pdate = this.datepipe.transform(q.Publishdate, 'yyyy-MM-dd');
             }
           })

@@ -1,6 +1,6 @@
     <!--<div *ngIf="loading" >-->
  <mat-toolbar color="primary" fxLayout="row">
-    <div fxFlex fxLayout="row" *ngIf="hideHeader" style="background: rgb(11, 43, 102) !important;">
+    <div fxFlex fxLayout="row" *ngIf="!hideHeader" style="background: rgb(11, 43, 102) !important;">
         <div fxFlex>
             <span >
                 <i *ngIf="!isOpen" class="pi pi-bars" (click)="isOpen=!isOpen"
@@ -35,7 +35,7 @@
         <div id="side-nav-bar" *ngIf="isOpen" class="p-col-2 no-pad-right side-nav-panel">
             <p-panelMenu [model]="items"></p-panelMenu>
         </div>
-        <div [ngClass]="{'container-pages': hideHeader, 'container-login': !hideHeader }" class="side-nav-container">
+        <div [ngClass]="{'container-pages-open': (isOpen && !hideHeader), 'container-login': hideHeader, 'container-pages-close': (!isOpen && !hideHeader) }">
             <router-outlet></router-outlet>
         </div>
     </div>

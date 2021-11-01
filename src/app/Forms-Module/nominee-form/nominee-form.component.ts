@@ -35,6 +35,7 @@ export class NomineeFormComponent implements OnInit {
   
   class: any;
   classes?: any;
+  elections?: any;
   classOptions: SelectItem[];
 
   section: any;
@@ -58,30 +59,28 @@ export class NomineeFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.login_user = this.authService.UserInfo;
-    this.classes = this.masterService.getMaster('C');
-    this.sections = this.masterService.getMaster('S');
-
+    this.masterService.getMaster('');
     this.cols = [
       { field: 'FirstName', header: 'Nominee Name' },
       { field: 'ElectionDate', header: 'Election Date' },
       { field: 'ElectionName', header: 'ElectionName' },
     ];
      
-    if (this.login_user.roleId === 5) {
-      this.positionOptions = [
-        { label: '-select-', value: '-select-' },
-        { label: 'Class Representative', value: 'Class Representative' },
-        // { label: 'School Representative', value: 'School Representative' },
+    // if (this.login_user.roleId === 5) {
+    //   this.positionOptions = [
+    //     { label: '-select-', value: '-select-' },
+    //     { label: 'Class Representative', value: 'Class Representative' },
+    //     // { label: 'School Representative', value: 'School Representative' },
   
-      ];
-    }else{
-      this.positionOptions = [
-        { label: '-select-', value: '-select-' },
-        { label: 'Class Representative', value: 'Class Representative' },
-        { label: 'School Representative', value: 'School Representative' },
-      ];
+    //   ];
+    // }else{
+    //   this.positionOptions = [
+    //     { label: '-select-', value: '-select-' },
+    //     { label: 'Class Representative', value: 'Class Representative' },
+    //     { label: 'School Representative', value: 'School Representative' },
+    //   ];
 
-    }
+    // }
 
   
     }
@@ -141,8 +140,12 @@ export class NomineeFormComponent implements OnInit {
     })
   }
   onSelect(type) {
+    this.classes = this.masterService.getMaster('C');
+    this.sections = this.masterService.getMaster('S');
+    this.elections = this.masterService.getMaster('EN');
     let classSelection = [];
     let sectionSelection = [];
+    let electionSelection = [];
 
     switch (type) {
       case 'C':
@@ -159,8 +162,13 @@ export class NomineeFormComponent implements OnInit {
         this.sectionOptions = sectionSelection;
         this.sectionOptions.unshift({ label: '-select', value: null });
         break;
-
-
+      case 'EN':
+        this.elections.forEach(e => {
+          electionSelection.push({ label: e.name, value: e.code })
+        });
+        this.positionOptions = electionSelection;
+        this.positionOptions.unshift({ label: '-select', value: null });
+        break;
     }
 
   }

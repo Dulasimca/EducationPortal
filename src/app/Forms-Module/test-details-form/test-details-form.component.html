@@ -15,7 +15,7 @@
                                                         class="form-mandatory-field">*</span></label>
                                             </div>
                                             <p-dropdown name="_testname" [(ngModel)]="testName"
-                                                [options]="testNameOptions" required>
+                                                [options]="testNameOptions" (onClick)="onSelect('T')" required>
                                             </p-dropdown>
                                         </div>
                                         <div class="p-col-12 p-md-6 p-lg-3">
@@ -37,19 +37,11 @@
                                 <div #row2 class="p-col-12 p-md-12 p-lg-12">
                                     <div class="p-grid">
                                         <div class="p-col-12 p-md-6 p-lg-3">
-                                            <div><label for="_subject">Subject<span
-                                                        class="form-mandatory-field">*</span></label>
-                                            </div>
-                                            <p-dropdown name="_subject" [options]="subjectOptions" [(ngModel)]="subject"
-                                                required>
-                                            </p-dropdown>
-                                        </div>
-                                        <div class="p-col-12 p-md-6 p-lg-3">
                                             <div><label for="_class">Class<span
                                                         class="form-mandatory-field">*</span></label>
                                             </div>
                                             <p-dropdown name="_class" [options]="classOptions" (onClick)="onSelect('C')"
-                                                [(ngModel)]="class" required>
+                                               (onChange)="refreshField()"  [(ngModel)]="class" required>
                                             </p-dropdown>
                                         </div>
                                         <div class="p-col-12 p-md-6 p-lg-3">
@@ -58,6 +50,14 @@
                                             </div>
                                             <p-dropdown name="_medium" [options]="mediumOptions"
                                                 (onClick)="onSelect('M')" [(ngModel)]="medium" required>
+                                            </p-dropdown>
+                                        </div>
+                                        <div class="p-col-12 p-md-6 p-lg-3">
+                                            <div><label for="_subject">Subject<span
+                                                        class="form-mandatory-field">*</span></label>
+                                            </div>
+                                            <p-dropdown name="_subject" [options]="subjectOptions" [(ngModel)]="subject"
+                                            (onClick)="onSelect('S')" [disabled]="!disableSubject" required>
                                             </p-dropdown>
                                         </div>
                                     </div>
@@ -88,13 +88,13 @@
                                             <div><label for="_totalmarks">Total Marks<span
                                                         class="form-mandatory-field">*</span></label></div>
                                             <input class="p-col-12" name="_totalmarks" type="text" pInputText
-                                                [(ngModel)]="totalMarks" required />
+                                                [(ngModel)]="totalMarks" appInputFormat="digitOnly" required />
                                         </div>
                                         <div class="p-col-12 p-md-4 p-lg-3">
                                             <div><label for="_totalduration">Total Duration<span
                                                         class="form-mandatory-field">*</span></label></div>
                                             <input class="p-col-12" name="_totalduration" type="text" pInputText
-                                                [(ngModel)]="totalDuration" required />
+                                                [(ngModel)]="totalDuration" appInputFormat="digitOnly" required />
                                             <div class="note">*Note: in minutes/hour</div>
                                         </div>
                                         <div class="p-col-12 p-md-4 p-lg-3">

@@ -14,19 +14,20 @@
                 </div>    
                     <div class="p-col-12 p-md-6 p-lg-4">
                         <div><label>Subject:</label></div>
-                        <input type="text"  pInputText [(ngModel)]="Subject" name="Subject" required/>
+                        <input type="text"  pInputText [(ngModel)]="Subject" name="Subject" appInputFormat="noSpecialChars" required/>
                     
                     </div>   
                         <div class="p-col-12 p-md-6 p-lg-4">
                             <div><label>Instructions:</label></div>
                         
                             <textarea pInputTextarea autoResize="autoResize" [(ngModel)] ="Details" 
-                            name="Details" required></textarea>
+                            name="Details" appInputFormat="noSpecialChars" required></textarea>
                         </div>
                        <div class="p-col-12 p-md-6 p-lg-4">
                             <label>Attach file:</label>
                             <input type ="file" #file placeholder="Choose file" 
                             pInputText (change)="uploadFile(file.files)" accept=".pdf" required />
+                            <p style="font-size: small; font-style: italic;">Note*:in pdf format only</p>
                         </div>                
                 </div>           
     </div>

@@ -6,12 +6,21 @@ import { Injectable } from '@angular/core';
   
   export class AssessmentService {
     response_data?: any;
+    assessmentId: number;
 
-    setResponse(data) {
+    setId(id) {
+      this.assessmentId = id;
+    }
+
+    getId() {
+      return this.assessmentId;
+    }
+
+    setQuestions(data) {
         this.response_data = data;
     }
 
-    getResponse(): any {
-        return this.response_data;
+    getQuestions(): any {
+      return this.response_data;
     }
   }

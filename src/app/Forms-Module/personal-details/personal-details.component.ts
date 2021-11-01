@@ -13,6 +13,7 @@ import { User } from 'src/app/Interfaces/user';
 import { AuthService } from 'src/app/Services/auth.service';
 import { FileUploadConstant } from 'src/app/Common-Module/file-upload-constant';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 // import { isUint16Array } from 'util/types';
 
 @Component({
@@ -54,7 +55,8 @@ export class PersonalDetailsComponent implements OnInit {
   public formData = new FormData();
 
   constructor(private restApiService: RestAPIService, private messageService: MessageService,
-    private datePipe: DatePipe,  public _d: DomSanitizer, private userService: UserService, private masterService: MasterService, private authService: AuthService, private http: HttpClient) { }
+    private datePipe: DatePipe,  public _d: DomSanitizer, private userService: UserService, private masterService: MasterService, 
+    private authService: AuthService, private http: HttpClient, private router:Router) { }
 
   ngOnInit() {
     this.logged_user = this.authService.UserInfo;
@@ -71,15 +73,8 @@ export class PersonalDetailsComponent implements OnInit {
 
    
     ///loading master data
-    this.sections = this.masterService.getMaster('S');
-    this.classes = this.masterService.getMaster('C');
-    this.castes = this.masterService.getMaster('CS');
-    this.genders = this.masterService.getMaster('G');
-    this.mediums = this.masterService.getMaster('M');
-    this.bloodGroups = this.masterService.getMaster('B');
-    this.religions = this.masterService.getMaster('RL');
-    this.nationalities = this.masterService.getMaster('N');
-
+    this.masterService.getMaster('');
+   
   }  
   loadData() {
     if (this.responseData !== null && this.responseData !== undefined) {
@@ -158,6 +153,20 @@ export class PersonalDetailsComponent implements OnInit {
     }
   }
   onSelect(type) {
+    this.sections = this.masterService.getMaster('S');
+    this.classes = this.masterService.getMaster('C');
+    this.castes = this.masterService.getMaster('CS');
+    this.genders = this.masterService.getMaster('G');
+    this.mediums = this.masterService.getMaster('M');
+    this.bloodGroups = this.masterService.getMaster('B');
+    this.religions = this.masterService.getMaster('RL');
+    this.nationalities = this.masterService.getMaster('N');
+    let nationalitySelection = [];
+    let casteSelection = [];
+    let mediumSelection = [];
+    let genderSelection = [];
+    let religionSelection = [];
+    let bloodgroupSelection = [];
     let classSelection = [];
     let sectionSelection = [];
     switch (type) {
@@ -176,25 +185,46 @@ export class PersonalDetailsComponent implements OnInit {
       this.sectionOptions.unshift({ label: '-select', value: null });
       break;
       case 'CS':
-        this.casteOptions = this.castes;
+        this.castes.forEach(s => {
+          casteSelection.push({ label: s.name, value: s.code })
+        });
+        this.casteOptions = casteSelection;
+        this.casteOptions.unshift({ label: '-select', value: null });
         break;
       case 'G':
-        this.genderOptions = this.genders;
+        this.genders.forEach(s => {
+          genderSelection.push({ label: s.name, value: s.code })
+        });
+        this.genderOptions = genderSelection;
+        this.genderOptions.unshift({ label: '-select', value: null });
         break;
       case 'B':
-        this.bloodGroupOptions = this.bloodGroups;
+        this.bloodGroups.forEach(s => {
+          bloodgroupSelection.push({ label: s.name, value: s.code })
+        });
+        this.bloodGroupOptions = bloodgroupSelection;
+        this.bloodGroupOptions.unshift({ label: '-select', value: null });
         break;
       case 'RL':
-        this.religionOptions = this.religions;
-        break;
-      case 'T':
-        this.cityOptions = this.cities;
+        this.religions.forEach(s => {
+          religionSelection.push({ label: s.name, value: s.code })
+        });
+        this.religionOptions = religionSelection;
+        this.religionOptions.unshift({ label: '-select', value: null });
         break;
       case 'N':
-        this.nationalityOptions = this.nationalities;
+        this.nationalities.forEach(s => {
+          nationalitySelection.push({ label: s.name, value: s.code })
+        });
+        this.nationalityOptions = nationalitySelection;
+        this.nationalityOptions.unshift({ label: '-select', value: null });
         break;
       case 'M':
-        this.mediumOptions = this.mediums;
+        this.mediums.forEach(s => {
+          mediumSelection.push({ label: s.name, value: s.code })
+        });
+        this.mediumOptions = mediumSelection;
+        this.mediumOptions.unshift({ label: '-select', value: null });
         break;
     }
   }
@@ -217,6 +247,7 @@ export class PersonalDetailsComponent implements OnInit {
           key: 't-msg', severity: ResponseMessage.SEVERITY_SUCCESS,
           summary: ResponseMessage.SUMMARY_SUCCESS, detail: ResponseMessage.SuccessMessage
         });
+        this.router.navigate(['/profile'])
       } else {
         this.messageService.clear();
         this.messageService.add({
@@ -298,5 +329,11 @@ export class PersonalDetailsComponent implements OnInit {
     this._personalDetailsForm.reset();
     this._personalDetailsForm.form.markAsUntouched();
     this._personalDetailsForm.form.markAsPristine();
+    this.genderOptions = [];
+    this.mediumOptions = [];
+    this.bloodGroupOptions = [];
+    this.classOptions = [];
+    this.sectionOptions = [];
+    
 }
 }

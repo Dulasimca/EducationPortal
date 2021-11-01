@@ -1,8 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
+import { NavigationEnd, Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { OverlayPanel } from 'primeng/overlaypanel';
 import { Observable } from 'rxjs';
 import { PathConstants } from './Common-Module/PathConstants';
 import { User } from './Interfaces/user';
+import { LoginComponent } from './login/login.component';
 import { AuthService } from './Services/auth.service';
 import { RestAPIService } from './Services/restAPI.service';
 
@@ -22,46 +26,71 @@ export class AppComponent {
   loggedinTime: Date = new Date();
   userImage: string;
   loading: boolean;
+  hideHeader: boolean;
   schoolName: string;
   showIcon: boolean;
   userClass: string;
   roleId: any;
   @ViewChild('op', { static: false }) _panel: OverlayPanel;
 
-  constructor(private authService: AuthService, private restApiService: RestAPIService) { }
+  constructor(private authService: AuthService, private restApiService: RestAPIService,
+    private _router: Router) { }
 
   ngOnInit() {
-    this.isLoggedIn$ = this.authService.isLoggedIn;
-    this.isLoggedIn$.subscribe(log => {
-      if (!log) { this.loading = log; } else {
+    this.clear();
+    this.checkCurrentPage();
+    const log = this.authService.isSessionExpired;
+    log.subscribe(val => {
+      if (val) {
         const user: User = this.authService.UserInfo;
         this.roleId = Number.parseInt(user.roleId);
         this.restApiService.getByParameters(PathConstants.Menu_Master, { 'roleId': this.roleId }).subscribe(response => {
-          this.loading = log;
           this.userName = (user !== null && user !== undefined) ? user.username : '';
           this.userClass = (user !== null && user !== undefined) ? user.classRoman + ' - ' + user.section : '';
           this.schoolName = (user !== null && user !== undefined) ? user.schoolname + ' - ' + user.taluk : '';
           this.items = response.slice(0);
           this.checkChildItems(response);
-          // this.items.forEach(i => {
-          //   if (i.label === 'Profile') {
-          //     i.items.forEach(j => {
-          //       if (j.routerLink === '/student-info') {
-          //         if (j.ID === 31) {
-          //           j.queryParams = { 'id': 0, 'si': true };
-          //         } else if (j.ID === 32) {
-          //           j.queryParams = { 'id': 1, 'si': true };
-          //         }
-          //       }
-          //     })
-          //   }
-          // })
           this.userImage = (user.studentImg.trim() !== '') ? user.studentImg : 'assets/layout/images/user-o-2x.png';
           this.showIcon = (user.studentImg.trim() !== '') ? true : false;
+          this.loading = val;
+          if (document.getElementById('login-page')) {
+            document.getElementById('login-page').style.display = 'none';
+          }
         })
+      } else {
+        const user: User = this.authService.UserInfo;
+        this.loading = val;
+        this.clear();
+        if (document.getElementById('login-page')) {
+          document.getElementById('login-page').style.display = 'flex';
+        }
       }
     })
     this.authService.checkStatus();
+    console.log('ope', this.isOpen);
+    console.log('hde', this.hideHeader);
+  }
+
+  clear() {
+    this.userClass = '';
+    this.userImage = '';
+    this.schoolName = '';
+    this.userName = '';
+    if (document.getElementById('login-page')) {
+      document.getElementById('login-page').style.display = 'none';
+    }
+  }
+
+  checkCurrentPage() {
+    this._router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        if (event.url === '/login' || event.url === '/') {
+          this.hideHeader = true;
+        } else {
+        this.hideHeader = false;
+        }
+      }
+    });
   }
 
   checkChildItems(data: any) {
@@ -81,6 +110,5 @@ export class AppComponent {
     this._panel.hide();
     this.authService.logout();
   }
-
 }
 

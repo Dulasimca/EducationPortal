@@ -10,111 +10,125 @@ export class MasterService {
   masterData?: any = [];
   accountingData?: any = [];
   data?: any = [];
-  constructor(private restApiService: RestAPIService) { }
-
-  initializeMaster() {
+  constructor(private restApiService: RestAPIService) {
     this.restApiService.get(PathConstants.Master_Get).subscribe(res => {
       this.data = res;
     });
     this.restApiService.get(PathConstants.AccountingYear).subscribe(res => {
       this.accountingData = res;
     });
-
   }
+
+  // initializeMaster() {
+
+
+  // }
 
   getMaster(type): any {
     this.masterData = [];
     switch (type) {
+      //religion
       case 'R':
         this.data.Table.forEach(r => {
           this.masterData.push({ name: r.Name, code: r.RoleId, isActive: r.Flag });
         });
         break;
+      //category
       case 'U':
         this.data.Table1.forEach(u => {
           this.masterData.push({ name: u.CategoryName, code: u.Categorycode, isActive: u.Flag });
         });
         break;
+      //district
       case 'D':
         this.data.Table2.forEach(d => {
           this.masterData.push({ name: d.Districname, code: d.Districcode, isActive: d.Flag });
         })
         break;
+      //class
       case 'C':
         this.data.Table3.forEach(c => {
           this.masterData.push({ name: c.Classname1, code: c.Classcode, roman: c.Classname2 });
         })
         break;
+      //section
       case 'S':
         this.data.Table4.forEach(s => {
           this.masterData.push({ name: s.SectionName, code: s.Sectioncode });
         });
         break;
+      // blood group
+      case 'B':
+        this.data.Table5.forEach(b => {
+          this.masterData.push({ name: b.Name, code: b.Id });
+        });
+        break;
+      //caste
       case 'CS':
-        this.masterData = [
-          { label: '-select-', value: null },
-          { label: 'MBC', value: 'MBC' },
-          { label: 'BC', value: 'BC' },
-          { label: 'OC', value: 'OC' },
-          { label: 'SC/ST', value: 'SC' },
-        ];
+        this.data.Table6.forEach(c => {
+          this.masterData.push({ name: c.Name, code: c.Id });
+        });
         break;
-      case 'ST':
-        this.masterData = [
-          { label: '-select-', value: null },
-          { label: 'Tamilnadu', value: 'Tamilnadu' },
-        ];
-        break;
-      case 'N':
-        this.masterData = [
-          { label: '-select-', value: null },
-          { label: 'Indian', value: 'Indian' },
-          { label: 'NRI', value: 'NRI' },
-          { label: 'Indian', value: 'Indian' },
-        ];
-        break;
+      // gender
       case 'G':
-        this.masterData = [
-          { label: '-select-', value: null },
-          { label: 'Female', value: 'Female' },
-          { label: 'Male', value: 'Male' },
-          { label: 'Transgender', value: 'Transgender' },
-        ];
+        this.data.Table7.forEach(c => {
+          this.masterData.push({ name: c.Name, code: c.Id });
+        });
         break;
+      //mother tongue
+      case 'MT':
+        this.data.Table8.forEach(c => {
+          this.masterData.push({ name: c.Name, code: c.Id });
+        });
+        break;
+      //religion
+      case 'RL':
+        this.data.Table9.forEach(c => {
+          this.masterData.push({ name: c.Name, code: c.Id });
+        });
+        break;
+      //nationality
+      case 'N':
+        this.data.Table10.forEach(c => {
+          this.masterData.push({ name: c.Name, code: c.Id });
+        });
+        break;
+      //medium
       case 'M':
-        this.masterData = [
-          { label: '-select-', value: null },
-          { label: 'Tamil', value: '1' },
-          { label: 'English', value: '2' }
-        ];
+        this.data.Table11.forEach(c => {
+          this.masterData.push({ name: c.Name, code: c.Id });
+        });
         break;
-        case 'RL':
-          this.masterData = [
-          { label: '-select-', value: null },
-          { label: 'Christian', value: 'Christian' },
-          { label: 'Hindu', value: 'Hindu' },
-          { label: 'Muslim', value: 'Muslim' },
-          { label: 'Others', value: 'Others' },
-          ];
+      //taluk
+      case 'T':
+        this.data.Table12.forEach(t => {
+          this.masterData.push({ name: t.Talukname, code: t.Talukid, dcode: t.Districcode });
+        });
+        break;
+      //holiday type
+      case 'HT':
+        this.data.Table13.forEach(s => {
+          this.masterData.push({ name: s.Name, code: s.Id });
+        });
+        break;
+      //subject
+      case 'SB':
+        this.data.Table14.forEach(s => {
+          this.masterData.push({ name: s.Name, code: s.Id, class: s.Classcode });
+        });
+        break;
+      //test
+      case 'TS':
+        this.data.Table15.forEach(t => {
+          this.masterData.push({ name: t.Name, code: t.Id });
+        });
+        break;
+        //ElectionName
+        case 'EN':
+          this.data.Table16.forEach(e => {
+            this.masterData.push({ name: e.Name, code: e.Id });
+          });
           break;
-          case 'B':
-            this.masterData = [
-              { label: '-select-', value: null },
-              { label: 'A+', value: 'A+' },
-              { label: 'A-', value: 'A-' },
-              { label: 'AB+', value: 'AB+' },
-              { label: 'AB-', value: 'AB-' },
-              { label: 'B+', value: 'B+' },
-              { label: 'B-', value: 'B-' },
-              { label: 'O+', value: 'O+' },
-              { label: 'O-', value: 'O-' },
-            ];
-            break;
-            case 'HT':
-              this.data.Table13.forEach(s => {
-                this.masterData.push({ name: s.Name, code: s.Id });
-              });
-              break;
     }
     return this.masterData;
   }

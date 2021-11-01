@@ -40,15 +40,14 @@ export class RegistrationFormComponent implements OnInit {
   section: any;
   sectionOptions: SelectItem[];
   lastSchoolName: string;
-  lastSchoolNameOptions: SelectItem[];
   lastSchoolContactNo: string;
   studentEmailId: string;
   medium: string;
   mediumOptions: SelectItem[];
   state: any;
   pincode: any;
-  city: string;
-  cityOptions: SelectItem[];
+  taluk: string;
+  talukOptions: SelectItem[];
   nationalityOptions: SelectItem[];
   nationality: string;
   motherTongue: any;
@@ -75,7 +74,7 @@ export class RegistrationFormComponent implements OnInit {
   motherOccupation: string;
   motherContactNo: any;
   motherEmailId: string;
-  motherIncome: any;
+  motherIncome: any;      
   motherFilename: string = '';
   guardianName: string;
   guardianOccupation: string;
@@ -112,10 +111,11 @@ export class RegistrationFormComponent implements OnInit {
   castes?: any;
   genders?: any;
   mediums?: any;
-  cities?: any;
+  taluks?: any;
   bloodGroups?: any;
   religions?: any;
   nationalities?: any;
+  languages?: any;
   login_user: User;
   @ViewChild('f', { static: false }) _registrationForm: NgForm;
   @ViewChild('studentImg', { static: false }) studentImg: ElementRef;
@@ -135,6 +135,20 @@ export class RegistrationFormComponent implements OnInit {
   ngOnInit() {
     ///loading master data
     this.login_user = this.authService.UserInfo;
+    this.masterService.getMaster('');
+    ///end
+    const current_year = new Date().getFullYear();
+    const start_year_range = current_year - 30;
+    this.yearRange = start_year_range + ':' + current_year;
+    this.state = 'Tamilnadu';
+    this.taluk = this.login_user.talukId;
+    this.talukOptions = [{ label: this.login_user.taluk, value: this.login_user.talukId }];
+    this.district = [{ label: this.login_user.district, value: this.login_user.distrctId }];
+    this.districtOptions = [{ label: this.login_user.district, value: this.login_user.distrctId }];
+    this.school = this.login_user.schoolname;
+  }
+
+  onSelect(type) {
     this.sections = this.masterService.getMaster('S');
     this.classes = this.masterService.getMaster('C');
     this.roles = this.masterService.getMaster('R');
@@ -144,37 +158,18 @@ export class RegistrationFormComponent implements OnInit {
     this.bloodGroups = this.masterService.getMaster('B');
     this.religions = this.masterService.getMaster('RL');
     this.nationalities = this.masterService.getMaster('N');
-    ///end
-    const current_year = new Date().getFullYear();
-    const start_year_range = current_year - 30;
-    this.yearRange = start_year_range + ':' + current_year;
-    this.state = 'Tamilnadu';
-    this.nationality = 'Indian';
-    this.city = this.login_user.talukId;
-    this.cityOptions = [{ label: this.login_user.taluk, value: this.login_user.talukId }];
-    this.district = [{ label: this.login_user.district, value: this.login_user.distrctId }];
-    this.districtOptions = [{ label: this.login_user.district, value: this.login_user.distrctId }];
-    this.lastSchoolNameOptions = [
-      { label: '-select-', value: null },
-      { label: 'zzzz', value: "S002" },
-      { label: 'tyyyy', value: "S003" },
-    ];
-    this.school = this.login_user.schoolname;
-  }
-
-  onSelect(type) {
-    let districtSelection = [];
+    this.languages = this.masterService.getMaster('MT');
     let classSelection = [];
     let sectionSelection = [];
     let roleIdSelection = [];
+    let casteSelection = [];
+    let mediumSelection = [];
+    let religionSelection = [];
+    let genderSelection = [];
+    let bloodGroupSelection = [];
+    let nationalitySelection = [];
+    let languageSelection = [];
     switch (type) {
-      case 'D':
-        this.districts.forEach(d => {
-          districtSelection.push({ label: d.name, value: d.code });
-        })
-        this.districtOptions = districtSelection;
-        this.districtOptions.unshift({ label: '-select', value: null });
-        break;
       case 'C':
         this.classes.forEach(c => {
           classSelection.push({ label: c.name, value: c.code })
@@ -201,26 +196,54 @@ export class RegistrationFormComponent implements OnInit {
         }
         break;
       case 'CS':
-        this.casteOptions = this.castes;
+        this.castes.forEach(c => {
+          casteSelection.push({ label: c.name, value: c.Id });
+        })
+        this.casteOptions = casteSelection;
+        this.casteOptions.unshift({ label: '-select-', value: null });
         break;
       case 'G':
-        this.genderOptions = this.genders;
+        this.genders.forEach(c => {
+          genderSelection.push({ label: c.name, value: c.Id });
+        })
+        this.genderOptions = genderSelection;
+        this.genderOptions.unshift({ label: '-select-', value: null });
         break;
       case 'B':
-        this.bloodGroupOptions = this.bloodGroups;
+        this.bloodGroups.forEach(c => {
+          bloodGroupSelection.push({ label: c.name, value: c.Id });
+        })
+        this.bloodGroupOptions = bloodGroupSelection;
+        this.bloodGroupOptions.unshift({ label: '-select-', value: null });
         break;
       case 'RL':
-        this.religionOptions = this.religions;
-        break;
-      case 'T':
-        this.cityOptions = this.cities;
+        this.religions.forEach(c => {
+          religionSelection.push({ label: c.name, value: c.Id });
+        })
+        this.religionOptions = religionSelection;
+        this.religionOptions.unshift({ label: '-select-', value: null });
         break;
       case 'N':
-        this.nationalityOptions = this.nationalities;
+        this.nationalities.forEach(c => {
+          nationalitySelection.push({ label: c.name, value: c.Id });
+        })
+        this.nationalityOptions = nationalitySelection;
+        this.nationalityOptions.unshift({ label: '-select-', value: null });
         break;
       case 'M':
-        this.mediumOptions = this.mediums;
+        this.mediums.forEach(c => {
+          mediumSelection.push({ label: c.name, value: c.Id });
+        })
+        this.mediumOptions = mediumSelection;
+        this.mediumOptions.unshift({ label: '-select-', value: null });
         break;
+        case 'MT':
+          this.languages.forEach(c => {
+            languageSelection.push({ label: c.name, value: c.code })
+          });
+          this.motherTongueOptions = languageSelection;
+          this.motherTongueOptions.unshift({ label: '-select', value: null });
+          break;
     }
   }
 
@@ -312,7 +335,7 @@ export class RegistrationFormComponent implements OnInit {
       DateofJoining: this.datePipe.transform(this.doj, 'yyyy-MM-dd'),
       Gender: this.gender,
       BloodGroup: this.bloodGroup,
-      City: this.city,
+      City: this.taluk,
       State: this.state,
       Nationality: this.nationality,
       Class: this.class.label,
@@ -408,9 +431,8 @@ export class RegistrationFormComponent implements OnInit {
     this.guardianImg.nativeElement.value = null;
     this.isChecked = false;
     this.state = 'Tamilnadu';
-    this.nationality = 'Indian';
-    this.city = this.login_user.talukId;
-    this.cityOptions = [{ label: this.login_user.taluk, value: this.login_user.talukId }];
+    this.taluk = this.login_user.talukId;
+    this.talukOptions = [{ label: this.login_user.taluk, value: this.login_user.talukId }];
     this.district = [{ label: this.login_user.district, value: this.login_user.distrctId }];
     this.districtOptions = [{ label: this.login_user.district, value: this.login_user.distrctId }];
     this.incomeFilename = '';

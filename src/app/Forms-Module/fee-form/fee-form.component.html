@@ -67,12 +67,12 @@
                     </div>
                     <div class="p-col-12 p-md-6 p-lg-2">
                       <div> <label for="_fine">Fine Amount</label><span class="form-mandatory-field">*</span></div>
-                      <input type="text" class="p-col-12" name="_fine" pInputText [(ngModel)]="fine" required>
+                      <input type="text" class="p-col-12" name="_fine" pInputText [(ngModel)]="fine" appInputFormat="digitOnly" required>
                     </div>
                   </div>
                 </div>
                 <div class="p-col-12 p-md-12 p-lg-12" style="text-align: center;">
-                  <button pButton type="button" label="Submit" (click)="onSubmit()" [disabled]="(!f.valid || f.dirty)"></button>&nbsp;
+                  <button pButton type="button" label="Submit" (click)="onSubmit()" [disabled]="(!f.valid || !f.dirty)"></button>&nbsp;
                   <button pButton type="button" label="View" (click)="onView()"></button>&nbsp;
                   <button pButton type="button" label="Pay" [disabled]="true"></button>
                   <!-- <button pButton type="button" label="Clear" (click)="clear()" style="margin-left: 5%;"></button> -->

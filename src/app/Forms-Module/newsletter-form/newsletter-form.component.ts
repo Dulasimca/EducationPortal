@@ -35,12 +35,14 @@ export class NewsletterFormComponent implements OnInit {
   @BlockUI() blockUI: NgBlockUI;
   public progress: number;
   public message: string;
-
+  loading: boolean;
   NewFileName:string;
   public formData = new FormData();
   @ViewChild('f', { static: false }) NewsLetterForm: NgForm;
   login_user: User;
+
   @Output() public onUploadFinished = new EventEmitter();
+  
   constructor(private restApiService: RestAPIService, private datepipe: DatePipe, 
     private http: HttpClient, private masterService: MasterService,private messageService: MessageService,
     private authService: AuthService,private confirmationService: ConfirmationService) { }
@@ -62,8 +64,6 @@ export class NewsletterFormComponent implements OnInit {
       return;
     }
     const params = {
-     
-      
       'RowId': this.MRowId,
       'SchoolID': this.login_user.schoolId,      
       'Topic': this.Topic,    
@@ -88,10 +88,7 @@ export class NewsletterFormComponent implements OnInit {
     }
     );
 } 
-
-
   onSubmit() {
-   
     const params = {
       'RowId': this.MRowId,
       'SchoolID': this.login_user.schoolId,      
@@ -100,7 +97,6 @@ export class NewsletterFormComponent implements OnInit {
       'Download':this.NewFileName, 
       'Flag': true
     };
-    console.log(params);
     this.restApiService.post(PathConstants.NewsLetter_Post, params).subscribe(res => {
       if(res !== undefined && res !== null) {
         if (res) {
@@ -139,15 +135,25 @@ export class NewsletterFormComponent implements OnInit {
   }
 
   onView() {
+    this.data = [];
     this.showtable = true;
+    this.loading = true;
     const params = { 
       'SchoolID': this.login_user.schoolId,
     }
     
     this.restApiService.getByParameters(PathConstants.NewsLetter_Get, params).subscribe(res => {
       if(res !== null && res !== undefined && res.length !==0) {
-        console.log(res);
         this.data = res;
+        this.loading = false;
+      }else {
+        this.loading = false;
+         this.showtable = false;
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
+          summary: ResponseMessage.SUMMARY_WARNING, detail: ResponseMessage.NoRecordMessage
+        })
       }
       
     })

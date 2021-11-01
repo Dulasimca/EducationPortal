@@ -54,6 +54,7 @@ export class AssignmentFormComponent implements OnInit {
   @Output() public onUploadFinished = new EventEmitter();
   @BlockUI() blockUI: NgBlockUI;
   @ViewChild('f', { static: false }) _AssignmentForm: NgForm;
+  loading: boolean;
 
   constructor(private restApiService: RestAPIService, private http: HttpClient,private datepipe: DatePipe
     ,private messageService: MessageService,private authService: AuthService,private masterService: MasterService
@@ -80,32 +81,6 @@ export class AssignmentFormComponent implements OnInit {
     this.TypeOptions = this.types;
   }
 
-  // onFileUpload($event, id) {
-  //   console.log('eve', $event);
-  //   const reader = new FileReader();
-  //   var selectedFile = $event.target.files[0];
-  //   console.log('file', selectedFile);
-  // }
-  // public uploadFile = (files) => {
-  //   if (files.length === 0) {
-  //     return;
-  //   }
-  //   this.formData = new FormData()
-  //   let fileToUpload: any = <File>files[0];
- 
-  //   const filename = fileToUpload.name + '^' + FileUploadConstant.Assignmentfolder;
-  //   this.formData.append('file', fileToUpload, filename);
-  //   console.log('file', fileToUpload);
-  //   console.log('formdata', this.formData);
-  //   this.NewFileName=fileToUpload.name;
-  //   this.http.post(this.restApiService.BASEURL +PathConstants.FileUpload_Post, this.formData)
-  //     .subscribe(event => 
-  //       {
-  //     }
-  //     );
-  // }  
-  
-
 onSubmit() {
   this.blockUI.start();
   const params = {
@@ -122,7 +97,6 @@ onSubmit() {
     'Flag' : true
 
   };
-  console.log(params);
   this.restApiService.post(PathConstants.Assignment_Post, params).subscribe(res => {
     if(res !== undefined && res !== null) {
       if (res) {
@@ -185,15 +159,25 @@ onSubmit() {
   
     }
 onView() {
+  this.data = [];
   this.Showtable = true;
+  this.loading = true;
   const params = {
     'SchoolID': this.login_user.schoolId,
     'Class': this.login_user.classId, 
   }
   this.restApiService.getByParameters(PathConstants.Assignment_Get, params).subscribe(res => {
     if(res !== null && res !== undefined && res.length !== 0) {
-    console.log( res);
+      this.loading =false;
     this.data = res;
+    }else {
+      this.loading = false;
+      this.Showtable = false;
+      this.messageService.clear();
+      this.messageService.add({
+        key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
+        summary: ResponseMessage.SUMMARY_WARNING, detail: ResponseMessage.NoRecordMessage
+      });
     }
   });
 

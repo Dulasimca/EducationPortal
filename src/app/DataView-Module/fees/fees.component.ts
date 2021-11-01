@@ -66,12 +66,12 @@ export class FeesComponent implements OnInit {
   
   }
   onView() {
+    this.data = [];
     const params = {
       'SchoolID': 1,
     }
     this.restApiService.getByParameters(PathConstants.Fee_Get, params).subscribe(res => {
       if(res !== null && res !== undefined && res.length !== 0) {
-      console.log( res);
       this.data = res;
       }
     });

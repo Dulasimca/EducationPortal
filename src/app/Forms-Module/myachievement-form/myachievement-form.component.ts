@@ -38,6 +38,7 @@ export class MyachievementFormComponent implements OnInit {
   public formData = new FormData();
 
   @ViewChild('f', { static: false }) _MyAchievementForm: NgForm;
+  loading: boolean;
 
   constructor(private restApiService: RestAPIService, private http: HttpClient,private datepipe: DatePipe,private messageService: MessageService
     , private authService: AuthService,private confirmationService: ConfirmationService) { }
@@ -143,14 +144,24 @@ export class MyachievementFormComponent implements OnInit {
           );
       }  
   onView() {
+    this.data = [];
     this.showtable = true;
+    this.loading = true;
     const params = {
       'SchoolID': this.login_user.schoolId,
     }
     this.restApiService.getByParameters(PathConstants.Myachievement_Get, params).subscribe(res => {
       if(res !== null && res !== undefined && res.length !== 0) {
-      console.log( res);
       this.data = res;
+      this.loading = false;
+      } else {
+        this.loading = false;
+         this.showtable = false;
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
+          summary: ResponseMessage.SUMMARY_WARNING, detail: ResponseMessage.NoRecordMessage
+        })
       }
     });
   

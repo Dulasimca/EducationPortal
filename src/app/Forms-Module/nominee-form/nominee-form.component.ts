@@ -53,6 +53,7 @@ export class NomineeFormComponent implements OnInit {
   @BlockUI() blockUI: NgBlockUI;
 
   @ViewChild('f', { static: false }) _NomineeForm: NgForm;
+  loading: boolean;
 
   constructor(private restApiService: RestAPIService, private http: HttpClient, private authService: AuthService,
     private messageService: MessageService, private masterService: MasterService, private datepipe: DatePipe) { }
@@ -99,7 +100,6 @@ export class NomineeFormComponent implements OnInit {
       'Flag': true
 
     };
-    console.log(params);
     this.restApiService.post(PathConstants.Nominee_Post, params).subscribe(res => {
       if (res !== undefined && res !== null) {
         if (res) {
@@ -178,10 +178,7 @@ export class NomineeFormComponent implements OnInit {
       'SchoolID': this.login_user.schoolId,
       'ClassId': this.class.value,
       'SectionId': this.section.value
-
-
     }
-    console.log(params)
     this.restApiService.getByParameters(PathConstants.Nomineeview_Get, params).subscribe(data => {
       if (data !== undefined) {
         let nameSelection = [];
@@ -198,6 +195,7 @@ export class NomineeFormComponent implements OnInit {
   }
   onView() {
     this.data = [];
+    this.loading = true;
     const params = {
       'SchoolID': this.login_user.schoolId,
       'ElectionID': this.position
@@ -205,9 +203,10 @@ export class NomineeFormComponent implements OnInit {
     if (this.position !== undefined && this.position !== null) {
       this.restApiService.getByParameters(PathConstants.Nominee_Get, params).subscribe(res => {
         if (res !== null && res !== undefined && res.length !== 0) {
-          console.log(res);
           this.data = res;
+          this.loading = false;
         } else {
+          this.loading = false;
           this.messageService.clear();
           this.messageService.add({
             key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,

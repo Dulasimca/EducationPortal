@@ -39,13 +39,13 @@ export class CircularComponent implements OnInit {
 
   }
   onview() {
+    this.data = [];
     const params = { 
       'SchoolID': 1,
     }
     
     this.restApiService.getByParameters(PathConstants.Circular_Get, params).subscribe(res => {
       if(res !== null && res !== undefined && res.length !==0) {
-        console.log(res);
         this.data = res;
       }
       

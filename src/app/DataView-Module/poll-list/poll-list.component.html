@@ -17,7 +17,7 @@
                </div>
             <p-divider></p-divider>
             <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,15,20]"
-              totalRecords="totalRecords" pageLinks="3">
+              totalRecords="totalRecords"  styleClass="p-datatable-gridlines">
               <ng-template pTemplate="header" let-columns>
                 <tr>
                   <th>S.No:</th>

@@ -19,7 +19,7 @@ export class PollListComponent implements OnInit {
   data: any = [];
   cols: any;
   positionOptions: SelectItem[];
-  selectedPosition: any;
+  selectedPosition: number;
   MRowid = 0;
   position: string;
   login_user: User;
@@ -34,8 +34,8 @@ export class PollListComponent implements OnInit {
   ngOnInit() {
     this.positionOptions = [
       { label: '-select-', value: null },
-      { label: 'Class Representative', value: '0' },
-      { label: 'School Representative', value: '1' },
+      { label: 'Class Representative', value: 2 },
+      { label: 'School Representative', value: 1 },
     ];
 
     this.cols = [
@@ -52,24 +52,9 @@ export class PollListComponent implements OnInit {
     let nomineeList = [];
     const params = {
       'SchoolID': this.login_user.schoolId,
-      'ElectionID': this.selectedPosition.label,
+      'ElectionID': this.selectedPosition,
       'StudentID': this.login_user.id
     }
-    this.restApiService.getByParameters(PathConstants.Nominee_Get, params).subscribe(res => {
-      if (res !== null && res !== undefined && res.length !== 0) {
-        console.log(res);
-        res.forEach(i => {
-          nomineeList.push({
-            'isActive': false,
-            'RowId': i.RowId,
-            'SchoolID': i.SchoolID,
-            'ElectionID': i.ElectionID,
-            'NomineeID': i.NomineeID,
-            'FirstName': i.FirstName
-          })
-        });
-      }
-    });
     this.restApiService.getByParameters(PathConstants.PollList_Get, params).subscribe(res => {
       if (res !== null && res !== undefined && res.length !== 0) {
         this.isDataAvailable = true;
@@ -83,12 +68,29 @@ export class PollListComponent implements OnInit {
             'NomineeID': i.NomineeID,
             'ElectionID': i.ElectionID,
             'VoteStatus': i.VoteStatus,
-            'FirstName': i.FirstName
+            'FirstName': i.FirstName,
+            'Name': i.Name
           });
         })
 
       } else {
         this.isDataAvailable = false;
+        this.restApiService.getByParameters(PathConstants.Nominee_Get, params).subscribe(res => {
+          if (res !== null && res !== undefined && res.length !== 0) {
+            console.log(res);
+            res.forEach(i => {
+              nomineeList.push({
+                'isActive': false,
+                'RowId': i.RowId,
+                'SchoolID': i.SchoolID,
+                'ElectionID': i.ElectionID,
+                'NomineeID': i.NomineeID,
+                'FirstName': i.FirstName,
+                'Name': i.Name
+              })
+            });
+          }
+        });
       }
     });
 
@@ -112,16 +114,16 @@ export class PollListComponent implements OnInit {
   }
 
   submit(data) {
+    this.blockUI.start();
     const params = {
       'SchoolID': this.login_user.schoolId,
       'StudentID': this.login_user.id,
       'NomineeID': data.NomineeID,
-      'ElectionID': this.selectedPosition.value,
+      'ElectionID': this.selectedPosition,
       'ClassId': this.login_user.classId,
       'VoteStatus': 1,
       'Flag': true
     };
-    console.log(params);
     this.restApiService.post(PathConstants.PollList_Post, params).subscribe(res1 => {
       if (res1 !== undefined && res1 !== null) {
         if (res1) {

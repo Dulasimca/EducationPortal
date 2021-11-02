@@ -1,4 +1,4 @@
-<div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px;">
+<div class="p-col-12 p-md-12 p-lg-12" >
     <p-panel header="Subject Test Result">
         <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
             <p-card>
@@ -9,10 +9,10 @@
                     </p-dropdown>
                 </div>
                 <div>
-                    <p-table [value]="data">
+                    <p-table [value]="data"  styleClass="p-datatable-gridlines">
                         <ng-template pTemplate="header">
                             <tr>
-                                <th style="width: 100px">S.No</th>
+                                <th style="width: 60px">S.No</th>
                                 <th>Subject Name</th>
                                 <th>Test Name</th>
                                 <th>Result</th>
@@ -56,7 +56,7 @@
 
 <p-dialog [(visible)]="display" [modal]="true" [style]="{width: '45vw'}">
     <p-panel header="Subject Test Result">
-        <div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px;">
+        <div class="p-col-12 p-md-12 p-lg-12" >
             <div class="p-grid">
                 <div class="p-col-12 p-md-1 p-lg-2"></div>
                 <div class="p-col-12 p-md-10 p-lg-6">

@@ -7,11 +7,10 @@ export interface User {
     classId: any;
     sectioncode: any;
     classRoman: string;
+    section: string;
     lastname: string;
     fathername: string;
     roleId: any;
-    class: any;
-    section: any;
     medium: string;
     mediumId: any;
     taluk: string;

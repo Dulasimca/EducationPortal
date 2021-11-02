@@ -1,4 +1,4 @@
-<div class="p-col-12" style="padding-top:25px;">
+<div class="p-col-12" >
     <p-toast position="Top-Center" key="t-msg"></p-toast>
     <p-panel header="Personal Details">
         <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
@@ -21,7 +21,7 @@
                                                 <div><label for="_class">Class<span
                                                             class="form-mandatory-field">*</span></label></div>
                                                 <p-dropdown name="_class" [options]="classOptions"
-                                                    [(ngModel)]="obj.Class" optionLabel="label"
+                                                    [(ngModel)]="obj.ClassId" [disabled]="true"
                                                     (onClick)="onSelect('C')" required>
                                                 </p-dropdown>
                                             </div>
@@ -29,7 +29,7 @@
                                                 <div><label for="_section">Section<span
                                                             class="form-mandatory-field">*</span></label></div>
                                                 <p-dropdown name="_section" [options]="sectionOptions"
-                                                    [(ngModel)]="obj.Section" optionLabel="label"
+                                                    [(ngModel)]="obj.SectionId"[disabled]="true"
                                                     (onClick)="onSelect('S')" required>
                                                 </p-dropdown>
                                             </div>
@@ -95,7 +95,7 @@
                                                     <div class="p-col-12 p-md-6 p-lg-5">
                                                         <div><label for="_section">Address<span
                                                                     class="form-mandatory-field">*</span></label></div>
-                                                        <textarea pInputTextarea [(ngModel)]="obj.Addressinfo" rows="3"
+                                                        <textarea pInputTextarea [(ngModel)]="obj.CurrentAddrress" rows="3"
                                                             cols="41" required></textarea>
                                                     </div>
                                                     <div class="p-col-12 p-md-6 p-lg-2">
@@ -117,8 +117,7 @@
                                                 style="width: 110px; height: 110px;" />
                                             <input style="display: none" name="_studentimage" type="file" (change)="onFileUpload($event, 1)"
                                                 #userFile>
-                                            <button class="img-edit" style="float: right; margin-top: -25px;" 
-                                                 icon="pi pi-pencil edit-size" pButton type="file" pTooltip="Edit/Add photo" #file
+                                            <button class="img-edit" icon="pi pi-pencil edit-size" pButton type="file" pTooltip="Edit/Add photo" #file
                                                 (click)="userFile.click()">
                                             </button>
                                         </div>

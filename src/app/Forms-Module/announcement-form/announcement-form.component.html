@@ -40,11 +40,11 @@
                       style="margin-left: 3%;"></button>
                   </div>
                   <div *ngIf="showtable"> 
-                  <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10"
-                    [rowsPerPageOptions]="[5,10,15,20]" totalRecords="totalRecords" pageLinks="3">
+                  <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10" [loading]="loading"
+                    [rowsPerPageOptions]="[5,10,15,20]" totalRecords="totalRecords" styleClass="p-datatable-gridlines">
                     <ng-template pTemplate="header" let-columns>
                       <tr>
-                        <th style="width: 2cm;">S.No</th>
+                        <th style="width: 1.5cm;">S.No</th>
                         <th *ngFor="let col of columns" [style.width]="col.width">
                           {{col.header}}
                         </th>

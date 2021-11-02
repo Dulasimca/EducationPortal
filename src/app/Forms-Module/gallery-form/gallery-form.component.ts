@@ -19,6 +19,7 @@ import { User } from 'src/app/Interfaces/user';
 import { AuthService } from 'src/app/Services/auth.service';
 import{FileUploadConstant} from 'src/app/Common-Module/file-upload-constant'
 import * as _ from 'lodash';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-gallery-form',
@@ -46,7 +47,7 @@ export class GalleryFormComponent implements OnInit {
   @Output() public onUploadFinished = new EventEmitter();
   constructor(private restApiService: RestAPIService, private datepipe: DatePipe, private http: HttpClient,
     private masterService: MasterService,private messageService: MessageService,
-    private authService: AuthService,private confirmationService: ConfirmationService) { }
+    private authService: AuthService,private confirmationService: ConfirmationService, private router: Router ) { }
     
 
   ngOnInit(): void {
@@ -130,18 +131,19 @@ onSubmit() {
 }
 
 onview() {
-  this.showtable = true;
-  const params = { 
-    'SchoolID': this.login_user.schoolId,
-  }
+  // this.showtable = true;
+  // const params = { 
+  //   'SchoolID': this.login_user.schoolId,
+  // }
   
-  this.restApiService.getByParameters(PathConstants.Gallery_Get, params).subscribe(res => {
-    if(res !== null && res !== undefined && res.length !==0) {
-      console.log(res);
-      this.data = res;
-    }
+  // this.restApiService.getByParameters(PathConstants.Gallery_Get, params).subscribe(res => {
+  //   if(res !== null && res !== undefined && res.length !==0) {
+  //     console.log(res);
+  //     this.data = res;
+  //   }
     
-  })
+  // })
+  this.router.navigate(['/gallery-list'])
  
 }
 

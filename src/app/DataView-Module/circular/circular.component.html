@@ -1,21 +1,21 @@
 
 
-<div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px;">
+<div class="p-col-12 p-md-12 p-lg-12" >
         <p-panel header="Circulars">
         <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
             <p-card>
                 <div>
                   
  <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,15,20]"
-  totalRecords="totalRecords" pageLinks="3">
+  totalRecords="totalRecords" styleClass="p-datatable-gridlines">
   <ng-template pTemplate="header" let-columns>
     <tr>
-      <th>S.No:</th>
+      <th style="width: 60px;">S.No</th>
       <th *ngFor="let col of columns" [style.width]="col.width">
         {{col.header}}
       </th>
       <th>
-          Download
+          Download 
       </th>
     </tr>
   </ng-template>

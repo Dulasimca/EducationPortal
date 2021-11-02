@@ -1,22 +1,26 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
-import { map, Observable, take } from 'rxjs';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router, Routes } from '@angular/router';
+import { User } from '../Interfaces/user';
 import { AuthService } from './auth.service';
+import { RestAPIService } from './restAPI.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  constructor(private _authService: AuthService, private _router: Router) { }
+  user: User;
+  items: any = [];
+  constructor(private _authService: AuthService, private _router: Router) { 
+      this.user = this._authService.UserInfo;
+    }
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     const checkSession = this._authService.isSessionExpired;
     if (checkSession) {
       return true;
     } else {
       this._router.navigate(['/login']);
-      return false;
-    }
   }
+}
 
   reloadCurrentRoute() {
     let currentUrl = this._router.url;
@@ -24,5 +28,4 @@ export class AuthGuard implements CanActivate {
       this._router.navigate([currentUrl]);
     });
   }
-
 }

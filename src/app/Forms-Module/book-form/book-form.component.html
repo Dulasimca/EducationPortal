@@ -34,13 +34,13 @@
                   </p-dropdown>
                 </div>
                 <div class="p-col-12 p-md-12 p-lg-2">
-                  <div>
+                  <div style="text-transform: capitalize;">
                     <label for="_subject">Subject/Stream Name<span class="form-mandatory-field">*</span></label>
                   </div>
                   <input class="p-col-12" type="text" name="_subject" pInputText [(ngModel)]="Subject" appInputFormat="noSpecialChars" required />
                 </div>
                 <div class="p-col-12 p-md-12 p-lg-3">
-                  <div>
+                  <div style="text-transform: capitalize;">
                     <label for="_author">Author/Reference<span class="form-mandatory-field">*</span></label>
                   </div>
                   <input class="p-col-12" type="text" name="_author" pInputText [(ngModel)]="Author" appInputFormat="noSpecialChars" required />
@@ -71,7 +71,7 @@
         </form>
         <div *ngIf="showtable">
         <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,15,20]"
-          totalRecords="totalRecords" pageLinks="3">
+          totalRecords="totalRecords" [loading]="loading" styleClass="p-datatable-gridlines">
           <ng-template pTemplate="header" let-columns>
             <tr>
               <th style="width: 1.5cm;">S.No</th>

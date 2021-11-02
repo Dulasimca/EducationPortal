@@ -1,5 +1,4 @@
-    <!--<div *ngIf="loading" >-->
- <mat-toolbar color="primary" fxLayout="row">
+<mat-toolbar color="primary" fxLayout="row">
     <div fxFlex fxLayout="row" *ngIf="!hideHeader" style="background: rgb(11, 43, 102) !important;">
         <div fxFlex>
             <span >
@@ -36,7 +35,9 @@
             <p-panelMenu [model]="items"></p-panelMenu>
         </div>
         <div [ngClass]="{'container-pages-open': (isOpen && !hideHeader), 'container-login': hideHeader, 'container-pages-close': (!isOpen && !hideHeader) }">
+            <div fxFlexFill>
             <router-outlet></router-outlet>
+        </div>
         </div>
     </div>
 </div>

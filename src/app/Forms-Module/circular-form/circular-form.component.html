@@ -9,16 +9,16 @@
     <div  class="p-col-12 p-md-12 p-lg-12">
         <div class="p-grid">
                 <div class="p-col-12 p-md-6 p-lg-4">
-                    <div class="no-pad-top"><label>Date:</label> </div> 
+                    <div class="no-pad-top"><label>Date</label> </div> 
                     <p-calendar [(ngModel)]="date" [showIcon]="true" name="date" required></p-calendar>
                 </div>    
                     <div class="p-col-12 p-md-6 p-lg-4">
-                        <div><label>Subject:</label></div>
+                        <div><label>Subject</label></div>
                         <input type="text"  pInputText [(ngModel)]="Subject" name="Subject" appInputFormat="noSpecialChars" required/>
                     
                     </div>   
                         <div class="p-col-12 p-md-6 p-lg-4">
-                            <div><label>Instructions:</label></div>
+                            <div><label>Instructions</label></div>
                         
                             <textarea pInputTextarea autoResize="autoResize" [(ngModel)] ="Details" 
                             name="Details" appInputFormat="noSpecialChars" required></textarea>
@@ -42,7 +42,7 @@
         </div>
 
         <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,15,20]"
-  totalRecords="totalRecords" pageLinks="3">
+  totalRecords="totalRecords"  [loading]="loading" styleClass="p-datatable-gridlines">
   <ng-template pTemplate="header" let-columns>
     <tr>
       <th>S.No:</th>

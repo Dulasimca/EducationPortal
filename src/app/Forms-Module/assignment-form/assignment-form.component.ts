@@ -170,15 +170,15 @@ onView() {
     if(res !== null && res !== undefined && res.length !== 0) {
       this.loading =false;
     this.data = res;
-    }else {
-      this.loading = false;
-      this.Showtable = false;
-      this.messageService.clear();
-      this.messageService.add({
-        key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
-        summary: ResponseMessage.SUMMARY_WARNING, detail: ResponseMessage.NoRecordMessage
-      });
-    }
+      }else {
+        this.loading = false;
+        this.Showtable = false;
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
+          summary: ResponseMessage.SUMMARY_WARNING, detail: ResponseMessage.NoRecordMessage
+        });
+      }
   });
 
 }

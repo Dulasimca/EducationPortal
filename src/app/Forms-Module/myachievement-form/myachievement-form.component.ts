@@ -236,4 +236,7 @@ export class MyachievementFormComponent implements OnInit {
   //   }
    
   // }
+  onSelect(type) {
+    
+  }
 }

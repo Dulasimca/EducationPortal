@@ -22,7 +22,7 @@ export class SubjectTestresultComponent implements OnInit {
   ngOnInit() {
     const params = {
       'studentName': this.login_user.username,
-      'class': this.login_user.class,
+      'class': this.login_user.classRoman,
       'rollNo': this.login_user.id
     }
 

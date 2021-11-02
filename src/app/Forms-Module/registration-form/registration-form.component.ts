@@ -20,70 +20,22 @@ import { FileUploadConstant } from 'src/app/Common-Module/file-upload-constant';
   styleUrls: ['./registration-form.component.css']
 })
 export class RegistrationFormComponent implements OnInit {
-  firstName: string;
-  lastName: string;
-  roleId: any;
+  obj: Profile = {} as Profile;
   roleIdOptions: SelectItem[];
-  dob: any = new Date();
-  doj: Date = new Date();
-  gender: string;
   genderOptions: SelectItem[];
-  district: any;
   districtOptions: SelectItem[];
-  school: any;
-  mobileNo: any;
-  altMobileNo: any;
-  currentAddress: string;
-  permanentAddress: string;
-  class: any;
   classOptions: SelectItem[];
-  section: any;
   sectionOptions: SelectItem[];
-  lastSchoolName: string;
-  lastSchoolContactNo: string;
-  studentEmailId: string;
-  medium: string;
   mediumOptions: SelectItem[];
-  state: any;
-  pincode: any;
-  taluk: string;
   talukOptions: SelectItem[];
   nationalityOptions: SelectItem[];
-  nationality: string;
-  motherTongue: any;
   motherTongueOptions: SelectItem[];
-  caste: string;
   casteOptions: SelectItem[];
   checked: boolean;
   religionOptions: SelectItem[];
-  religion: string;
   bloodGroupOptions: SelectItem[];
-  bloodGroup: string;
   yearRange: string;
-  studentFilename: string = '';
-  fatherName: string;
-  fatherOccupation: string;
-  fatherContactNo: any;
-  fatherEmailId: string;
-  fatherFilename: string = '';
-  fatherIncome: any;
-  incomeFilename: string = '';
-  communityFilename: string = '';
-  nativityFilename: string = '';
-  motherName: string;
-  motherOccupation: string;
-  motherContactNo: any;
-  motherEmailId: string;
-  motherIncome: any;      
-  motherFilename: string = '';
-  guardianName: string;
-  guardianOccupation: string;
-  guardianContactNo: any;
-  guardianEmailId: string;
-  guardianFilename: string = '';
   uploadedFiles: any[] = [];
-  regId: any;
-  slno: any;
   tabTitleI: string;
   tabTitleII: string;
   showSImg: boolean;
@@ -102,7 +54,6 @@ export class RegistrationFormComponent implements OnInit {
   cImgProgress: Number = 0;
   nImgProgress: Number = 0;
   isChecked: boolean = false;
-  disability: string;
   //masters
   districts?: any;
   sections?: any;
@@ -140,12 +91,7 @@ export class RegistrationFormComponent implements OnInit {
     const current_year = new Date().getFullYear();
     const start_year_range = current_year - 30;
     this.yearRange = start_year_range + ':' + current_year;
-    this.state = 'Tamilnadu';
-    this.taluk = this.login_user.talukId;
-    this.talukOptions = [{ label: this.login_user.taluk, value: this.login_user.talukId }];
-    this.district = [{ label: this.login_user.district, value: this.login_user.distrctId }];
-    this.districtOptions = [{ label: this.login_user.district, value: this.login_user.distrctId }];
-    this.school = this.login_user.schoolname;
+    this.setDefaultObject();
   }
 
   onSelect(type) {
@@ -197,64 +143,64 @@ export class RegistrationFormComponent implements OnInit {
         break;
       case 'CS':
         this.castes.forEach(c => {
-          casteSelection.push({ label: c.name, value: c.Id });
+          casteSelection.push({ label: c.name, value: c.code });
         })
         this.casteOptions = casteSelection;
         this.casteOptions.unshift({ label: '-select-', value: null });
         break;
       case 'G':
-        this.genders.forEach(c => {
-          genderSelection.push({ label: c.name, value: c.Id });
+        this.genders.forEach(g => {
+          genderSelection.push({ label: g.name, value: g.code });
         })
         this.genderOptions = genderSelection;
         this.genderOptions.unshift({ label: '-select-', value: null });
         break;
       case 'B':
-        this.bloodGroups.forEach(c => {
-          bloodGroupSelection.push({ label: c.name, value: c.Id });
+        this.bloodGroups.forEach(b => {
+          bloodGroupSelection.push({ label: b.name, value: b.code });
         })
         this.bloodGroupOptions = bloodGroupSelection;
         this.bloodGroupOptions.unshift({ label: '-select-', value: null });
         break;
       case 'RL':
-        this.religions.forEach(c => {
-          religionSelection.push({ label: c.name, value: c.Id });
+        this.religions.forEach(r => {
+          religionSelection.push({ label: r.name, value: r.code });
         })
         this.religionOptions = religionSelection;
         this.religionOptions.unshift({ label: '-select-', value: null });
         break;
       case 'N':
-        this.nationalities.forEach(c => {
-          nationalitySelection.push({ label: c.name, value: c.Id });
+        this.nationalities.forEach(n => {
+          nationalitySelection.push({ label: n.name, value: n.code });
         })
         this.nationalityOptions = nationalitySelection;
         this.nationalityOptions.unshift({ label: '-select-', value: null });
         break;
       case 'M':
-        this.mediums.forEach(c => {
-          mediumSelection.push({ label: c.name, value: c.Id });
+        this.mediums.forEach(m => {
+          mediumSelection.push({ label: m.name, value: m.code });
         })
         this.mediumOptions = mediumSelection;
         this.mediumOptions.unshift({ label: '-select-', value: null });
         break;
-        case 'MT':
-          this.languages.forEach(c => {
-            languageSelection.push({ label: c.name, value: c.code })
-          });
-          this.motherTongueOptions = languageSelection;
-          this.motherTongueOptions.unshift({ label: '-select', value: null });
-          break;
+      case 'MT':
+        this.languages.forEach(l => {
+          languageSelection.push({ label: l.name, value: l.code })
+        });
+        this.motherTongueOptions = languageSelection;
+        this.motherTongueOptions.unshift({ label: '-select', value: null });
+        break;
     }
   }
 
   onCheckAddress(value) {
     if (value !== undefined && value !== null) {
-      this.currentAddress = (value && this.permanentAddress !== undefined) ? this.permanentAddress : '';
+      this.obj.CurrentAddrress = (value && this.obj.PermanentAddress !== undefined) ? this.obj.PermanentAddress : '';
     }
   }
 
   onChangeRole() {
-    if (this.roleId === 6) {
+    if (this.obj.RoleId === 6) {
       this.tabTitleI = 'Student Info I';
       this.tabTitleII = 'Student Info II';
     } else {
@@ -270,18 +216,14 @@ export class RegistrationFormComponent implements OnInit {
     this.formData = new FormData()
     let fileToUpload: any = <File>files[0];
     let actualFilename = '';
-    const folderName = (this.roleId === 6) ? FileUploadConstant.StudentRegistration : FileUploadConstant.TeacherRegistration
-    console.log('fn', folderName)
+    const folderName = (this.obj.RoleId === 6) ? FileUploadConstant.StudentRegistration : FileUploadConstant.TeacherRegistration
     const filename = fileToUpload.name + '^' + folderName;
     this.formData.append('file', fileToUpload, filename);
-    console.log('file', fileToUpload);
-    console.log('formdata', this.formData);
     actualFilename = fileToUpload.name;
     this.http.post(this.restApiService.BASEURL + PathConstants.FileUpload_Post, this.formData)
       .subscribe((event: any) => {
       }
       );
-    console.log('retn', actualFilename);
     return actualFilename;
   }
 
@@ -293,31 +235,31 @@ export class RegistrationFormComponent implements OnInit {
       case 1:
         this.s_URL = window.URL.createObjectURL(file);
         this.showSImg = (this.s_URL !== undefined && this.s_URL !== null) ? true : false;
-        this.studentFilename = this.uploadFile($event.target.files, this.sImgProgress);
+        this.obj.StudentPhotoFileName = this.uploadFile($event.target.files, this.sImgProgress);
         break;
       case 2:
         this.f_URL = window.URL.createObjectURL(file);
         this.showFImg = (this.s_URL !== undefined && this.s_URL !== null) ? true : false;
-        this.fatherFilename = this.uploadFile($event.target.files, this.fImgProgress);
+        this.obj.FatherPhotoFileName = this.uploadFile($event.target.files, this.fImgProgress);
         break;
       case 3:
         this.m_URL = window.URL.createObjectURL(file);
         this.showMImg = (this.s_URL !== undefined && this.s_URL !== null) ? true : false;
-        this.motherFilename = this.uploadFile($event.target.files, this.mImgProgress);
+        this.obj.MotherPhotoFilName = this.uploadFile($event.target.files, this.mImgProgress);
         break;
       case 4:
         this.g_URL = window.URL.createObjectURL(file);
         this.showGImg = (this.s_URL !== undefined && this.s_URL !== null) ? true : false;
-        this.guardianFilename = this.uploadFile($event.target.files, this.gImgProgress);
+        this.obj.GaurdianPhotoFileName = this.uploadFile($event.target.files, this.gImgProgress);
         break;
       case 5:
-        this.incomeFilename = this.uploadFile($event.target.files, this.iImgProgress);
+        this.obj.IncomeFilename = this.uploadFile($event.target.files, this.iImgProgress);
         break;
       case 6:
-        this.communityFilename = this.uploadFile($event.target.files, this.cImgProgress);
+        this.obj.CommunityFilename = this.uploadFile($event.target.files, this.cImgProgress);
         break;
       case 7:
-        this.nativityFilename = this.uploadFile($event.target.files, this.nImgProgress);
+        this.obj.NativityFilename = this.uploadFile($event.target.files, this.nImgProgress);
         break;
 
     }
@@ -325,65 +267,14 @@ export class RegistrationFormComponent implements OnInit {
 
   onSubmit() {
     this.blockUI.start();
-    const params: Profile = {
-      ID: (this.regId !== undefined && this.regId !== null) ? this.regId : 0,
-      slno: (this.slno !== undefined && this.slno !== null) ? this.slno : 0,
-      FirstName: this.firstName,
-      LastName: this.lastName,
-      RoleId: this.roleId,
-      DateofBirth: this.datePipe.transform(this.dob, 'yyyy-MM-dd'),
-      DateofJoining: this.datePipe.transform(this.doj, 'yyyy-MM-dd'),
-      Gender: this.gender,
-      BloodGroup: this.bloodGroup,
-      City: this.taluk,
-      State: this.state,
-      Nationality: this.nationality,
-      Class: this.class.label,
-      ClassId: this.class.value,
-      Section: this.section.label,
-      SectionId: this.section.value,
-      StudentPhotoFileName: this.studentFilename,
-      Caste: this.caste,
-      Addressinfo: this.currentAddress,
-      PermanentAddress: this.permanentAddress,
-      SchoolName: this.login_user.schoolname,
-      SchoolId: this.login_user.schoolId,
-      PhoneNumber: this.mobileNo,
-      AltNumber: this.altMobileNo,
-      Medium: this.medium,
-      UserId: 0,
-      Flag: 1,
-      EmailId: this.studentEmailId,
-      Nameoflastschool: this.lastSchoolName,
-      LastchoolTelephone: this.lastSchoolContactNo,
-      District: this.district.label,
-      DistrictId: this.district.value,
-      Postalcode: this.pincode,
-      Password: '123',
-      Religion: this.religion,
-      FatherName: this.fatherName,
-      FatherOccupation: this.fatherOccupation,
-      FatherMobileNo: this.fatherContactNo,
-      FatherEmailid: this.fatherEmailId,
-      FatherPhotoFileName: this.fatherFilename,
-      MotherName: this.motherName,
-      MotherOccupation: this.motherOccupation,
-      MotherMobileNo: this.motherContactNo,
-      MotherEmailid: this.motherEmailId,
-      MotherPhotoFilName: this.motherFilename,
-      GaurdianName: this.guardianName,
-      GaurdianOccupation: this.guardianOccupation,
-      GaurdianEmailid: this.guardianEmailId,
-      GaurdianMobileNo: this.guardianContactNo,
-      GaurdianPhotoFileName: this.guardianFilename,
-      Disability: (this.disability !== undefined) ? this.disability.trim() : null,
-      IncomeFilename: this.incomeFilename,
-      NativityFilename: this.nativityFilename,
-      CommunityFilename: this.communityFilename,
-      FYearlyIncome: this.fatherIncome,
-      MYearlyIncome: this.motherIncome
-    };
-    this.restApiService.post(PathConstants.Registration_Post, params).subscribe(res => {
+    this.obj.slno = 0;
+    this.obj.ID = 0;
+    this.obj.DateofBirth = this.datePipe.transform(this.obj.DateofBirth, 'yyyy-MM-dd');
+    this.obj.DateofJoining = this.datePipe.transform(this.obj.DateofJoining, 'yyyy-MM-dd');
+    this.obj.Disability = (this.obj.Disability !== undefined && this.obj.Disability !== null) ? this.obj.Disability.trim() : null,
+    this.obj.Password = '123';
+      console.log('obj', this.obj);
+    this.restApiService.post(PathConstants.Registration_Post, this.obj).subscribe(res => {
       if (res !== undefined && res !== null) {
         if (res.item1) {
           this.blockUI.stop();
@@ -421,6 +312,23 @@ export class RegistrationFormComponent implements OnInit {
     })
   }
 
+  setDefaultObject() {
+    this.obj = {} as Profile;
+    this.obj.State = 'Tamilnadu';
+    this.obj.SchoolId = this.login_user.schoolId;
+    this.obj.Taluk = this.login_user.talukId;
+    this.talukOptions = [{ label: this.login_user.taluk, value: this.login_user.talukId }];
+    this.obj.District = this.login_user.distrctId;
+    this.districtOptions = [{ label: this.login_user.district, value: this.login_user.distrctId }];
+    this.obj.IncomeFilename = '';
+    this.obj.MotherPhotoFilName = '';
+    this.obj.FatherPhotoFileName = '';
+    this.obj.StudentPhotoFileName = '';
+    this.obj.GaurdianPhotoFileName = '';
+    this.obj.NativityFilename = '';
+    this.obj.CommunityFilename = '';
+  }
+
   clearForm() {
     this._registrationForm.reset();
     this._registrationForm.form.markAsUntouched();
@@ -430,17 +338,6 @@ export class RegistrationFormComponent implements OnInit {
     this.motherImg.nativeElement.value = null;
     this.guardianImg.nativeElement.value = null;
     this.isChecked = false;
-    this.state = 'Tamilnadu';
-    this.taluk = this.login_user.talukId;
-    this.talukOptions = [{ label: this.login_user.taluk, value: this.login_user.talukId }];
-    this.district = [{ label: this.login_user.district, value: this.login_user.distrctId }];
-    this.districtOptions = [{ label: this.login_user.district, value: this.login_user.distrctId }];
-    this.incomeFilename = '';
-    this.motherFilename = '';
-    this.fatherFilename = '';
-    this.studentFilename = '';
-    this.guardianFilename = '';
-    this.nativityFilename = '';
-    this.communityFilename = '';
+    this.setDefaultObject();
   }
 }

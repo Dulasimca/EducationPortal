@@ -99,6 +99,7 @@ export class AppComponent {
     setConfig.push({ path: '**', redirectTo: '/login', component: LoginComponent })
     setConfig.unshift({ path: '',   redirectTo: '/login', pathMatch: 'full' },
     { path: 'login', component: LoginComponent })
+    console.log('secong', setConfig);
     return of(setConfig);
   }
 

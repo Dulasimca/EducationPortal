@@ -316,6 +316,7 @@ export class RegistrationFormComponent implements OnInit {
     this.obj = {} as Profile;
     this.obj.State = 'Tamilnadu';
     this.obj.SchoolId = this.login_user.schoolId;
+    this.obj.SchoolName = this.login_user.schoolname;
     this.obj.Taluk = this.login_user.talukId;
     this.talukOptions = [{ label: this.login_user.taluk, value: this.login_user.talukId }];
     this.obj.District = this.login_user.distrctId;

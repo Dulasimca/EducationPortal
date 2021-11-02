@@ -6,8 +6,8 @@
                     <div class="p-grid">
                         <div class="p-col-1"></div>
                         <div class="p-col-12 p-md-12 p-lg-10"> 
-                    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [numVisible]="5" [circular]="true" 
-                    [showThumbnails]="false"  [showIndicators]="true" [showItemNavigators]="true" [showItemNavigatorsOnHover]="true">
+                    <p-galleria [(value)]="images" [responsiveOptions]="responsiveOptions" [numVisible]="5" [circular]="true" [autoPlay]="true" [transitionInterval]="1500"> 
+                   
                         <ng-template pTemplate="item" let-item>
                             <img [src]="item.previewImageSrc" style="width: 650px;height: 420px; display: block;" />
                         </ng-template>

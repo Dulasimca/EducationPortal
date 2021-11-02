@@ -1,4 +1,4 @@
-<div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px;">
+<div class="p-col-12 p-md-12 p-lg-12" >
         <p-panel header="Books">
             <div class="p-col-12 p-md-12 p-lg-12">
                 <div style="font-style: italic; font-size: 15px; color: rgb(11, 43, 102);">
@@ -9,7 +9,7 @@
                 </div>
               
                 <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,15,20]"
-                totalRecords="totalRecords" pageLinks="3">
+                totalRecords="totalRecords" styleClass="p-datatable-gridlines">
                 <ng-template pTemplate="header" let-columns>
                   <tr>
                     <th style="width: 1.5cm;">S.No</th>

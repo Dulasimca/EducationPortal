@@ -1,4 +1,4 @@
-<div class="p-col-12" style="padding-top:25px;">
+<div class="p-col-12" >
   <p-panel header="Fee Details">
     <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
       <form #f="ngForm" name="feeDetailsForm">
@@ -11,7 +11,7 @@
               optionLabel="label" (onChange)="onLoad()" required> </p-dropdown>
           </div>
           <div>
-            <p-table [columns]="cols" class="p-datatble-gridlines" [value]="feeData">
+            <p-table [columns]="cols" styleClass="p-datatable-gridlines" [value]="feeData" [loading]="loading">
               <ng-template pTemplate="header" let-columns>
                 <tr>
                   <th style="width: 2.5cm;">S.No</th>

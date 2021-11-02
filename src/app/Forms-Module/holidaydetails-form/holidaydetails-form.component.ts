@@ -36,6 +36,8 @@ export class HolidaydetailsFormComponent implements OnInit {
   holidays?: any;
   @BlockUI() blockUI: NgBlockUI;
   @ViewChild('f', { static: false }) _HolidayDetailsForm: NgForm;
+  loading: boolean;
+  showTable: boolean;
   constructor(private restApiService: RestAPIService, private http: HttpClient, private datepipe: DatePipe, private messageService: MessageService
     , private authService: AuthService, private masterService: MasterService) { }
 
@@ -105,13 +107,18 @@ export class HolidaydetailsFormComponent implements OnInit {
 
   onView() {
     this.data = [];
+    this.showTable = true;
+    this.loading = true;
     const params = {
       'SchoolID': this.login_user.schoolId,
     }
     this.restApiService.getByParameters(PathConstants.Holiday_Get, params).subscribe(res => {
       if (res !== null && res !== undefined && res.length !== 0) {
         this.data = res;
+        this.loading = false;
       } else {
+        this.loading = false;
+    this.showTable = true;
         this.messageService.clear();
         this.messageService.add({
           key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,

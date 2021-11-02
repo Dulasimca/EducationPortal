@@ -1,4 +1,4 @@
-<div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px;">
+<div class="p-col-12 p-md-12 p-lg-12" >
         <p-panel header="Live Classrooms">
         <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
             <p-card>
@@ -8,7 +8,7 @@
                     [minDate]="minDate"  [disabledDates]="invalidDates" (onSelect)="loadMeetingDetails()"></p-calendar>
                 </div>
                 <div>
-                    <p-table [columns]="meetingCols" [value]="meetingData" [paginator]="true" [rows]="10" [loading]="loading">
+                    <p-table [columns]="meetingCols" [value]="meetingData" [paginator]="true" [rows]="10" [loading]="loading" styleClass="p-datatable-gridlines">
                         <ng-template pTemplate="header" let-columns>
                             <tr>
                                 <th style="width: 90px">S.No</th>

@@ -36,6 +36,7 @@ export class AnnouncementFormComponent implements OnInit {
   NewFileName:string = '';
   login_user: User;
   showtable: boolean;
+  loading: boolean;
   
   public formData = new FormData();
 
@@ -131,14 +132,24 @@ export class AnnouncementFormComponent implements OnInit {
         })
       }
      onView() {
+       this.data = [];
+       this.loading = true;
        this.showtable = true;
     const params = {
       'SchoolID': this.login_user.schoolId,
     }
       this.restApiService.getByParameters(PathConstants.Announcement_Get, params).subscribe(res => {
       if(res !== null && res !== undefined && res.length !== 0) {
-      console.log( res);
+        this.loading = false;
       this.data = res;
+      } else {
+        this.loading = false;
+        this.showtable = false;
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
+          summary: ResponseMessage.SUMMARY_WARNING, detail: ResponseMessage.NoRecordMessage
+        });
       }
     });
 

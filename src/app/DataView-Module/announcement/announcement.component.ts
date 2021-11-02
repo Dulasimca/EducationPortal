@@ -43,6 +43,7 @@ export class AnnouncementComponent implements OnInit {
   }
   
   onView() {
+    this.data = [];
     const params = {
       'SchoolID': 1,
     }

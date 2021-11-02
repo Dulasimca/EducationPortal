@@ -19,20 +19,18 @@ export class MyschoolViewComponent implements OnInit {
   landlineNo: number;
   faxNo: any;
   login_user: User;
-
+  schoolName: string;
 
   constructor(private restApiService: RestAPIService, private authService: AuthService) { }
 
   ngOnInit(): void {
-
     this.login_user = this.authService.UserInfo;
-
     const params = {
       'SchoolId': this.login_user.schoolId,
     };
     this.restApiService.getByParameters(PathConstants.MySchool_Get, params).subscribe(response => {
-      // console.log('response', response);
       if(response !== undefined && response !== null) {
+        this.schoolName = this.login_user.schoolname + ' - ' + this.login_user.taluk;
         response.forEach(i => {
           this.curriculum = i.Curriculum,
           this.headMasterName = (i.HMName !== undefined && i.HMName !== null) ? ((i.HMName.toString().trim() !== '') ? i.HMName : '-') : '-',

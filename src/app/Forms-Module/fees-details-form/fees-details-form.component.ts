@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { SelectItem } from 'primeng/api';
+import { MessageService, SelectItem } from 'primeng/api';
+import { ResponseMessage } from 'src/app/Common-Module/Message';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { User } from 'src/app/Interfaces/user';
 import { AuthService } from 'src/app/Services/auth.service';
@@ -37,8 +38,9 @@ export class FeesDetailsFormComponent implements OnInit {
   receiptData: any = [];
   yearOptions: SelectItem[];
   years?: any;
+  loading: boolean;
   constructor(private restApiService: RestAPIService, private authService: AuthService, 
-    private masterService: MasterService, private datePipe: DatePipe) { }
+    private masterService: MasterService, private datePipe: DatePipe, private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.masterService.getAccountingYear();
@@ -64,6 +66,8 @@ export class FeesDetailsFormComponent implements OnInit {
   }
 
   onLoad() {
+    this.feeData = [];
+    this.loading = true;
     const params = {
       'schoolID': this.login_user.schoolId,
       'studentID': this.login_user.id,
@@ -74,8 +78,15 @@ export class FeesDetailsFormComponent implements OnInit {
     this.restApiService.getByParameters(PathConstants.Fee_Get, params).subscribe(res => {
       if(res !== null && res !== undefined && res.length !== 0) {
         if(res) {
-      console.log( res);
+          this.loading = false;
       this.feeData = res;
+      } else {
+        this.loading = false;
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
+          summary: ResponseMessage.SUMMARY_WARNING, detail: ResponseMessage.NoRecordMessage
+        })
       }
     }
     });
@@ -89,7 +100,7 @@ onDownload(data) {
   this.schoolAddress = this.login_user.taluk + '-' + this.login_user.pincode;
   this.studentName = this.login_user.username;
   this.receiptNo = data.RowId;
-  this.class = this.login_user.class + ' - ' + this.login_user.section;
+  this.class = this.login_user.classRoman + ' - ' + this.login_user.section;
   this.parentName = this.login_user.fathername;
   this.today = this.datePipe.transform(new Date(), 'dd-MM-yyyy');
   this.total = data.PaidAmount,

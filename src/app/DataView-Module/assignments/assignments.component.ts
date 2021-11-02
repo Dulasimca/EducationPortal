@@ -72,13 +72,13 @@ export class AssignmentsComponent implements OnInit {
   }
 
   onView() {
+    this.data = [];
     const params = {
       'SchoolID':this.login_user.schoolId,
       'Class': this.login_user.classId
     }
     this.restApiService.getByParameters(PathConstants.Assignment_Get, params).subscribe(res => {
       if(res !== null && res !== undefined && res.length !== 0) {
-      console.log( res);
       this.data = res;
       }
     });

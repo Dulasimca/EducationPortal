@@ -40,8 +40,8 @@ export class ProfileComponent implements OnInit {
         this.responseData = response;
         response.forEach(i => {
           this.name = (i.FirstName !== undefined && i.FirstName !== null) ? ((i.FirstName.toString().trim() !== '') ? i.FirstName : '-') : '-',
-          this.class = (i.Class !== undefined && i.Class !== null) ? ((i.Class.toString().trim() !== '') ? i.Class : '-') : '-',
-          this.section = (i.Section !== undefined && i.Section !==null) ? ((i.Section.toString().trim() !== '') ? i.Section : '-') : '-',
+          this.class = (i.Classname2 !== undefined && i.Classname2 !== null) ? ((i.Classname2.toString().trim() !== '') ? i.Classname2 : '-') : '-',
+          this.section = (i.SectionName !== undefined && i.SectionName !==null) ? ((i.SectionName.toString().trim() !== '') ? i.SectionName : '-') : '-',
           this.bloodGroup = (i.BloodGroupName !== undefined && i.BloodGroupName !==null) ? ((i.BloodGroupName.toString().trim() !== '') ? i.BloodGroupName : '-') : '-',
           this.rollNo = (i.ID !== undefined && i.ID !== null) ? ((i.ID.toString().trim() !== '') ? i.ID : '-') : '-',
           this.dob = (i.DateofBirth !== undefined && i.DateofBirth !== null) ? ((i.DateofBirth.toString().trim() !== '') ? i.DateofBirth : '-') : '-',

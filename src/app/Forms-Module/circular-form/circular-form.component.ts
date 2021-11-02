@@ -33,6 +33,8 @@ export class CircularFormComponent implements OnInit {
 
   date: Date = new Date();
   data: any = [];
+  loading: boolean;
+
 
   guardianimg: any[] = [];
   @BlockUI() blockUI: NgBlockUI;
@@ -105,7 +107,6 @@ export class CircularFormComponent implements OnInit {
       'Flag':  true
      
     };
-    console.log(params);
     this.restApiService.post(PathConstants.Circular_Post, params).subscribe(res => {
       if(res !== undefined && res !== null) {
         if (res) {
@@ -144,14 +145,23 @@ export class CircularFormComponent implements OnInit {
   }
 
   onview() {
+    this.data = [];
+    this.loading = true;
     const params = { 
       'SchoolID': this.login_user.schoolId,
     }
     
     this.restApiService.getByParameters(PathConstants.Circular_Get, params).subscribe(res => {
       if(res !== null && res !== undefined && res.length !==0) {
-        console.log(res);
+        this.loading = false;
         this.data = res;
+      }else {
+        this.loading = false;
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
+          summary: ResponseMessage.SUMMARY_WARNING, detail: ResponseMessage.NoRecordMessage
+        });
       }
       
     })

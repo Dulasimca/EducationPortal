@@ -13,24 +13,26 @@
                   </p-dropdown>
                          </div>
                 <div class="p-col-12 p-md-6 p-lg-3">
-                  <div><label>Occassion/Festival/Events:</label></div>
-                  <input type="text" name="Events" size="25" pInputText [(ngModel)]="Events" appInputFormat="noSpecialChars" required />
+                  <div><label>Occassion/Festival/Events</label></div>
+                  <input class="p-col-12" type="text" name="Events" pInputText [(ngModel)]="Events" appInputFormat="noSpecialChars" required />
                 </div>
                 <div class="p-col-12 p-md-6 p-lg-3">
-                  <div><label>Date:</label></div>
+                  <div><label>Date</label></div>
                   <p-calendar [(ngModel)]="date" name="date" [showIcon]="true" required></p-calendar>
                 </div>
+                <div class="p-col-12"></div>
                 <div class="p-col-12 p-md-12 p-lg-12" style="text-align: center;">
-                  <button pButton type="button" label="Submit" (click)="onSubmit()" [disabled]="(!f.valid || !f.dirty)"></button>&nbsp;
-                  <button pButton type="button" label="View" (click)="onView()"></button>&nbsp;
-                  <button pButton type="button" label="Clear" (click)="clear()"></button>
+                  <button pButton type="button" label="Submit" (click)="onSubmit()" icon="pi pi-save" [disabled]="(!f.valid || !f.dirty)"></button>&nbsp;
+                  <button pButton type="button" label="View" (click)="onView()" icon="pi pi-eye"></button>&nbsp;
+                  <button pButton type="button" label="Clear" (click)="clear()" icon="pi pi-times-circle"></button>
                 </div>
+                <div *ngIf="showTable"> 
                 <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10"
-                  [rowsPerPageOptions]="[5,10,15,20]" totalRecords="totalRecords" pageLinks="3">
+                  [rowsPerPageOptions]="[5,10,15,20]" totalRecords="totalRecords" styleClass="p-datatable-gridlines" [loading]="loading">
                   <ng-template pTemplate="header" let-columns>
                     <tr>
-                      <th style="width: 100px;">S.No:</th>
-                      <th *ngFor="let col of columns" styleClass="p-datatable-gridlines">
+                      <th style="width: 60px;">S.No</th>
+                      <th *ngFor="let col of columns">
                         {{col.header}}
                       </th>
                       <th style="width: 100px;">Delete</th>
@@ -49,6 +51,7 @@
                     </tr>
                   </ng-template>
                 </p-table>
+              </div>
               </div>
             </div>
 

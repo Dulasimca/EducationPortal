@@ -46,6 +46,7 @@ export class BookFormComponent implements OnInit {
   @ViewChild('f', { static: false }) _bookForm: NgForm;
   login_user: User;
   @Output() public onUploadFinished = new EventEmitter();
+  loading: boolean;
   constructor(private restApiService: RestAPIService, private http: HttpClient,
     private masterService: MasterService,private messageService: MessageService,
     private authService: AuthService,private confirmationService: ConfirmationService) { }
@@ -178,6 +179,8 @@ export class BookFormComponent implements OnInit {
       }
 
   onview() {
+    this.data = [];
+    this.loading = true;
     this.showtable = true;
     const params = { 
       'SchoolID': this.login_user.schoolId,
@@ -185,7 +188,16 @@ export class BookFormComponent implements OnInit {
     
     this.restApiService.getByParameters(PathConstants.Book_Get, params).subscribe(res => {
       if(res !== null && res !== undefined && res.length !==0) {
+        this.loading=false;
         this.data = res;
+      }else {
+        this.loading = false;
+        this.showtable = false;
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
+          summary: ResponseMessage.SUMMARY_WARNING, detail: ResponseMessage.NoRecordMessage
+        });
       }
       
     });

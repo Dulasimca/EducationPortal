@@ -62,6 +62,7 @@ export class FeeFormComponent implements OnInit {
   @BlockUI() blockUI: NgBlockUI;
   @ViewChild('f', { static: false }) _FeeForm: NgForm;
   loading: boolean;
+  showtable: boolean;
 
   constructor(private restApiService: RestAPIService, private authService: AuthService, private messageService: MessageService, private datePipe: DatePipe, private masterService: MasterService) { }
 
@@ -208,6 +209,7 @@ export class FeeFormComponent implements OnInit {
   }
 
   onView() {
+    this.showtable =true;
     this.data = [];
     this.loading = true;
     const params = {
@@ -218,6 +220,7 @@ export class FeeFormComponent implements OnInit {
         this.data = res;
         this.loading = false;
       } else {
+        this.showtable = false;
         this.loading = false;
         this.messageService.clear();
         this.messageService.add({

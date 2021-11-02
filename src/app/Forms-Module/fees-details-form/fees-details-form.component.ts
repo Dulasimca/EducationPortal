@@ -89,7 +89,7 @@ onDownload(data) {
   this.schoolAddress = this.login_user.taluk + '-' + this.login_user.pincode;
   this.studentName = this.login_user.username;
   this.receiptNo = data.RowId;
-  this.class = this.login_user.class + ' - ' + this.login_user.section;
+  this.class = this.login_user.classRoman + ' - ' + this.login_user.section;
   this.parentName = this.login_user.fathername;
   this.today = this.datePipe.transform(new Date(), 'dd-MM-yyyy');
   this.total = data.PaidAmount,

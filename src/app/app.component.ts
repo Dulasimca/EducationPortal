@@ -1,9 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { NavigationEnd, Router } from '@angular/router';
+import { NavigationEnd, Router, Routes } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { OverlayPanel } from 'primeng/overlaypanel';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { PathConstants } from './Common-Module/PathConstants';
 import { User } from './Interfaces/user';
 import { LoginComponent } from './login/login.component';
@@ -50,6 +50,11 @@ export class AppComponent {
           this.schoolName = (user !== null && user !== undefined) ? user.schoolname + ' - ' + user.taluk : '';
           this.items = response.slice(0);
           this.checkChildItems(response);
+          this.getUrl().subscribe((res: Routes) => {
+            console.log('auth res', res);
+            // this._router.dispose();
+            // this._router.resetConfig(res);
+          })
           this.userImage = (user.studentImg.trim() !== '') ? user.studentImg : 'assets/layout/images/user-o-2x.png';
           this.showIcon = (user.studentImg.trim() !== '') ? true : false;
           this.loading = val;
@@ -67,8 +72,34 @@ export class AppComponent {
       }
     })
     this.authService.checkStatus();
-    console.log('ope', this.isOpen);
-    console.log('hde', this.hideHeader);
+  }
+
+  getUrl(): Observable<Routes> {
+    var config = this._router.config;
+    var setConfig = [];
+    config.forEach(c => {
+      this.items.forEach(i => {
+        var r_link: string = i.routerLink;
+        var path = r_link.substring(1);
+        if (path !== '' && c.path === path) {
+          setConfig.push(c);
+        } else if (i.parentId === 0 && i.items !== undefined) {
+          if (i.items.length > 0) {
+            i.items.forEach(j => {
+              var r_link_child: string = j.routerLink;
+              var path_child = r_link_child.substring(1);
+              if (c.path === path_child) {
+                setConfig.push(c);
+              }
+            })
+          }
+        }
+      })
+    })
+    setConfig.push({ path: '**', redirectTo: '/login', component: LoginComponent })
+    setConfig.unshift({ path: '',   redirectTo: '/login', pathMatch: 'full' },
+    { path: 'login', component: LoginComponent })
+    return of(setConfig);
   }
 
   clear() {

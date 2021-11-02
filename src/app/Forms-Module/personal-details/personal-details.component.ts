@@ -71,7 +71,7 @@ export class PersonalDetailsComponent implements OnInit {
     this.loadData();
     this.masterService.getMaster('');
   }  
-  
+
   loadData() {
     console.log('inside method')
     if (this.responseData !== null && this.responseData !== undefined) {

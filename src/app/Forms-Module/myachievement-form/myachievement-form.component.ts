@@ -44,6 +44,11 @@ export class MyachievementFormComponent implements OnInit {
     , private authService: AuthService,private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
+    this.restApiService.get(PathConstants.Award_Get).subscribe(res => {
+      if (res !== null && res !== undefined && res.length !== 0) {
+        // this.feeTypes = res;
+      }
+    });
     this.cols = [
       // { field: 'RowId', header: 'ID' },
       { field: 'eventdate', header: 'Date' },
@@ -59,20 +64,20 @@ export class MyachievementFormComponent implements OnInit {
     { label: 'National', value: 'national'},
     { label: 'Domestic', value: 'domestic'},
   ];
-  this.AwardOption = [
-     { label: '-select-', value: null},
-     { label: 'First', value: 'first'},
-     { label: 'Second', value: 'second'},
-     { label: 'Third', value: 'third'},
-     { label: 'Winner', value: 'winner'},
-     { label: 'Runner', value: 'runner'},
-     { label: 'Gold', value: 'gold'},
-     { label: 'Silver', value: 'silver'},
-     { label: 'Bronze', value: 'bronze'},
-     { label: 'First Rank', value: 'first rank'},
-     { label: 'Second Rank', value: 'second rank'},
-     { label: 'Third Rank', value: 'third rank'},
-  ];
+  // this.AwardOption = [
+  //    { label: '-select-', value: null},
+  //    { label: 'First', value: 'first'},
+  //    { label: 'Second', value: 'second'},
+  //    { label: 'Third', value: 'third'},
+  //    { label: 'Winner', value: 'winner'},
+  //    { label: 'Runner', value: 'runner'},
+  //    { label: 'Gold', value: 'gold'},
+  //    { label: 'Silver', value: 'silver'},
+  //    { label: 'Bronze', value: 'bronze'},
+  //    { label: 'First Rank', value: 'first rank'},
+  //    { label: 'Second Rank', value: 'second rank'},
+  //    { label: 'Third Rank', value: 'third rank'},
+  // ];
 
   this.login_user = this.authService.UserInfo;
   }
@@ -190,33 +195,34 @@ export class MyachievementFormComponent implements OnInit {
     });
    
   }
-  onSelect(type) {
-    switch(type){
-      case 'A':
-        this.AwardOption = [
-           { label: '-select-', value: null},
-           { label: 'First', value: 'first'},
-           { label: 'Second', value: 'second'},
-           { label: 'Third', value: 'third'},
-           { label: 'Winner', value: 'winner'},
-           { label: 'Runner', value: 'runner'},
-           { label: 'Gold', value: 'gold'},
-           { label: 'Silver', value: 'silver'},
-           { label: 'Bronze', value: 'bronze'},
-           { label: 'First Rank', value: 'first rank'},
-           { label: 'Second Rank', value: 'second rank'},
-           { label: 'Third Rank', value: 'third rank'},      
-        ];
-        break;
-        case 'C':
-          this.CategoryOption = [
-            { label: '-select-', value: null },
-            { label: 'International', value: 'international'},
-            { label: 'National', value: 'national'},
-            { label: 'Domestic', value: 'domestic'},
-          ];
-          break;
-    }
+  // onSelect(type) {
+  //   let AwardSelection = [];
+  //   switch(type){
+  //     case 'A':
+  //       this.AwardOption = [
+  //          { label: '-select-', value: null},
+  //          { label: 'First', value: 'first'},
+  //          { label: 'Second', value: 'second'},
+  //          { label: 'Third', value: 'third'},
+  //          { label: 'Winner', value: 'winner'},
+  //          { label: 'Runner', value: 'runner'},
+  //          { label: 'Gold', value: 'gold'},
+  //          { label: 'Silver', value: 'silver'},
+  //          { label: 'Bronze', value: 'bronze'},
+  //          { label: 'First Rank', value: 'first rank'},
+  //          { label: 'Second Rank', value: 'second rank'},
+  //          { label: 'Third Rank', value: 'third rank'},      
+  //       ];
+  //       break;
+  //       case 'C':
+  //         this.CategoryOption = [
+  //           { label: '-select-', value: null },
+  //           { label: 'International', value: 'international'},
+  //           { label: 'National', value: 'national'},
+  //           { label: 'Domestic', value: 'domestic'},
+  //         ];
+  //         break;
+  //   }
    
-  }
+  // }
 }

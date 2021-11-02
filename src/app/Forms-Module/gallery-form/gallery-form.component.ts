@@ -30,7 +30,7 @@ export class GalleryFormComponent implements OnInit {
   title:string;
   MRowId:0;
   uploadedFiles: any[] = [];
-  date: any;
+  date: any = new Date;
   data: any = [];
   cols: any;
   showtable: boolean;
@@ -95,10 +95,9 @@ onSubmit() {
   this.restApiService.post(PathConstants.Gallery_Post, params).subscribe(res => {
     if(res !== undefined && res !== null) {
       if (res) {
-  console.log(res,'ii');
         // this.blockUI.stop();
-        this.onClear();
         this.messageService.clear();
+        this.onClear();
         this.messageService.add({
           key: 't-msg', severity: ResponseMessage.SEVERITY_SUCCESS,
           summary: ResponseMessage.SUMMARY_SUCCESS, detail: ResponseMessage.SuccessMessage

@@ -40,7 +40,7 @@
                 </form>
                 <div *ngIf="showtable">
                     <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10"
-                        [rowsPerPageOptions]="[5,10,15,20]" totalRecords="totalRecords" styleClass="p-datatable-gridlines" [loading]="loading">
+                        [rowsPerPageOptions]="[5,10,15,20]" styleClass="p-datatable-gridlines" [loading]="loading">
                         <ng-template pTemplate="header" let-columns>
                             <tr>
                                 <th style="width: 60px;">S.No</th>

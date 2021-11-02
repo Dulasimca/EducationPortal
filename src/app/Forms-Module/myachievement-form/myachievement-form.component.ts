@@ -35,6 +35,8 @@ export class MyachievementFormComponent implements OnInit {
   NewFileName:string;
   isDataAvailable: boolean;
   showtable: boolean;
+  Awards?: any;
+  Categorys?:any;
   @BlockUI() blockUI: NgBlockUI;
   public formData = new FormData();
 
@@ -46,39 +48,20 @@ export class MyachievementFormComponent implements OnInit {
   ngOnInit(): void {
     this.restApiService.get(PathConstants.Award_Get).subscribe(res => {
       if (res !== null && res !== undefined && res.length !== 0) {
-        // this.feeTypes = res;
+
+        this.Awards = res.Table;
+        this.Categorys = res.Table1
       }
     });
     this.cols = [
       // { field: 'RowId', header: 'ID' },
       { field: 'eventdate', header: 'Date' },
-      { field: 'EventDetailS', header: 'Category' },
-      { field: 'Category', header: 'Events' },
+      { field: 'CategoryName', header: 'Category' },
+      { field: 'EventDetailS', header: 'Events' },
       { field: 'Place', header: 'Place' },
-      { field: 'AchievementStatus', header: 'Status' } 
+      { field: 'AchievementName', header: 'Status' } 
  
   ];
-  this.CategoryOption = [
-    { label: '-select-', value: null },
-    { label: 'International', value: 'international'},
-    { label: 'National', value: 'national'},
-    { label: 'Domestic', value: 'domestic'},
-  ];
-  // this.AwardOption = [
-  //    { label: '-select-', value: null},
-  //    { label: 'First', value: 'first'},
-  //    { label: 'Second', value: 'second'},
-  //    { label: 'Third', value: 'third'},
-  //    { label: 'Winner', value: 'winner'},
-  //    { label: 'Runner', value: 'runner'},
-  //    { label: 'Gold', value: 'gold'},
-  //    { label: 'Silver', value: 'silver'},
-  //    { label: 'Bronze', value: 'bronze'},
-  //    { label: 'First Rank', value: 'first rank'},
-  //    { label: 'Second Rank', value: 'second rank'},
-  //    { label: 'Third Rank', value: 'third rank'},
-  // ];
-
   this.login_user = this.authService.UserInfo;
   }
   onSubmit() {
@@ -86,9 +69,9 @@ export class MyachievementFormComponent implements OnInit {
       'RowId': this.MRowId,
       'SchoolId': this.login_user.schoolId,         
       'StudentId':1,
-      'eventdate': this.datepipe.transform(this.date, 'MM/dd/yyyy') ,    
-      'EventDetailS':this.Category,
-      'Category': this.event,
+      'eventdate': this.datepipe.transform(this.date, 'MM/dd/yyyy'),    
+      'EventDetailS':this.event,
+      'Category': this.Category,
       'Place': this.Place,  
       'AchievementStatus':this.Award,
       'filename':this.NewFileName,
@@ -165,21 +148,21 @@ export class MyachievementFormComponent implements OnInit {
     this._MyAchievementForm.reset();
     this._MyAchievementForm.form.markAsUntouched();
     this._MyAchievementForm.form.markAsPristine();
-    this.Category="",
-    this.Place="",
-    this.Award="",
+    this.CategoryOption = [];
+    this.Place = [];
+    this.AwardOption = [];
     this.date = new Date();
     
   }
   onRowSelect(event, selectedRow) {
     this.MRowId=selectedRow.RowId;
     this.date=selectedRow.eventdate;
-    this.Category=selectedRow.EventDetailS;
-    this.CategoryOption= [{ label: selectedRow.EventDetailS, value: selectedRow.Category }];
+    this.Category= selectedRow.Category;
+    this.CategoryOption= [{ label: selectedRow.CategoryName, value: selectedRow.Category }];
     this.Place=selectedRow.Place;
-    this.Award=selectedRow.AchievementStatus;
-    this.AwardOption = [{ label: selectedRow.AchievementStatus, value: selectedRow.Award}];
-    this.event = selectedRow.Category;
+    this.Award= selectedRow.AchievementStatus;
+    this.AwardOption = [{ label: selectedRow.AchievementName, value: selectedRow.AchievementStatus}];
+    this.event = selectedRow.EventDetailS;
   }
 
   onDownload(Filename) {
@@ -195,34 +178,25 @@ export class MyachievementFormComponent implements OnInit {
     });
    
   }
-  // onSelect(type) {
-  //   let AwardSelection = [];
-  //   switch(type){
-  //     case 'A':
-  //       this.AwardOption = [
-  //          { label: '-select-', value: null},
-  //          { label: 'First', value: 'first'},
-  //          { label: 'Second', value: 'second'},
-  //          { label: 'Third', value: 'third'},
-  //          { label: 'Winner', value: 'winner'},
-  //          { label: 'Runner', value: 'runner'},
-  //          { label: 'Gold', value: 'gold'},
-  //          { label: 'Silver', value: 'silver'},
-  //          { label: 'Bronze', value: 'bronze'},
-  //          { label: 'First Rank', value: 'first rank'},
-  //          { label: 'Second Rank', value: 'second rank'},
-  //          { label: 'Third Rank', value: 'third rank'},      
-  //       ];
-  //       break;
-  //       case 'C':
-  //         this.CategoryOption = [
-  //           { label: '-select-', value: null },
-  //           { label: 'International', value: 'international'},
-  //           { label: 'National', value: 'national'},
-  //           { label: 'Domestic', value: 'domestic'},
-  //         ];
-  //         break;
-  //   }
+  onSelect(type) {
+    let awardSelection =[]
+    let categorySelection =[]
+    switch(type){
+      case 'A':
+        this.Awards.forEach(c => {
+          awardSelection.push({ label: c.Name, value: c.Id })
+        });
+        this.AwardOption = awardSelection;
+        this.AwardOption.unshift({ label: '-select', value: null });
+        break;
+        case 'C':
+          this.Categorys.forEach(c => {
+            categorySelection.push({ label: c.Name, value: c.Id })
+          });
+          this.CategoryOption = categorySelection;
+          this.CategoryOption.unshift({ label: '-select', value: null });
+          break;
+    }
    
-  // }
+  }
 }

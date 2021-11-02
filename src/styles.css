@@ -124,6 +124,14 @@ body { margin: 0 !important}
 label {
     font-size: 14px !important;
 }
+.school-text {
+    text-align: center !important;
+    align-self: center;
+    color: #0b2b66 !important;
+    font-weight: 500;
+    text-shadow: 1px 1px 2px #0e3989;
+    font-size: 20px;
+}
 /* #Region 1.2 */
 .note {
     font-size: 12px !important;

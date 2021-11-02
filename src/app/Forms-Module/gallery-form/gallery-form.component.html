@@ -1,5 +1,6 @@
   <form #Gallery="ngForm">
     <div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px; height: 520px;">
+  <p-toast position="top-center" key="t-msg"></p-toast>
       <p-panel header="Gallery">
         <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
           <form #f="ngForm" name="GalleryForm">
@@ -8,27 +9,29 @@
                 <div class="p-grid">
                   <div class="p-col-12 p-md-6 p-lg-2">
                     <div class="no-pad-top">
-                      <label>Date</label>
+                      <label>Date<span class ="form-mandatory-field">*</span></label>
                     </div>
                     <p-calendar [(ngModel)]="date" name="date" [showIcon]="true" required></p-calendar>
                   </div>
                   <div class="p-col-12 p-md-6 p-lg-3">
-                    <div><label>Title</label></div>
-                    <input type="text" name="title" pInputText [(ngModel)]="title" appInputFormat="noSpecialChars" required />
+                    <div><label>Image Title<span class ="form-mandatory-field">*</span></label></div>
+                    <input class="p-col-12" type="text" name="title" pInputText [(ngModel)]="title" appInputFormat="noSpecialChars" 
+                     style="text-transform: capitalize;" required />
                   </div>
 
                   <div class="p-col-12 p-md-6 p-lg-3">
-                    <div><label>Attach file</label></div>
-                    <input type="file" name="file" #file placeholder="Choose file" pInputText
+                    <div><label>Upload Image<span class ="form-mandatory-field">*</span></label></div>
+                    <input class="p-col-12" type="file" name="file" #file placeholder="Choose file" pInputText
                       (change)="uploadFile(file.files)" accept=".jpg,.png,.jpeg" required />
                   </div>
                 </div>
               </div>
               <div class="p-col-12 p-md-6 p-lg12" style="margin-left:35%;">
                 <button pButton name="_save" type="button" label="Submit" (click)="onSubmit()"
-                  [disabled]="(!f.valid)"></button>
+                icon="pi pi-save" [disabled]="(!f.valid)"></button>
 
-                <button pButton type="button" label="View" style="margin-left:5%;" (click)="onview()"></button>
+                <button pButton type="button" label="View" style="margin-left:5%;" 
+                icon="pi pi-eye" (click)="onview()"></button>
               </div>
             </p-card>
           </form>

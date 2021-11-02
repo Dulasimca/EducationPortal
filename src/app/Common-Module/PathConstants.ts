@@ -34,7 +34,7 @@ export class PathConstants {
 
     public static readonly Myachievement_Post = 'MyAchievements/Post';
     public static readonly Myachievement_Get = 'MyAchievements/Get';
-    public static readonly Award_Get = 'Award/Get';
+    public static readonly Award_Get = 'Award';
 
     
     

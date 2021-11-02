@@ -288,6 +288,7 @@ background-color: #b8baf3;
     background: white !important;
     transition-duration: 1s ease-in-out;
     box-shadow: 5px 10px 8px #888888;
+    margin-bottom: 7rem !important;
 }
 .side-nav {
     width: 100% !important;
@@ -328,6 +329,7 @@ background-color: #b8baf3;
     height: 100% !important;
     position: absolute !important;
     overflow: auto !important;
+    margin-bottom: 7rem !important;
 }
 .container-pages-close {
     top: 4rem;
@@ -336,6 +338,7 @@ background-color: #b8baf3;
     height: 100% !important;
     position: absolute !important;
     overflow: auto !important;
+    margin-bottom: 7rem !important;
 }
 
 /* end #Regioin 3*/
@@ -606,6 +609,10 @@ legend {
 .p-card .p-card-content {
     padding: 0.5rem 0 !important;
 }
+.p-tabview .p-tabview-nav li .p-tabview-nav-link {
+    padding: 0.5rem !important;
+}
+;
 /* end #Region 4 */
 
 /* customised angular material style #Region 5 */

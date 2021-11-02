@@ -90,7 +90,7 @@ export class PersonalDetailsComponent implements OnInit {
             (i.MotherPhotoFilName.toString().trim() !== '' ? i.MotherPhotoFilName : '') : '',
             this.obj.GaurdianPhotoFileName = (i.GaurdianPhotoFileName !== undefined && i.GaurdianPhotoFileName !== null) ?
             (i.GaurdianPhotoFileName.toString().trim() !== '' ?  i.GaurdianPhotoFileName : '') : '',
-          this.classOptions = [{ label: i.Classname1, value: i.ClassId }];
+          this.classOptions = [{ label: i.Classname2, value: i.ClassId }];
           this.sectionOptions = [{ label: i.SectionName, value: i.SectionId }];
           this.mediumOptions = [{ label: i.MediumName, value: i.Medium }];
           this.bloodGroupOptions = [{ label: i.BloodGroupName, value: i.BloodGroup }];
@@ -233,7 +233,6 @@ export class PersonalDetailsComponent implements OnInit {
       .subscribe((event: any) => {
       }
       );
-    console.log('retn', actualFilename);
     return actualFilename;
   }
 

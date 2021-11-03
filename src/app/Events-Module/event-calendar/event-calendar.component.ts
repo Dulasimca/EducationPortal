@@ -62,8 +62,8 @@ export class EventCalendarComponent implements OnInit {
     })
   }
 
-  handleDateClick(arg) {
-    alert('date click! ' + arg.dateStr)
+  handleDateClick(arg) { 
+    // handle date click here
   }
 
 }

@@ -30,7 +30,9 @@ export class AssessmentComponent implements OnInit {
       if(res !== undefined && res !== null) {
         if(res[0].isSubmitted) {
           this.blockUI.start('redirecting...');
-          this._router.navigate(['/online-assessment']);
+          setTimeout(() => {
+            this._router.navigate(['/online-assessment']);
+          } ,300)
         } else {
           this.blockUI.stop();
         }
@@ -38,8 +40,10 @@ export class AssessmentComponent implements OnInit {
     })
   } else {
     this.blockUI.start('redirecting...');
-    this._router.navigate(['/online-assessment']);
-  }
+    setTimeout(() => {
+      this._router.navigate(['/online-assessment']);
+    } ,300) 
+   }
   }
 
   onStart() {

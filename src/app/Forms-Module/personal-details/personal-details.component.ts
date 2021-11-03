@@ -73,13 +73,11 @@ export class PersonalDetailsComponent implements OnInit {
   }  
 
   loadData() {
-    console.log('inside method')
     if (this.responseData !== null && this.responseData !== undefined) {
-      console.log('inside if1')
       if (this.responseData.length !== 0) {
-    console.log('inside if2', this.responseData)
     this.responseData.forEach((i: any) => {
-          console.log('p',this.responseData)
+          console.log('p',this.responseData);
+          this.obj = i;
           this.obj.DateofBirth = this.datePipe.transform(i.DateofBirth, 'yyyy-MM-dd'),
           this.obj.DateofJoining = this.datePipe.transform(i.DateofJoining, 'yyyy-MM-dd'),
           this.obj.StudentPhotoFileName = (i.StudentPhotoFileName !== undefined && i.StudentPhotoFileName !== null) ?
@@ -90,7 +88,7 @@ export class PersonalDetailsComponent implements OnInit {
             (i.MotherPhotoFilName.toString().trim() !== '' ? i.MotherPhotoFilName : '') : '',
             this.obj.GaurdianPhotoFileName = (i.GaurdianPhotoFileName !== undefined && i.GaurdianPhotoFileName !== null) ?
             (i.GaurdianPhotoFileName.toString().trim() !== '' ?  i.GaurdianPhotoFileName : '') : '',
-          this.classOptions = [{ label: i.Classname1, value: i.ClassId }];
+          this.classOptions = [{ label: i.Classname2, value: i.ClassId }];
           this.sectionOptions = [{ label: i.SectionName, value: i.SectionId }];
           this.mediumOptions = [{ label: i.MediumName, value: i.Medium }];
           this.bloodGroupOptions = [{ label: i.BloodGroupName, value: i.BloodGroup }];
@@ -233,7 +231,6 @@ export class PersonalDetailsComponent implements OnInit {
       .subscribe((event: any) => {
       }
       );
-    console.log('retn', actualFilename);
     return actualFilename;
   }
 

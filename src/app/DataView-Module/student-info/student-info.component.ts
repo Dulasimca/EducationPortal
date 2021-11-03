@@ -65,12 +65,12 @@ roleId: any;
         this.responseData = response;
         response.forEach(i => {
           this.name = (i.FirstName !== undefined && i.FirstName !== null) ? ((i.FirstName.toString().trim() !== '') ? i.FirstName : '-') : '-',
-          this.class = (i.Class !== undefined && i.Class !== null) ? ((i.Class.toString().trim() !== '') ? i.Class : '-') : '-',
-          this.section = (i.Section !== undefined && i.Section !==null) ? ((i.Section.toString().trim() !== '') ? i.Section : '-') : '-',
+          this.class = (i.Classname2 !== undefined && i.Classname2 !== null) ? ((i.Classname2.toString().trim() !== '') ? i.Classname2 : '-') : '-',
+          this.section = (i.SectionName !== undefined && i.SectionName !==null) ? ((i.SectionName.toString().trim() !== '') ? i.SectionName : '-') : '-',
           this.bloodGroup = (i.BloodGroupName !== undefined && i.BloodGroupName !==null) ? ((i.BloodGroupName.toString().trim() !== '') ? i.BloodGroupName : '-') : '-',
           this.gender = (i.GenderName !== undefined && i.GenderName !==null) ? ((i.GenderName.toString().trim() !== '') ? i.GenderName : '-') : '-',
-          this.religion = (i.Religion !== undefined && i.Religion !==null) ? ((i.Religion.toString().trim() !== '') ? i.Religion : '-') : '-',
-          this.caste = (i.Caste !== undefined && i.Caste !==null) ? ((i.Caste.toString().trim() !== '') ? i.Caste : '-') : '-',
+          this.religion = (i.ReligionName !== undefined && i.ReligionName !==null) ? ((i.ReligionName.toString().trim() !== '') ? i.ReligionName : '-') : '-',
+          this.caste = (i.CasteName !== undefined && i.CasteName !==null) ? ((i.CasteName.toString().trim() !== '') ? i.CasteName : '-') : '-',
           this.studentMail = (i.EmailId !== undefined && i.EmailId !==null) ? ((i.EmailId.toString().trim() !== '') ? i.EmailId : '-') : '-',
           this.studentContact = (i.PhoneNumber !== undefined && i.PhoneNumber !==null) ? ((i.PhoneNumber.toString().trim() !== '') ? i.PhoneNumber : '-') : '-',
           this.rollNo = (i.ID !== undefined && i.ID !== null) ? ((i.ID.toString().trim() !== '') ? i.ID : '-') : '-',

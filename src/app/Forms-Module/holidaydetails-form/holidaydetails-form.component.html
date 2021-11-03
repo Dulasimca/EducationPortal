@@ -31,17 +31,19 @@
                   [rowsPerPageOptions]="[5,10,15,20]" totalRecords="totalRecords" styleClass="p-datatable-gridlines" [loading]="loading">
                   <ng-template pTemplate="header" let-columns>
                     <tr>
-                      <th style="width: 60px;">S.No</th>
-                      <th *ngFor="let col of columns">
+                      <th style="text-align: center; width: 90px;">S.No</th>
+                      <th *ngFor="let col of columns" style="text-align: center;">
                         {{col.header}}
                       </th>
-                      <th style="width: 100px;">Delete</th>
+                      <th style="text-align: center; width: 90px;">
+                        Delete
+                      </th>
                         
                     </tr>
                   </ng-template>
                   <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
                     <tr [pSelectableRow]="rowData" class="cursor-pointer" (dblclick)="onRowSelect($event, rowData)">
-                      <td>{{rowIndex+1}}</td>
+                      <td style="text-align: center; width: 90px;">{{rowIndex+1}}</td>
                       <td *ngFor="let col of columns">
                         {{rowData[col.field]}}
                       </td>

@@ -14,22 +14,22 @@
                     <p-table [columns]="questionBankCols" [value]="questionBankData" [paginator]="true" [rows]="10" [loading]="loading"  styleClass="p-datatable-gridlines">
                         <ng-template pTemplate="header" let-columns>
                             <tr>
-                                <th style="width: 100px">S.No</th>
-                                <th *ngFor="let col of columns">
+                                <th style="text-align: center; width: 90px;">S.No</th>
+                                <th *ngFor="let col of columns" style="text-align: center;">
                                     {{col.header}}
                                 </th>
-                                <th>Download</th>
+                                <th style="text-align: center; width: 90px;">Download</th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-rowIndex="rowIndex" let-data let-columns="columns">
                             <tr>
-                                <td style="width: 100px">{{rowIndex+1}}</td>
+                                <td style="text-align: center; width: 90px;">{{rowIndex+1}}</td>
                                 <td *ngFor="let col of columns">
                                     {{data[col.field]}}
                                 </td>
                                 <td (click)="onDownload(data.FileName)">
                                     <i class="pi pi-file-pdf"
-                                            style="padding-left: 10px; color: #52de38; font-size: 1.5rem;"></i>
+                                    style="text-align: center; width: 90px;"></i>
                                 </td>
                             </tr>
                         </ng-template>

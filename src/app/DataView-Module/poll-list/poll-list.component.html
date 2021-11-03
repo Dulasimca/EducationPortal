@@ -20,35 +20,29 @@
               totalRecords="totalRecords"  styleClass="p-datatable-gridlines">
               <ng-template pTemplate="header" let-columns>
                 <tr>
-                  <th>S.No:</th>
-                  <th *ngFor="let col of columns">
+                  <th style="text-align: center; width: 90px;">S.No:</th>
+                  <th *ngFor="let col of columns" style="text-align: center;">
                     {{col.header}}
                   </th>
-                  <th>
-                    Thumbs-up
+                  <th style="text-align: center; width: 90px;">
+                   Vote
                   </th>
                 </tr>
               </ng-template>
               <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns" class="cursor-pointer">
                 <tr>
-                  <td>{{rowIndex+1}}</td>
+                  <td style="text-align: center; width: 90px;">{{rowIndex+1}}</td>
                   <td *ngFor="let col of columns">
                     {{rowData[col.field]}}
                   </td>
-                  <td *ngIf="!isDataAvailable">
+                  <td *ngIf="!isDataAvailable" style="text-align: center; width: 90px;">
                     <button pButton pRipple type="button"  icon="pi pi-thumbs-up" style="margin-right: 10px;" (click)="onVotinglist(rowData)"
                        class="p-button-rounded p-button-success p-button-outlined p-col-1"></button>
                    </td>
-                  <td *ngIf="rowData.isActive && isDataAvailable">
-                   <button pButton pRipple type="button"  icon="pi pi-thumbs-up" style="margin-right: 10px;"
-                      [disabled]="true" class="p-button-rounded p-button-success p-button-outlined p-col-1"></button>
-                  </td>
-                  <td *ngIf="!(rowData.isActive) && isDataAvailable">
+                  <td *ngIf="isDataAvailable" style="text-align: center; width: 90px;">
                     <button pButton type="button" icon="pi pi-thumbs-up" style="margin-right: 10px; color: black;"
                        class="p-button-rounded p-button-outlined p-col-1" [disabled]="true"></button>
                    </td>
-                  <td>
-                  </td>
                 </tr>
               </ng-template>       
             </p-table>

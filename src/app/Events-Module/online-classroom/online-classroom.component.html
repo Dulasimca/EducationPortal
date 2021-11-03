@@ -11,8 +11,8 @@
                     <p-table [columns]="meetingCols" [value]="meetingData" [paginator]="true" [rows]="10" [loading]="loading" styleClass="p-datatable-gridlines">
                         <ng-template pTemplate="header" let-columns>
                             <tr>
-                                <th style="width: 90px">S.No</th>
-                                <th *ngFor="let col of columns">
+                                <th style="text-align: center; width: 90px;">S.No</th>
+                                <th *ngFor="let col of columns" style="text-align: center;">
                                     {{col.header}}
                                 </th>
                                 <th *ngIf="(login_user.roleId!=6)">Start Class</th>
@@ -21,7 +21,7 @@
                         </ng-template>
                         <ng-template pTemplate="body" let-rowIndex="rowIndex"  let-rowData let-columns="columns">
                             <tr>
-                                <td style="width: 90px">{{rowIndex+1}}</td>
+                                <td style="text-align: center; width: 90px;">{{rowIndex+1}}</td>
                                 <td *ngFor="let col of columns">
                                     {{rowData[col.field]}}
                                 </td>

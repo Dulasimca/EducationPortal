@@ -16,22 +16,22 @@
             totalRecords="totalRecords" styleClass="p-datatable-gridlines">
             <ng-template pTemplate="header"  let-columns>
               <tr>
-                <th>S.No</th>
-                <th *ngFor="let col of columns">
+                <th style="text-align: center; width: 90px;">S.No</th>
+                <th *ngFor="let col of columns" style="text-align: center;">
                   {{col.header}}
                 </th>
-                <th>
+                <th style="text-align: center; width: 90px;">
                   Download
                 </th>
               </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
               <tr>
-                <td>{{rowIndex+1}}</td>
+                <td style="text-align: center; width: 90px;">{{rowIndex+1}}</td>
                 <td *ngFor="let col of columns">
                   {{rowData[col.field]}}
                 </td>
-                <td style="width: 142px;"><button pButton type="button" icon="pi pi-file-o" pTooltip="View receipt" (click)="onDownload()"
+                <td style="text-align: center; width: 90px;"><button pButton type="button" icon="pi pi-file-o" pTooltip="View receipt" (click)="onDownload()"
                     style="color: #52de38; font-size: 1.3rem; margin-left: 25px;"></button></td>
               </tr>
             </ng-template>

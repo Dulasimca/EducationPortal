@@ -10,11 +10,11 @@
   totalRecords="totalRecords" styleClass="p-datatable-gridlines">
   <ng-template pTemplate="header" let-columns>
     <tr>
-      <th style="width: 60px;">S.No</th>
-      <th *ngFor="let col of columns" [style.width]="col.width">
+      <th style="text-align: center; width: 90px;">S.No</th>
+      <th *ngFor="let col of columns" style="text-align: center;">
         {{col.header}}
       </th>
-      <th>
+      <th style="text-align: center; width: 90px;">
           Download 
       </th>
     </tr>
@@ -24,11 +24,11 @@
     <tr [pSelectableRow]="rowData"  class="cursor-pointer">
       
     <!--<tr [pSelectableRow]="rowData"  class="cursor-pointer" (dblclick)="onRowSelect($event, rowData)">-->
-     <td>{{rowIndex+1}}</td>
+      <td style="text-align: center; width: 90px;">{{rowIndex+1}}</td>
       <td *ngFor="let col of columns">
         {{rowData[col.field]}}
       </td>
-      <td style="width: 142px;"><i class="pi pi-download" (click)="onDownload(rowData.Download)" 
+      <td style="text-align: center; width: 90px;"><i class="pi pi-download" (click)="onDownload(rowData.Download)" 
         style="color: #52de38; font-size: 1.3rem; margin-left: 25px;"></i></td> 
     </tr>
   </ng-template>

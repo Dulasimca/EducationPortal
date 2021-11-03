@@ -7,11 +7,11 @@
            totalRecords="totalRecords" styleClass="p-datatable-gridlines">
             <ng-template pTemplate="header"  let-columns>
               <tr>
-                <th style="width: 40px;">S.No</th>
-                <th *ngFor="let col of columns" [style.width]="col.width">
+                <th style="text-align: center; width: 90px;">S.No</th>
+                <th *ngFor="let col of columns" style="text-align: center;">
                   {{col.header}}
                 </th>
-                <th style="width: 100px;">
+                <th style="text-align: center; width: 90px;">
                   Download
                 </th>
               </tr>
@@ -19,12 +19,12 @@
 
             <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
               <tr>
-                <td>{{rowIndex+1}}</td>
+                <td style="text-align: center; width: 90px;">{{rowIndex+1}}</td>
                 <td *ngFor="let col of columns">
                   {{rowData[col.field]}}
                 </td>
 
-                <td style="width: 142px;"><i class="pi pi-download" (click)="onDownload(rowData.Announcementfilename)" 
+                <td style="text-align: center; width: 90px;"><i class="pi pi-download" (click)="onDownload(rowData.Announcementfilename)" 
                    style="color: #52de38; font-size: 1.3rem; margin-left: 25px;"></i></td>
               </tr>
             </ng-template>

@@ -34,32 +34,36 @@ export class EventCalendarComponent implements OnInit {
         var setInitialDate = new Date().getFullYear()  + '-01-01';
         var data: any = [];
         events.forEach(e => {
-          console.log('e', e);
+          console.log('e', setInitialDate);
           data.push({
             'id': e.RowId,
             'title': e.EventDetailS,
-            'start': e.eventdate,
-         //   'color': ((e.Holiday * 1) === 1) ? 'green' : 'blue'
+            'start': e.eDate,
+            'color': ((e.HolidayId * 1) === 1) ? '#44b544' : '#39399f'
           })
           console.log('data', data);
         })
         this.events = data;
         this.options = {
-          initialDate: setInitialDate,
-          headerToolbar: {
-            left: 'prev,next today',
-            center: 'title',
-            right: 'dayGridMonth,timeGridWeek,timeGridDay'
-          },
-          editable: true,
-          selectable: true,
-          selectMirror: true,
-          dayMaxEvents: true
+          initialDate : setInitialDate,
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                editable: true,
+                selectable:true,
+                selectMirror: true,
+                dayMaxEvents: true,
+          dateClick: this.handleDateClick.bind(this),
         };
-        this.options = { ...this.options, ...{ events: data } };
+       this.options = { ...this.options, ...{ events: this.events } };
       }
     })
   }
 
+  handleDateClick(arg) {
+    alert('date click! ' + arg.dateStr)
+  }
 
 }

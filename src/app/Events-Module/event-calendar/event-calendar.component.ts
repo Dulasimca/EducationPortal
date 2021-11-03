@@ -26,26 +26,26 @@ export class EventCalendarComponent implements OnInit {
   ngOnInit() {
     this.logged_user = this.authService.UserInfo;
     this.loadEvents();
-    
   }
 
   loadEvents() {
     this.restApiService.getByParameters(PathConstants.Event_Calendar_Get, { 'SchoolID': this.logged_user.schoolId }).subscribe((events: any) => {
       if (events !== undefined && events !== null && events.length !== 0) {
+        var setInitialDate = new Date().getFullYear()  + '-01-01';
         var data: any = [];
         events.forEach(e => {
           console.log('e', e);
           data.push({
             'id': e.RowId,
-            'title': e.eventname,
+            'title': e.EventDetailS,
             'start': e.eventdate,
-            'color': (e.Holiday) ? 'blue' : 'crimson'
+         //   'color': ((e.Holiday * 1) === 1) ? 'green' : 'blue'
           })
           console.log('data', data);
         })
         this.events = data;
         this.options = {
-          initialDate: '2021-08-01',
+          initialDate: setInitialDate,
           headerToolbar: {
             left: 'prev,next today',
             center: 'title',

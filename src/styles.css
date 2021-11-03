@@ -121,8 +121,21 @@ body { margin: 0 !important}
 .no-pad-bottom {
     padding-bottom: 0 !important;
 }
+.margin-lt {
+    margin-left: 5px !important;
+}
+.margin-rt {
+    margin-right: 5px !important;
+}
 label {
     font-size: 14px !important;
+}
+hr {
+    margin: 0.1rem 0 0.2rem 0 !important;
+}
+.view-gridlines-gap {
+    padding-top: 25px !important;
+    margin-left: 15px !important;
 }
 .school-text {
     text-align: center !important;
@@ -131,6 +144,15 @@ label {
     font-weight: 500;
     text-shadow: 1px 1px 2px #0e3989;
     font-size: 20px;
+}
+.full-screen {
+    height: 100% !important;
+    width: 100% !important;
+}
+.login-bg {
+    height: 100% !important;
+    width: 100% !important;
+ background: linear-gradient(to bottom,  #112b52 0%, #0b2b66 50%, #124c7d 100%);
 }
 /* #Region 1.2 */
 .note {
@@ -147,6 +169,9 @@ label {
     height: 40px;
     color: #495057 !important;
     font-weight: bold;
+}
+.div-hdr-light {
+    background: #aac8e3 !important;
 }
 .border-line-blue {
     border: solid 1px rgb(11, 43, 102) !important;
@@ -281,7 +306,12 @@ background-color: #b8baf3;
     float: right !important;
 }
 .nav-container {
+    margin-bottom: 3.5rem !important;
+    overflow: auto;
+}
+.nav-pane {
     margin-bottom: 5rem !important;
+    overflow: auto;
 }
 .side-nav-panel {
     width: 16% !important;
@@ -307,7 +337,7 @@ background-color: #b8baf3;
 }
 
 .layout-wrapper-set {
-    margin-left: 16% !important; display: flex;
+    margin-left: 15% !important; display: flex;
     /* transition-duration: 1s !important; */
 }
 .layout-wrapper-unset {
@@ -322,14 +352,23 @@ background-color: #b8baf3;
     height: 100% !important;
 }
 .layout-wrapper-main {
-    margin-left: 16%; display: flex;
+    margin-left: 15%; display: flex;
     transition-duration: 0s;
+}
+.container-pages-mobile {
+    position: fixed !important;
+    top: 6rem !important;
+    transition: none !important;
+    width: 100% !important;
+    height: 100% !important;
+    overflow: auto !important;
 }
 .container-login {
     padding-top: 0rem;
     transition: none !important;
     width: 100% !important;
     height: 100% !important;
+    background: linear-gradient(to bottom,  #112b52 0%, #0b2b66 50%, #124c7d 100%);
 }
 .container-pages-open {
     top: 4rem;
@@ -346,12 +385,16 @@ background-color: #b8baf3;
     height: 100% !important;
     position: absolute !important;
     overflow: auto !important;
+    padding: 0 10px 0 10px !important;
 }
 
 /* end #Regioin 3*/
 
 /* prime ng styles customed #Region 4*/
 
+.p-component {
+    font-size: 15px !important;
+}
 .p-panel .p-panel-header {
     border: 1px solid #dee2e6;
     padding: 1rem;
@@ -595,7 +638,7 @@ td[_ngcontent-fng-c4] {
     padding: 0 0.2rem 0 0.2rem !important;
 }
 .p-datatable .p-datatable-footer, .p-datatable .p-datatable-thead>tr>th {
-    padding: 0.2rem !important;
+    padding: 0.35rem !important;
 }
 .p-datatable .p-datatable-tbody>tr>td {
     padding: .35rem !important;
@@ -620,6 +663,10 @@ legend {
 }
 .p-card .p-card-content {
     padding: 0.5rem 0 !important;
+}
+.p-inputtext {
+    font-family: 'poppins' !important;
+    font-size: 14px !important;
 }
 /* end #Region 4 */
 

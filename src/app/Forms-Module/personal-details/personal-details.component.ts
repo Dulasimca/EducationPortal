@@ -14,6 +14,7 @@ import { AuthService } from 'src/app/Services/auth.service';
 import { FileUploadConstant } from 'src/app/Common-Module/file-upload-constant';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { BlockUI, NgBlockUI } from 'ng-block-ui';
 // import { isUint16Array } from 'util/types';
 
 @Component({
@@ -22,12 +23,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./personal-details.component.css']
 })
 export class PersonalDetailsComponent implements OnInit {
-
   responseData: Profile[] = [];
   obj: Profile = {} as Profile;
   yearRange: string;
   classOptions: SelectItem[];
-  sectionOptions:  SelectItem[];
+  sectionOptions: SelectItem[];
   genderOptions: SelectItem[];
   mediumOptions: SelectItem[];
   casteOptions: SelectItem[];
@@ -39,24 +39,25 @@ export class PersonalDetailsComponent implements OnInit {
   fatherImage: any;
   motherImage: any;
   guardinaImage: any;
-   //masters
-   sections?: any;
-   classes?: any;
-   genders?: any;
-   castes?: any;
-   mediums?: any;
-   bloodGroups?: any;
-   religions?: any;
-   nationalities?: any;
-   cities?: any;
-   logged_user: User;
-   folderName: string = '';
+  //masters
+  sections?: any;
+  classes?: any;
+  genders?: any;
+  castes?: any;
+  mediums?: any;
+  bloodGroups?: any;
+  religions?: any;
+  nationalities?: any;
+  cities?: any;
+  logged_user: User;
+  folderName: string = '';
+  @BlockUI() blockUI: NgBlockUI;
   @ViewChild('f', { static: false }) _personalDetailsForm: NgForm;
   public formData = new FormData();
 
   constructor(private restApiService: RestAPIService, private messageService: MessageService,
-    private datePipe: DatePipe,  public _d: DomSanitizer, private userService: UserService, private masterService: MasterService, 
-    private authService: AuthService, private http: HttpClient, private router:Router) { }
+    private datePipe: DatePipe, public _d: DomSanitizer, private userService: UserService, private masterService: MasterService,
+    private authService: AuthService, private http: HttpClient, private router: Router) { }
 
   ngOnInit() {
     this.logged_user = this.authService.UserInfo;
@@ -70,25 +71,25 @@ export class PersonalDetailsComponent implements OnInit {
     this.obj = {} as Profile;
     this.loadData();
     this.masterService.getMaster('');
-  }  
+  }
 
   loadData() {
     if (this.responseData !== null && this.responseData !== undefined) {
       if (this.responseData.length !== 0) {
-    this.responseData.forEach((i: any) => {
-          console.log('p',this.responseData);
+        this.responseData.forEach((i: any) => {
+          console.log('p', this.responseData);
           this.obj = i;
           this.obj.DateofBirth = this.datePipe.transform(i.DateofBirth, 'yyyy-MM-dd'),
-          this.obj.DateofJoining = this.datePipe.transform(i.DateofJoining, 'yyyy-MM-dd'),
-          this.obj.StudentPhotoFileName = (i.StudentPhotoFileName !== undefined && i.StudentPhotoFileName !== null) ?
-            (i.StudentPhotoFileName.toString().trim() !== '' ? i.StudentPhotoFileName : '') : '',
-         this.obj.FatherPhotoFileName = (i.FatherPhotoFileName !== undefined && i.FatherPhotoFileName !== null) ?
-            (i.FatherPhotoFileName.toString().trim() !== '' ? i.FatherPhotoFileName : '') : '',
+            this.obj.DateofJoining = this.datePipe.transform(i.DateofJoining, 'yyyy-MM-dd'),
+            this.obj.StudentPhotoFileName = (i.StudentPhotoFileName !== undefined && i.StudentPhotoFileName !== null) ?
+              (i.StudentPhotoFileName.toString().trim() !== '' ? i.StudentPhotoFileName : '') : '',
+            this.obj.FatherPhotoFileName = (i.FatherPhotoFileName !== undefined && i.FatherPhotoFileName !== null) ?
+              (i.FatherPhotoFileName.toString().trim() !== '' ? i.FatherPhotoFileName : '') : '',
             this.obj.MotherPhotoFilName = (i.MotherPhotoFilName !== undefined && i.MotherPhotoFilName !== null) ?
-            (i.MotherPhotoFilName.toString().trim() !== '' ? i.MotherPhotoFilName : '') : '',
+              (i.MotherPhotoFilName.toString().trim() !== '' ? i.MotherPhotoFilName : '') : '',
             this.obj.GaurdianPhotoFileName = (i.GaurdianPhotoFileName !== undefined && i.GaurdianPhotoFileName !== null) ?
-            (i.GaurdianPhotoFileName.toString().trim() !== '' ?  i.GaurdianPhotoFileName : '') : '',
-          this.classOptions = [{ label: i.Classname2, value: i.ClassId }];
+              (i.GaurdianPhotoFileName.toString().trim() !== '' ? i.GaurdianPhotoFileName : '') : '',
+            this.classOptions = [{ label: i.Classname2, value: i.ClassId }];
           this.sectionOptions = [{ label: i.SectionName, value: i.SectionId }];
           this.mediumOptions = [{ label: i.MediumName, value: i.Medium }];
           this.bloodGroupOptions = [{ label: i.BloodGroupName, value: i.BloodGroup }];
@@ -99,7 +100,7 @@ export class PersonalDetailsComponent implements OnInit {
           this.guardinaImage = this.obj.GaurdianPhotoFileName;
         })
       } else {
-      this.router.navigate(['/profile']);
+        this.router.navigate(['/profile']);
       }
     } else {
       this.router.navigate(['/profile']);
@@ -124,20 +125,20 @@ export class PersonalDetailsComponent implements OnInit {
     let classSelection = [];
     let sectionSelection = [];
     switch (type) {
-    case 'C':
-      this.classes.forEach(c => {
-        classSelection.push({ label: c.name, value: c.code })
-      });
-      this.classOptions = classSelection;
-      this.classOptions.unshift({ label: '-select', value: null });
-      break;
-    case 'S':
-      this.sections.forEach(s => {
-        sectionSelection.push({ label: s.name, value: s.code })
-      });
-      this.sectionOptions = sectionSelection;
-      this.sectionOptions.unshift({ label: '-select', value: null });
-      break;
+      case 'C':
+        this.classes.forEach(c => {
+          classSelection.push({ label: c.name, value: c.code })
+        });
+        this.classOptions = classSelection;
+        this.classOptions.unshift({ label: '-select', value: null });
+        break;
+      case 'S':
+        this.sections.forEach(s => {
+          sectionSelection.push({ label: s.name, value: s.code })
+        });
+        this.sectionOptions = sectionSelection;
+        this.sectionOptions.unshift({ label: '-select', value: null });
+        break;
       case 'CS':
         this.castes.forEach(s => {
           casteSelection.push({ label: s.name, value: s.code })
@@ -183,8 +184,12 @@ export class PersonalDetailsComponent implements OnInit {
     }
   }
 
-  onSave() { 
-    console.log('obj', this.obj)
+  onSave() {
+    this.blockUI.start('submitting...');
+    this.obj.DateofBirth = (typeof (this.obj.DateofBirth) === 'object') ?
+      this.datePipe.transform(this.obj.DateofBirth, 'yyyy-MM-dd') : this.obj.DateofBirth;
+    this.obj.DateofJoining = (typeof (this.obj.DateofJoining) === 'object') ?
+      this.datePipe.transform(this.obj.DateofJoining, 'yyyy-MM-dd') : this.obj.DateofJoining;
     this.restApiService.post(PathConstants.Registration_Post, this.obj).subscribe(res => {
       if (res) {
         this.clearForm();
@@ -193,10 +198,12 @@ export class PersonalDetailsComponent implements OnInit {
           key: 't-msg', severity: ResponseMessage.SEVERITY_SUCCESS,
           summary: ResponseMessage.SUMMARY_SUCCESS, detail: ResponseMessage.SuccessMessage
         });
-        setTimeout(()=> {
+        setTimeout(() => {
+          this.blockUI.stop();
           this.router.navigate(['/profile'])
         }, 500)
       } else {
+        this.blockUI.stop();
         this.messageService.clear();
         this.messageService.add({
           key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
@@ -204,11 +211,18 @@ export class PersonalDetailsComponent implements OnInit {
         });
       }
     }, (err: HttpErrorResponse) => {
+      this.blockUI.stop();
       if (err.status === 0 || err.status === 400) {
         this.messageService.clear();
         this.messageService.add({
           key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
           summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+        })
+      } else {
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+          summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.NetworkErrorMessage
         })
       }
     })
@@ -221,7 +235,7 @@ export class PersonalDetailsComponent implements OnInit {
     this.formData = new FormData()
     let fileToUpload: any = <File>files[0];
     let actualFilename = '';
-   
+
     const filename = fileToUpload.name + '^' + this.folderName;
     this.formData.append('file', fileToUpload, filename);
     console.log('file', fileToUpload);
@@ -282,5 +296,5 @@ export class PersonalDetailsComponent implements OnInit {
     this.classOptions = [];
     this.sectionOptions = [];
     this.userImage = '';
-}
+  }
 }

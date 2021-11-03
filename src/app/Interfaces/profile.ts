@@ -16,7 +16,7 @@ export interface Profile {
     SectionId: number;
     StudentPhotoFileName: string;
     Caste: number;
-    CurrentAddrress: string;
+    CurrentAddress: string;
     PermanentAddress: string;
     SchoolName: string;
     SchoolId: number;
@@ -24,7 +24,7 @@ export interface Profile {
     AltNumber: any;
     Nameoflastschool: string;
     LastchoolTelephone: any;
-    District: string;
+    DistrictId: string;
     Postalcode: any;
     EmailId: string;
     Religion: number;

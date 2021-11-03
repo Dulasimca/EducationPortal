@@ -195,7 +195,7 @@ export class RegistrationFormComponent implements OnInit {
 
   onCheckAddress(value) {
     if (value !== undefined && value !== null) {
-      this.obj.CurrentAddrress = (value && this.obj.PermanentAddress !== undefined) ? this.obj.PermanentAddress : '';
+      this.obj.CurrentAddress = (value && this.obj.PermanentAddress !== undefined) ? this.obj.PermanentAddress : '';
     }
   }
 
@@ -273,6 +273,8 @@ export class RegistrationFormComponent implements OnInit {
     this.obj.DateofJoining = this.datePipe.transform(this.obj.DateofJoining, 'yyyy-MM-dd');
     this.obj.Disability = (this.obj.Disability !== undefined && this.obj.Disability !== null) ? this.obj.Disability.trim() : null,
     this.obj.Password = '123';
+    this.obj.CurrentAddress = (this.obj.CurrentAddress !== undefined && this.obj.CurrentAddress !== null) ? 
+    this.obj.CurrentAddress : this.obj.PermanentAddress;
       console.log('obj', this.obj);
     this.restApiService.post(PathConstants.Registration_Post, this.obj).subscribe(res => {
       if (res !== undefined && res !== null) {
@@ -319,7 +321,7 @@ export class RegistrationFormComponent implements OnInit {
     this.obj.SchoolName = this.login_user.schoolname;
     this.obj.Taluk = this.login_user.talukId;
     this.talukOptions = [{ label: this.login_user.taluk, value: this.login_user.talukId }];
-    this.obj.District = this.login_user.distrctId;
+    this.obj.DistrictId = this.login_user.distrctId;
     this.districtOptions = [{ label: this.login_user.district, value: this.login_user.distrctId }];
     this.obj.IncomeFilename = '';
     this.obj.MotherPhotoFilName = '';

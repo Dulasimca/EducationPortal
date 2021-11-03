@@ -31,6 +31,7 @@ export class AppComponent {
   showIcon: boolean;
   userClass: string;
   roleId: any;
+  openSideOverlay: boolean;
   @ViewChild('op', { static: false }) _panel: OverlayPanel;
 
   constructor(private authService: AuthService, private restApiService: RestAPIService,

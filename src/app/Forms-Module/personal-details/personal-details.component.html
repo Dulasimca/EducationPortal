@@ -1,4 +1,5 @@
-<div class="p-col-12" >
+<block-ui>
+<div class="p-col-12">
     <p-toast position="Top-Center" key="t-msg"></p-toast>
     <p-panel header="Personal Details">
         <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
@@ -7,7 +8,7 @@
                     <div class="p-col-12 no-pad-top" style="margin-left: -8px;">
                         <p-fieldset legend="Personal Info" [toggleable]="true">
                             <div class="p-grid">
-                                <div class="p-col-10">
+                                <div class="p-col-10 p-md-10 p-lg-10 no-pad-top">
                                     <div #row1 class="p-col-12 p-md-12 p-lg-12">
                                         <div class="p-grid">
                                             <div class="p-col-12 p-md-6 p-lg-3">
@@ -15,7 +16,8 @@
                                                             class="form-mandatory-field">*</span></label>
                                                 </div>
                                                 <input type="text" name="_name" class="p-col-12" pInputText
-                                                    [(ngModel)]="obj.FirstName" appInputFormat="noSpecialChars" required />
+                                                    [(ngModel)]="obj.FirstName" appInputFormat="noSpecialChars"
+                                                    required />
                                             </div>
                                             <div class="p-col-12 p-md-6 p-lg-2">
                                                 <div><label for="_class">Class<span
@@ -29,15 +31,15 @@
                                                 <div><label for="_section">Section<span
                                                             class="form-mandatory-field">*</span></label></div>
                                                 <p-dropdown name="_section" [options]="sectionOptions"
-                                                    [(ngModel)]="obj.SectionId"[disabled]="true"
+                                                    [(ngModel)]="obj.SectionId" [disabled]="true"
                                                     (onClick)="onSelect('S')" required>
                                                 </p-dropdown>
                                             </div>
-                                             <div class="p-col-12 p-md-6 p-lg-2">
+                                            <div class="p-col-12 p-md-6 p-lg-2">
                                                 <div><label for="_bloodgroup">Blood Group<span
                                                             class="form-mandatory-field">*</span></label></div>
                                                 <p-dropdown name="_bloodgroup" [options]="bloodGroupOptions"
-                                                (onClick)="onSelect('B')" [(ngModel)]="obj.BloodGroup" required>
+                                                    (onClick)="onSelect('B')" [(ngModel)]="obj.BloodGroup" required>
                                                 </p-dropdown>
                                             </div>
                                             <div class="p-col-12 p-md-6 p-lg-3">
@@ -64,22 +66,22 @@
                                                 <div><label for="_gender">Gender<span
                                                             class="form-mandatory-field">*</span></label></div>
                                                 <p-dropdown name="_gender" [options]="genderOptions"
-                                                (onClick)="onSelect('G')"  [(ngModel)]="obj.Gender" required>
+                                                    (onClick)="onSelect('G')" [(ngModel)]="obj.Gender" required>
                                                 </p-dropdown>
                                             </div>
                                             <div class="p-col-12 p-md-6 p-lg-2">
                                                 <div><label for="_medium">Medium<span
                                                             class="form-mandatory-field">*</span></label></div>
                                                 <p-dropdown name="_medium" [options]="mediumOptions"
-                                                (onClick)="onSelect('M')" [(ngModel)]="obj.Medium" required>
+                                                    (onClick)="onSelect('M')" [(ngModel)]="obj.Medium" required>
                                                 </p-dropdown>
                                             </div>
                                             <div class="p-col-12 p-md-6 p-lg-2">
                                                 <div><label for="_studentmobileno">Mobile Number<span
                                                             class="form-mandatory-field">*</span></label>
                                                 </div>
-                                                <input class="p-col-12" name="_studentmobileno" type="tel"
-                                                    pInputText [(ngModel)]="obj.PhoneNumber"  appInputFormat="digitOnly"
+                                                <input class="p-col-12" name="_studentmobileno" type="tel" pInputText
+                                                    [(ngModel)]="obj.PhoneNumber" appInputFormat="digitOnly"
                                                     minlength="10" maxlength="10" required />
                                             </div>
                                             <div class="p-col-12 p-md-6 p-lg-3">
@@ -92,49 +94,50 @@
                                             </div>
                                             <div #row2 class="p-col-12 p-md-12 p-lg-12">
                                                 <div class="p-grid">
-                                                    <div class="p-col-12 p-md-6 p-lg-5">
+                                                    <div class="p-col-12 p-md-6 p-lg-3">
                                                         <div><label for="_section">Address<span
                                                                     class="form-mandatory-field">*</span></label></div>
-                                                        <textarea pInputTextarea [(ngModel)]="obj.PermanentAddress" rows="3"
-                                                            cols="41" required></textarea>
+                                                        <textarea pInputTextarea [(ngModel)]="obj.PermanentAddress"
+                                                            rows="3" cols="24" required></textarea>
                                                     </div>
                                                     <div class="p-col-12 p-md-6 p-lg-2">
                                                         <div><label for="_pincode">Pincode<span
                                                                     class="form-mandatory-field">*</span></label>
                                                         </div>
                                                         <input class="p-col-12" name="_pincode" type="text"
-                                                         minlength="6" maxlength="6" pInputText [(ngModel)]="obj.Postalcode"
-                                                            appInputFormat="digitOnly" required />
+                                                            minlength="6" maxlength="6" pInputText
+                                                            [(ngModel)]="obj.Postalcode" appInputFormat="digitOnly"
+                                                            required />
                                                     </div>
                                                     <div class="p-col-12 p-md-6 p-lg-2">
                                                         <div><label for="_aadharno">Aadhar No<span
                                                                     class="form-mandatory-field">*</span></label>
                                                         </div>
                                                         <input class="p-col-12" name="_aadharno" type="text"
-                                                         minlength="12" maxlength="12" pInputText [(ngModel)]="obj.AadharNo"
-                                                            appInputFormat="digitOnly" required />
+                                                            minlength="12" maxlength="12" pInputText
+                                                            [(ngModel)]="obj.AadharNo" appInputFormat="digitOnly"
+                                                            required />
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="p-col-2">
+                                <div class="p-col-2 p-md-2 p-lg-2 no-pad-top">
                                     <div class="p-col-12 p-md-12 p-lg-12">
-                                        <div><img [src]="userImage"
-                                                style="width: 110px; height: 110px;" />
-                                            <input style="display: none" name="_studentimage" type="file" (change)="onFileUpload($event, 1)"
-                                                #userFile>
-                                            <button class="img-edit" icon="pi pi-pencil edit-size" pButton type="file" pTooltip="Edit/Add photo" #file
-                                                (click)="userFile.click()">
+                                        <div><img [src]="userImage" style="width: 110px; height: 110px;" />
+                                            <input style="display: none" name="_studentimage" type="file"
+                                                (change)="onFileUpload($event, 1)" #userFile>
+                                            <button class="img-edit" icon="pi pi-pencil edit-size" pButton type="file"
+                                                pTooltip="Edit/Add photo" #file (click)="userFile.click()">
                                             </button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </p-fieldset>
-                        <div #row1 class="p-col-12 p-md-12 p-lg-12">
-                            <p-fieldset legend="Father's Info" [toggleable]="true">
+                        <p-fieldset legend="Father's Info" [toggleable]="true">
+                            <div #row1 class="p-col-12 p-md-12 p-lg-12 no-pad-top">
                                 <div class="p-grid">
                                     <div class="p-col-12 p-md-6 p-lg-2">
                                         <div><label for="_fname">Father's Name<span
@@ -146,13 +149,15 @@
                                         <div><label for="_foccupation">Occupation<span
                                                     class="form-mandatory-field">*</span></label></div>
                                         <input class="p-col-12" type="text" name="_foccupation" pInputText
-                                            [(ngModel)]="obj.FatherOccupation" appInputFormat="noSpecialChars" required />
+                                            [(ngModel)]="obj.FatherOccupation" appInputFormat="noSpecialChars"
+                                            required />
                                     </div>
                                     <div class="p-col-12 p-md-6 p-lg-2">
                                         <div><label for="_fcontact">Contact Number <span
                                                     class="form-mandatory-field">*</span></label></div>
-                                        <input class="p-col-12" type="tel" name="_fcontact"  minlength="10" maxlength="10" pInputText
-                                            [(ngModel)]="obj.FatherMobileNo"  appInputFormat="digitOnly" required />
+                                        <input class="p-col-12" type="tel" name="_fcontact" minlength="10"
+                                            maxlength="10" pInputText [(ngModel)]="obj.FatherMobileNo"
+                                            appInputFormat="digitOnly" required />
                                     </div>
                                     <div class="p-col-12 p-md-6 p-lg-3">
                                         <div><label for="_femail">Email Id </label></div>
@@ -160,21 +165,20 @@
                                             [(ngModel)]="obj.FatherEmailid" />
                                     </div>
                                     <div class="p-col-12 p-md-12 p-lg-2 pic-right">
-                                        <div><img [src]="fatherImage"
-                                                style="width: 110px; height: 110px;" />
-                                                <input style="display: none" name="_fatherimage" type="file" (change)="onFileUpload($event, 2)"
-                                                #fatherFile>
+                                        <div><img [src]="fatherImage" style="width: 110px; height: 110px;" />
+                                            <input style="display: none" name="_fatherimage" type="file"
+                                                (change)="onFileUpload($event, 2)" #fatherFile>
                                             <button class="img-edit" style="margin-top: -25px;"
-                                                icon="pi pi-pencil edit-size" pButton type="file" pTooltip="Edit/Add photo" #file
-                                                (click)="fatherFile.click()">
+                                                icon="pi pi-pencil edit-size" pButton type="file"
+                                                pTooltip="Edit/Add photo" #file (click)="fatherFile.click()">
                                             </button>
                                         </div>
                                     </div>
                                 </div>
-                            </p-fieldset>
-                        </div>
-                        <div #row1 class="p-col-12 p-md-12 p-lg-12">
-                            <p-fieldset legend="Mother's Info" [toggleable]="true">
+                            </div>
+                        </p-fieldset>
+                        <p-fieldset legend="Mother's Info" [toggleable]="true">
+                            <div #row1 class="p-col-12 p-md-12 p-lg-12">
                                 <div class="p-grid">
                                     <div class="p-col-12 p-md-6 p-lg-2">
                                         <div><label for="_mname">Mother's Name<span
@@ -186,72 +190,75 @@
                                         <div><label for="_moccupation">Occupation<span
                                                     class="form-mandatory-field">*</span></label></div>
                                         <input class="p-col-12" type="text" name="_moccupation" pInputText
-                                            [(ngModel)]="obj.MotherOccupation" appInputFormat="noSpecialChars" required />
+                                            [(ngModel)]="obj.MotherOccupation" appInputFormat="noSpecialChars"
+                                            required />
                                     </div>
                                     <div class="p-col-12 p-md-6 p-lg-2">
                                         <div><label for="_mcontact">Contact Number<span
                                                     class="form-mandatory-field">*</span></label></div>
-                                        <input class="p-col-12" type="tel" name="_mcontact"  minlength="10" maxlength="10" pInputText
-                                            [(ngModel)]="obj.MotherMobileNo"  appInputFormat="digitOnly" required/>
+                                        <input class="p-col-12" type="tel" name="_mcontact" minlength="10"
+                                            maxlength="10" pInputText [(ngModel)]="obj.MotherMobileNo"
+                                            appInputFormat="digitOnly" required />
                                     </div>
                                     <div class="p-col-12 p-md-6 p-lg-3">
                                         <div><label for="_memail">Email Id</label></div>
                                         <input class="p-col-12" type="email" name="_memail" pInputText
-                                            [(ngModel)]="obj.MotherEmailid"/>
+                                            [(ngModel)]="obj.MotherEmailid" />
                                     </div>
                                     <div class="p-col-12 p-md-12 p-lg-2 pic-right">
                                         <div><img [src]="motherImage" style="width: 110px; height: 110px;" />
-                                            <input style="display: none" namE="_motherimage" type="file" (change)="onFileUpload($event, 3)"
-                                                #motherFile>
+                                            <input style="display: none" namE="_motherimage" type="file"
+                                                (change)="onFileUpload($event, 3)" #motherFile>
                                             <button class="img-edit" style="margin-top: -25px;"
-                                                icon="pi pi-pencil edit-size" pButton type="file" pTooltip="Edit/Add photo" #file
-                                                (click)="motherFile.click()">
+                                                icon="pi pi-pencil edit-size" pButton type="file"
+                                                pTooltip="Edit/Add photo" #file (click)="motherFile.click()">
                                             </button>
                                         </div>
                                     </div>
                                 </div>
-                            </p-fieldset>
-                        </div>
-                        <div #row2 class="p-col-12 p-md-12 p-lg-12">
-                            <p-fieldset legend="Guardian's Info" [toggleable]="true">
+                            </div>
+                        </p-fieldset>
+                        <p-fieldset legend="Guardian's Info" [toggleable]="true">
+                            <div #row2 class="p-col-12 p-md-12 p-lg-12">
                                 <div class="p-grid">
                                     <div class="p-col-12 p-md-6 p-lg-2">
                                         <div><label for="_gname">Guardian's Name </label>
                                         </div>
                                         <input class="p-col-12" type="text" name="_gname" pInputText
-                                            [(ngModel)]="obj.GaurdianName" appInputFormat="noSpecialChars"/>
+                                            [(ngModel)]="obj.GaurdianName" appInputFormat="noSpecialChars" />
                                     </div>
                                     <div class="p-col-12 p-md-6 p-lg-2">
                                         <div><label for="_goccupation">Occupation </label></div>
                                         <input class="p-col-12" type="text" name="_goccupation" pInputText
-                                            [(ngModel)]="obj.GaurdianOccupation" appInputFormat="noSpecialChars"/>
+                                            [(ngModel)]="obj.GaurdianOccupation" appInputFormat="noSpecialChars" />
                                     </div>
                                     <div class="p-col-12 p-md-6 p-lg-2">
                                         <div><label for="_gcontact">Contact Number </label></div>
-                                        <input class="p-col-12" type="tel" minlength="10" maxlength="10" name="_gcontact" pInputText
-                                            [(ngModel)]="obj.GaurdianMobileNo"  appInputFormat="digitOnly"/>
+                                        <input class="p-col-12" type="tel" minlength="10" maxlength="10"
+                                            name="_gcontact" pInputText [(ngModel)]="obj.GaurdianMobileNo"
+                                            appInputFormat="digitOnly" />
                                     </div>
                                     <div class="p-col-12 p-md-6 p-lg-3">
                                         <div><label for="_gemail">Email Id</label></div>
                                         <input class="p-col-12" type="email" name="_gemail" pInputText
-                                            [(ngModel)]="obj.GaurdianEmailid"/>
+                                            [(ngModel)]="obj.GaurdianEmailid" />
                                     </div>
                                     <div class="p-col-12 p-md-12 p-lg-2 pic-right">
-                                        <div><img [src]="guardinaImage"
-                                                style="width: 110px; height: 110px;" />
-                                                <input style="display: none" name="_guardianimage" type="file" (change)="onFileUpload($event, 4)"
-                                                #guardianFile>
+                                        <div><img [src]="guardinaImage" style="width: 110px; height: 110px;" />
+                                            <input style="display: none" name="_guardianimage" type="file"
+                                                (change)="onFileUpload($event, 4)" #guardianFile>
                                             <button class="img-edit" style="margin-top: -25px;"
-                                                icon="pi pi-pencil edit-size" pButton type="file" pTooltip="Edit/Add photo" #file
-                                                (click)="guardianFile.click()">
+                                                icon="pi pi-pencil edit-size" pButton type="file"
+                                                pTooltip="Edit/Add photo" #file (click)="guardianFile.click()">
                                             </button>
                                         </div>
                                     </div>
                                 </div>
-                            </p-fieldset>
-                        </div>
+                            </div>
+                        </p-fieldset>
                         <div class="p-col-12 p-md-12 p-lg-12 text-center">
-                            <button pButton type="button" label="Submit" (click)="onSave()" [disabled]="(!f.dirty)"></button>
+                            <button pButton type="button" label="Submit" (click)="onSave()"
+                                [disabled]="(!f.dirty)"></button>
                         </div>
                     </div>
                 </p-card>
@@ -259,3 +266,4 @@
         </div>
     </p-panel>
 </div>
+</block-ui>

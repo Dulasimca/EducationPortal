@@ -672,24 +672,31 @@ legend {
     font-size: .85em;
     font-size: var(--fc-small-font-size,.9em) !important;
 }
+.fc.fc-theme-standard .fc-toolbar .fc-button:focus {
+    box-shadow: 0 0 0 0.2rem #b3f9a6 !important;
+}
 .fc.fc-theme-standard .fc-toolbar .fc-button {
-    background: #52de38 !important;
+    background: #41cf41 !important;
     border-color: #b3f9a6 !important;
 }
 .fc.fc-theme-standard .fc-toolbar .fc-button:disabled {
-    background: #a5fa96 !important;
-    border-color: #def0db !important;
+    background: #41cf41 !important;
+    border-color: #b3f9a6 !important;
+}
+.fc.fc-theme-standard .fc-toolbar .fc-button:enabled:active:focus {
+    box-shadow: 0 0 0 0.2rem #b3f9a6 !important
 }
 .fc.fc-theme-standard .fc-toolbar .fc-button.fc-dayGridMonth-button.fc-button-active:hover, .fc.fc-theme-standard .fc-toolbar .fc-button.fc-timeGridDay-button.fc-button-active:hover, .fc.fc-theme-standard .fc-toolbar .fc-button.fc-timeGridWeek-button.fc-button-active:hover {
     /* background: #103d93 !important;
     border-color: #4c7fdb !important; */
-    background: #52de38 !important;
+    background: #41cf41 !important;
     border-color: #b3f9a6 !important;
 }
 .fc.fc-theme-standard .fc-toolbar .fc-button.fc-dayGridMonth-button.fc-button-active, .fc.fc-theme-standard .fc-toolbar .fc-button.fc-timeGridDay-button.fc-button-active, .fc.fc-theme-standard .fc-toolbar .fc-button.fc-timeGridWeek-button.fc-button-active {
-    background: #52de38 !important;
+    background: #41cf41 !important;
     border-color: #b3f9a6 !important;
     color: #fff;
+    box-shadow: 0 0 0 0.1rem #b3f9a6 !important
 }
 /* end #Region 4 */
 

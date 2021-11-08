@@ -27,8 +27,8 @@ export class CircularComponent implements OnInit {
     this.onview()
     this.cols = [
       {field: 'CircularDate',header: 'Circular Date', width: '90px'},
-      {field:'Subject',header: 'Subject', width: '110px'},
-      {field: 'Details',header: 'Details', width: '500px'},
+      {field:'Subject',header: 'Subject', width: '150px'},
+      {field: 'Details',header: 'Details', width: '450px'},
     ];
   }
 

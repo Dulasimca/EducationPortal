@@ -11,7 +11,7 @@
   <ng-template pTemplate="header" let-columns>
     <tr>
       <th style="text-align: center; width: 70px;">S.No</th>
-      <th *ngFor="let col of columns" style="text-align: center;">
+      <th *ngFor="let col of columns" style="text-align: center;" [style.width]="col.width">
         {{col.header}}
       </th>
       <th style="text-align: center; width: 90px;">
@@ -25,7 +25,7 @@
       
     <!--<tr [pSelectableRow]="rowData"  class="cursor-pointer" (dblclick)="onRowSelect($event, rowData)">-->
       <td style="text-align: center; width: 90px;">{{rowIndex+1}}</td>
-      <td *ngFor="let col of columns">
+      <td *ngFor="let col of columns" style="text-align: center;">
         {{rowData[col.field]}}
       </td>
       <td style="text-align: center; width: 90px;"><i class="pi pi-download" (click)="onDownload(rowData.Download)" 

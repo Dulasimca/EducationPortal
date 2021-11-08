@@ -21,15 +21,13 @@ export class NewsletterComponent implements OnInit {
   constructor(private restApiService: RestAPIService, private http: HttpClient,private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
-    
     this.cols = [
-    
-      {field:'NewsDate',header: 'Date'},
-      {field:'Topic',header: 'Topic'}, 
-      
+      {field:'NewsDate',header: 'Date', width: '70px'},
+      {field:'Topic',header: 'Topic', width: '300px'}, 
     ];
     this.onview()
   }
+  
   onview() {
     this.data = [];
     const params = { 

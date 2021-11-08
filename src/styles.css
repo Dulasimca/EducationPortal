@@ -307,11 +307,13 @@ background-color: #b8baf3;
 }
 .nav-container {
     margin-bottom: 3.5rem !important;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 .nav-pane {
     margin-bottom: 5rem !important;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 .side-nav-panel {
     width: 15% !important;

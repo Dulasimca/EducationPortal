@@ -67,7 +67,7 @@ export class ClassroomDetailsComponent implements OnInit {
         });
         this.classOptions = classSelection;
         this.classOptions.unshift({ label: '-select', value: null });
-        if(this.class !== undefined && this.class !== null) {
+        if (this.class !== undefined && this.class !== null) {
           this.disableSubject = false;
         } else {
           this.disableSubject = true;
@@ -80,7 +80,7 @@ export class ClassroomDetailsComponent implements OnInit {
         this.sectionOptions = sectionSelection;
         this.sectionOptions.unshift({ label: '-select', value: null });
         break;
-        case 'SB':
+      case 'SB':
         this.subjects.forEach(c => {
           if ((c.class * 1) === this.class) {
             subjectSelection.push({ label: c.name, value: c.code })
@@ -93,15 +93,15 @@ export class ClassroomDetailsComponent implements OnInit {
   }
 
   onView() {
-    this.showTable = true;
-    const params = { 
+    const params = {
       'SchoolId': this.login_user.schoolId,
       'Date': this.datePipe.transform(new Date(), 'yyyy-MM-dd'),
       'ClassId': this.login_user.classId,
       'SectionCode': this.login_user.sectioncode
-     };
+    };
     this.restApiService.getByParameters(PathConstants.Zoom_Get, params).subscribe((res: any) => {
-      if(res !== null && res !== undefined && res.length !== 0) {
+      if (res !== null && res !== undefined && res.length !== 0) {
+        this.showTable = true;
         this.classroomDetails = res;
       } else {
         this.showTable = false;
@@ -115,7 +115,7 @@ export class ClassroomDetailsComponent implements OnInit {
   }
 
   onEdit(selectedRow) {
-    if(selectedRow !== undefined && selectedRow !== null) {
+    if (selectedRow !== undefined && selectedRow !== null) {
       this.class = selectedRow.ClassId;
       this.classOptions = [{ label: selectedRow.Classname1, value: selectedRow.ClassId }];
       this.section = selectedRow.SectionCode;
@@ -141,7 +141,7 @@ export class ClassroomDetailsComponent implements OnInit {
       'MeetingTime': this.datePipe.transform(this.meetingTime, 'shortTime')
     }
     this.restApiService.post(PathConstants.Zoom_Post, params).subscribe((res: any) => {
-      if(res !== undefined && res !== null) {
+      if (res !== undefined && res !== null) {
         this.blockUI.stop();
         this.clearForm();
         this.messageService.clear();

@@ -160,7 +160,7 @@ export class MyachievementFormComponent implements OnInit {
     }
     this.restApiService.getByParameters(PathConstants.Myachievement_Get, params).subscribe(res => {
       if (res !== null && res !== undefined && res.length !== 0) {
-        this.data = res;
+        this.data = res.Table;
       } else {
         this.showtable = false;
         this.messageService.clear();

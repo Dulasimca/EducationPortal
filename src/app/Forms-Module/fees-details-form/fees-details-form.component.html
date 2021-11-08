@@ -14,7 +14,7 @@
             <p-table [columns]="cols" styleClass="p-datatable-gridlines" [value]="feeData" [loading]="loading">
               <ng-template pTemplate="header" let-columns>
                 <tr>
-                  <th style="width: 2.5cm;">S.No</th>
+                  <th style="width: 90px;">S.No</th>
                   <th *ngFor="let col of columns">
                     {{col.header}}
                   </th>
@@ -39,7 +39,7 @@
             </p-table>
           </div>
 <!-- feereceipt form  -->
-          <p-dialog [(visible)]="showReceipt" [style]="{width: '50vw'}" [draggable]="false">
+          <p-dialog [(visible)]="showReceipt" [style]="{width: '50vw'}" [draggable]="false" [modal]="true">
             <ng-template pTemplate="header">
               <div>Fee Receipt</div>
             </ng-template>

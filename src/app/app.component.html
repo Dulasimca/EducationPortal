@@ -31,13 +31,13 @@
 <div id="main-layout" [ngClass]="{'layout-wrapper-set': isOpen, 'layout-wrapper-unset': !isOpen}">
     <div class="p-grid side-nav">
         <div id="side-nav-bar" *ngIf="isOpen" class="p-col-2 no-pad-right side-nav-panel">
-            <div class="nav-container">
+            <div class="nav-container-pane">
                 <p-panelMenu [model]="items"></p-panelMenu>
             </div>
         </div>
         <div
             [ngClass]="{'container-pages-open': (isOpen && !hideHeader), 'container-login': hideHeader, 'container-pages-close': (!isOpen && !hideHeader) }">
-            <div class="nav-container">
+            <div class="nav-container-page">
                 <router-outlet></router-outlet>
             </div>
         </div>

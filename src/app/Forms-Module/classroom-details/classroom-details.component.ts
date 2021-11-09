@@ -34,6 +34,7 @@ export class ClassroomDetailsComponent implements OnInit {
   classroomDetailsCols: any;
   classroomDetails: any[] = [];
   showTable: boolean;
+  classroomId: any;
   @BlockUI() blockUI: NgBlockUI;
   @ViewChild('f', { static: false }) _classroomForm: NgForm;
 
@@ -42,6 +43,7 @@ export class ClassroomDetailsComponent implements OnInit {
     private datePipe: DatePipe) { }
 
   ngOnInit(): void {
+    this.classroomId = 0;
     this.login_user = this.authService.UserInfo;
     this.masterService.getMaster('');
     this.classroomDetailsCols = [
@@ -67,7 +69,7 @@ export class ClassroomDetailsComponent implements OnInit {
         });
         this.classOptions = classSelection;
         this.classOptions.unshift({ label: '-select', value: null });
-        if(this.class !== undefined && this.class !== null) {
+        if (this.class !== undefined && this.class !== null) {
           this.disableSubject = false;
         } else {
           this.disableSubject = true;
@@ -80,7 +82,7 @@ export class ClassroomDetailsComponent implements OnInit {
         this.sectionOptions = sectionSelection;
         this.sectionOptions.unshift({ label: '-select', value: null });
         break;
-        case 'SB':
+      case 'SB':
         this.subjects.forEach(c => {
           if ((c.class * 1) === this.class) {
             subjectSelection.push({ label: c.name, value: c.code })
@@ -93,15 +95,16 @@ export class ClassroomDetailsComponent implements OnInit {
   }
 
   onView() {
-    this.showTable = true;
-    const params = { 
+    const params = {
       'SchoolId': this.login_user.schoolId,
-      'Date': this.datePipe.transform(new Date(), 'yyyy-MM-dd'),
-      'ClassId': this.login_user.classId,
-      'SectionCode': this.login_user.sectioncode
-     };
+      'Date': (this.meetingDate !== undefined && this.meetingDate !== null) ?
+      this.datePipe.transform(this.meetingDate, 'yyyy-MM-dd') : this.datePipe.transform(new Date(), 'yyyy-MM-dd'),
+      'ClassId': (this.class !== undefined && this.class !== null) ? this.class : this.login_user.classId,
+      'SectionCode': (this.section !== undefined && this.section !== null) ? this.section : this.login_user.sectioncode
+    };
     this.restApiService.getByParameters(PathConstants.Zoom_Get, params).subscribe((res: any) => {
-      if(res !== null && res !== undefined && res.length !== 0) {
+      if (res !== null && res !== undefined && res.length !== 0) {
+        this.showTable = true;
         this.classroomDetails = res;
       } else {
         this.showTable = false;
@@ -115,7 +118,7 @@ export class ClassroomDetailsComponent implements OnInit {
   }
 
   onEdit(selectedRow) {
-    if(selectedRow !== undefined && selectedRow !== null) {
+    if (selectedRow !== undefined && selectedRow !== null) {
       this.class = selectedRow.ClassId;
       this.classOptions = [{ label: selectedRow.Classname1, value: selectedRow.ClassId }];
       this.section = selectedRow.SectionCode;
@@ -125,6 +128,7 @@ export class ClassroomDetailsComponent implements OnInit {
       this.meetingDate = new Date(selectedRow.MeetingDate);
       this.meetingTime = selectedRow.MeetingTime;
       this.duration = selectedRow.Duration;
+      this.classroomId = selectedRow.RowId;
     }
   }
 
@@ -132,16 +136,17 @@ export class ClassroomDetailsComponent implements OnInit {
     this.blockUI.start();
     this.messageService.clear();
     const params = {
+      'RowId': this.classroomId,
       'ClassId': this.class,
       'SectionCode': this.section,
       'MeetingDate': this.datePipe.transform(this.meetingDate, 'yyyy-MM-dd'),
       'SchoolId': this.login_user.schoolId,
       'Duration': this.duration,
       'Topics': this.subject,
-      'MeetingTime': this.datePipe.transform(this.meetingTime, 'shortTime')
+      'MeetingTime': typeof(this.meetingTime) === 'string' ? this.meetingTime : this.datePipe.transform(this.meetingTime, 'shortTime')
     }
     this.restApiService.post(PathConstants.Zoom_Post, params).subscribe((res: any) => {
-      if(res !== undefined && res !== null) {
+      if (res !== undefined && res !== null) {
         this.blockUI.stop();
         this.clearForm();
         this.messageService.clear();
@@ -149,6 +154,7 @@ export class ClassroomDetailsComponent implements OnInit {
           key: 't-msg', severity: ResponseMessage.SEVERITY_SUCCESS,
           summary: ResponseMessage.SUMMARY_SUCCESS, detail: ResponseMessage.MeetingSuccess
         });
+        this.onView();
       } else {
         this.blockUI.stop();
         this.messageService.clear();
@@ -173,6 +179,10 @@ export class ClassroomDetailsComponent implements OnInit {
     this._classroomForm.reset();
     this._classroomForm.form.markAsUntouched();
     this._classroomForm.form.markAsPristine();
+    this.classroomId = 0;
+    this.classOptions = [];
+    this.sectionOptions = [];
+    this.subjectOptions = [];
   }
 
 }

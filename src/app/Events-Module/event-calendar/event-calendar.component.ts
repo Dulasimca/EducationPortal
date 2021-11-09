@@ -39,9 +39,8 @@ export class EventCalendarComponent implements OnInit {
             'id': e.RowId,
             'title': e.EventDetailS,
             'start': e.eDate,
-            'color': ((e.HolidayId * 1) === 1) ? '#44b544' : '#39399f'
+            'color': ((e.HolidayId * 1) === 1) ? '#41cf41' : '#6565cb'
           })
-          console.log('data', data);
         })
         this.events = data;
         this.options = {

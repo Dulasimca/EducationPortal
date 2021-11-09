@@ -31,19 +31,19 @@
 <div id="main-layout" [ngClass]="{'layout-wrapper-set': isOpen, 'layout-wrapper-unset': !isOpen}">
     <div class="p-grid side-nav">
         <div id="side-nav-bar" *ngIf="isOpen" class="p-col-2 no-pad-right side-nav-panel">
-            <div class="nav-container">
+            <div class="nav-container-pane">
                 <p-panelMenu [model]="items"></p-panelMenu>
             </div>
         </div>
         <div
             [ngClass]="{'container-pages-open': (isOpen && !hideHeader), 'container-login': hideHeader, 'container-pages-close': (!isOpen && !hideHeader) }">
-            <div class="nav-container">
+            <div class="nav-container-page">
                 <router-outlet></router-outlet>
             </div>
         </div>
     </div>
 </div>
-<!-- </div> -->3
+<!-- </div> -->
 <!-- <div *ngIf="!loading" id="login-page" class="no-pad container" style="background: linear-gradient(to bottom, #112b52 0%, #0b2b66 50%, #124c7d 100%);">
     <app-login></app-login>
 </div> -->

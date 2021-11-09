@@ -305,13 +305,18 @@ background-color: #b8baf3;
 .menubar-bar-info-unset {
     float: right !important;
 }
-.nav-container {
+.nav-container-pane {
     margin-bottom: 3.5rem !important;
-    overflow: auto;
+}
+.nav-container-page {
+    margin-bottom: 3.5rem !important;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 .nav-pane {
     margin-bottom: 5rem !important;
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 .side-nav-panel {
     width: 15% !important;

@@ -11,20 +11,35 @@ export class AttendanceComponent implements OnInit {
   selectedMonth: string;
   selectedyear: string;
   myAttData = [];
+  currMonth: string;
+  currMonthNo: number;
+  prevMonth: string;
+  prevMonthNo: number;
+  nextMonth: string;
+  currYear: string;
   constructor() { }
 
   ngOnInit() {
+    var pDate = new Date().getFullYear() + '-' + (new Date().getMonth()-1) + '-01';
+    var cDate = new Date().getFullYear() + '-' + (new Date().getMonth()) + '-01';
+    var nDate = new Date().getFullYear() + '-' + (new Date().getMonth()+1) + '-01';
+    this.prevMonth = new Date(pDate).toLocaleString('default', { month: 'short' });
+    this.currMonth = new Date(cDate).toLocaleString('default', { month: 'short' });
+    this.nextMonth = new Date(nDate).toLocaleString('default', { month: 'short' });
+    this.prevMonthNo = new Date().getMonth() - 2;
+    this.currMonthNo = new Date().getMonth() - 1;
+    this.currYear = new Date().getFullYear().toString();
     this.onCurrent();
   }
 
   onCurrent() {
-    this.monthyear = 'Aug 2021';
-    this.selectedMonth = "aug"
-    this.selectedyear = "2021"
+    this.monthyear = this.currMonth + ' ' + this.currYear;
+    this.selectedMonth = this.currMonth;
+    this.selectedyear = this.currYear;
     this.myAttData = [
       {
-        "year": "2021",
-        "month": "aug",
+        "year": this.currYear,
+        "month": this.currMonth,
         "data": [
           {
             "date": 1,
@@ -96,14 +111,15 @@ export class AttendanceComponent implements OnInit {
   }
 
   onPrev() {
-    if (this.monthyear === 'Aug 2021') {
-      this.monthyear = 'July 2021';
-      this.selectedMonth = "jul";
-      this.selectedyear = "2021";
+     if (this.monthyear === (this.currMonth + ' ' + this.currYear) || 
+     this.monthyear === (this.prevMonth + ' ' + this.currYear)) {
+      this.monthyear = this.prevMonth + ' ' + this.currYear;
+      this.selectedMonth = this.prevMonth;
+      this.selectedyear = this.currYear;
       this.myAttData = [
         {
-          "year": "2021",
-          "month": "jul",
+          "year": this.currYear,
+          "month": this.prevMonth,
           "data": [
             {
               "date": 1,
@@ -231,17 +247,17 @@ export class AttendanceComponent implements OnInit {
             },
           ]
         }]
-    } else if (this.monthyear !== 'July 2021') {
+    } else if (this.monthyear === (this.nextMonth + ' ' + this.currYear)) {
       this.onCurrent();
     }
   }
 
   onNext() {
-    if (this.monthyear === 'Aug 2021') {
-      this.monthyear = 'Sep 2021';
-      this.selectedMonth = "sep";
-      this.selectedyear = "2021";
-    } else if (this.monthyear !== 'Sep 2021') {
+    if (this.monthyear === (this.currMonth + ' ' + this.currYear)) {
+      this.monthyear = this.nextMonth + ' ' + this.currYear;
+      this.selectedMonth = this.nextMonth;
+      this.selectedyear = this.currYear;
+    } else if (this.monthyear === ( this.prevMonth + ' ' + this.currYear)) {
       this.onCurrent();
     }
   }

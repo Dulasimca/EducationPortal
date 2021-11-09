@@ -13,7 +13,7 @@ export class TableConstants {
         ];
 
         public static readonly SQuestionBankColumns = [
-            { field: 'subject', header: 'Subject' },
+            { field: 'Subjectname', header: 'Subject' },
             { field: 'Description', header: 'Description' },
             { field: 'Publishdate', header: 'Publish Date' },
             { field: 'ShortYear', header: 'Academic year' },

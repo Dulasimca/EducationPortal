@@ -25,19 +25,13 @@ export class CircularComponent implements OnInit {
   ngOnInit() {
 
     this.onview()
-  
-
     this.cols = [
-      
-      {field: 'CircularDate',header: 'Circular Date'},
-      {field:'Subject',header: 'Subject'},
-      {field: 'Details',header: 'Details', width: '500px'},
-   
-    
-      
+      {field: 'CircularDate',header: 'Circular Date', width: '90px'},
+      {field:'Subject',header: 'Subject', width: '150px'},
+      {field: 'Details',header: 'Details', width: '450px'},
     ];
-
   }
+
   onview() {
     this.data = [];
     const params = { 
@@ -53,10 +47,9 @@ export class CircularComponent implements OnInit {
           summary: ResponseMessage.SUMMARY_WARNING, detail: ResponseMessage.NoRecordMessage
         });
       }
-      
     })
-
   }
+
   onDownload(Filename) {
     this.confirmationService.confirm({
       message: 'Do you want to download?',

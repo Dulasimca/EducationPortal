@@ -21,7 +21,7 @@ export class AnnouncementComponent implements OnInit {
   ngOnInit() {
     this.cols = [
     
-      { field: 'Announcementdate', header: 'Date', width: '100px' },
+      { field: 'Announcementdate', header: 'Date', width: '90px' },
       { field: 'AnnouncementTag', header: 'Title', width: '100px'},
       { field: 'Announcement', header: 'Announcement', width :'400px' },
  

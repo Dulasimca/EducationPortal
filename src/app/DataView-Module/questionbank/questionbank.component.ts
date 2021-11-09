@@ -10,6 +10,7 @@ import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { saveAs } from 'file-saver';
 import { FileUploadConstant } from 'src/app/Common-Module/file-upload-constant';
 import { TableConstants } from 'src/app/Common-Module/TableConstants';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-questionbank',
@@ -27,7 +28,7 @@ export class QuestionbankComponent implements OnInit {
   questionBankData: any = [];
   questionBankCols: any;
   constructor(private restApiService: RestAPIService, private authService: AuthService,
-    private messageService: MessageService, private masterService: MasterService) { }
+    private messageService: MessageService, private masterService: MasterService, private _datePipe: DatePipe) { }
 
   ngOnInit() {
     this.logged_user = this.authService.UserInfo;
@@ -52,8 +53,12 @@ export class QuestionbankComponent implements OnInit {
       'SchoolID': this.logged_user.schoolId
     }
     this.restApiService.getByParameters(PathConstants.Question_Bank_Get, params).subscribe(res => {
+      console.log(res,'rs');
       if (res.length !== 0 && res !== undefined && res !== null) {
-        this.data = res;
+        res.forEach(r => {
+          r.Publishdate = this._datePipe.transform(r.Publishdate, 'MM/dd/yyyy');
+        })
+        this.questionBankData = res;
         this.loading = false;
       } else {
         this.loading = false;

@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { User } from 'src/app/Interfaces/user';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
-import{FileUploadConstant} from 'src/app/Common-Module/file-upload-constant'
+import { FileUploadConstant } from 'src/app/Common-Module/file-upload-constant'
 import { ConfirmationService } from 'primeng/api';
 import { saveAs } from 'file-saver';
+import { Dialog } from 'primeng/dialog';
 
 @Component({
   selector: 'app-subject-result',
@@ -16,15 +17,16 @@ export class SubjectResultComponent implements OnInit {
   years: year[];
   selectedyear: year;
   data: any = [];
-  display : boolean = false;
-  StudentAnswersheet : string;
-  TeacherAnswerSheet : string;
+  display: boolean = false;
+  StudentAnswersheet: string;
+  TeacherAnswerSheet: string;
   // studentName: string;
   // class: any;
   // rollNo: any;
   // login_user: User;
+  @ViewChild('dialog', { static: false }) _dialogPane: Dialog;
 
-  constructor(private router: Router, private restApiService: RestAPIService,private confirmationService: ConfirmationService) { }
+  constructor(private restApiService: RestAPIService, private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
     // const params = {
@@ -40,13 +42,12 @@ export class SubjectResultComponent implements OnInit {
     //   }
     // }
     // });
-  
     this.StudentAnswersheet = "StudentAnswersheet.pdf"
     this.TeacherAnswerSheet = "TeacherAnswerSheet.pdf"
     this.years = [
       { name: '2021-2022', code: '2122' },
       { name: '2020-2021', code: '2021' },
-      
+
     ];
     this.data = [{ 'slno': 1, 'subject': 'Tamil', 'test': 'Mid-Term Assessment' },
     { 'slno': 2, 'subject': 'English', 'test': 'Pre-Mid Term Exam' },
@@ -61,6 +62,7 @@ export class SubjectResultComponent implements OnInit {
 
   onView() {
     this.display = true;
+    this._dialogPane.showHeader = false;
   }
   onDownload(Filename) {
     console.log('inside')
@@ -69,17 +71,13 @@ export class SubjectResultComponent implements OnInit {
       header: 'Confirmation',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-    const path = "../../assets/layout/"+FileUploadConstant.SubjectResultfolder+"/"+Filename;
-    saveAs(path, Filename);
-  },
-reject: (type) => { }
-});
-
+        const path = "../../assets/layout/" + FileUploadConstant.SubjectResultfolder + "/" + Filename;
+        saveAs(path, Filename);
+      },
+      reject: (type) => { }
+    });
+  }
 }
-onDownload1
-}
-
-
 
 interface year {
   name: string,

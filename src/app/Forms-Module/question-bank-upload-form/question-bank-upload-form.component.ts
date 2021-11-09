@@ -224,7 +224,6 @@ export class QuestionBankUploadFormComponent implements OnInit {
 
   onEdit(row) {
     if (row !== undefined && row !== null) {
-      console.log('row', row);
       this.year = row.QuestionYear;
       this.yearOptions = [{ label: row.ShortYear, value: row.QuestionYear }];
       this.medium = row.Medium;
@@ -240,7 +239,6 @@ export class QuestionBankUploadFormComponent implements OnInit {
 
   onDelete(index) {
     this.blockUI.start();
-    console.log('index', index);
     if (index !== null && index !== undefined) {
       this.restApiService.put(PathConstants.Question_Bank_Delete, index).subscribe(res => {
         if (res !== undefined && res !== null) {

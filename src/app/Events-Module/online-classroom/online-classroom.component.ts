@@ -107,7 +107,6 @@ export class OnlineClassroomComponent implements OnInit {
   }
 
   onJoinClassroom(meetingInfo) {
-    console.log('info', meetingInfo);
     var zoomParams: Meeting = {
       meetingNumber: meetingInfo.MeetingId,
       meetingURL: meetingInfo.MeetingURL,

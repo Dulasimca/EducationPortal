@@ -19,6 +19,7 @@ export class ProfileComponent implements OnInit {
   rollNo: any;
   dob: any;
   doj: any;
+  emailId: any;
   fatherContact: number;
   motherContact: number;
   guardian: any;
@@ -32,7 +33,6 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() { 
     const user: User = this.authService.UserInfo;
-    console.log('user', user);
     this.userImage = (user.studentImg.trim() !== '') ? user.studentImg : '';
     const params = { 'Value': user.email, 'Type': '2' };
     this.restApiService.getByParameters(PathConstants.Registration_Get, params).subscribe(response => {
@@ -49,7 +49,8 @@ export class ProfileComponent implements OnInit {
           this.fatherContact = (i.FatherMobileNo !== undefined && i.FatherMobileNo !== null) ? ((i.FatherMobileNo.toString().trim() !== '') ? i.FatherMobileNo : '-') : '-',
           this.motherContact = (i.MotherMobileNo !== undefined && i.MotherMobileNo !== null) ? ((i.MotherMobileNo.toString().trim() !== '') ? i.MotherMobileNo : '-') : '-',
           this.guardian = (i.GaurdianMobileNo !== undefined && i.GaurdianMobileNo !== null) ? ((i.GaurdianMobileNo.toString().trim() !== '') ? i.GaurdianMobileNo : '-') : '-',
-          this.address = (i.CurrentAddress !== undefined && i.CurrentAddress !== null) ? ((i.CurrentAddress.toString().trim() !== '') ? i.CurrentAddress : '-') : '-'
+          this.address = (i.CurrentAddress !== undefined && i.CurrentAddress !== null) ? ((i.CurrentAddress.toString().trim() !== '') ? i.CurrentAddress : '-') : '-',
+          this.emailId = (i.EmailId !== undefined && i.EmailId !== null) ? ((i.EmailId.toString().trim() !== '') ? i.EmailId : '-') : '-'
         })
   }
 });

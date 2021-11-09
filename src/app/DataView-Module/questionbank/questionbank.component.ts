@@ -53,7 +53,6 @@ export class QuestionbankComponent implements OnInit {
       'SchoolID': this.logged_user.schoolId
     }
     this.restApiService.getByParameters(PathConstants.Question_Bank_Get, params).subscribe(res => {
-      console.log(res,'rs');
       if (res.length !== 0 && res !== undefined && res !== null) {
         res.forEach(r => {
           r.Publishdate = this._datePipe.transform(r.Publishdate, 'MM/dd/yyyy');

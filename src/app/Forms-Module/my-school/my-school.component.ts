@@ -57,7 +57,6 @@ export class MySchoolComponent implements OnInit {
     const filename = fileToUpload.name + '^' + FileUploadConstant.SchoolFolder;
     this.formData.append('file', fileToUpload, filename);
     this.hmPhotoFileName=fileToUpload.name;
-    console.log('file', this.hmPhotoFileName, this.formData);
     alert(fileToUpload + this.hmPhotoFileName);
     this.http.post(this.restApiService.BASEURL +PathConstants.FileUpload_Post, this.formData)
       .subscribe(event => 

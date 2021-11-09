@@ -29,7 +29,6 @@ export class SubjectTestresultComponent implements OnInit {
     this.restApiService.getByParameters(PathConstants.Fee_Get, params).subscribe(res => {
       if(res !== null && res !== undefined && res.length !== 0) {
         if(res) {
-      console.log('rs',res);
       }
     }
     });

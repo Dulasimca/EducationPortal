@@ -54,7 +54,6 @@ export class AssessmentComponent implements OnInit {
 
   hide($event) {
     this._dialogPane.visible = true;
-    console.log('hide')
     this._confirmationService.confirm({
       message: 'Do you want to submit the test?',
       header: 'Confirmation',

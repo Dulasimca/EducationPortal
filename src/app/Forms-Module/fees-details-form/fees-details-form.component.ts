@@ -62,7 +62,6 @@ export class FeesDetailsFormComponent implements OnInit {
     })
     this.yearOptions = yearSelection;
     this.yearOptions.unshift({ label: '-select-', value: null });
-    console.log('rs',this.yearOptions)
   }
 
   onLoad() {

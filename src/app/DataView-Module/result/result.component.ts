@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { Dialog } from 'primeng/dialog';
 
 @Component({
   selector: 'app-result',
@@ -8,11 +9,11 @@ import { Router } from '@angular/router';
 })
 
 export class ResultComponent implements OnInit {
-  
   years: year[];
   selectedyear: year;
   data: any = [];
-  openDialog: boolean;
+  visible: boolean;
+  @ViewChild('dialog', { static: false }) _dialogPane: Dialog;
 
   constructor(private router: Router) { }
 
@@ -28,8 +29,9 @@ export class ResultComponent implements OnInit {
     { 'ID': 5,'slno': 5, 'subject': 'Social Science', 'test': 'Pre-Midterm Examination' }]
   }
 
-  onSignIn() {
-    this.router.navigate(['/subjecttestresult']);
+  openDialog() {
+    this.visible = true;
+    this._dialogPane.showHeader = false;
   }
 
 }

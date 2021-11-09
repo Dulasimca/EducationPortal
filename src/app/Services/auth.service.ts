@@ -11,6 +11,7 @@ export class AuthService {
   getUserInfo: any;
   private loggedIn = new BehaviorSubject<boolean>(false); 
   private sessionExpired = new BehaviorSubject<boolean>(false); 
+  rememberUser: boolean;
   /// To control if the user is logged in or not
   /// The BehaviorSubject keeps the latest value cached (in our case when the service is created the initial value is going to be false). 
   /// So when an Observer subscribes to the isLoggedIn(), the cached valued is going to be emitted right away.
@@ -50,14 +51,20 @@ export class AuthService {
     }
   }
 
+  setUserChecked($event) {
+    this.rememberUser = $event;
+  }
+
+  get UserChecked() {
+    return this.rememberUser;
+  }
+
   get UserInfo() {
     return JSON.parse(localStorage.getItem('UserInfo'));
   }
 
   public logout() {
     localStorage.removeItem('UserInfo');
-    console.log('logout',JSON.parse(localStorage.getItem('UserInfo')))
-    console.log('ifo', this.UserInfo);
     this.loggedIn.next(false);
     this.sessionExpired.next(false);
     this.router.navigate(['/login']);

@@ -26,7 +26,6 @@ export class InputFormatDirective {
 
   faxFormat(event) {
     const e = <KeyboardEvent>event;
-    console.log('ev', event);
     if (e.key === 'Tab' || e.key === 'TAB') {
         return;
     }
@@ -50,7 +49,6 @@ export class InputFormatDirective {
 
   digitOnly(event) {
       const e = <KeyboardEvent>event;
-      console.log('ev', event);
       if (e.key === 'Tab' || e.key === 'TAB') {
           return;
       }
@@ -78,7 +76,7 @@ export class InputFormatDirective {
       }
       let k;
       k = event.keyCode;
-      console.log('key', event)  // k = event.charCode;  (Both can be used)
+      // k = event.charCode;  (Both can be used)
       if ((k > 64 && k < 91) || (k > 96 && k < 123) || k === 8 || k === 32 || (k >= 48 && k <= 57) || (k === 45 || k === 46)) {
           return;
       }

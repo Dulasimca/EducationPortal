@@ -77,7 +77,6 @@ export class PersonalDetailsComponent implements OnInit {
     if (this.responseData !== null && this.responseData !== undefined) {
       if (this.responseData.length !== 0) {
         this.responseData.forEach((i: any) => {
-          console.log('p', this.responseData);
           this.obj = i;
           this.obj.DateofBirth = this.datePipe.transform(i.DateofBirth, 'yyyy-MM-dd'),
             this.obj.DateofJoining = this.datePipe.transform(i.DateofJoining, 'yyyy-MM-dd'),
@@ -238,8 +237,6 @@ export class PersonalDetailsComponent implements OnInit {
 
     const filename = fileToUpload.name + '^' + this.folderName;
     this.formData.append('file', fileToUpload, filename);
-    console.log('file', fileToUpload);
-    console.log('formdata', this.formData);
     actualFilename = fileToUpload.name;
     this.http.post(this.restApiService.BASEURL + PathConstants.FileUpload_Post, this.formData)
       .subscribe((event: any) => {
@@ -259,7 +256,6 @@ export class PersonalDetailsComponent implements OnInit {
       case 2:
         const f_URL = window.URL.createObjectURL(file);
         this.fatherImage = this._d.bypassSecurityTrustUrl(f_URL);
-        console.log('father', this.fatherImage);
         this.obj.FatherPhotoFileName = this.uploadFile($event.target.files);
         break;
       case 3:

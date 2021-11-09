@@ -71,8 +71,6 @@ export class GalleryFormComponent implements OnInit {
   this.formData = new FormData()
   let fileToUpload: any = <File>files[0];
   const filename = fileToUpload.name + '^' + FileUploadConstant.Galleryfolder;
-  console.log('file', fileToUpload);
-  console.log('formdata', this.formData);
   this.NewFileName=fileToUpload.name;
   this.http.post(this.restApiService.BASEURL +PathConstants.FileUpload_Post, this.formData)
     .subscribe(event => 

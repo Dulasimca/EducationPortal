@@ -48,7 +48,7 @@
                     </div>
                     <div class="p-col-12 no-pad-bottom no-pad-top" style="text-align: center;">
                         <span>
-                            <p-checkbox></p-checkbox>
+                            <p-checkbox [binary]="true" (onChange)="rememberUser($event)"></p-checkbox>
                             Remember me
                         </span>
                     </div>

@@ -24,21 +24,27 @@ export class LoginComponent implements OnInit {
   showPswd: boolean;
   loginHeader: string = 'Student Login';
   selectedIndex = 0;
+  isChecked: boolean;
   loginForm: FormGroup;
+  login_user: User;
   @ViewChild('tabview', { static: false }) _tabView: TabView;
 
   constructor(private authService: AuthService, private restApiService: RestAPIService,
-    private messageService: MessageService, private router: Router
-    , private fb: FormBuilder) {
+    private messageService: MessageService, private fb: FormBuilder) {
      }
 
   ngOnInit() {
+    this.login_user = this.authService.UserInfo;
     var _setlayout = new StyleSetting();
     _setlayout.setNavLayoutAtLogin();
     this.loginForm = this.fb.group({
       user: ['', Validators.required],
       pwd: ['', Validators.required]
     })
+    this.isChecked = (this.authService.UserChecked !== undefined && this.authService.UserChecked !== null) ?
+    this.authService.UserChecked : false;
+    this.username = this.login_user.email;
+    this.password = this.login_user.password;
   }
 
   onSignIn() {
@@ -137,6 +143,10 @@ export class LoginComponent implements OnInit {
     this.selectedIndex = $event.index;
     this.loginHeader = this._tabView.tabs[this.selectedIndex].header + ' ' + 'Login';
     this.loginForm.reset();
+  }
+
+  rememberUser($event) {
+    this.authService.setUserChecked($event.checked);
   }
 
 }

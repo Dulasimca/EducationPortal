@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { SelectItem } from 'primeng/api/selectitem';
 import { MasterService } from 'src/app/Services/master-data.service';
 
@@ -9,6 +10,7 @@ import { MasterService } from 'src/app/Services/master-data.service';
 })
 export class InternaltransferComponent implements OnInit {
   date: Date = new Date();
+  dateofJoin: any;
   school : SelectItem[];
   display: boolean = false;
   district: string;
@@ -19,6 +21,7 @@ export class InternaltransferComponent implements OnInit {
 // master
   districts?: any;
   taluks?: any;
+  @ViewChild('f', { static: false }) _internalTransferForm: NgForm;
   
   constructor(private masterService: MasterService) { }
 

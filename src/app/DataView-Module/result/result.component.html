@@ -24,7 +24,7 @@
                                 <td>{{data.slno}}</td>
                                 <td>{{data.subject}}</td>
                                 <td>{{data.test}}</td>
-                                <td style="width: 110px;" (click)="openDialog=true">
+                                <td style="width: 110px;" (click)="openDialog()">
                                     <span style="font-size: 13px;"> <a rel="view" style="color: blue; text-decoration: underline;">View</a></span></td>
                                 <!-- <td>{{data.duration}}</td> -->
                                 <!-- <td><i class="pi pi-sign-in" style="padding-left: 10px; color: #52de38; font-size: 1.5rem;"></i></td> -->
@@ -35,7 +35,7 @@
             </p-card>
         </div>
     </p-panel>
-    <p-dialog [(visible)]="openDialog"  [style]="{width: '50vw', padding: '0 !important'}">
+    <p-dialog #dialog [(visible)]="visible"  [style]="{width: '50vw', padding: '0 !important'}">
         <app-subject-testresult></app-subject-testresult>
     </p-dialog>
     

@@ -275,7 +275,6 @@ export class RegistrationFormComponent implements OnInit {
     this.obj.Password = '123';
     this.obj.CurrentAddress = (this.obj.CurrentAddress !== undefined && this.obj.CurrentAddress !== null) ? 
     this.obj.CurrentAddress : this.obj.PermanentAddress;
-      console.log('obj', this.obj);
     this.restApiService.post(PathConstants.Registration_Post, this.obj).subscribe(res => {
       if (res !== undefined && res !== null) {
         if (res.item1) {

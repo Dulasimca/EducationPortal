@@ -34,7 +34,6 @@ export class EventCalendarComponent implements OnInit {
         var setInitialDate = new Date().getFullYear()  + '-01-01';
         var data: any = [];
         events.forEach(e => {
-          console.log('e', setInitialDate);
           data.push({
             'id': e.RowId,
             'title': e.EventDetailS,

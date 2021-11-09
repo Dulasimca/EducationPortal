@@ -1,4 +1,4 @@
-import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TestConfig } from 'src/app/Helper-Module/testconfig';
 import { Test } from 'src/app/Helper-Module/test';
 import { Question } from 'src/app/Helper-Module/question';
@@ -7,7 +7,7 @@ import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { AssessmentService } from 'src/app/Services/online-test.service';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { ResponseMessage } from 'src/app/Common-Module/Message';
-import { ConfirmationService, MessageService } from 'primeng/api';
+import { MessageService } from 'primeng/api';
 import { HttpErrorResponse } from '@angular/common/http';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { NavigationEnd, Router } from '@angular/router';
@@ -70,13 +70,10 @@ export class OnlineTestComponent implements OnInit {
             this.router.events
             .pipe(filter((rs): rs is NavigationEnd => rs instanceof NavigationEnd))
             .subscribe(event => {
-                console.log('eve', event);
               if (
                 event.id === 1 &&
                 event.url === event.urlAfterRedirects 
-              ) {
-                  console.log('if', event);
-              }
+              ) { }
             })
          }
 
@@ -98,12 +95,13 @@ export class OnlineTestComponent implements OnInit {
         'RowId': this.testService.getId()
     }
     if(this.testService.getId() !== undefined && this.testService.getId() !== null) {
+        var isUpdated;
     this.restApiService.put(PathConstants.OnlineAssessment_Put, params).subscribe(res => {
         if(res !== undefined && res !== null) {
             if(res) {
-                console.log('visited test & updated');
+                isUpdated = true;
             } else {
-                console.log('visited test butn not updated');
+                isUpdated = false;
             }
         }
     })
@@ -246,7 +244,6 @@ export class OnlineTestComponent implements OnInit {
         this.blockUI.start();
         this.isSubmitted = true;
         let answers = [];
-        console.log('submit');
         if(this.test.questions !== undefined && this.test.questions !== null && this.test.questions.length !== 0) {
         this.test.questions.forEach(x => {
             if (x.answered) {

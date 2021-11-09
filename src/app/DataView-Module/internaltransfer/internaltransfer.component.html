@@ -1,10 +1,21 @@
 <div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px; height: 520px;">
-    <p-panel header="Internal School Transfer">
+    <p-panel header="Apply for Internal School Transfer">
         <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
             <form #f="ngForm" name="internalTransferForm">
                 <p-card>
                     <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
                         <div class="p-grid">
+                            <div class="p-col-12 p-md-6 p-lg-2 no-pad-left" style="margin: left -3px;">
+                                <label for="_dateofapply">Date of Apply<span
+                                        class="form-mandatory-field">*</span></label>
+                                <p-calendar [(ngModel)]="date" name="_dateofapply" [showIcon]="true"></p-calendar>
+                            </div>
+                            <div class="p-col-12 p-md-6 p-lg-2 no-pad-left" style="margin: left -3px;">
+                                <label for="_dateofjoin">Date of Joining<span
+                                        class="form-mandatory-field">*</span></label>
+                                <p-calendar [(ngModel)]="dateofJoin" name="_dateofjoin" [showIcon]="true"></p-calendar>
+                                <span><p style="font-size: smaller;">*Select new school joining date</p></span>
+                            </div>
                             <div class="p-col-12 p-md-6 p-lg-2 no-pad-left">
                                 <label for="_district">District<span class="form-mandatory-field">*</span> </label>
                                 <p-dropdown [options]="districtOptions" [(ngModel)]="district" name="_district"
@@ -15,19 +26,14 @@
                                 <p-dropdown [options]="talukOptions" [(ngModel)]="taluk" name="_taluk"
                                  (onClick)="onSelect('T')" ></p-dropdown>
                             </div>
-                            <div class="p-col-12 p-md-6 p-lg-2 no-pad-left" style="margin: left -3px;">
-                                <label for="_school">School<span class="form-mandatory-field">*</span> </label>
+                            <div class="p-col-12 p-md-6 p-lg-3 no-pad-left" style="margin: left -3px;">
+                                <label for="_school">School(Transfer to)<span class="form-mandatory-field">*</span> </label>
                                 <p-dropdown [options]="school" [(ngModel)]="selectedSchool" name="_school"
                                     ></p-dropdown>
                             </div>
-                            <div class="p-col-12 p-md-6 p-lg-2 no-pad-left" style="margin: left -3px;">
-                                <label for="_dateofapply">Date of Apply<span
-                                        class="form-mandatory-field">*</span></label>
-                                <p-calendar [(ngModel)]="date" name="_dateofapply" [showIcon]="true"></p-calendar>
-                            </div>
                             <div class="p-col-1"></div>
-                            <div class="p-col-12 p-md-4 p-lg-2" style="align-self: center; margin-top: 20px;">
-                                <button pButton type="button" label="Transfer" (click)="onTransfer()" [disabled]="(!f.valid)"></button>
+                            <div class="p-col-6 p-md-6 p-lg-6" style="text-align: end;">
+                                <button pButton type="button" label="Submit" (click)="onTransfer()" [disabled]="(!f.valid)"></button>
                             </div>
                         </div>
                     </div>

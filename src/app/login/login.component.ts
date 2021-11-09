@@ -43,8 +43,10 @@ export class LoginComponent implements OnInit {
     })
     this.isChecked = (this.authService.UserChecked !== undefined && this.authService.UserChecked !== null) ?
     this.authService.UserChecked : false;
+    if(this.isChecked) {
     this.username = this.login_user.email;
     this.password = this.login_user.password;
+    }
   }
 
   onSignIn() {

@@ -1,7 +1,7 @@
 
 
 <div class="p-col-12 p-md-12 p-lg-12" >
-        <p-panel header="Circulars">
+        <p-panel header="Circular">
         <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
             <p-card>
                 <div>
@@ -20,8 +20,8 @@
     </tr>
   </ng-template>
   
-  <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
-    <tr [pSelectableRow]="rowData"  class="cursor-pointer">
+  <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns" class="cursor-pointer">
+    <tr [pSelectableRow]="rowData"  >
       
     <!--<tr [pSelectableRow]="rowData"  class="cursor-pointer" (dblclick)="onRowSelect($event, rowData)">-->
       <td style="text-align: center; width: 90px;">{{rowIndex+1}}</td>

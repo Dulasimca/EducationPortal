@@ -55,8 +55,8 @@
     </tr>
   </ng-template>
   
-  <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
-    <tr [pSelectableRow]="rowData" class="cursor-pointer" (dblclick)="onRowSelect($event, rowData)">
+  <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" class="cursor-pointer" let-columns="columns">
+    <tr [pSelectableRow]="rowData"  (dblclick)="onRowSelect($event, rowData)">
       <td>{{rowIndex+1}}</td>
       <td *ngFor="let col of columns">
         {{rowData[col.field]}}

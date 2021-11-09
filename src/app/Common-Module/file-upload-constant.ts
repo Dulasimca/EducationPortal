@@ -13,5 +13,6 @@ export class FileUploadConstant {
     public static readonly QuestionBank = 'QuestionBank';
 
     public static readonly SubjectResultfolder = 'SubjectResult';
+    public static readonly SchoolFolder = 'MySchool';
 
 }

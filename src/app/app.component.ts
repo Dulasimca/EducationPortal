@@ -52,7 +52,6 @@ export class AppComponent {
           this.items = response.slice(0);
           this.checkChildItems(response);
           this.getUrl().subscribe((res: Routes) => {
-            console.log('auth res', res);
             // this._router.dispose();
             // this._router.resetConfig(res);
           })
@@ -100,7 +99,6 @@ export class AppComponent {
     setConfig.push({ path: '**', redirectTo: '/login', component: LoginComponent })
     setConfig.unshift({ path: '',   redirectTo: '/login', pathMatch: 'full' },
     { path: 'login', component: LoginComponent })
-    console.log('secong', setConfig);
     return of(setConfig);
   }
 

@@ -45,7 +45,6 @@ import { FeeFormComponent } from './Forms-Module/fee-form/fee-form.component';
 
 
 import { AuthGuard } from './Services/auth.guard';
-import { OnlineTestComponent } from './Events-Module/online-test/online-test.component';
 import { TestDetailsFormComponent } from './Forms-Module/test-details-form/test-details-form.component';
 import { QuestionBankUploadFormComponent } from './Forms-Module/question-bank-upload-form/question-bank-upload-form.component';
 import { MyclassResultComponent } from './Forms-Module/myclass-result/myclass-result.component';

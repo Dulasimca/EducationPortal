@@ -19,8 +19,34 @@ export class InputFormatDirective {
           this.digitOnly(event);
       } else if (this.appInputFormat === 'noSpecialChars') {
           this.noSpecialChars(event);
+      } else if(this.appInputFormat === 'faxFormat') {
+          this.faxFormat(event);
       }
   }
+
+  faxFormat(event) {
+    const e = <KeyboardEvent>event;
+    console.log('ev', event);
+    if (e.key === 'Tab' || e.key === 'TAB') {
+        return;
+    }
+    if ([8, 9, 27, 13].indexOf(e.keyCode) !== -1 ||
+        // Allow: Ctrl+A
+        (e.keyCode === 65 && e.ctrlKey === true) ||
+        // Allow: Ctrl+C
+        (e.keyCode === 67 && e.ctrlKey === true) ||
+        // Allow: Ctrl+V
+        (e.keyCode === 86 && e.ctrlKey === true) ||
+        // Allow: Ctrl+X
+        (e.keyCode === 88 && e.ctrlKey === true) ||
+        (e.keyCode === 43) || (e.keyCode === 45)) {
+        // let it happen, don't do anything
+        return;
+    }
+    if (['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'].indexOf(e.key) === -1) {
+        e.preventDefault();
+    }
+}
 
   digitOnly(event) {
       const e = <KeyboardEvent>event;
@@ -70,6 +96,8 @@ export class InputFormatDirective {
           regex = /[0-9]/g;
       } else if (this.appInputFormat === 'noSpecialChars') {
           regex = /[a-zA-Z0-9\u0600-\u06FF]/g;
+      } else if(this.appInputFormat === 'faxFormat') {
+        regex =  /[\+? *[1-9]+]?[0-9 ]+/g;
       }
       const e = <ClipboardEvent>event;
       const pasteData = e.clipboardData.getData('text/plain');

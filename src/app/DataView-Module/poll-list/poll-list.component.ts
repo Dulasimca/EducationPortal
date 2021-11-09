@@ -55,45 +55,72 @@ export class PollListComponent implements OnInit {
       'ElectionID': this.selectedPosition,
       'StudentID': this.login_user.id
     }
+    var votedList = [];
     this.restApiService.getByParameters(PathConstants.PollList_Get, params).subscribe(res => {
       if (res !== null && res !== undefined && res.length !== 0) {
         this.isDataAvailable = true;
         this.loading = false;
-        console.log(res);
-        res.forEach(i => {
-          nomineeList.unshift({
-            'isActive': true,
-            'SchoolID': i.SchoolID,
-            'StudentID': i.StudentID,
-            'NomineeID': i.NomineeID,
-            'ElectionID': i.ElectionID,
-            'VoteStatus': i.VoteStatus,
-            'FirstName': i.FirstName,
-            'Name': i.Name
-          });
-        })
+        votedList = res.slice(0);
+        // res.forEach(i => {
+        //   nomineeList.unshift({
+        //     'isActive': true,
+        //     'SchoolID': i.SchoolID,
+        //     'StudentID': i.StudentID,
+        //     'NomineeID': i.NomineeID,
+        //     'ElectionID': i.ElectionID,
+        //     'VoteStatus': i.VoteStatus,
+        //     'FirstName': i.FirstName,
+        //     'Name': i.Name
+        //   });
+        // })
 
       } else {
         this.isDataAvailable = false;
-        this.restApiService.getByParameters(PathConstants.Nominee_Get, params).subscribe(res => {
-          if (res !== null && res !== undefined && res.length !== 0) {
-            console.log(res);
-            res.forEach(i => {
-              nomineeList.push({
-                'isActive': false,
-                'RowId': i.RowId,
-                'SchoolID': i.SchoolID,
-                'ElectionID': i.ElectionID,
-                'NomineeID': i.NomineeID,
-                'FirstName': i.FirstName,
-                'Name': i.Name
-              })
+        votedList = [];
+      }
+    });
+    this.restApiService.getByParameters(PathConstants.Nominee_Get, params).subscribe(res => {
+      if (res !== null && res !== undefined && res.length !== 0) {
+        res.forEach(i => {
+          if (votedList.length !== 0) {
+            votedList.forEach(j => {
+              if (j.NomineeID === i.NomineeID) {
+                nomineeList.push({
+                  'isVoted': 'true',
+                  'RowId': i.RowId,
+                  'SchoolID': i.SchoolID,
+                  'ElectionID': i.ElectionID,
+                  'NomineeID': i.NomineeID,
+                  'FirstName': i.FirstName,
+                  'Name': i.Name
+                })
+              } else {
+                nomineeList.push({
+                  'isVoted': 'false',
+                  'RowId': i.RowId,
+                  'SchoolID': i.SchoolID,
+                  'ElectionID': i.ElectionID,
+                  'NomineeID': i.NomineeID,
+                  'FirstName': i.FirstName,
+                  'Name': i.Name
+                })
+              }
             });
+          } else {
+            nomineeList.push({
+              'isVoted': 'false',
+              'RowId': i.RowId,
+              'SchoolID': i.SchoolID,
+              'ElectionID': i.ElectionID,
+              'NomineeID': i.NomineeID,
+              'FirstName': i.FirstName,
+              'Name': i.Name
+            })
           }
         });
       }
     });
-
+    console.log('list', nomineeList);
     this.data = nomineeList;
   }
 
@@ -160,6 +187,4 @@ export class PollListComponent implements OnInit {
       }
     })
   }
-
-
 }

@@ -1,4 +1,4 @@
-<div class="p-col-12" >
+<div class="p-col-12">
     <p-toast position="top-center" key="t-msg"></p-toast>
     <p-panel header="My School">
         <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
@@ -30,8 +30,8 @@
                                     <div><label for="_phoneno">Contact Number<span
                                                 class="form-mandatory-field">*</span></label>
                                     </div>
-                                    <input type="tel" class="p-col-12" name="_phoneno"minlength="10" maxlength="10" pInputText
-                                        [(ngModel)]="phoneNo"  appInputFormat="digitOnly" required />
+                                    <input type="tel" class="p-col-12" name="_phoneno" minlength="10" maxlength="10"
+                                        pInputText [(ngModel)]="phoneNo" appInputFormat="digitOnly" required />
                                 </div>
                                 <div class="p-col-12 p-md-6 p-lg-2">
                                     <div><label for="_landlineno">Landline Number<span
@@ -42,31 +42,53 @@
                                 </div>
                                 <div #row1 class="p-col-12 p-md-12 p-lg-12">
                                     <div class="p-grid">
-                                        <div class="p-col-12 p-md-6 p-lg-4">
+                                        <div class="p-col-12 p-md-6 p-lg-2">
                                             <div><label for="_address"> School Address<span
                                                         class="form-mandatory-field">*</span></label></div>
-                                            <textarea pInputTextarea [(ngModel)]="address" name="_address" rows="3"
-                                                cols="41" required></textarea>
+                                            <textarea pInputTextarea [(ngModel)]="address" name="_address" rows="2"
+                                                cols="20" required></textarea>
                                         </div>
                                         <div class="p-col-12 p-md-6 p-lg-2">
                                             <div><label for="_pincode">Pincode<span
                                                         class="form-mandatory-field">*</span></label></div>
-                                            <input type="text" class="p-col-12" name="_pincode" minlength="6" maxlength="6" pInputText
-                                                [(ngModel)]="pincode" appInputFormat="digitOnly" required />
+                                            <input type="text" class="p-col-12" name="_pincode" minlength="6"
+                                                maxlength="6" pInputText [(ngModel)]="pincode"
+                                                appInputFormat="digitOnly" required />
                                         </div>
                                         <div class="p-col-12 p-md-6 p-lg-2">
                                             <div><label for="_faxno">Fax Number</label></div>
                                             <input type="text" class="p-col-12" name="_faxno" pInputText
-                                                [(ngModel)]="faxNo" required />
+                                                appInputFormat="faxFormat" minlength="14" maxlength="14"
+                                                 [(ngModel)]="faxNo" required />
+                                        </div>
+                                        <div class="p-col-12 p-md-6 p-lg-6">
+                                            <label for="_hmphoto">HeadMaster Photo</label>
+                                            <div class="p-grid">
+                                                <div class="p-col-6 p-md-6 p-lg-6">
+                                                    <div class="p-inputgroup">
+                                                    <input #fileSelector class="p-col-12" name="_studentimg" type="file"
+                                                        pInputText (change)="uploadFile($event)" accept=".png"
+                                                         />
+                                                         <button pButton type="button" icon="pi pi-times-circle"
+                                                         (click)="onRemoveFile()"></button>
+                                                        </div>
+                                                </div>
+                                                <div class="p-col-6 p-md-6 p-lg-4 no-pad-left">
+                                                    <img *ngIf="showImg" width="100px" height="100px"
+                                                        [src]="_d.bypassSecurityTrustUrl(URL)" />
+                                                </div>
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="p-col-12 p-md-6 p-lg-6" style="text-align:right;">
-                                    <button pButton name="save" type="button" label="Submit" icon="pi pi-save" (click)="onSave()"
-                                        [disabled]="(!f.valid)"></button>
+                                    <button pButton name="save" type="button" label="Submit" icon="pi pi-save"
+                                        (click)="onSave()" [disabled]="(!f.valid)"></button>
                                 </div>
                                 <div class="p-col-12 p-md-6 p-lg-6">
-                                    <button pButton name="view" type="button" label="View" icon="pi pi-eye" (click)="onView()"></button>
+                                    <button pButton name="view" type="button" label="View" icon="pi pi-eye"
+                                        (click)="onView()"></button>
                                 </div>
                             </div>
                         </div>

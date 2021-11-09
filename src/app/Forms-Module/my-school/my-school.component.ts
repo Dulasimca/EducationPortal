@@ -1,9 +1,11 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { SelectItem } from 'primeng/api/selectitem';
+import { FileUploadConstant } from 'src/app/Common-Module/file-upload-constant';
 import { ResponseMessage } from 'src/app/Common-Module/Message';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { User } from 'src/app/Interfaces/user';
@@ -26,12 +28,17 @@ export class MySchoolComponent implements OnInit {
   login_user: User;
   faxNo: any;
   curriculum: any;
-
+  hmPhotoFileName: string;
+  URL: string;
+  showImg: boolean;
+  public formData = new FormData();
+  @ViewChild('fileSelector', { static: false }) fileSelector: ElementRef;
   @ViewChild('f', { static: false }) _mySchool: NgForm;
 
 
   constructor(private restApiService: RestAPIService, private messageService: MessageService,
-     private authService: AuthService, private router: Router) { }
+     private authService: AuthService, private router: Router, private http: HttpClient,
+     public _d: DomSanitizer,) { }
 
   ngOnInit(): void {
     this.login_user = this.authService.UserInfo;
@@ -40,6 +47,31 @@ export class MySchoolComponent implements OnInit {
       { label: 'CBSE', value: '02' },
     ]
   }
+
+  public uploadFile = ($event) => {
+    this.formData = new FormData();
+    const file = $event.srcElement.files[0];
+    this.URL = window.URL.createObjectURL(file);
+    this.showImg = (this.URL !== undefined && this.URL !== null) ? true : false;
+    let fileToUpload: any = <File>$event.target.files[0];
+    const filename = fileToUpload.name + '^' + FileUploadConstant.SchoolFolder;
+    this.formData.append('file', fileToUpload, filename);
+    this.hmPhotoFileName=fileToUpload.name;
+    console.log('file', this.hmPhotoFileName, this.formData);
+    alert(fileToUpload + this.hmPhotoFileName);
+    this.http.post(this.restApiService.BASEURL +PathConstants.FileUpload_Post, this.formData)
+      .subscribe(event => 
+        {
+      }
+      );
+  }  
+
+  onRemoveFile() {
+    this.fileSelector.nativeElement.value = null;
+    this.URL = null;
+    this.showImg = false;
+  }
+
   onSave() {
     const params = {
       'Slno': 0,    
@@ -52,7 +84,8 @@ export class MySchoolComponent implements OnInit {
       'Landline': this.landlineNo,
       'Fax': this.faxNo,
       'SchoolId': this.login_user.schoolId,
-      'Flag': 1
+      'Flag': 1,
+      'Filename': this.hmPhotoFileName
     }
     this.restApiService.post(PathConstants.MySchool_Post,params).subscribe(res => {
       if (res) {
@@ -79,9 +112,11 @@ export class MySchoolComponent implements OnInit {
       }
     })
   }
+
   clearform() {
     this._mySchool.reset();
   }
+
   onView() {
     this.router.navigate(['/myschool-view'])
   }

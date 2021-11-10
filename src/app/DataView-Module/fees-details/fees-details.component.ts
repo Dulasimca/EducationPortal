@@ -110,7 +110,7 @@ console.log('parameter',params);
   
   }
 
-onDownload(data) {
+  generateReceipt(data) {
   this.receiptData = []
   this.showReceipt = true;
   this.schoolName = this.login_user.schoolname;

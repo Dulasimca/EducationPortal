@@ -43,9 +43,10 @@
                      ></button>
                     </div>
                     <div  class="p-col-7 p-md-7 p-lg-7"> 
-                  <button pButton type="button" label="View" icon="pi pi-eye" (click)="onView()"></button>
+                  <button pButton type="button" label="View" icon="pi pi-eye" (click)="onView()"></button>&nbsp;&nbsp;
+                  <button pButton type="button" label="Clear" icon="pi pi-times-circle" (click)="clear()"></button>
                   </div>
-                </div>
+                 </div>
                 <div *ngIf="showtable"> 
                 <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10"
                   [rowsPerPageOptions]="[5,10,15,20]" totalRecords="totalRecords" styleClass="p-datatable-gridlines">

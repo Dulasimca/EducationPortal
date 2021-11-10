@@ -13,16 +13,16 @@ import { RestAPIService } from 'src/app/Services/restAPI.service';
   templateUrl: './fees-details.component.html',
   styleUrls: ['./fees-details.component.css']
 })
-export class FeesDetailsComponent implements OnInit { 
+export class FeesDetailsComponent implements OnInit {
   totalAmount: any;
   selectedYear: any;
   paidAmount: any;
-  academicYear:any;
+  academicYear: any;
   yearRange: string;
   paydate: any;
   paymethod: any;
   showReceipt: boolean;
-  login_user :User;
+  login_user: User;
   studentName: string;
   class: any;
   receiptNo: number;
@@ -31,28 +31,28 @@ export class FeesDetailsComponent implements OnInit {
   schoolAddress: any;
   today: any;
   total: any;
-  feeCols :any;
+  feeCols: any;
   feeData: any = [];
   receiptData: any = [];
   yearOptions: SelectItem[];
   years?: any;
   loading: boolean;
-  constructor(private restApiService: RestAPIService, private authService: AuthService, 
+  constructor(private restApiService: RestAPIService, private authService: AuthService,
     private masterService: MasterService, private datePipe: DatePipe, private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.years = this.masterService.getAccountingYear();
-       this.login_user = this.authService.UserInfo;
+    this.login_user = this.authService.UserInfo;
     this.feeCols = [
-      {field: 'FeeName', header: 'Fee Name'},
-      { field: 'CreatedDate', header: 'Pay Date'},
+      { field: 'FeeName', header: 'Fee Name' },
+      { field: 'CreatedDate', header: 'Pay Date' },
       { field: 'PayMethod', header: 'Pay Method' },
       { field: 'PaidAmount', header: 'Paid Amount' }
     ];
     var data = [];
-    if(this.years.length !== 0) {
+    if (this.years.length !== 0) {
       this.years.forEach(y => {
-       data.push({ label: y.ShortYear, value: y.Id });
+        data.push({ label: y.ShortYear, value: y.Id });
       })
       this.yearOptions = data;
       this.selectedYear = data[0].value;
@@ -79,15 +79,25 @@ export class FeesDetailsComponent implements OnInit {
       'yearID': this.selectedYear.value !== null && this.selectedYear.value !== undefined ? this.selectedYear.value : 0,
       'type': 1
     }
-console.log('fee view',this.feeData);
-console.log('parameter',params);
+    console.log('fee view', this.feeData);
+    console.log('parameter', params);
     this.restApiService.getByParameters(PathConstants.Fee_Get, params).subscribe(res => {
       console.log(res);
-      if(res !== null && res !== undefined && res.length !== 0) {
-        if(res) {
+      if (res !== null && res !== undefined && res.length !== 0) {
+        if (res) {
           this.loading = false;
-      this.feeData = res;
-      } else {
+          this.feeData = res;
+        } else {
+          this.loading = false;
+          this.feeData.clear();
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
+            summary: ResponseMessage.SUMMARY_WARNING, detail: ResponseMessage.NoRecordMessage
+          })
+        }
+      }
+      else {
         this.loading = false;
         this.feeData.clear();
         this.messageService.clear();
@@ -96,42 +106,11 @@ console.log('parameter',params);
           summary: ResponseMessage.SUMMARY_WARNING, detail: ResponseMessage.NoRecordMessage
         })
       }
-    }
-    else {
-      this.loading = false;
-      this.feeData.clear();
-      this.messageService.clear();
-      this.messageService.add({
-        key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
-        summary: ResponseMessage.SUMMARY_WARNING, detail: ResponseMessage.NoRecordMessage
-      })
-    }
     });
-  
   }
 
-<<<<<<< HEAD:src/app/Forms-Module/fees-details-form/fees-details-form.component.ts
-onDownload(data) {
-  this.receiptData = []
-  this.showReceipt = true;
-  this.schoolName = this.login_user.schoolname;
-  this.schoolAddress = this.login_user.taluk + '-' + this.login_user.pincode;
-  this.studentName = this.login_user.username;
-  this.receiptNo = data.RowId;
-  this.class = this.login_user.classRoman + ' - ' + this.login_user.section;
-  this.parentName = this.login_user.fathername;
-  this.today = this.datePipe.transform(new Date(), 'dd-MM-yyyy');
-  this.total = data.PaidAmount,
-  this.receiptData.push({
-    'feeparticulars': data.FeeName,
-    'paydate': data.CreatedDate,
-    'totalamount': data.ActualAmount,
-    'paidamount' : data.PaidAmount
-  })
-  
-=======
   generateReceipt(data) {
-    this.receiptData = [];
+    this.receiptData = []
     this.showReceipt = true;
     this.schoolName = this.login_user.schoolname;
     this.schoolAddress = this.login_user.taluk + '-' + this.login_user.pincode;
@@ -147,6 +126,5 @@ onDownload(data) {
         'totalamount': data.ActualAmount,
         'paidamount': data.PaidAmount
       })
->>>>>>> 41a040bb34e4797b90db199f299b64deb069c1e8:src/app/DataView-Module/fees-details/fees-details.component.ts
   }
 }

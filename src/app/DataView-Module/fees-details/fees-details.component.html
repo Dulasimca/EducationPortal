@@ -1,7 +1,6 @@
 <div class="p-col-12" >
   <p-panel header="Fee Details">
     <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
-      <form #f="ngForm" name="feeDetailsForm">
         <div class="p-grid">
           <div class="p-col-12 p-md-6 p-lg-3">
             <div>
@@ -11,7 +10,7 @@
               optionLabel="label" (onChange)="onLoad()" required> </p-dropdown>
           </div>
           <div>
-            <p-table [columns]="cols" styleClass="p-datatable-gridlines" [value]="feeData" [loading]="loading">
+            <p-table [columns]="feeCols" styleClass="p-datatable-gridlines" [value]="feeData" [loading]="loading">
               <ng-template pTemplate="header" let-columns>
                 <tr>
                   <th style="width: 90px;">S.No</th>
@@ -31,7 +30,8 @@
                     {{rowData[col.field]}}
                   </td>
                   <td>
-                    <button pButton type="button" icon="pi pi-print edit-size" pTooltip="Show/print receipt" (click)="onDownload(rowData)"></button>
+                    <button pButton type="button" icon="pi pi-print" style="color:#45e327;"
+                     pTooltip="Show/print receipt" (click)="generateReceipt(rowData)"></button>
                   </td>
                 </tr>
               </ng-template>
@@ -127,7 +127,6 @@
               </div>
           </p-dialog>
         </div>
-      </form>
     </div>
   </p-panel>
 </div>

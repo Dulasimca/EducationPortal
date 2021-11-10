@@ -76,17 +76,20 @@ export class FeesDetailsComponent implements OnInit {
     const params = {
       'schoolID': this.login_user.schoolId,
       'studentID': this.login_user.id,
-      'yearID': this.selectedYear.value,
+      'yearID': this.selectedYear.value !== null && this.selectedYear.value !== undefined ? this.selectedYear.value : 0,
       'type': 1
     }
-
+console.log('fee view',this.feeData);
+console.log('parameter',params);
     this.restApiService.getByParameters(PathConstants.Fee_Get, params).subscribe(res => {
+      console.log(res);
       if(res !== null && res !== undefined && res.length !== 0) {
         if(res) {
           this.loading = false;
       this.feeData = res;
       } else {
         this.loading = false;
+        this.feeData.clear();
         this.messageService.clear();
         this.messageService.add({
           key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
@@ -94,10 +97,39 @@ export class FeesDetailsComponent implements OnInit {
         })
       }
     }
+    else {
+      this.loading = false;
+      this.feeData.clear();
+      this.messageService.clear();
+      this.messageService.add({
+        key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
+        summary: ResponseMessage.SUMMARY_WARNING, detail: ResponseMessage.NoRecordMessage
+      })
+    }
     });
   
   }
 
+<<<<<<< HEAD:src/app/Forms-Module/fees-details-form/fees-details-form.component.ts
+onDownload(data) {
+  this.receiptData = []
+  this.showReceipt = true;
+  this.schoolName = this.login_user.schoolname;
+  this.schoolAddress = this.login_user.taluk + '-' + this.login_user.pincode;
+  this.studentName = this.login_user.username;
+  this.receiptNo = data.RowId;
+  this.class = this.login_user.classRoman + ' - ' + this.login_user.section;
+  this.parentName = this.login_user.fathername;
+  this.today = this.datePipe.transform(new Date(), 'dd-MM-yyyy');
+  this.total = data.PaidAmount,
+  this.receiptData.push({
+    'feeparticulars': data.FeeName,
+    'paydate': data.CreatedDate,
+    'totalamount': data.ActualAmount,
+    'paidamount' : data.PaidAmount
+  })
+  
+=======
   generateReceipt(data) {
     this.receiptData = [];
     this.showReceipt = true;
@@ -115,5 +147,6 @@ export class FeesDetailsComponent implements OnInit {
         'totalamount': data.ActualAmount,
         'paidamount': data.PaidAmount
       })
+>>>>>>> 41a040bb34e4797b90db199f299b64deb069c1e8:src/app/DataView-Module/fees-details/fees-details.component.ts
   }
 }

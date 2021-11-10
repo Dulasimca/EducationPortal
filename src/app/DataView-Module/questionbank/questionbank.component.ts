@@ -22,7 +22,7 @@ export class QuestionbankComponent implements OnInit {
   yearOptions: SelectItem[];
   data: any;
   link: any;
-  years?: any;
+  years?: any = [];
   logged_user: User;
   loading: boolean;
   questionBankData: any = [];
@@ -34,6 +34,16 @@ export class QuestionbankComponent implements OnInit {
     this.logged_user = this.authService.UserInfo;
     this.years = this.masterService.getAccountingYear();
     this.questionBankCols = TableConstants.SQuestionBankColumns;
+    console.log('yr', this.years);
+    var data = [];
+    if(this.years.length !== 0) {
+      this.years.forEach(y => {
+       data.push({ label: y.ShortYear, value: y.Id });
+      })
+      this.yearOptions = data;
+      this.selectedYear = data[0].value;
+      this.onLoadQuestionBank();
+    }
   }
 
   onSelect() {
@@ -46,6 +56,7 @@ export class QuestionbankComponent implements OnInit {
   }
 
   onLoadQuestionBank() {
+    this.questionBankData = [];
     this.loading = true;
     const params = {
       'Classcode': this.logged_user.classId,

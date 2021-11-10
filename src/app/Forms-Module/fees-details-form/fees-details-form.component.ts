@@ -80,17 +80,20 @@ export class FeesDetailsFormComponent implements OnInit {
     const params = {
       'schoolID': this.login_user.schoolId,
       'studentID': this.login_user.id,
-      'yearID': this.selectedYear.value,
+      'yearID': this.selectedYear.value !== null && this.selectedYear.value !== undefined ? this.selectedYear.value : 0,
       'type': 1
     }
-
+console.log('fee view',this.feeData);
+console.log('parameter',params);
     this.restApiService.getByParameters(PathConstants.Fee_Get, params).subscribe(res => {
+      console.log(res);
       if(res !== null && res !== undefined && res.length !== 0) {
         if(res) {
           this.loading = false;
       this.feeData = res;
       } else {
         this.loading = false;
+        this.feeData.clear();
         this.messageService.clear();
         this.messageService.add({
           key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
@@ -98,12 +101,21 @@ export class FeesDetailsFormComponent implements OnInit {
         })
       }
     }
+    else {
+      this.loading = false;
+      this.feeData.clear();
+      this.messageService.clear();
+      this.messageService.add({
+        key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
+        summary: ResponseMessage.SUMMARY_WARNING, detail: ResponseMessage.NoRecordMessage
+      })
+    }
     });
   
   }
 
 onDownload(data) {
-  
+  this.receiptData = []
   this.showReceipt = true;
   this.schoolName = this.login_user.schoolname;
   this.schoolAddress = this.login_user.taluk + '-' + this.login_user.pincode;

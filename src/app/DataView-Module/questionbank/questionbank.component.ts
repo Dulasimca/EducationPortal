@@ -25,6 +25,7 @@ export class QuestionbankComponent implements OnInit {
   years?: any = [];
   logged_user: User;
   loading: boolean;
+  header: string;
   questionBankData: any = [];
   questionBankCols: any;
   constructor(private restApiService: RestAPIService, private authService: AuthService,
@@ -34,7 +35,7 @@ export class QuestionbankComponent implements OnInit {
     this.logged_user = this.authService.UserInfo;
     this.years = this.masterService.getAccountingYear();
     this.questionBankCols = TableConstants.SQuestionBankColumns;
-    console.log('yr', this.years);
+    this.header = 'Question Bank for ' +  this.logged_user.classRoman + ' - std'
     var data = [];
     if(this.years.length !== 0) {
       this.years.forEach(y => {

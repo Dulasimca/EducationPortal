@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { delay, timeout, retry, catchError } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 
 
 @Injectable({
@@ -11,7 +11,7 @@ import { delay, timeout, retry, catchError } from 'rxjs/operators';
 export class RestAPIService {
   // BASEURL = 'http://180.179.49.72:8084/EducationAPI/api/';
   // BASEURL = 'https://api.tessolve.com/api/';
-  BASEURL = 'http://localhost:7440/api/';
+     BASEURL = 'http://localhost:7440/api/';
   public HttpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded',

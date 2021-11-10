@@ -8,9 +8,8 @@ import { RestAPIService } from '../Services/restAPI.service';
 import { ResponseMessage } from '../Common-Module/Message';
 import { StyleSetting } from '../Helper-Module/style-setting';
 import { TabView } from 'primeng/tabview';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FileUploadConstant } from '../Common-Module/file-upload-constant';
-import { Router } from '@angular/router';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -18,35 +17,38 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  username: string = '';
-  password: string = '';
+  username: string;
+  password: string;
   id: number;
   showPswd: boolean;
   loginHeader: string = 'Student Login';
   selectedIndex = 0;
   isChecked: boolean;
-  loginForm: FormGroup;
   login_user: User;
   @ViewChild('tabview', { static: false }) _tabView: TabView;
+  @ViewChild('f', { static: false }) _loginForm: NgForm;
 
   constructor(private authService: AuthService, private restApiService: RestAPIService,
-    private messageService: MessageService, private fb: FormBuilder) {
+    private messageService: MessageService) {
      }
 
   ngOnInit() {
     this.login_user = this.authService.UserInfo;
+    const remember = this.authService.RememberUser;
+    this.username , this.password = "";
+    console.log('rem', remember, this.authService.RememberUser)
     var _setlayout = new StyleSetting();
     _setlayout.setNavLayoutAtLogin();
-    this.loginForm = this.fb.group({
-      user: ['', Validators.required],
-      pwd: ['', Validators.required]
-    })
-    this.isChecked = (this.authService.UserChecked !== undefined && this.authService.UserChecked !== null) ?
-    this.authService.UserChecked : false;
+    this.isChecked = (remember !== undefined && remember !== null) ?
+    remember.checked : false;
     if(this.isChecked) {
-    this.username = this.login_user.email;
-    this.password = this.login_user.password;
+    this.username = remember.usermail;
+    this.password = remember.password;
+    } else{
+      this.username = "";
+      this.password = "";
     }
+    console.log('usr', this.username, this.password)
   }
 
   onSignIn() {
@@ -95,8 +97,13 @@ export class LoginComponent implements OnInit {
                     (i.studentPhotoFileName.toString().trim() !== '' ? ('../../assets/layout/' + FileUploadConstant.StudentRegistration +'/'+ i.studentPhotoFileName) : '') : '' 
                   }
                   this.authService.login(obj);
-                  // this.masterService.initializeMaster();
-              });
+                  const rememberUser = {
+                    'checked': this.isChecked,
+                    'usermail': (this.isChecked) ? this.username : "",
+                    'password': (this.isChecked) ? this.password : ""
+                  }
+                  this.authService.setUserChecked(rememberUser);       
+               });
             }
           } else {
             this.messageService.clear();
@@ -144,11 +151,18 @@ export class LoginComponent implements OnInit {
   onTabChange($event) {
     this.selectedIndex = $event.index;
     this.loginHeader = this._tabView.tabs[this.selectedIndex].header + ' ' + 'Login';
-    this.loginForm.reset();
+    this._loginForm.reset();
+    this._loginForm.form.markAsUntouched();
+    this._loginForm.form.markAsPristine();
   }
 
   rememberUser($event) {
-    this.authService.setUserChecked($event.checked);
+    const rememberUser = {
+      'checked': $event.checked,
+      'usermail': ($event.checked) ? this.username : "",
+      'password': $event.checked? this.password : ""
+    }
+    this.authService.setUserChecked(rememberUser);
   }
 
 }

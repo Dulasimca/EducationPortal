@@ -9,19 +9,16 @@ import { MasterService } from 'src/app/Services/master-data.service';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
 
 @Component({
-  selector: 'app-fees-details-form',
-  templateUrl: './fees-details-form.component.html',
-  styleUrls: ['./fees-details-form.component.css']
+  selector: 'app-fees-details',
+  templateUrl: './fees-details.component.html',
+  styleUrls: ['./fees-details.component.css']
 })
-export class FeesDetailsFormComponent implements OnInit {
-  
+export class FeesDetailsComponent implements OnInit { 
   totalAmount: any;
   selectedYear: any;
   paidAmount: any;
   academicYear:any;
   yearRange: string;
-  cols :any = [];
-  data: any = [];
   paydate: any;
   paymethod: any;
   showReceipt: boolean;
@@ -34,6 +31,7 @@ export class FeesDetailsFormComponent implements OnInit {
   schoolAddress: any;
   today: any;
   total: any;
+  feeCols :any;
   feeData: any = [];
   receiptData: any = [];
   yearOptions: SelectItem[];
@@ -43,10 +41,9 @@ export class FeesDetailsFormComponent implements OnInit {
     private masterService: MasterService, private datePipe: DatePipe, private messageService: MessageService) { }
 
   ngOnInit(): void {
-    this.masterService.getAccountingYear();
     this.years = this.masterService.getAccountingYear();
        this.login_user = this.authService.UserInfo;
-    this.cols = [
+    this.feeCols = [
       {field: 'FeeName', header: 'Fee Name'},
       { field: 'CreatedDate', header: 'Pay Date'},
       { field: 'PayMethod', header: 'Pay Method' },
@@ -64,7 +61,6 @@ export class FeesDetailsFormComponent implements OnInit {
   }
 
   onSelect() {
-   
     let yearSelection = [];
     this.years.forEach(y => {
       yearSelection.push({ label: y.ShortYear, value: y.Id });
@@ -80,30 +76,42 @@ export class FeesDetailsFormComponent implements OnInit {
     const params = {
       'schoolID': this.login_user.schoolId,
       'studentID': this.login_user.id,
-      'yearID': this.selectedYear.value,
+      'yearID': this.selectedYear.value !== null && this.selectedYear.value !== undefined ? this.selectedYear.value : 0,
       'type': 1
     }
-
+console.log('fee view',this.feeData);
+console.log('parameter',params);
     this.restApiService.getByParameters(PathConstants.Fee_Get, params).subscribe(res => {
+      console.log(res);
       if(res !== null && res !== undefined && res.length !== 0) {
         if(res) {
           this.loading = false;
       this.feeData = res;
       } else {
         this.loading = false;
+        this.feeData.clear();
         this.messageService.clear();
         this.messageService.add({
           key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
           summary: ResponseMessage.SUMMARY_WARNING, detail: ResponseMessage.NoRecordMessage
         })
       }
+    } 
+    else {
+      this.loading = false;
+      this.feeData.clear();
+      this.messageService.clear();
+      this.messageService.add({
+        key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
+        summary: ResponseMessage.SUMMARY_WARNING, detail: ResponseMessage.NoRecordMessage
+      })
     }
     });
   
   }
 
-onDownload(data) {
-  
+  generateReceipt(data) {
+  this.receiptData = []
   this.showReceipt = true;
   this.schoolName = this.login_user.schoolname;
   this.schoolAddress = this.login_user.taluk + '-' + this.login_user.pincode;

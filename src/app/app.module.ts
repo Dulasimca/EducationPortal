@@ -87,7 +87,6 @@ import { MyclassResultComponent } from './Forms-Module/myclass-result/myclass-re
 import { MySchoolComponent } from './Forms-Module/my-school/my-school.component';
 import { PersonalDetailsComponent } from './Forms-Module/personal-details/personal-details.component';
 import { AssessmentResultsComponent } from './Forms-Module/assessment-results/assessment-results.component';
-import { FeesDetailsFormComponent } from './Forms-Module/fees-details-form/fees-details-form.component';
 import { CalendarDetailsFormComponent } from './Forms-Module/calendar-details-form/calendar-details-form.component';
 import { AttendanceDetailsFormComponent } from './Forms-Module/attendance-details-form/attendance-details-form.component';
 import { DatePipe } from '@angular/common';
@@ -109,6 +108,7 @@ import { NgxPrintModule } from 'ngx-print';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ConfirmationService} from 'primeng/api';
 import { AssessmentComponent } from './Forms-Module/assessment/assessment.component';
+import { FeesDetailsComponent } from './DataView-Module/fees-details/fees-details.component';
 
   
 FullCalendarModule.registerPlugins([
@@ -168,7 +168,7 @@ FullCalendarModule.registerPlugins([
     MySchoolComponent,
     PersonalDetailsComponent,
     AssessmentResultsComponent,
-    FeesDetailsFormComponent,
+    FeesDetailsComponent,
     CalendarDetailsFormComponent,
     AttendanceDetailsFormComponent,
     FeeFormComponent,

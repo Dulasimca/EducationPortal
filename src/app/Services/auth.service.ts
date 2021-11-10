@@ -50,11 +50,12 @@ export class AuthService {
     }
   }
 
-  setUserChecked($event) {
-    localStorage.setItem('RememberUser', JSON.stringify($event));
+  setUserChecked(rememberUser) {
+    localStorage.removeItem('RememberUser');
+    localStorage.setItem('RememberUser', JSON.stringify(rememberUser));
   }
 
-  get UserChecked() {
+  get RememberUser() {
     return JSON.parse(localStorage.getItem('RememberUser'));
   }
 

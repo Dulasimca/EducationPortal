@@ -93,10 +93,12 @@ export class PersonalDetailsComponent implements OnInit {
           this.mediumOptions = [{ label: i.MediumName, value: i.Medium }];
           this.bloodGroupOptions = [{ label: i.BloodGroupName, value: i.BloodGroup }];
           this.genderOptions = [{ label: i.GenderName, value: i.Gender }];
-          this.fatherImage = this.obj.FatherPhotoFileName;
-          this.userImage = this.obj.StudentPhotoFileName;
-          this.motherImage = this.obj.MotherPhotoFilName;
-          this.guardinaImage = this.obj.GaurdianPhotoFileName;
+          var folder = ((this.logged_user.roleId * 1) === 6) ? FileUploadConstant.StudentRegistration : 
+          FileUploadConstant.TeacherRegistration;
+          this.fatherImage = '../../assets/layout/'+folder+'/'+ this.obj.FatherPhotoFileName;
+          this.userImage = '../../assets/layout/'+folder+'/'+ this.obj.StudentPhotoFileName;
+          this.motherImage = '../../assets/layout/'+folder+'/'+ this.obj.MotherPhotoFilName;
+          this.guardinaImage = '../../assets/layout/'+folder+'/'+ this.obj.GaurdianPhotoFileName;
         })
       } else {
         this.router.navigate(['/profile']);

@@ -178,8 +178,10 @@ export class MyachievementFormComponent implements OnInit {
     this._MyAchievementForm.form.markAsPristine();
     this.CategoryOption = [];
     this.Place = [];
+    this.event = [];
     this.AwardOption = [];
     this.date = new Date();
+    this.data = [];
   }
 
   onRowSelect(event, selectedRow) {

@@ -44,6 +44,7 @@ export class FeesDetailsFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.masterService.getAccountingYear();
+    this.years = this.masterService.getAccountingYear();
        this.login_user = this.authService.UserInfo;
     this.cols = [
       {field: 'FeeName', header: 'Fee Name'},
@@ -51,10 +52,19 @@ export class FeesDetailsFormComponent implements OnInit {
       { field: 'PayMethod', header: 'Pay Method' },
       { field: 'PaidAmount', header: 'Paid Amount' }
     ];
+    var data = [];
+    if(this.years.length !== 0) {
+      this.years.forEach(y => {
+       data.push({ label: y.ShortYear, value: y.Id });
+      })
+      this.yearOptions = data;
+      this.selectedYear = data[0].value;
+      this.onLoad();
+    }
   }
 
   onSelect() {
-    this.years = this.masterService.getAccountingYear();
+   
     let yearSelection = [];
     this.years.forEach(y => {
       yearSelection.push({ label: y.ShortYear, value: y.Id });

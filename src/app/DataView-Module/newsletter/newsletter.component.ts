@@ -7,6 +7,7 @@ import { saveAs } from 'file-saver';
 
 import{FileUploadConstant} from 'src/app/Common-Module/file-upload-constant'
 import { ConfirmationService } from 'primeng/api';
+import { TableConstants } from 'src/app/Common-Module/TableConstants';
 
 @Component({
   selector: 'app-newsletter',
@@ -21,10 +22,7 @@ export class NewsletterComponent implements OnInit {
   constructor(private restApiService: RestAPIService, private http: HttpClient,private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
-    this.cols = [
-      {field:'NewsDate',header: 'Date', width: '70px',align: 'center !important'},
-      {field:'Topic',header: 'Topic', width: '300px',align: 'left !important'}, 
-    ];
+    this.cols = TableConstants.NewsLetterColumns;
     this.onview()
   }
   

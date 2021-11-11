@@ -22,14 +22,13 @@
                   </th>
                 </tr>
               </ng-template>
-              <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns"
-                class="cursor-pointer">
+              <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
                 <tr>
                   <td>{{rowIndex+1}}</td>
-                  <td *ngFor="let col of columns">
+                  <td *ngFor="let col of columns" [style.text-align]="col.align">
                     {{rowData[col.field]}}
                   </td>
-                  <td>
+                  <td class="cursor-pointer">
                     <button pButton type="button" icon="pi pi-print" style="color:#45e327;"
                      pTooltip="Show/print receipt" (click)="generateReceipt(rowData)"></button>
                   </td>

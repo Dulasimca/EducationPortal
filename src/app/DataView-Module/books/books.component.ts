@@ -8,6 +8,7 @@ import { ConfirmationService, MessageService } from 'primeng/api';
 import { User } from 'src/app/Interfaces/user';
 import { ResponseMessage } from 'src/app/Common-Module/Message';
 import { AuthService } from 'src/app/Services/auth.service';
+import { TableConstants } from 'src/app/Common-Module/TableConstants';
 
 
 @Component({
@@ -21,22 +22,19 @@ export class BooksComponent implements OnInit {
   cols: any;
   books: any = [];
   login_user: User;
+  loading: boolean;
   constructor(private restApiService: RestAPIService, private messageService: MessageService,
     private confirmationService: ConfirmationService, private authService: AuthService) { }
 
   ngOnInit() {
     this.login_user = this.authService.UserInfo;
-    this.cols = [
-      { field: 'Years', header: 'Year' },
-      { field: 'subjects', header: 'Subject' },
-      { field: 'authorReference', header: 'Author/Reference', width: '300px' },
-      { field: 'CreatedDate', header: 'Published date' },
-    ];
-    this.loadBooks()
+    this.cols = TableConstants.MyBooksColumns;
+    this.loadBooks();
   }
 
   loadBooks() {
     this.data = [];
+    this.loading = true;
     const params = {
       'SchoolID': this.login_user.schoolId,
       'ClassId': this.login_user.classId
@@ -44,7 +42,9 @@ export class BooksComponent implements OnInit {
     this.restApiService.getByParameters(PathConstants.Book_Get, params).subscribe(res => {
       if (res !== null && res !== undefined && res.length !== 0) {
         this.data = res;
+        this.loading = false;
       } else {
+        this.loading = false;
         this.messageService.clear();
         this.messageService.add({
           key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,

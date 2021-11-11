@@ -332,6 +332,10 @@ export class RegistrationFormComponent implements OnInit {
       if (res !== undefined && res !== null) {
         if (res.length !== 0) {
           this.showDialog = true;
+          res.forEach(x => {
+            x.dob = this.datePipe.transform(x.DateofBirth, 'MM/dd/yyyy');
+            x.doj = this.datePipe.transform(x.DateofJoining, 'MM/dd/yyyy');
+          })
           this.registeredData = res;
           this.blockUI.stop();
         } else {

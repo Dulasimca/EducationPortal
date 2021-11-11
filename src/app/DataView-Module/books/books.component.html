@@ -7,9 +7,8 @@
                 <div style="font-style: italic; font-size: 15px; color: rgb(11, 43, 102);">
                     * Please select your preference and click on proceed
                 </div>
-              
                 <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,15,20]"
-                totalRecords="totalRecords" styleClass="p-datatable-gridlines">
+                [loading]="loading" styleClass="p-datatable-gridlines">
                 <ng-template pTemplate="header" let-columns>
                   <tr>
                     <th style=" width: 70px;">S.No</th>
@@ -21,17 +20,12 @@
                     </th>
                   </tr>
                 </ng-template>
-                
                 <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
-                  <tr [pSelectableRow]="rowData"  class="cursor-pointer">
-                    
-                  <!--<tr [pSelectableRow]="rowData"  class="cursor-pointer" (dblclick)="onRowSelect($event, rowData)">-->
+                  <tr>
                     <td style="width: 90px;">{{rowIndex+1}}</td>
-                    <td *ngFor="let col of columns">
+                    <td *ngFor="let col of columns" [style.text-align]="col.align">
                       {{rowData[col.field]}}
                     </td>
-                 
-                  
                     <td style="width: 90px;" class="cursor-pointer"><i class="pi pi-download" (click)="onDownload(rowData.Pdffilename)" 
                       style="color: #45e327; font-size: 1.3rem;"></i></td>
                 </tr>

@@ -9,6 +9,7 @@ import { DatePipe } from '@angular/common';
 import{FileUploadConstant} from 'src/app/Common-Module/file-upload-constant'
 import { AuthService } from 'src/app/Services/auth.service';
 import { ConfirmationService } from 'primeng/api';
+import { TableConstants } from 'src/app/Common-Module/TableConstants';
 
 @Component({
   selector: 'app-assignments',
@@ -30,14 +31,7 @@ export class AssignmentsComponent implements OnInit {
 
   ngOnInit() {
     this.login_user = this.authService.UserInfo;
-    this.cols = [
-      // { field: 'AssignId', header: 'ID'},
-      { field: 'AssignmentDate', header: 'Date',width: '400px'},
-      { field: 'AssignmentDueDate', header: 'Due Date',width: '200px'  },
-      { field: 'AssignmentWork', header: 'Assigned Work',width: '200px'  },
-      { field: 'AssignmentType', header: 'Assigned Type',width: '200px'  },
-      { field: 'Subjectname', header: 'Subject Name',width: '200px'  },
-  ];
+    this.cols = TableConstants.AssignmentsColumns;
     this.onView()
   }
 

@@ -10,6 +10,7 @@ import { NgForm } from '@angular/forms';
 import { User } from 'src/app/Interfaces/user';
 import { AuthService } from 'src/app/Services/auth.service';
 import { MasterService } from 'src/app/Services/master-data.service';
+import { TableConstants } from 'src/app/Common-Module/TableConstants';
 
 @Component({
   selector: 'app-fee-form',
@@ -74,21 +75,7 @@ export class FeeFormComponent implements OnInit {
       }
     });
     this.masterService.getMaster('');
-    this.cols = [
-      { field: 'duedate', header: 'Due Date'},
-      { field: 'Class', header: 'Class' },
-      { field: 'Section', header: 'Section'},
-      { field: 'FirstName', header: 'Name'},
-      { field: 'FeeType', header: 'Receipt Book' },
-      { field: 'FeeName', header: 'Fee Name'},
-      { field: 'ActualAmount', header: 'Actual Amount' },
-      { field: 'PaidAmount', header: 'Paid Amount'},
-      { field: 'OutstandingAmount', header: 'Outstanding Amount' },
-      { field: 'PayingAmount', header: 'Paying Amount' },
-      { field: 'FineAmount', header: 'Fine'},
-    ];
-
-    // this.generateReceipt(null)
+    this.cols = TableConstants.FeesDetailsColumns;
     this.login_user = this.authService.UserInfo;
   }
 

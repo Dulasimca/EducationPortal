@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { MessageService, SelectItem } from 'primeng/api';
 import { ResponseMessage } from 'src/app/Common-Module/Message';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
+import { TableConstants } from 'src/app/Common-Module/TableConstants';
 import { User } from 'src/app/Interfaces/user';
 import { AuthService } from 'src/app/Services/auth.service';
 import { MasterService } from 'src/app/Services/master-data.service';
@@ -43,12 +44,7 @@ export class FeesDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.years = this.masterService.getAccountingYear();
        this.login_user = this.authService.UserInfo;
-    this.feeCols = [
-      {field: 'FeeName', header: 'Fee Name'},
-      { field: 'CreatedDate', header: 'Pay Date'},
-      { field: 'PayMethod', header: 'Pay Method' },
-      { field: 'PaidAmount', header: 'Paid Amount' }
-    ];
+    this.feeCols = TableConstants.FeesColumns;
     var data = [];
     if(this.years.length !== 0) {
       this.years.forEach(y => {

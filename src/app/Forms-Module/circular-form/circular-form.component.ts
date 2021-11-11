@@ -17,6 +17,7 @@ import { Output, EventEmitter } from '@angular/core';
 import { saveAs } from 'file-saver';
 import { User } from 'src/app/Interfaces/user';
 import { AuthService } from 'src/app/Services/auth.service';
+import { TableConstants } from 'src/app/Common-Module/TableConstants';
 @Component({
   selector: 'app-circular-form',
   templateUrl: './circular-form.component.html',
@@ -52,14 +53,7 @@ export class CircularFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.login_user = this.authService.UserInfo;
-    this.cols = [
-      
-      {field: 'CircularDate',header: 'Circular Date'},
-      {field:'Subject',header: 'Subject'},
-      {field: 'Details',header: 'Details', width: '500px'},
-     
-    ];
-
+    this.cols = TableConstants.CircularDetailsColumns;
   }
 
   public uploadFile = (files) => {

@@ -11,6 +11,7 @@ import { AuthService } from 'src/app/Services/auth.service';
 import { User } from 'src/app/Interfaces/user';
 import { FileUploadConstant } from 'src/app/Common-Module/file-upload-constant'
 import { saveAs } from 'file-saver';
+import { TableConstants } from 'src/app/Common-Module/TableConstants';
 
 
 @Component({
@@ -48,20 +49,11 @@ export class MyachievementFormComponent implements OnInit {
   ngOnInit(): void {
     this.restApiService.get(PathConstants.Award_Get).subscribe(res => {
       if (res !== null && res !== undefined && res.length !== 0) {
-
         this.Awards = res.Table;
         this.Categorys = res.Table1
       }
     });
-    this.cols = [
-      // { field: 'RowId', header: 'ID' },
-      { field: 'eventdate', header: 'Date' },
-      { field: 'CategoryName', header: 'Category' },
-      { field: 'EventDetailS', header: 'Events' },
-      { field: 'Place', header: 'Place' },
-      { field: 'AchievementName', header: 'Status' }
-
-    ];
+    this.cols = TableConstants.MyAchievementsCoulmns;
     this.login_user = this.authService.UserInfo;
   }
 

@@ -83,7 +83,7 @@
                     <ng-template pTemplate="body" let-rowIndex="rowIndex"  let-rowData let-columns="columns">
                         <tr>
                             <td style="width: 90px">{{rowIndex+1}}</td>
-                            <td *ngFor="let col of columns">
+                            <td *ngFor="let col of columns" [style.text-align]="col.align">
                                 {{rowData[col.field]}}
                             </td>
                             <td style="width: 100px" (click)="onEdit(rowData)">

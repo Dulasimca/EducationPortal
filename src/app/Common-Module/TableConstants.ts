@@ -47,10 +47,19 @@ export class TableConstants {
         ];
 
         public static readonly ClassroomDetailsColumns = [
-            { field: 'SubjectName', header: 'Subject' },
-            { field: 'Classname1', header: 'Class' },
-            { field: 'SectionName', header: 'Section' },
-            { field: 'MeetingTime', header: 'Time' },
-            { field: 'DurationWithType', header: 'Duration' },
+            { field: 'SubjectName', header: 'Subject', align: 'left !important' },
+            { field: 'Classname1', header: 'Class', align: 'left !important' },
+            { field: 'SectionName', header: 'Section', align: 'left !important' },
+            { field: 'MeetingTime', header: 'Time', align: 'center !important' },
+            { field: 'DurationWithType', header: 'Duration', align: 'left !important' },
+            { field: 'CreatedDate', header: 'Created Date', align: 'center !important' },
         ];
+
+        public static readonly MyAchievementsCoulmns =  [
+            { field: 'eventdate', header: 'Event Date', align: 'center !important' },
+            { field: 'CategoryName', header: 'Category', align: 'left !important' },
+            { field: 'EventDetailS', header: 'Event Title', align: 'left !important' },
+            { field: 'Place', header: 'Place', align: 'left !important' },
+            { field: 'AchievementName', header: 'Status', align: 'left !important' },
+          ];
 }

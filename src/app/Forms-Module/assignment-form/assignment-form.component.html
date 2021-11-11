@@ -84,7 +84,7 @@
           <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
             <tr [pSelectableRow]="rowData" class="cursor-pointer" (dblclick)="onRowSelect($event, rowData)">
               <td>{{rowIndex+1}}</td>
-              <td *ngFor="let col of columns">
+              <td *ngFor="let col of columns" [style.text-align]="col.align">
                 {{rowData[col.field]}}
               </td>
               <td style="width: 142px;"><i class="pi pi-download" (click)="onDownload(rowData.Assignmentfilename)" 

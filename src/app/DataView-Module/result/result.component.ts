@@ -19,14 +19,19 @@ export class ResultComponent implements OnInit {
 
   ngOnInit() {
     this.years = [
-      { name: '2020-2021', code: '2021' },
-      { name: '2021-2022', code: '2122' },
+      // { name: '2020-2021', code: '2021' },
+      { name: '2021-2022', code: '2122' }
     ];
-    this.data = [{ 'ID': 1, 'slno': 1, 'subject': 'Tamil', 'test': 'Pre-midterm Assessment' },
-    { 'ID': 2,'slno': 2, 'subject': 'English', 'test': 'Pre-Mid Term Exam' },
-    { 'ID': 3,'slno': 3, 'subject': 'Maths', 'test': 'Pre-Midterm' },
-    { 'ID': 4,'slno': 4, 'subject': 'Science', 'test': 'Pre-Midterm Examination' },
-    { 'ID': 5,'slno': 5, 'subject': 'Social Science', 'test': 'Pre-Midterm Examination' }]
+    this.data = [{ 'ID': 1, 'slno': 1, 'subject ': 'Tamil', 'test': 'Slip Test for Lesson II- Week 40' },
+    { 'ID': 2,'slno': 2, 'subject': 'English', 'test': 'Slip Test for Lesson II - Week 40' },
+    { 'ID': 3,'slno': 3, 'subject': 'Maths', 'test': 'Slip Test for Lesson II- Week 40' },
+    { 'ID': 4,'slno': 4, 'subject': 'Science', 'test': 'Slip Test for Lesson II - Week 40' },
+    { 'ID': 5,'slno': 5, 'subject': 'Social Science', 'test': 'Slip Test for Lesson II - Week 40' },
+    { 'ID': 6,'slno': 6, 'subject ': 'Tamil', 'test': 'Slip Test for Chapter I - Month of Oct' },
+    { 'ID': 7,'slno': 7, 'subject': 'English', 'test': 'Slip Test for Chapter I - Month of Oct' },
+    { 'ID': 8,'slno': 8, 'subject': 'Maths', 'test': 'Slip Test for Chapter I - Month of Oct' },
+    { 'ID': 9,'slno': 9, 'subject': 'Science', 'test': 'Slip Test for Chapter I - Month of Oct' },
+    { 'ID': 10,'slno': 10, 'subject': 'Social Science', 'test': 'Slip Test for Chapter I - Month of Oct' }]
   }
 
   openDialog() {

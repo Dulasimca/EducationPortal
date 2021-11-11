@@ -1,7 +1,7 @@
 
 
 <div class="p-col-12 p-md-12 p-lg-12" >
-        <p-panel header="Circular">
+        <p-panel header="Circular from school admin">
         <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
             <p-card>
                 <div>
@@ -11,7 +11,7 @@
   <ng-template pTemplate="header" let-columns>
     <tr>
       <th style="width: 70px;">S.No</th>
-      <th *ngFor="let col of columns"  [style.width]="col.width">
+      <th *ngFor="let col of columns"  [style.width]="col.width" >
         {{col.header}}
       </th>
       <th style="width: 90px;">

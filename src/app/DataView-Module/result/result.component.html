@@ -1,5 +1,5 @@
 <div class="p-col-12 p-md-12 p-lg-12" >
-        <p-panel header="MCQ Test Result">
+        <p-panel header="Slip Test and Unit Test Results">
         <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
             <p-card>
                 <div class="p-col-12 p-md-12 p-lg-12 no-pad-top" style="margin-top: -5px;">
@@ -22,8 +22,8 @@
                         <ng-template pTemplate="body" let rowIndex=rowIndex let-data>
                             <tr>
                                 <td>{{data.slno}}</td>
-                                <td>{{data.subject}}</td>
-                                <td>{{data.test}}</td>
+                                <td style="text-align: left;">{{data.subject}}</td>
+                                <td style="text-align: left;">{{data.test}}</td>
                                 <td style="width: 110px;" (click)="openDialog()">
                                     <span style="font-size: 13px;"> <a rel="view" style="color: blue; text-decoration: underline;">View</a></span></td>
                                 <!-- <td>{{data.duration}}</td> -->

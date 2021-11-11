@@ -7,8 +7,11 @@ import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { MatNativeDateModule } from '@angular/material/core';
 
-import{FileUploadConstant} from 'src/app/Common-Module/file-upload-constant'
+import { FileUploadConstant } from 'src/app/Common-Module/file-upload-constant'
 import { ResponseMessage } from 'src/app/Common-Module/Message';
+import { TableConstants } from 'src/app/Common-Module/TableConstants';
+import { User } from 'src/app/Interfaces/user';
+import { AuthService } from 'src/app/Services/auth.service';
 
 @Component({
   selector: 'app-circular',
@@ -16,31 +19,33 @@ import { ResponseMessage } from 'src/app/Common-Module/Message';
   styleUrls: ['./circular.component.css']
 })
 export class CircularComponent implements OnInit {
-  MRowId=0
+  MRowId = 0
   data: any = [];
   cols: any;
+  logged_user: User;
+  loading: boolean;
 
-  constructor(private restApiService: RestAPIService, private confirmationService: ConfirmationService, private messageService: MessageService) { }
+  constructor(private restApiService: RestAPIService, private authService: AuthService,
+    private confirmationService: ConfirmationService, private messageService: MessageService) { }
 
   ngOnInit() {
-
-    this.onview()
-    this.cols = [
-      {field: 'CircularDate',header: 'Circular Date', width: '90px'},
-      {field:'Subject',header: 'Subject', width: '150px'},
-      {field: 'Details',header: 'Details', width: '450px'},
-    ];
+    this.cols = TableConstants.CircularColumns;
+    this.logged_user = this.authService.UserInfo;
+    this.onview();
   }
 
   onview() {
     this.data = [];
-    const params = { 
-      'SchoolID': 1,
+    this.loading = true;
+    const params = {
+      'SchoolID': this.logged_user.schoolId,
     }
     this.restApiService.getByParameters(PathConstants.Circular_Get, params).subscribe(res => {
-      if(res !== null && res !== undefined && res.length !==0) {
+      if (res !== null && res !== undefined && res.length !== 0) {
         this.data = res;
+        this.loading = false;
       } else {
+        this.loading = false;
         this.messageService.clear();
         this.messageService.add({
           key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
@@ -56,15 +61,14 @@ export class CircularComponent implements OnInit {
       header: 'Confirmation',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-    //const path = 'D:/Angular Project/EducationPortalAPI/Resources/Books';
-    const path = "../../assets/layout/"+FileUploadConstant.Circularfolder+"/"+Filename;
-    //const filename = 'files' + ".pdf";
-    saveAs(path, Filename);
-  },
-  reject: (type) => { }
-  });
+        //const path = 'D:/Angular Project/EducationPortalAPI/Resources/Books';
+        const path = "../../assets/layout/" + FileUploadConstant.Circularfolder + "/" + Filename;
+        //const filename = 'files' + ".pdf";
+        saveAs(path, Filename);
+      },
+      reject: (type) => { }
+    });
   }
-  }
-  
-  
-  
+}
+
+

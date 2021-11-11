@@ -3,13 +3,12 @@ import { OnInit } from "@angular/core";
 export class TableConstants {
    
         public static readonly TQuestionBankColumns = [
-            { field: 'subject', header: 'Subject' },
-            { field: 'Description', header: 'Description' },
-            { field: 'Class', header: 'Class' },
-            { field: 'Medium', header: 'Medium' },
-            { field: 'Pdate', header: 'Publish Date' },
-            { field: 'ShortYear', header: 'Academic year' },
-            { field: 'FileName', header: 'File Uploaded' },
+            { field: 'Subjectname', header: 'Subject', align: 'left !important', width: '50px' },
+            { field: 'Description', header: 'Description', align: 'left !important', width: '80px' },
+            { field: 'Class', header: 'Class', align: 'left !important', width: '20px' },
+            { field: 'MediumName', header: 'Medium', align: 'left !important', width: '35px' },
+            { field: 'Pdate', header: 'Publish Date', align: 'center !important', width: '40px' },
+            { field: 'FileName', header: 'File Uploaded', align: 'left !important', width: '150px' },
         ];
 
         public static readonly SQuestionBankColumns = [
@@ -61,5 +60,21 @@ export class TableConstants {
             { field: 'EventDetailS', header: 'Event Title', align: 'left !important' },
             { field: 'Place', header: 'Place', align: 'left !important' },
             { field: 'AchievementName', header: 'Status', align: 'left !important' },
+          ];
+
+        public static readonly PollListColumns = [
+            { field: 'FirstName', header: 'Nominee Name', align: 'left !important' },
+            { field: 'Class', header: 'Class-Section', align: 'left !important' },
+          ];
+
+        public static readonly CircularColumns = [
+            {field: 'CircularDate',header: 'Circular Date', width: '90px', align: 'center !important'},
+            {field:'Subject',header: 'Subject', width: '150px', align: 'left !important'},
+            {field: 'Details',header: 'Details', width: '450px', align: 'left !important'},
+          ];
+        
+        public static readonly NewsLetterColumns =  [
+            {field:'NewsDate',header: 'Date', width: '70px', align: 'center !important'},
+            {field:'Topic',header: 'Topic', width: '300px', align: 'left !important'}, 
           ];
 }

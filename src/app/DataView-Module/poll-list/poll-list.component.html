@@ -1,72 +1,75 @@
 <block-ui>
-<div class="p-col-12 p-md-12 p-lg-12" >
-  <p-toast position="top-center" key="t-msg"></p-toast>
-  <p-panel header="Poll List">
-    <div class="p-col-12 p-md-10 p-lg-8 no-pad-top">
-      <p-card>
-        <!-- <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
-                    <span style="font-weight: bold;">Class Representative Selection for 10th 'A'</span>
-                </div> -->
-        <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
-          <div class="p-grid">
-            <div class="p-col-12 p-md-6 p-lg-4">
-              <div><label for="_Position">Position</label></div>
-              <p-dropdown name="_Position" [options]="positionOptions" [(ngModel)]="selectedPosition"
-                (onChange)= "onView()"  name="selectedPosition">
-               </p-dropdown>
-               </div>
+  <div class="p-col-12 p-md-12 p-lg-12">
+    <p-toast position="top-center" key="t-msg"></p-toast>
+    <p-panel header="Poll List">
+      <div class="p-grid">
+        <div class="p-col-12 p-md-1 p-lg-2 no-pad"></div>
+        <div class="p-col-12 p-md-10 p-lg-8 no-pad-top">
+          <p-card>
+            <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
+              <div class="p-grid">
+                <div class="p-col-12 p-md-6 p-lg-4">
+                  <div><label for="_Position">Position</label></div>
+                  <p-dropdown name="_Position" [options]="positionOptions" [(ngModel)]="selectedPosition"
+                    (onChange)="onView()" name="selectedPosition">
+                  </p-dropdown>
+                </div>
+                <div class="p-col-12 p-md-6 p-lg-8 align-el-center">
+                 <span style="font-size: 16px !important;" *ngIf="showVoteStatus"> You have already voted to : </span>
+                 <span class="text-highlight">{{votingStatus}}</span>
+                </div>
+                <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10" [loading]="loading"
+                  [rowsPerPageOptions]="[5,10,15,20]" totalRecords="totalRecords" styleClass="p-datatable-gridlines">
+                  <ng-template pTemplate="header" let-columns>
+                    <tr>
+                      <th style="width: 90px;">S.No:</th>
+                      <th *ngFor="let col of columns">
+                        {{col.header}}
+                      </th>
+                      <th *ngIf="!isDataAvailable" style="width: 90px;">
+                        Vote
+                      </th>
+                      <th *ngIf="isDataAvailable" style="width: 90px;">
+                        Result
+                      </th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
+                    <tr>
+                      <td style="width: 90px;">{{rowIndex+1}}</td>
+                      <td *ngFor="let col of columns" [style.text-align]="col.align">
+                        {{rowData[col.field]}}
+                      </td>
+                      <td *ngIf="(rowData.isVoted == 'true' && isDataAvailable)" style="width: 90px;">
+                        <i class="fa fa-trophy" style="font-size: 1.7rem !important; color: #dfa411;"></i>
+                      </td>
+                      <td *ngIf="(rowData.isVoted == 'false' && !isDataAvailable)" style="width: 90px;"
+                        (click)="onVotinglist(rowData)" class="cursor-pointer">
+                        <button pButton type="button" icon="pi pi-thumbs-up" style="margin-right: 10px; color:#45e327;"
+                          class="p-button-rounded p-button-outlined p-col-1">
+                        </button>
+                      </td>
+                      <td *ngIf="(rowData.isVoted == 'false' && isDataAvailable)" style="width: 90px;">
+                        -
+                      </td>
+                    </tr>
+                  </ng-template>
+                </p-table>
+              </div>
+            </div>
             <p-divider></p-divider>
-            <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,15,20]"
-              totalRecords="totalRecords"  styleClass="p-datatable-gridlines">
-              <ng-template pTemplate="header" let-columns>
-                <tr>
-                  <th style="width: 90px;">S.No:</th>
-                  <th *ngFor="let col of columns">
-                    {{col.header}}
-                  </th>
-                  <th *ngIf="!isDataAvailable" style="width: 90px;">
-                   Vote
-                  </th>
-                  <th *ngIf="isDataAvailable" style="width: 90px;">
-                    Result
-                   </th>
-                </tr>
-              </ng-template>
-              <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns" class="cursor-pointer">
-                <tr>
-                  <td style="width: 90px;">{{rowIndex+1}}</td>
-                  <td *ngFor="let col of columns">
-                    {{rowData[col.field]}}
-                  </td>
-                  <td *ngIf="(rowData.isVoted == 'true' && isDataAvailable)" style="width: 90px;">
-                       <i class="fa fa-trophy" style="font-size: 1.7rem !important; color: #dfa411;" ></i>
-                   </td>
-                  <td *ngIf="(rowData.isVoted == 'false' && !isDataAvailable)" style="width: 90px;"
-                  (click)="onVotinglist(rowData)" class="cursor-pointer">
-                    <button pButton type="button" icon="pi pi-thumbs-up" style="margin-right: 10px; color:#45e327;"
-                       class="p-button-rounded p-button-outlined p-col-1">
-                      </button>
-                   </td>
-                   <td *ngIf="(rowData.isVoted == 'false' && isDataAvailable)" style="width: 90px;">
-                    -
-                   </td>
-                </tr>
-              </ng-template>       
-            </p-table>
-          </div>
+          </p-card>
         </div>
-        <p-divider></p-divider>
-      </p-card>
-    </div>
-  </p-panel>
-  <p-confirmDialog #cd  [style]="{width: '50vw'}">
-    <ng-template pTemplate="header">
-      <h3>Alert</h3>
-  </ng-template>
-  <ng-template pTemplate="footer">
-      <button type="button" pButton icon="pi pi-times" label="No" (click)="cd.reject()"></button>
-      <button type="button" pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"></button>
-  </ng-template>
-  </p-confirmDialog>
-</div>
+      </div>
+    </p-panel>
+    <p-confirmDialog #cd [style]="{width: '50vw'}">
+      <ng-template pTemplate="header">
+        <h3>Alert</h3>
+      </ng-template>
+      <ng-template pTemplate="footer">
+        <button type="button" pButton icon="pi pi-times" label="No" (click)="cd.reject()"></button>
+        <button type="button" pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"></button>
+      </ng-template>
+    </p-confirmDialog>
+  </div>
 </block-ui>

@@ -1,10 +1,10 @@
 <div class="p-col-12 p-md-12 p-lg-12" >
-    <p-panel header="Newsletter from school admin">
+    <p-panel header="Newsletter From School Admin">
         <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
             <p-card>
                 <div>
                     <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,15,20]"
-                    totalRecords="totalRecords" styleClass="p-datatable-gridlines">
+                    [loading]="loading" styleClass="p-datatable-gridlines">
                     <ng-template pTemplate="header" let-columns>
                       <tr>
                         <th style="width: 30px;">S.No</th>

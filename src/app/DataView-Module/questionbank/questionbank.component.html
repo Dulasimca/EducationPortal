@@ -24,12 +24,11 @@
                         <ng-template pTemplate="body" let-rowIndex="rowIndex" let-data let-columns="columns">
                             <tr>
                                 <td>{{rowIndex+1}}</td>
-                                <td *ngFor="let col of columns">
+                                <td *ngFor="let col of columns" [style.text-align]="col.align">
                                     {{data[col.field]}}
                                 </td>
-                                <td (click)="onDownload(data.FileName)">
-                                    <button pButton type="button" icon="pi pi-file-pdf" style="margin-right: 10px; color:#45e327;"
-                                    >
+                                <td (click)="onDownload(data.FileName)" class="cursor-pointer">
+                                    <button pButton type="button" icon="pi pi-file-pdf" style="margin-right: 10px; color:#45e327;">
                                    </button>
                                 </td>
                             </tr>

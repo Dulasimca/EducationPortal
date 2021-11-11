@@ -86,7 +86,7 @@
                             <td *ngFor="let col of columns" [style.text-align]="col.align">
                                 {{rowData[col.field]}}
                             </td>
-                            <td style="width: 100px" (click)="onEdit(rowData)">
+                            <td style="width: 100px" (click)="onEdit(rowData)" class="cursor-pointer">
                                 <i class="pi pi-pencil" style="padding-left: 10px; color: #52de38; font-size: 1.5rem;"></i>
                             </td>
                         </tr>

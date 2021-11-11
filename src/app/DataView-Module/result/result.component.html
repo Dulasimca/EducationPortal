@@ -9,25 +9,25 @@
                     </div>
       </div>
                 <div>
-                    <p-table [value]="data"  styleClass="p-datatable-gridlines">
-                        <ng-template pTemplate="header">
+                    <p-table [columns]="cols" [value]="data"  styleClass="p-datatable-gridlines">
+                        <ng-template pTemplate="header" let-columns>
                             <tr>
                                 <th style="width: 60px;">S.No</th>
-                                <th>Subject Name</th>
-                                <th>Test Name</th>
+                                <th *ngFor="let col of columns">
+                                    {{col.header}}
+                                  </th>
                                 <th style="width: 110px;">Result</th>
                                 
                             </tr>
                         </ng-template>
-                        <ng-template pTemplate="body" let rowIndex=rowIndex let-data>
+                        <ng-template pTemplate="body" let-rowIndex="rowIndex" let-columns="columns" let-data>
                             <tr>
-                                <td>{{data.slno}}</td>
-                                <td>{{data.subject}}</td>
-                                <td>{{data.test}}</td>
-                                <td style="width: 110px;" (click)="openDialog()">
+                                <td style="width: 60px;">{{rowIndex+1}}</td>
+                                <td *ngFor="let col of columns" [style.text-align]="col.align">
+                                    {{data[col.field]}}
+                                  </td>
+                                <td style="width: 110px;" (click)="openDialog()" class="cursor-pointer">
                                     <span style="font-size: 13px;"> <a rel="view" style="color: blue; text-decoration: underline;">View</a></span></td>
-                                <!-- <td>{{data.duration}}</td> -->
-                                <!-- <td><i class="pi pi-sign-in" style="padding-left: 10px; color: #52de38; font-size: 1.5rem;"></i></td> -->
                             </tr>
                         </ng-template>
                     </p-table>

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { ResponseMessage } from 'src/app/Common-Module/Message';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
+import { TableConstants } from 'src/app/Common-Module/TableConstants';
 import { Meeting } from 'src/app/Interfaces/meeting';
 import { User } from 'src/app/Interfaces/user';
 import { AuthService } from 'src/app/Services/auth.service';
@@ -32,13 +33,7 @@ export class OnlineClassroomComponent implements OnInit {
     private zoomService: ZoomService) { }
 
   ngOnInit() {
-    this.meetingCols = [
-      { field: 'SubjectName', header: 'Subject' },
-      { field: 'Classname1', header: 'Class' },
-      { field: 'SectionName', header: 'Section' },
-      { field: 'MeetingTime', header: 'Time' },
-      { field: 'Duration', header: 'Duration' },
-    ];
+    this.meetingCols = TableConstants.OnlineClassroomColumns;
     this.login_user = this.authService.UserInfo;
     let today = new Date();
     let month = today.getMonth();

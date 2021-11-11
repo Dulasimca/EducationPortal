@@ -10,6 +10,7 @@ import { NgForm } from '@angular/forms';
 import { AuthService } from 'src/app/Services/auth.service';
 import { User } from 'src/app/Interfaces/user';
 import { MasterService } from 'src/app/Services/master-data.service';
+import { TableConstants } from 'src/app/Common-Module/TableConstants';
 
 
 
@@ -43,12 +44,7 @@ export class HolidaydetailsFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.masterService.getMaster('');
-    this.cols = [
-      // { field: 'RowId', header: 'ID' },
-      { field: 'HolidayName', header: 'Type' },
-      { field: 'EventDetailS', header: 'Events' },
-      { field: 'eventdate', header: 'Date' }
-    ];
+    this.cols = TableConstants.HolidayDetailsColumns;
     this.login_user = this.authService.UserInfo;
   }
 

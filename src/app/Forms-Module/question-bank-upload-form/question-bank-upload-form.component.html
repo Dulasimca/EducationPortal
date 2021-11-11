@@ -114,7 +114,7 @@
                                 <ng-template pTemplate="header" let-rowData let-columns>
                                     <tr>
                                         <th style="width: 60px">S.No</th>
-                                        <th *ngFor="let col of columns">
+                                        <th *ngFor="let col of columns" [style.width]="col.width">
                                             {{col.header}}
                                         </th>
                                         <th style="width: 90px">Edit</th>

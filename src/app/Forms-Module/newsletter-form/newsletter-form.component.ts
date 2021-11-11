@@ -15,6 +15,7 @@ import { Output, EventEmitter } from '@angular/core';
 import { saveAs } from 'file-saver';
 import { User } from 'src/app/Interfaces/user';
 import { AuthService } from 'src/app/Services/auth.service';
+import { TableConstants } from 'src/app/Common-Module/TableConstants';
 
 @Component({
   selector: 'app-newsletter-form',
@@ -50,14 +51,7 @@ export class NewsletterFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.login_user = this.authService.UserInfo;
-    this.cols = [
-     // {field:'RowId',header: 'ID'},
-      {field:'NewsDate',header: 'Date'},
-      {field:'Topic',header: 'Topic'},
-      //{field:'Download',header: 'Newsletter Upload'},
-      {field: 'CreatedDate',header: 'Upload date'},
-      
-    ];
+    this.cols = TableConstants.NewsLetterDetailsColumns;
   }
   public uploadFile = (files) => {
     if (files.length === 0) {

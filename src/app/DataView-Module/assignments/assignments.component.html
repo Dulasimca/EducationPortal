@@ -1,5 +1,5 @@
 <div class="p-col-12 p-md-12 p-lg-12" >
-  <p-panel header="ASSIGNMENTS">
+  <p-panel header="Assignments">
     <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
       <p-card>
         <div>
@@ -22,19 +22,16 @@
             <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
               <tr>
                 <td style="width: 90px;">{{rowIndex+1}}</td>
-                <td *ngFor="let col of columns">
+                <td *ngFor="let col of columns" [style.text-align]="col.align">
                   {{rowData[col.field]}}
                 </td>
-                <td style="width: 90px;">
-
+                <td style="width: 90px;" class="cursor-pointer">
                   <input style="display: none" type="file" (change)="uploadFile($event)" #fileInput>
                   <i class="pi pi-upload" type="file" #file (click)="fileInput.click()" accept=".pdf"
                     style="color: #45e327; font-size: 1.3rem;">
-
                   </i>
-
                 </td>
-                <td style="width: 90px;"><i class="pi pi-download" (click)="onDownload(rowData.Assignmentfilename)"
+                <td style="width: 90px;" class="cursor-pointer"><i class="pi pi-download" (click)="onDownload(rowData.Assignmentfilename)"
                     style="color: #45e327; font-size: 1.3rem;"></i></td>
               </tr>
             </ng-template>

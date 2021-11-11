@@ -23,8 +23,7 @@
                 <td *ngFor="let col of columns" [style.text-align]="col.align">
                   {{rowData[col.field]}}
                 </td>
-
-                <td style="width: 90px;"><i class="pi pi-download" (click)="onDownload(rowData.Announcementfilename)" 
+                <td style="width: 90px;" class="cursor-pointer"><i class="pi pi-download" (click)="onDownload(rowData.Announcementfilename)" 
                    style="color: #45e327; font-size: 1.3rem;"></i></td>
               </tr>
             </ng-template>

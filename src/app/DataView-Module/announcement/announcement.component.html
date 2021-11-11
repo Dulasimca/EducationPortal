@@ -1,5 +1,5 @@
 <div class="p-col-12 p-md-12 p-lg-12" >
-  <p-panel header="Announcement">
+  <p-panel header="Announcement from school admin">
     <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
       <p-card>
         <div>
@@ -19,7 +19,7 @@
 
             <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
               <tr>
-                <td style="width: 90px;">{{rowIndex+1}}</td>
+                <td style="width: 40px;">{{rowIndex+1}}</td>
                 <td *ngFor="let col of columns" [style.text-align]="col.align">
                   {{rowData[col.field]}}
                 </td>

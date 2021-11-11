@@ -49,14 +49,21 @@ export class SubjectResultComponent implements OnInit {
       { name: '2020-2021', code: '2021' },
 
     ];
-    this.data = [{ 'slno': 1, 'subject': 'Tamil', 'test': 'Mid-Term Assessment' },
-    { 'slno': 2, 'subject': 'English', 'test': 'Pre-Mid Term Exam' },
-    { 'slno': 3, 'subject': 'Maths', 'test': 'Pre-Midterm' },
-    { 'slno': 4, 'subject': 'Science', 'test': 'Pre-Midterm Examination' },
-    { 'slno': 5, 'subject': 'Social Science', 'test': 'Pre-Midterm Examination' },
-    { 'slno': 6, 'subject': 'french', 'test': 'Pre-Midterm Examination' },
-    { 'slno': 7, 'subject': 'Hindi', 'test': 'Pre-Midterm Examination' },
-    { 'slno': 8, 'subject': 'Artificial Intelligence', 'test': 'Pre-Midterm Examination' },
+    this.data = [{ 'slno': 1, 'subject': 'Tamil', 'test': 'Quarterly Exam' },
+    { 'slno': 2, 'subject': 'English', 'test': 'Quarterly Exam' },
+    { 'slno': 3, 'subject': 'Maths', 'test': 'Quarterly Exam' },
+    { 'slno': 4, 'subject': 'Science', 'test': 'Quarterly Exam' },
+    { 'slno': 5, 'subject': 'Social Science', 'test': 'Quarterly Exam' },
+    { 'slno': 6, 'subject': 'Tamil', 'test': 'Half Yearly Exam' },
+    { 'slno': 7, 'subject': 'English', 'test': 'Half Yearly Exam' },
+    { 'slno': 8, 'subject': 'Maths', 'test': 'Half Yearly Exam' },
+    { 'slno': 9, 'subject': 'Science', 'test': 'Revision Exam one' },
+    { 'slno': 10, 'subject': 'Social Science', 'test': 'Revision Exam one' },
+    { 'slno': 11, 'subject': 'Tamil', 'test': 'Revision Exam Two' },
+    { 'slno': 12, 'subject': 'English', 'test': 'Revision Exam Two' },
+    { 'slno': 13, 'subject': 'Maths', 'test': 'Revision Exam Three' },
+    { 'slno': 14, 'subject': 'Science', 'test': 'Model Exam' },
+    { 'slno': 15, 'subject': 'Social Science', 'test': 'Model Exam' }
     ]
   }
 

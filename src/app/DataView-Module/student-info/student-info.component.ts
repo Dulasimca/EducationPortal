@@ -77,7 +77,7 @@ roleId: any;
           this.dob = (i.DateofBirth !== undefined && i.DateofBirth !== null) ? ((i.DateofBirth.toString().trim() !== '') ? i.DateofBirth : '-') : '-',
           this.medium = (i.MediumName !== undefined && i.MediumName !==null) ? ((i.MediumName.toString().trim() !== '') ? i.MediumName : '-') : '-',
           this.doj = (i.DateofJoining !== undefined && i.DateofJoining !== null) ? ((i.DateofJoining.toString().trim() !== '') ? i.DateofJoining : '-') : '-',
-          this.address = (i.Addressinfo !== undefined && i.Addressinfo !== null) ? ((i.Addressinfo.toString().trim() !== '') ? i.Addressinfo : '-') : '-'
+          this.address = (i.Addressinfo !== undefined && i.CurrentAddress !== null) ? ((i.CurrentAddress.toString().trim() !== '') ? i.CurrentAddress : '-') : '-'
           this.fatherName = (i.FatherName !== undefined && i.FatherName !== null) ? ((i.FatherName.toString().trim() !== '') ? i.FatherName : '-') : '-',
           this.fatherContact = (i.FatherMobileNo !== undefined && i.FatherMobileNo !== null) ? ((i.FatherMobileNo.toString().trim() !== '') ? i.FatherMobileNo : '-') : '-',
           this.fatherEmail = (i.FatherEmailid !== undefined && i.FatherEmailid !== null) ? ((i.FatherEmailid.toString().trim() !== '') ? i.FatherEmailid : '-') : '-',

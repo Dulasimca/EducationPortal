@@ -1,0 +1,70 @@
+<div class="p-col-12 p-md-12 p-lg-12">
+    <p-toast position="top-center" key="t-msg"></p-toast>
+    <p-panel header="Online Assessment Result">
+        <div class="p-col-12 p-md-12 p-lg-12">
+            <div class="p-grid">
+                <div class="p-col-12 p-md-6 p-lg-2">
+                    <div><label for="_testname">Assessment Name<span
+                                class="form-mandatory-field">*</span></label>
+                    </div>
+                    <p-dropdown name="_testname" [(ngModel)]="testId"
+                        [options]="testNameOptions" (onClick)="onSelect()" (ngModelChange)="loadAssessmentDetails()" required>
+                    </p-dropdown>
+                </div>
+                <div class="p-col-12 p-md-6 p-lg-2">
+                    <div><label for="_testdate">Assessment Date<span
+                                class="form-mandatory-field">*</span></label></div>
+                    <p-calendar [(ngModel)]="testDate" name="_testdate" [showIcon]="true"
+                    (ngModelChange)="loadAssessmentDetails()" required>
+                    </p-calendar>
+                </div>
+                <div class="p-col-12 p-md-12 p-lg-12">
+                    <p-table [columns]="assessmentCols" [value]="assessmentDetails" [paginator]="true" 
+                    [rows]="10" [loading]="loading" styleClass="p-datatable-gridlines">
+                        <ng-template pTemplate="header" let-columns>
+                            <tr>
+                                <th style="text-align: center; width: 80px;">S.No</th>
+                                <th *ngFor="let col of columns" style="text-align: center;">
+                                    {{col.header}}
+                                </th>
+                                <th style="text-align: center; width: 80px;">Result</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowIndex="rowIndex" let-data let-columns="columns">
+                            <tr>
+                                <td style="width: 80px;">{{rowIndex+1}}</td>
+                                <td *ngFor="let col of columns">
+                                    {{data[col.field]}}
+                                </td>
+                                <td style="width: 80px;" (click)="viewResult(data)">
+                                    <span style="font-size: 13px;"> <a rel="view" style="color: blue; text-decoration: underline;">View</a></span>
+                                </td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                    </div>
+            </div>
+        </div>
+    </p-panel>
+    <p-dialog header="Online Assessment Result" [(visible)]="showDialog" [style]="{width: '70vw'}" [draggable]="false" [modal]="true">
+        <div class="p-grid">
+            <div class="p-col-12 p-md-6 p-lg-4">
+                <div><label class="label-font-size" for="_subject">Subject</label>
+                </div>
+                <input class="p-col-12" name="_subject" type="text" pInputText
+                    [(ngModel)]="subject" readonly="true">
+            </div>
+            <div class="p-col-12 p-md-6 p-lg-4">
+                <div><label class="label-font-size" for="_description">Description</label>
+                </div>
+                <input class="p-col-12" name="_description" type="text" pInputText
+                    [(ngModel)]="testDescription" readonly="true">
+            </div>
+            <div class="p-col-12 p-md-6 p-lg-4">
+                <div><label class="label-font-size" for="_totalmarks">Total Marks : </label>
+                    <span>{{totalMarks}}</span>
+                </div>
+            </div>
+        </div>
+    </p-dialog>
+</div>

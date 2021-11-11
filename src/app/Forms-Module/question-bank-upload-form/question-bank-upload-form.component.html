@@ -1,22 +1,21 @@
 <block-ui>
-    <div class="p-col-12" >
+    <div class="p-col-12 p-md-12 p-lg-12">
         <p-toast position="top-center" key="t-msg"></p-toast>
-        <p-panel header="Question Bank Upload">
-            <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
+        <p-panel  #body header="Question Bank Upload">
+            <div class="p-col-12 p-md-12 p-lg-12 no-pad-top" style="min-height: 400px !important;">
                 <form #f="ngForm" name="questionBankForm">
                     <div class="p-grid">
                         <div class="p-col-12 p-md-12 p-lg-2"></div>
                         <div class="p-col-12 p-md-10 p-lg-8">
                             <p-card>
-                                <div #row1 class="p-col-12 p-md-12 p-lg-12">
+                                <div #row1 class="p-col-12 p-md-12 p-lg-12 no-pad-top">
                                     <div class="p-grid">
-                                        <div class="p-col-12 p-md-6 p-lg-2">
-                                            <div><label for="_class">Class<span
-                                                        class="form-mandatory-field">*</span></label>
-                                            </div>
-                                            <p-dropdown name="_class" [options]="classOptions" (onClick)="onSelect('C')"
-                                                [(ngModel)]="class" required>
-                                            </p-dropdown>
+                                        <div class="p-col-12 p-md-6 p-lg-3">
+                                            <div><label for="_pdate">Publish Date<span
+                                                        class="form-mandatory-field">*</span></label></div>
+                                            <p-calendar [(ngModel)]="publishDate" name="_pdate" [showIcon]="true"
+                                             required>
+                                            </p-calendar>
                                         </div>
                                         <div class="p-col-12 p-md-6 p-lg-3">
                                             <div><label for="_year">Year<span
@@ -36,7 +35,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div #row2 class="p-col-12 p-md-12 p-lg-12">
+                                <div #row2 class="p-col-12 p-md-12 p-lg-12 no-pad-top">
                                     <div class="p-grid">
                                         <div class="p-col-12 p-md-6 p-lg-6">
                                             <div><label for="_description">Description<span
@@ -46,17 +45,17 @@
                                             <div class="note">*Note: eg: "Science 2mark questions with solution part-I"
                                             </div>
                                         </div>
-                                        <div class="p-col-12 p-md-6 p-lg-2">
-                                            <div><label for="_medium">Medium<span
+                                        <div class="p-col-12 p-md-6 p-lg-3">
+                                            <div><label for="_class">Class<span
                                                         class="form-mandatory-field">*</span></label>
                                             </div>
-                                            <p-dropdown name="_medium" [options]="mediumOptions"
-                                                (onClick)="onSelect('M')" [(ngModel)]="medium" required>
+                                            <p-dropdown name="_class" [options]="classOptions" (onClick)="onSelect('C')"
+                                                [(ngModel)]="class" required>
                                             </p-dropdown>
                                         </div>
                                     </div>
                                 </div>
-                                <div #row3 class="p-col-12 p-md-12 p-lg-12">
+                                <div #row3 class="p-col-12 p-md-12 p-lg-12 no-pad-top">
                                     <div class="p-grid">
                                         <div class="p-col-12 p-md-8 p-lg-5">
                                             <div><label for="_pdate">Question Bank<span
@@ -70,16 +69,17 @@
                                             </div>
                                             <div>*Note: .pdf format</div>
                                         </div>
-                                        <div class="p-col-12 p-md-6 p-lg-3">
-                                            <div><label for="_pdate">Publish Date<span
-                                                        class="form-mandatory-field">*</span></label></div>
-                                            <p-calendar [(ngModel)]="publishDate" name="_pdate" [showIcon]="true"
-                                                required>
-                                            </p-calendar>
+                                        <div class="p-col-12 p-md-6 p-lg-2">
+                                            <div><label for="_medium">Medium<span
+                                                        class="form-mandatory-field">*</span></label>
+                                            </div>
+                                            <p-dropdown name="_medium" [options]="mediumOptions"
+                                                (onClick)="onSelect('M')" [(ngModel)]="medium" required>
+                                            </p-dropdown>
                                         </div>
                                     </div>
                                 </div>
-                                <div #row5 class="p-col-12 p-md-12 p-lg-12 text-center">
+                                <div #row4 class="p-col-12 p-md-12 p-lg-12 text-center no-pad-top">
                                     <button pButton name="_upload" type="button" label="Upload" (click)="onUpload()"
                                         [disabled]="(!f.valid)"></button> &nbsp;
                                     <button pButton name="_view" type="button" label="View"

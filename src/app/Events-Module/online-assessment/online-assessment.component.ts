@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { ResponseMessage } from 'src/app/Common-Module/Message';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
+import { TableConstants } from 'src/app/Common-Module/TableConstants';
 import { User } from 'src/app/Interfaces/user';
 import { AuthService } from 'src/app/Services/auth.service';
 import { AssessmentService } from 'src/app/Services/online-test.service';
@@ -31,14 +32,7 @@ export class OnlineAssessmentComponent implements OnInit {
     private testService: AssessmentService) { }
 
   ngOnInit() {
-    this.assessmentCols = [
-      { field: 'test', header: 'Test Name' },
-      { field: 'description', header: 'Description' },
-      { field: 'totalmarks', header: 'Total Marks' },
-      { field: 'subject', header: 'Subject' },
-      { field: 'duration', header: 'Duration' },
-      { field: 'time', header: 'Start Time' }
-    ]
+    this.assessmentCols = TableConstants.OnlineAssessmentColumns;
     this.login_user = this.authService.UserInfo;
     this.onLoadAssessment();
   }

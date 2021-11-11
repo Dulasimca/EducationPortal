@@ -59,7 +59,7 @@ roleId: any;
   //   this.router.navigate([currentUrl]);
   //      this.activeIndex = Number.parseInt(this.route.snapshot.queryParamMap.get('id'));
   //  console.log('param',this.route.snapshot.queryParamMap.get('id'), this.activeIndex)
-    const params = { 'Value': user.email, 'Type': '2' };
+    const params = { 'Value': user.email, 'Type': '2', 'SchoolId': user.schoolId,'RoleId': user.roleId };
     this.restApiService.getByParameters(PathConstants.Registration_Get, params).subscribe(response => {
       if(response !== undefined && response !== null && response.length !== 0) {
         this.responseData = response;

@@ -10,6 +10,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { DatePipe } from '@angular/common';
+import { TableConstants } from 'src/app/Common-Module/TableConstants';
 
 @Component({
   selector: 'app-classroom-details',
@@ -46,13 +47,7 @@ export class ClassroomDetailsComponent implements OnInit {
     this.classroomId = 0;
     this.login_user = this.authService.UserInfo;
     this.masterService.getMaster('');
-    this.classroomDetailsCols = [
-      { field: 'SubjectName', header: 'Subject' },
-      { field: 'Classname1', header: 'Class' },
-      { field: 'SectionName', header: 'Section' },
-      { field: 'MeetingTime', header: 'Time' },
-      { field: 'Duration', header: 'Duration' },
-    ];
+    this.classroomDetailsCols = TableConstants.ClassroomDetailsColumns;
   }
 
   onSelect(type) {
@@ -105,6 +100,9 @@ export class ClassroomDetailsComponent implements OnInit {
     this.restApiService.getByParameters(PathConstants.Zoom_Get, params).subscribe((res: any) => {
       if (res !== null && res !== undefined && res.length !== 0) {
         this.showTable = true;
+        res.forEach(x => {
+          x.DurationWithType = x.Duration + 'mins';
+        })
         this.classroomDetails = res;
       } else {
         this.showTable = false;
@@ -139,7 +137,7 @@ export class ClassroomDetailsComponent implements OnInit {
       'RowId': this.classroomId,
       'ClassId': this.class,
       'SectionCode': this.section,
-      'MeetingDate': this.datePipe.transform(this.meetingDate, 'yyyy-MM-dd'),
+      'MeetingDate': this.datePipe.transform(this.meetingDate, 'MM/dd/yyyy'),
       'SchoolId': this.login_user.schoolId,
       'Duration': this.duration,
       'Topics': this.subject,

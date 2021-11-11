@@ -48,7 +48,7 @@
                                                 <p-calendar [(ngModel)]="obj.DateofBirth" name="_dob" [showIcon]="true"
                                                     [monthNavigator]="true" [yearNavigator]="true"
                                                     yearRange="{{yearRange}}" inputId="dateofbirth"
-                                                    dateFormat="yy-mm-dd" required></p-calendar>
+                                                    dateFormat="mm/dd/yy" required></p-calendar>
                                             </div>
                                         </div>
                                     </div>
@@ -73,7 +73,8 @@
                                                 <div><label for="_medium">Medium<span
                                                             class="form-mandatory-field">*</span></label></div>
                                                 <p-dropdown name="_medium" [options]="mediumOptions"
-                                                    (onClick)="onSelect('M')" [(ngModel)]="obj.Medium" required>
+                                                    (onClick)="onSelect('M')" [(ngModel)]="obj.Medium"
+                                                    [disabled]="true" required>
                                                 </p-dropdown>
                                             </div>
                                             <div class="p-col-12 p-md-6 p-lg-2">
@@ -89,8 +90,8 @@
                                                             class="form-mandatory-field">*</span></label></div>
                                                 <p-calendar [(ngModel)]="obj.DateofJoining" name="_doj"
                                                     [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true"
-                                                    yearRange="{{yearRange}}" inputId="dateofjoin" dateFormat="yy-mm-dd"
-                                                    required></p-calendar>
+                                                    yearRange="{{yearRange}}" inputId="dateofjoin" dateFormat="mm/dd/yy"
+                                                   [disabled]="true" required></p-calendar>
                                             </div>
                                             <div #row2 class="p-col-12 p-md-12 p-lg-12">
                                                 <div class="p-grid">
@@ -98,7 +99,7 @@
                                                         <div><label for="_section">Address<span
                                                                     class="form-mandatory-field">*</span></label></div>
                                                         <textarea pInputTextarea [(ngModel)]="obj.CurrentAddress"
-                                                            rows="3" cols="24" required></textarea>
+                                                            rows="2" cols="21" required></textarea>
                                                     </div>
                                                     <div class="p-col-12 p-md-6 p-lg-2">
                                                         <div><label for="_pincode">Pincode<span
@@ -125,7 +126,7 @@
                                 </div>
                                 <div class="p-col-2 p-md-2 p-lg-2 no-pad-top">
                                     <div class="p-col-12 p-md-12 p-lg-12">
-                                        <div><img [src]="userImage" style="width: 110px; height: 110px;" />
+                                        <div><img [src]="userImage" name="_studentphoto" style="width: 110px; height: 110px;" />
                                             <input style="display: none" name="_studentimage" type="file"
                                                 (change)="onFileUpload($event, 1)" #userFile>
                                             <button class="img-edit" icon="pi pi-pencil edit-size" pButton type="file"
@@ -165,7 +166,7 @@
                                             [(ngModel)]="obj.FatherEmailid" />
                                     </div>
                                     <div class="p-col-12 p-md-12 p-lg-2 pic-right">
-                                        <div><img [src]="fatherImage" style="width: 110px; height: 110px;" />
+                                        <div><img [src]="fatherImage" name="_fatherphoto" style="width: 110px; height: 110px;" />
                                             <input style="display: none" name="_fatherimage" type="file"
                                                 (change)="onFileUpload($event, 2)" #fatherFile>
                                             <button class="img-edit" style="margin-top: -25px;"
@@ -206,7 +207,7 @@
                                             [(ngModel)]="obj.MotherEmailid" />
                                     </div>
                                     <div class="p-col-12 p-md-12 p-lg-2 pic-right">
-                                        <div><img [src]="motherImage" style="width: 110px; height: 110px;" />
+                                        <div><img [src]="motherImage" name="_motherphoto" style="width: 110px; height: 110px;" />
                                             <input style="display: none" namE="_motherimage" type="file"
                                                 (change)="onFileUpload($event, 3)" #motherFile>
                                             <button class="img-edit" style="margin-top: -25px;"
@@ -244,7 +245,7 @@
                                             [(ngModel)]="obj.GaurdianEmailid" />
                                     </div>
                                     <div class="p-col-12 p-md-12 p-lg-2 pic-right">
-                                        <div><img [src]="guardinaImage" style="width: 110px; height: 110px;" />
+                                        <div><img [src]="guardinaImage" name="_guardianphoto" style="width: 110px; height: 110px;" />
                                             <input style="display: none" name="_guardianimage" type="file"
                                                 (change)="onFileUpload($event, 4)" #guardianFile>
                                             <button class="img-edit" style="margin-top: -25px;"
@@ -258,7 +259,7 @@
                         </p-fieldset>
                         <div class="p-col-12 p-md-12 p-lg-12 text-center">
                             <button pButton type="button" label="Submit" (click)="onSave()"
-                                [disabled]="(!f.dirty)"></button>
+                                [disabled]="(!f.dirty || isDirty)"></button>
                         </div>
                     </div>
                 </p-card>

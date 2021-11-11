@@ -13,6 +13,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { User } from 'src/app/Interfaces/user';
 import { AuthService } from 'src/app/Services/auth.service';
 import { FileUploadConstant } from 'src/app/Common-Module/file-upload-constant';
+import { TableConstants } from 'src/app/Common-Module/TableConstants';
 
 @Component({
   selector: 'app-registration-form',
@@ -68,6 +69,15 @@ export class RegistrationFormComponent implements OnInit {
   nationalities?: any;
   languages?: any;
   login_user: User;
+  showDialog: boolean;
+  registeredData: any[] = [];
+  registeredCols: any;
+  studentImage: any;
+  fatherImage: any;
+  motherImage: any;
+  guardianImage: any;
+  header: string;
+  maxDate: Date = new Date();
   @ViewChild('f', { static: false }) _registrationForm: NgForm;
   @ViewChild('studentImg', { static: false }) studentImg: ElementRef;
   @ViewChild('fatherImg', { static: false }) fatherImg: ElementRef;
@@ -88,6 +98,7 @@ export class RegistrationFormComponent implements OnInit {
     this.login_user = this.authService.UserInfo;
     this.masterService.getMaster('');
     ///end
+    this.registeredCols = TableConstants.RegisteredAssociateColumns;
     const current_year = new Date().getFullYear();
     const start_year_range = current_year - 30;
     this.yearRange = start_year_range + ':' + current_year;
@@ -219,9 +230,9 @@ export class RegistrationFormComponent implements OnInit {
     const folderName = (this.obj.RoleId === 6) ? FileUploadConstant.StudentRegistration : FileUploadConstant.TeacherRegistration
     const filename = fileToUpload.name + '^' + folderName;
     this.formData.append('file', fileToUpload, filename);
-    actualFilename = fileToUpload.name;
     this.http.post(this.restApiService.BASEURL + PathConstants.FileUpload_Post, this.formData)
       .subscribe((event: any) => {
+        actualFilename = fileToUpload.name;
       }
       );
     return actualFilename;
@@ -234,21 +245,25 @@ export class RegistrationFormComponent implements OnInit {
     switch (id) {
       case 1:
         this.s_URL = window.URL.createObjectURL(file);
+        this.studentImage = this._d.bypassSecurityTrustUrl(this.s_URL);
         this.showSImg = (this.s_URL !== undefined && this.s_URL !== null) ? true : false;
         this.obj.StudentPhotoFileName = this.uploadFile($event.target.files, this.sImgProgress);
         break;
       case 2:
         this.f_URL = window.URL.createObjectURL(file);
+        this.fatherImage = this._d.bypassSecurityTrustUrl(this.f_URL);
         this.showFImg = (this.s_URL !== undefined && this.s_URL !== null) ? true : false;
         this.obj.FatherPhotoFileName = this.uploadFile($event.target.files, this.fImgProgress);
         break;
       case 3:
         this.m_URL = window.URL.createObjectURL(file);
+        this.motherImage = this._d.bypassSecurityTrustUrl(this.m_URL);
         this.showMImg = (this.s_URL !== undefined && this.s_URL !== null) ? true : false;
         this.obj.MotherPhotoFilName = this.uploadFile($event.target.files, this.mImgProgress);
         break;
       case 4:
         this.g_URL = window.URL.createObjectURL(file);
+        this.guardianImage = this._d.bypassSecurityTrustUrl(this.g_URL);
         this.showGImg = (this.s_URL !== undefined && this.s_URL !== null) ? true : false;
         this.obj.GaurdianPhotoFileName = this.uploadFile($event.target.files, this.gImgProgress);
         break;
@@ -265,16 +280,90 @@ export class RegistrationFormComponent implements OnInit {
     }
   }
 
+  onEdit(row) {
+    this.showDialog = false;
+    console.log('row', row)
+    this.obj = row;
+    this.obj.SchoolName = this.login_user.schoolname;
+    this.obj.DateofBirth = this.datePipe.transform(row.DateofBirth, 'MM/dd/yyyy'),
+      this.obj.DateofJoining = this.datePipe.transform(row.DateofJoining, 'MM/dd/yyyy'),
+      this.obj.StudentPhotoFileName = (row.StudentPhotoFileName !== undefined && row.StudentPhotoFileName !== null) ?
+        (row.StudentPhotoFileName.toString().trim() !== '' ? row.StudentPhotoFileName : '') : '',
+      this.obj.FatherPhotoFileName = (row.FatherPhotoFileName !== undefined && row.FatherPhotoFileName !== null) ?
+        (row.FatherPhotoFileName.toString().trim() !== '' ? row.FatherPhotoFileName : '') : '',
+      this.obj.MotherPhotoFilName = (row.MotherPhotoFilName !== undefined && row.MotherPhotoFilName !== null) ?
+        (row.MotherPhotoFilName.toString().trim() !== '' ? row.MotherPhotoFilName : '') : '',
+      this.obj.GaurdianPhotoFileName = (row.GaurdianPhotoFileName !== undefined && row.GaurdianPhotoFileName !== null) ?
+        (row.GaurdianPhotoFileName.toString().trim() !== '' ? row.GaurdianPhotoFileName : '') : '',
+      this.obj.IncomeFilename = (row.IncomeFilename !== undefined && row.IncomeFilename !== null) ?
+        (row.IncomeFilename.toString().trim() !== '' ? row.IncomeFilename : '') : '',
+      this.obj.NativityFilename = (row.NativityFilename !== undefined && row.NativityFilename !== null) ?
+        (row.NativityFilename.toString().trim() !== '' ? row.NativityFilename : '') : '',
+      this.obj.CommunityFilename = (row.CommunityFilename !== undefined && row.CommunityFilename !== null) ?
+        (row.CommunityFilename.toString().trim() !== '' ? row.CommunityFilename : '') : '',
+      this.classOptions = [{ label: row.Classname2, value: row.ClassId }];
+    this.sectionOptions = [{ label: row.SectionName, value: row.SectionId }];
+    this.mediumOptions = [{ label: row.MediumName, value: row.Medium }];
+    this.bloodGroupOptions = [{ label: row.BloodGroupName, value: row.BloodGroup }];
+    this.genderOptions = [{ label: row.GenderName, value: row.Gender }];
+    this.casteOptions = [{ label: row.CasteName, value: row.Caste }];
+    this.motherTongueOptions = [{ label: row.MotherTongueName, value: row.MotherTongue }];
+    this.religionOptions = [{ label: row.ReligionName, value: row.Religion }];
+    this.nationalityOptions = [{ label: row.NationalityName, value: row.Nationality }];
+    var folder = ((this.login_user.roleId * 1) === 6) ? FileUploadConstant.StudentRegistration :
+      FileUploadConstant.TeacherRegistration;
+    this.fatherImage = '../../assets/layout/' + folder + '/' + this.obj.FatherPhotoFileName;
+    this.studentImage = '../../assets/layout/' + folder + '/' + this.obj.StudentPhotoFileName;
+    this.motherImage = '../../assets/layout/' + folder + '/' + this.obj.MotherPhotoFilName;
+    this.guardianImage = '../../assets/layout/' + folder + '/' + this.obj.GaurdianPhotoFileName;
+  }
+
+  onView() {
+    this.registeredData = [];
+    this.blockUI.start();
+    this.header = ((this.obj.RoleId * 1) === 6) ? 'Registered Students' : 'Registered Teachers';
+    const params = {
+      'SchoolId': this.login_user.schoolId,
+      'Value': this.login_user.id,
+      'RoleId': this.obj.RoleId,
+      'Type': "1"
+    }
+    this.restApiService.getByParameters(PathConstants.Registration_Get, params).subscribe(res => {
+      if (res !== undefined && res !== null) {
+        if (res.length !== 0) {
+          this.showDialog = true;
+          this.registeredData = res;
+          this.blockUI.stop();
+        } else {
+          this.blockUI.stop();
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
+            summary: ResponseMessage.SUMMARY_WARNING, detail: ResponseMessage.NoRecordMessage
+          });
+        }
+      } else {
+        this.blockUI.stop();
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
+          summary: ResponseMessage.SUMMARY_WARNING, detail: ResponseMessage.NoRecordMessage
+        });
+      }
+    })
+  }
+
   onSubmit() {
     this.blockUI.start();
-    this.obj.slno = 0;
-    this.obj.ID = 0;
-    this.obj.DateofBirth = this.datePipe.transform(this.obj.DateofBirth, 'yyyy-MM-dd');
-    this.obj.DateofJoining = this.datePipe.transform(this.obj.DateofJoining, 'yyyy-MM-dd');
+    this.obj.DateofBirth = (typeof (this.obj.DateofBirth) === 'object') ?
+      this.datePipe.transform(this.obj.DateofBirth, 'MM/dd/yyyy') : this.obj.DateofBirth;
+    this.obj.DateofJoining = (typeof (this.obj.DateofJoining) === 'object') ?
+      this.datePipe.transform(this.obj.DateofJoining, 'MM/dd/yyyy') : this.obj.DateofJoining;
+    this.obj.UserId = this.login_user.id;
     this.obj.Disability = (this.obj.Disability !== undefined && this.obj.Disability !== null) ? this.obj.Disability.trim() : null,
-    this.obj.Password = '123';
-    this.obj.CurrentAddress = (this.obj.CurrentAddress !== undefined && this.obj.CurrentAddress !== null) ? 
-    this.obj.CurrentAddress : this.obj.PermanentAddress;
+      this.obj.Password = '123';
+    this.obj.CurrentAddress = (this.obj.CurrentAddress !== undefined && this.obj.CurrentAddress !== null) ?
+      this.obj.CurrentAddress : this.obj.PermanentAddress;
     this.restApiService.post(PathConstants.Registration_Post, this.obj).subscribe(res => {
       if (res !== undefined && res !== null) {
         if (res.item1) {
@@ -315,6 +404,8 @@ export class RegistrationFormComponent implements OnInit {
 
   setDefaultObject() {
     this.obj = {} as Profile;
+    this.obj.slno = 0;
+    this.obj.ID = 0;
     this.obj.State = 'Tamilnadu';
     this.obj.SchoolId = this.login_user.schoolId;
     this.obj.SchoolName = this.login_user.schoolname;

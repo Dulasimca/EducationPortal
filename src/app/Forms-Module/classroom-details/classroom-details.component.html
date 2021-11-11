@@ -2,7 +2,7 @@
     <div class="p-col-12" >
         <p-toast position="top-center" key="t-msg"></p-toast>
         <p-panel header="Online Classroom Details">
-            <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
+            <div class="p-col-12 p-md-12 p-lg-12 no-pad-top" style="min-height: 400px !important;">
                 <form #f="ngForm" name="classroomDetailsForm">
                     <div class="p-grid">
                         <div class="p-col-12 p-md-12 p-lg-2"></div>
@@ -37,7 +37,7 @@
                                         <div class="p-col-6 p-md-6 p-lg-3">
                                             <label for="_mdate">Date<span class="form-mandatory-field">*</span></label>
                                             <p-calendar [(ngModel)]="meetingDate" name="_mdate" [showIcon]="true"
-                                                inputId="meetingDate" [appendTo]="calbody" required>
+                                                inputId="meetingDate" required>
                                             </p-calendar>
                                         </div>
                                         <div class="p-col-6 p-md-6 p-lg-3">
@@ -70,14 +70,14 @@
             </div>
             <div *ngIf="showTable" class="p-col-12 p-md-12 p-lg-12">
                 <p-table [columns]="classroomDetailsCols" [value]="classroomDetails" [paginator]="true"
-                 [rows]="10">
+                 [rows]="10" styleClass="p-datatable-gridlines">
                     <ng-template pTemplate="header" let-columns>
                         <tr>
                             <th style="width: 90px">S.No</th>
                             <th *ngFor="let col of columns">
                                 {{col.header}}
                             </th>
-                            <th style="width: 110px">Edit</th>
+                            <th style="width: 100px">Edit</th>
                         </tr>
                     </ng-template>
                     <ng-template pTemplate="body" let-rowIndex="rowIndex"  let-rowData let-columns="columns">
@@ -86,7 +86,7 @@
                             <td *ngFor="let col of columns">
                                 {{rowData[col.field]}}
                             </td>
-                            <td style="width: 110px" (click)="onEdit(rowData)">
+                            <td style="width: 100px" (click)="onEdit(rowData)">
                                 <i class="pi pi-pencil" style="padding-left: 10px; color: #52de38; font-size: 1.5rem;"></i>
                             </td>
                         </tr>

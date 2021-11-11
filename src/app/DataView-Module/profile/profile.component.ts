@@ -34,7 +34,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit() { 
     const user: User = this.authService.UserInfo;
     this.userImage = (user.studentImg.trim() !== '') ? user.studentImg : '';
-    const params = { 'Value': user.email, 'Type': '2' };
+    const params = { 'Value': user.email, 'Type': '2', 'SchoolId': user.schoolId, 'RoleId': user.roleId };
     this.restApiService.getByParameters(PathConstants.Registration_Get, params).subscribe(response => {
       if(response !== undefined && response !== null && response.length !== 0) {
         this.responseData = response;

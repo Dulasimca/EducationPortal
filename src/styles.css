@@ -313,6 +313,7 @@ background-color: #b8baf3;
 }
 .nav-container-page {
     margin-bottom: 3.5rem !important;
+    min-height: 620px !important;
     overflow-y: auto;
     overflow-x: hidden;
 }
@@ -660,7 +661,13 @@ legend {
 .p-datatable .p-datatable-footer, .p-datatable .p-datatable-thead>tr>th {
     color: whitesmoke !important;
 }
-.p-datatable .p-datatable-tbody>tr>td {
+/* .p-datatable .p-datatable-tbody>tr>td {
+    text-align: left !important;
+} */
+/* .p-datepicker {
+    position: fixed !important;
+} */
+.p-datatable.p-datatable-gridlines .p-datatable-tbody>tr>td, .p-datatable.p-datatable-gridlines .p-datatable-tfoot>tr>td, .p-datatable.p-datatable-gridlines .p-datatable-thead>tr>th {
     text-align: center !important;
 }
 .p-panel .p-panel-header {

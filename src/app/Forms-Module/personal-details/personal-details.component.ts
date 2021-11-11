@@ -51,7 +51,7 @@ export class PersonalDetailsComponent implements OnInit {
   cities?: any;
   logged_user: User;
   folderName: string = '';
-  isDirty: boolean = false;
+  maxDate: Date = new Date();
   @BlockUI() blockUI: NgBlockUI;
   @ViewChild('f', { static: false }) _personalDetailsForm: NgForm;
   public formData = new FormData();
@@ -244,9 +244,9 @@ export class PersonalDetailsComponent implements OnInit {
     this.http.post(this.restApiService.BASEURL + PathConstants.FileUpload_Post, this.formData)
       .subscribe((event: any) => {
         if(event) {
-          this.isDirty = true;
+          this._personalDetailsForm.control.markAsDirty();
         } else {
-          this.isDirty = false;
+          this._personalDetailsForm.control.markAsUntouched();
         }
       }
       );
@@ -255,8 +255,7 @@ export class PersonalDetailsComponent implements OnInit {
 
   onFileUpload($event, id) {
     const file = $event.srcElement.files[0];
-    this.isDirty = true;
-    console.log('dty', this.isDirty)
+    this._personalDetailsForm.control.markAsDirty();
     switch (id) {
       case 1:
         const s_URL = window.URL.createObjectURL(file);
@@ -302,6 +301,5 @@ export class PersonalDetailsComponent implements OnInit {
     this.classOptions = [];
     this.sectionOptions = [];
     this.userImage = '';
-    this.isDirty = false;
   }
 }

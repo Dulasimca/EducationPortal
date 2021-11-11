@@ -275,7 +275,6 @@ export class OnlineTestComponent implements OnInit {
     }
         this.restApiService.post(PathConstants.OnlineAssessment_Asnwer_Post, answers).subscribe(res => {
             if (res) {
-                this.blockUI.stop();
                 this.isSaved = true;
                 answers = [];
                 this.test = new Test(null);
@@ -284,7 +283,10 @@ export class OnlineTestComponent implements OnInit {
                     key: 't-msg', severity: ResponseMessage.SEVERITY_SUCCESS,
                     summary: ResponseMessage.SUMMARY_SUCCESS, detail: ResponseMessage.SubmitMessage
                 });
+                setTimeout(() => {
+                this.blockUI.stop();
                 this.router.navigate(['/online-assessment']);
+                }, 400)
             } else {
                 this.isSaved = false;
                 this.isSubmitted = false;

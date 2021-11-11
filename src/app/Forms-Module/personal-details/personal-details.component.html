@@ -48,7 +48,7 @@
                                                 <p-calendar [(ngModel)]="obj.DateofBirth" name="_dob" [showIcon]="true"
                                                     [monthNavigator]="true" [yearNavigator]="true"
                                                     yearRange="{{yearRange}}" inputId="dateofbirth"
-                                                    dateFormat="mm/dd/yy" required></p-calendar>
+                                                   [maxDate]="maxDate" dateFormat="mm/dd/yy" required></p-calendar>
                                             </div>
                                         </div>
                                     </div>
@@ -259,7 +259,7 @@
                         </p-fieldset>
                         <div class="p-col-12 p-md-12 p-lg-12 text-center">
                             <button pButton type="button" label="Submit" (click)="onSave()"
-                                [disabled]="(!f.dirty || isDirty)"></button>
+                                [disabled]="(!f.dirty)"></button>
                         </div>
                     </div>
                 </p-card>

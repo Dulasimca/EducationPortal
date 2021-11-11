@@ -37,8 +37,13 @@ export class ProfileComponent implements OnInit {
     const params = { 'Value': user.email, 'Type': '2', 'SchoolId': user.schoolId, 'RoleId': user.roleId };
     this.restApiService.getByParameters(PathConstants.Registration_Get, params).subscribe(response => {
       if(response !== undefined && response !== null && response.length !== 0) {
-        this.responseData = response;
         response.forEach(i => {
+          for(var j in i) {
+            if(i[j] === null || i[j] === undefined) {
+              console.log('objjevry', i[j])
+              i[j] = '';
+            }
+          }
           this.name = (i.FirstName !== undefined && i.FirstName !== null) ? ((i.FirstName.toString().trim() !== '') ? i.FirstName : '-') : '-',
           this.class = (i.Classname2 !== undefined && i.Classname2 !== null) ? ((i.Classname2.toString().trim() !== '') ? i.Classname2 : '-') : '-',
           this.section = (i.SectionName !== undefined && i.SectionName !==null) ? ((i.SectionName.toString().trim() !== '') ? i.SectionName : '-') : '-',
@@ -52,6 +57,7 @@ export class ProfileComponent implements OnInit {
           this.address = (i.CurrentAddress !== undefined && i.CurrentAddress !== null) ? ((i.CurrentAddress.toString().trim() !== '') ? i.CurrentAddress : '-') : '-',
           this.emailId = (i.EmailId !== undefined && i.EmailId !== null) ? ((i.EmailId.toString().trim() !== '') ? i.EmailId : '-') : '-'
         })
+        this.responseData = response;
   }
 });
 }

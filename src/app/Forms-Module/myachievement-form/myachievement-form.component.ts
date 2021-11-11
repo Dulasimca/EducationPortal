@@ -37,6 +37,7 @@ export class MyachievementFormComponent implements OnInit {
   showtable: boolean;
   Awards?: any;
   Categorys?: any;
+  maxDate: Date = new Date();
   @BlockUI() blockUI: NgBlockUI;
   public formData = new FormData();
   @ViewChild('f', { static: false }) _MyAchievementForm: NgForm;

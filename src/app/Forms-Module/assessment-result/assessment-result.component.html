@@ -14,7 +14,7 @@
                 <div class="p-col-12 p-md-6 p-lg-2">
                     <div><label for="_testdate">Assessment Date<span
                                 class="form-mandatory-field">*</span></label></div>
-                    <p-calendar [(ngModel)]="testDate" name="_testdate" [showIcon]="true"
+                    <p-calendar [showOtherMonths]="false" [(ngModel)]="testDate" name="_testdate" [showIcon]="true"
                     (ngModelChange)="loadAssessmentDetails()" required>
                     </p-calendar>
                 </div>
@@ -23,11 +23,11 @@
                     [rows]="10" [loading]="loading" styleClass="p-datatable-gridlines">
                         <ng-template pTemplate="header" let-columns>
                             <tr>
-                                <th style="text-align: center; width: 80px;">S.No</th>
-                                <th *ngFor="let col of columns" style="text-align: center;">
+                                <th style="width: 80px;">S.No</th>
+                                <th *ngFor="let col of columns">
                                     {{col.header}}
                                 </th>
-                                <th style="text-align: center; width: 80px;">Result</th>
+                                <th style="width: 80px;">Result</th>
                             </tr>
                         </ng-template>
                         <ng-template pTemplate="body" let-rowIndex="rowIndex" let-data let-columns="columns">

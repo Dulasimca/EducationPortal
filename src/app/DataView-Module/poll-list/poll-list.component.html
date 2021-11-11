@@ -20,34 +20,34 @@
               totalRecords="totalRecords"  styleClass="p-datatable-gridlines">
               <ng-template pTemplate="header" let-columns>
                 <tr>
-                  <th style="text-align: center; width: 90px;">S.No:</th>
-                  <th *ngFor="let col of columns" style="text-align: center;">
+                  <th style="width: 90px;">S.No:</th>
+                  <th *ngFor="let col of columns">
                     {{col.header}}
                   </th>
-                  <th *ngIf="!isDataAvailable" style="text-align: center; width: 90px;">
+                  <th *ngIf="!isDataAvailable" style="width: 90px;">
                    Vote
                   </th>
-                  <th *ngIf="isDataAvailable" style="text-align: center; width: 90px;">
+                  <th *ngIf="isDataAvailable" style="width: 90px;">
                     Result
                    </th>
                 </tr>
               </ng-template>
               <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns" class="cursor-pointer">
                 <tr>
-                  <td style="text-align: center; width: 90px;">{{rowIndex+1}}</td>
+                  <td style="width: 90px;">{{rowIndex+1}}</td>
                   <td *ngFor="let col of columns">
                     {{rowData[col.field]}}
                   </td>
-                  <td *ngIf="(rowData.isVoted == 'true' && isDataAvailable)" style="text-align: center; width: 90px;">
+                  <td *ngIf="(rowData.isVoted == 'true' && isDataAvailable)" style="width: 90px;">
                        <i class="fa fa-trophy" style="font-size: 1.7rem !important; color: #dfa411;" ></i>
                    </td>
-                  <td *ngIf="(rowData.isVoted == 'false' && !isDataAvailable)" style="text-align: center; width: 90px;"
-                  (click)="onVotinglist(rowData)">
+                  <td *ngIf="(rowData.isVoted == 'false' && !isDataAvailable)" style="width: 90px;"
+                  (click)="onVotinglist(rowData)" class="cursor-pointer">
                     <button pButton type="button" icon="pi pi-thumbs-up" style="margin-right: 10px; color:#45e327;"
                        class="p-button-rounded p-button-outlined p-col-1">
                       </button>
                    </td>
-                   <td *ngIf="(rowData.isVoted == 'false' && isDataAvailable)" style="text-align: center; width: 90px;">
+                   <td *ngIf="(rowData.isVoted == 'false' && isDataAvailable)" style="width: 90px;">
                     -
                    </td>
                 </tr>

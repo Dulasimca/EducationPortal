@@ -45,7 +45,7 @@
                                             <div class="p-col-12 p-md-6 p-lg-3">
                                                 <div><label for="_dob"> Date of Birth<span
                                                             class="form-mandatory-field">*</span></label></div>
-                                                <p-calendar [(ngModel)]="obj.DateofBirth" name="_dob" [showIcon]="true"
+                                                <p-calendar [showOtherMonths]="false" [(ngModel)]="obj.DateofBirth" name="_dob" [showIcon]="true"
                                                     [monthNavigator]="true" [yearNavigator]="true"
                                                     yearRange="{{yearRange}}" inputId="dateofbirth"
                                                    [maxDate]="maxDate" dateFormat="mm/dd/yy" required></p-calendar>
@@ -88,7 +88,7 @@
                                             <div class="p-col-12 p-md-6 p-lg-3">
                                                 <div><label for="_doj">Date of Join<span
                                                             class="form-mandatory-field">*</span></label></div>
-                                                <p-calendar [(ngModel)]="obj.DateofJoining" name="_doj"
+                                                <p-calendar [showOtherMonths]="false" [(ngModel)]="obj.DateofJoining" name="_doj"
                                                     [showIcon]="true" [monthNavigator]="true" [yearNavigator]="true"
                                                     yearRange="{{yearRange}}" inputId="dateofjoin" dateFormat="mm/dd/yy"
                                                    [disabled]="true" required></p-calendar>

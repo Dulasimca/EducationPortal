@@ -21,14 +21,14 @@
                                         <div class="p-col-12 p-md-6 p-lg-3">
                                             <div><label for="_testdate">Assessment Date<span
                                                         class="form-mandatory-field">*</span></label></div>
-                                            <p-calendar [(ngModel)]="testDate" name="_testdate" [showIcon]="true"
+                                            <p-calendar [showOtherMonths]="false" [(ngModel)]="testDate" name="_testdate" [showIcon]="true"
                                                 required>
                                             </p-calendar>
                                         </div>
                                         <div class="p-col-12 p-md-6 p-lg-3">
                                             <div><label for="_testtime">Assessment Time<span
                                                         class="form-mandatory-field">*</span></label></div>
-                                            <p-calendar [(ngModel)]="testTime" [timeOnly]="true" hourFormat="12" name="_testtime" [showIcon]="true"
+                                            <p-calendar [showOtherMonths]="false" [(ngModel)]="testTime" [timeOnly]="true" hourFormat="12" name="_testtime" [showIcon]="true"
                                                 required>
                                             </p-calendar>
                                         </div>

@@ -7,25 +7,25 @@
             totalRecords="totalRecords" styleClass="p-datatable-gridlines">
             <ng-template pTemplate="header" let-columns>
               <tr>
-                <th style="text-align: center; width: 70px;">S.No</th>
-                <th *ngFor="let col of columns" style="text-align: center;">
+                <th style=" width: 70px;">S.No</th>
+                <th *ngFor="let col of columns">
                   {{col.header}}
                 </th>
-                <th style="text-align: center; width: 90px;">
+                <th style=" width: 90px;">
                   Upload
                 </th>
-                <th style="text-align: center; width: 90px;">
+                <th style=" width: 90px;">
                   Download
                 </th>
               </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
               <tr>
-                <td style="text-align: center; width: 90px;">{{rowIndex+1}}</td>
+                <td style="width: 90px;">{{rowIndex+1}}</td>
                 <td *ngFor="let col of columns">
                   {{rowData[col.field]}}
                 </td>
-                <td style="text-align: center; width: 90px;">
+                <td style="width: 90px;">
 
                   <input style="display: none" type="file" (change)="uploadFile($event)" #fileInput>
                   <i class="pi pi-upload" type="file" #file (click)="fileInput.click()" accept=".pdf"
@@ -34,7 +34,7 @@
                   </i>
 
                 </td>
-                <td style="text-align: center; width: 90px;"><i class="pi pi-download" (click)="onDownload(rowData.Assignmentfilename)"
+                <td style="width: 90px;"><i class="pi pi-download" (click)="onDownload(rowData.Assignmentfilename)"
                     style="color: #45e327; font-size: 1.3rem;"></i></td>
               </tr>
             </ng-template>

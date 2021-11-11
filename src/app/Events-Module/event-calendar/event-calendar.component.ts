@@ -53,6 +53,7 @@ export class EventCalendarComponent implements OnInit {
                 selectable:true,
                 selectMirror: true,
                 dayMaxEvents: true,
+                showNonCurrentDates: false,
           dateClick: this.handleDateClick.bind(this),
         };
        this.options = { ...this.options, ...{ events: this.events } };

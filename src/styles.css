@@ -719,6 +719,12 @@ legend {
     color: #fff;
     box-shadow: 0 0 0 0.1rem #b3f9a6 !important
 }
+.fc .fc-scroller-liquid-absolute {
+    overflow: hidden !important;
+}
+.fc .fc-toolbar.fc-header-toolbar {
+    margin-bottom: .5rem !important;
+}
 /* end #Region 4 */
 
 /* customised angular material style #Region 5 */

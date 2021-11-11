@@ -48,7 +48,7 @@
                                         <div class="p-col-12 p-md-6 p-lg-2">
                                             <div><label class="label-font-size" for="_dob">D.O.B<span
                                                         class="form-mandatory-field">*</span></label></div>
-                                            <p-calendar [(ngModel)]="obj.DateofBirth" name="_dob" [maxDate]="maxDate"
+                                            <p-calendar [showOtherMonths]="false" [(ngModel)]="obj.DateofBirth" name="_dob" [maxDate]="maxDate"
                                                 [monthNavigator]="true" [yearNavigator]="true" yearRange="{{yearRange}}"
                                                 inputId="dateofbirth" [showIcon]="true" required>
                                             </p-calendar>
@@ -214,7 +214,7 @@
                                             <div><label class="label-font-size" for="_doj">D.O.J<span
                                                         class="form-mandatory-field">*</span></label>
                                             </div>
-                                            <p-calendar [(ngModel)]="obj.DateofJoining" name="_doj" [showIcon]="true"
+                                            <p-calendar [showOtherMonths]="false" [(ngModel)]="obj.DateofJoining" name="_doj" [showIcon]="true"
                                                 inputId="dateofjoining" required>
                                             </p-calendar>
                                         </div>
@@ -530,11 +530,11 @@
             <p-table [columns]="registeredCols" [value]="registeredData" [paginator]="true" [rows]="10" styleClass="p-datatable-gridlines">
                 <ng-template pTemplate="header" let-columns>
                     <tr>
-                        <th style="text-align: center; width: 80px;">S.No</th>
-                        <th *ngFor="let col of columns" style="text-align: center;">
+                        <th style="width: 80px;">S.No</th>
+                        <th *ngFor="let col of columns">
                             {{col.header}}
                         </th>
-                        <th style="text-align: center; width: 80px;">Edit</th>
+                        <th style="width: 80px;">Edit</th>
                     </tr>
                 </ng-template>
                 <ng-template pTemplate="body" let-rowIndex="rowIndex" let-data let-columns="columns">

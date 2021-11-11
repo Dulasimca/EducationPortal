@@ -47,6 +47,8 @@ export class PollListComponent implements OnInit {
   }
 
   onView() {
+    this.votingStatus = '';
+    this.showVoteStatus = false;
     this.loading = true;
     this.data = [];
     let nomineeList = [];

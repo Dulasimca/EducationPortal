@@ -25,12 +25,12 @@ export class ResultComponent implements OnInit {
       { name: '2021-2022', code: '2122' }
     ];
     this.cols = TableConstants.MCQTestResultColumns;
-    this.data = [{ 'ID': 1, 'subject ': 'Tamil', 'test': 'Slip Test for Lesson II- Week 40' },
+    this.data = [{ 'ID': 1,'subject': 'Tamil', 'test': 'Slip Test for Lesson II- Week 40' },
     { 'ID': 2,'subject': 'English', 'test': 'Slip Test for Lesson II - Week 40' },
     { 'ID': 3,'subject': 'Maths', 'test': 'Slip Test for Lesson II- Week 40' },
     { 'ID': 4,'subject': 'Science', 'test': 'Slip Test for Lesson II - Week 40' },
     { 'ID': 5,'subject': 'Social Science', 'test': 'Slip Test for Lesson II - Week 40' },
-    { 'ID': 6,'subject ': 'Tamil', 'test': 'Slip Test for Chapter I - Month of Oct' },
+    { 'ID': 6,'subject': 'Tamil', 'test': 'Slip Test for Chapter I - Month of Oct' },
     { 'ID': 7,'subject': 'English', 'test': 'Slip Test for Chapter I - Month of Oct' },
     { 'ID': 8,'subject': 'Maths', 'test': 'Slip Test for Chapter I - Month of Oct' },
     { 'ID': 9,'subject': 'Science', 'test': 'Slip Test for Chapter I - Month of Oct' },

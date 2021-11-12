@@ -698,6 +698,9 @@ legend {
     font-family: 'poppins' !important;
     font-size: 14px !important;
 }
+.p-sidebar .p-sidebar-header {
+    padding: 0 !important;
+}
 .fc-daygrid-event {
     font-size: .85em;
     font-size: var(--fc-small-font-size,.9em) !important;

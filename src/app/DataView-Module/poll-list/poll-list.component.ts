@@ -122,7 +122,6 @@ export class PollListComponent implements OnInit {
       }
     });
   });
-    console.log('list', nomineeList);
     this.data = nomineeList;
   }
 

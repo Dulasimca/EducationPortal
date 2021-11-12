@@ -147,12 +147,13 @@ export class MyachievementFormComponent implements OnInit {
 
   onView() {
     this.data = [];
-    this.showtable = true;
     const params = {
       'SchoolID': this.login_user.schoolId,
+      'StudentId': this.login_user.id
     }
     this.restApiService.getByParameters(PathConstants.Myachievement_Get, params).subscribe(res => {
       if (res !== null && res !== undefined && res.length !== 0) {
+        this.showtable = true;
         this.data = res.Table;
       } else {
         this.showtable = false;

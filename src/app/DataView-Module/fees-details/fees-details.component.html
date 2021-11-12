@@ -7,7 +7,7 @@
               <label>Academic Year:</label>
             </div>
             <p-dropdown [options]="yearOptions" name="_selectedyear" [(ngModel)]="selectedYear" (onClick)="onSelect()"
-              optionLabel="label" (onChange)="onLoad()" required> </p-dropdown>
+              (onChange)="onLoad()" required> </p-dropdown>
           </div>
           <div>
             <p-table [columns]="feeCols" styleClass="p-datatable-gridlines" [value]="feeData" [loading]="loading">

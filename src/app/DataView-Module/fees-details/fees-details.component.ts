@@ -16,7 +16,7 @@ import { RestAPIService } from 'src/app/Services/restAPI.service';
 })
 export class FeesDetailsComponent implements OnInit { 
   totalAmount: any;
-  selectedYear: any;
+  selectedYear: number;
   paidAmount: any;
   academicYear:any;
   yearRange: string;
@@ -43,7 +43,7 @@ export class FeesDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.years = this.masterService.getAccountingYear();
-       this.login_user = this.authService.UserInfo;
+    this.login_user = this.authService.UserInfo;
     this.feeCols = TableConstants.FeesColumns;
     var data = [];
     if(this.years.length !== 0) {
@@ -72,11 +72,9 @@ export class FeesDetailsComponent implements OnInit {
     const params = {
       'schoolID': this.login_user.schoolId,
       'studentID': this.login_user.id,
-      'yearID': this.selectedYear.value !== null && this.selectedYear.value !== undefined ? this.selectedYear.value : 0,
+      'yearID': this.selectedYear !== null && this.selectedYear !== undefined ? this.selectedYear : 0,
       'type': 1
     }
-console.log('fee view',this.feeData);
-console.log('parameter',params);
     this.restApiService.getByParameters(PathConstants.Fee_Get, params).subscribe(res => {
       console.log(res);
       if(res !== null && res !== undefined && res.length !== 0) {

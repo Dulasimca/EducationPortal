@@ -45,6 +45,7 @@ export class OnlineAssessmentComponent implements OnInit {
       const params = {
         'SchoolID': this.login_user.schoolId,
         'ClassID': this.login_user.classId,
+        'Medium': this.login_user.medium,
         'TestDate': this.datePipe.transform(this.date, 'yyyy-MM-dd')
       }
       this.restApiService.getByParameters(PathConstants.OnlineAssessment_Get, params).subscribe(res => {

@@ -51,6 +51,7 @@ export class PersonalDetailsComponent implements OnInit {
   cities?: any;
   logged_user: User;
   folderName: string = '';
+  maxDate: Date = new Date();
   @BlockUI() blockUI: NgBlockUI;
   @ViewChild('f', { static: false }) _personalDetailsForm: NgForm;
   public formData = new FormData();
@@ -78,8 +79,8 @@ export class PersonalDetailsComponent implements OnInit {
       if (this.responseData.length !== 0) {
         this.responseData.forEach((i: any) => {
           this.obj = i;
-          this.obj.DateofBirth = this.datePipe.transform(i.DateofBirth, 'yyyy-MM-dd'),
-            this.obj.DateofJoining = this.datePipe.transform(i.DateofJoining, 'yyyy-MM-dd'),
+          this.obj.DateofBirth = this.datePipe.transform(i.DateofBirth, 'MM/dd/yyyy'),
+            this.obj.DateofJoining = this.datePipe.transform(i.DateofJoining, 'MM/dd/yyyy'),
             this.obj.StudentPhotoFileName = (i.StudentPhotoFileName !== undefined && i.StudentPhotoFileName !== null) ?
               (i.StudentPhotoFileName.toString().trim() !== '' ? i.StudentPhotoFileName : '') : '',
             this.obj.FatherPhotoFileName = (i.FatherPhotoFileName !== undefined && i.FatherPhotoFileName !== null) ?
@@ -188,9 +189,9 @@ export class PersonalDetailsComponent implements OnInit {
   onSave() {
     this.blockUI.start('submitting...');
     this.obj.DateofBirth = (typeof (this.obj.DateofBirth) === 'object') ?
-      this.datePipe.transform(this.obj.DateofBirth, 'yyyy-MM-dd') : this.obj.DateofBirth;
+      this.datePipe.transform(this.obj.DateofBirth, 'MM/dd/yyyy') : this.obj.DateofBirth;
     this.obj.DateofJoining = (typeof (this.obj.DateofJoining) === 'object') ?
-      this.datePipe.transform(this.obj.DateofJoining, 'yyyy-MM-dd') : this.obj.DateofJoining;
+      this.datePipe.transform(this.obj.DateofJoining, 'MM/dd/yyyy') : this.obj.DateofJoining;
     this.restApiService.post(PathConstants.Registration_Post, this.obj).subscribe(res => {
       if (res) {
         this.clearForm();
@@ -242,6 +243,11 @@ export class PersonalDetailsComponent implements OnInit {
     actualFilename = fileToUpload.name;
     this.http.post(this.restApiService.BASEURL + PathConstants.FileUpload_Post, this.formData)
       .subscribe((event: any) => {
+        if(event) {
+          this._personalDetailsForm.control.markAsDirty();
+        } else {
+          this._personalDetailsForm.control.markAsUntouched();
+        }
       }
       );
     return actualFilename;
@@ -249,6 +255,7 @@ export class PersonalDetailsComponent implements OnInit {
 
   onFileUpload($event, id) {
     const file = $event.srcElement.files[0];
+    this._personalDetailsForm.control.markAsDirty();
     switch (id) {
       case 1:
         const s_URL = window.URL.createObjectURL(file);

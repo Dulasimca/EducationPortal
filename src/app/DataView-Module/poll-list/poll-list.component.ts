@@ -8,6 +8,7 @@ import * as _ from 'lodash';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { User } from 'src/app/Interfaces/user';
 import { AuthService } from 'src/app/Services/auth.service';
+import { TableConstants } from 'src/app/Common-Module/TableConstants';
 
 
 @Component({
@@ -25,8 +26,10 @@ export class PollListComponent implements OnInit {
   login_user: User;
   isDataAvailable: boolean;
   isActive: boolean;
-  @BlockUI() blockUI: NgBlockUI;
+  votingStatus: string;
   loading: boolean;
+  showVoteStatus: boolean;
+  @BlockUI() blockUI: NgBlockUI;
 
   constructor(private restApiService: RestAPIService, private messageService: MessageService, private authService: AuthService
     , private confirmationService: ConfirmationService) { }
@@ -37,16 +40,15 @@ export class PollListComponent implements OnInit {
       { label: 'Class Representative', value: 2 },
       { label: 'School Representative', value: 1 },
     ];
-
-    this.cols = [
-      // { field: 'RowId', header: 'ID' },
-      { field: 'FirstName', header: 'Nominee Name' }
-
-    ];
+    this.cols = TableConstants.PollListColumns;
     this.login_user = this.authService.UserInfo;
+    this.votingStatus = '';
+    this.showVoteStatus = false;
   }
 
   onView() {
+    this.votingStatus = '';
+    this.showVoteStatus = false;
     this.loading = true;
     this.data = [];
     let nomineeList = [];
@@ -61,30 +63,21 @@ export class PollListComponent implements OnInit {
         this.isDataAvailable = true;
         this.loading = false;
         votedList = res.slice(0);
-        // res.forEach(i => {
-        //   nomineeList.unshift({
-        //     'isActive': true,
-        //     'SchoolID': i.SchoolID,
-        //     'StudentID': i.StudentID,
-        //     'NomineeID': i.NomineeID,
-        //     'ElectionID': i.ElectionID,
-        //     'VoteStatus': i.VoteStatus,
-        //     'FirstName': i.FirstName,
-        //     'Name': i.Name
-        //   });
-        // })
-
       } else {
         this.isDataAvailable = false;
+        this.loading = false;
         votedList = [];
       }
-    });
     this.restApiService.getByParameters(PathConstants.Nominee_Get, params).subscribe(res => {
+      this.loading = true;
       if (res !== null && res !== undefined && res.length !== 0) {
         res.forEach(i => {
+          console.log('vtdlist', votedList);
           if (votedList.length !== 0) {
             votedList.forEach(j => {
               if (j.NomineeID === i.NomineeID) {
+                this.showVoteStatus = true;
+                this.votingStatus =  i.FirstName + ' - ' + i.ClassName + ' - ' + i.SectionName;
                 nomineeList.push({
                   'isVoted': 'true',
                   'RowId': i.RowId,
@@ -92,7 +85,7 @@ export class PollListComponent implements OnInit {
                   'ElectionID': i.ElectionID,
                   'NomineeID': i.NomineeID,
                   'FirstName': i.FirstName,
-                  'Name': i.Name
+                  'Class': i.ClassName + ' - ' + i.SectionName
                 })
               } else {
                 nomineeList.push({
@@ -102,11 +95,13 @@ export class PollListComponent implements OnInit {
                   'ElectionID': i.ElectionID,
                   'NomineeID': i.NomineeID,
                   'FirstName': i.FirstName,
-                  'Name': i.Name
+                  'Class': i.ClassName + ' - ' + i.SectionName
                 })
               }
             });
           } else {
+            this.votingStatus = '';
+            this.showVoteStatus = false;
             nomineeList.push({
               'isVoted': 'false',
               'RowId': i.RowId,
@@ -114,12 +109,22 @@ export class PollListComponent implements OnInit {
               'ElectionID': i.ElectionID,
               'NomineeID': i.NomineeID,
               'FirstName': i.FirstName,
-              'Name': i.Name
+              'Class': i.ClassName + ' - ' + i.SectionName
             })
           }
         });
+        this.loading = false;
+      } else {
+        this.loading = false;
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
+          summary: ResponseMessage.SUMMARY_WARNING, detail: ResponseMessage.NoRecordMessage
+        })
       }
     });
+  });
+    console.log('list', nomineeList);
     this.data = nomineeList;
   }
 

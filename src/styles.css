@@ -145,6 +145,12 @@ hr {
     text-shadow: 1px 1px 2px #0e3989;
     font-size: 20px;
 }
+.text-highlight {
+    color: #0b2b66 !important;
+    font-size: 20px;
+    text-shadow: .5px .5px 1px #0e3989;
+    font-weight: 500;
+}
 .full-screen {
     height: 100% !important;
     width: 100% !important;
@@ -313,6 +319,7 @@ background-color: #b8baf3;
 }
 .nav-container-page {
     margin-bottom: 3.5rem !important;
+    min-height: 620px !important;
     overflow-y: auto;
     overflow-x: hidden;
 }
@@ -617,7 +624,9 @@ td[_ngcontent-fng-c4] {
     border-width: 0 0 0 6px;
     color: #060b50 !important;
 }
-
+.p-inputgroup-addon:last-child, .p-inputgroup .p-float-label:last-child input, .p-inputgroup button:last-child, .p-inputgroup input:last-child {
+    color: #45e327 !important;
+}
 .p-overlaypanel {
     color: rgb(11, 43, 102) !important;
     background: whitesmoke !important;
@@ -640,7 +649,8 @@ td[_ngcontent-fng-c4] {
     padding: 0 0.2rem 0 0.2rem !important;
 }
 .p-datatable .p-datatable-footer, .p-datatable .p-datatable-thead>tr>th {
-    padding: 0.35rem !important;
+    /* padding: 0.35rem !important; */
+    padding: 0.35rem 0.35rem 0.35rem 0.45rem!important;
 }
 .p-datatable .p-datatable-tbody>tr>td {
     padding: .35rem !important;
@@ -660,12 +670,21 @@ legend {
 .p-datatable .p-datatable-footer, .p-datatable .p-datatable-thead>tr>th {
     color: whitesmoke !important;
 }
-.p-datatable .p-datatable-tbody>tr>td {
+/* .p-datatable .p-datatable-tbody>tr>td {
+    text-align: left !important;
+} */
+/* .p-datepicker {
+    position: fixed !important;
+} */
+.p-datatable.p-datatable-gridlines .p-datatable-tbody>tr>td, .p-datatable.p-datatable-gridlines .p-datatable-tfoot>tr>td, .p-datatable.p-datatable-gridlines .p-datatable-thead>tr>th {
     text-align: center !important;
 }
 .p-panel .p-panel-header {
     padding: 0.75rem !important;
 }
+.p-button .p-button-icon-right {
+    color: #45e327!important;
+ } 
 .p-calendar-w-btn .p-datepicker-trigger {
     color: #45e327 !important;
 }
@@ -708,6 +727,12 @@ legend {
     border-color: #b3f9a6 !important;
     color: #fff;
     box-shadow: 0 0 0 0.1rem #b3f9a6 !important
+}
+.fc .fc-scroller-liquid-absolute {
+    overflow: hidden !important;
+}
+.fc .fc-toolbar.fc-header-toolbar {
+    margin-bottom: .5rem !important;
 }
 /* end #Region 4 */
 

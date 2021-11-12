@@ -10,7 +10,8 @@
                 <div class="p-col-12 p-md-12 p-lg-2">
                   <div><label>Event Date<span class="form-mandatory-field">*</span></label></div>
 
-                  <p-calendar [(ngModel)]="date" [showIcon]="true" name="date"  required></p-calendar>
+                  <p-calendar [showOtherMonths]="false" [(ngModel)]="date" [showIcon]="true" name="date"
+                  [maxDate]="maxDate"  required></p-calendar>
                 </div>
                 <div class="p-col-12 p-md-12 p-lg-2">
                   <div><label for="_Category">Category<span class="form-mandatory-field">*</span></label></div>
@@ -29,7 +30,7 @@
                 </div>
                 <div class="p-col-12 p-md-12 p-lg-2">
                   <div><label for="_Award">Award Title<span class="form-mandatory-field">*</span></label></div>
-                  <p-dropdown name="_Award" [options]="AwardOption" (onClick)="onSelect('A')"  [(ngModel)]="Award">
+                  <p-dropdown name="_Award" [options]="AwardOption" (onClick)="onSelect('A')"  [(ngModel)]="Award" required>
                   </p-dropdown>
                 </div>
                 <div class="p-col-12 p-md-12 p-lg-3">
@@ -65,7 +66,7 @@
                   <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
                     <tr [pSelectableRow]="rowData" class="cursor-pointer" (dblclick)="onRowSelect($event, rowData)">
                       <td>{{rowIndex+1}}</td>
-                      <td *ngFor="let col of columns">
+                      <td *ngFor="let col of columns" [style.text-align]="col.align">
                         {{rowData[col.field]}}
                       </td>
                       <td style="width: 142px;"><i class="pi pi-download"  (click)="onDownload(rowData.filename)" 

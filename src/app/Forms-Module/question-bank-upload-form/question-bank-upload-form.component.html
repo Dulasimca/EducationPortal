@@ -1,22 +1,21 @@
 <block-ui>
-    <div class="p-col-12" >
+    <div class="p-col-12 p-md-12 p-lg-12">
         <p-toast position="top-center" key="t-msg"></p-toast>
-        <p-panel header="Question Bank Upload">
-            <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
+        <p-panel  #body header="Question Bank Upload">
+            <div class="p-col-12 p-md-12 p-lg-12 no-pad-top" style="min-height: 400px !important;">
                 <form #f="ngForm" name="questionBankForm">
                     <div class="p-grid">
                         <div class="p-col-12 p-md-12 p-lg-2"></div>
                         <div class="p-col-12 p-md-10 p-lg-8">
                             <p-card>
-                                <div #row1 class="p-col-12 p-md-12 p-lg-12">
+                                <div #row1 class="p-col-12 p-md-12 p-lg-12 no-pad-top">
                                     <div class="p-grid">
-                                        <div class="p-col-12 p-md-6 p-lg-2">
-                                            <div><label for="_class">Class<span
-                                                        class="form-mandatory-field">*</span></label>
-                                            </div>
-                                            <p-dropdown name="_class" [options]="classOptions" (onClick)="onSelect('C')"
-                                                [(ngModel)]="class" required>
-                                            </p-dropdown>
+                                        <div class="p-col-12 p-md-6 p-lg-3">
+                                            <div><label for="_pdate">Publish Date<span
+                                                        class="form-mandatory-field">*</span></label></div>
+                                            <p-calendar [showOtherMonths]="false" [(ngModel)]="publishDate" name="_pdate" [showIcon]="true"
+                                             required>
+                                            </p-calendar>
                                         </div>
                                         <div class="p-col-12 p-md-6 p-lg-3">
                                             <div><label for="_year">Year<span
@@ -36,7 +35,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div #row2 class="p-col-12 p-md-12 p-lg-12">
+                                <div #row2 class="p-col-12 p-md-12 p-lg-12 no-pad-top">
                                     <div class="p-grid">
                                         <div class="p-col-12 p-md-6 p-lg-6">
                                             <div><label for="_description">Description<span
@@ -46,17 +45,17 @@
                                             <div class="note">*Note: eg: "Science 2mark questions with solution part-I"
                                             </div>
                                         </div>
-                                        <div class="p-col-12 p-md-6 p-lg-2">
-                                            <div><label for="_medium">Medium<span
+                                        <div class="p-col-12 p-md-6 p-lg-3">
+                                            <div><label for="_class">Class<span
                                                         class="form-mandatory-field">*</span></label>
                                             </div>
-                                            <p-dropdown name="_medium" [options]="mediumOptions"
-                                                (onClick)="onSelect('M')" [(ngModel)]="medium" required>
+                                            <p-dropdown name="_class" [options]="classOptions" (onClick)="onSelect('C')"
+                                                [(ngModel)]="class" required>
                                             </p-dropdown>
                                         </div>
                                     </div>
                                 </div>
-                                <div #row3 class="p-col-12 p-md-12 p-lg-12">
+                                <div #row3 class="p-col-12 p-md-12 p-lg-12 no-pad-top">
                                     <div class="p-grid">
                                         <div class="p-col-12 p-md-8 p-lg-5">
                                             <div><label for="_pdate">Question Bank<span
@@ -70,16 +69,17 @@
                                             </div>
                                             <div>*Note: .pdf format</div>
                                         </div>
-                                        <div class="p-col-12 p-md-6 p-lg-3">
-                                            <div><label for="_pdate">Publish Date<span
-                                                        class="form-mandatory-field">*</span></label></div>
-                                            <p-calendar [(ngModel)]="publishDate" name="_pdate" [showIcon]="true"
-                                                required>
-                                            </p-calendar>
+                                        <div class="p-col-12 p-md-6 p-lg-2">
+                                            <div><label for="_medium">Medium<span
+                                                        class="form-mandatory-field">*</span></label>
+                                            </div>
+                                            <p-dropdown name="_medium" [options]="mediumOptions"
+                                                (onClick)="onSelect('M')" [(ngModel)]="medium" required>
+                                            </p-dropdown>
                                         </div>
                                     </div>
                                 </div>
-                                <div #row5 class="p-col-12 p-md-12 p-lg-12 text-center">
+                                <div #row4 class="p-col-12 p-md-12 p-lg-12 text-center no-pad-top">
                                     <button pButton name="_upload" type="button" label="Upload" (click)="onUpload()"
                                         [disabled]="(!f.valid)"></button> &nbsp;
                                     <button pButton name="_view" type="button" label="View"
@@ -101,8 +101,8 @@
                         </div>
                         <div #row2 class="p-col-12 p-md-12 p-lg-12">
                             <div class="p-grid">
-                                <div class="p-col-1 no-pad-top"><label>Year:</label> </div>
-                                <div class="p-col-2" style="margin-left: -3%">
+                                <div class="p-col-1 no-pad-top align-el-center text-left"><label>Year:</label> </div>
+                                <div class="p-col-2" style="margin-left: -4%">
                                     <p-dropdown [options]="viewYearOptions" [(ngModel)]="selectedYear"
                                         (onClick)="onSelect('Y')" (onChange)="onLoadQuestionBank()"></p-dropdown>
                                 </div>
@@ -110,28 +110,28 @@
                         </div>
                         <div #row3 class="p-col-12">
                             <p-table [columns]="questionBankCols" [value]="questionBankData" [paginator]="true"
-                                [rows]="10" [loading]="loading">
+                                [rows]="10" [loading]="loading" styleClass="p-datatable-gridlines">
                                 <ng-template pTemplate="header" let-rowData let-columns>
                                     <tr>
-                                        <th style="width: 90px">S.No</th>
-                                        <th *ngFor="let col of columns">
+                                        <th style="width: 60px">S.No</th>
+                                        <th *ngFor="let col of columns" [style.width]="col.width">
                                             {{col.header}}
                                         </th>
-                                        <th>Edit</th>
-                                        <th>Delete</th>
+                                        <th style="width: 90px">Edit</th>
+                                        <th style="width: 90px">Delete</th>
                                     </tr>
                                 </ng-template>
                                 <ng-template pTemplate="body" let-rowIndex="rowIndex" let-rowData let-columns="columns">
                                     <tr>
-                                        <td style="width: 90px">{{rowIndex+1}}</td>
-                                        <td *ngFor="let col of columns">
+                                        <td style="width: 60px">{{rowIndex+1}}</td>
+                                        <td *ngFor="let col of columns" [style.width]="col.width" [style.text-align]="col.align">
                                             {{rowData[col.field]}}
                                         </td>
-                                        <td class="cursor-pointer" (click)="onEdit(rowData)"><i class="pi pi-pencil"
-                                                style="padding-left: 10px; color: #52de38; font-size: 1.5rem;"></i>
+                                        <td class="cursor-pointer" (click)="onEdit(rowData)"style="width: 90px"><i class="pi pi-pencil"
+                                                style="padding-left: 10px; color: #45e327; font-size: 1.5rem;"></i>
                                         </td>
-                                        <td class="cursor-pointer" (click)="onDelete(rowData.RowId)"><i class="pi pi-trash"
-                                                style="padding-left: 10px; color: #52de38; font-size: 1.5rem;"></i>
+                                        <td class="cursor-pointer" (click)="onDelete(rowData.RowId)"style="width: 90px"><i class="pi pi-trash"
+                                                style="padding-left: 10px; color: #45e327; font-size: 1.5rem;"></i>
                                         </td>
                                     </tr>
                                 </ng-template>

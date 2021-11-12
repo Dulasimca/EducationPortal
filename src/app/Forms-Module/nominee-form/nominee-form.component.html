@@ -9,7 +9,8 @@
               <div class="p-grid">
                 <div class="p-col-12 p-md-6 p-lg-3">
                   <div><label>Date</label></div>
-                  <p-calendar [(ngModel)]="date" [showIcon]="true" name="date" required></p-calendar>
+                  <p-calendar [(ngModel)]="date" [showIcon]="true" name="date"
+                  [showOtherMonths]="false" required></p-calendar>
                 </div>
                 <div class="p-col-12 p-md-12 p-lg-3">
                   <div><label for="_position">Election Name</label></div>
@@ -55,7 +56,7 @@
                   <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
                     <tr [pSelectableRow]="rowData" class="cursor-pointer" (dblclick)="onRowSelect($event, rowData)">
                       <td>{{rowIndex+1}}</td>
-                      <td *ngFor="let col of columns">
+                      <td *ngFor="let col of columns" [style.text-align]="col.align">
                         {{rowData[col.field]}}
                       </td>
                     </tr>
@@ -66,8 +67,6 @@
           </p-card>
         </form>
       </div>
-
     </p-panel>
-
   </div>
 </block-ui>

@@ -50,11 +50,11 @@ export class TestDetailsFormComponent implements OnInit {
   tests?: any;
   questions: Question[] = [];
   options: Option[] = [];
+  showTable: boolean;
   disableSubject: boolean;
   @ViewChild('fileSelector', { static: false }) fileSelector: ElementRef;
   @ViewChild('f', { static: false }) _testForm: NgForm;
   @BlockUI() blockUI: NgBlockUI;
-  showTable: boolean;
 
   constructor(private authService: AuthService, public masterService: MasterService,
     private restApiService: RestAPIService, private messageService: MessageService,

@@ -62,14 +62,12 @@ export class BookFormComponent implements OnInit {
       { label: '2021-2023', value: '2021-2024' },
     ];
     this.cols = [
-     // {field:'RowId',header: 'ID'},
-      {field: 'Years',header: 'Year'},
-      {field: 'Class2',header:'Class'},
-      {field: 'medium',header:'Medium'},
-      {field:'subjects',header: 'Subject'},
-      {field: 'authorReference',header: 'Author/Reference', width: '300px'},
-   //   {field: 'Pdffilename',header: 'Book Name'},
-      {field: 'CreatedDate',header: 'Uploaded date'},
+      {field: 'Years',header: 'Year', align: 'center !important'},
+      {field: 'Class2',header:'Class', align: 'left !important'},
+      {field: 'medium',header:'Medium', align: 'left !important'},
+      {field:'subjects',header: 'Subject', align: 'left !important'},
+      {field: 'authorReference',header: 'Author/Reference', width: '300px', align: 'left !important'},
+      {field: 'CreatedDate',header: 'Uploaded date', align: 'center !important'},
       
       
     ];
@@ -97,14 +95,13 @@ export class BookFormComponent implements OnInit {
          
       }
     }
+
   public uploadFile = (files) => {
     if (files.length === 0) {
       return;
     }
-    
     this.formData = new FormData()
     let fileToUpload: any = <File>files[0];
- 
     const filename = fileToUpload.name + '^' + FileUploadConstant.Booksfolder;
     this.formData.append('file', fileToUpload, filename);
     console.log('file', fileToUpload);
@@ -112,15 +109,7 @@ export class BookFormComponent implements OnInit {
     this.NewFileName=fileToUpload.name;
     this.http.post(this.restApiService.BASEURL +PathConstants.FileUpload_Post, this.formData)
       .subscribe(event => 
-        {
-      //          if (event.type === HttpEventType.UploadProgress)
-      //    this.progress = Math.round(100 * event.loaded / event.total);
-      //   else if (event.type === HttpEventType.Response) {
-      //    this.message = 'Upload success.';
-        
-      //  //   this.onUploadFinished.emit(event.body);
-      //   }
-      }
+        { }
       );
   }  
 

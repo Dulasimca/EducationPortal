@@ -13,6 +13,7 @@ import { saveAs } from 'file-saver';
 import { Output, EventEmitter } from '@angular/core';
 import { User } from 'src/app/Interfaces/user';
 import { MasterService } from 'src/app/Services/master-data.service';
+import { TableConstants } from 'src/app/Common-Module/TableConstants';
 
 
 @Component({
@@ -37,26 +38,15 @@ export class AnnouncementFormComponent implements OnInit {
   login_user: User;
   showtable: boolean;
   loading: boolean;
-  
   public formData = new FormData();
-
   @Output() public onUploadFinished = new EventEmitter();
-
   @BlockUI() blockUI: NgBlockUI;
-
 
   constructor(private restApiService: RestAPIService, private http: HttpClient,private datepipe: DatePipe,private messageService: MessageService
     ,private authService: AuthService,private masterService: MasterService,private confirmationService: ConfirmationService) { }
 
-
   ngOnInit(): void {
-    this.cols = [
-      // { field: 'RowId', header: 'ID' },
-      { field: 'Announcementdate', header: 'Date',width: '100px' },
-      { field: 'AnnouncementTag', header: 'Title',width: '100px' },
-      { field: 'Announcement', header: 'Announcement',width: '400px' },
-      // { field: 'Announcementfilename', header: 'ANNOUNCEMENT FILENAME'}
-      ];
+    this.cols = TableConstants.AnnouncementsColumns;
       this.login_user = this.authService.UserInfo;
   }
 

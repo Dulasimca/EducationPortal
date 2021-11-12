@@ -109,6 +109,7 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ConfirmationService} from 'primeng/api';
 import { AssessmentComponent } from './Forms-Module/assessment/assessment.component';
 import { FeesDetailsComponent } from './DataView-Module/fees-details/fees-details.component';
+import { AssessmentResultComponent } from './Forms-Module/assessment-result/assessment-result.component';
 
   
 FullCalendarModule.registerPlugins([
@@ -178,6 +179,7 @@ FullCalendarModule.registerPlugins([
     UploadDownloadformsComponent,
     InputFormatDirective,
     AssessmentComponent,
+    AssessmentResultComponent,
   ],
   imports: [
     BrowserModule,

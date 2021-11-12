@@ -5,6 +5,7 @@ import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import{FileUploadConstant} from 'src/app/Common-Module/file-upload-constant'
 import { ConfirmationService } from 'primeng/api';
+import { TableConstants } from 'src/app/Common-Module/TableConstants';
 
 @Component({
   selector: 'app-announcement',
@@ -19,13 +20,7 @@ export class AnnouncementComponent implements OnInit {
   constructor(private restApiService: RestAPIService, private http: HttpClient,private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
-    this.cols = [
-    
-      { field: 'Announcementdate', header: 'Date', width: '70px' },
-      { field: 'AnnouncementTag', header: 'Title', width: '100px'},
-      { field: 'Announcement', header: 'Announcement', width :'400px' },
- 
-      ];
+    this.cols = TableConstants.AnnouncementsColumns;
     this.onView()
   }
   onDownload(Filename) {

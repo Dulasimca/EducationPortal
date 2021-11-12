@@ -31,8 +31,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { ToastModule } from 'primeng/toast';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { BlockUIModule } from 'ng-block-ui';
-import {ProgressBarModule} from 'primeng/progressbar';
-import {OverlayPanelModule} from 'primeng/overlaypanel';
+import { ProgressBarModule } from 'primeng/progressbar';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { KnobModule } from "primeng/knob";
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -222,6 +223,7 @@ FullCalendarModule.registerPlugins([
     ConfirmDialogModule,
     FlexLayoutModule,
     MatIconModule,
+    KnobModule,
     BlockUIModule.forRoot()
   ],
   providers: [PrimeNGConfig, FilterService, AuthGuard, AuthService, RestAPIService,

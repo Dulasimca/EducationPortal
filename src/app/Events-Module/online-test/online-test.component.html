@@ -3,7 +3,7 @@
 <block-ui>
 <div #main class="p-col-12 p-md-12 p-lg-12">
   <p-panel header="Online Test">
-    <div *ngIf="!isSaved" class="p-col-12 p-md-12 p-lg-12 no-pad-top">
+    <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
       <div class="p-col-12 p-md-12 p-lg-12 no-pad-top no-pad-bottom text-center">
         <h3 style="margin: 0 !important;">{{testName}}</h3>
       </div>
@@ -57,19 +57,6 @@
           </div>
         </div>
       </div>
-    </div>
-    <div *ngIf="isSaved" class="p-col-12 p-md-12 p-lg-12 no-pad-top card">
-      <p-card>
-        <div class="p-col-8">
-            you can view the result of the test by clicking below button!!!
-        <div class="p-col-12 p-md-12 p-lg-12">
-          <div class="text-center">
-            <button pButton class="btn" type="button" label="View Result" icon="pi pi-eye" (click)="onViewResult()"
-             ></button>
-          </div>
-        </div>
-      </div>
-      </p-card>
     </div>
   </p-panel>
 </div>

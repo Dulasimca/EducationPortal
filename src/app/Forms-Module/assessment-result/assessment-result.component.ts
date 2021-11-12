@@ -27,6 +27,7 @@ export class AssessmentResultComponent implements OnInit {
   totalMarks: any;
   testDescription: string;
   subject: string;
+  score: number;
   constructor(private _authService: AuthService, private _masterService: MasterService,
     private _datepipe: DatePipe, private _restApiService: RestAPIService,
     private _messageService: MessageService) { }
@@ -53,12 +54,10 @@ export class AssessmentResultComponent implements OnInit {
     const params = {
       'SchoolId': this.login_user.schoolId,
       'StudentId': this.login_user.id,
-      'ClassId': this.login_user.classId,
-      'SectionId': this.login_user.section,
       'TestId': this.testId,
-      'TestDate': this._datepipe.transform(this.testDate, 'MM/dd/yyyy')
+      'TestDate': this._datepipe.transform(this.testDate, 'MM/dd/yyyy'),
     }
-    this._restApiService.post(PathConstants.OnlineAssessment_Asnwer_Post, params).subscribe(res => {
+    this._restApiService.getByParameters(PathConstants.OnlineAssessment_Asnwer_Get, params).subscribe(res => {
       if (res !== undefined && res !== null) {
         if (res.length !== 0) {
           this.assessmentDetails = res;

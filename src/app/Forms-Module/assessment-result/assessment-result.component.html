@@ -66,5 +66,10 @@
                 </div>
             </div>
         </div>
+        <div class="p-col-12 p-md-12 p-lg-12">
+            <div style="font-size: 16px;">Your score out of {{totalMarks}} marks :</div>
+            <p-knob [(ngModel)]="score" [readonly]="true" valueColor="#8C99A6"
+            rangeColor="#45e327"></p-knob>
+        </div>
     </p-dialog>
 </div>

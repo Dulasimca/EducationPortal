@@ -13,6 +13,8 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { NavigationEnd, Router } from '@angular/router';
 import { LocationStrategy } from '@angular/common';
 import { filter } from 'rxjs';
+import { AuthService } from 'src/app/Services/auth.service';
+import { User } from 'src/app/Interfaces/user';
 @Component({
     selector: 'app-online-test',
     templateUrl: './online-test.component.html',
@@ -54,6 +56,7 @@ export class OnlineTestComponent implements OnInit {
     };
     isSaved: boolean;
     isSubmitted: boolean;
+    login_user: User;
     @BlockUI() blockUI: NgBlockUI;
     // @HostListener("window:beforeunload", ["$event"]) unloadHandler(event: Event) {
     //     console.log("Processing beforeunload...", event);
@@ -65,7 +68,7 @@ export class OnlineTestComponent implements OnInit {
     // }
     
     constructor(private restApiService: RestAPIService, private testService: AssessmentService,
-        private messageService: MessageService, private router: Router,
+        private messageService: MessageService, private router: Router, private authService: AuthService,
         private _locationStrategy: LocationStrategy) {
             this.router.events
             .pipe(filter((rs): rs is NavigationEnd => rs instanceof NavigationEnd))
@@ -78,6 +81,7 @@ export class OnlineTestComponent implements OnInit {
          }
 
     ngOnInit(): void {
+        this.login_user = this.authService.UserInfo;
         this.ellapsedTime = "00:00";
         this.loadQues();
         this.loadTest();
@@ -256,6 +260,7 @@ export class OnlineTestComponent implements OnInit {
                             isAnswered: x.answered,
                             OptionId: y.optionId,
                             isSelected: y.selected,
+                            StudentId: this.login_user.id
                         })
                     }
                 })
@@ -267,6 +272,7 @@ export class OnlineTestComponent implements OnInit {
                     isAnswered: x.answered,
                     OptionId: 0, //no question answered
                     isSelected: false, //answer is not selected
+                    StudentId: this.login_user.id
                 })
             }
         });
@@ -310,6 +316,4 @@ export class OnlineTestComponent implements OnInit {
             }
         })
     }
-
-    onViewResult() { }
 }

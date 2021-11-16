@@ -25,7 +25,6 @@ export class BookFormComponent implements OnInit {
   selectedYear: number;
   Author:string;
   yearOptions: SelectItem[];
-  selectedyear: string;
   cols: any; 
   form:any;
   ClassId: any;
@@ -54,7 +53,7 @@ export class BookFormComponent implements OnInit {
     private authService: AuthService,private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
-    this.years = this.masterService.getAccountingYear();
+   
     this.masterService.getMaster('');
     this.login_user = this.authService.UserInfo;
     var data = [];
@@ -76,6 +75,7 @@ export class BookFormComponent implements OnInit {
     ];
   }
   onSelect(type) {
+    this.years = this.masterService.getAccountingYear();
     this.classes = this.masterService.getMaster('C');
     this.mediums = this.masterService.getMaster('M');
     let classSelection = [];
@@ -134,7 +134,7 @@ export class BookFormComponent implements OnInit {
       'subjects': this.Subject,     
       'authorReference': this.Author,
       'Pdffilename': this.NewFileName,  
-      'Years': this.selectedyear, 
+      'Years': this.selectedYear, 
       'medium': this.medium,  
       'Flag': true,  
     };
@@ -212,7 +212,6 @@ export class BookFormComponent implements OnInit {
     this.yearOptions = [];
     this.Subject = '',
     this.Author = '',
-    this.selectedyear = '',
     this.message =''
     this.data = [];
   }
@@ -228,7 +227,7 @@ export class BookFormComponent implements OnInit {
     this.classOptions = classSelection;
     this.Author = selectedRow.authorReference;
     this.Subject = selectedRow.subjects;
-    this.selectedyear = selectedRow.Years;
+    this.selectedYear = selectedRow.Years;
     this.NewFileName=selectedRow.Pdffilename;
 }
 onDownload(Filename) {

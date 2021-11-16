@@ -14,6 +14,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { ExcelService } from 'src/app/Services/excel.service';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { DatePipe } from '@angular/common';
+import { TableConstants } from 'src/app/Common-Module/TableConstants';
 
 
 @Component({
@@ -52,6 +53,8 @@ export class TestDetailsFormComponent implements OnInit {
   options: Option[] = [];
   showTable: boolean;
   disableSubject: boolean;
+  assessmentDetails: any[] = [];
+  assessmentCols: any;
   @ViewChild('fileSelector', { static: false }) fileSelector: ElementRef;
   @ViewChild('f', { static: false }) _testForm: NgForm;
   @BlockUI() blockUI: NgBlockUI;
@@ -188,6 +191,7 @@ export class TestDetailsFormComponent implements OnInit {
       'SubjectId': this.subject,
       'AssessmentTime': this.datePipe.transform(this.testTime, 'shortTime'),
       'Medium': this.medium,
+      'CreatedBy': this.login_user.id,
       'Flag': 1,
     };
     this.restApiService.post(PathConstants.OnlineAssessment_Post, params).subscribe(res => {
@@ -221,8 +225,66 @@ export class TestDetailsFormComponent implements OnInit {
   }
 
   onView() {
-    this.showTable = true;
-    //this.restApiService.getByParameters
+    const params = {
+      'CreatedBy': this.login_user.id,
+      'TestDate': this.datePipe.transform(this.testDate, 'MM/dd/yyyy'),
+      'Type': 1
+    }
+    this.restApiService.getByParameters(PathConstants.OnlineAssessment_Get, params).subscribe(res => {
+      if(res !== undefined && res !== null) {
+        if(res.length !== 0) {
+          this.assessmentCols = TableConstants.OnlineAssessmentColumns;
+          this.showTable = true;
+          this.assessmentDetails = res;
+        } else {
+        this.showTable = false;
+        this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
+            summary: ResponseMessage.SUMMARY_WARNING, detail: ResponseMessage.NoRecordMessage
+          });
+        }
+      } else {
+        this.showTable = false;
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
+          summary: ResponseMessage.SUMMARY_WARNING, detail: ResponseMessage.NoRecordMessage
+        });
+      }
+    })
+  }
+
+  onEdit(selectedRow) {
+    this.testNameOptions = [{ label: selectedRow.TestTypeName, value: selectedRow.TestTypeId }];
+    this.testName = selectedRow.TestTypeId;
+    this.class = selectedRow.Classcode;
+    this.classOptions = [{ label: selectedRow.ClassName, value: selectedRow.Classcode }];
+    this.subject = selectedRow.SubjectId;
+    this.subjectOptions = [{ label: selectedRow.ClassName, value: selectedRow.SubjectId }];
+
+  }
+
+  onDelete(selectedRow) {
+    const params = {
+      'TestId': selectedRow.RowId,
+      'type': 1
+    }
+    this.restApiService.put(PathConstants.OnlineAssessment_Put, params).subscribe(res => {
+      if(res) {
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_SUCCESS,
+          summary: ResponseMessage.SUMMARY_SUCCESS, detail: ResponseMessage.DeleteSuccessMsg
+        });
+      } else {
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+          summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.DeleteFailMsg
+        });
+      }
+    })
   }
 
   onDownload() {

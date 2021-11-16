@@ -8,12 +8,12 @@
                             <div class="p-col-12 p-md-6 p-lg-2 no-pad-left" style="margin: left -3px;">
                                 <label for="_dateofapply">Date of Apply<span
                                         class="form-mandatory-field">*</span></label>
-                                <p-calendar [showOtherMonths]="false" [(ngModel)]="date" name="_dateofapply" [showIcon]="true"></p-calendar>
+                                <p-calendar dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="date" name="_dateofapply" [showIcon]="true"></p-calendar>
                             </div>
                             <div class="p-col-12 p-md-6 p-lg-2 no-pad-left" style="margin: left -3px;">
                                 <label for="_dateofjoin">Date of Joining<span
                                         class="form-mandatory-field">*</span></label>
-                                <p-calendar [showOtherMonths]="false" [(ngModel)]="dateofJoin" name="_dateofjoin" [showIcon]="true"></p-calendar>
+                                <p-calendar dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="dateofJoin" name="_dateofjoin" [showIcon]="true"></p-calendar>
                                 <span><p style="font-size: smaller;">*Select new school joining date</p></span>
                             </div>
                             <div class="p-col-12 p-md-6 p-lg-2 no-pad-left">

@@ -5,7 +5,7 @@
             <p-card>
                 <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
                    <div class="no-pad-top"><label>Date:</label> </div>  
-                    <p-calendar [showOtherMonths]="false" [(ngModel)]="date" [showIcon]="true" (onSelect)="onLoadAssessment()" [minDate]="minDate"></p-calendar>
+                    <p-calendar dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="date" [showIcon]="true" (onSelect)="onLoadAssessment()" [minDate]="minDate"></p-calendar>
                     <button pButton type="button" label="Refresh" style="margin-left: 40%;" icon="pi pi-refresh" (click)="onLoadAssessment()" ></button>
 
                 </div>

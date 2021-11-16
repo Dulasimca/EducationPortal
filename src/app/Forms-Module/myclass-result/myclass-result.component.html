@@ -109,7 +109,7 @@
                                                 <div><label for="_dateofsubmit">Date of Submit<span
                                                             class="form-mandatory-field">*</span></label>
                                                 </div>
-                                                <p-calendar [showOtherMonths]="false" [(ngModel)]="dos" named="_dateofsubmit"
+                                                <p-calendar dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="dos" named="_dateofsubmit"
                                                     [monthNavigator]="true" [yearNavigator]="true"
                                                     yearRange="{{yearRange}}" [showIcon]="true" inputId="dateofsunmit"
                                                     required>

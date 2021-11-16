@@ -22,6 +22,7 @@ import { AuthService } from 'src/app/Services/auth.service';
 export class BookFormComponent implements OnInit {
   MRowId:0
   Subject: string;
+  selectedYear: number;
   Author:string;
   yearOptions: SelectItem[];
   selectedyear: string;
@@ -32,6 +33,7 @@ export class BookFormComponent implements OnInit {
   mediumOptions: SelectItem[];
   classOptions: SelectItem[];
   classes?: any;
+  years?: any;
   mediums?: any;
   data: any = [];
   uploadedFiles: any[] = [];
@@ -52,15 +54,18 @@ export class BookFormComponent implements OnInit {
     private authService: AuthService,private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
-  
+    this.years = this.masterService.getAccountingYear();
     this.masterService.getMaster('');
     this.login_user = this.authService.UserInfo;
-    this.yearOptions = [
-      //{ label: '2019-2020', value: '2019-2020' },
-      { label: '2020-2021', value: '2020-2021' },
-      { label: '2021-2022', value: '2021-2022' },
-      { label: '2021-2023', value: '2021-2024' },
-    ];
+    var data = [];
+    if(this.years.length !== 0) {
+      this.years.forEach(y => {
+       data.push({ label: y.ShortYear, value: y.Id });
+      })
+      this.yearOptions = data;
+      this.selectedYear = data[0].value;
+      // this.onview();
+    }
     this.cols = [
       {field: 'Years',header: 'Year', align: 'center !important'},
       {field: 'Class2',header:'Class', align: 'left !important'},
@@ -68,8 +73,6 @@ export class BookFormComponent implements OnInit {
       {field:'subjects',header: 'Subject', align: 'left !important'},
       {field: 'authorReference',header: 'Author/Reference', width: '300px', align: 'left !important'},
       {field: 'CreatedDate',header: 'Uploaded date', align: 'center !important'},
-      
-      
     ];
   }
   onSelect(type) {
@@ -77,6 +80,8 @@ export class BookFormComponent implements OnInit {
     this.mediums = this.masterService.getMaster('M');
     let classSelection = [];
     let mediumSelection = [];
+    let yearSelection = [];
+
     switch (type) {
       case 'C':
         this.classes.forEach(c => {
@@ -92,6 +97,13 @@ export class BookFormComponent implements OnInit {
           this.mediumOptions = mediumSelection;
           this.mediumOptions.unshift({ label: '-select', value: null });
           break;
+          case 'Y':
+             this.years.forEach(y => {
+      yearSelection.push({ label: y.ShortYear, value: y.Id });
+
+    })
+    this.yearOptions = yearSelection;
+    this.yearOptions.unshift({ label: '-select-', value: null });
          
       }
     }

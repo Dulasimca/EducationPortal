@@ -104,8 +104,6 @@ export class BookFormComponent implements OnInit {
     let fileToUpload: any = <File>files[0];
     const filename = fileToUpload.name + '^' + FileUploadConstant.Booksfolder;
     this.formData.append('file', fileToUpload, filename);
-    console.log('file', fileToUpload);
-    console.log('formdata', this.formData);
     this.NewFileName=fileToUpload.name;
     this.http.post(this.restApiService.BASEURL +PathConstants.FileUpload_Post, this.formData)
       .subscribe(event => 
@@ -126,11 +124,9 @@ export class BookFormComponent implements OnInit {
       'medium': this.medium,  
       'Flag': true,  
     };
-    console.log(params);
     this.restApiService.post(PathConstants.Book_Post, params).subscribe(res => {
       if(res !== undefined && res !== null) {
         if (res) {
-
           this.blockUI.stop();
           this.onClear();
           this.messageService.clear();
@@ -139,7 +135,6 @@ export class BookFormComponent implements OnInit {
             summary: ResponseMessage.SUMMARY_SUCCESS, detail: ResponseMessage.SuccessMessage
           });
           this.message = 'Upload success.';
-
         } else {
           this.blockUI.stop();
           this.messageService.clear();
@@ -173,8 +168,8 @@ export class BookFormComponent implements OnInit {
     this.showtable = true;
     const params = { 
       'SchoolID': this.login_user.schoolId,
+      'ClassId': this.login_user.classId
     }
-    
     this.restApiService.getByParameters(PathConstants.Book_Get, params).subscribe(res => {
       if(res !== null && res !== undefined && res.length !==0) {
         this.loading=false;

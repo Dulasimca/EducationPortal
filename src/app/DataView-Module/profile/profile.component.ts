@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FileUploadConstant } from 'src/app/Common-Module/file-upload-constant';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { Profile } from 'src/app/Interfaces/profile';
 import { User } from 'src/app/Interfaces/user';
@@ -33,17 +34,16 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() { 
     const user: User = this.authService.UserInfo;
-    this.userImage = (user.studentImg.trim() !== '') ? user.studentImg : '';
     const params = { 'Value': user.email, 'Type': '2', 'SchoolId': user.schoolId, 'RoleId': user.roleId };
     this.restApiService.getByParameters(PathConstants.Registration_Get, params).subscribe(response => {
       if(response !== undefined && response !== null && response.length !== 0) {
         response.forEach(i => {
           for(var j in i) {
             if(i[j] === null || i[j] === undefined) {
-              console.log('objjevry', i[j])
               i[j] = '';
             }
           }
+          var folderName = ((i.RoleId) * 1) ? FileUploadConstant.StudentRegistration : FileUploadConstant.TeacherRegistration;
           this.name = (i.FirstName !== undefined && i.FirstName !== null) ? ((i.FirstName.toString().trim() !== '') ? i.FirstName : '-') : '-',
           this.class = (i.Classname2 !== undefined && i.Classname2 !== null) ? ((i.Classname2.toString().trim() !== '') ? i.Classname2 : '-') : '-',
           this.section = (i.SectionName !== undefined && i.SectionName !==null) ? ((i.SectionName.toString().trim() !== '') ? i.SectionName : '-') : '-',
@@ -55,7 +55,8 @@ export class ProfileComponent implements OnInit {
           this.motherContact = (i.MotherMobileNo !== undefined && i.MotherMobileNo !== null) ? ((i.MotherMobileNo.toString().trim() !== '') ? i.MotherMobileNo : '-') : '-',
           this.guardian = (i.GaurdianMobileNo !== undefined && i.GaurdianMobileNo !== null) ? ((i.GaurdianMobileNo.toString().trim() !== '') ? i.GaurdianMobileNo : '-') : '-',
           this.address = (i.CurrentAddress !== undefined && i.CurrentAddress !== null) ? ((i.CurrentAddress.toString().trim() !== '') ? i.CurrentAddress : '-') : '-',
-          this.emailId = (i.EmailId !== undefined && i.EmailId !== null) ? ((i.EmailId.toString().trim() !== '') ? i.EmailId : '-') : '-'
+          this.emailId = (i.EmailId !== undefined && i.EmailId !== null) ? ((i.EmailId.toString().trim() !== '') ? i.EmailId : '-') : '-';
+          this.userImage = (i.StudentPhotoFileName !== undefined && i.StudentPhotoFileName !== null) ? (i.StudentPhotoFileName.trim() !== '' ? ('../../assets/layout/' + folderName +'/'+ i.studentPhotoFileName) : '') : '';
         })
         this.responseData = response;
   }

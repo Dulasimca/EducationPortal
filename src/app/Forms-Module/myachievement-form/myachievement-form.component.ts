@@ -82,7 +82,7 @@ export class MyachievementFormComponent implements OnInit {
     const params = {
       'RowId': this.MRowId,
       'SchoolId': this.login_user.schoolId,
-      'StudentId': 1,
+      'StudentId': this.login_user.id,
       'eventdate': this.datepipe.transform(this.date, 'MM/dd/yyyy'),
       'EventDetailS': this.event,
       'Category': this.Category,

@@ -52,7 +52,7 @@ export class BookFormComponent implements OnInit {
     private authService: AuthService, private confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
-   
+    this.years = this.masterService.getAccountingYear();
     this.masterService.getMaster('');
     this.login_user = this.authService.UserInfo;
     var data = [];
@@ -77,7 +77,6 @@ export class BookFormComponent implements OnInit {
     this.years = this.masterService.getAccountingYear();
     this.classes = this.masterService.getMaster('C');
     this.mediums = this.masterService.getMaster('M');
-    this.years = this.masterService.getAccountingYear();
     let classSelection = [];
     let mediumSelection = [];
     let yearSelection = [];

@@ -42,6 +42,10 @@ export class ResultComponent implements OnInit {
     this._dialogPane.showHeader = false;
   }
 
+  onClose() {
+    this.visible = false;
+  }
+
 }
 interface year {
   name: string,

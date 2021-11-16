@@ -36,6 +36,8 @@
         </div>
     </p-panel>
     <p-dialog #dialog [(visible)]="visible"  [style]="{width: '50vw', padding: '0 !important'}">
+        <div style="padding-top: 5px;color: #817d7d" class="text-end"><i class="pi pi-times" (click)="onClose()"
+            style="font-size: 1.25rem;"></i></div>
         <app-subject-testresult></app-subject-testresult>
     </p-dialog>
     

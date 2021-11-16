@@ -22,7 +22,7 @@
                 <div class="p-col-12 p-md-12 p-lg-2">
                   <div><label for="_ClassId">Class<span class="form-mandatory-field">*</span></label>
                   </div>
-                  <p-dropdown name="_ClassId" [options]="classOptions" [(ngModel)]="ClassId" optionLabel="label"
+                  <p-dropdown name="_ClassId" [options]="classOptions" [(ngModel)]="ClassId"
                     name="ClassId" (onClick)="onSelect('C')" required>
                   </p-dropdown>
                 </div>
@@ -63,7 +63,7 @@
             <div class="p-col-12 p-md-6 p-lg-12" style="margin-left:30%;">
               <button pButton name="save" type="button" label="Submit" icon="pi pi-save" (click)="onSubmit()"
                 [disabled]="(!f.valid)"></button>
-              <button pButton type="button" label="View" (click)="onview()" icon="pi pi-eye" style="margin-left:2%;"></button>
+              <button pButton type="button" label="View" (click)="onView()" icon="pi pi-eye" style="margin-left:2%;"></button>
               <button pButton type="button" label="Clear" (click)="onClear()"
               icon="pi pi-times-circle" style="margin-left: 2%;"></button>
             </div>

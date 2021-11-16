@@ -36,13 +36,13 @@
                                     <div class="p-grid">
                                         <div class="p-col-6 p-md-6 p-lg-3">
                                             <label for="_mdate">Date<span class="form-mandatory-field">*</span></label>
-                                            <p-calendar [showOtherMonths]="false" [(ngModel)]="meetingDate" name="_mdate" [showIcon]="true"
+                                            <p-calendar dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="meetingDate" name="_mdate" [showIcon]="true"
                                                inputId="meetingDate" required>
                                             </p-calendar>
                                         </div>
                                         <div class="p-col-6 p-md-6 p-lg-3">
                                             <label for="_time">Time</label>
-                                            <p-calendar [showOtherMonths]="false" [(ngModel)]="meetingTime" [timeOnly]="true"
+                                            <p-calendar dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="meetingTime" [timeOnly]="true"
                                             icon="pi pi-clock" inputId="meetingTime">
                                             <!-- hourFormat="12" -->
                                             </p-calendar>

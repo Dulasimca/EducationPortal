@@ -4,7 +4,7 @@
             <p-card>
                 <div class="p-col-12 p-md-12 p-lg-12 no-pad-top" style="margin-top: -5px;">
                    <div class="no-pad-top"><label>Date:</label> </div>  
-                    <p-calendar [showOtherMonths]="false" [(ngModel)]="date" [showIcon]="true"></p-calendar>
+                    <p-calendar dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="date" [showIcon]="true"></p-calendar>
                 </div>
                 <div>
                     <p-table [value]="data">

@@ -1,43 +1,147 @@
-<div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px; height: 520px;">
-    <p-panel header="MCQ Test Result">
-        <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
-            <form #f="ngForm" name="ResultForm">
-                <p-card>
-                    <div class="p-col-12 p-md-12 p-lg-12">
-                        <div class="p-grid">
-
-                            <div class="p-col-12 p-md-6 p-lg-3">
-                                <div><label>Year:</label></div>
-                                <p-dropdown [options]="yearOptions" name="selectedyear" [(ngModel)]="selectedyear"
-                                    required>
-                                </p-dropdown>
-                            </div>
-                            <div class="p-col-12 p-md-6 p-lg-1"></div>
-                            <div class="p-col-12 p-md-6 p-lg-3">
-                                <div><label>Subject Name:</label></div>
-                                <input type="text" name="Subject" pInputText [(ngModel)]="Subject"
-                                appInputFormat="noSpecialChars" required />
-                            </div>
-
-                            <div class="p-col-12 p-md-6 p-lg-1"></div>
-                            <div class="p-col-12 p-md-6 p-lg-3">
-                                <div><label>Test Name:</label></div>
-                                <input type="text" name="Test" pInputText [(ngModel)]="Test"
-                                appInputFormat="noSpecialChars" required />
+<block-ui>
+    <div class="p-col-12">
+        <p-toast position="Top-Center" key="t-msg"></p-toast>
+        <p-panel header="Result Entry">
+            <div class="p-col-12 p-md-12 p-lg-12">
+                <form #f="ngForm" name="resultForm">
+                    <p-card>
+                        <div #row1 class="p-grid">
+                            <div class="p-col-1"></div>
+                            <div class="p-col-12 p-md-10 p-lg-10 card">
+                                <div #row1 class="p-grid">
+                                    <div class="p-col-1"></div>
+                                    <div class="p-col-12 p-md-10 p-lg-10">
+                                        <div class="p-grid">
+                                            <div class="p-col-12 p-md-6 p-lg-3">
+                                                <div><label for="_examtype">Exam Type<span
+                                                            class="form-mandatory-field">*</span></label>
+                                                </div>
+                                                <p-dropdown name="_examtype" [(ngModel)]="examType"
+                                                    [options]="examTypeOptions" (onClick)="onSelect('ET')" optionLabel="label" required>
+                                                </p-dropdown>
+                                            </div>
+                                            <div class="p-col-12 p-md-6 p-lg-3">
+                                                <div><label for="_examdate">Exam Date<span
+                                                            class="form-mandatory-field">*</span></label></div>
+                                                <p-calendar dateFormat="dd/mm/yy" [showOtherMonths]="false"
+                                                    [(ngModel)]="examDate" name="_examdate" [showIcon]="true" required>
+                                                </p-calendar>
+                                            </div>
+                                            <div class="p-col-12 p-md-6 p-lg-2">
+                                                <div><label for="_class">Class<span
+                                                            class="form-mandatory-field">*</span></label>
+                                                </div>
+                                                <p-dropdown name="_class" [options]="classOptions"
+                                                    (onClick)="onSelect('CL')" optionLabel="label" (onChange)="loadStudents()"
+                                                    [(ngModel)]="class" required>
+                                                </p-dropdown>
+                                            </div>
+                                            <div class="p-col-12 p-md-6 p-lg-2">
+                                                <div><label for="_section">Section<span
+                                                            class="form-mandatory-field">*</span></label>
+                                                </div>
+                                                <p-dropdown name="_section" [options]="sectionOptions"
+                                                    (onClick)="onSelect('SC')" optionLabel="label" (onChange)="loadStudents()"
+                                                    [(ngModel)]="section" required>
+                                                </p-dropdown>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div #row2 class="p-grid">
+                                    <div class="p-col-1"></div>
+                                    <div class="p-col-12 p-md-10 p-lg-10">
+                                        <div class="p-grid">
+                                            <div class="p-col-12 p-md-6 p-lg-3">
+                                                <div><label for="_subject">Subject<span
+                                                            class="form-mandatory-field">*</span></label>
+                                                </div>
+                                                <p-dropdown name="_subject" [options]="subjectOptions"
+                                                    [(ngModel)]="subject" (onClick)="onSelect('SB')" optionLabel="label"
+                                                    [disabled]="disableSubject" required>
+                                                </p-dropdown>
+                                            </div>
+                                            <div class="p-col-12 p-md-6 p-lg-3">
+                                                <div><label for="_topic">Topic<span
+                                                            class="form-mandatory-field">*</span></label>
+                                                </div>
+                                                <input class="p-col-12" name="_topic" type="text" pInputText
+                                                    [(ngModel)]="topic" required />
+                                            </div>
+                                            <div class="p-col-12 p-md-6 p-lg-2">
+                                                <div><label for="_totalmarks">Total Marks<span
+                                                            class="form-mandatory-field">*</span></label>
+                                                </div>
+                                                <input class="p-col-12" name="_totalmarks" type="text" pInputText
+                                                    [(ngModel)]="totalMarks" required appInputFormat="digitOnly" (input)="checkMarksInput()"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="p-col-12 p-md-6 p-lg-3">
-                            <input class="p-col-12" name="_Uploadresult" type="file" pInputText
-                                (change)="onFileUpload($event, 4)" accept=".png" required />
+                        <div #row2 class="p-col-12 p-md-12 p-lg-12">
+                            <div class="p-grid">
+                                <div class="p-col-3"></div>
+                                <div class="p-col-12 p-md-10 p-lg-7">
+                                    <div class="p-grid">
+                                        <div class="p-col-12 p-md-6 p-lg-4">
+                                            <div><label for="_student">Student<span
+                                                        class="form-mandatory-field">*</span></label>
+                                            </div>
+                                            <p-dropdown name="_student" [options]="studentOptions" [(ngModel)]="student"
+                                                (onClick)="onSelect('ST')" optionLabel="label" required>
+                                            </p-dropdown>
+                                        </div>
+                                        <div class="p-col-12 p-md-6 p-lg-2">
+                                            <div><label for="_marksscored">Marks Scored<span
+                                                        class="form-mandatory-field">*</span></label>
+                                            </div>
+                                            <input class="p-col-12" name="_marksscored" type="text" pInputText
+                                                [(ngModel)]="marksScored" required appInputFormat="digitOnly" (input)="checkMarksInput()" />
+                                        </div>
+                                        <div class="p-col-12 p-md-12 p-lg-1">
+                                            <button pButton name="_enter" type="button" label="Enter" [disabled]="(!f.valid)"
+                                            (click)="onEnter()" style="margin-top: 1.7rem;"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </p-card>
-            </form>
-            <div class="p-col-12 p-md-6 p-lg12" style="margin-left:35%;">
-                <button pButton type="button" label="Submit" [disabled]="(!f.valid)"></button>
-
-                <button pButton type="button" label="View" style="margin-left:5%;"></button>
+                        <div #row3 class="p-col-12 p-md-12 p-lg-12">
+                            <p-table [columns]="resultCols" [value]="resultData" [paginator]="true" [rows]="10" [loading]="loading"
+                            [rowsPerPageOptions]="[5,10,15,20]" totalRecords="totalRecords" styleClass="p-datatable-gridlines">
+                            <ng-template pTemplate="header" let-columns>
+                              <tr>
+                                <th style="width: 70px;">
+                                  S.No:
+                                </th>
+                                <th *ngFor="let col of columns" styleClass="p-datatable-gridlines">
+                                  {{col.header}}
+                                </th>
+                                <th style="width: 90px;">Edit</th>
+                                <th style="width: 90px;">Delete</th>
+                              </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
+                              <tr [pSelectableRow]="rowData" class="cursor-pointer">
+                                <td style="width: 70px;">{{rowIndex+1}}</td>
+                                <td *ngFor="let col of columns" [style.text-align]="col.align">
+                                  {{rowData[col.field]}}
+                                </td>
+                                <td style="width: 90px;" (click)="onEdit(rowData)" class="cursor-pointer">
+                                    <i class="pi pi-pencil" style="padding-left: 10px; color: #52de38; font-size: 1.5rem;"></i>
+                                </td>
+                                <td style="width: 90px;" (click)="onDelete(rowData)" class="cursor-pointer">
+                                    <i class="pi pi-trash" style="padding-left: 10px; color: #52de38; font-size: 1.5rem;"></i>
+                                </td>
+                              </tr>
+                            </ng-template>
+                          </p-table>
+                        </div>
+                    </p-card>
+                </form>
             </div>
-        </div>
-    </p-panel>
-</div>
+        </p-panel>
+    </div>
+</block-ui>

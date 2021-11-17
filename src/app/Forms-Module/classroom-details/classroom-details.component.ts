@@ -21,7 +21,7 @@ export class ClassroomDetailsComponent implements OnInit {
   duration: any;
   subjectOptions: SelectItem[];
   subject: number;
-  meetingDate: Date;
+  meetingDate: Date = new Date();
   meetingTime: Date;
   sectionOptions: SelectItem[];
   section: number;

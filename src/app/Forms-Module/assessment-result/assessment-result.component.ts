@@ -88,7 +88,7 @@ export class AssessmentResultComponent implements OnInit {
     const params = {
       'SubjectId': selectedRow.subjectId
     }
-    this._restApiService.getByParameters(PathConstants.OnlineAssessmentCheck_Get, params).subscribe(res => {
+    this._restApiService.getByParameters(PathConstants.OnlineAssessment_Asnwer_Get, params).subscribe(res => {
       if (res !== undefined && res !== null) {
         if (res) {
           this.showDialog = true;

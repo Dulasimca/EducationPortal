@@ -72,7 +72,8 @@ export class LoginComponent implements OnInit {
           if(response.item1) {
             if (response.item3.length !== 0) {
               response.item3.forEach(i => {
-                  const obj: User = {
+                var folderName = ((i.roleId * 1) === 6) ? FileUploadConstant.StudentRegistration : FileUploadConstant.TeacherRegistration;
+                const obj: User = {
                     username: (i.firstName !== undefined && i.firstName !== null) ? i.firstName.toString().trim() : '',
                     lastname: (i.lastName !== undefined && i.lastName !== null) ? i.lastName.toString().trim() : '',
                     password: (i.encrptedPwd !== undefined && i.encrptedPwd !== null) ? i.encrptedPwd.toString().trim() : '',
@@ -94,7 +95,7 @@ export class LoginComponent implements OnInit {
                     talukId: (i.taluk !== undefined && i.taluk !== null) ? i.taluk : '',
                     pincode: (i.postalcode !== undefined && i.postalcode !== null) ? i.postalcode.toString().trim() : '',
                     studentImg: (i.studentPhotoFileName !== undefined && i.studentPhotoFileName !== null) ?
-                    (i.studentPhotoFileName.toString().trim() !== '' ? ('../../assets/layout/' + FileUploadConstant.StudentRegistration +'/'+ i.studentPhotoFileName) : '') : '' 
+                    (i.studentPhotoFileName.toString().trim() !== '' ? ('../../assets/layout/' + folderName +'/'+ i.studentPhotoFileName) : '') : '' 
                   }
                   this.authService.login(obj);
                   const rememberUser = {

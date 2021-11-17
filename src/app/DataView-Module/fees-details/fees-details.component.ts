@@ -80,7 +80,7 @@ export class FeesDetailsComponent implements OnInit {
       if(res !== null && res !== undefined && res.length !== 0) {
         if(res) {
           this.loading = false;
-      this.feeData = res;
+          this.feeData = res;
       } else {
         this.loading = false;
         this.feeData.clear();

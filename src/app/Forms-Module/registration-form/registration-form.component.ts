@@ -78,6 +78,7 @@ export class RegistrationFormComponent implements OnInit {
   guardianImage: any;
   header: string;
   maxDate: Date = new Date();
+  roleId: number;
   @ViewChild('f', { static: false }) _registrationForm: NgForm;
   @ViewChild('studentImg', { static: false }) studentImg: ElementRef;
   @ViewChild('fatherImg', { static: false }) fatherImg: ElementRef;
@@ -99,9 +100,6 @@ export class RegistrationFormComponent implements OnInit {
     this.masterService.getMaster('');
     ///end
     this.registeredCols = TableConstants.RegisteredAssociateColumns;
-    const current_year = new Date().getFullYear();
-    const start_year_range = current_year - 30;
-    this.yearRange = start_year_range + ':' + current_year;
     this.setDefaultObject();
   }
 
@@ -150,6 +148,7 @@ export class RegistrationFormComponent implements OnInit {
           });
           this.roleIdOptions = roleIdSelection;
           this.roleIdOptions.unshift({ label: '-select', value: null });
+          this.roleId = this.obj.RoleId;
         }
         break;
       case 'CS':
@@ -211,13 +210,18 @@ export class RegistrationFormComponent implements OnInit {
   }
 
   onChangeRole() {
+    const current_year = new Date().getFullYear();
+    let start_year_range;
     if (this.obj.RoleId === 6) {
       this.tabTitleI = 'Student Info I';
       this.tabTitleII = 'Student Info II';
+      start_year_range = current_year - 20;
     } else {
       this.tabTitleI = 'Teacher Info I';
       this.tabTitleII = 'Teacher Info II';
+      start_year_range = current_year - 60;
     }
+    this.yearRange = start_year_range + ':' + current_year;
   }
 
   public uploadFile = (files, progress) => {
@@ -285,8 +289,8 @@ export class RegistrationFormComponent implements OnInit {
     console.log('row', row)
     this.obj = row;
     this.obj.SchoolName = this.login_user.schoolname;
-    this.obj.DateofBirth = this.datePipe.transform(row.DateofBirth, 'MM/dd/yyyy'),
-      this.obj.DateofJoining = this.datePipe.transform(row.DateofJoining, 'MM/dd/yyyy'),
+    this.obj.DateofBirth = new Date(row.DateofBirth),
+      this.obj.DateofJoining = new Date(row.DateofJoining),
       this.obj.StudentPhotoFileName = (row.StudentPhotoFileName !== undefined && row.StudentPhotoFileName !== null) ?
         (row.StudentPhotoFileName.toString().trim() !== '' ? row.StudentPhotoFileName : '') : '',
       this.obj.FatherPhotoFileName = (row.FatherPhotoFileName !== undefined && row.FatherPhotoFileName !== null) ?
@@ -430,11 +434,38 @@ export class RegistrationFormComponent implements OnInit {
     this._registrationForm.reset();
     this._registrationForm.form.markAsUntouched();
     this._registrationForm.form.markAsPristine();
-    this.studentImg.nativeElement.value = null;
+    if (this.studentImg !== undefined) {
+      this.studentImg.nativeElement.value = null;
+    }    
+    if(this.fatherImg !== undefined) {
     this.fatherImg.nativeElement.value = null;
+    }
+    if(this.motherImg !== undefined) {
     this.motherImg.nativeElement.value = null;
-    this.guardianImg.nativeElement.value = null;
+    }
+    if(this.guardianImg !== undefined) {
+      this.guardianImg.nativeElement.value = null;
+    }
+    if(this.incomeCertificate !== undefined) {
+      this.incomeCertificate.nativeElement.value = null;
+    }
+    if (this.nativityCertificate !== undefined) {
+      this.nativityCertificate.nativeElement.value = null;
+    } 
+    if(this.communityCertificate !== undefined) {
+       this.communityCertificate.nativeElement.value = null;
+    }
     this.isChecked = false;
+    this.casteOptions = [];
+    this.classOptions = [];
+    this.genderOptions = [];
+    this.mediumOptions = [];
+    this.sectionOptions = [];
+    this.motherTongueOptions = [];
+    this.religionOptions = [];
+    this.bloodGroupOptions = [];
+    this.nationalityOptions = [];
+    this.obj.RoleId = (this.roleId !== undefined && this.roleId !== null) ? this.roleId : null;
     this.setDefaultObject();
   }
 }

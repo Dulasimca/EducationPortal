@@ -152,5 +152,17 @@ export class TableConstants {
             { field: 'PayingAmount', header: 'Paying Amount' , align: 'right !important'},
             { field: 'FineAmount', header: 'Fine', align: 'right !important'},
           ];
+
+        public static readonly ResultEntryColumns = [
+          { field: 'ExamName', header: 'Exam Name' , align: 'left !important'},
+          { field: 'ExamDate', header: 'Exam Date' , align: 'center !important'},
+          { field: 'Class', header: 'Class' , align: 'left !important'},
+          { field: 'Section', header: 'Section' , align: 'left !important'},
+          { field: 'Subject', header: 'Subject' , align: 'left !important'},
+          { field: 'Topic', header: 'Topic' , align: 'left !important'},
+          { field: 'TotalMarks', header: 'Total Marks' , align: 'right !important'},
+          { field: 'Student', header: 'Student' , align: 'left !important'},
+          { field: 'MarksScored', header: 'Marks Scored' , align: 'right !important'},
+        ];
             
 }

@@ -24,6 +24,8 @@ export class FeeFormComponent implements OnInit {
   data: any = [];
   student: any;
   receiptBook: number;
+  selectedYear: number;
+  yearOptions: SelectItem[];
   class: any;
   section: any;
   feename: any;
@@ -60,6 +62,7 @@ export class FeeFormComponent implements OnInit {
   // master
   sections?: any;
   classes?: any;
+  years?: any;
   @BlockUI() blockUI: NgBlockUI;
   @ViewChild('f', { static: false }) _FeeForm: NgForm;
   loading: boolean;
@@ -69,6 +72,15 @@ export class FeeFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.logged_user = this.authService.UserInfo;
+    this.years = this.masterService.getAccountingYear();
+    var data = [];
+    if(this.years.length !== 0) {
+      this.years.forEach(y => {
+       data.push({ label: y.ShortYear, value: y.Id });
+      })
+      this.yearOptions = data;
+      this.selectedYear = data[0].value;
+    }
     this.restApiService.get(PathConstants.FeeType_Get).subscribe(res => {
       if (res !== null && res !== undefined && res.length !== 0) {
         this.feeTypes = res;
@@ -99,12 +111,14 @@ export class FeeFormComponent implements OnInit {
     var selectedFile = $event.target.files[0];
   }
   onSelect(type) {
+    this.years = this.masterService.getAccountingYear();
     this.sections = this.masterService.getMaster('S');
     this.classes = this.masterService.getMaster('C');
     let classSelection = [];
     let sectionSelection = [];
     let studentSelection = [];
     let feeTypeSelection = [];
+    let yearSelection = [];
     switch (type) {
       case 'C':
         this.classes.forEach(c => {
@@ -134,6 +148,13 @@ export class FeeFormComponent implements OnInit {
         this.receiptOptions = feeTypeSelection;
         this.receiptOptions.unshift({ label: '-select', value: null });
         break;
+        case 'Y':
+          this.years.forEach(y => {
+          yearSelection.push({ label: y.ShortYear, value: y.Id });
+        })
+          this.yearOptions = yearSelection;
+          this.yearOptions.unshift({ label: '-select-', value: null });
+          break;
     }
   }
 
@@ -141,7 +162,7 @@ export class FeeFormComponent implements OnInit {
     this.blockUI.start();
     const params = {
       'RowId': this.MRowId,
-      'Academic': 0,
+      'Academic': this.selectedYear,
       'SchoolID': this.login_user.schoolId,
       'Student': this.student.label,
       'StudentId': this.student.value,
@@ -162,10 +183,9 @@ export class FeeFormComponent implements OnInit {
     this.restApiService.post(PathConstants.Fee_Post, params).subscribe(res => {
       if (res !== undefined && res !== null) {
         if (res) {
-          this.receiptData = [];
           this.blockUI.stop();
+          console.log('par', params);
           this.generateReceipt(params);
-          this.clear();
           this.onView();
         } else {
           this.blockUI.stop();
@@ -220,12 +240,10 @@ export class FeeFormComponent implements OnInit {
 
   clear() {
     this._FeeForm.reset();
-    this.receiptData = [];
     this.class = null;
     this.classOptions = [];
     this.sections = null;
     this.sectionOptions = [];
-    this.studentName = null;
     this.studentOptions = [];
 
   }
@@ -233,6 +251,7 @@ export class FeeFormComponent implements OnInit {
   onRowSelect(event, selectedRow) {
     this.MRowId = selectedRow.RowId;
     this.dueDate = selectedRow.duedate;
+    this.selectedYear = selectedRow.Years;
     this.receiptBook = selectedRow.FeeTypeId;
     this.receiptOptions = [{ label: selectedRow.FeeType, value: selectedRow.FeeTypeId }];
     this.feename = selectedRow.FeeName;
@@ -251,19 +270,35 @@ export class FeeFormComponent implements OnInit {
   }
   // feereceipt method
   generateReceipt(data) {
+    this.receiptData = [];
     this.schoolName = this.logged_user.schoolname;
     this.schoolAddress = this.logged_user.taluk + '-' + this.logged_user.pincode;
     this.studentName = data.Student;
     this.classSection = data.Class + ' - ' + data.Section;
     this.parentName = this.logged_user.fathername;
     this.today = this.datePipe.transform(new Date(), 'dd-MM-yyyy');
-    this.total = data.PaidAmount,
-      this.receiptNo = data.RowId,
+    this.total = data.PaidAmount;
+      this.receiptNo = data.RowId;
       this.receiptData.push({
         'feeparticulars': data.FeeName,
         'totalamount': data.ActualAmount,
         'paidamount': data.PaidAmount
       })
     this.showReceipt = true;
+    this.clear();
+  }
+
+  onClose() {
+    this.studentName = '';
+    this.schoolName = '';
+    this.parentName = '';
+    this.today = null;
+    this.total = '';
+    this.receiptNo = '';
+    this.schoolAddress = '';
+    this.classSection = '';
+    this.showReceipt = false;
+    this.receiptData = [];
   }
 }
+

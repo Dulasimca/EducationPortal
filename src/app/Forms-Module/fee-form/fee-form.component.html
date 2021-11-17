@@ -13,6 +13,11 @@
                   <p-calendar dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="dueDate" [showIcon]="true" name="_date" required></p-calendar>
                 </div>
                 <div class="p-col-12 p-md-6 p-lg-2">
+                  <div><label for="_year"> Year</label><span class="form-mandatory-field">*</span> </div>
+                  <p-dropdown [options]="yearOptions" name="_year" (onClick)="onSelect('Y')" [(ngModel)]="selectedYear" required>
+                  </p-dropdown>
+                </div>
+                <div class="p-col-12 p-md-6 p-lg-2">
                   <div><label for="_class">Class<span class="form-mandatory-field">*</span></label></div>
                   <p-dropdown name="_class" [options]="classOptions" [(ngModel)]="class" optionLabel="label"
                     (onClick)="onSelect('C')" (onChange)="loadStudents()" required>
@@ -40,8 +45,8 @@
                   <div> <label for="_feename"> Fee Name</label><span class="form-mandatory-field">*</span></div>
                   <input type="text" class="p-col-12" name="_feename" pInputText [(ngModel)]="feename" required />
                 </div>
-                <div #row1 class="p-col-12 p-md-12 p-lg-12">
-                  <div class="p-grid">
+                <!-- <div #row1 class="p-col-12 p-md-12 p-lg-12"> -->
+                  <!-- <div class="p-grid"> -->
                     <div class="p-col-12 p-md-6 p-lg-2">
                       <div> <label for="_actualamount"> Actual Amount</label><span class="form-mandatory-field">*</span>
                       </div>
@@ -69,8 +74,8 @@
                       <div> <label for="_fine">Fine Amount</label><span class="form-mandatory-field">*</span></div>
                       <input type="text" class="p-col-12" name="_fine" pInputText [(ngModel)]="fine" appInputFormat="digitOnly" required>
                     </div>
-                  </div>
-                </div>
+                  <!-- </div> -->
+                <!-- </div> -->
                 <div class="p-col-12 p-md-12 p-lg-12" style="text-align: center;">
                   <button pButton type="button" label="Submit" (click)="onSubmit()" [disabled]="(!f.valid || !f.dirty)"></button>&nbsp;
                   <button pButton type="button" label="View" (click)="onView()"></button>&nbsp;
@@ -111,7 +116,8 @@
 </block-ui>
 
 <!-- feereceipt  -->
-<p-dialog [(visible)]="showReceipt" [style]="{width: '50vw'}" [modal]="true" [maximizable]="true">
+<p-dialog [(visible)]="showReceipt" [style]="{width: '50vw'}" [modal]="true" [maximizable]="true"
+(onHide)="onClose()">
   <ng-template pTemplate="header">
     <div>Fee Receipt</div>
   </ng-template>

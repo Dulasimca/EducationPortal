@@ -52,7 +52,7 @@ export class FeesDetailsComponent implements OnInit {
       })
       this.yearOptions = data;
       this.selectedYear = data[0].value;
-      this.onLoad();
+      this.onLoad()
     }
   }
 
@@ -83,7 +83,6 @@ export class FeesDetailsComponent implements OnInit {
           this.feeData = res;
       } else {
         this.loading = false;
-        this.feeData.clear();
         this.messageService.clear();
         this.messageService.add({
           key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
@@ -93,7 +92,6 @@ export class FeesDetailsComponent implements OnInit {
     } 
     else {
       this.loading = false;
-      this.feeData.clear();
       this.messageService.clear();
       this.messageService.add({
         key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,

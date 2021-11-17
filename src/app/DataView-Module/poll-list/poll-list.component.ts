@@ -26,7 +26,6 @@ export class PollListComponent implements OnInit {
   login_user: User;
   isDataAvailable: boolean;
   isActive: boolean;
-  votingStatus: string;
   loading: boolean;
   showVoteStatus: boolean;
   @BlockUI() blockUI: NgBlockUI;
@@ -42,12 +41,10 @@ export class PollListComponent implements OnInit {
     ];
     this.cols = TableConstants.PollListColumns;
     this.login_user = this.authService.UserInfo;
-    this.votingStatus = '';
     this.showVoteStatus = false;
   }
 
   onView() {
-    this.votingStatus = '';
     this.showVoteStatus = false;
     this.loading = true;
     this.data = [];
@@ -77,7 +74,6 @@ export class PollListComponent implements OnInit {
             votedList.forEach(j => {
               if (j.NomineeID === i.NomineeID) {
                 this.showVoteStatus = true;
-                this.votingStatus =  i.FirstName + ' - ' + i.ClassName + ' - ' + i.SectionName;
                 nomineeList.push({
                   'isVoted': 'true',
                   'RowId': i.RowId,
@@ -100,7 +96,6 @@ export class PollListComponent implements OnInit {
               }
             });
           } else {
-            this.votingStatus = '';
             this.showVoteStatus = false;
             nomineeList.push({
               'isVoted': 'false',

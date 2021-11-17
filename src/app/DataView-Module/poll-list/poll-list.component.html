@@ -15,8 +15,7 @@
                   </p-dropdown>
                 </div>
                 <div class="p-col-12 p-md-6 p-lg-8 align-el-center">
-                 <span style="font-size: 16px !important;" *ngIf="showVoteStatus"> You have already voted to : </span>
-                 <span class="text-highlight">{{votingStatus}}</span>
+                 <span style="font-size: 16px !important;" *ngIf="showVoteStatus"> You have voted already! </span>
                 </div>
                 <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10" [loading]="loading"
                   [rowsPerPageOptions]="[5,10,15,20]" totalRecords="totalRecords" styleClass="p-datatable-gridlines">

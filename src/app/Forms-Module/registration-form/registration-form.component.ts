@@ -101,6 +101,7 @@ export class RegistrationFormComponent implements OnInit {
     ///end
     this.registeredCols = TableConstants.RegisteredAssociateColumns;
     this.setDefaultObject();
+    console.log('img', this.studentImg)
   }
 
   onSelect(type) {
@@ -210,8 +211,8 @@ export class RegistrationFormComponent implements OnInit {
   }
 
   onChangeRole() {
-    if(this._registrationForm !== undefined) {
-    this.clearForm();
+    if (this._registrationForm !== undefined) {
+      this.clearForm();
     }
     const current_year = new Date().getFullYear();
     let start_year_range;
@@ -289,9 +290,11 @@ export class RegistrationFormComponent implements OnInit {
 
   onEdit(row) {
     this.showDialog = false;
-    console.log('row', row)
     this.obj = row;
-    this.obj.SchoolName = this.login_user.schoolname;
+    this.obj['State'] = 'Tamilnadu';
+    this.obj['SchoolName'] = this.login_user.schoolname;
+    this._registrationForm.controls['_state'].patchValue(this.obj.State);
+    this._registrationForm.controls['_schlname'].patchValue(this.obj.SchoolName);
     this.obj.DateofBirth = new Date(row.DateofBirth),
       this.obj.DateofJoining = new Date(row.DateofJoining),
       this.obj.StudentPhotoFileName = (row.StudentPhotoFileName !== undefined && row.StudentPhotoFileName !== null) ?
@@ -366,6 +369,11 @@ export class RegistrationFormComponent implements OnInit {
 
   onSubmit() {
     this.blockUI.start();
+    for (var i in this.obj) {
+      if (this.obj[i] === null || this.obj[i] === undefined) {
+        this.obj[i] = '';
+      }
+    }
     this.obj.RoleId = (this.roleId !== undefined && this.roleId !== null) ? this.roleId : 0;
     this.obj.DateofBirth = (typeof (this.obj.DateofBirth) === 'object') ?
       this.datePipe.transform(this.obj.DateofBirth, 'MM/dd/yyyy') : this.obj.DateofBirth;
@@ -376,6 +384,7 @@ export class RegistrationFormComponent implements OnInit {
       this.obj.Password = '123';
     this.obj.CurrentAddress = (this.obj.CurrentAddress !== undefined && this.obj.CurrentAddress !== null) ?
       this.obj.CurrentAddress : this.obj.PermanentAddress;
+    var statusMsg = (this.obj.slno !== 0) ? ResponseMessage.UpdateSucess : ResponseMessage.SuccessMessage;
     this.restApiService.post(PathConstants.Registration_Post, this.obj).subscribe(res => {
       if (res !== undefined && res !== null) {
         if (res.item1) {
@@ -384,7 +393,7 @@ export class RegistrationFormComponent implements OnInit {
           this.messageService.clear();
           this.messageService.add({
             key: 't-msg', severity: ResponseMessage.SEVERITY_SUCCESS,
-            summary: ResponseMessage.SUMMARY_SUCCESS, detail: ResponseMessage.SuccessMessage
+            summary: ResponseMessage.SUMMARY_SUCCESS, detail: statusMsg
           });
         } else {
           this.blockUI.stop();
@@ -418,9 +427,9 @@ export class RegistrationFormComponent implements OnInit {
     this.obj = {} as Profile;
     this.obj.slno = 0;
     this.obj.ID = 0;
-    this.obj.State = 'Tamilnadu';
+    this.obj['State'] = 'Tamilnadu';
     this.obj.SchoolId = this.login_user.schoolId;
-    this.obj.SchoolName = this.login_user.schoolname;
+    this.obj['SchoolName'] = this.login_user.schoolname;
     this.obj.Taluk = this.login_user.talukId;
     this.talukOptions = [{ label: this.login_user.taluk, value: this.login_user.talukId }];
     this.obj.DistrictId = this.login_user.distrctId;
@@ -438,27 +447,26 @@ export class RegistrationFormComponent implements OnInit {
     this._registrationForm.reset();
     this._registrationForm.form.markAsUntouched();
     this._registrationForm.form.markAsPristine();
-    console.log('img', this.studentImg);
     if (this.studentImg !== undefined) {
       this.studentImg.nativeElement.value = null;
-    }    
-    if(this.fatherImg !== undefined) {
-    this.fatherImg.nativeElement.value = null;
     }
-    if(this.motherImg !== undefined) {
-    this.motherImg.nativeElement.value = null;
+    if (this.fatherImg !== undefined) {
+      this.fatherImg.nativeElement.value = null;
     }
-    if(this.guardianImg !== undefined) {
+    if (this.motherImg !== undefined) {
+      this.motherImg.nativeElement.value = null;
+    }
+    if (this.guardianImg !== undefined) {
       this.guardianImg.nativeElement.value = null;
     }
-    if(this.incomeCertificate !== undefined) {
+    if (this.incomeCertificate !== undefined) {
       this.incomeCertificate.nativeElement.value = null;
     }
     if (this.nativityCertificate !== undefined) {
       this.nativityCertificate.nativeElement.value = null;
-    } 
-    if(this.communityCertificate !== undefined) {
-       this.communityCertificate.nativeElement.value = null;
+    }
+    if (this.communityCertificate !== undefined) {
+      this.communityCertificate.nativeElement.value = null;
     }
     this.isChecked = false;
     this.casteOptions = [];
@@ -472,5 +480,7 @@ export class RegistrationFormComponent implements OnInit {
     this.nationalityOptions = [];
     this.obj.RoleId = (this.roleId !== undefined && this.roleId !== null) ? this.roleId : null;
     this.setDefaultObject();
+    this._registrationForm.controls['_state'].patchValue(this.obj.State);
+    this._registrationForm.controls['_schlname'].patchValue(this.obj.SchoolName);
   }
 }

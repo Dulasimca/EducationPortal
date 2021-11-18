@@ -83,8 +83,8 @@ export class PersonalDetailsComponent implements OnInit {
           this.obj = i;
           this.dob = this.datePipe.transform(i.DateofBirth, 'dd/MM/yyyy');
           this.doj = this.datePipe.transform(i.DateofJoining, 'dd/MM/yyyy');
-          this.obj.DateofBirth = this.datePipe.transform(i.DateofBirth, 'MM/ddyyyy'),
-            this.obj.DateofJoining = this.datePipe.transform(i.DateofJoining, 'MM/ddyyyy'),
+          this.obj.DateofBirth = this.datePipe.transform(i.DateofBirth, 'MM/dd/yyyy'),
+            this.obj.DateofJoining = this.datePipe.transform(i.DateofJoining, 'MM/dd/yyyy'),
             this.obj.StudentPhotoFileName = (i.StudentPhotoFileName !== undefined && i.StudentPhotoFileName !== null) ?
               (i.StudentPhotoFileName.toString().trim() !== '' ? i.StudentPhotoFileName : '') : '',
             this.obj.FatherPhotoFileName = (i.FatherPhotoFileName !== undefined && i.FatherPhotoFileName !== null) ?
@@ -98,12 +98,12 @@ export class PersonalDetailsComponent implements OnInit {
           this.mediumOptions = [{ label: i.MediumName, value: i.Medium }];
           this.bloodGroupOptions = [{ label: i.BloodGroupName, value: i.BloodGroup }];
           this.genderOptions = [{ label: i.GenderName, value: i.Gender }];
-          var folder = ((this.logged_user.roleId * 1) === 6) ? FileUploadConstant.StudentRegistration : 
-          FileUploadConstant.TeacherRegistration;
-          this.fatherImage = '../../assets/layout/'+folder+'/'+ this.obj.FatherPhotoFileName;
-          this.userImage = '../../assets/layout/'+folder+'/'+ this.obj.StudentPhotoFileName;
-          this.motherImage = '../../assets/layout/'+folder+'/'+ this.obj.MotherPhotoFilName;
-          this.guardinaImage = '../../assets/layout/'+folder+'/'+ this.obj.GaurdianPhotoFileName;
+          var folder = ((this.logged_user.roleId * 1) === 6) ? FileUploadConstant.StudentRegistration :
+            FileUploadConstant.TeacherRegistration;
+          this.fatherImage = '../../assets/layout/' + folder + '/' + this.obj.FatherPhotoFileName;
+          this.userImage = '../../assets/layout/' + folder + '/' + this.obj.StudentPhotoFileName;
+          this.motherImage = '../../assets/layout/' + folder + '/' + this.obj.MotherPhotoFilName;
+          this.guardinaImage = '../../assets/layout/' + folder + '/' + this.obj.GaurdianPhotoFileName;
         })
       } else {
         this.router.navigate(['/profile']);
@@ -114,7 +114,7 @@ export class PersonalDetailsComponent implements OnInit {
   }
 
   changeDate(type) {
-    if(type === 'J') {
+    if (type === 'J') {
       this.obj.DateofJoining = this.doj;
     } else {
       this.obj.DateofBirth = this.dob;
@@ -207,13 +207,13 @@ export class PersonalDetailsComponent implements OnInit {
     this.restApiService.post(PathConstants.Registration_Post, this.obj).subscribe(res => {
       if (res) {
         this.clearForm();
+        this.blockUI.stop();
         this.messageService.clear();
         this.messageService.add({
           key: 't-msg', severity: ResponseMessage.SEVERITY_SUCCESS,
           summary: ResponseMessage.SUMMARY_SUCCESS, detail: ResponseMessage.SuccessMessage
         });
         setTimeout(() => {
-          this.blockUI.stop();
           this.router.navigate(['/profile'])
         }, 500)
       } else {
@@ -255,7 +255,7 @@ export class PersonalDetailsComponent implements OnInit {
     actualFilename = fileToUpload.name;
     this.http.post(this.restApiService.BASEURL + PathConstants.FileUpload_Post, this.formData)
       .subscribe((event: any) => {
-        if(event) {
+        if (event) {
           this._personalDetailsForm.control.markAsDirty();
         } else {
           this._personalDetailsForm.control.markAsUntouched();

@@ -246,7 +246,8 @@ export class RegistrationFormComponent implements OnInit {
         actualFilename = fileToUpload.name;
       }
       );
-    return actualFilename;
+      actualFilename = fileToUpload.name;
+      return actualFilename;
   }
 
   onFileUpload($event, id) {
@@ -377,16 +378,13 @@ export class RegistrationFormComponent implements OnInit {
         this.obj[i] = '';
       }
     }
-    console.log('imgs', this.studentImg);
-    this.obj.Disability = (this.obj.Disability !== null && this.obj.Disability !== undefined) ?
-      this.obj.Disability : '';
     this.obj.RoleId = (this.roleId !== undefined && this.roleId !== null) ? this.roleId : 0;
     this.obj.DateofBirth = (typeof (this.obj.DateofBirth) === 'object') ?
       this.datePipe.transform(this.obj.DateofBirth, 'MM/dd/yyyy') : this.obj.DateofBirth;
     this.obj.DateofJoining = (typeof (this.obj.DateofJoining) === 'object') ?
       this.datePipe.transform(this.obj.DateofJoining, 'MM/dd/yyyy') : this.obj.DateofJoining;
     this.obj.UserId = this.login_user.id;
-    this.obj.Disability = (this.obj.Disability !== undefined && this.obj.Disability !== null) ? this.obj.Disability.trim() : null,
+    this.obj.Disability = (this.obj.Disability !== undefined && this.obj.Disability !== null) ? this.obj.Disability.trim() : '',
       this.obj.Password = '123';
     this.obj.CurrentAddress = (this.obj.CurrentAddress !== undefined && this.obj.CurrentAddress !== null) ?
       this.obj.CurrentAddress : this.obj.PermanentAddress;
@@ -450,7 +448,6 @@ export class RegistrationFormComponent implements OnInit {
   }
 
   clearForm() {
-    console.log('form', this._registrationForm)
     this._registrationForm.reset();
     this._registrationForm.form.markAsUntouched();
     this._registrationForm.form.markAsPristine();
@@ -458,28 +455,28 @@ export class RegistrationFormComponent implements OnInit {
     this.showGImg = false;
     this.showMImg = false;
     this.showSImg = false;
-    if (this.studentImg.nativeElement.files.length === 0 ) {
+    if (this.studentImg.nativeElement.files.length !== 0 ) {
       this.studentImg.nativeElement.value = null;
     }
     if(this.fatherImg !== undefined && this.motherImg !== undefined && this.guardianImg !== undefined &&
       this.nativityCertificate !== undefined && this.communityCertificate !== undefined &&
       this.incomeCertificate !== undefined) {
-    if (this.fatherImg.nativeElement.files.length === 0) {
+    if (this.fatherImg.nativeElement.files.length !== 0) {
       this.fatherImg.nativeElement.value = null;
     }
-    if (this.motherImg.nativeElement.files.length === 0) {
+    if (this.motherImg.nativeElement.files.length !== 0) {
       this.motherImg.nativeElement.value = null;
     }
-    if (this.guardianImg.nativeElement.files.length === 0) {
+    if (this.guardianImg.nativeElement.files.length !== 0) {
       this.guardianImg.nativeElement.value = null;
     }
-    if (this.incomeCertificate.nativeElement.files.length === 0) {
+    if (this.incomeCertificate.nativeElement.files.length !== 0) {
       this.incomeCertificate.nativeElement.value = null;
     }
-    if (this.nativityCertificate.nativeElement.files.length === 0) {
+    if (this.nativityCertificate.nativeElement.files.length !== 0) {
       this.nativityCertificate.nativeElement.value = null;
     }
-    if (this.communityCertificate.nativeElement.files.length === 0) {
+    if (this.communityCertificate.nativeElement.files.length !== 0) {
       this.communityCertificate.nativeElement.value = null;
     }
   }

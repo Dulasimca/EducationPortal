@@ -210,9 +210,12 @@ export class RegistrationFormComponent implements OnInit {
   }
 
   onChangeRole() {
+    if(this._registrationForm !== undefined) {
+    this.clearForm();
+    }
     const current_year = new Date().getFullYear();
     let start_year_range;
-    if (this.obj.RoleId === 6) {
+    if (this.roleId === 6) {
       this.tabTitleI = 'Student Info I';
       this.tabTitleII = 'Student Info II';
       start_year_range = current_year - 20;
@@ -231,7 +234,7 @@ export class RegistrationFormComponent implements OnInit {
     this.formData = new FormData()
     let fileToUpload: any = <File>files[0];
     let actualFilename = '';
-    const folderName = (this.obj.RoleId === 6) ? FileUploadConstant.StudentRegistration : FileUploadConstant.TeacherRegistration
+    const folderName = (this.roleId === 6) ? FileUploadConstant.StudentRegistration : FileUploadConstant.TeacherRegistration
     const filename = fileToUpload.name + '^' + folderName;
     this.formData.append('file', fileToUpload, filename);
     this.http.post(this.restApiService.BASEURL + PathConstants.FileUpload_Post, this.formData)
@@ -325,11 +328,11 @@ export class RegistrationFormComponent implements OnInit {
   onView() {
     this.registeredData = [];
     this.blockUI.start();
-    this.header = ((this.obj.RoleId * 1) === 6) ? 'Registered Students' : 'Registered Teachers';
+    this.header = ((this.roleId * 1) === 6) ? 'Registered Students' : 'Registered Teachers';
     const params = {
       'SchoolId': this.login_user.schoolId,
       'Value': this.login_user.id,
-      'RoleId': this.obj.RoleId,
+      'RoleId': this.roleId,
       'Type': "1"
     }
     this.restApiService.getByParameters(PathConstants.Registration_Get, params).subscribe(res => {
@@ -363,6 +366,7 @@ export class RegistrationFormComponent implements OnInit {
 
   onSubmit() {
     this.blockUI.start();
+    this.obj.RoleId = (this.roleId !== undefined && this.roleId !== null) ? this.roleId : 0;
     this.obj.DateofBirth = (typeof (this.obj.DateofBirth) === 'object') ?
       this.datePipe.transform(this.obj.DateofBirth, 'MM/dd/yyyy') : this.obj.DateofBirth;
     this.obj.DateofJoining = (typeof (this.obj.DateofJoining) === 'object') ?
@@ -434,6 +438,7 @@ export class RegistrationFormComponent implements OnInit {
     this._registrationForm.reset();
     this._registrationForm.form.markAsUntouched();
     this._registrationForm.form.markAsPristine();
+    console.log('img', this.studentImg);
     if (this.studentImg !== undefined) {
       this.studentImg.nativeElement.value = null;
     }    

@@ -4,9 +4,10 @@ import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { User } from 'src/app/Interfaces/user';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { FileUploadConstant } from 'src/app/Common-Module/file-upload-constant'
-import { ConfirmationService } from 'primeng/api';
+import { ConfirmationService, SelectItem } from 'primeng/api';
 import { saveAs } from 'file-saver';
 import { Dialog } from 'primeng/dialog';
+import { MasterService } from 'src/app/Services/master-data.service';
 
 @Component({
   selector: 'app-subject-result',
@@ -14,8 +15,9 @@ import { Dialog } from 'primeng/dialog';
   styleUrls: ['./subject-result.component.css']
 })
 export class SubjectResultComponent implements OnInit {
-  years: year[];
-  selectedyear: year;
+  years?: any;
+  yearOptions: SelectItem[];
+  selectedYear: number;
   data: any = [];
   display: boolean = false;
   StudentAnswersheet: string;
@@ -26,29 +28,21 @@ export class SubjectResultComponent implements OnInit {
   // login_user: User;
   @ViewChild('dialog', { static: false }) _dialogPane: Dialog;
 
-  constructor(private restApiService: RestAPIService, private confirmationService: ConfirmationService) { }
+  constructor(private masterService: MasterService, private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
-    // const params = {
-    //   'studentName': this.login_user.username,
-    //   'class': this.login_user.class,
-    //   'rollNo': this.login_user.id
-    // }
-
-    // this.restApiService.getByParameters(PathConstants.Fee_Get, params).subscribe(res => {
-    //   if(res !== null && res !== undefined && res.length !== 0) {
-    //     if(res) {
-    //   console.log('rs',res);
-    //   }
-    // }
-    // });
+    this.years = this.masterService.getAccountingYear();
     this.StudentAnswersheet = "StudentAnswersheet.pdf"
     this.TeacherAnswerSheet = "TeacherAnswerSheet.pdf"
-    this.years = [
-      { name: '2021-2022', code: '2122' },
-      { name: '2020-2021', code: '2021' },
-
-    ];
+    var data = [];
+    if(this.years.length !== 0) {
+      this.years.forEach(y => {
+       data.push({ label: y.ShortYear, value: y.Id });
+      })
+      this.yearOptions = data;
+      this.selectedYear = data[0].value;
+     // this.loadResult();
+    }
     this.data = [{ 'slno': 1, 'subject': 'Tamil', 'test': 'Quarterly Exam' },
     { 'slno': 2, 'subject': 'English', 'test': 'Quarterly Exam' },
     { 'slno': 3, 'subject': 'Maths', 'test': 'Quarterly Exam' },
@@ -65,6 +59,16 @@ export class SubjectResultComponent implements OnInit {
     { 'slno': 14, 'subject': 'Science', 'test': 'Model Exam' },
     { 'slno': 15, 'subject': 'Social Science', 'test': 'Model Exam' }
     ]
+  }
+
+  onSelect() {
+    let yearSelection = [];
+    this.years.forEach(y => {
+      yearSelection.push({ label: y.ShortYear, value: y.Id });
+
+    })
+    this.yearOptions = yearSelection;
+    this.yearOptions.unshift({ label: '-select-', value: null });
   }
 
   onView() {
@@ -86,10 +90,6 @@ export class SubjectResultComponent implements OnInit {
   }
 }
 
-interface year {
-  name: string,
-  code: string
-}
 
 
 

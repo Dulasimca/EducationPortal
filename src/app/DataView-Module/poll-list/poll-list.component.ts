@@ -69,7 +69,6 @@ export class PollListComponent implements OnInit {
       this.loading = true;
       if (res !== null && res !== undefined && res.length !== 0) {
         res.forEach(i => {
-          console.log('vtdlist', votedList);
           if (votedList.length !== 0) {
             votedList.forEach(j => {
               if (j.NomineeID === i.NomineeID) {
@@ -157,7 +156,7 @@ export class PollListComponent implements OnInit {
           this.messageService.clear();
           this.messageService.add({
             key: 't-msg', severity: ResponseMessage.SEVERITY_SUCCESS,
-            summary: ResponseMessage.SUMMARY_SUCCESS, detail: ResponseMessage.SuccessMessage
+            summary: ResponseMessage.SUMMARY_SUCCESS, detail: ResponseMessage.VotingSuccessMsg
           });
         } else {
           this.blockUI.stop();

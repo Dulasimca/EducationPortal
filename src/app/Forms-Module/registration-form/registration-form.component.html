@@ -9,7 +9,7 @@
                                 class="form-mandatory-field">*</span></label>
                     </div>
                     <div class="p-col-2 no-pad-bottom" style="margin-left: -5%; margin-top: -2%;">
-                        <p-dropdown class="p-col-2" name="_roleid" [options]="roleIdOptions" [(ngModel)]="obj.RoleId"
+                        <p-dropdown class="p-col-2" name="_roleid" [options]="roleIdOptions" [(ngModel)]="roleId"
                             (onChange)="onChangeRole()" (onClick)="onSelect('R')" required>
                         </p-dropdown>
                     </div>
@@ -18,7 +18,7 @@
                     <p style="font-size: smaller;">Note*: Please select a role to register</p>
                 </div>
 
-                <form #f="ngForm" name="registrationForm" *ngIf="(this.obj.RoleId==6 || this.obj.RoleId==5)">
+                <form #f="ngForm" name="registrationForm" *ngIf="(this.roleId==6 || this.roleId==5)">
                     <p-tabView>
                         <p-tabPanel header="{{tabTitleI}}">
                             <p-card>
@@ -257,9 +257,9 @@
                                 <div #row3 class="p-col-12 p-md-12 p-lg-12 no-pad-top">
                                     <div class="p-grid">
                                         <div class="p-col-12 p-md-6 p-lg-4">
-                                            <div><label class="label-font-size" *ngIf="(this.obj.RoleId==6)"
+                                            <div><label class="label-font-size" *ngIf="(this.roleId==6)"
                                                     for="_studentimg">Student's Photo</label>
-                                                <label class="label-font-size" *ngIf="(this.obj.RoleId==5)"
+                                                <label class="label-font-size" *ngIf="(this.roleId==5)"
                                                     for="_studentimg">Teacher's Photo</label>
                                             </div>
                                             <img *ngIf="showSImg" width="100px" height="100px"
@@ -283,7 +283,7 @@
                                 </div>
                             </p-card>
                         </p-tabPanel>
-                        <p-tabPanel *ngIf="(this.obj.RoleId==6)" header="Parents Info">
+                        <p-tabPanel *ngIf="(this.roleId==6)" header="Parents Info">
                             <p-card>
                                 <div #row1 class="p-col-12 p-md-12 p-lg-12 no-pad-top">
                                     <p-fieldset legend="Father's Info" [toggleable]="true">
@@ -456,7 +456,7 @@
                                 </div>
                             </p-card>
                         </p-tabPanel>
-                        <p-tabPanel *ngIf="(this.obj.RoleId==6)" header="Guardian Info">
+                        <p-tabPanel *ngIf="(this.roleId==6)" header="Guardian Info">
                             <p-card>
                                 <div #row1 class="p-col-12 p-md-12 p-lg-12 no-pad-top">
                                     <p-fieldset legend="Guardian's Info" [toggleable]="true">

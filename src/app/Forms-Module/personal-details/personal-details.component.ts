@@ -52,6 +52,8 @@ export class PersonalDetailsComponent implements OnInit {
   logged_user: User;
   folderName: string = '';
   maxDate: Date = new Date();
+  dob: any;
+  doj: any;
   @BlockUI() blockUI: NgBlockUI;
   @ViewChild('f', { static: false }) _personalDetailsForm: NgForm;
   public formData = new FormData();
@@ -65,7 +67,7 @@ export class PersonalDetailsComponent implements OnInit {
     this.responseData = this.userService.getResponse();
     this.userService.getResponse();
     const current_year = new Date().getFullYear();
-    const start_year_range = current_year - 30;
+    const start_year_range = ((this.logged_user.roleId * 1) === 6) ? current_year - 20 : current_year - 60;
     this.yearRange = start_year_range + ':' + current_year;
     const roleID = (this.logged_user.roleId !== null) ? Number.parseInt(this.logged_user.roleId) : null;
     this.folderName = (roleID === 6) ? FileUploadConstant.StudentRegistration : FileUploadConstant.TeacherRegistration;
@@ -79,8 +81,10 @@ export class PersonalDetailsComponent implements OnInit {
       if (this.responseData.length !== 0) {
         this.responseData.forEach((i: any) => {
           this.obj = i;
-          this.obj.DateofBirth = this.datePipe.transform(i.DateofBirth, 'MM/dd/yyyy'),
-            this.obj.DateofJoining = this.datePipe.transform(i.DateofJoining, 'MM/dd/yyyy'),
+          this.dob = this.datePipe.transform(i.DateofBirth, 'dd/MM/yyyy');
+          this.doj = this.datePipe.transform(i.DateofJoining, 'dd/MM/yyyy');
+          this.obj.DateofBirth = this.datePipe.transform(i.DateofBirth, 'MM/ddyyyy'),
+            this.obj.DateofJoining = this.datePipe.transform(i.DateofJoining, 'MM/ddyyyy'),
             this.obj.StudentPhotoFileName = (i.StudentPhotoFileName !== undefined && i.StudentPhotoFileName !== null) ?
               (i.StudentPhotoFileName.toString().trim() !== '' ? i.StudentPhotoFileName : '') : '',
             this.obj.FatherPhotoFileName = (i.FatherPhotoFileName !== undefined && i.FatherPhotoFileName !== null) ?
@@ -106,6 +110,14 @@ export class PersonalDetailsComponent implements OnInit {
       }
     } else {
       this.router.navigate(['/profile']);
+    }
+  }
+
+  changeDate(type) {
+    if(type === 'J') {
+      this.obj.DateofJoining = this.doj;
+    } else {
+      this.obj.DateofBirth = this.dob;
     }
   }
 

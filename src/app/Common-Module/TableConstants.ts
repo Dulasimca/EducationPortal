@@ -164,5 +164,12 @@ export class TableConstants {
           { field: 'Student', header: 'Student' , align: 'left !important'},
           { field: 'MarksScored', header: 'Marks Scored' , align: 'right !important'},
         ];
+
+        public static readonly NomineeFormColumns = [
+          { field: 'FirstName', header: 'Nominee Name', align: 'left !important' },
+          { field: 'Class', header: 'Class', align: 'left !important' },
+          { field: 'startDate', header: 'Election Date', align: 'center !important' },
+          { field: 'endDate', header: 'ElectionName', align: 'center !important' },
+        ];
             
 }

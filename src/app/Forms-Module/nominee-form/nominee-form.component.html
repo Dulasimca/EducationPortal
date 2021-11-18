@@ -7,33 +7,38 @@
           <p-card>
             <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
               <div class="p-grid">
-                <div class="p-col-12 p-md-6 p-lg-3">
-                  <div><label>Date</label></div>
-                  <p-calendar dateFormat="dd/mm/yy" [(ngModel)]="date" [showIcon]="true" name="date"
-                  [showOtherMonths]="false" required></p-calendar>
+                <div class="p-col-12 p-md-6 p-lg-2">
+                  <div><label for="_startdate">Election Start Date</label></div>
+                  <p-calendar dateFormat="dd/mm/yy" [(ngModel)]="startDate" [showIcon]="true" name="_startdate"
+                  [minDate]="minDate" [showOtherMonths]="false" required></p-calendar>
+                </div>
+                <div class="p-col-12 p-md-6 p-lg-2">
+                  <div><label for="_enddate">Election End Date</label></div>
+                  <p-calendar dateFormat="dd/mm/yy" [(ngModel)]="endDate" [showIcon]="true" name="_enddate"
+                  [minDate]="minDate" [showOtherMonths]="false" required></p-calendar>
                 </div>
                 <div class="p-col-12 p-md-12 p-lg-3">
                   <div><label for="_position">Election Name</label></div>
                   <p-dropdown [options]="positionOptions" (onClick)="onSelect('EN')" [(ngModel)]="position" 
-                    name="_position" required>
+                    name="_position" (onChange)="onView()" required>
                   </p-dropdown>
                 </div>
-                <div class="p-col-12 p-md-6 p-lg-3">
+                <div class="p-col-12 p-md-6 p-lg-1">
                   <div><label for="_class">Class</label></div>
-                  <p-dropdown name="_class" [options]="classOptions" [(ngModel)]="class" optionLabel="label"
+                  <p-dropdown name="_class" [options]="classOptions" [(ngModel)]="class"
                     (onClick)="onSelect('C')" required>
                   </p-dropdown>
                 </div>
-                <div class="p-col-12 p-md-12 p-lg-3">
+                <div class="p-col-12 p-md-12 p-lg-1">
                   <div><label for="_section"> Section</label> </div>
-                  <p-dropdown name="_section" [options]="sectionOptions" [(ngModel)]="section" optionLabel="label"
+                  <p-dropdown name="_section" [options]="sectionOptions" [(ngModel)]="section"
                     (onClick)="onSelect('S')" required>
                   </p-dropdown>
                 </div>
                 <div class="p-col-12 p-md-12 p-lg-3">
-                  <div><label for="_sname"> Name</label> </div>
-                  <p-dropdown name="_sname" [options]="nameOptions" (click)="onSelect2()" optionLabel="label"
-                    [(ngModel)]="sname" name="label"  required>
+                  <div><label for="_sname"> Candidate Name</label> </div>
+                  <p-dropdown name="_sname" [options]="nameOptions" (click)="loadStudents()"
+                    [(ngModel)]="candidateId" name="label"  required>
                   </p-dropdown>
                 </div>
                 

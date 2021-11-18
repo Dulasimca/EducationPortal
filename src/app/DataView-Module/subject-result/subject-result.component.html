@@ -5,7 +5,8 @@
                 <div class="p-col-12 p-md-6 p-lg-3">
                     <div><label for="_year">Year<span class="form-mandatory-field">*</span></label>
                     </div>
-                    <p-dropdown name="_year" [options]="years" [(ngModel)]="selectedyear" optionLabel="name" required>
+                    <p-dropdown name="_year" [options]="yearOptions" [(ngModel)]="selectedYear"
+                    (onClick)="onSelect()" required>
                     </p-dropdown>
                 </div>
                 <div>

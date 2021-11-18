@@ -63,7 +63,6 @@ export class NewsletterComponent implements OnInit {
         Value: i + 1
       })
     }
-    console.log('mnth', this.curMonth, curmonth, this.months)
   }
 
   onSelect(type) {

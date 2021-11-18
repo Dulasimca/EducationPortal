@@ -43,7 +43,7 @@ export class ProfileComponent implements OnInit {
               i[j] = '';
             }
           }
-          var folderName = ((i.RoleId) * 1) ? FileUploadConstant.StudentRegistration : FileUploadConstant.TeacherRegistration;
+          var folderName = ((i.RoleId * 1) === 6) ? FileUploadConstant.StudentRegistration : FileUploadConstant.TeacherRegistration;
           this.name = (i.FirstName !== undefined && i.FirstName !== null) ? ((i.FirstName.toString().trim() !== '') ? i.FirstName : '-') : '-',
           this.class = (i.Classname2 !== undefined && i.Classname2 !== null) ? ((i.Classname2.toString().trim() !== '') ? i.Classname2 : '-') : '-',
           this.section = (i.SectionName !== undefined && i.SectionName !==null) ? ((i.SectionName.toString().trim() !== '') ? i.SectionName : '-') : '-',

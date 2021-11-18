@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { saveAs } from 'file-saver';
@@ -40,13 +40,15 @@ export class BookFormComponent implements OnInit {
   showtable: boolean;
   NewFileName: string;
   login_user: User;
+  loading: boolean;
   @BlockUI() blockUI: NgBlockUI;
   public progress: number;
   public message: string;
   public formData = new FormData();
   @ViewChild('f', { static: false }) _bookForm: NgForm;
   @Output() public onUploadFinished = new EventEmitter();
-  loading: boolean;
+  @ViewChild('fileSelector', { static: false }) _attachment: ElementRef;
+
   constructor(private restApiService: RestAPIService, private http: HttpClient,
     private masterService: MasterService, private messageService: MessageService,
     private authService: AuthService, private confirmationService: ConfirmationService) { }
@@ -213,6 +215,7 @@ export class BookFormComponent implements OnInit {
       this.Author = '',
       this.message = ''
     this.data = [];
+    this._attachment.nativeElement.value = null;
   }
 
   onRowSelect(event, selectedRow) {
@@ -229,6 +232,7 @@ export class BookFormComponent implements OnInit {
     this.selectedYear = selectedRow.Years;
     this.NewFileName=selectedRow.Pdffilename;
 }
+
 onDownload(Filename) {
   this.confirmationService.confirm({
     message: 'Do you want to download?',
@@ -240,7 +244,6 @@ onDownload(Filename) {
 },
 reject: (type) => { }
 });
-
 }
 }
 

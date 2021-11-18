@@ -10,6 +10,7 @@ import { DatePipe } from '@angular/common';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { User } from 'src/app/Interfaces/user';
 import { AuthService } from 'src/app/Services/auth.service';
+import { TableConstants } from 'src/app/Common-Module/TableConstants';
 
 @Component({
   selector: 'app-nominee-form',
@@ -17,19 +18,20 @@ import { AuthService } from 'src/app/Services/auth.service';
   styleUrls: ['./nominee-form.component.css']
 })
 export class NomineeFormComponent implements OnInit {
-  date: Date = new Date();
-  roleId: any;
-  sname: any;
+  startDate: Date = new Date();
+  endDate: Date = new Date();
+  roleId: number;
+  candidateId: number;
   snames?: any;
   nameOptions: SelectItem[];
   detail: string;
-  position: any;
+  position: number;
   positionOptions: SelectItem[];
-  class: any;
+  class: number;
   classes?: any;
   elections?: any;
   classOptions: SelectItem[];
-  section: any;
+  section: number;
   sections?: any;
   sectionOptions: SelectItem[];
   districtOptions: SelectItem[];
@@ -39,6 +41,7 @@ export class NomineeFormComponent implements OnInit {
   cols: any;
   login_user: User;
   loading: boolean;
+  minDate: Date = new Date();
   @BlockUI() blockUI: NgBlockUI;
   @ViewChild('f', { static: false }) _NomineeForm: NgForm;
 
@@ -48,12 +51,7 @@ export class NomineeFormComponent implements OnInit {
   ngOnInit(): void {
     this.login_user = this.authService.UserInfo;
     this.masterService.getMaster('');
-    this.cols = [
-      { field: 'FirstName', header: 'Nominee Name', align: 'left !important' },
-      { field: 'Class', header: 'Class', align: 'left !important' },
-      { field: 'ElectionDate', header: 'Election Date', align: 'center !important' },
-      { field: 'ElectionName', header: 'ElectionName', align: 'left !important' },
-    ];
+    this.cols = TableConstants.NomineeFormColumns;
   }
 
   onSubmit() {
@@ -62,22 +60,23 @@ export class NomineeFormComponent implements OnInit {
       'SchoolID': this.login_user.schoolId,
       'RoleId': this.login_user.roleId,
       'ElectionID': this.position,
-      'NomineeID': this.sname.value,
-      'ElectionDate': this.datepipe.transform(this.date, 'MM/dd/yyyy'),
-      'ClassId': this.class.value,
-      'SectionId': this.section.value,
+      'NomineeID': this.candidateId,
+      'ElectionDate': this.datepipe.transform(this.startDate, 'MM/dd/yyyy'),
+      'ElectionEndDate': this.datepipe.transform(this.endDate, 'MM/dd/yyyy'),
+      'ClassId': this.class,
+      'SectionId': this.section,
       'Flag': true
-
     };
     this.restApiService.post(PathConstants.Nominee_Post, params).subscribe(res => {
       if (res !== undefined && res !== null) {
         if (res) {
+          var successMsg = (this.MRowId === 0) ? ResponseMessage.SuccessMessage : ResponseMessage.UploadSucess;
           this.blockUI.stop();
           this.clear();
           this.messageService.clear();
           this.messageService.add({
             key: 't-msg', severity: ResponseMessage.SEVERITY_SUCCESS,
-            summary: ResponseMessage.SUMMARY_SUCCESS, detail: ResponseMessage.SuccessMessage
+            summary: ResponseMessage.SUMMARY_SUCCESS, detail: successMsg
           });
         } else {
           this.blockUI.stop();
@@ -107,6 +106,7 @@ export class NomineeFormComponent implements OnInit {
       }
     })
   }
+
   onSelect(type) {
     this.classes = this.masterService.getMaster('C');
     this.sections = this.masterService.getMaster('S');
@@ -144,21 +144,20 @@ export class NomineeFormComponent implements OnInit {
         this.positionOptions.unshift({ label: '-select', value: null });
         break;
     }
-
   }
-  onSelect2() {
+
+  loadStudents() {
     const params = {
       'SchoolID': this.login_user.schoolId,
-      'ClassId': this.class.value,
-      'SectionId': this.section.value
+      'ClassId': this.class,
+      'SectionId': this.section
     }
     this.restApiService.getByParameters(PathConstants.Nomineeview_Get, params).subscribe(data => {
-      if (data !== undefined) {
+      if (data !== undefined && data !== null) {
         let nameSelection = [];
         this.snames = data;
         this.snames.forEach(y => {
           nameSelection.push({ label: y.FirstName, value: y.slno });
-
         });
         this.nameOptions = nameSelection;
         this.nameOptions.unshift({ label: '-select', value: null });
@@ -167,7 +166,6 @@ export class NomineeFormComponent implements OnInit {
   }
 
   onView() {
-    console.log('inside view')
     this.data = [];
     const params = {
       'SchoolID': this.login_user.schoolId,
@@ -178,7 +176,9 @@ export class NomineeFormComponent implements OnInit {
       this.restApiService.getByParameters(PathConstants.Nominee_Get, params).subscribe(res => {
         if (res !== null && res !== undefined && res.length !== 0) {
           res.forEach(r => {
-            r.Class = r.ClassName + ' - ' + r.SectionName
+            r.Class = r.ClassName + ' - ' + r.SectionName;
+            r.startDate = this.datepipe.transform(r.ElectionDate, 'dd/MM/yyyy');
+            r.endDate = this.datepipe.transform(r.ElectionEndDate, 'dd/MM/yyyy');
           })
           this.data = res;
           this.loading = false;
@@ -204,17 +204,30 @@ export class NomineeFormComponent implements OnInit {
     this._NomineeForm.reset();
     this._NomineeForm.form.markAsUntouched();
     this._NomineeForm.form.markAsPristine();
-    this.position = "",
-      this.class = "",
-      this.section = "",
-      this.sname = "",
-      this.date = new Date();
+    this.position = null;
+    this.positionOptions = [];
+    this.class = null;
+    this.classOptions = [];
+    this.section = null;
+    this.sectionOptions = [];
+    this.candidateId = null;
+    this.nameOptions = [];
+    this.startDate = new Date();
+    this.endDate = new Date();
+    this.data = [];
   }
 
   onRowSelect(event, selectedRow) {
     this.MRowId = selectedRow.RowId;
-    this.date = selectedRow.ElectionDate;
-    this.position = selectedRow.ElectionName;
-    this.positionOptions = [{ label: selectedRow.position, value: selectedRow.ElectionName }];
+    this.startDate = new Date(selectedRow.ElectionDate);
+    this.endDate = new Date(selectedRow.ElectionEndDate);
+    this.position = selectedRow.ElectionID;
+    this.positionOptions = [{ label: selectedRow.ElectionName, value: selectedRow.ElectionID }];
+    this.class = selectedRow.ClassId;
+    this.classOptions = [{ label: selectedRow.ClassName, value: selectedRow.ClassId }];
+    this.section = selectedRow.SectionId;
+    this.sectionOptions = [{ label: selectedRow.SectionName, value: selectedRow.SectionId }];
+    this.candidateId = selectedRow.NomineeID;
+    this.nameOptions = [{ label: selectedRow.FirstName, value: selectedRow.NomineeID }];
   }
 }

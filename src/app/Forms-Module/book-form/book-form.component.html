@@ -49,7 +49,7 @@
                   <!-- <input class="p-col-12" name="_Uploadpdf" type="file"
                           pInputText (change)="onFileUpload($event,4)" accept=".jpg" required/> -->
                   <label>Attachment<span class="form-mandatory-field">*</span></label>
-                  <input type="file" #file placeholder="Choose file" pInputText (change)="uploadFile(file.files)"
+                  <input type="file" #fileSelector placeholder="Choose file" pInputText (change)="uploadFile(fileSelector.files)"
                     accept=".pdf" required />
                     <p style="font-size: small; font-style: italic;">Note*:in pdf format only</p>
                 </div>

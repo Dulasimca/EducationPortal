@@ -79,6 +79,8 @@ export class RegistrationFormComponent implements OnInit {
   header: string;
   maxDate: Date = new Date();
   roleId: number;
+  // state: string;
+  // schoolName: string;
   @ViewChild('f', { static: false }) _registrationForm: NgForm;
   @ViewChild('studentImg', { static: false }) studentImg: ElementRef;
   @ViewChild('fatherImg', { static: false }) fatherImg: ElementRef;
@@ -213,7 +215,6 @@ export class RegistrationFormComponent implements OnInit {
     if (this._registrationForm !== undefined) {
       this.clearForm();
     console.log('img', this.studentImg)
-
     }
     const current_year = new Date().getFullYear();
     let start_year_range;
@@ -226,6 +227,7 @@ export class RegistrationFormComponent implements OnInit {
       this.tabTitleII = 'Teacher Info II';
       start_year_range = current_year - 60;
     }
+    console.log('roleid', this.roleId, start_year_range)
     this.yearRange = start_year_range + ':' + current_year;
   }
 
@@ -294,8 +296,8 @@ export class RegistrationFormComponent implements OnInit {
     this.obj = row;
     this.obj['State'] = 'Tamilnadu';
     this.obj['SchoolName'] = this.login_user.schoolname;
-    this._registrationForm.controls['_state'].patchValue(this.obj.State);
-    this._registrationForm.controls['_schlname'].patchValue(this.obj.SchoolName);
+    this._registrationForm.form.controls['_state'].patchValue(this.obj.State);
+    this._registrationForm.form.controls['_schlname'].patchValue(this.obj.SchoolName);
     this.obj.DateofBirth = new Date(row.DateofBirth),
       this.obj.DateofJoining = new Date(row.DateofJoining),
       this.obj.StudentPhotoFileName = (row.StudentPhotoFileName !== undefined && row.StudentPhotoFileName !== null) ?
@@ -375,6 +377,9 @@ export class RegistrationFormComponent implements OnInit {
         this.obj[i] = '';
       }
     }
+    console.log('imgs', this.studentImg);
+    this.obj.Disability = (this.obj.Disability !== null && this.obj.Disability !== undefined) ?
+      this.obj.Disability : '';
     this.obj.RoleId = (this.roleId !== undefined && this.roleId !== null) ? this.roleId : 0;
     this.obj.DateofBirth = (typeof (this.obj.DateofBirth) === 'object') ?
       this.datePipe.transform(this.obj.DateofBirth, 'MM/dd/yyyy') : this.obj.DateofBirth;
@@ -429,8 +434,8 @@ export class RegistrationFormComponent implements OnInit {
     this.obj.slno = 0;
     this.obj.ID = 0;
     this.obj['State'] = 'Tamilnadu';
-    this.obj.SchoolId = this.login_user.schoolId;
     this.obj['SchoolName'] = this.login_user.schoolname;
+    this.obj.SchoolId = this.login_user.schoolId;
     this.obj.Taluk = this.login_user.talukId;
     this.talukOptions = [{ label: this.login_user.taluk, value: this.login_user.talukId }];
     this.obj.DistrictId = this.login_user.distrctId;
@@ -445,6 +450,7 @@ export class RegistrationFormComponent implements OnInit {
   }
 
   clearForm() {
+    console.log('form', this._registrationForm)
     this._registrationForm.reset();
     this._registrationForm.form.markAsUntouched();
     this._registrationForm.form.markAsPristine();
@@ -455,6 +461,9 @@ export class RegistrationFormComponent implements OnInit {
     if (this.studentImg.nativeElement.files.length === 0 ) {
       this.studentImg.nativeElement.value = null;
     }
+    if(this.fatherImg !== undefined && this.motherImg !== undefined && this.guardianImg !== undefined &&
+      this.nativityCertificate !== undefined && this.communityCertificate !== undefined &&
+      this.incomeCertificate !== undefined) {
     if (this.fatherImg.nativeElement.files.length === 0) {
       this.fatherImg.nativeElement.value = null;
     }
@@ -473,6 +482,7 @@ export class RegistrationFormComponent implements OnInit {
     if (this.communityCertificate.nativeElement.files.length === 0) {
       this.communityCertificate.nativeElement.value = null;
     }
+  }
     this.isChecked = false;
     this.casteOptions = [];
     this.classOptions = [];
@@ -485,7 +495,7 @@ export class RegistrationFormComponent implements OnInit {
     this.nationalityOptions = [];
     this.obj.RoleId = (this.roleId !== undefined && this.roleId !== null) ? this.roleId : null;
     this.setDefaultObject();
-    this._registrationForm.controls['_state'].patchValue(this.obj.State);
-    this._registrationForm.controls['_schlname'].patchValue(this.obj.SchoolName);
+    this._registrationForm.form.controls['_state'].patchValue(this.obj.State);
+    this._registrationForm.form.controls['_schlname'].patchValue(this.obj.SchoolName);
   }
 }

@@ -26,11 +26,11 @@
                                             </p-dropdown>
                                         </div>
                                         <div class="p-col-12 p-md-6 p-lg-3">
-                                            <div><label for="_subject">Subject<span
+                                            <div><label for="_class">Class<span
                                                         class="form-mandatory-field">*</span></label>
                                             </div>
-                                            <p-dropdown name="_subject" [options]="subjectOptions"
-                                               (onClick)="onSelect('S')" [(ngModel)]="subject" required>
+                                            <p-dropdown name="_class" [options]="classOptions" (onClick)="onSelect('C')"
+                                                [(ngModel)]="class" (onChange)="onChangeClass()" required>
                                             </p-dropdown>
                                         </div>
                                     </div>
@@ -46,11 +46,11 @@
                                             </div>
                                         </div>
                                         <div class="p-col-12 p-md-6 p-lg-3">
-                                            <div><label for="_class">Class<span
+                                            <div><label for="_subject">Subject<span
                                                         class="form-mandatory-field">*</span></label>
                                             </div>
-                                            <p-dropdown name="_class" [options]="classOptions" (onClick)="onSelect('C')"
-                                                [(ngModel)]="class" required>
+                                            <p-dropdown name="_subject" [options]="subjectOptions"
+                                               [disabled]="disableSubject" (onClick)="onSelect('S')" [(ngModel)]="subject" required>
                                             </p-dropdown>
                                         </div>
                                     </div>

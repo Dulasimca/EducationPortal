@@ -70,13 +70,13 @@ export class NomineeFormComponent implements OnInit {
     this.restApiService.post(PathConstants.Nominee_Post, params).subscribe(res => {
       if (res !== undefined && res !== null) {
         if (res) {
-          var successMsg = (this.MRowId === 0) ? ResponseMessage.SuccessMessage : ResponseMessage.UploadSucess;
+       //   var successMsg = (this.MRowId === 0) ? ResponseMessage.SuccessMessage : ResponseMessage.UpdateSucess;
           this.blockUI.stop();
           this.clear();
           this.messageService.clear();
           this.messageService.add({
             key: 't-msg', severity: ResponseMessage.SEVERITY_SUCCESS,
-            summary: ResponseMessage.SUMMARY_SUCCESS, detail: successMsg
+            summary: ResponseMessage.SUMMARY_SUCCESS, detail: ResponseMessage.SuccessMessage
           });
         } else {
           this.blockUI.stop();

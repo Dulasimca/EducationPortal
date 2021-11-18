@@ -627,6 +627,9 @@ td[_ngcontent-fng-c4] {
 .p-inputgroup-addon:last-child, .p-inputgroup .p-float-label:last-child input, .p-inputgroup button:last-child, .p-inputgroup input:last-child {
     color: #45e327 !important;
 }
+.p-datatable.p-datatable-gridlines .p-datatable-tbody>tr>td, .p-datatable.p-datatable-gridlines .p-datatable-tfoot>tr>td, .p-datatable.p-datatable-gridlines .p-datatable-thead>tr>th {
+    overflow-wrap: break-word !important;
+}
 .p-overlaypanel {
     color: rgb(11, 43, 102) !important;
     background: whitesmoke !important;
@@ -678,6 +681,9 @@ legend {
 } */
 .p-datatable.p-datatable-gridlines .p-datatable-tbody>tr>td, .p-datatable.p-datatable-gridlines .p-datatable-tfoot>tr>td, .p-datatable.p-datatable-gridlines .p-datatable-thead>tr>th {
     text-align: center !important;
+}
+.p-datatable.p-datatable-gridlines .p-datatable-tbody>tr>td, .p-datatable.p-datatable-gridlines .p-datatable-tfoot>tr>td, .p-datatable.p-datatable-gridlines .p-datatable-thead>tr>th {
+    overflow-wrap: break-word !important;
 }
 .p-panel .p-panel-header {
     padding: 0.75rem !important;

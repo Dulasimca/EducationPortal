@@ -56,6 +56,7 @@ export class QuestionBankUploadFormComponent implements OnInit {
     this.masterService.getMaster('');
     this.masterService.getAccountingYear();
     this.questionBankCols = TableConstants.TQuestionBankColumns;
+    this.disableSubject = true;
   }
 
   onSelect(type) {
@@ -106,6 +107,16 @@ export class QuestionBankUploadFormComponent implements OnInit {
         this.subjectOptions = subjectSelection;
         this.subjectOptions.unshift({ label: '-select', value: null });
         break;
+    }
+  }
+
+  onChangeClass() {
+    this.subjectOptions = [];
+    this.subject = null;
+    if(this.class !== undefined && this.class !== null) {
+      this.disableSubject = false;
+    } else {
+      this.disableSubject = true;
     }
   }
 

@@ -56,7 +56,19 @@
 </div>
 
 <p-dialog #dialog [(visible)]="display" [modal]="true" [style]="{width: '45vw'}">
-    <p-panel header="Subject Test Result">
+    <p-panel header="">
+        <ng-template pTemplate="header">
+            <div class="p-col-12 p-md-12 p-lg-12 no-pad">
+            <div class="p-grid">
+                <div class="p-col-11 p-md-11 p-lg-11">
+                    <span>Subject Test Result</span>
+                </div>
+                <div class="p-col-1 p-md-1 p-lg-1" (click)="display=false">
+                    <span><i class="pi pi-times-circle"style="font-size: 1.25rem;color: whitesmoke !important"></i></span>
+                </div>
+            </div>
+        </div>
+        </ng-template>
         <div class="p-col-12 p-md-12 p-lg-12" >
             <div class="p-grid">
                 <div class="p-col-12 p-md-1 p-lg-2"></div>

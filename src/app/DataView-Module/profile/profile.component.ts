@@ -56,7 +56,7 @@ export class ProfileComponent implements OnInit {
           this.guardian = (i.GaurdianMobileNo !== undefined && i.GaurdianMobileNo !== null) ? ((i.GaurdianMobileNo.toString().trim() !== '') ? i.GaurdianMobileNo : '-') : '-',
           this.address = (i.CurrentAddress !== undefined && i.CurrentAddress !== null) ? ((i.CurrentAddress.toString().trim() !== '') ? i.CurrentAddress : '-') : '-',
           this.emailId = (i.EmailId !== undefined && i.EmailId !== null) ? ((i.EmailId.toString().trim() !== '') ? i.EmailId : '-') : '-';
-          this.userImage = (i.StudentPhotoFileName !== undefined && i.StudentPhotoFileName !== null) ? (i.StudentPhotoFileName.trim() !== '' ? ('../../assets/layout/' + folderName +'/'+ i.studentPhotoFileName) : '') : '';
+          this.userImage = (i.StudentPhotoFileName !== undefined && i.StudentPhotoFileName !== null) ? (i.StudentPhotoFileName.trim() !== '' ? ('../../assets/layout/' + folderName +'/'+ i.StudentPhotoFileName) : '') : '';
         })
         this.responseData = response;
   }

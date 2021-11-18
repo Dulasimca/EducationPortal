@@ -448,6 +448,10 @@ export class RegistrationFormComponent implements OnInit {
     this._registrationForm.reset();
     this._registrationForm.form.markAsUntouched();
     this._registrationForm.form.markAsPristine();
+    this.showFImg = false;
+    this.showGImg = false;
+    this.showMImg = false;
+    this.showSImg = false;
     if (this.studentImg.nativeElement.files.length === 0 ) {
       this.studentImg.nativeElement.value = null;
     }

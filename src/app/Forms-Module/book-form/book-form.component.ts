@@ -25,8 +25,8 @@ export class BookFormComponent implements OnInit {
   selectedYear: number;
   Author: string;
   yearOptions: SelectItem[];
-  cols: any; 
-  form:any;
+  cols: any;
+  form: any;
   ClassId: any;
   medium: string;
   mediumOptions: SelectItem[];
@@ -130,10 +130,10 @@ export class BookFormComponent implements OnInit {
       'ClassId': this.ClassId,
       'subjects': this.Subject,
       'authorReference': this.Author,
-      'Pdffilename': this.NewFileName,  
-      'Years': this.selectedYear, 
-      'medium': this.medium,  
-      'Flag': true,  
+      'Pdffilename': this.NewFileName,
+      'Years': this.selectedYear,
+      'medium': this.medium,
+      'Flag': true,
     };
     this.restApiService.post(PathConstants.Book_Post, params).subscribe(res => {
       if (res !== undefined && res !== null) {
@@ -205,18 +205,18 @@ export class BookFormComponent implements OnInit {
       });
     }
   }
-  
+
   onClear() {
     this._bookForm.reset();
     this._bookForm.form.markAsUntouched();
     this._bookForm.form.markAsPristine();
     this.yearOptions = [];
-    this.Subject = '',
-      this.Author = '',
-      this.message = ''
+    this.Subject = '';
+    this.Author = '';
+    this.message = '';
     this.data = [];
-    if(this._attachment.nativeElement.files.length === 0) {
-    this._attachment.nativeElement.value = null;
+    if (this._attachment.nativeElement.files.length === 0) {
+      this._attachment.nativeElement.value = null;
     }
   }
 
@@ -232,20 +232,20 @@ export class BookFormComponent implements OnInit {
     this.Author = selectedRow.authorReference;
     this.Subject = selectedRow.subjects;
     this.selectedYear = selectedRow.Years;
-    this.NewFileName=selectedRow.Pdffilename;
-}
+    this.NewFileName = selectedRow.Pdffilename;
+  }
 
-onDownload(Filename) {
-  this.confirmationService.confirm({
-    message: 'Do you want to download?',
-    header: 'Confirmation',
-    icon: 'pi pi-exclamation-triangle',
-    accept: () => {
-  const path = "../../assets/layout/"+FileUploadConstant.Booksfolder+"/"+Filename;
-  saveAs(path, Filename);
-},
-reject: (type) => { }
-});
-}
+  onDownload(Filename) {
+    this.confirmationService.confirm({
+      message: 'Do you want to download?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
+        const path = "../../assets/layout/" + FileUploadConstant.Booksfolder + "/" + Filename;
+        saveAs(path, Filename);
+      },
+      reject: (type) => { }
+    });
+  }
 }
 

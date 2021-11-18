@@ -215,7 +215,9 @@ export class BookFormComponent implements OnInit {
       this.Author = '',
       this.message = ''
     this.data = [];
+    if(this._attachment.nativeElement.files.length === 0) {
     this._attachment.nativeElement.value = null;
+    }
   }
 
   onRowSelect(event, selectedRow) {

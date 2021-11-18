@@ -101,7 +101,6 @@ export class RegistrationFormComponent implements OnInit {
     ///end
     this.registeredCols = TableConstants.RegisteredAssociateColumns;
     this.setDefaultObject();
-    console.log('img', this.studentImg)
   }
 
   onSelect(type) {
@@ -213,6 +212,8 @@ export class RegistrationFormComponent implements OnInit {
   onChangeRole() {
     if (this._registrationForm !== undefined) {
       this.clearForm();
+    console.log('img', this.studentImg)
+
     }
     const current_year = new Date().getFullYear();
     let start_year_range;
@@ -447,25 +448,25 @@ export class RegistrationFormComponent implements OnInit {
     this._registrationForm.reset();
     this._registrationForm.form.markAsUntouched();
     this._registrationForm.form.markAsPristine();
-    if (this.studentImg !== undefined) {
+    if (this.studentImg.nativeElement.files.length === 0 ) {
       this.studentImg.nativeElement.value = null;
     }
-    if (this.fatherImg !== undefined) {
+    if (this.fatherImg.nativeElement.files.length === 0) {
       this.fatherImg.nativeElement.value = null;
     }
-    if (this.motherImg !== undefined) {
+    if (this.motherImg.nativeElement.files.length === 0) {
       this.motherImg.nativeElement.value = null;
     }
-    if (this.guardianImg !== undefined) {
+    if (this.guardianImg.nativeElement.files.length === 0) {
       this.guardianImg.nativeElement.value = null;
     }
-    if (this.incomeCertificate !== undefined) {
+    if (this.incomeCertificate.nativeElement.files.length === 0) {
       this.incomeCertificate.nativeElement.value = null;
     }
-    if (this.nativityCertificate !== undefined) {
+    if (this.nativityCertificate.nativeElement.files.length === 0) {
       this.nativityCertificate.nativeElement.value = null;
     }
-    if (this.communityCertificate !== undefined) {
+    if (this.communityCertificate.nativeElement.files.length === 0) {
       this.communityCertificate.nativeElement.value = null;
     }
     this.isChecked = false;

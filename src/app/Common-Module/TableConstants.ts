@@ -140,7 +140,7 @@ export class TableConstants {
           ];
       
         public static readonly FeesDetailsColumns = [
-            { field: 'duedate', header: 'Due Date', align: 'center !important'},
+            { field: 'DueDateFormatted', header: 'Due Date', align: 'center !important'},
             { field: 'Class', header: 'Class' , align: 'left !important'},
             { field: 'Section', header: 'Section', align: 'left !important'},
             { field: 'FirstName', header: 'Name', align: 'left !important'},

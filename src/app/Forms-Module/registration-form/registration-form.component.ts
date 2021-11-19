@@ -106,7 +106,7 @@ export class RegistrationFormComponent implements OnInit {
   }
 
   onDateSelection(type) {
-    if(type === 'B') {
+    if (type === 'B') {
       this.obj.DateofBirth = this.dob;
     } else {
       this.obj.DateofJoining = this.doj;
@@ -294,13 +294,14 @@ export class RegistrationFormComponent implements OnInit {
       case 7:
         this.obj.NativityFilename = this.uploadFile($event.target.files, this.nImgProgress);
         break;
-
     }
   }
 
   onEdit(row) {
     this.showDialog = false;
-    this.obj = row;
+    var data: Profile = row;
+    this.obj = data as Profile;
+    console.log('dt', data, row, this.obj)
     this.obj['State'] = 'Tamilnadu';
     this.obj['SchoolName'] = this.login_user.schoolname;
     this._registrationForm.form.controls['_state'].patchValue(this.obj.State);
@@ -387,18 +388,18 @@ export class RegistrationFormComponent implements OnInit {
       }
     }
     this.obj.RoleId = (this.roleId !== undefined && this.roleId !== null) ? this.roleId : 0;
-    console.log('dob', typeof(this.obj.DateofBirth), this.obj.DateofBirth); 
-    console.log(this.datePipe.transform(this.obj.DateofBirth,'MM/dd/yyyy'));
     this.obj.DateofBirth = (typeof (this.obj.DateofBirth) === 'object') ?
       this.datePipe.transform(this.obj.DateofBirth, 'MM/dd/yyyy') : this.obj.DateofBirth;
     this.obj.DateofJoining = (typeof (this.obj.DateofJoining) === 'object') ?
       this.datePipe.transform(this.obj.DateofJoining, 'MM/dd/yyyy') : this.obj.DateofJoining;
     this.obj.UserId = this.login_user.id;
-    this.obj.Disability = (this.obj.Disability !== undefined && this.obj.Disability !== null) ? this.obj.Disability.trim() : '',
-      this.obj.Password = '123';
+    this.obj.Disability = (this.obj.Disability !== undefined && this.obj.Disability !== null) ? this.obj.Disability.trim() : '';
+    this.obj.Password = '123';
     this.obj.CurrentAddress = (this.obj.CurrentAddress !== undefined && this.obj.CurrentAddress !== null) ?
       this.obj.CurrentAddress : this.obj.PermanentAddress;
     var statusMsg = (this.obj.slno !== 0) ? ResponseMessage.UpdateSucess : ResponseMessage.SuccessMessage;
+    delete this.obj['dob'];
+    delete this.obj['doj'];
     this.restApiService.post(PathConstants.Registration_Post, this.obj).subscribe(res => {
       if (res !== undefined && res !== null) {
         if (res.item1) {

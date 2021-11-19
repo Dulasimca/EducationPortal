@@ -1,6 +1,7 @@
 <mat-toolbar color="primary" fxLayout="row">
     <div fxFlex fxLayout="row" *ngIf="!hideHeader" style="background: rgb(11, 43, 102) !important;">
         <div fxFlex>
+            <!-- mobile -->
             <span fxHide.xs fxHide.sm fxHide.lt-sm fxHide.gt-xs fxHide.gt-sm 
             fxShow.lg fxShow.lt-lg fxShow.md fxShow.lt-md fxShow.gt-md fxShow.gt-lg>
                 <i *ngIf="!isOpen" class="pi pi-bars" (click)="isOpen=!isOpen"
@@ -8,6 +9,7 @@
                 <i *ngIf="isOpen" class="pi pi-times" (click)="isOpen=!isOpen"
                     style="font-size: 1.6rem; color: whitesmoke; align-self: center;"></i>
             </span>
+            <!-- lg-screen -->
             <span fxShow.xs fxShow.sm fxShow.lt-sm fxShow.gt-xs fxShow.gt-sm 
             fxHide.lg fxHide.lt-lg fxHide.md fxHide.lt-md fxHide.gt-md fxHide.gt-lg>
                 <i class="pi pi-bars" (click)="openSideOverlay=!openSideOverlay"
@@ -38,12 +40,15 @@
 [ngClass.md]="{'layout-wrapper-set': isOpen, 'layout-wrapper-unset': !isOpen}"
 [ngClass.xs]="'layout-wrapper-unset'">
     <div class="p-grid side-nav">
-        <div id="side-nav-bar" *ngIf="isOpen" class="p-col-2 no-pad-right side-nav-panel" fxHide.xs fxShow.md fxShow.lg>
+        <div id="side-nav-bar" *ngIf="isOpen" class="p-col-2 no-pad-right side-nav-panel" 
+        fxHide.xs fxHide.sm fxHide.lt-sm fxHide.gt-xs fxHide.gt-sm 
+            fxShow.lg fxShow.lt-lg fxShow.md fxShow.lt-md fxShow.gt-md fxShow.gt-lg>
             <div class="nav-container-pane">
                 <p-panelMenu [model]="items"></p-panelMenu>
             </div>
         </div>
-        <div fxHide.lg fxHide.md fxShow.xs>
+        <div fxShow.xs fxShow.sm fxShow.lt-sm fxShow.gt-xs fxShow.gt-sm 
+        fxHide.lg fxHide.lt-lg fxHide.md fxHide.lt-md fxHide.gt-md fxHide.gt-lg>
             <p-sidebar [(visible)]="openSideOverlay">
                 <p-panelMenu [model]="items"></p-panelMenu>
             </p-sidebar>

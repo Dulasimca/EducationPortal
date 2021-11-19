@@ -2,7 +2,8 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
-import { SelectItem } from 'primeng/api';
+import { MessageService, SelectItem } from 'primeng/api';
+import { ResponseMessage } from 'src/app/Common-Module/Message';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { TableConstants } from 'src/app/Common-Module/TableConstants';
 import { MasterService } from 'src/app/Services/master-data.service';
@@ -40,7 +41,7 @@ export class ResultFormComponent implements OnInit {
   @ViewChild('f', { static: false }) _resultForm: NgForm;
   @BlockUI() blockUI: NgBlockUI;
   constructor(private _masterService: MasterService, private _restApiService: RestAPIService,
-    private _datepipe: DatePipe) { }
+    private _datepipe: DatePipe, private _messageService: MessageService) { }
 
   ngOnInit(): void {
     this._masterService.getMaster('');
@@ -118,8 +119,22 @@ export class ResultFormComponent implements OnInit {
       this.section !== null) {
       const params = { 'ClassId': this.class.value, 'SectionId': this.section.value };
       this._restApiService.getByParameters(PathConstants.StudentList_Get, params).subscribe(res => {
-        if (res !== undefined && res !== null && res.length !== 0) {
+        if (res !== undefined && res !== null) {
+          if(res.length !== 0) {
           this.students = res;
+          } else {
+            this._messageService.clear();
+            this._messageService.add({
+              key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
+              summary: ResponseMessage.SUMMARY_WARNING, detail: ResponseMessage.NoStudentsMsg
+            });
+          }
+        } else {
+          this._messageService.clear();
+          this._messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
+            summary: ResponseMessage.SUMMARY_WARNING, detail: ResponseMessage.NoStudentsMsg
+          });
         }
       })
     }
@@ -127,8 +142,16 @@ export class ResultFormComponent implements OnInit {
 
   checkMarksInput() {
     if(this.totalMarks !== undefined && this.totalMarks !== null && 
-      this.marksScored !== undefined && this.marksScored !== null) {
-          
+      this.marksScored !== undefined && this.marksScored !== null &&
+      this.totalMarks !== NaN && this.marksScored !== NaN) {
+          if((this.totalMarks * 1) < (this.marksScored * 1)) {
+            var msg = 'Marks scored by student cannot be greater than total marks of exam. !';
+            this._messageService.clear();
+            this._messageService.add({
+              key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+              summary: ResponseMessage.SUMMARY_ERROR, detail: msg
+            });
+          }
       }
   }
 
@@ -181,6 +204,9 @@ export class ResultFormComponent implements OnInit {
     } else {
       this.student = null;
       this.studentOptions = [];
+      this._resultForm.form.controls['__student'].reset();
+      this.marksScored = null;
+      this._resultForm.form.controls['_marksscored'].reset();
     }
   }
 }

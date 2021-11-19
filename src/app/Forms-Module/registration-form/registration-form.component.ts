@@ -79,8 +79,8 @@ export class RegistrationFormComponent implements OnInit {
   header: string;
   maxDate: Date = new Date();
   roleId: number;
-  // state: string;
-  // schoolName: string;
+  dob: Date;
+  doj: Date;
   @ViewChild('f', { static: false }) _registrationForm: NgForm;
   @ViewChild('studentImg', { static: false }) studentImg: ElementRef;
   @ViewChild('fatherImg', { static: false }) fatherImg: ElementRef;
@@ -103,6 +103,14 @@ export class RegistrationFormComponent implements OnInit {
     ///end
     this.registeredCols = TableConstants.RegisteredAssociateColumns;
     this.setDefaultObject();
+  }
+
+  onDateSelection(type) {
+    if(type === 'B') {
+      this.obj.DateofBirth = this.dob;
+    } else {
+      this.obj.DateofJoining = this.doj;
+    }
   }
 
   onSelect(type) {
@@ -214,7 +222,6 @@ export class RegistrationFormComponent implements OnInit {
   onChangeRole() {
     if (this._registrationForm !== undefined) {
       this.clearForm();
-    console.log('img', this.studentImg)
     }
     const current_year = new Date().getFullYear();
     let start_year_range;
@@ -227,7 +234,6 @@ export class RegistrationFormComponent implements OnInit {
       this.tabTitleII = 'Teacher Info II';
       start_year_range = current_year - 60;
     }
-    console.log('roleid', this.roleId, start_year_range)
     this.yearRange = start_year_range + ':' + current_year;
   }
 
@@ -246,8 +252,8 @@ export class RegistrationFormComponent implements OnInit {
         actualFilename = fileToUpload.name;
       }
       );
-      actualFilename = fileToUpload.name;
-      return actualFilename;
+    actualFilename = fileToUpload.name;
+    return actualFilename;
   }
 
   onFileUpload($event, id) {
@@ -299,23 +305,25 @@ export class RegistrationFormComponent implements OnInit {
     this.obj['SchoolName'] = this.login_user.schoolname;
     this._registrationForm.form.controls['_state'].patchValue(this.obj.State);
     this._registrationForm.form.controls['_schlname'].patchValue(this.obj.SchoolName);
-    this.obj.DateofBirth = new Date(row.DateofBirth),
-      this.obj.DateofJoining = new Date(row.DateofJoining),
-      this.obj.StudentPhotoFileName = (row.StudentPhotoFileName !== undefined && row.StudentPhotoFileName !== null) ?
-        (row.StudentPhotoFileName.toString().trim() !== '' ? row.StudentPhotoFileName : '') : '',
-      this.obj.FatherPhotoFileName = (row.FatherPhotoFileName !== undefined && row.FatherPhotoFileName !== null) ?
-        (row.FatherPhotoFileName.toString().trim() !== '' ? row.FatherPhotoFileName : '') : '',
-      this.obj.MotherPhotoFilName = (row.MotherPhotoFilName !== undefined && row.MotherPhotoFilName !== null) ?
-        (row.MotherPhotoFilName.toString().trim() !== '' ? row.MotherPhotoFilName : '') : '',
-      this.obj.GaurdianPhotoFileName = (row.GaurdianPhotoFileName !== undefined && row.GaurdianPhotoFileName !== null) ?
-        (row.GaurdianPhotoFileName.toString().trim() !== '' ? row.GaurdianPhotoFileName : '') : '',
-      this.obj.IncomeFilename = (row.IncomeFilename !== undefined && row.IncomeFilename !== null) ?
-        (row.IncomeFilename.toString().trim() !== '' ? row.IncomeFilename : '') : '',
-      this.obj.NativityFilename = (row.NativityFilename !== undefined && row.NativityFilename !== null) ?
-        (row.NativityFilename.toString().trim() !== '' ? row.NativityFilename : '') : '',
-      this.obj.CommunityFilename = (row.CommunityFilename !== undefined && row.CommunityFilename !== null) ?
-        (row.CommunityFilename.toString().trim() !== '' ? row.CommunityFilename : '') : '',
-      this.classOptions = [{ label: row.Classname2, value: row.ClassId }];
+    this.dob = new Date(row.DateofBirth);
+    this.doj = new Date(row.DateofJoining);
+    this.obj.DateofBirth = new Date(row.DateofBirth);
+    this.obj.DateofJoining = new Date(row.DateofJoining);
+    this.obj.StudentPhotoFileName = (row.StudentPhotoFileName !== undefined && row.StudentPhotoFileName !== null) ?
+      (row.StudentPhotoFileName.toString().trim() !== '' ? row.StudentPhotoFileName : '') : '';
+    this.obj.FatherPhotoFileName = (row.FatherPhotoFileName !== undefined && row.FatherPhotoFileName !== null) ?
+      (row.FatherPhotoFileName.toString().trim() !== '' ? row.FatherPhotoFileName : '') : '';
+    this.obj.MotherPhotoFilName = (row.MotherPhotoFilName !== undefined && row.MotherPhotoFilName !== null) ?
+      (row.MotherPhotoFilName.toString().trim() !== '' ? row.MotherPhotoFilName : '') : '';
+    this.obj.GaurdianPhotoFileName = (row.GaurdianPhotoFileName !== undefined && row.GaurdianPhotoFileName !== null) ?
+      (row.GaurdianPhotoFileName.toString().trim() !== '' ? row.GaurdianPhotoFileName : '') : '';
+    this.obj.IncomeFilename = (row.IncomeFilename !== undefined && row.IncomeFilename !== null) ?
+      (row.IncomeFilename.toString().trim() !== '' ? row.IncomeFilename : '') : '';
+    this.obj.NativityFilename = (row.NativityFilename !== undefined && row.NativityFilename !== null) ?
+      (row.NativityFilename.toString().trim() !== '' ? row.NativityFilename : '') : '';
+    this.obj.CommunityFilename = (row.CommunityFilename !== undefined && row.CommunityFilename !== null) ?
+      (row.CommunityFilename.toString().trim() !== '' ? row.CommunityFilename : '') : '';
+    this.classOptions = [{ label: row.Classname2, value: row.ClassId }];
     this.sectionOptions = [{ label: row.SectionName, value: row.SectionId }];
     this.mediumOptions = [{ label: row.MediumName, value: row.Medium }];
     this.bloodGroupOptions = [{ label: row.BloodGroupName, value: row.BloodGroup }];
@@ -379,6 +387,8 @@ export class RegistrationFormComponent implements OnInit {
       }
     }
     this.obj.RoleId = (this.roleId !== undefined && this.roleId !== null) ? this.roleId : 0;
+    console.log('dob', typeof(this.obj.DateofBirth), this.obj.DateofBirth); 
+    console.log(this.datePipe.transform(this.obj.DateofBirth,'MM/dd/yyyy'));
     this.obj.DateofBirth = (typeof (this.obj.DateofBirth) === 'object') ?
       this.datePipe.transform(this.obj.DateofBirth, 'MM/dd/yyyy') : this.obj.DateofBirth;
     this.obj.DateofJoining = (typeof (this.obj.DateofJoining) === 'object') ?
@@ -455,31 +465,31 @@ export class RegistrationFormComponent implements OnInit {
     this.showGImg = false;
     this.showMImg = false;
     this.showSImg = false;
-    if (this.studentImg.nativeElement.files.length !== 0 ) {
+    if (this.studentImg.nativeElement.files.length !== 0) {
       this.studentImg.nativeElement.value = null;
     }
-    if(this.fatherImg !== undefined && this.motherImg !== undefined && this.guardianImg !== undefined &&
+    if (this.fatherImg !== undefined && this.motherImg !== undefined && this.guardianImg !== undefined &&
       this.nativityCertificate !== undefined && this.communityCertificate !== undefined &&
       this.incomeCertificate !== undefined) {
-    if (this.fatherImg.nativeElement.files.length !== 0) {
-      this.fatherImg.nativeElement.value = null;
+      if (this.fatherImg.nativeElement.files.length !== 0) {
+        this.fatherImg.nativeElement.value = null;
+      }
+      if (this.motherImg.nativeElement.files.length !== 0) {
+        this.motherImg.nativeElement.value = null;
+      }
+      if (this.guardianImg.nativeElement.files.length !== 0) {
+        this.guardianImg.nativeElement.value = null;
+      }
+      if (this.incomeCertificate.nativeElement.files.length !== 0) {
+        this.incomeCertificate.nativeElement.value = null;
+      }
+      if (this.nativityCertificate.nativeElement.files.length !== 0) {
+        this.nativityCertificate.nativeElement.value = null;
+      }
+      if (this.communityCertificate.nativeElement.files.length !== 0) {
+        this.communityCertificate.nativeElement.value = null;
+      }
     }
-    if (this.motherImg.nativeElement.files.length !== 0) {
-      this.motherImg.nativeElement.value = null;
-    }
-    if (this.guardianImg.nativeElement.files.length !== 0) {
-      this.guardianImg.nativeElement.value = null;
-    }
-    if (this.incomeCertificate.nativeElement.files.length !== 0) {
-      this.incomeCertificate.nativeElement.value = null;
-    }
-    if (this.nativityCertificate.nativeElement.files.length !== 0) {
-      this.nativityCertificate.nativeElement.value = null;
-    }
-    if (this.communityCertificate.nativeElement.files.length !== 0) {
-      this.communityCertificate.nativeElement.value = null;
-    }
-  }
     this.isChecked = false;
     this.casteOptions = [];
     this.classOptions = [];

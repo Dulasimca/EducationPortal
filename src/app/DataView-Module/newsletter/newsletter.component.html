@@ -8,14 +8,14 @@
                     <label>Academic Year:</label>
                   </div>
                   <p-dropdown [options]="yearOptions" name="_selectedyear" [(ngModel)]="shortYear" (onClick)="onSelect('Y')"
-                    optionLabel="label" (onChange)="onView()" required> </p-dropdown>
+                     (onChange)="onView()" required> </p-dropdown>
                 </div>
                 <div class="p-col-12 p-md-6 p-lg-2">
                   <div>
                     <label>Month:</label>
                   </div>
                   <p-dropdown [options]="monthOptions" name="_selectedmonth" [(ngModel)]="month" (onClick)="onSelect('M')"
-                    optionLabel="label" (onChange)="onView()" required> </p-dropdown>
+                     (onChange)="onView()" required> </p-dropdown>
                 </div>
                 <div class="p-col-12 p-md-12 p-lg-12">
                     <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,15,20]"

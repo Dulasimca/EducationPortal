@@ -37,7 +37,8 @@ export class BooksComponent implements OnInit {
     this.loading = true;
     const params = {
       'SchoolID': this.login_user.schoolId,
-      'ClassId': this.login_user.classId
+      'ClassId': this.login_user.classId,
+      'Medium': this.login_user.mediumId
     }
     this.restApiService.getByParameters(PathConstants.Book_Get, params).subscribe(res => {
       if (res !== null && res !== undefined && res.length !== 0) {

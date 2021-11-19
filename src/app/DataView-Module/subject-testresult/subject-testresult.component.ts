@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { User } from 'src/app/Interfaces/user';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
@@ -10,13 +10,12 @@ import { UserService } from 'src/app/Services/user.service';
   styleUrls: ['./subject-testresult.component.css']
 })
 export class SubjectTestresultComponent implements OnInit {
-
   studentName: string;
   class: any;
   rollNo: any;
   login_user: User;
+  @Output() public close = new EventEmitter();
   
-
   constructor(private restApiService: RestAPIService) { }
 
   ngOnInit() {
@@ -33,6 +32,10 @@ export class SubjectTestresultComponent implements OnInit {
     }
     });
   
+  }
+  
+  onClose() {
+    this.close.emit();
   }
   }
 

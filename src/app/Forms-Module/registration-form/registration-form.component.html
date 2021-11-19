@@ -48,9 +48,9 @@
                                         <div class="p-col-12 p-md-6 p-lg-2">
                                             <div><label class="label-font-size" for="_dob">D.O.B<span
                                                         class="form-mandatory-field">*</span></label></div>
-                                            <p-calendar dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="obj.DateofBirth" name="_dob" [maxDate]="maxDate"
+                                            <p-calendar dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="dob" name="_dob" [maxDate]="maxDate"
                                                 [monthNavigator]="true" [yearNavigator]="true" yearRange="{{yearRange}}"
-                                                inputId="dateofbirth" [showIcon]="true" required>
+                                                inputId="dateofbirth" [showIcon]="true" (onSelect)="onDateSelection('B')" required>
                                             </p-calendar>
                                         </div>
                                     </div>
@@ -214,8 +214,8 @@
                                             <div><label class="label-font-size" for="_doj">D.O.J<span
                                                         class="form-mandatory-field">*</span></label>
                                             </div>
-                                            <p-calendar dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="obj.DateofJoining" name="_doj" [showIcon]="true"
-                                                inputId="dateofjoining" required>
+                                            <p-calendar dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="doj" name="_doj" [showIcon]="true"
+                                                inputId="dateofjoining" (onSelect)="onDateSelection('J')" required>
                                             </p-calendar>
                                         </div>
                                     </div>
@@ -515,9 +515,8 @@
                             </p-card>
                         </p-tabPanel>
                         <div class="p-col-12 p-md-12 p-lg-12 text-center">
-                            <button pButton name="_save" type="button" label="Submit" (click)="onSubmit()"
-                            [disabled]="(!f.valid)"></button>&nbsp;
-                            <button pButton name="_view" type="button" label="View" (click)="onView()"></button>&nbsp;
+                            <button pButton name="_save" type="button" label="Submit" (click)="onSubmit()"[disabled]="(!f.valid)"
+                           ></button>&nbsp;
                             <button pButton name="_clear" type="button" label="Clear" (click)="clearForm()"></button>&nbsp;
                         </div>
                     </p-tabView>

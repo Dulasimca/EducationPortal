@@ -1,57 +1,69 @@
-<div class="p-col-12 p-md-12 p-lg-12" >
-    <p-panel header="Subject Wise Test Result">
-        <div class="p-grid"> 
-            <div class="p-col-12 p-md-1 p-lg-2"></div>
-        <div class="p-col-12 p-md-10 p-lg-6">
-            <p-card>
+<div class="p-col-12 p-md-12 p-lg-12">
+    <p-panel>
+        <ng-template pTemplate="header">
+            <div class="p-col-12 p-md-12 p-lg-12 no-pad">
                 <div class="p-grid">
-                    <div class="p-col-6 p-md-6 p-lg-6"><b>Student Name: </b></div>
-                    <div class="p-col-6 p-md-6 p-lg-6">{{studentName}}ArunKumar </div>
+                    <div class="p-col-11 p-md-11 p-lg-11 no-pad">
+                        <span>Subject Wise Test Result</span>
+                    </div>
+                    <div class="p-col-1 p-md-1 p-lg-1 no-pad text-end" (click)="onClose()">
+                        <span><i class="pi pi-times-circle"
+                                style="font-size: 1.25rem;color: whitesmoke !important"></i></span>
+                    </div>
                 </div>
-                <p-divider></p-divider>
-                <div class="p-grid">
-                    <div class="p-col-6 p-md-6 p-lg-6"><b>Class: </b></div>
-                    <div class="p-col-6 p-md-6 p-lg-6">{{class}}XI </div>
-                </div>
-                                <p-divider></p-divider>
-                                <div class="p-grid">
-                                    <div class="p-col-6 p-md-6 p-lg-6"><b>Roll Number: </b></div>
-                                    <div class="p-col-6 p-md-6 p-lg-6">{{rollNo}}1 </div>
-                                </div>
-                                <p-divider></p-divider>
-                                <div class="p-grid">
-                                    <div class="p-col-6 p-md-6 p-lg-6"><b>Subject Name: </b></div>
-                                    <div class="p-col-6 p-md-6 p-lg-6">Science </div>
-                                </div>
-                                <p-divider></p-divider>
-                                <div class="p-grid">
-                                    <div class="p-col-6 p-md-6 p-lg-6"><b>Test Name: </b></div>
-                                    <div class="p-col-6 p-md-6 p-lg-6">Cyclic Test </div>
-                                </div>
-                                <p-divider></p-divider>
-                                <div class="p-grid">
-                                    <div class="p-col-6 p-md-6 p-lg-6"><b>No. of Questions: </b></div>
-                                    <div class="p-col-6 p-md-6 p-lg-6">25 </div>
-                                </div>
-                                <p-divider></p-divider>
-                                <div class="p-grid">
-                                    <div class="p-col-6 p-md-6 p-lg-6"><b>Question Type: </b></div>
-                                    <div class="p-col-6 p-md-6 p-lg-6">Two Marks </div>
-                                </div>
-                                <p-divider></p-divider>
-                                <div class="p-grid">
-                                    <div class="p-col-6 p-md-6 p-lg-6"><b>Total Marks: </b></div>
-                                    <div class="p-col-6 p-md-6 p-lg-6">50 marks</div>
-                                </div>
-                                <p-divider></p-divider>
-                                <div class="p-grid">
-                                    <div class="p-col-6 p-md-6 p-lg-6"><b>Marks Obtained: </b></div>
-                                    <div class="p-col-6 p-md-6 p-lg-6">44 marks</div>
-                                </div>
-                                <p-divider></p-divider>
+            </div>
+        </ng-template>
+        <div class="p-grid">
+            <div class="p-col-12 p-md-1 p-lg-3"></div>
+            <div class="p-col-12 p-md-10 p-lg-6">
+                <p-card>
+                    <div class="p-grid">
+                        <div class="p-col-6 p-md-6 p-lg-6 no-pad-top no-pad-bottom"><b>Student Name: </b></div>
+                        <div class="p-col-6 p-md-6 p-lg-6 no-pad-top no-pad-bottom">{{studentName}}ArunKumar </div>
+                    </div>
+                    <p-divider></p-divider>
+                    <div class="p-grid">
+                        <div class="p-col-6 p-md-6 p-lg-6 no-pad-top no-pad-bottom"><b>Class: </b></div>
+                        <div class="p-col-6 p-md-6 p-lg-6 no-pad-top no-pad-bottom">{{class}}XI </div>
+                    </div>
+                    <p-divider></p-divider>
+                    <div class="p-grid">
+                        <div class="p-col-6 p-md-6 p-lg-6 no-pad-top no-pad-bottom"><b>Roll Number: </b></div>
+                        <div class="p-col-6 p-md-6 p-lg-6 no-pad-top no-pad-bottom">{{rollNo}}1 </div>
+                    </div>
+                    <p-divider></p-divider>
+                    <div class="p-grid">
+                        <div class="p-col-6 p-md-6 p-lg-6 no-pad-top no-pad-bottom"><b>Subject Name: </b></div>
+                        <div class="p-col-6 p-md-6 p-lg-6 no-pad-top no-pad-bottom">Science </div>
+                    </div>
+                    <p-divider></p-divider>
+                    <div class="p-grid">
+                        <div class="p-col-6 p-md-6 p-lg-6 no-pad-top no-pad-bottom"><b>Test Name: </b></div>
+                        <div class="p-col-6 p-md-6 p-lg-6 no-pad-top no-pad-bottom">Cyclic Test </div>
+                    </div>
+                    <p-divider></p-divider>
+                    <div class="p-grid">
+                        <div class="p-col-6 p-md-6 p-lg-6 no-pad-top no-pad-bottom"><b>No. of Questions: </b></div>
+                        <div class="p-col-6 p-md-6 p-lg-6 no-pad-top no-pad-bottom">25 </div>
+                    </div>
+                    <p-divider></p-divider>
+                    <div class="p-grid">
+                        <div class="p-col-6 p-md-6 p-lg-6 no-pad-top no-pad-bottom"><b>Question Type: </b></div>
+                        <div class="p-col-6 p-md-6 p-lg-6 no-pad-top no-pad-bottom">Two Marks </div>
+                    </div>
+                    <p-divider></p-divider>
+                    <div class="p-grid">
+                        <div class="p-col-6 p-md-6 p-lg-6 no-pad-top no-pad-bottom"><b>Total Marks: </b></div>
+                        <div class="p-col-6 p-md-6 p-lg-6 no-pad-top no-pad-bottom">50 marks</div>
+                    </div>
+                    <p-divider></p-divider>
+                    <div class="p-grid">
+                        <div class="p-col-6 p-md-6 p-lg-6 no-pad-top no-pad-bottom"><b>Marks Obtained: </b></div>
+                        <div class="p-col-6 p-md-6 p-lg-6 no-pad-top no-pad-bottom">44 marks</div>
+                    </div>
+                    <p-divider></p-divider>
                 </p-card>
+            </div>
         </div>
-    </div>
-        </p-panel>
-       </div>
-       
+    </p-panel>
+</div>

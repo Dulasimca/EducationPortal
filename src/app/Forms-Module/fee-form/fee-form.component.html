@@ -10,11 +10,13 @@
               <div class="p-grid">
                 <div class="p-col-12 p-md-6 p-lg-2">
                   <div><label for="_date"> Date</label><span class="form-mandatory-field">*</span> </div>
-                  <p-calendar dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="dueDate" [showIcon]="true" name="_date" required></p-calendar>
+                  <p-calendar dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="dueDate"
+                  [maxDate]="maxDate" [showIcon]="true" name="_date" required></p-calendar>
                 </div>
                 <div class="p-col-12 p-md-6 p-lg-2">
                   <div><label for="_year"> Year</label><span class="form-mandatory-field">*</span> </div>
-                  <p-dropdown [options]="yearOptions" name="_year" (onClick)="onSelect('Y')" [(ngModel)]="selectedYear" required>
+                  <p-dropdown [options]="yearOptions" name="_year" (onClick)="onSelect('Y')" [(ngModel)]="selectedYear" 
+                  optionLabel="label" required>
                   </p-dropdown>
                 </div>
                 <div class="p-col-12 p-md-6 p-lg-2">
@@ -83,7 +85,7 @@
                   <!-- <button pButton type="button" label="Clear" (click)="clear()" style="margin-left: 5%;"></button> -->
                 </div>
                 <div *ngIf="showtable"> 
-                <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10" [loading]="loading"
+                <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10"
                   [rowsPerPageOptions]="[5,10,15,20]" totalRecords="totalRecords" styleClass="p-datatable-gridlines">
                   <ng-template pTemplate="header" let-columns>
                     <tr>
@@ -93,14 +95,18 @@
                       <th *ngFor="let col of columns" styleClass="p-datatable-gridlines">
                         {{col.header}}
                       </th>
+                      <th style="width: 90px;">Edit</th>
                     </tr>
                   </ng-template>
                   <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
-                    <tr [pSelectableRow]="rowData" class="cursor-pointer" (dblclick)="onRowSelect($event, rowData)">
+                    <tr>
                       <td>{{rowIndex+1}}</td>
                       <td *ngFor="let col of columns">
                         {{rowData[col.field]}}
                       </td>
+                      <td style="width: 100px" (click)="onEdit(rowData)" class="cursor-pointer">
+                        <i class="pi pi-pencil" style="padding-left: 10px; color: #52de38; font-size: 1.5rem;"></i>
+                    </td>
                     </tr>
                   </ng-template>
                 </p-table>
@@ -134,8 +140,7 @@
       <hr class="no-pad p-col-12" style="color: black;">
       <div class="p-col-12">
         <div class="text-center">
-          <!-- <span>{{receiptYear}}</span> -->
-          <div style="font-weight: 900;">Receipt 2021-2022</div>
+          <div style="font-weight: 900;">{{receiptYear}}</div>
         </div>
         <div class="p-col-12"></div>
         <div class="p-grid">

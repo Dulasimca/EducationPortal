@@ -8,6 +8,7 @@ import { ConfirmationService, SelectItem } from 'primeng/api';
 import { saveAs } from 'file-saver';
 import { Dialog } from 'primeng/dialog';
 import { MasterService } from 'src/app/Services/master-data.service';
+import { AuthService } from 'src/app/Services/auth.service';
 
 @Component({
   selector: 'app-subject-result',
@@ -22,15 +23,17 @@ export class SubjectResultComponent implements OnInit {
   display: boolean = false;
   StudentAnswersheet: string;
   TeacherAnswerSheet: string;
-  // studentName: string;
-  // class: any;
-  // rollNo: any;
-  // login_user: User;
+  studentName: string;
+  class: string;
+  rollNo: any;
+  login_user: User;
   @ViewChild('dialog', { static: false }) _dialogPane: Dialog;
 
-  constructor(private masterService: MasterService, private confirmationService: ConfirmationService) { }
+  constructor(private masterService: MasterService, private confirmationService: ConfirmationService,
+    private authService: AuthService) { }
 
   ngOnInit() {
+    this.login_user = this.authService.UserInfo;
     this.years = this.masterService.getAccountingYear();
     this.StudentAnswersheet = "StudentAnswersheet.pdf"
     this.TeacherAnswerSheet = "TeacherAnswerSheet.pdf"
@@ -42,6 +45,9 @@ export class SubjectResultComponent implements OnInit {
       this.yearOptions = data;
       this.selectedYear = data[0].value;
      // this.loadResult();
+      this.class = this.login_user.classRoman + ' - ' + this.login_user.section;
+      this.studentName = this.login_user.username;
+      this.rollNo = this.login_user.id;
     }
     this.data = [{ 'slno': 1, 'subject': 'Tamil', 'test': 'Quarterly Exam' },
     { 'slno': 2, 'subject': 'English', 'test': 'Quarterly Exam' },

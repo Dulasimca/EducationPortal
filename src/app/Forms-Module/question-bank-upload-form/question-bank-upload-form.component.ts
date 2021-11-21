@@ -216,8 +216,8 @@ export class QuestionBankUploadFormComponent implements OnInit {
           this.loading = false;
           this.messageService.clear();
           this.messageService.add({
-            key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
-            summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
+            key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
+            summary: ResponseMessage.SUMMARY_WARNING, detail: ResponseMessage.NoRecordMessage
           });
         }
       }, (err: HttpErrorResponse) => {

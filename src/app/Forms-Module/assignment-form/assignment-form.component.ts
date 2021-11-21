@@ -35,7 +35,7 @@ export class AssignmentFormComponent implements OnInit {
   assignmentfile: any[] = [];
   AssignmentDate:any;
   ClassWork: any;
-  classId: any;
+  classId: number;
   MAssignId=0;
   public progress: number;
   public message: string;
@@ -44,7 +44,7 @@ export class AssignmentFormComponent implements OnInit {
   assign: string;
   classes?: any;
   sections?: any;
-  sectionId: any;
+  sectionId: number;
   masterData?: any = [];
   sectionOptions: SelectItem[];
   classOptions: SelectItem[];
@@ -65,6 +65,7 @@ export class AssignmentFormComponent implements OnInit {
     this.cols = [
       { field: 'AssignmentDate', header: 'Date', width: '100px', align: 'center !important'},
       { field: 'AssignmentDueDate', header: 'Due Date',  width: '100px' ,align: 'center !important'},
+      { field: 'Class', header: 'Class',  width: '100px' ,align: 'center !important'},
       { field: 'AssignmentWork', header: 'Assigned Work',  width: '150px' ,align: 'left !important'},
       { field: 'AssignmentType', header: 'Assigned Type',  width: '150px' ,align: 'left !important'},
       { field: 'Subjectname', header: 'Subject Name',  width: '100px' ,align: 'left !important'},  
@@ -86,14 +87,14 @@ onSubmit() {
   const params = {
     'AssignId': this.MAssignId,
     'SchoolID': this.login_user.schoolId,      
-    'Class': this.classId.value,  
+    'Class': this.classId,  
     'AssignmentDate': this.datepipe.transform(this.assignDate, 'MM/dd/yyyy') ,
     'AssignmentDueDate': this.datepipe.transform(this.dueDate, 'MM/dd/yyyy'),
     'assignmentwork': this.assignmentwork,
     'AssignmentType': this.AType.value,
     'subjectname': this.subjectname,
     'Assignmentfilename': this.NewFileName,
-    'SectionId': this.sectionId.value,
+    'SectionId': this.sectionId,
     'Flag' : true
 
   };
@@ -168,6 +169,9 @@ onView() {
   }
   this.restApiService.getByParameters(PathConstants.Assignment_Get, params).subscribe(res => {
     if(res !== null && res !== undefined && res.length !== 0) {
+      res.forEach(r => {
+        r.Class = r.ClassName + ' - ' + r.SectionName;
+      })
       this.loading =false;
     this.data = res;
       }else {
@@ -187,16 +191,19 @@ clear() {
   this._AssignmentForm.form.markAsUntouched();
   this._AssignmentForm.form.markAsPristine();
   this.data = [];
-  // this.assignmentwork="",
-  // this.AType="",
-  // this.NewFileName="",
-  // this.subjectname=""
+  this.assignDate = new Date();
+  this.dueDate = new Date();
+  this.classId = null;
+  this.classOptions = [];
+  this.sectionId = null;
+  this.sectionOptions = [];
+  this.AType = "";
 
 }
 onRowSelect(event, selectedRow) {
   this.MAssignId=selectedRow.AssignId;
-  this.assignDate=selectedRow.AssignmentDate;
-  this.dueDate = selectedRow.AssignmentDueDate;
+  this.assignDate= new Date(selectedRow.AssignmentDate);
+  this.dueDate = new Date (selectedRow.AssignmentDueDate);
   this.AType = { label: selectedRow.AssignmentType, value: selectedRow.AssignmentType };
   this.assignmentwork = selectedRow.AssignmentWork;
   this.assign = selectedRow.Assignmentfilename;
@@ -204,6 +211,9 @@ onRowSelect(event, selectedRow) {
   this.subjectname = selectedRow.Subjectname;
   this.NewFileName = selectedRow.Assignmentfilename;  
   this.sectionId = selectedRow.SectionId;
+  this.sectionOptions = [{ label: selectedRow.SectionName, value: selectedRow.SectionId }];
+  this.classId = selectedRow.ClassId;
+  this.classOptions = [{ label: selectedRow.ClassName, value: selectedRow.ClassId }];
   console.log('t', this.AType);
 
 }

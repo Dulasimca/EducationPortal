@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { User } from 'src/app/Interfaces/user';
+import { AuthService } from 'src/app/Services/auth.service';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { UserService } from 'src/app/Services/user.service';
 
@@ -16,22 +17,13 @@ export class SubjectTestresultComponent implements OnInit {
   login_user: User;
   @Output() public close = new EventEmitter();
   
-  constructor(private restApiService: RestAPIService) { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
-    const params = {
-      'studentName': this.login_user.username,
-      'class': this.login_user.classRoman,
-      'rollNo': this.login_user.id
-    }
-
-    this.restApiService.getByParameters(PathConstants.Fee_Get, params).subscribe(res => {
-      if(res !== null && res !== undefined && res.length !== 0) {
-        if(res) {
-      }
-    }
-    });
-  
+    this.login_user = this.authService.UserInfo;
+    this.class = this.login_user.classRoman + ' - ' + this.login_user.section;
+      this.studentName = this.login_user.username;
+      this.rollNo = this.login_user.id;
   }
   
   onClose() {

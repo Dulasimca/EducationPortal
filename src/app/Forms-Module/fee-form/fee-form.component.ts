@@ -24,7 +24,7 @@ export class FeeFormComponent implements OnInit {
   data: any = [];
   student: any;
   receiptBook: number;
-  selectedYear: number;
+  selectedYear: any;
   yearOptions: SelectItem[];
   class: any;
   section: any;
@@ -42,16 +42,15 @@ export class FeeFormComponent implements OnInit {
   receiptCols: any;
   receiptData: any = [];
   showReceipt: boolean;
-  receiptYear: any;
+  receiptYear: string;
   logged_user: User;
   receiptNo: any;
-  schoolName: any;
+  schoolName: string;
   taluk: any;
-  schoolAddress: any;
-  schoolContact: number;
+  schoolAddress: string;
+  schoolContact: any;
   studentName: string;
   parentName: string;
-  date: number;
   classSection: string;
   admnNo: any;
   today: any;
@@ -63,10 +62,10 @@ export class FeeFormComponent implements OnInit {
   sections?: any;
   classes?: any;
   years?: any;
+  showtable: boolean;
+  maxDate: Date = new Date();
   @BlockUI() blockUI: NgBlockUI;
   @ViewChild('f', { static: false }) _FeeForm: NgForm;
-  loading: boolean;
-  showtable: boolean;
 
   constructor(private restApiService: RestAPIService, private authService: AuthService, private messageService: MessageService, private datePipe: DatePipe, private masterService: MasterService) { }
 
@@ -74,9 +73,9 @@ export class FeeFormComponent implements OnInit {
     this.logged_user = this.authService.UserInfo;
     this.years = this.masterService.getAccountingYear();
     var data = [];
-    if(this.years.length !== 0) {
+    if (this.years.length !== 0) {
       this.years.forEach(y => {
-       data.push({ label: y.ShortYear, value: y.Id });
+        data.push({ label: y.ShortYear, value: y.Id });
       })
       this.yearOptions = data;
       this.selectedYear = data[0].value;
@@ -148,21 +147,22 @@ export class FeeFormComponent implements OnInit {
         this.receiptOptions = feeTypeSelection;
         this.receiptOptions.unshift({ label: '-select', value: null });
         break;
-        case 'Y':
-          this.years.forEach(y => {
+      case 'Y':
+        this.years.forEach(y => {
           yearSelection.push({ label: y.ShortYear, value: y.Id });
         })
-          this.yearOptions = yearSelection;
-          this.yearOptions.unshift({ label: '-select-', value: null });
-          break;
+        this.yearOptions = yearSelection;
+        this.yearOptions.unshift({ label: '-select-', value: null });
+        break;
     }
   }
 
   onSubmit() {
-    this.blockUI.start();
+    this.blockUI.start('Submitting...');
     const params = {
       'RowId': this.MRowId,
-      'Academic': this.selectedYear,
+      'Academic': this.selectedYear.value,
+      'ShortYear': this.selectedYear.label,
       'SchoolID': this.login_user.schoolId,
       'Student': this.student.label,
       'StudentId': this.student.value,
@@ -184,7 +184,6 @@ export class FeeFormComponent implements OnInit {
       if (res !== undefined && res !== null) {
         if (res) {
           this.blockUI.stop();
-          console.log('par', params);
           this.generateReceipt(params);
           this.onView();
         } else {
@@ -216,19 +215,28 @@ export class FeeFormComponent implements OnInit {
   }
 
   onView() {
-    this.showtable =true;
     this.data = [];
-    this.loading = true;
     const params = {
       'schoolID': this.login_user.schoolId,
     }
     this.restApiService.getByParameters(PathConstants.Fee_Get, params).subscribe(res => {
-      if (res !== null && res !== undefined && res.length !== 0) {
-        this.data = res;
-        this.loading = false;
+      if (res !== null && res !== undefined) {
+        if (res.length !== 0) {
+          res.forEach(i => {
+            i.DueDateFormatted = this.datePipe.transform(i.duedate, 'dd/MM/yyyy');
+          })
+          this.data = res;
+          this.showtable = true;
+        } else {
+          this.showtable = false;
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
+            summary: ResponseMessage.SUMMARY_WARNING, detail: ResponseMessage.NoRecordMessage
+          })
+        }
       } else {
         this.showtable = false;
-        this.loading = false;
         this.messageService.clear();
         this.messageService.add({
           key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
@@ -240,18 +248,20 @@ export class FeeFormComponent implements OnInit {
 
   clear() {
     this._FeeForm.reset();
+    this._FeeForm.form.markAsUntouched();
+    this._FeeForm.form.markAsPristine();
     this.class = null;
     this.classOptions = [];
     this.sections = null;
     this.sectionOptions = [];
+    this.student = null;
     this.studentOptions = [];
-
+    this.receiptBook = null;
   }
 
-  onRowSelect(event, selectedRow) {
+  onEdit(selectedRow) {
     this.MRowId = selectedRow.RowId;
-    this.dueDate = selectedRow.duedate;
-    this.selectedYear = selectedRow.Years;
+    this.dueDate = new Date(selectedRow.duedate);
     this.receiptBook = selectedRow.FeeTypeId;
     this.receiptOptions = [{ label: selectedRow.FeeType, value: selectedRow.FeeTypeId }];
     this.feename = selectedRow.FeeName;
@@ -267,6 +277,8 @@ export class FeeFormComponent implements OnInit {
     this.loadStudents();
     this.student = { label: selectedRow.FirstName, value: selectedRow.StudentId };
     this.studentOptions = [{ label: selectedRow.FirstName, value: selectedRow.StudentId }];
+    this.selectedYear = { label: selectedRow.ShortYear, value: selectedRow.Academic };
+    this.yearOptions = [{ label: selectedRow.ShortYear, value: selectedRow.Academic }];
   }
   // feereceipt method
   generateReceipt(data) {
@@ -278,12 +290,13 @@ export class FeeFormComponent implements OnInit {
     this.parentName = this.logged_user.fathername;
     this.today = this.datePipe.transform(new Date(), 'dd-MM-yyyy');
     this.total = data.PaidAmount;
-      this.receiptNo = data.RowId;
-      this.receiptData.push({
-        'feeparticulars': data.FeeName,
-        'totalamount': data.ActualAmount,
-        'paidamount': data.PaidAmount
-      })
+    this.receiptNo = data.RowId;
+    this.receiptYear = 'Receipt ' + data.ShortYear;
+    this.receiptData.push({
+      'feeparticulars': data.FeeName,
+      'totalamount': data.ActualAmount,
+      'paidamount': data.PaidAmount
+    })
     this.showReceipt = true;
     this.clear();
   }
@@ -297,6 +310,7 @@ export class FeeFormComponent implements OnInit {
     this.receiptNo = '';
     this.schoolAddress = '';
     this.classSection = '';
+    this.receiptYear = '';
     this.showReceipt = false;
     this.receiptData = [];
   }

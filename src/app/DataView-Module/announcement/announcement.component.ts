@@ -3,9 +3,11 @@ import { saveAs } from 'file-saver';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
-import{FileUploadConstant} from 'src/app/Common-Module/file-upload-constant'
-import { ConfirmationService } from 'primeng/api';
+import { FileUploadConstant } from 'src/app/Common-Module/file-upload-constant'
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { TableConstants } from 'src/app/Common-Module/TableConstants';
+import { ResponseMessage } from 'src/app/Common-Module/Message';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-announcement',
@@ -13,11 +15,12 @@ import { TableConstants } from 'src/app/Common-Module/TableConstants';
   styleUrls: ['./announcement.component.css']
 })
 export class AnnouncementComponent implements OnInit {
-  
-  data: any = []; 
+  data: any = [];
   cols: any;
+  loading: boolean;
 
-  constructor(private restApiService: RestAPIService, private http: HttpClient,private confirmationService: ConfirmationService) { }
+  constructor(private restApiService: RestAPIService, private messageService: MessageService,
+    private confirmationService: ConfirmationService, private datepipe: DatePipe) { }
 
   ngOnInit() {
     this.cols = TableConstants.AnnouncementsColumns;
@@ -29,26 +32,45 @@ export class AnnouncementComponent implements OnInit {
       header: 'Confirmation',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-    const path = "../../assets/layout/"+FileUploadConstant.Announcementfolder+"/"+Filename;
-    saveAs(path, Filename);
-  },
-  reject: (type) => { }
-  });
-  
+        const path = "../../assets/layout/" + FileUploadConstant.Announcementfolder + "/" + Filename;
+        saveAs(path, Filename);
+      },
+      reject: (type) => { }
+    });
+
   }
-  
+
   onView() {
     this.data = [];
     const params = {
       'SchoolID': 1,
     }
+    this.loading = true;
     this.restApiService.getByParameters(PathConstants.Announcement_Get, params).subscribe(res => {
-      if(res !== null && res !== undefined && res.length !== 0) {
-      console.log( res);
-      this.data = res;
+      if (res !== null && res !== undefined) {
+        if (res.length !== 0) {
+          res.forEach(x => {
+            x.Announcementdate = this.datepipe.transform(x.Announcementdate, 'dd/MM/yyyy');
+          })
+          this.data = res;
+          this.loading = false;
+        } else {
+          this.loading = false;
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
+            summary: ResponseMessage.SUMMARY_WARNING, detail: ResponseMessage.NoRecordMessage
+          })
+        }
+      } else {
+        this.loading = false;
+        this.messageService.clear();
+        this.messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
+          summary: ResponseMessage.SUMMARY_WARNING, detail: ResponseMessage.NoRecordMessage
+        })
       }
     });
-
   }
 
 }

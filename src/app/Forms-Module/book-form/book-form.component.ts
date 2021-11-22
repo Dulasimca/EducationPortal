@@ -13,6 +13,7 @@ import { Output, EventEmitter } from '@angular/core';
 import { FileUploadConstant } from 'src/app/Common-Module/file-upload-constant'
 import { User } from 'src/app/Interfaces/user';
 import { AuthService } from 'src/app/Services/auth.service';
+import { TableConstants } from 'src/app/Common-Module/TableConstants';
 
 @Component({
   selector: 'app-book-form',
@@ -21,13 +22,15 @@ import { AuthService } from 'src/app/Services/auth.service';
 })
 export class BookFormComponent implements OnInit {
   MRowId: 0
-  Subject: string;
+  subject: number;
+  subjectOptions: SelectItem[];
+  subjects?: any;
   selectedYear: number;
   Author: string;
   yearOptions: SelectItem[];
   cols: any;
   form: any;
-  ClassId: any;
+  classId: number;
   medium: string;
   mediumOptions: SelectItem[];
   classOptions: SelectItem[];
@@ -66,21 +69,16 @@ export class BookFormComponent implements OnInit {
       this.selectedYear = data[0].value;
       // this.onview();
     }
-    this.cols = [
-      { field: 'Years', header: 'Year', align: 'center !important' },
-      { field: 'Class2', header: 'Class', align: 'left !important' },
-      { field: 'medium', header: 'Medium', align: 'left !important' },
-      { field: 'subjects', header: 'Subject', align: 'left !important' },
-      { field: 'authorReference', header: 'Author/Reference', width: '300px', align: 'left !important' },
-      { field: 'CreatedDate', header: 'Uploaded date', align: 'center !important' },
-    ];
+    this.cols = TableConstants.BooksFormColumns;
   }
   onSelect(type) {
     this.years = this.masterService.getAccountingYear();
     this.classes = this.masterService.getMaster('C');
+    this.subjects = this.masterService.getMaster('SB');
     this.mediums = this.masterService.getMaster('M');
     let classSelection = [];
     let mediumSelection = [];
+    let subjectSelection = [];
     let yearSelection = [];
     switch (type) {
       case 'C':
@@ -104,7 +102,16 @@ export class BookFormComponent implements OnInit {
         })
         this.yearOptions = yearSelection;
         this.yearOptions.unshift({ label: '-select-', value: null });
-
+        break;
+        case 'S':
+          this.subjects.forEach(c => {
+            if ((c.class * 1) === this.classId) {
+              subjectSelection.push({ label: c.name, value: c.code })
+            }
+          });
+          this.subjectOptions = subjectSelection;
+          this.subjectOptions.unshift({ label: '-select', value: null });
+          break;
     }
   }
 
@@ -127,8 +134,8 @@ export class BookFormComponent implements OnInit {
     const params = {
       'RowId': this.MRowId,
       'SchoolId': this.login_user.schoolId,
-      'ClassId': this.ClassId,
-      'subjects': this.Subject,
+      'ClassId': this.classId,
+      'SubjectId': this.subject,
       'authorReference': this.Author,
       'Pdffilename': this.NewFileName,
       'Years': this.selectedYear,
@@ -155,6 +162,7 @@ export class BookFormComponent implements OnInit {
           });
         }
       } else {
+        this.blockUI.stop();
         this.messageService.clear();
         this.messageService.add({
           key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
@@ -174,14 +182,14 @@ export class BookFormComponent implements OnInit {
   }
 
   onView() {
-    if (this.ClassId !== undefined && this.ClassId !== null && this.selectedYear !== null &&
+    if (this.classId !== undefined && this.classId !== null && this.selectedYear !== null &&
       this.selectedYear !== undefined && this.medium !== null && this.medium !== undefined) {
       this.data = [];
       this.loading = true;
       this.showtable = true;
       const params = {
         'SchoolID': this.login_user.schoolId,
-        'ClassId': this.ClassId,
+        'ClassId': this.classId,
         "Medium": this.medium
       }
       this.restApiService.getByParameters(PathConstants.Book_Get, params).subscribe(res => {
@@ -213,7 +221,11 @@ export class BookFormComponent implements OnInit {
     this._bookForm.form.markAsUntouched();
     this._bookForm.form.markAsPristine();
     this.yearOptions = [];
-    this.Subject = '';
+    this.selectedYear = null;
+    this.classId = null;
+    this.classOptions = [];
+    this.subject = null;
+    this.subjectOptions = [];
     this.Author = '';
     this.message = '';
     this.data = [];
@@ -224,16 +236,13 @@ export class BookFormComponent implements OnInit {
 
   onRowSelect(event, selectedRow) {
     this.MRowId = selectedRow.RowId;
-    let classSelection = [];
-    this.classes.forEach(c => {
-      if (selectedRow.ClassId == c.code)
-        classSelection.push({ label: c.name, value: c.code })
-    });
-
-    this.classOptions = classSelection;
+    this.classId = selectedRow.ClassId;
+    this.classOptions = [{label: selectedRow.ClassName, value: selectedRow.ClassId }];
+    this.subject = selectedRow.SubjectId;
+    this.subjectOptions = [{ label: selectedRow.SubjectName, value: selectedRow.SubjectId }];
     this.Author = selectedRow.authorReference;
-    this.Subject = selectedRow.subjects;
     this.selectedYear = selectedRow.Years;
+    this.yearOptions = [{ label: selectedRow.ShortYear, value: selectedRow.Years }];
     this.NewFileName = selectedRow.Pdffilename;
   }
 

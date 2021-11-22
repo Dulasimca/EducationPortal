@@ -20,7 +20,6 @@ export class AttendanceComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log('mnth', new Date().getMonth());
     var pDate = new Date().getFullYear() + '-' + (new Date().getMonth()-2) + '-01';
     var cDate = new Date().getFullYear() + '-' + (new Date().getMonth()+1) + '-01';
     var nDate = new Date().getFullYear() + '-' + (new Date().getMonth()+2) + '-01';

@@ -94,14 +94,16 @@ export class ClassroomDetailsComponent implements OnInit {
       'SchoolId': this.login_user.schoolId,
       'Date': (this.meetingDate !== undefined && this.meetingDate !== null) ?
       this.datePipe.transform(this.meetingDate, 'yyyy-MM-dd') : this.datePipe.transform(new Date(), 'yyyy-MM-dd'),
-      'ClassId': (this.class !== undefined && this.class !== null) ? this.class : this.login_user.classId,
-      'SectionCode': (this.section !== undefined && this.section !== null) ? this.section : this.login_user.sectioncode
+      'SectionCode': this.login_user.id,
+      'ClassId': 0
     };
     this.restApiService.getByParameters(PathConstants.Zoom_Get, params).subscribe((res: any) => {
       if (res !== null && res !== undefined && res.length !== 0) {
         this.showTable = true;
         res.forEach(x => {
           x.DurationWithType = x.Duration + 'mins';
+          x.class = x.Classname1 + ' - ' + x.SectionName;
+          x.mDate = this.datePipe.transform(x.MeetingDate, 'dd/MM/yyyy');
         })
         this.classroomDetails = res;
       } else {
@@ -141,7 +143,8 @@ export class ClassroomDetailsComponent implements OnInit {
       'SchoolId': this.login_user.schoolId,
       'Duration': this.duration,
       'Topics': this.subject,
-      'MeetingTime': typeof(this.meetingTime) === 'string' ? this.meetingTime : this.datePipe.transform(this.meetingTime, 'shortTime')
+      'MeetingTime': typeof(this.meetingTime) === 'string' ? this.meetingTime : this.datePipe.transform(this.meetingTime, 'shortTime'),
+      'CreatedBy': this.login_user.id
     }
     this.restApiService.post(PathConstants.Zoom_Post, params).subscribe((res: any) => {
       if (res !== undefined && res !== null) {

@@ -108,6 +108,7 @@ export class NewsletterComponent implements OnInit {
       }
     })
   }
+  
   onDownload(Filename) {
     this.confirmationService.confirm({
       message: 'Do you want to download?',

@@ -152,9 +152,21 @@ export class MyachievementFormComponent implements OnInit {
       'StudentId': this.login_user.id
     }
     this.restApiService.getByParameters(PathConstants.Myachievement_Get, params).subscribe(res => {
-      if (res !== null && res !== undefined && res.length !== 0) {
-        this.showtable = true;
-        this.data = res.Table;
+      if (res !== null && res !== undefined) {
+        if (res.length !== 0) {
+          this.showtable = true;
+          res.Table.forEach(x => {
+            x.eDate = this.datepipe.transform(x.eventdate, 'dd/MM/yyyy');
+          })
+          this.data = res.Table;
+        } else {
+          this.showtable = false;
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
+            summary: ResponseMessage.SUMMARY_WARNING, detail: ResponseMessage.NoRecordMessage
+          })
+        }
       } else {
         this.showtable = false;
         this.messageService.clear();
@@ -164,8 +176,8 @@ export class MyachievementFormComponent implements OnInit {
         })
       }
     });
-
   }
+
   clear() {
     this._MyAchievementForm.reset();
     this._MyAchievementForm.form.markAsUntouched();
@@ -180,7 +192,7 @@ export class MyachievementFormComponent implements OnInit {
 
   onRowSelect(event, selectedRow) {
     this.MRowId = selectedRow.RowId;
-    this.date = selectedRow.eventdate;
+    this.date = new Date(selectedRow.eventdate);
     this.Category = selectedRow.Category;
     this.CategoryOption = [{ label: selectedRow.CategoryName, value: selectedRow.Category }];
     this.Place = selectedRow.Place;
@@ -200,6 +212,5 @@ export class MyachievementFormComponent implements OnInit {
       },
       reject: (type) => { }
     });
-
   }
 }

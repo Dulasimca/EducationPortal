@@ -204,15 +204,24 @@ export class QuestionBankUploadFormComponent implements OnInit {
         'SchoolID': this.logged_user.schoolId
       }
       this.restApiService.getByParameters(PathConstants.Question_Bank_Get, params).subscribe(res => {
-        if (res.length !== 0 && res !== undefined && res !== null) {
+        if (res !== undefined && res !== null) {
+          if(res.length !== 0) {
           res.forEach(q => {
             if (q.Publishdate !== undefined && q.Publishdate !== null) {
-              q.Pdate = this.datepipe.transform(q.Publishdate, 'yyyy-MM-dd');
+              q.Pdate = this.datepipe.transform(q.Publishdate, 'dd/MM/yyyy');
             }
           })
           this.questionBankData = res;
           this.loading = false;
         } else {
+          this.loading = false;
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
+            summary: ResponseMessage.SUMMARY_WARNING, detail: ResponseMessage.NoRecordMessage
+          });
+        }
+       } else {
           this.loading = false;
           this.messageService.clear();
           this.messageService.add({

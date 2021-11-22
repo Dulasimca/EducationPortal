@@ -65,15 +65,15 @@ export class TableConstants {
 
         public static readonly ClassroomDetailsColumns = [
             { field: 'SubjectName', header: 'Subject', align: 'left !important' },
-            { field: 'Classname1', header: 'Class', align: 'left !important' },
-            { field: 'SectionName', header: 'Section', align: 'left !important' },
-            { field: 'MeetingTime', header: 'Time', align: 'center !important' },
+            { field: 'class', header: 'Class', align: 'left !important' },
+            { field: 'mDate', header: 'Meeting Date', align: 'left !important' },
+            { field: 'MeetingTime', header: 'Time', align: 'left !important' },
             { field: 'DurationWithType', header: 'Duration', align: 'left !important' },
             { field: 'CreatedDate', header: 'Created Date', align: 'center !important' },
         ];
 
         public static readonly MyAchievementsCoulmns =  [
-            { field: 'eventdate', header: 'Event Date', align: 'center !important' },
+            { field: 'eDate', header: 'Event Date', align: 'center !important' },
             { field: 'CategoryName', header: 'Category', align: 'left !important' },
             { field: 'EventDetailS', header: 'Event Title', align: 'left !important' },
             { field: 'Place', header: 'Place', align: 'left !important' },
@@ -114,12 +114,12 @@ export class TableConstants {
         ];
 
         public static readonly AssignmentColumns = [
-          { field: 'AssignmentDate', header: 'Date', width: '100px', align: 'center !important'},
-          { field: 'AssignmentDueDate', header: 'Due Date',  width: '100px' ,align: 'center !important'},
-          { field: 'Class', header: 'Class',  width: '100px' ,align: 'center !important'},
+          { field: 'aDate', header: 'Date', width: '100px', align: 'center !important'},
+          { field: 'dDate', header: 'Due Date',  width: '100px' ,align: 'center !important'},
+          { field: 'Class', header: 'Class',  width: '100px' ,align: 'left !important'},
           { field: 'AssignmentWork', header: 'Assigned Work',  width: '150px' ,align: 'left !important'},
           { field: 'AssignmentName', header: 'Assigned Type',  width: '150px' ,align: 'left !important'},
-          { field: 'Subjectname', header: 'Subject Name',  width: '100px' ,align: 'left !important'},
+          { field: 'SubjectName', header: 'Subject Name',  width: '100px' ,align: 'left !important'},
         ]
 
         public static readonly AnnouncementsColumns =  [
@@ -178,7 +178,16 @@ export class TableConstants {
           { field: 'FirstName', header: 'Nominee Name', align: 'left !important' },
           { field: 'Class', header: 'Class', align: 'left !important' },
           { field: 'startDate', header: 'Election Date', align: 'center !important' },
-          { field: 'endDate', header: 'ElectionName', align: 'center !important' },
+          { field: 'endDate', header: 'Election End Date', align: 'center !important' },
+        ];
+
+        public static readonly BooksFormColumns = [
+          { field: 'ShortYear', header: 'Year', align: 'center !important' },
+          { field: 'ClassName', header: 'Class', align: 'left !important' },
+          { field: 'medium', header: 'Medium', align: 'left !important' },
+          { field: 'SubjectName', header: 'Subject', align: 'left !important' },
+          { field: 'authorReference', header: 'Author/Reference', width: '300px', align: 'left !important' },
+          { field: 'CreatedDate', header: 'Uploaded date', align: 'center !important' },
         ];
             
 }

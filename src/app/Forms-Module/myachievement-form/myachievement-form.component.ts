@@ -180,7 +180,7 @@ export class MyachievementFormComponent implements OnInit {
 
   onRowSelect(event, selectedRow) {
     this.MRowId = selectedRow.RowId;
-    this.date = selectedRow.eventdate;
+    this.date = new Date(selectedRow.eventdate);
     this.Category = selectedRow.Category;
     this.CategoryOption = [{ label: selectedRow.CategoryName, value: selectedRow.Category }];
     this.Place = selectedRow.Place;

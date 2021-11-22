@@ -8,47 +8,52 @@
             <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
               <div class="p-grid">
                 <div class="p-col-12 p-md-12 p-lg-2">
-                  <div><label>Event Date<span class="form-mandatory-field">*</span></label></div>
+                  <div><label for="_edate">Event Date<span class="form-mandatory-field">*</span></label></div>
 
-                  <p-calendar dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="date" [showIcon]="true" name="date"
-                  [maxDate]="maxDate"  required></p-calendar>
+                  <p-calendar dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="date" [showIcon]="true"
+                    name="_edate" [maxDate]="maxDate" required></p-calendar>
                 </div>
                 <div class="p-col-12 p-md-12 p-lg-2">
-                  <div><label for="_Category">Category<span class="form-mandatory-field">*</span></label></div>
-                  <p-dropdown name="_Category" (onClick)="onSelect('C')" [options]="CategoryOption" [(ngModel)]="Category" >
+                  <div><label for="_category">Category<span class="form-mandatory-field">*</span></label></div>
+                  <p-dropdown name="_category" (onClick)="onSelect('C')" [options]="CategoryOption"
+                    [(ngModel)]="Category">
                   </p-dropdown>
                 </div>
                 <div class="p-col-12 p-md-12 p-lg-2">
                   <div><label for=_event>Event Name<span class="form-mandatory-field">*</span></label></div>
-                  <input class="p-col-12" type="text" name="_event"  pInputText [(ngModel)]="event" style="text-transform: capitalize;"
-                   appInputFormat="noSpecialChars" required />
+                  <input class="p-col-12" type="text" name="_event" pInputText [(ngModel)]="event"
+                    style="text-transform: capitalize;" appInputFormat="noSpecialChars" required />
                 </div>
                 <div class="p-col-12 p-md-12 p-lg-2">
                   <div><label for=_place>Place<span class="form-mandatory-field">*</span></label></div>
-                  <input class="p-col-12" type="text" name="_place" pInputText [(ngModel)]="Place" style="text-transform: capitalize;"
-                  placeholder="Event held on" appInputFormat="noSpecialChars" required />
+                  <input class="p-col-12" type="text" name="_place" pInputText [(ngModel)]="Place"
+                    style="text-transform: capitalize;" placeholder="Event held on" appInputFormat="noSpecialChars"
+                    required />
                 </div>
                 <div class="p-col-12 p-md-12 p-lg-2">
-                  <div><label for="_Award">Award Title<span class="form-mandatory-field">*</span></label></div>
-                  <p-dropdown name="_Award" [options]="AwardOption" (onClick)="onSelect('A')"  [(ngModel)]="Award" required>
+                  <div><label for="_award">Award Title<span class="form-mandatory-field">*</span></label></div>
+                  <p-dropdown name="_award" [options]="AwardOption" (onClick)="onSelect('A')" [(ngModel)]="Award"
+                    required>
                   </p-dropdown>
                 </div>
                 <div class="p-col-12 p-md-12 p-lg-3">
-                  <label for="_file">Upload Certificate<span class="form-mandatory-field">*</span></label>
-                  <input type ="file" #file placeholder="Choose file" name="_file"
-                  pInputText (change)="uploadFile(file.files)" accept=".pdf,.png,.jpg,.jpeg" required />
+                  <label for="_certificate">Upload Certificate<span class="form-mandatory-field">*</span></label>
+                  <input type="file" #file placeholder="Choose file" name="_certificate" pInputText
+                    (change)="uploadFile(file.files)" accept=".pdf,.png,.jpg,.jpeg" required />
                 </div>
                 <div class=p-col-12></div>
                 <div class="p-col-5 p-md-5 p-lg-5" style="text-align: right;">
-                  <button pButton type="button" label="Save" icon="pi pi-save" (click)="onSubmit()" [disabled]="(!f.valid)"
-                     ></button>
-                    </div>
-                    <div  class="p-col-7 p-md-7 p-lg-7"> 
-                  <button pButton type="button" label="View" icon="pi pi-eye" (click)="onView()"></button>&nbsp;&nbsp;
-                  <button pButton type="button" label="Clear" icon="pi pi-times-circle" (click)="clear()"></button>
-                  </div>
-                 </div>
-                <div *ngIf="showtable"> 
+                  <button pButton type="button" label="Save" icon="pi pi-save" name="_save" (click)="onSubmit()"
+                    [disabled]="(!f.valid || !f.dirty)"></button>
+                </div>
+                <div class="p-col-7 p-md-7 p-lg-7">
+                  <button pButton type="button" name="_view" label="View" icon="pi pi-eye"
+                    (click)="onView()"></button>&nbsp;&nbsp;
+                  <button pButton type="button" name="_clear" label="Clear" icon="pi pi-times-circle"
+                    (click)="clear()"></button>
+                </div>
+              </div>
+              <div *ngIf="showtable">
                 <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10"
                   [rowsPerPageOptions]="[5,10,15,20]" totalRecords="totalRecords" styleClass="p-datatable-gridlines">
                   <ng-template pTemplate="header" let-columns>
@@ -69,26 +74,26 @@
                       <td *ngFor="let col of columns" [style.text-align]="col.align">
                         {{rowData[col.field]}}
                       </td>
-                      <td style="width: 142px;"><i class="pi pi-download"  (click)="onDownload(rowData.filename)" 
-                         style="color: #45e327; font-size: 1.3rem;"></i></td>
-                       
-                      </tr>
-                        </ng-template>
+                      <td style="width: 142px;"><i class="pi pi-download" (click)="onDownload(rowData.filename)"
+                          style="color: #45e327; font-size: 1.3rem;"></i></td>
+
+                    </tr>
+                  </ng-template>
                 </p-table>
-                </div>
               </div>
+            </div>
           </p-card>
         </form>
       </div>
     </p-panel>
-    <p-confirmDialog #cd  [style]="{width: '30vw'}">
+    <p-confirmDialog #cd [style]="{width: '30vw'}">
       <ng-template pTemplate="header">
         <h3>Alert</h3>
-    </ng-template>
-    <ng-template pTemplate="footer">
+      </ng-template>
+      <ng-template pTemplate="footer">
         <button type="button" pButton icon="pi pi-times" label="No" (click)="cd.reject()"></button>
         <button type="button" pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"></button>
-    </ng-template>
+      </ng-template>
     </p-confirmDialog>
   </div>
 </block-ui>

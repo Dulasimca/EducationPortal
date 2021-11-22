@@ -67,7 +67,7 @@ export class QuestionbankComponent implements OnInit {
     this.restApiService.getByParameters(PathConstants.Question_Bank_Get, params).subscribe(res => {
       if (res.length !== 0 && res !== undefined && res !== null) {
         res.forEach(r => {
-          r.Publishdate = this._datePipe.transform(r.Publishdate, 'MM/dd/yyyy');
+          r.Publishdate = this._datePipe.transform(r.Publishdate, 'dd/MM/yyyy');
         })
         this.questionBankData = res;
         this.loading = false;

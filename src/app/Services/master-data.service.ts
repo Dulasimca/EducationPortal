@@ -129,6 +129,12 @@ export class MasterService {
             this.masterData.push({ name: e.Name, code: e.Id });
           });
           break;
+          //AssignmentType
+          case 'AT':
+            this.data.Table17.forEach(a => {
+              this.masterData.push({ name: a.Name, code: a.Id});
+            });
+            break;
     }
     return this.masterData;
   }

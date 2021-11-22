@@ -2,48 +2,48 @@
   <div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px; height: 520px;">
     <p-toast position="top-center" key="t-msg"></p-toast>
     <p-panel header="Online Assignments">
+      <form #f="ngForm" name="AssignmentForm">
       <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
-        <form #f="ngForm" name="AssignmentForm">
           <p-card>
             <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
               <div class="p-grid">
                 <div class="p-col-12 p-md-6 p-lg-2">
                   <div><label>Assigning Date<span class="form-mandatory-field">*</span></label> </div>
-                  <p-calendar dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="assignDate" [showIcon]="true" name="assignDate"  required></p-calendar>
+                  <p-calendar dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="assignDate" [showIcon]="true" name="_assignDate"  required></p-calendar>
                 </div>
                 <div class="p-col-12 p-md-6 p-lg-2">
                   <div><label> Due Date<span class="form-mandatory-field">*</span></label></div>
-                  <p-calendar dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="dueDate" [showIcon]="true" name="dueDate" required></p-calendar>
+                  <p-calendar dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="dueDate" [showIcon]="true" name="_dueDate" required></p-calendar>
                 </div>
                 <div class="p-col-12 p-md-6 p-lg-2">
-                  <div><label for="_classId">Class<span class="form-mandatory-field">*</span></label></div>
-                  <p-dropdown name="_classId" [options]="classOptions" [(ngModel)]="classId" 
+                  <div><label for="_class">Class<span class="form-mandatory-field">*</span></label></div>
+                  <p-dropdown name="_class" [options]="classOptions" [(ngModel)]="classId" 
                     (onClick)="onSelect1('C')" required>
                   </p-dropdown>
                 </div>
                 <div class="p-col-12 p-md-6 p-lg-2">
-                  <div><label for="_sectionId"> Section<span class="form-mandatory-field">*</span></label> </div>
-                  <p-dropdown name="_sectionId" [options]="sectionOptions" [(ngModel)]="sectionId" 
+                  <div><label for="_section"> Section<span class="form-mandatory-field">*</span></label> </div>
+                  <p-dropdown name="_section" [options]="sectionOptions" [(ngModel)]="sectionId" 
                     (onClick)="onSelect1('S')" required>
                   </p-dropdown>
                 </div>
                 <div class="p-col-12 p-md-6 p-lg-2">
                   <div><label> Subject Name<span class="form-mandatory-field">*</span></label></div>
-                  <input class="p-col-12" type="text" pInputText [(ngModel)]="subjectname" name="subjectname"
+                  <input class="p-col-12" type="text" pInputText [(ngModel)]="subjectname" name="_subject"
                   appInputFormat="noSpecialChars" required>
                 </div> 
             <div class=p-col-12></div>
                 <div #row2 class="p-col-12 p-md-12 p-lg-12 no-pad-top">
                   <div class="p-grid">
                 <div class="p-col-12 p-md-6 p-lg-2">
-                  <div><label for="_AType">Assignment Type<span class="form-mandatory-field">*</span></label></div>
-                  <p-dropdown name="_AType" [options]="TypeOptions" [(ngModel)]="AType" (onClick)="onSelect()" optionLabel="label" >
+                  <div><label for="_assignment">Assignment Type<span class="form-mandatory-field">*</span></label></div>
+                  <p-dropdown name="_assignment" [options]="TypeOptions" [(ngModel)]="AType" (onClick)="onSelect1('AT')" >
                   </p-dropdown>
                 </div>
                 <div class="p-col-12 p-md-6 p-lg-3">
                   <div><label> Assigning Work<span class="form-mandatory-field">*</span></label></div>
                   <input class="p-col-12" type="text" pInputText [(ngModel)]="assignmentwork"
-                    name="assignmentwork" appInputFormat="noSpecialChars" required>
+                   appInputFormat="noSpecialChars" required>
                 </div>
                 <!-- <div class="p-col-12 p-md-6 p-lg-3">
                   <label for="_assign">Attach File<span class="form-mandatory-field">*</span></label>
@@ -52,7 +52,7 @@
                 </div> -->
             <div class=p-col-12></div>
             <div class="p-col-5 p-md-5 p-lg-5" style="text-align: right;">
-              <button pButton type="button" label="Submit" icon="pi pi-save" (click)="onSubmit()" [disabled]="(!f.valid)"
+              <button pButton type="button" label="Submit" icon="pi pi-save" (click)="onSubmit()" [disabled]="(!f.valid || !f.dirty)"
                  ></button>
                 </div>
                 <div  class="p-col-6 p-md-6 p-lg-6"> 
@@ -64,7 +64,6 @@
               </div>
             </div>
   </p-card>
-</form>
   </div>
     <div *ngIf="Showtable"> 
         <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="50" [rowsPerPageOptions]="[10,20,30,50]" [loading]="loading"
@@ -102,7 +101,7 @@
         <button type="button" pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"></button>
     </ng-template>
     </p-confirmDialog>
-   
+</form>
   </p-panel>
   </div>
 </block-ui>

@@ -174,13 +174,15 @@ export class BookFormComponent implements OnInit {
   }
 
   onView() {
-    if (this.ClassId !== undefined && this.ClassId !== null) {
+    if (this.ClassId !== undefined && this.ClassId !== null && this.selectedYear !== null &&
+      this.selectedYear !== undefined && this.medium !== null && this.medium !== undefined) {
       this.data = [];
       this.loading = true;
       this.showtable = true;
       const params = {
         'SchoolID': this.login_user.schoolId,
-        'ClassId': this.ClassId
+        'ClassId': this.ClassId,
+        "Medium": this.medium
       }
       this.restApiService.getByParameters(PathConstants.Book_Get, params).subscribe(res => {
         if (res !== null && res !== undefined && res.length !== 0) {
@@ -201,7 +203,7 @@ export class BookFormComponent implements OnInit {
       this.messageService.clear();
       this.messageService.add({
         key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
-        summary: ResponseMessage.SUMMARY_WARNING, detail: 'Please select class to view books'
+        summary: ResponseMessage.SUMMARY_WARNING, detail: 'Please select class ,academic year & medium to view books'
       });
     }
   }

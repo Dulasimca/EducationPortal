@@ -13,6 +13,7 @@ import { Output, EventEmitter } from '@angular/core';
 import { User } from 'src/app/Interfaces/user';
 import { AuthService } from 'src/app/Services/auth.service';
 import { MasterService } from 'src/app/Services/master-data.service';
+import { TableConstants } from 'src/app/Common-Module/TableConstants';
 
 
 @Component({
@@ -27,7 +28,7 @@ export class AssignmentFormComponent implements OnInit {
   types: SelectItem[];
   TypeOptions: SelectItem[]
   assignmentwork: string;
-  AType:any;
+  AType:number;
   subjectname:string;
   data: any = []; 
   cols: any;
@@ -35,7 +36,7 @@ export class AssignmentFormComponent implements OnInit {
   assignmentfile: any[] = [];
   AssignmentDate:any;
   ClassWork: any;
-  classId: number;
+  classId: string;
   MAssignId=0;
   public progress: number;
   public message: string;
@@ -43,6 +44,7 @@ export class AssignmentFormComponent implements OnInit {
   login_user: User;
   assign: string;
   classes?: any;
+  assignmenttype?: any;
   sections?: any;
   sectionId: number;
   masterData?: any = [];
@@ -62,25 +64,10 @@ export class AssignmentFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.masterService.getMaster('');
-    this.cols = [
-      { field: 'AssignmentDate', header: 'Date', width: '100px', align: 'center !important'},
-      { field: 'AssignmentDueDate', header: 'Due Date',  width: '100px' ,align: 'center !important'},
-      { field: 'Class', header: 'Class',  width: '100px' ,align: 'center !important'},
-      { field: 'AssignmentWork', header: 'Assigned Work',  width: '150px' ,align: 'left !important'},
-      { field: 'AssignmentType', header: 'Assigned Type',  width: '150px' ,align: 'left !important'},
-      { field: 'Subjectname', header: 'Subject Name',  width: '100px' ,align: 'left !important'},  
-  ];
-  this.types = [
-    { label: '-select-', value: null },
-    { label: 'Home Work', value: 'Home Work'},
-    { label: 'Class Work', value: 'Class Work'},
-  ];
+    this.cols = TableConstants.AssignmentColumns;
   this.login_user = this.authService.UserInfo; 
   }
 
-  onSelect() {
-    this.TypeOptions = this.types;
-  }
 
 onSubmit() {
   this.blockUI.start();
@@ -91,7 +78,7 @@ onSubmit() {
     'AssignmentDate': this.datepipe.transform(this.assignDate, 'MM/dd/yyyy') ,
     'AssignmentDueDate': this.datepipe.transform(this.dueDate, 'MM/dd/yyyy'),
     'assignmentwork': this.assignmentwork,
-    'AssignmentType': this.AType.value,
+    'AssignmentType': this.AType,
     'subjectname': this.subjectname,
     'Assignmentfilename': this.NewFileName,
     'SectionId': this.sectionId,
@@ -138,8 +125,10 @@ onSubmit() {
     onSelect1(type) {
       this.classes = this.masterService.getMaster('C');
       this.sections = this.masterService.getMaster('S');  
+      this.assignmenttype = this.masterService.getMaster('AT');
       let classSelection = [];
       let sectionSelection = [];
+      let assignmentSelection = [];
   
       switch (type) {
         case 'C':
@@ -156,6 +145,14 @@ onSubmit() {
           this.sectionOptions = sectionSelection;
           this.sectionOptions.unshift({ label: '-select', value: null });
           break; 
+          case 'AT':
+            this.assignmenttype.forEach(s => {
+              assignmentSelection.push({ label: s.name, value: s.code })
+            });
+            this.TypeOptions = assignmentSelection;
+            this.TypeOptions.unshift({ label: '-select', value: null });
+            break; 
+        
       }
   
     }
@@ -197,23 +194,24 @@ clear() {
   this.classOptions = [];
   this.sectionId = null;
   this.sectionOptions = [];
-  this.AType = "";
+  this.AType = null;
+  this.TypeOptions = [];
 
 }
 onRowSelect(event, selectedRow) {
   this.MAssignId=selectedRow.AssignId;
   this.assignDate= new Date(selectedRow.AssignmentDate);
   this.dueDate = new Date (selectedRow.AssignmentDueDate);
-  this.AType = { label: selectedRow.AssignmentType, value: selectedRow.AssignmentType };
   this.assignmentwork = selectedRow.AssignmentWork;
   this.assign = selectedRow.Assignmentfilename;
-  this.TypeOptions= [{ label: selectedRow.AssignmentType, value: selectedRow.AssignmentType }];
   this.subjectname = selectedRow.Subjectname;
   this.NewFileName = selectedRow.Assignmentfilename;  
   this.sectionId = selectedRow.SectionId;
   this.sectionOptions = [{ label: selectedRow.SectionName, value: selectedRow.SectionId }];
   this.classId = selectedRow.ClassId;
   this.classOptions = [{ label: selectedRow.ClassName, value: selectedRow.ClassId }];
+  this.AType = selectedRow.AssignmentType;
+  this.TypeOptions = [{ label: selectedRow.AssignmentName, value: selectedRow.AType }];
   console.log('t', this.AType);
 
 }

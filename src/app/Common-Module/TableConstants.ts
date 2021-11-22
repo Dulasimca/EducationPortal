@@ -109,9 +109,18 @@ export class TableConstants {
             { field: 'AssignmentDate', header: 'Date', align: 'center !important'},
             { field: 'AssignmentDueDate', header: 'Due Date',  align: 'center !important'},
             { field: 'AssignmentWork', header: 'Assigned Work',  align: 'left !important'},
-            { field: 'AssignmentType', header: 'Assigned Type',  align: 'left !important'},
+            { field: 'AssignmentName', header: 'Assigned Type',  align: 'left !important'},
             { field: 'Subjectname', header: 'Subject Name',  align: 'left !important'},
         ];
+
+        public static readonly AssignmentColumns = [
+          { field: 'AssignmentDate', header: 'Date', width: '100px', align: 'center !important'},
+          { field: 'AssignmentDueDate', header: 'Due Date',  width: '100px' ,align: 'center !important'},
+          { field: 'Class', header: 'Class',  width: '100px' ,align: 'center !important'},
+          { field: 'AssignmentWork', header: 'Assigned Work',  width: '150px' ,align: 'left !important'},
+          { field: 'AssignmentName', header: 'Assigned Type',  width: '150px' ,align: 'left !important'},
+          { field: 'Subjectname', header: 'Subject Name',  width: '100px' ,align: 'left !important'},
+        ]
 
         public static readonly AnnouncementsColumns =  [
             { field: 'Announcementdate', header: 'Date', width: '70px', align: 'center !important' },

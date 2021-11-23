@@ -19,8 +19,8 @@ export class TableConstants {
         ];
 
         public static readonly MyBooksColumns =  [
-            { field: 'Years', header: 'Academic Year', align: 'left !important' },
-            { field: 'subjects', header: 'Subject', align: 'left !important' },
+            { field: 'ShortYear', header: 'Academic Year', align: 'left !important' },
+            { field: 'SubjectName', header: 'Subject', align: 'left !important' },
             { field: 'authorReference', header: 'Author/Reference', width: '300px', align: 'left !important' },
             { field: 'CreatedDate', header: 'Published date', align: 'center !important' },
           ];
@@ -99,7 +99,7 @@ export class TableConstants {
         public static readonly FeesColumns =  [
             {field: 'FeeName', header: 'Fee Name', align: 'left !important'},
             { field: 'FeeType', header: 'Fee Type', align: 'left !important'},
-            { field: 'CreatedDate', header: 'Pay Date', align: 'center !important'},
+            { field: 'CreatedDate', header: 'Paid Date', align: 'center !important'},
             { field: 'PayMethod', header: 'Pay Method', align: 'left !important'},
             { field: 'PaidAmount', header: 'Paid Amount', align: 'right !important'},
             { field: 'duedate', header: 'Due Date', align: 'center !important'},
@@ -164,7 +164,7 @@ export class TableConstants {
 
         public static readonly ResultEntryColumns = [
           { field: 'ExamName', header: 'Exam Name' , align: 'left !important'},
-          { field: 'ExamDate', header: 'Exam Date' , align: 'center !important'},
+          { field: 'eDate', header: 'Exam Date' , align: 'center !important'},
           { field: 'Class', header: 'Class' , align: 'left !important'},
           { field: 'Section', header: 'Section' , align: 'left !important'},
           { field: 'Subject', header: 'Subject' , align: 'left !important'},

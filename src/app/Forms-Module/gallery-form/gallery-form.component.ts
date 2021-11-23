@@ -80,15 +80,13 @@ export class GalleryFormComponent implements OnInit {
     );
 }  
 onSubmit() {
-   
   const params = {
     'RowId': this.MRowId,
     'school':  this.login_user.schoolId,
-    'Date': this.datepipe.transform(this.date,'yyyy-MM-dd'), 
+    'Date': this.datepipe.transform(this.date,'MM/dd/yyyy'), 
     'imagefilename': this.NewFileName,
     'title':this.title,
     'Flag':  1
-   
   };
   this.restApiService.post(PathConstants.Gallery_Post, params).subscribe(res => {
     if(res !== undefined && res !== null) {

@@ -182,7 +182,7 @@ export class TestDetailsFormComponent implements OnInit {
       'TestName': this.testName,
       'TestDescription': this.description,
       'SchoolId': this.login_user.schoolId,
-      'AssessmentDate': this.datePipe.transform(this.testDate, 'yyyy-MM-dd'),
+      'AssessmentDate': this.datePipe.transform(this.testDate, 'MM/dd/yyyy'),
       'Questions': this.questions,
       'QuestionType': this.questionType,
       'TotalMarks': this.totalMarks,

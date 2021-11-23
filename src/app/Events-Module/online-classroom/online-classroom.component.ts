@@ -64,7 +64,7 @@ export class OnlineClassroomComponent implements OnInit {
     this.loading = true;
     const params = { 
       'SchoolId': this.login_user.schoolId,
-      'Date': this.datePipe.transform(this.date, 'yyyy-MM-dd'),
+      'Date': this.datePipe.transform(this.date, 'MM/dd/yyyy'),
       'ClassId': this.login_user.classId,
       'SectionCode': this.login_user.sectioncode
      };

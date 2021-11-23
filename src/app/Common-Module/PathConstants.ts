@@ -75,5 +75,6 @@ export class PathConstants {
     public static readonly Gallery_Post = 'Gallery/post';
     public static readonly Gallery_Get = 'Gallery/Get';
 
+    public static readonly Result_Post = 'Result/Post';
 
 }

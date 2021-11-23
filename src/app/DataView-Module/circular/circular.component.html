@@ -1,9 +1,9 @@
 <div class="p-col-12 p-md-12 p-lg-12">
+  <p-toast position="top-center" key="t-msg"></p-toast>
   <p-panel header="Circular From School Admin">
     <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
       <p-card>
         <div>
-
           <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,15,20]"
             [loading]="loading" styleClass="p-datatable-gridlines">
             <ng-template pTemplate="header" let-columns>

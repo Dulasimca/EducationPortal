@@ -53,6 +53,11 @@
                                     <div class="p-col-12 p-md-10 p-lg-10">
                                         <div class="p-grid">
                                             <div class="p-col-12 p-md-6 p-lg-3">
+                                                <div><label>Academic Year:</label></div>
+                                                <p-dropdown [options]="yearOptions" name="_selectedyear" [(ngModel)]="shortYear" (onClick)="onSelect('SY')"
+                                                    required> </p-dropdown>
+                                              </div>
+                                            <div class="p-col-12 p-md-6 p-lg-3">
                                                 <div><label for="_subject">Subject<span
                                                             class="form-mandatory-field">*</span></label>
                                                 </div>
@@ -108,7 +113,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div #row3 class="p-col-12 p-md-12 p-lg-12">
+                        <div #row3 class="p-col-12 p-md-12 p-lg-12 no-pad-top">
                             <p-table [columns]="resultCols" [value]="resultData" [paginator]="true" [rows]="10" [loading]="loading"
                             [rowsPerPageOptions]="[5,10,15,20]" totalRecords="totalRecords" styleClass="p-datatable-gridlines">
                             <ng-template pTemplate="header" let-columns>
@@ -129,15 +134,19 @@
                                 <td *ngFor="let col of columns" [style.text-align]="col.align">
                                   {{rowData[col.field]}}
                                 </td>
-                                <td style="width: 90px;" (click)="onEdit(rowData)" class="cursor-pointer">
+                                <td style="width: 90px;" (click)="onEdit(rowData, rowIndex)" class="cursor-pointer">
                                     <i class="pi pi-pencil" style="padding-left: 10px; color: #52de38; font-size: 1.5rem;"></i>
                                 </td>
-                                <td style="width: 90px;" (click)="onDelete(rowData)" class="cursor-pointer">
+                                <td style="width: 90px;" (click)="onDelete(rowData, rowIndex)" class="cursor-pointer">
                                     <i class="pi pi-trash" style="padding-left: 10px; color: #52de38; font-size: 1.5rem;"></i>
                                 </td>
                               </tr>
                             </ng-template>
                           </p-table>
+                        </div>
+                        <div #row4 class="p-col-12 p-md-12 p-lg-12 text-center">
+                            <button pButton type="button" label="Submit" (click)="onSubmit()"
+                                [disabled]="(resultData.length==0 || !f.dirty)"></button>
                         </div>
                     </p-card>
                 </form>

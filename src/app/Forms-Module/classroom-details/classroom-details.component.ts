@@ -93,7 +93,7 @@ export class ClassroomDetailsComponent implements OnInit {
     const params = {
       'SchoolId': this.login_user.schoolId,
       'Date': (this.meetingDate !== undefined && this.meetingDate !== null) ?
-      this.datePipe.transform(this.meetingDate, 'yyyy-MM-dd') : this.datePipe.transform(new Date(), 'yyyy-MM-dd'),
+      this.datePipe.transform(this.meetingDate, 'MM/dd/yyyy') : this.datePipe.transform(new Date(), 'MM/dd/yyyy'),
       'SectionCode': this.login_user.id,
       'ClassId': 0
     };

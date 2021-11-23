@@ -8,7 +8,7 @@
                         <div class="p-col-12 p-md-12 p-lg-12">
                             <div class="p-grid">
 
-                                <div class="p-col-12 p-md-6 p-lg-3">
+                                <div class="p-col-12 p-md-6 p-lg-2">
                                     <div class="no-pad-top"><label>Date<span class="form-mandatory-field">*</span></label> </div>
                                     <p-calendar dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="date" [showIcon]="true" name="date" required></p-calendar>
                                 </div>
@@ -38,7 +38,34 @@
                         </div>
                     </p-card>
                 </form>
-                <div *ngIf="showtable">
+                <div *ngIf="showTable">
+                    <div #row1 class="p-grid" style="background: #d3e0ec;">
+                        <div class="p-col-12 p-md-6 p-lg-6" style="text-align: start;">
+                            <span style="text-decoration: underline;">NewsLetter Details:</span>
+                        </div>
+                        <div class="p-col-12 p-md-6 p-lg-6" style="text-align: end;">
+                            <button pButton name="_close" type="button" label="Close" icon="pi pi-times"
+                                (click)="showTable=false"></button>
+                        </div>
+                    </div>
+                    <div #row2 class="p-col-12 p-md-12 p-lg-12 no-pad">
+                        <div class="p-grid">
+                            <div class="p-col-12 p-md-6 p-lg-2">
+                                <div>
+                                  <label>Academic Year:</label>
+                                </div>
+                                <p-dropdown [options]="yearOptions" name="_selectedyear" [(ngModel)]="shortYear" (onClick)="onSelect('Y')"
+                                   (onChange)="loadNewsLetter()" required> </p-dropdown>
+                              </div>
+                              <div class="p-col-12 p-md-6 p-lg-2">
+                                <div>
+                                  <label>Month:</label>
+                                </div>
+                                <p-dropdown [options]="monthOptions" name="_selectedmonth" [(ngModel)]="month" (onClick)="onSelect('M')"
+                                   (onChange)="loadNewsLetter()" required> </p-dropdown>
+                              </div>
+                        </div>
+                    </div>
                     <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10"
                         [rowsPerPageOptions]="[5,10,15,20]" styleClass="p-datatable-gridlines" [loading]="loading">
                         <ng-template pTemplate="header" let-columns>

@@ -72,7 +72,7 @@
            styleClass="p-datatable-gridlines">
             <ng-template pTemplate="header" let-columns>
               <tr>
-                <th style="width: 40px;">S.No</th>
+                <th style="width: 70px;">S.No</th>
                 <th *ngFor="let col of columns">
                   {{col.header}}
                 </th>
@@ -86,11 +86,11 @@
             </ng-template>
             <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
               <tr>
-                <td>{{rowIndex+1}}</td>
+                <td style="width: 70px;">{{rowIndex+1}}</td>
                 <td *ngFor="let col of columns" [style.text-align]="col.align">
                   {{rowData[col.field]}}
                 </td>
-                <td style="width: 142px;" class="cursor-pointer"><i class="pi pi-download" (click)="onDownload(rowData.Assignmentfilename)"
+                <td style="width: 90px;" class="cursor-pointer"><i class="pi pi-download" (click)="onDownload(rowData.Assignmentfilename)"
                     style="color: #45e327; font-size: 1.3rem;"></i></td>
                     <td style="width: 100px" (click)="onEdit(rowData)" class="cursor-pointer">
                       <i class="pi pi-pencil" style="padding-left: 10px; color: #52de38; font-size: 1.5rem;"></i>

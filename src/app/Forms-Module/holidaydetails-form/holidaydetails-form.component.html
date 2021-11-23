@@ -18,7 +18,7 @@
                 </div>
                 <div class="p-col-12 p-md-6 p-lg-3">
                   <div><label>Date</label></div>
-                  <p-calendar dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="date" name="date" [showIcon]="true" required></p-calendar>
+                  <p-calendar dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="date" name="_date" [showIcon]="true" required></p-calendar>
                 </div>
                 <div class="p-col-12"></div>
                 <div class="p-col-12 p-md-12 p-lg-12" style="text-align: center;">
@@ -38,11 +38,13 @@
                       <th style="width: 90px;">
                         Delete
                       </th>
-                        
+                      <th style="width: 90px;">
+                        Edit
+                      </th>
                     </tr>
                   </ng-template>
                   <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
-                    <tr [pSelectableRow]="rowData" class="cursor-pointer" (dblclick)="onRowSelect($event, rowData)">
+                    <tr>
                       <td style="width: 90px;">{{rowIndex+1}}</td>
                       <td *ngFor="let col of columns" [style.text-align]="col.align">
                         {{rowData[col.field]}}
@@ -50,6 +52,9 @@
                       <td class="cursor-pointer">
                         <button type="button" pButton icon="pi pi-trash" (click)="delete(rowData)"></button>
                       </td>
+                      <td style="width: 100px" (click)="onEdit(rowData)" class="cursor-pointer">
+                        <i class="pi pi-pencil" style="padding-left: 10px; color: #52de38; font-size: 1.5rem;"></i>
+                    </td>
                     </tr>
                   </ng-template>
                 </p-table>

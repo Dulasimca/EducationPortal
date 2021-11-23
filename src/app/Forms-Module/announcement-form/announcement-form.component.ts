@@ -1,4 +1,4 @@
-import { Component, OnInit,ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit,ViewChild } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
@@ -40,6 +40,7 @@ export class AnnouncementFormComponent implements OnInit {
   loading: boolean;
   public formData = new FormData();
   @Output() public onUploadFinished = new EventEmitter();
+  @ViewChild('file', { static: false }) _attachment: ElementRef;
   @BlockUI() blockUI: NgBlockUI;
 
   constructor(private restApiService: RestAPIService, private http: HttpClient,private datepipe: DatePipe,private messageService: MessageService
@@ -130,6 +131,10 @@ export class AnnouncementFormComponent implements OnInit {
     }
       this.restApiService.getByParameters(PathConstants.Announcement_Get, params).subscribe(res => {
       if(res !== null && res !== undefined && res.length !== 0) {
+        if (res.length !== 0) {
+          res.forEach(r => {
+          r.adate = this.datepipe.transform(r.Announcementdate, 'dd/MM/yyyy');
+          })
         this.loading = false;
       this.data = res;
       } else {
@@ -141,6 +146,7 @@ export class AnnouncementFormComponent implements OnInit {
           summary: ResponseMessage.SUMMARY_WARNING, detail: ResponseMessage.NoRecordMessage
         });
       }
+    }
     });
 
   }
@@ -151,11 +157,15 @@ export class AnnouncementFormComponent implements OnInit {
     this.Topic="",
     this.Announcement="",
     this.NewFileName = '',
-    this.data = []
+    this.date = new Date();
+    this.data = [];
+    if (this._attachment.nativeElement.files.length !== 0) {
+      this._attachment.nativeElement.value = null;
+    }
   }
-  onRowSelect(event, selectedRow) {
+  onEdit(selectedRow) {
     this.MRowid=selectedRow.RowId;
-    this.date = selectedRow.Announcementdate;
+    this.date = new Date(selectedRow.Announcementdate);
     this.Topic = selectedRow.AnnouncementTag;
     this.announce = selectedRow.Announcementfilename;
     this.Announcement = selectedRow.Announcement;

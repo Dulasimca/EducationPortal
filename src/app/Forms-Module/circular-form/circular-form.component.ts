@@ -1,10 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import {NgForm} from '@angular/forms';
-import { analyzeAndValidateNgModules } from '@angular/compiler';
-import { ConfirmationService, SelectItem } from 'primeng/api';
+import { ConfirmationService } from 'primeng/api';
 import { DatePipe } from '@angular/common';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -45,6 +44,7 @@ export class CircularFormComponent implements OnInit {
    NewFileName:string;
   public formData = new FormData();
   @ViewChild('f', { static: false }) CircularForm: NgForm;
+  @ViewChild('file', { static: false }) _attachment: ElementRef;
   login_user: User;
   @Output() public onUploadFinished = new EventEmitter();
   constructor(private restApiService: RestAPIService, private datepipe: DatePipe, private http: HttpClient,
@@ -64,8 +64,6 @@ export class CircularFormComponent implements OnInit {
   let fileToUpload: any = <File>files[0];
   const filename = fileToUpload.name + '^' + FileUploadConstant.Circularfolder;
   this.formData.append('file', fileToUpload, filename);
-  console.log('file', fileToUpload);
-  console.log('formdata', this.formData);
   this.NewFileName=fileToUpload.name;
   this.http.post(this.restApiService.BASEURL +PathConstants.FileUpload_Post, this.formData)
     .subscribe(event => 
@@ -125,7 +123,6 @@ export class CircularFormComponent implements OnInit {
     const params = { 
       'SchoolID': this.login_user.schoolId,
     }
-    
     this.restApiService.getByParameters(PathConstants.Circular_Get, params).subscribe(res => {
       if(res !== null && res !== undefined && res.length !==0) {
         this.loading = false;
@@ -140,25 +137,29 @@ export class CircularFormComponent implements OnInit {
       }
       
     })
-   
   }
 
-
-  onClear()
-  {
+  onClear()  {
     this.CircularForm.reset();
     this.CircularForm.form.markAsUntouched();
     this.CircularForm.form.markAsPristine();
-    this.Subject = '',
-    this.Details = ''
+    this.Subject = '';
+    this.Details = '';
+    this.date = new Date();
+    this.data = [];
+    if (this._attachment.nativeElement.files.length !== 0) {
+      this._attachment.nativeElement.value = null;
+    }
   }
-  onRowSelect(event, selectedRow) {
+
+  onEdit(selectedRow) {
     this.MRowId = selectedRow.RowId;
-    this.date = selectedRow.CircularDate;
+    this.date = new Date(selectedRow.CircularDate);
     this.Subject = selectedRow.Subject;
     this.Details = selectedRow.Details;
     this.NewFileName = selectedRow.Download;
 }
+
 onDownload(Filename) {
   this.confirmationService.confirm({
     message: 'Do you want to download?',

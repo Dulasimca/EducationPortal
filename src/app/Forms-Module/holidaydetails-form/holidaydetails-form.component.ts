@@ -110,24 +110,28 @@ export class HolidaydetailsFormComponent implements OnInit {
     }
     this.restApiService.getByParameters(PathConstants.Holiday_Get, params).subscribe(res => {
       if (res !== null && res !== undefined && res.length !== 0) {
-        this.data = res;
-        this.loading = false;
-      } else {
-        this.loading = false;
-    this.showTable = true;
-        this.messageService.clear();
-        this.messageService.add({
-          key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
-          summary: ResponseMessage.SUMMARY_WARNING, detail: ResponseMessage.NoRecordMessage
-        })
+        if (res.length !== 0) {
+          res.forEach(r => {
+            r.hdate = this.datepipe.transform(r.eventdate, "dd/MM/yyyy");
+          })
+
+          this.data = res;
+          this.loading = false;
+        } else {
+          this.loading = false;
+          this.showTable = true;
+          this.messageService.clear();
+          this.messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
+            summary: ResponseMessage.SUMMARY_WARNING, detail: ResponseMessage.NoRecordMessage
+          })
+        }
       }
-
     });
-
   }
+
   onSelect(type) {
     this.holidays = this.masterService.getMaster('HT');
-    
     let holidaySelection = [];
     switch (type) {
       case 'HT':
@@ -195,14 +199,14 @@ export class HolidaydetailsFormComponent implements OnInit {
     this.Holiday = null;
     this.HolidayOption = [];
     this.date = new Date();
-
   }
-  onRowSelect(event, selectedRow) {
+  
+  onEdit(selectedRow) {
     this.MRowid = selectedRow.RowId;
     this.Holiday = selectedRow.HolidayId;
     this.HolidayOption = [{ label: selectedRow.HolidayName, value: selectedRow.HolidayId }];
     this.Events = selectedRow.EventDetailS;
-    this.date = selectedRow.eventdate;
+    this.date = new Date(selectedRow.eventdate);
   }
 }
 

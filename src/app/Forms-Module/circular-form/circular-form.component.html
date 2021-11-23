@@ -8,28 +8,28 @@
             <p-card>
               <div class="p-col-12 p-md-12 p-lg-12">
                 <div class="p-grid">
-                  <div class="p-col-12 p-md-6 p-lg-4">
+                  <div class="p-col-12 p-md-6 p-lg-3">
                     <div class="no-pad-top"><label>Date</label> </div>
                     <p-calendar dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="date" [showIcon]="true" name="date" required>
                     </p-calendar>
                   </div>
-                  <div class="p-col-12 p-md-6 p-lg-4">
+                  <div class="p-col-12 p-md-6 p-lg-3">
                     <div><label>Subject</label></div>
                     <input type="text" pInputText [(ngModel)]="Subject" name="Subject" appInputFormat="noSpecialChars"
                       required />
 
                   </div>
                   <div class="p-col-12 p-md-6 p-lg-4">
+                    <label>Attachment<span class="form-mandatory-field">*</span></label>
+                    <input type="file" #file placeholder="Choose file" pInputText (change)="uploadFile(file.files)"
+                      accept=".pdf" required />
+                    <p style="font-size: small; font-style: italic;">Note*:in pdf format only</p>
+                  </div>
+                  <div class="p-col-12 p-md-6 p-lg-4">
                     <div><label>Instructions</label></div>
 
                     <textarea pInputTextarea autoResize="autoResize" [(ngModel)]="Details" name="Details"
                       appInputFormat="noSpecialChars" required></textarea>
-                  </div>
-                  <div class="p-col-12 p-md-6 p-lg-4">
-                    <label>Attach file:</label>
-                    <input type="file" #file placeholder="Choose file" pInputText (change)="uploadFile(file.files)"
-                      accept=".pdf" required />
-                    <p style="font-size: small; font-style: italic;">Note*:in pdf format only</p>
                   </div>
                 </div>
               </div>
@@ -52,17 +52,23 @@
                 <th style="width: 90px;">
                   Download
                 </th>
+                <th style="width: 90px;">
+                  Edit
+                </th>
               </tr>
             </ng-template>
             <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" class="cursor-pointer"
               let-columns="columns">
-              <tr [pSelectableRow]="rowData" (dblclick)="onRowSelect($event, rowData)">
+              <tr>
                 <td style="width: 50px;">{{rowIndex+1}}</td>
                 <td *ngFor="let col of columns" [style.text-align]="col.align">
                   {{rowData[col.field]}}
                 </td>
                 <td style="width: 90px;" class="cursor-pointer"><i class="pi pi-download"
                     (click)="onDownload(rowData.Download)" style="color: #45e327; font-size: 1.3rem;"></i></td>
+                    <td style="width: 100px" (click)="onEdit(rowData)" class="cursor-pointer">
+                      <i class="pi pi-pencil" style="padding-left: 10px; color: #52de38; font-size: 1.5rem;"></i>
+                  </td>
               </tr>
             </ng-template>
           </p-table>

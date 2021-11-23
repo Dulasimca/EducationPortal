@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
@@ -45,6 +45,7 @@ export class CircularFormComponent implements OnInit {
    NewFileName:string;
   public formData = new FormData();
   @ViewChild('f', { static: false }) CircularForm: NgForm;
+  @ViewChild('file', { static: false }) _attachment: ElementRef;
   login_user: User;
   @Output() public onUploadFinished = new EventEmitter();
   constructor(private restApiService: RestAPIService, private datepipe: DatePipe, private http: HttpClient,
@@ -169,11 +170,16 @@ export class CircularFormComponent implements OnInit {
     this.CircularForm.form.markAsUntouched();
     this.CircularForm.form.markAsPristine();
     this.Subject = '',
-    this.Details = ''
+    this.Details = '',
+    this.date = new Date();
+    this.data = [];
+    if (this._attachment.nativeElement.files.length !== 0) {
+      this._attachment.nativeElement.value = null;
+    }
   }
-  onRowSelect(event, selectedRow) {
+  onEdit(selectedRow) {
     this.MRowId = selectedRow.RowId;
-    this.date = selectedRow.CircularDate;
+    this.date = new Date(selectedRow.CircularDate);
     this.Subject = selectedRow.Subject;
     this.Details = selectedRow.Details;
     this.NewFileName = selectedRow.Download;

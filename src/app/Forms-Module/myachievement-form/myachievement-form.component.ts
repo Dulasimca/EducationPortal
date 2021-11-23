@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { RestAPIService } from 'src/app/Services/restAPI.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
@@ -12,6 +12,7 @@ import { User } from 'src/app/Interfaces/user';
 import { FileUploadConstant } from 'src/app/Common-Module/file-upload-constant'
 import { saveAs } from 'file-saver';
 import { TableConstants } from 'src/app/Common-Module/TableConstants';
+import { Output, EventEmitter } from '@angular/core';
 
 
 @Component({
@@ -42,6 +43,7 @@ export class MyachievementFormComponent implements OnInit {
   @BlockUI() blockUI: NgBlockUI;
   public formData = new FormData();
   @ViewChild('f', { static: false }) _MyAchievementForm: NgForm;
+  @ViewChild('file', { static: false }) _attachment: ElementRef;
 
   constructor(private restApiService: RestAPIService, private http: HttpClient, private datepipe: DatePipe, private messageService: MessageService
     , private authService: AuthService, private confirmationService: ConfirmationService) { }
@@ -188,6 +190,9 @@ export class MyachievementFormComponent implements OnInit {
     this.AwardOption = [];
     this.date = new Date();
     this.data = [];
+    if (this._attachment.nativeElement.files.length !== 0) {
+      this._attachment.nativeElement.value = null;
+    }
   }
 
   onRowSelect(event, selectedRow) {

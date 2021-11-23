@@ -86,7 +86,7 @@ export class TableConstants {
           ];
 
         public static readonly CircularColumns = [
-            {field: 'CircularDate',header: 'Circular Date', width: '90px', align: 'center !important'},
+            {field: 'CDate',header: 'Circular Date', width: '90px', align: 'center !important'},
             {field:'Subject',header: 'Subject', width: '150px', align: 'left !important'},
             {field: 'Details',header: 'Details', width: '450px', align: 'left !important'},
           ];
@@ -123,14 +123,14 @@ export class TableConstants {
         ]
 
         public static readonly AnnouncementsColumns =  [
-            { field: 'Announcementdate', header: 'Date', width: '70px', align: 'center !important' },
+            { field: 'adate', header: 'Date', width: '70px', align: 'center !important' },
             { field: 'AnnouncementTag', header: 'Title', width: '100px', align: 'left !important'},
             { field: 'Announcement', header: 'Announcement', width :'400px', align: 'left !important' },
             ];
 
         public static readonly HolidayDetailsColumns = [
             { field: 'HolidayName', header: 'Type', align: 'left !important' },
-            { field: 'eventdate', header: 'Date', align: 'center !important' },
+            { field: 'hdate', header: 'Date', align: 'center !important' },
             { field: 'EventDetailS', header: 'Events', align: 'left !important' },
           ];
 
@@ -142,7 +142,7 @@ export class TableConstants {
           ];
 
         public static readonly CircularDetailsColumns = [
-            {field: 'CircularDate',header: 'Circular Date', align: 'center !important'},
+            {field: 'CDate',header: 'Circular Date', align: 'center !important'},
             {field:'Subject',header: 'Subject', align: 'left !important'},
             {field: 'Details',header: 'Details', width: '500px', align: 'left !important'},
             {field: 'Download',header: 'Uploaded File', width: '500px', align: 'left !important'},

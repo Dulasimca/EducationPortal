@@ -61,25 +61,10 @@ export class CircularFormComponent implements OnInit {
     if (files.length === 0) {
       return;
     }
-    const params = {
-     
-      
-      'RowId': this.MRowId,
-      'SchoolID':  this.login_user.schoolId,
-      'CircularDate': this.datepipe.transform(this.date,'yyyy-MM-dd'), 
-      'Subject': this.Subject,
-      'Details': this.Details,
-      'Download':this.NewFileName,
-      'Flag':  true
-    };
-  
   this.formData = new FormData()
   let fileToUpload: any = <File>files[0];
- 
   const filename = fileToUpload.name + '^' + FileUploadConstant.Circularfolder;
   this.formData.append('file', fileToUpload, filename);
-  console.log('file', fileToUpload);
-  console.log('formdata', this.formData);
   this.NewFileName=fileToUpload.name;
   this.http.post(this.restApiService.BASEURL +PathConstants.FileUpload_Post, this.formData)
     .subscribe(event => 
@@ -89,10 +74,7 @@ export class CircularFormComponent implements OnInit {
     );
 }  
   onSubmit() {
-   
-    const params = {
-     
-      
+    const params = {   
       'RowId': this.MRowId,
       'SchoolID': this.login_user.schoolId,
       'CircularDate': this.datepipe.transform(this.date,'yyyy-MM-dd'), 
@@ -100,8 +82,7 @@ export class CircularFormComponent implements OnInit {
       'Details': this.Details,
       'Download':this.NewFileName,
       'Flag':  true
-     
-    };
+     };
     this.restApiService.post(PathConstants.Circular_Post, params).subscribe(res => {
       if(res !== undefined && res !== null) {
         if (res) {
@@ -169,8 +150,8 @@ export class CircularFormComponent implements OnInit {
     this.CircularForm.reset();
     this.CircularForm.form.markAsUntouched();
     this.CircularForm.form.markAsPristine();
-    this.Subject = '',
-    this.Details = '',
+    this.Subject = '';
+    this.Details = '';
     this.date = new Date();
     this.data = [];
     if (this._attachment.nativeElement.files.length !== 0) {

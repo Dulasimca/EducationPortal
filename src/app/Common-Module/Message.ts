@@ -34,4 +34,5 @@ export class ResponseMessage {
     public static readonly ElectionnameSelect = 'Select Election Name';
     public static readonly VotingSuccessMsg = 'Voted Successfully !';
     public static readonly NoStudentsMsg = 'No students found in selected class-section !';
+    public static readonly NoRecordForExamDate = 'No record found for selected exam date!';
 }

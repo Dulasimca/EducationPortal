@@ -3,7 +3,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
-import { MessageService, SelectItem } from 'primeng/api';
+import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
 import { ResponseMessage } from 'src/app/Common-Module/Message';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { TableConstants } from 'src/app/Common-Module/TableConstants';
@@ -31,7 +31,7 @@ export class ResultFormComponent implements OnInit {
   totalMarks: any;
   student: any;
   studentOptions: SelectItem[];
-  shortYear: number;
+  shortYear: any;
   yearOptions: SelectItem[];
   marksScored: any;
   students?: any;
@@ -46,11 +46,12 @@ export class ResultFormComponent implements OnInit {
   loading: boolean;
   resultId: number = 0;
   logged_user: User;
+  resultDetails: any[] = [];
   @ViewChild('f', { static: false }) _resultForm: NgForm;
   @BlockUI() blockUI: NgBlockUI;
   constructor(private _masterService: MasterService, private _restApiService: RestAPIService,
     private _datepipe: DatePipe, private _messageService: MessageService,
-    private _authService: AuthService) { }
+    private _authService: AuthService, private _confirmationService: ConfirmationService) { }
 
   ngOnInit(): void {
     this._masterService.getMaster('');
@@ -177,73 +178,171 @@ export class ResultFormComponent implements OnInit {
   }
 
   onEnter() {
-    this.resultData.push({
-      'ResultId': this.resultId,
-      'ExamName': this.examType.label,
-      'ExamTypeId': this.examType.value,
-      'eDate': this._datepipe.transform(this.examDate, 'dd/MM/yyyy'),
-      'ExamDate': this.examDate,
-      'Section': this.section.label,
-      'SectionId': this.section.value,
-      'Class': this.class.label,
-      'ClassId': this.class.value,
-      'Student': this.student.label,
-      'StudentId': this.student.value,
-      'Subject': this.subject.label,
-      'SubjectId': this.subject.value,
-      'Topic': this.topic,
-      'TotalMarks': this.totalMarks,
-      'MarksScored': this.marksScored,
-      'UserId': this.logged_user.id,
-      'SchoolId': this.logged_user.schoolId,
-      'ShortYear': this.shortYear
-    })
-    if (this.resultData.length > 1) {
-      this.resultData.forEach(i => {
-        if (i.ExamTypeId === this.examType.value && i.SubjectId === this.subject.value
-          && i.Topic.toString() === this.topic && i.StudentId === this.student.value) {
-          this.resultData.splice(i + 1, 1);
-          this._messageService.clear();
-          this._messageService.add({
-            key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
-            summary: ResponseMessage.SUMMARY_ERROR, detail: 'Cannot enter result twice per student, Please edit or re-check the result in below table!',
-            life: 4000
-          });
+    let exists: boolean = false;
+    if (this.resultData.length >= 1) {
+      for (let i = 0; i < this.resultData.length; i++) {
+        if (this.resultData[i].StudentId === this.student.value) {
+          exists = true;
+          break;
         } else {
-          this.onClear(2);
+          exists = false;
         }
-      })
+      }
+    }
+    if (exists) {
+      this._messageService.clear();
+      this._messageService.add({
+        key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+        summary: ResponseMessage.SUMMARY_ERROR, detail: 'Cannot enter result twice per student, Please edit or re-check the result in below table!',
+        life: 4000
+      });
     } else {
+      this.resultData.push({
+        'RowId': this.resultId,
+        'ExamName': this.examType.label,
+        'ExamTypeId': this.examType.value,
+        'eDate': this._datepipe.transform(this.examDate, 'dd/MM/yyyy'),
+        'examActualDate': this.examDate,
+        'ExamDate': this._datepipe.transform(this.examDate, 'MM/dd/yyyy'),
+        'Section': this.section.label,
+        'SectionId': this.section.value,
+        'Class': this.class.label,
+        'ClassId': this.class.value,
+        'Student': this.student.label,
+        'StudentId': this.student.value,
+        'Subject': this.subject.label,
+        'SubjectId': this.subject.value,
+        'Topic': this.topic,
+        'TotalMarks': this.totalMarks,
+        'MarksScored': this.marksScored,
+        'UserId': this.logged_user.id,
+        'SchoolId': this.logged_user.schoolId,
+        'AcademicYear': this.shortYear.label,
+        'ShortYear': this.shortYear.value
+      })
       this.onClear(2);
     }
   }
 
   onEdit(item, index) {
+    console.log('edit', item);
+    this.disableSubject = false;
     this.resultId = item.RowId;
     this.marksScored = item.MarksScored;
     this.totalMarks = item.TotalMarks;
     this.topic = item.Topic;
     this.subject = { label: item.Subject, value: item.SubjectId };
     this.subjectOptions = [{ label: item.Subject, value: item.SubjectId }];
-    this.student = { label: item.Student, value: item.StudentId };
-    this.studentOptions = [{ label: item.Student, value: item.StudentId }];
     this.class = { label: item.Class, value: item.ClassId };
     this.classOptions = [{ label: item.Class, value: item.ClassId }];
     this.section = { label: item.Section, value: item.SectionId };
     this.sectionOptions = [{ label: item.Section, value: item.SectionId }];
-    this.examDate = item.ExamDate;
+    this.examDate = new Date(item.examActualDate);
     this.examType = { label: item.ExamName, value: item.ExamTypeId };
     this.examTypeOptions = [{ label: item.ExamName, value: item.ExamTypeId }];
+    this.shortYear = { label: item.AcademicYear, value: item.ShortYear };
+    this.yearOptions = [{ label: item.AcademicYear, value: item.ShortYear }];
+    this.loadStudents();
+    this.student = { label: item.Student, value: item.StudentId };
+    this.studentOptions = [{ label: item.Student, value: item.StudentId }];
     this.resultData.splice(index, 1);
   }
 
   onDelete(item, index) {
-    this.resultData.splice(index, 1);
+    if (item.RowId === 0) {
+      this.resultData.splice(index, 1);
+    } else {
+      const selectedRowId = item.RowId;
+      this._confirmationService.confirm({
+        message: 'Do you want to delete the saved record?',
+        header: 'Confirmation',
+        icon: 'pi pi-exclamation-triangle',
+        accept: () => {
+          this.blockUI.start('Deleting...');
+          this._restApiService.put(PathConstants.Result_Delete, selectedRowId).subscribe(res => {
+            if (res !== undefined && res !== null) {
+              if (res) {
+                this.blockUI.stop();
+                this._messageService.clear();
+                this._messageService.add({
+                  key: 't-msg', severity: ResponseMessage.SEVERITY_SUCCESS,
+                  summary: ResponseMessage.SUMMARY_SUCCESS, detail: ResponseMessage.DeleteSuccessMsg
+                });
+                this.onView();
+              } else {
+                this.blockUI.stop();
+                this._messageService.clear();
+                this._messageService.add({
+                  key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+                  summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.DeleteFailMsg
+                });
+              }
+            } else {
+              this.blockUI.stop();
+              this._messageService.clear();
+              this._messageService.add({
+                key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+                summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.DeleteFailMsg
+              });
+            }
+          })
+        },
+        reject: (type) => { }
+      });
+    }
+  }
+
+  onView() {
+    if (this.examDate !== undefined && this.examDate !== null) {
+      this.loadResults();
+    } else {
+      this._messageService.clear();
+      this._messageService.add({
+        key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
+        summary: ResponseMessage.SUMMARY_WARNING, detail: 'Please select exam date to view submitted result deatils !'
+      });
+    }
+  }
+
+  loadResults() {
+    this.resultData = [];
+    this.loading = true;
+    const params = {
+      'SchoolId': this.logged_user.schoolId,
+      'UserId': this.logged_user.id,
+      'Date': this._datepipe.transform(this.examDate, 'MM/dd/yyyy')
+    }
+    this._restApiService.getByParameters(PathConstants.Result_Get, params).subscribe(res => {
+      if (res !== undefined && res !== null) {
+        if (res.length !== 0) {
+          this.resultData = res;
+          this.loading = false;
+          console.log('view', this.resultData);
+        } else {
+          this.loading = false;
+          this._messageService.clear();
+          this._messageService.add({
+            key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
+            summary: ResponseMessage.SUMMARY_WARNING, detail: ResponseMessage.NoRecordForExamDate
+          });
+        }
+      } else {
+        this.loading = false;
+        this._messageService.clear();
+        this._messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
+          summary: ResponseMessage.SUMMARY_WARNING, detail: ResponseMessage.NoRecordMessage
+        });
+      }
+    })
   }
 
   onSubmit() {
     if (this.resultData.length !== 0) {
       this.blockUI.start();
+      this.resultData.forEach(i => {
+        delete i.examActualDate;
+      })
       this._restApiService.post(PathConstants.Result_Post, this.resultData).subscribe(res => {
         if (res !== undefined && res !== null) {
           if (res) {
@@ -291,12 +390,24 @@ export class ResultFormComponent implements OnInit {
       this.disableSubject = true;
       this.resultData = [];
       this.resultId = 0;
+      this.examDate = new Date();
+      this.class = null;
+      this.classOptions = [];
+      this.section = null;
+      this.sectionOptions = [];
+      this.subject = null;
+      this.subjectOptions = [];
+      this.shortYear = null;
+      this.yearOptions = [];
+      this.examType = null;
+      this.examTypeOptions = [];
     } else {
+      this._resultForm.form.controls['_student'].reset();
+      this._resultForm.form.controls['_marksscored'].reset();
       this.student = null;
       this.studentOptions = [];
-      this._resultForm.form.controls['_student'].reset();
       this.marksScored = null;
-      this._resultForm.form.controls['_marksscored'].reset();
+      this.resultId = 0;
     }
   }
 }

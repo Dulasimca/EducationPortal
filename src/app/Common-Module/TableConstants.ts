@@ -123,7 +123,7 @@ export class TableConstants {
         ]
 
         public static readonly AnnouncementsColumns =  [
-            { field: 'adate', header: 'Date', width: '70px', align: 'center !important' },
+            { field: 'ADate', header: 'Date', width: '70px', align: 'center !important' },
             { field: 'AnnouncementTag', header: 'Title', width: '100px', align: 'left !important'},
             { field: 'Announcement', header: 'Announcement', width :'400px', align: 'left !important' },
             ];
@@ -165,6 +165,7 @@ export class TableConstants {
         public static readonly ResultEntryColumns = [
           { field: 'ExamName', header: 'Exam Name' , align: 'left !important'},
           { field: 'eDate', header: 'Exam Date' , align: 'center !important'},
+          { field: 'AcademicYear', header: 'Academic Year' , align: 'left !important'},
           { field: 'Class', header: 'Class' , align: 'left !important'},
           { field: 'Section', header: 'Section' , align: 'left !important'},
           { field: 'Subject', header: 'Subject' , align: 'left !important'},

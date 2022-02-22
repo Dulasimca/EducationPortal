@@ -153,7 +153,7 @@ export class QuestionBankUploadFormComponent implements OnInit {
       'FileName': this.filename,
       'Description': this.description,
       'Medium': this.medium,
-      'Publishdate': this.publishDate,
+      'Publishdate': this.datepipe.transform(this.publishDate,'MM/dd/yyyy'),
       'Flag': 1
     }
     this.restApiService.post(PathConstants.Question_Bank_Post, params).subscribe(res => {
@@ -201,7 +201,8 @@ export class QuestionBankUploadFormComponent implements OnInit {
       const params = {
         'Classcode': this.logged_user.classId,
         'QuestionYear': this.selectedYear,
-        'SchoolID': this.logged_user.schoolId
+        'SchoolID': this.logged_user.schoolId,
+        'Medium': 2
       }
       this.restApiService.getByParameters(PathConstants.Question_Bank_Get, params).subscribe(res => {
         if (res !== undefined && res !== null) {

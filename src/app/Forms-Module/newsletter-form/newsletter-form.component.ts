@@ -41,7 +41,7 @@ export class NewsletterFormComponent implements OnInit {
   years?: any;
   month: number;
   monthOptions: SelectItem[];
-  months?: any;
+  months?: any = [];
   curMonth: number;
   public formData = new FormData();
   @BlockUI() blockUI: NgBlockUI;
@@ -58,6 +58,7 @@ export class NewsletterFormComponent implements OnInit {
     this.cols = TableConstants.NewsLetterDetailsColumns;
     this.years = this.masterService.getAccountingYear();
     this.loadMonths();
+    this.loadNewsLetter();
   }
 
   loadMonths() {
@@ -211,13 +212,14 @@ export class NewsletterFormComponent implements OnInit {
     this.NewsLetterForm.form.markAsPristine();
     this.Topic = '';
     this.data = [];
+    this.date = new Date();
  
   }
   
   onRowSelect(event, selectedRow) {
     this.MRowId = selectedRow.RowId;
     this.Topic = selectedRow.Topic;
-    this.date = selectedRow.NewsDate;
+    this.date = new Date(selectedRow.NewsDate);
     this.NewFileName = selectedRow.Download;
   }
 

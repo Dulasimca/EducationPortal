@@ -239,6 +239,8 @@ export class AssignmentFormComponent implements OnInit {
     this.sectionOptions = [];
     this.AType = null;
     this.TypeOptions = [];
+    this.subject = null;
+    this.subjectOptions = [];
   }
 
   onDownload(Filename) {

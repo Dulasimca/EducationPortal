@@ -170,7 +170,7 @@ export class AssignmentFormComponent implements OnInit {
       this.data = [];
       const params = {
         'SchoolID': this.login_user.schoolId,
-        'ClassId': this.classId,
+        'ClassId': this.login_user.classId,
         'AssignedBy': this.login_user.id
       }
       this.restApiService.getByParameters(PathConstants.Assignment_Get, params).subscribe(res => {

@@ -34,6 +34,7 @@ import { BlockUIModule } from 'ng-block-ui';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { KnobModule } from "primeng/knob";
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -224,6 +225,7 @@ FullCalendarModule.registerPlugins([
     FlexLayoutModule,
     MatIconModule,
     KnobModule,
+    MatSidenavModule,
     BlockUIModule.forRoot()
   ],
   providers: [PrimeNGConfig, FilterService, AuthGuard, AuthService, RestAPIService,

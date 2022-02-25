@@ -1,72 +1,42 @@
-<mat-toolbar color="primary" fxLayout="row">
-    <div fxFlex fxLayout="row" *ngIf="!hideHeader" style="background: rgb(11, 43, 102) !important;">
-        <div fxFlex>
-            <!-- mobile -->
-            <span fxHide.xs fxHide.sm fxHide.lt-sm fxHide.gt-xs fxHide.gt-sm 
-            fxShow.lg fxShow.lt-lg fxShow.md fxShow.lt-md fxShow.gt-md fxShow.gt-lg>
-                <i *ngIf="!isOpen" class="pi pi-bars" (click)="isOpen=!isOpen"
-                    style="font-size: 1.6rem; color: whitesmoke; align-self: center;"></i>
-                <i *ngIf="isOpen" class="pi pi-times" (click)="isOpen=!isOpen"
-                    style="font-size: 1.6rem; color: whitesmoke; align-self: center;"></i>
-            </span>
-            <!-- lg-screen -->
-            <span fxShow.xs fxShow.sm fxShow.lt-sm fxShow.gt-xs fxShow.gt-sm 
-            fxHide.lg fxHide.lt-lg fxHide.md fxHide.lt-md fxHide.gt-md fxHide.gt-lg>
-                <i class="pi pi-bars" (click)="openSideOverlay=!openSideOverlay"
-                style="font-size: 1.6rem; color: whitesmoke; align-self: center;"></i>
-            </span>
-            <img src="assets/layout/images/TN_Govt_Logo.png" class="menu-logo">
-        </div>
-        <div fxFlex.gt-sm="80%" fxFlex.lt-md="65%" fxFlex.lt-lg="80%" fxLayoutAlign="center center" fxFlexFill
-            style="align-self: center;" fxHide.xs fxShow.md fxShow.lg>
-            <div style="color: whitesmoke;font-size:21px;" [ngStyle.lt-md]="{'font-size': '18px'}">
-                &nbsp;
-                <span>Government of Tamilnadu - Educational Services Platform</span>
+<div class="example-container" *ngIf="showContainer">
+    <mat-toolbar color="primary" class="example-toolbar">
+        <div fxFlex fxLayout="row" *ngIf="!hideHeader" style="background: rgb(11, 43, 102) !important;">
+            <div fxFlex class="margin-lt">
+                <div (click)="sidenav.toggle()">
+                    <i class="pi pi-bars" style="font-size: 1.3rem;"></i>
+                </div>
+                <img src="assets/layout/images/TN_Govt_Logo.png" class="menu-logo">
+            </div>
+            <div fxFlex.gt-sm="80%" fxFlex.lt-md="65%" fxFlex.lt-lg="80%" fxLayoutAlign="center center" fxFlexFill
+                style="align-self: center;" fxHide.xs fxShow.md fxShow.lg>
+                <div style="color: whitesmoke;font-size:21px;" [ngStyle.lt-md]="{'font-size': '18px'}">
+                    &nbsp;
+                    <span>Government of Tamilnadu - Educational Services Platform</span>
+                </div>
+            </div>
+            <div fxFlex.gt-sm="20%" fxFlex.lt-md="35%" fxFlex.lt-lg="20%" fxLayoutAlign="center center" fxFlexFill
+                (click)="op.toggle($event)" style="color: whitesmoke;">
+                <img [src]="userImage" [ngClass]="{'user-icon': showIcon}" />&nbsp;
+                <span style="text-transform: uppercase"><b>{{userName}}</b>&nbsp;
+                    <i class="pi pi-angle-down"></i>
+                    <br />
+                    <b *ngIf="(roleId == 6 || roleId == 5)">{{userClass}}</b>
+                </span>
             </div>
         </div>
-        <div fxFlex.gt-sm="20%" fxFlex.lt-md="35%" fxFlex.lt-lg="20%" fxLayoutAlign="center center" fxFlexFill
-            (click)="op.toggle($event)" style="color: whitesmoke;" >
-            <img [src]="userImage" [ngClass]="{'user-icon': showIcon}" />&nbsp;
-            <span style="text-transform: uppercase"><b>{{userName}}</b>&nbsp;
-                <i class="pi pi-angle-down"></i>
-                <br />
-                <b *ngIf="(roleId == 6 || roleId == 5)">{{userClass}}</b>
-            </span>
-        </div>
-    </div>
-</mat-toolbar>
-
-<div id="main-layout" [ngClass.lg]="{'layout-wrapper-set': isOpen, 'layout-wrapper-unset': !isOpen}"
-[ngClass.md]="{'layout-wrapper-set': isOpen, 'layout-wrapper-unset': !isOpen}"
-[ngClass.xs]="'layout-wrapper-unset'">
-    <div class="p-grid side-nav">
-        <div id="side-nav-bar" *ngIf="isOpen" class="p-col-2 no-pad-right side-nav-panel" 
-        fxHide.xs fxHide.sm fxHide.lt-sm fxHide.gt-xs fxHide.gt-sm 
-            fxShow.lg fxShow.lt-lg fxShow.md fxShow.lt-md fxShow.gt-md fxShow.gt-lg>
-            <div class="nav-container-pane">
-                <p-panelMenu [model]="items"></p-panelMenu>
-            </div>
-        </div>
-        <div fxShow.xs fxShow.sm fxShow.lt-sm fxShow.gt-xs fxShow.gt-sm 
-        fxHide.lg fxHide.lt-lg fxHide.md fxHide.lt-md fxHide.gt-md fxHide.gt-lg>
-            <p-sidebar [(visible)]="openSideOverlay">
-                <p-panelMenu [model]="items"></p-panelMenu>
-            </p-sidebar>
-        </div>
-        <div [ngClass.xs]="{'container-login': hideHeader,'container-pages-mobile': !hideHeader}"
-        [ngClass.md]="{'container-pages-open': (isOpen && !hideHeader), 'container-login': hideHeader, 'container-pages-close': (!isOpen && !hideHeader)}"
-        [ngClass.lg]="{'container-pages-open': (isOpen && !hideHeader), 'container-login': hideHeader, 'container-pages-close': (!isOpen && !hideHeader)}">
-            <!-- [ngClass]="{'container-pages-open': (isOpen && !hideHeader), 'container-login': hideHeader, 'container-pages-close': (!isOpen && !hideHeader) }" -->
-            <div class="nav-container-page">
+    </mat-toolbar>
+    <mat-sidenav-container class="example-container">
+        <mat-sidenav #sidenav [(opened)]="opened">
+            <p-panelMenu [model]="items" [style]="{'width':'180px', 'height': '90vh !important',
+            'background': 'white'}"></p-panelMenu>
+        </mat-sidenav>
+        <mat-sidenav-content>
+            <div #main_container style="height: 98vh;">
                 <router-outlet></router-outlet>
             </div>
-        </div>
-    </div>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
 </div>
-<!-- </div> -->
-<!-- <div *ngIf="!loading" id="login-page" class="no-pad container" style="background: linear-gradient(to bottom, #112b52 0%, #0b2b66 50%, #124c7d 100%);">
-    <app-login></app-login>
-</div> -->
 <p-overlayPanel #op [showTransitionOptions]="'500ms'" [dismissable]="true" [style]="{width: '200px'}">
     <ng-template pTemplate>
         <div>Logged in - {{loggedinTime | date:'shortTime'}} </div>

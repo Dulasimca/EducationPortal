@@ -2,11 +2,12 @@
     <mat-toolbar color="primary" class="example-toolbar">
         <div fxFlex fxLayout="row" *ngIf="!hideHeader" style="background: rgb(11, 43, 102) !important;">
             <div fxFlex class="margin-lt align-el-center">
-                <div (click)="sidenav.toggle()">
+                <div (click)="sidenav.toggle()" >
                     <i class="pi pi-bars" style="font-size: 1.3rem;"></i>
                 </div>
-                <img src="assets/layout/images/TN_Govt_Logo.png" class="menu-logo">
             </div>
+            <img src="assets/layout/images/TN_Govt_Logo.png" class="menu-logo">
+
             <div fxFlex.gt-sm="80%" fxFlex.lt-md="65%" fxFlex.lt-lg="80%" fxLayoutAlign="center center" fxFlexFill
                 style="align-self: center;" fxHide.xs fxShow.md fxShow.lg>
                 <div style="color: whitesmoke;font-size:21px;" [ngStyle.lt-md]="{'font-size': '18px'}">

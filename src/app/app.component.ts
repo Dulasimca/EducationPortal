@@ -7,6 +7,7 @@ import { RestAPIService } from './Services/restAPI.service';
 import { User } from './Interfaces/user';
 import { PathConstants } from './Common-Module/PathConstants';
 import { OverlayPanel } from 'primeng/overlaypanel';
+import { NavigationEnd, Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -20,7 +21,7 @@ export class AppComponent {
   items: MenuItem[] = [];
   showContainer = true;
   mode: MatDrawerMode = 'side';
-  hideHeader: boolean;
+  hideHeader: boolean = true;
   loggedinTime: Date = new Date();
   loading: boolean;
   userName: string;
@@ -32,26 +33,28 @@ export class AppComponent {
   @ViewChild('sidenav') _matSideNavPanel!: MatSidenav;
   @ViewChild('op', { static: false }) _panel: OverlayPanel;
   constructor(_breakpointObserver: BreakpointObserver,
-    private _authService: AuthService, private _restApiService: RestAPIService) {
-      _breakpointObserver.observe([
+    private _authService: AuthService, private _restApiService: RestAPIService,
+    private _router: Router) {
+    _breakpointObserver.observe([
       Breakpoints.HandsetLandscape,
       Breakpoints.HandsetPortrait
     ]).subscribe(result => {
-      if (result.matches) {
+    if (result.matches) {
+        //mobile
         this.opened = false;
         this.mode = 'over';
-        this._matSideNavPanel.mode = 'over';
-        console.log('mob', this.mode);
       } else {
+        //web
+        console.log('mode', this.hideHeader)
         this.mode = 'side';
-        this._matSideNavPanel.mode = 'side';
         this.opened = true;
-        console.log('web', this.mode);
       }
     });
   }
 
   ngOnInit(): void {
+    this.checkCurrentPage();
+    this.removeUser();
     const log = this._authService.isSessionExpired;
     log.subscribe(val => {
       if (val) {
@@ -70,6 +73,7 @@ export class AppComponent {
             document.getElementById('login-page').style.display = 'none';
           }
         })
+        this.opened = (this.hideHeader) ? false : true;
       } else {
         const user: User = this._authService.UserInfo;
         this.loading = val;
@@ -79,6 +83,20 @@ export class AppComponent {
       }
     })
   }
+
+  checkCurrentPage() {
+    this._router.events.subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        if (event.url === '/login' || event.url === '/') {
+          this.hideHeader = true;
+          console.log('rou', this.hideHeader, event.url)
+        } else {
+        this.hideHeader = false;
+        }
+      }
+    });
+  }
+
   checkChildItems(data: any) {
     if (data.length !== 0) {
       for (let i = 0; i < data.length; i++) {
@@ -89,6 +107,16 @@ export class AppComponent {
           delete data[i].items;
         }
       }
+    }
+  }
+
+  removeUser() {
+    this.userClass = '';
+    this.userImage = '';
+    this.schoolName = '';
+    this.userName = '';
+    if (document.getElementById('login-page')) {
+      document.getElementById('login-page').style.display = 'none';
     }
   }
 

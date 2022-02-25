@@ -1,7 +1,7 @@
 <div class="example-container" *ngIf="showContainer">
     <mat-toolbar color="primary" class="example-toolbar">
         <div fxFlex fxLayout="row" *ngIf="!hideHeader" style="background: rgb(11, 43, 102) !important;">
-            <div fxFlex class="margin-lt">
+            <div fxFlex class="margin-lt align-el-center">
                 <div (click)="sidenav.toggle()">
                     <i class="pi pi-bars" style="font-size: 1.3rem;"></i>
                 </div>
@@ -26,12 +26,12 @@
         </div>
     </mat-toolbar>
     <mat-sidenav-container class="example-container">
-        <mat-sidenav #sidenav [(opened)]="opened">
+        <mat-sidenav #sidenav [mode]="mode" [(opened)]="opened">
             <p-panelMenu [model]="items" [style]="{'width':'180px', 'height': '90vh !important',
             'background': 'white'}"></p-panelMenu>
         </mat-sidenav>
         <mat-sidenav-content>
-            <div #main_container style="height: 98vh;">
+            <div #main_container style="height: 100vh;">
                 <router-outlet></router-outlet>
             </div>
         </mat-sidenav-content>

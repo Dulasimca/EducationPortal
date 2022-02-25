@@ -21,7 +21,7 @@ export class AppComponent {
   items: MenuItem[] = [];
   showContainer = true;
   mode: MatDrawerMode = 'side';
-  hideHeader: boolean = true;
+  hideHeader: boolean;
   loggedinTime: Date = new Date();
   loading: boolean;
   userName: string;
@@ -73,7 +73,6 @@ export class AppComponent {
             document.getElementById('login-page').style.display = 'none';
           }
         })
-        this.opened = (this.hideHeader) ? false : true;
       } else {
         const user: User = this._authService.UserInfo;
         this.loading = val;
@@ -89,9 +88,11 @@ export class AppComponent {
       if (event instanceof NavigationEnd) {
         if (event.url === '/login' || event.url === '/') {
           this.hideHeader = true;
+          this._matSideNavPanel.opened = false;
           console.log('rou', this.hideHeader, event.url)
         } else {
         this.hideHeader = false;
+        this._matSideNavPanel.opened = true;
         }
       }
     });
@@ -121,6 +122,7 @@ export class AppComponent {
   }
 
   onLogout() {
+    this._panel.hide();
     this._authService.logout();
   }
 }

@@ -654,6 +654,27 @@ mat-toolbar {
     border-right: 1px solid #e5e3e3 !important;
     background: white !important;
 }
+.mat-drawer-transition .mat-drawer-backdrop {
+    transition-duration: 400ms;
+    transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition-property: background-color,visibility;
+}
+.mat-drawer-backdrop.mat-drawer-shown {
+    visibility: visible;
+}
+.mat-drawer-backdrop.mat-drawer-shown {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+.mat-drawer-backdrop {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    display: block;
+    z-index: 3;
+    visibility: hidden;
+}
 #zmmtg-root {
    display: none;
 }

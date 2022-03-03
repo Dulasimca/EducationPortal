@@ -39,21 +39,21 @@ export class AppComponent {
       Breakpoints.HandsetLandscape,
       Breakpoints.HandsetPortrait
     ]).subscribe(result => {
-    if (result.matches) {
+      this.checkCurrentPage();
+      if (result.matches) {
         //mobile
         this.opened = false;
         this.mode = 'over';
       } else {
         //web
-        console.log('mode', this.hideHeader)
         this.mode = 'side';
-        this.opened = true;
+        this.opened = (this.hideHeader) ? false : true;
       }
+
     });
   }
 
   ngOnInit(): void {
-    this.checkCurrentPage();
     this.removeUser();
     const log = this._authService.isSessionExpired;
     log.subscribe(val => {
@@ -89,10 +89,10 @@ export class AppComponent {
         if (event.url === '/login' || event.url === '/') {
           this.hideHeader = true;
           this._matSideNavPanel.opened = false;
-          console.log('rou', this.hideHeader, event.url)
+          console.log('rou', this.hideHeader, event.url, this._matSideNavPanel.opened)
         } else {
-        this.hideHeader = false;
-        this._matSideNavPanel.opened = true;
+          this.hideHeader = false;
+          this._matSideNavPanel.opened = true;
         }
       }
     });
@@ -101,6 +101,9 @@ export class AppComponent {
   checkChildItems(data: any) {
     if (data.length !== 0) {
       for (let i = 0; i < data.length; i++) {
+        if (data[i].routerLink !== '') {
+          data[i].command = () => { this._matSideNavPanel.close(); }
+        }
         if (data[i].items.length !== 0) {
           //  continue;
           this.checkChildItems(data[i].items);

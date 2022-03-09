@@ -42,6 +42,7 @@ export class NomineeFormComponent implements OnInit {
   login_user: User;
   loading: boolean;
   minDate: Date = new Date();
+  showTable: boolean;
   @BlockUI() blockUI: NgBlockUI;
   @ViewChild('f', { static: false }) _NomineeForm: NgForm;
 
@@ -167,6 +168,7 @@ export class NomineeFormComponent implements OnInit {
 
   onView() {
     this.data = [];
+    this.showTable = true;
     const params = {
       'SchoolID': this.login_user.schoolId,
       'ElectionID': this.position
@@ -184,6 +186,7 @@ export class NomineeFormComponent implements OnInit {
           this.loading = false;
         } else {
           this.loading = false;
+          this.showTable = true;
           this.messageService.clear();
           this.messageService.add({
             key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
@@ -192,6 +195,7 @@ export class NomineeFormComponent implements OnInit {
         }
       });
     } else {
+      this.showTable = true;
       this.messageService.clear();
       this.messageService.add({
         key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,

@@ -1,61 +1,59 @@
 <block-ui>
-  <div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px; height: 520px;">
+  <div class="p-col-12 p-md-12 p-lg-12">
     <p-toast position="top-center" key="t-msg"></p-toast>
     <p-panel header="My Achievements">
-      <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
-        <form #f="ngForm" name="MyAchievementForm">
-          <p-card>
-            <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
+      <form #f="ngForm" name="MyAchievementForm">
+        <div class="p-grid">
+          <div class="p-col-12 p-md-12 p-lg-12">
+            <p-card>
               <div class="p-grid">
-                <div class="p-col-12 p-md-12 p-lg-2">
+                <div class="p-col-12 p-md-6 p-lg-2">
                   <div><label for="_edate">Event Date<span class="form-mandatory-field">*</span></label></div>
 
-                  <p-calendar dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="date" [showIcon]="true"
+                  <p-calendar class="p-col-12" dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="date" [showIcon]="true"
                     name="_edate" [maxDate]="maxDate" required></p-calendar>
                 </div>
-                <div class="p-col-12 p-md-12 p-lg-2">
+                <div class="p-col-12 p-md-6 p-lg-2">
                   <div><label for="_category">Category<span class="form-mandatory-field">*</span></label></div>
                   <p-dropdown name="_category" (onClick)="onSelect('C')" [options]="CategoryOption"
                     [(ngModel)]="Category">
                   </p-dropdown>
                 </div>
-                <div class="p-col-12 p-md-12 p-lg-2">
+                <div class="p-col-12 p-md-6 p-lg-2">
                   <div><label for=_event>Event Name<span class="form-mandatory-field">*</span></label></div>
                   <input class="p-col-12" type="text" name="_event" pInputText [(ngModel)]="event"
                     style="text-transform: capitalize;" appInputFormat="noSpecialChars" required />
                 </div>
-                <div class="p-col-12 p-md-12 p-lg-2">
+                <div class="p-col-12 p-md-6 p-lg-2">
                   <div><label for=_place>Place<span class="form-mandatory-field">*</span></label></div>
                   <input class="p-col-12" type="text" name="_place" pInputText [(ngModel)]="Place"
                     style="text-transform: capitalize;" placeholder="Event held on" appInputFormat="noSpecialChars"
                     required />
                 </div>
-                <div class="p-col-12 p-md-12 p-lg-2">
+                <div class="p-col-12 p-md-6 p-lg-2">
                   <div><label for="_award">Award Title<span class="form-mandatory-field">*</span></label></div>
                   <p-dropdown name="_award" [options]="AwardOption" (onClick)="onSelect('A')" [(ngModel)]="Award"
                     required>
                   </p-dropdown>
                 </div>
-                <div class="p-col-12 p-md-12 p-lg-3">
+                <div class="p-col-12 p-md-6 p-lg-3">
                   <label>Attachment<span class="form-mandatory-field">*</span></label>
-                  <input type="file" #file placeholder="Choose file" pInputText
+                  <input class="p-col-12" type="file" #file placeholder="Choose file" pInputText
                     (change)="uploadFile(file.files)" accept=".pdf,.png,.jpg,.jpeg" required />
                 </div>
-                <div class=p-col-12></div>
-                <div class="p-col-5 p-md-5 p-lg-5" style="text-align: right;">
+                <!-- <div class=p-col-12></div> -->
+                <div class="p-col-12 p-md-12 p-lg-12 txt-center">
                   <button pButton type="button" label="Save" icon="pi pi-save" name="_save" (click)="onSubmit()"
-                    [disabled]="(!f.valid || !f.dirty)"></button>
-                </div>
-                <div class="p-col-7 p-md-7 p-lg-7">
+                    [disabled]="(!f.valid || !f.dirty)"></button>&nbsp;
                   <button pButton type="button" name="_view" label="View" icon="pi pi-eye"
-                    (click)="onView()"></button>&nbsp;&nbsp;
+                    (click)="onView()"></button>&nbsp;
                   <button pButton type="button" name="_clear" label="Clear" icon="pi pi-times-circle"
                     (click)="clear()"></button>
                 </div>
-              </div>
-              <div *ngIf="showtable">
+              
+              <div *ngIf="showtable" class="p-col-12 p-md-12 p-lg-12 txt-center">
                 <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10"
-                  [rowsPerPageOptions]="[5,10,15,20]" totalRecords="totalRecords" styleClass="p-datatable-gridlines">
+                  [rowsPerPageOptions]="[5,10,15,20]" responsiveLayout="scroll" totalRecords="totalRecords" styleClass="p-datatable-gridlines">
                   <ng-template pTemplate="header" let-columns>
                     <tr>
                       <th style="width: 1.5cm;">S.No</th>
@@ -81,11 +79,14 @@
                   </ng-template>
                 </p-table>
               </div>
+              </div>
+            </p-card>
             </div>
-          </p-card>
+        </div>
         </form>
-      </div>
-    </p-panel>
+      </p-panel>
+    
+    
     <p-confirmDialog #cd [style]="{width: '30vw'}">
       <ng-template pTemplate="header">
         <h3>Alert</h3>

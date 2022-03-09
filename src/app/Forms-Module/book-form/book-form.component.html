@@ -1,8 +1,7 @@
 <block-ui>
-  <div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px; height: 520px;">
-  <p-toast position="top-center" key="t-msg"></p-toast>
-  <p-panel header="Books Upload">
-    <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
+  <div class="p-col-12 p-md-12 p-lg-12">
+    <p-toast position="top-center" key="t-msg"></p-toast>
+    <p-panel header="Books Upload">
       <form #f="ngForm" name="bookForm">
         <p-card>
           <div style="font-style: italic; font-size: 15px; color: rgb(11, 43, 102);">
@@ -11,8 +10,10 @@
           <div style="font-style: italic; font-size: 15px; color: rgb(11, 43, 102);">
             *Both Tamil & English medium books upload is must.
           </div>
-          <div class="p-col-12 p-md-12 p-lg-12">
-            <div class="p-grid">
+          <div class="p-grid">
+            <div class="p-col-12 p-md-12 p-lg-12">
+              <p-card>
+                <div class="p-grid">
               <div class="p-col-12 p-md-6 p-lg-2">
                 <div>
                   <label name="_year">Year<span class="form-mandatory-field">*</span></label>
@@ -21,21 +22,21 @@
                   required>
                 </p-dropdown>
               </div>
-              <div class="p-col-12 p-md-12 p-lg-2">
+              <div class="p-col-12 p-md-6 p-lg-2">
                 <div><label for="_class">Class<span class="form-mandatory-field">*</span></label>
                 </div>
                 <p-dropdown name="_class" [options]="classOptions" [(ngModel)]="classId" (onClick)="onSelect('C')"
                   required>
                 </p-dropdown>
               </div>
-              <div class="p-col-12 p-md-12 p-lg-2">
+              <div class="p-col-12 p-md-6 p-lg-2">
                 <div><label for="_medium">Medium<span class="form-mandatory-field">*</span></label>
                 </div>
                 <p-dropdown name="_medium" [options]="mediumOptions" (onClick)="onSelect('M')" [(ngModel)]="medium"
                   required>
                 </p-dropdown>
               </div>
-              <div class="p-col-12 p-md-12 p-lg-2">
+              <div class="p-col-12 p-md-6 p-lg-2">
                 <div style="text-transform: capitalize;">
                   <label for="_subject">Subject/Stream Name<span class="form-mandatory-field">*</span></label>
                 </div>
@@ -43,41 +44,35 @@
                   required>
                 </p-dropdown>
               </div>
-              <div class="p-col-12 p-md-12 p-lg-3">
+              <div class="p-col-12 p-md-6 p-lg-2">
                 <div style="text-transform: capitalize;">
                   <label for="_author">Author/Reference<span class="form-mandatory-field">*</span></label>
                 </div>
                 <input class="p-col-12" type="text" name="_author" pInputText [(ngModel)]="Author"
                   appInputFormat="noSpecialChars" required />
               </div>
-              <div class="p-col-12 p-md-12 p-lg-4">
-                <!-- <input class="p-col-12" name="_Uploadpdf" type="file"
-                          pInputText (change)="onFileUpload($event,4)" accept=".jpg" required/> -->
+              <div class="p-col-12 p-md-6 p-lg-3">
                 <label>Attachment<span class="form-mandatory-field">*</span></label>
-                <input type="file" #fileSelector placeholder="Choose file" pInputText
+                <input class="p-col-12 p-md-10 p-lg-12 no-pad-left" type="file" #fileSelector placeholder="Choose file" pInputText
                   (change)="uploadFile(fileSelector.files)" accept=".pdf" required />
                 <p style="font-size: small; font-style: italic;">Note*:in pdf format only</p>
               </div>
-              <!-- <div class="p-col-12 p-md-6 p-lg-3">
-                  <span class="upload" *ngIf="message">
-                    {{message}}
-                  </span>
-                </div> -->
-            </div>
-          </div>
-          <div class="p-col-12 p-md-6 p-lg-12" style="margin-left:30%;">
+          <div class="p-col-12 p-md-12 p-lg-12 text-center">
             <button pButton name="_save" type="button" label="Submit" icon="pi pi-save" (click)="onSubmit()"
-              [disabled]="(!f.valid)"></button>
+              [disabled]="(!f.valid)"></button>&nbsp;
             <button pButton name="_view" type="button" label="View" (click)="onView()" icon="pi pi-eye"
-              style="margin-left:2%;"></button>
+              ></button>&nbsp;
             <button pButton name="_clear" type="button" label="Clear" (click)="onClear()" icon="pi pi-times-circle"
-              style="margin-left: 2%;"></button>
+              ></button>
           </div>
-        </p-card>
-      </form>
-      <div *ngIf="showtable">
+        </div>
+      </p-card>
+  </div>
+  </div>
+     
+      <div *ngIf="showtable" class="p-col-12 p-md-12 p-lg-12 txt-center">
         <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,15,20]"
-          totalRecords="totalRecords" [loading]="loading" styleClass="p-datatable-gridlines">
+          totalRecords="totalRecords" responsiveLayout="scroll" [loading]="loading" styleClass="p-datatable-gridlines">
           <ng-template pTemplate="header" let-columns>
             <tr>
               <th style="width: 1.5cm;">S.No</th>
@@ -101,8 +96,10 @@
           </ng-template>
         </p-table>
       </div>
-    </div>
+    </p-card>
+  </form>
   </p-panel>
+</div>
   <p-confirmDialog #cd [style]="{width: '50vw'}">
     <ng-template pTemplate="header">
       <h3>Alert</h3>
@@ -112,5 +109,5 @@
       <button type="button" pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"></button>
     </ng-template>
   </p-confirmDialog>
-</div>
+
 </block-ui>

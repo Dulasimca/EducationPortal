@@ -9,8 +9,8 @@
                 </div>
             </div>
 
-            <div fxFlex.gt-sm="80%" fxFlex.lt-md="65%" fxFlex.lt-lg="80%" fxLayoutAlign="center center" fxFlexFill
-                style="align-self: center;" fxHide.xs fxShow.md fxShow.lg>
+            <div fxFlex.gt-sm="80%" fxFlex.lt-md="65%" fxFlex.lt-lg="80%" fxFlexFill
+                style="align-self: center; text-align: center !important;" fxHide.xs fxShow.md fxShow.lg>
                 <div style="color: whitesmoke;font-size:21px;" [ngStyle.lt-md]="{'font-size': '18px'}">
                     &nbsp;
                     <span>Government of Tamilnadu - Educational Services Platform</span>
@@ -33,7 +33,7 @@
             'background': 'white'}"></p-panelMenu>
         </mat-sidenav>
         <mat-sidenav-content>
-            <div #main_container style="height: 100vh; overflow: hidden;"
+            <div #main_container style="height: 100vh;"
             [ngStyle]="{'margin-bottom': (hideHeader ? '0' : '-5%')}">
                 <router-outlet></router-outlet>
             </div>

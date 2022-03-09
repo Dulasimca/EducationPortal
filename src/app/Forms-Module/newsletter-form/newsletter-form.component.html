@@ -1,44 +1,42 @@
 <block-ui>
-    <div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px; height: 520px;">
+    <div class="p-col-12 p-md-12 p-lg-12">
         <p-toast position="top-center" key="t-msg"></p-toast>
         <p-panel header="Newsletter">
-            <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
-                <form #f="ngForm" name="NewsLetterForm">
-                    <p-card>
-                        <div class="p-col-12 p-md-12 p-lg-12">
-                            <div class="p-grid">
-
-                                <div class="p-col-12 p-md-6 p-lg-2">
-                                    <div class="no-pad-top"><label>Date<span class="form-mandatory-field">*</span></label> </div>
-                                    <p-calendar dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="date" [showIcon]="true" name="date" required></p-calendar>
+          <form #f="ngForm" name="NewsLetterForm">
+            <div class="p-grid">
+              <div class="p-col-12 p-md-12 p-lg-12">
+                <p-card>
+                  <div class="p-grid">
+                                <div class="p-col-12 p-md-4 p-lg-2">
+                                    <div><label>Date<span class="form-mandatory-field">*</span></label> </div>
+                                    <p-calendar dateFormat="dd/mm/yy" class="p-col-12 no-pad-left" [showOtherMonths]="false" [(ngModel)]="date" [showIcon]="true" name="date" required></p-calendar>
                                 </div>
-
-                                <div class="p-col-12 p-md-4 p-lg-3">
+                                <div class="p-col-12 p-md-6 p-lg-2">
                                     <div><label>Headline<span class="form-mandatory-field">*</span></label></div>
-                                    <input class="p-col-12" type="text" pInputText [(ngModel)]="Topic" name="Topic"
+                                    <input class="p-col-12 no-pad-left" type="text" pInputText [(ngModel)]="Topic" name="Topic"
                                         appInputFormat="noSpecialChars" required />
                                 </div>
-                                <div class="p-col-12 p-md-6 p-lg-3 align-el-center">
+                                <div class="p-col-12 p-md-6 p-lg-2">
                                     <div><label>Attach file<span class="form-mandatory-field">*</span></label></div>
-                                    <input class="p-col-12" type="file" #file placeholder="Choose file" pInputText
+                                    <input class="p-col-12 no-pad-left" type="file" #file placeholder="Choose file" pInputText
                                         (change)="uploadFile(file.files)" accept=".pdf" required />
                                     <p style="font-size: small; font-style: italic;">Note*:in pdf format only</p>
                                 </div>
-                                <div class="p-col-5 p-md-5 p-lg-5" style="text-align:right;">
+                                <div class="p-col-12 p-md-12 p-lg-12 text-center">
                                     <button pButton name="_save" type="button" label="Submit" icon="pi pi-save"
-                                        [disabled]="(!f.valid)" (click)="onSubmit()"></button>
-                                </div>
-                                <div class="p-col-7 p-md-7 p-lg-7">
+                                        [disabled]="(!f.valid)" (click)="onSubmit()"></button>&nbsp;
                                     <button pButton type="button" label="View" (click)="onView()"
-                                        icon="pi pi-eye"></button>
+                                        icon="pi pi-eye"></button>&nbsp;
                                     <button pButton type="button" label="Clear" (click)="onClear()"
-                                        icon="pi pi-times-circle" style="margin-left: 3%;"></button>
+                                        icon="pi pi-times-circle"></button>
                                 </div>
                             </div>
+                        </p-card>
                         </div>
-                    </p-card>
+            </div>
+                   
                 </form>
-                <div *ngIf="showTable">
+                <div *ngIf="showTable" class="p-col-12 p-md-12 p-lg-12 txt-center">
                     <div #row1 class="p-grid" style="background: #d3e0ec;">
                         <div class="p-col-12 p-md-6 p-lg-6" style="text-align: start;">
                             <span style="text-decoration: underline;">NewsLetter Details:</span>
@@ -67,7 +65,7 @@
                         </div>
                     </div>
                     <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10"
-                        [rowsPerPageOptions]="[5,10,15,20]" styleClass="p-datatable-gridlines" [loading]="loading">
+                        [rowsPerPageOptions]="[5,10,15,20]" responsiveLayout="scroll" styleClass="p-datatable-gridlines" [loading]="loading">
                         <ng-template pTemplate="header" let-columns>
                             <tr>
                                 <th style="width: 60px;">S.No</th>
@@ -93,7 +91,6 @@
                         </ng-template>
                     </p-table>
                 </div>
-            </div>
         </p-panel>
         <p-confirmDialog #cd [style]="{width: '30vw'}">
             <ng-template pTemplate="header">

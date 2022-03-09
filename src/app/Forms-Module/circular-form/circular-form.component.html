@@ -1,48 +1,43 @@
 <block-ui>
-  <form #circular="ngForm">
-    <div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px; height: 520px;">
-      <p-toast position="top-center" key="t-msg"></p-toast>
-      <p-panel header="Circular">
-        <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
-          <form #f="ngForm" name="CircularForm">
+  <div class="p-col-12 p-md-12 p-lg-12">
+    <p-toast position="top-center" key="t-msg"></p-toast>
+    <p-panel header="Circular">
+      <form #f="ngForm" name="CircularForm">
+        <div class="p-grid">
+          <div class="p-col-12 p-md-12 p-lg-12">
             <p-card>
-              <div class="p-col-12 p-md-12 p-lg-12">
-                <div class="p-grid">
-                  <div class="p-col-12 p-md-6 p-lg-3">
+              <div class="p-grid">
+                  <div class="p-col-12 p-md-6 p-lg-2">
                     <div class="no-pad-top"><label>Date</label> </div>
-                    <p-calendar dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="date" [showIcon]="true" name="date" required>
+                    <p-calendar class="p-col-12 p-md-10 p-lg-12 no-pad-left" dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="date" [showIcon]="true" name="date" required>
                     </p-calendar>
                   </div>
-                  <div class="p-col-12 p-md-6 p-lg-3">
+                  <div class="p-col-12 p-md-6 p-lg-2">
                     <div><label>Subject</label></div>
-                    <input type="text" pInputText [(ngModel)]="Subject" name="Subject" appInputFormat="noSpecialChars"
+                    <input class="p-col-12 p-md-10 p-lg-12 no-pad-left"  type="text" pInputText [(ngModel)]="Subject" name="Subject" appInputFormat="noSpecialChars"
                       required />
-
                   </div>
-                  <div class="p-col-12 p-md-6 p-lg-4">
+                  <div class="p-col-12 p-md-6 p-lg-3">
                     <label>Attachment<span class="form-mandatory-field">*</span></label>
-                    <input type="file" #file placeholder="Choose file" pInputText (change)="uploadFile(file.files)"
+                    <input class="p-col-12 p-md-10 p-lg-12 no-pad-left"  type="file" #file placeholder="Choose file" pInputText (change)="uploadFile(file.files)"
                       accept=".pdf" required />
                     <p style="font-size: small; font-style: italic;">Note*:in pdf format only</p>
                   </div>
-                  <div class="p-col-12 p-md-6 p-lg-4">
+                  <div class="p-col-12 p-md-6 p-lg-3">
                     <div><label>Instructions</label></div>
-
-                    <textarea pInputTextarea autoResize="autoResize" [(ngModel)]="Details" name="Details"
+                    <textarea class="p-col-12 p-md-10 p-lg-12 no-pad-left"  pInputTextarea autoResize="autoResize" [(ngModel)]="Details" name="Details"
                       appInputFormat="noSpecialChars" required></textarea>
                   </div>
-                </div>
-              </div>
-            </p-card>
-          </form>
-          <div class="p-col-12 p-md-6 p-lg12" style="margin-left:35%;">
+            
+          <div class="p-col-12 p-md-12 p-lg-12 txt-center">
             <button pButton name="_save" type="button" label="Submit" (click)="onSubmit()"
-              [disabled]="(!f.valid)"></button>
-            <button pButton type="button" label="View" style="margin-left:5%;" (click)="onview()"></button>
-            <button pButton type="button" label="clear" style="margin-left:5%;" (click)="onClear()"></button>
+              [disabled]="(!f.valid)"></button>&nbsp;
+            <button pButton type="button" label="View"  (click)="onview()"></button>&nbsp;
+            <button pButton type="button" label="clear"  (click)="onClear()"></button>
           </div>
+          <div *ngIf="showTable" class="p-col-12 p-md-12 p-lg-12 txt-center"> 
           <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,15,20]"
-            [loading]="loading" styleClass="p-datatable-gridlines">
+            [loading]="loading" responsiveLayout="scroll" styleClass="p-datatable-gridlines">
             <ng-template pTemplate="header" let-columns>
               <tr>
                 <th style="width: 50px;">S.No:</th>
@@ -72,8 +67,13 @@
               </tr>
             </ng-template>
           </p-table>
+          </div>
         </div>
-      </p-panel>
+      </p-card>
+      </div>
+        </div>
+  </form>
+</p-panel> 
       <p-confirmDialog #cd [style]="{width: '50vw'}">
         <ng-template pTemplate="header">
           <h3>Alert</h3>
@@ -84,5 +84,4 @@
         </ng-template>
       </p-confirmDialog>
     </div>
-  </form>
 </block-ui>

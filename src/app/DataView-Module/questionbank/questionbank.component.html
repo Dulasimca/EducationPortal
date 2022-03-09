@@ -4,14 +4,14 @@
             <p-card>
                 <div class="p-col-12 p-md-12 p-lg-12 no-pad-top" style="margin-top: -5px;">
                     <div class="p-grid">
-                        <div class="p-col-1 no-pad-top"><label>Year:</label> </div>
-                        <div class="p-col-2" style="margin-left: -3%"><p-dropdown [options]="yearOptions" [(ngModel)]="selectedYear" (onClick)="onSelect()"
+                        <div><label>Year:</label> </div>
+                        <p-dropdown [options]="yearOptions" [(ngModel)]="selectedYear" (onClick)="onSelect()"
                             (onChange)="onLoadQuestionBank()"></p-dropdown>
-                        </div>
+                        <!-- </div> -->
                     </div>
                 </div>
                 <div>
-                    <p-table [columns]="questionBankCols" [value]="questionBankData" [paginator]="true" [rows]="10" [loading]="loading"  styleClass="p-datatable-gridlines">
+                    <p-table [columns]="questionBankCols" responsiveLayout="scroll" [value]="questionBankData" [paginator]="true" [rows]="10" [loading]="loading"  styleClass="p-datatable-gridlines">
                         <ng-template pTemplate="header" let-columns>
                             <tr>
                                 <th style="width: 90px;">S.No</th>

@@ -1,34 +1,37 @@
 <block-ui>
-  <div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px; height: 520px;">
+  <div class="p-col-12 p-md-12 p-lg-12">
     <p-toast position="top-center" key="t-msg"></p-toast>
     <p-panel header="Holiday Details">
-      <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
-        <form #f="ngForm" name="HolidayDetailsForm">
-          <p-card>
-            <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
+      <form #f="ngForm" name="HolidayDetailsForm">
+        <div class="p-grid">
+          <div class="p-col-12 p-md-12 p-lg-12">
+            <p-card>
               <div class="p-grid">
-                <div class="p-col-12 p-md-4 p-lg-2">
+                <div class="p-col-12 p-md-6 p-lg-2">
                   <div><label for="_Holiday">Holiday Type</label></div>
-                  <p-dropdown name="_Holiday" (onClick)="onSelect('HT')"[options]="HolidayOption" [(ngModel)]="Holiday" >
+                  <p-dropdown name="_Holiday" (onClick)="onSelect('HT')"[options]="HolidayOption" 
+                  class="p-col-12 p-md-10 p-lg-12 no-pad-left" [(ngModel)]="Holiday" >
                   </p-dropdown>
                          </div>
                 <div class="p-col-12 p-md-6 p-lg-3">
                   <div><label>Occassion/Festival/Events</label></div>
-                  <input class="p-col-12" type="text" name="Events" pInputText [(ngModel)]="Events" appInputFormat="noSpecialChars" required />
+                  <input class="p-col-12" type="text" name="Events" pInputText [(ngModel)]="Events"
+                  class="p-col-12 p-md-10 p-lg-12 no-pad-left" appInputFormat="noSpecialChars" required />
                 </div>
                 <div class="p-col-12 p-md-6 p-lg-3">
                   <div><label>Date</label></div>
-                  <p-calendar dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="date" name="_date" [showIcon]="true" required></p-calendar>
+                  <p-calendar dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="date"
+                  class="p-col-12 p-md-10 p-lg-12 no-pad-left" name="_date" [showIcon]="true" required></p-calendar>
                 </div>
-                <div class="p-col-12"></div>
-                <div class="p-col-12 p-md-12 p-lg-12" style="text-align: center;">
+                <!-- <div class="p-col-12"></div> -->
+                <div class="p-col-12 p-md-12 p-lg-12 txt-center">
                   <button pButton type="button" label="Submit" (click)="onSubmit()" icon="pi pi-save" [disabled]="(!f.valid || !f.dirty)"></button>&nbsp;
                   <button pButton type="button" label="View" (click)="onView()" icon="pi pi-eye"></button>&nbsp;
                   <button pButton type="button" label="Clear" (click)="clear()" icon="pi pi-times-circle"></button>
                 </div>
-                <div *ngIf="showTable"> 
+                <div *ngIf="showTable" class="p-col-12 p-md-12 p-lg-12 txt-center"> 
                 <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10"
-                  [rowsPerPageOptions]="[5,10,15,20]" totalRecords="totalRecords" styleClass="p-datatable-gridlines" [loading]="loading">
+                  [rowsPerPageOptions]="[5,10,15,20]" responsiveLayout="scroll"  totalRecords="totalRecords" styleClass="p-datatable-gridlines" [loading]="loading">
                   <ng-template pTemplate="header" let-columns>
                     <tr>
                       <th style="width: 90px;">S.No</th>
@@ -60,12 +63,14 @@
                 </p-table>
               </div>
               </div>
+            </p-card>
             </div>
-
-          </p-card>
+        </div>
+          
         </form>
+      </p-panel>
       </div>
-    </p-panel>
-  </div>
+    
+ 
 
 </block-ui>

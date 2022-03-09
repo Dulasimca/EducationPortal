@@ -38,6 +38,7 @@ export class FeesDetailsComponent implements OnInit {
   yearOptions: SelectItem[];
   years?: any;
   loading: boolean;
+  showTable: boolean;
   constructor(private restApiService: RestAPIService, private authService: AuthService, 
     private masterService: MasterService, private datePipe: DatePipe, private messageService: MessageService) { }
 
@@ -68,6 +69,7 @@ export class FeesDetailsComponent implements OnInit {
 
   onLoad() {
     this.feeData = [];
+    this.showTable = true;
     this.loading = true;
     const params = {
       'schoolID': this.login_user.schoolId,
@@ -83,6 +85,7 @@ export class FeesDetailsComponent implements OnInit {
           this.feeData = res;
       } else {
         this.loading = false;
+        this.showTable = true;
         this.messageService.clear();
         this.messageService.add({
           key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,

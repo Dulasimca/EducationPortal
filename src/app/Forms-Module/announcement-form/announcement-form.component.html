@@ -1,57 +1,61 @@
 <block-ui>
-  <div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px; height: 520px;">
+  <div class="p-col-12 p-md-12 p-lg-12">
     <p-toast position="top-center" key="t-msg"></p-toast>
     <p-panel header="Announcement">
-      <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
-        <form #f="ngForm" name="AnnouncementForm">
-          <p-card>
-            <div class="p-col-12 no-pad-top" style="margin-left: -8px;">
-              <div #row1 class="p-col-12 p-md-12 p-lg-12">
-                <div class="p-grid">
-                  <div class="p-col-12 p-md-12 p-lg-2">
+      <form #f="ngForm" name="AnnouncementForm">
+        <div class="p-grid">
+          <div class="p-col-12 p-md-12 p-lg-12">
+            <p-card>
+              <div class="p-grid">
+                <div class="p-col-12 p-md-6 p-lg-2">
+                  <div>
                     <label for="_date">Date<span class="form-mandatory-field">*</span></label>
-                    <p-calendar dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="date" [showIcon]="true" name="_date" required></p-calendar>
                   </div>
-                  <div class="p-col-12 p-md-12 p-lg-3">
+                  <p-calendar dateFormat="dd/mm/yy" class="no-pad-left p-col-12 p-md-10 p-lg-12"
+                    [showOtherMonths]="false" [(ngModel)]="date" [showIcon]="true" name="_date" required></p-calendar>
+                </div>
+                <div class="p-col-12 p-md-6 p-lg-2">
+                  <div>
                     <label for="_Topic">Title<span class="form-mandatory-field">*</span></label>
-                    <!-- <input id="float-input"  type="text" size="23" pInputText>  -->
-                    <input class="p-col-12" type="text" pInputText [(ngModel)]="Topic" name="_Topic"
-                      appInputFormat="noSpecialChars" required />
                   </div>
-                  <div class="p-col-12 p-md-12 p-lg-3">
+                  <!-- <input id="float-input"  type="text" size="23" pInputText>  -->
+                  <input type="text" class="no-pad-left p-col-12 p-md-10 p-lg-12" pInputText [(ngModel)]="Topic"
+                    name="_Topic" appInputFormat="noSpecialChars" required />
+                </div>
+                <div class="p-col-12 p-md-6 p-lg-3">
+                  <div>
                     <label>Attachment<span class="form-mandatory-field">*</span></label>
-                    <input class="p-col-12" type="file" #file placeholder="Choose file" pInputText
-                      (change)="uploadFile(file.files)" accept=".pdf" required />
-                      <p style="font-size: small; font-style: italic;">Note*:in pdf format only</p>
                   </div>
-                  <div class="p-col-12 p-md-6 p-lg-2">
+                  <input class="no-pad-left p-col-12 p-md-10 p-lg-12" type="file" #file placeholder="Choose file"
+                    pInputText (change)="uploadFile(file.files)" accept=".pdf" required />
+                  <p style="font-size: small; font-style: italic;">Note*:in pdf format only</p>
+                </div>
+                <div class="p-col-12 p-md-6 p-lg-2">
+                  <div>
                     <label for="_Announcement">Description<span class="form-mandatory-field">*</span></label>
-                    <textarea pInputTextarea [(ngModel)]="Announcement" name="_Announcement" rows="2" cols="33"
-                      appInputFormat="noSpecialChars" required></textarea>
                   </div>
-                  <div class="p-col-12 p-md-6 p-lg-5" style="text-align:right;">
-                    <button pButton name="_save" type="button" label="Submit" icon="pi pi-save" [disabled]="(!f.valid)"
-                      (click)="onSubmit()"></button>
-                  </div>
-                  <div class="p-col-12 p-md-6 p-lg-7">
-                    <button pButton type="button" label="View" (click)="onView()" icon="pi pi-eye"
-               ></button>
-                      <button pButton type="button" label="Clear" (click)="clear()" icon="pi pi-times-circle"
-                      style="margin-left: 3%;"></button>
-                  </div>
-                  <div *ngIf="showtable"> 
+                  <textarea pInputTextarea [(ngModel)]="Announcement" name="_Announcement" rows="2" cols="33"
+                    class="no-pad-left p-col-12 p-md-10 p-lg-12" appInputFormat="noSpecialChars" required></textarea>
+                </div>
+                <div class="p-col-12 p-md-12 p-lg-12 txt-center">
+                  <button pButton name="_save" type="button" label="Submit" icon="pi pi-save" [disabled]="(!f.valid)"
+                    (click)="onSubmit()"></button>&nbsp;
+                  <button pButton type="button" label="View" (click)="onView()" icon="pi pi-eye"></button>&nbsp;
+                  <button pButton type="button" label="Clear" (click)="clear()" icon="pi pi-times-circle"></button>
+                </div>
+                <div *ngIf="showtable" class="p-col-12 p-md-12 p-lg-12 txt-center">
                   <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10"
-                    [rowsPerPageOptions]="[5,10,15,20]" styleClass="p-datatable-gridlines">
+                    [rowsPerPageOptions]="[5,10,15,20]" responsiveLayout="scroll" styleClass="p-datatable-gridlines">
                     <ng-template pTemplate="header" let-columns>
                       <tr>
                         <th style="width: 1.5cm;">S.No</th>
                         <th *ngFor="let col of columns" [style.width]="col.width">
                           {{col.header}}
                         </th>
-                        <th style="width: 100px;">
+                        <th style="width: 90px;">
                           Download
                         </th>
-                        <th style="width: 90px;">
+                        <th style="width: 80px;">
                           Edit
                         </th>
                       </tr>
@@ -62,31 +66,33 @@
                         <td *ngFor="let col of columns">
                           {{rowData[col.field]}}
                         </td>
-                        <td style="width: 142px;"><i class="pi pi-download"
+                        <td style="width: 90px;"><i class="pi pi-download"
                             (click)="onDownload(rowData.Announcementfilename)"
                             style="color: #45e327; font-size: 1.3rem;"></i></td>
-                            <td style="width: 100px" (click)="onEdit(rowData)" class="cursor-pointer">
-                              <i class="pi pi-pencil" style="padding-left: 10px; color: #52de38; font-size: 1.5rem;"></i>
-                          </td>
+                        <td style="width: 80px" (click)="onEdit(rowData)" class="cursor-pointer">
+                          <i class="pi pi-pencil" style="padding-left: 10px; color: #52de38; font-size: 1.5rem;"></i>
+                        </td>
                       </tr>
                     </ng-template>
                   </p-table>
-                  </div>
+                  <!-- </div> -->
                 </div>
               </div>
-            </div>
-          </p-card>
-        </form>
-      </div>
+            </p-card>
+          </div>
+        </div>
+
+      </form>
     </p-panel>
-    <p-confirmDialog #cd [style]="{width: '30vw'}">
-      <ng-template pTemplate="header">
-        <h3>Alert</h3>
-      </ng-template>
-      <ng-template pTemplate="footer">
-        <button type="button" pButton icon="pi pi-times" label="No" (click)="cd.reject()"></button>
-        <button type="button" pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"></button>
-      </ng-template>
-    </p-confirmDialog>
   </div>
+
+  <p-confirmDialog #cd [style]="{width: '30vw'}">
+    <ng-template pTemplate="header">
+      <h3>Alert</h3>
+    </ng-template>
+    <ng-template pTemplate="footer">
+      <button type="button" pButton icon="pi pi-times" label="No" (click)="cd.reject()"></button>
+      <button type="button" pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"></button>
+    </ng-template>
+  </p-confirmDialog>
 </block-ui>

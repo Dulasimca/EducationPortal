@@ -1,67 +1,40 @@
-  <form #Gallery="ngForm">
-    <div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px; height: 520px;">
+<div class="p-col-12 p-md-12 p-lg-12">
   <p-toast position="top-center" key="t-msg"></p-toast>
-      <p-panel header="Gallery">
-        <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
-          <form #f="ngForm" name="GalleryForm">
-            <p-card>
-              <div class="p-col-12 p-md-12 p-lg-12">
-                <div class="p-grid">
+  <p-panel header="Gallery">
+    <form #f="ngForm" name="GalleryForm">
+      <div class="p-grid">
+        <div class="p-col-12 p-md-12 p-lg-12">
+          <p-card>
+            <div class="p-grid">
                   <div class="p-col-12 p-md-6 p-lg-2">
-                    <div class="no-pad-top">
+                    <div>
                       <label>Date<span class ="form-mandatory-field">*</span></label>
                     </div>
-                    <p-calendar dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="date" name="date" [showIcon]="true" required></p-calendar>
+                    <p-calendar dateFormat="dd/mm/yy" class="p-col-12 p-md-10 p-lg-12 no-pad-left" [showOtherMonths]="false" [(ngModel)]="date" name="date" [showIcon]="true" required></p-calendar>
                   </div>
                   <div class="p-col-12 p-md-6 p-lg-3">
                     <div><label>Image Title<span class ="form-mandatory-field">*</span></label></div>
-                    <input class="p-col-12" type="text" name="title" pInputText [(ngModel)]="title" appInputFormat="noSpecialChars" 
+                    <input class="p-col-12 p-md-10 p-lg-12 no-pad-left" type="text" name="title" pInputText [(ngModel)]="title" appInputFormat="noSpecialChars" 
                      style="text-transform: capitalize;" required />
                   </div>
 
                   <div class="p-col-12 p-md-6 p-lg-3">
                     <div><label>Upload Image<span class ="form-mandatory-field">*</span></label></div>
-                    <input class="p-col-12" type="file" name="file" #file placeholder="Choose file" pInputText
+                    <input class="p-col-12 p-md-10 p-lg-12 no-pad-left" type="file" name="file" #file placeholder="Choose file" pInputText
                       (change)="uploadFile(file.files)" accept=".jpg,.png,.jpeg" required />
                   </div>
-                </div>
-              </div>
-              <div class="p-col-12 p-md-6 p-lg12" style="margin-left:35%;">
+              
+              <div class="p-col-12 p-md-12 p-lg12 txt-center">
                 <button pButton name="_save" type="button" label="Submit" (click)="onSubmit()"
-                icon="pi pi-save" [disabled]="(!f.valid)"></button>
-
-                <button pButton type="button" label="View" style="margin-left:5%;" 
+                icon="pi pi-save" [disabled]="(!f.valid)"></button>&nbsp;
+                <button pButton type="button" label="View"
                 icon="pi pi-eye" (click)="onview()"></button>
               </div>
-            </p-card>
+            </div>
+          </p-card>
+          </div>
+      </div>
           </form>
-          <!-- <div *ngIf="showtable"> 
-          <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,15,20]"
-            totalRecords="totalRecords" pageLinks="3">
-            <ng-template pTemplate="header" let-columns>
-              <tr>
-                <th style="width: 2cm">S.No</th>
-                <th *ngFor="let col of columns">
-                  {{col.header}}
-                </th>
-                <th>
-                  Edit
-                </th>
-              </tr>
-            </ng-template>
-
-            <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex" let-columns="columns">
-              <tr [pSelectableRow]="rowData" class="cursor-pointer" (dblclick)="onRowSelect($event, rowData)">
-                <td>{{rowIndex+1}}</td>
-                <td *ngFor="let col of columns">
-                  {{rowData[col.field]}}
-                </td>
-                <td style="width: 142px;"></td>
-              </tr>
-            </ng-template>
-          </p-table>
-          </div> -->
-        </div>
       </p-panel>
       <p-confirmDialog #cd [style]="{width: '30vw'}">
         <ng-template pTemplate="header">
@@ -73,4 +46,3 @@
         </ng-template>
       </p-confirmDialog>
     </div>
-  </form>

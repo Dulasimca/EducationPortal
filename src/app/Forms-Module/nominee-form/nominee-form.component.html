@@ -1,44 +1,46 @@
 <block-ui>
-  <div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px; height: 520px;">
+  <div class="p-col-12 p-md-12 p-lg-12">
     <p-toast position="top-center" key="t-msg"></p-toast>
     <p-panel header="Nomination">
-      <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
-        <form #f="ngForm" name="NomineeForm" >
-          <p-card>
-            <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
+      <form #f="ngForm" name="NomineeForm">
+        <div class="p-grid">
+          <div class="p-col-12 p-md-12 p-lg-12">
+            <p-card>
               <div class="p-grid">
                 <div class="p-col-12 p-md-6 p-lg-2">
                   <div><label for="_startdate">Election Start Date</label></div>
-                  <p-calendar dateFormat="dd/mm/yy" [(ngModel)]="startDate" [showIcon]="true" name="_startdate"
+                  <p-calendar dateFormat="dd/mm/yy" [(ngModel)]="startDate"
+                  class="p-col-12 p-md-10 p-lg-12 no-pad-left" [showIcon]="true" name="_startdate"
                   [minDate]="minDate" [showOtherMonths]="false" required></p-calendar>
                 </div>
                 <div class="p-col-12 p-md-6 p-lg-2">
                   <div><label for="_enddate">Election End Date</label></div>
-                  <p-calendar dateFormat="dd/mm/yy" [(ngModel)]="endDate" [showIcon]="true" name="_enddate"
+                  <p-calendar dateFormat="dd/mm/yy" [(ngModel)]="endDate" [showIcon]="true"
+                  class="p-col-12 p-md-10 p-lg-12 no-pad-left" name="_enddate"
                   [minDate]="minDate" [showOtherMonths]="false" required></p-calendar>
                 </div>
-                <div class="p-col-12 p-md-12 p-lg-3">
+                <div class="p-col-12 p-md-6 p-lg-2">
                   <div><label for="_position">Election Name</label></div>
                   <p-dropdown [options]="positionOptions" (onClick)="onSelect('EN')" [(ngModel)]="position" 
-                    name="_position" (onChange)="onView()" required>
+                  class="p-col-12 p-md-10 p-lg-12 no-pad-left" name="_position" (onChange)="onView()" required>
                   </p-dropdown>
                 </div>
-                <div class="p-col-12 p-md-6 p-lg-1">
+                <div class="p-col-12 p-md-6 p-lg-2">
                   <div><label for="_class">Class</label></div>
                   <p-dropdown name="_class" [options]="classOptions" [(ngModel)]="class"
-                    (onClick)="onSelect('C')" required>
+                  class="p-col-12 p-md-10 p-lg-12 no-pad-left" (onClick)="onSelect('C')" required>
                   </p-dropdown>
                 </div>
-                <div class="p-col-12 p-md-12 p-lg-1">
+                <div class="p-col-12 p-md-6 p-lg-2">
                   <div><label for="_section"> Section</label> </div>
                   <p-dropdown name="_section" [options]="sectionOptions" [(ngModel)]="section"
-                    (onClick)="onSelect('S')" required>
+                  class="p-col-12 p-md-10 p-lg-12 no-pad-left"  (onClick)="onSelect('S')" required>
                   </p-dropdown>
                 </div>
-                <div class="p-col-12 p-md-12 p-lg-3">
+                <div class="p-col-12 p-md-6 p-lg-2">
                   <div><label for="_sname"> Candidate Name</label> </div>
                   <p-dropdown name="_sname" [options]="nameOptions" (click)="loadStudents()"
-                    [(ngModel)]="candidateId" name="label"  required>
+                  class="p-col-12 p-md-10 p-lg-12 no-pad-left" [(ngModel)]="candidateId" name="label"  required>
                   </p-dropdown>
                 </div>
                 
@@ -48,8 +50,9 @@
                   <button pButton type="button" label="View" (click)="onView()"></button>&nbsp;
                   <button pButton type="button" label="Clear" (click)="clear()"></button>
                 </div>
+                <div *ngIf="showTable" class="p-col-12 p-md-12 p-lg-12 txt-center"> 
                 <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10"
-                  [rowsPerPageOptions]="[5,10,15,20]" totalRecords="totalRecords" styleClass="p-datatable-gridlines" [loading]="loading">
+                  [rowsPerPageOptions]="[5,10,15,20]" responsiveLayout="scroll" totalRecords="totalRecords" styleClass="p-datatable-gridlines" [loading]="loading">
                   <ng-template pTemplate="header" let-columns>
                     <tr>
                       <th style="width: 100px;">S.No</th>
@@ -67,11 +70,14 @@
                     </tr>
                   </ng-template>
                 </p-table>
+                </div>
               </div>
+            </p-card>
             </div>
-          </p-card>
+        </div>
         </form>
+      </p-panel>
       </div>
-    </p-panel>
-  </div>
+  
+
 </block-ui>

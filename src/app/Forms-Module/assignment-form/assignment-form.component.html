@@ -1,20 +1,20 @@
 <block-ui>
-  <div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px; height: 520px;">
+  <div class="p-col-12 p-md-12 p-lg-12">
     <p-toast position="top-center" key="t-msg"></p-toast>
-    <p-panel header="Online Assignments">
-      <form #f="ngForm" name="AssignmentForm">
-        <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
-          <p-card>
-            <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
+    <p-panel header="Nomination">
+      <form #f="ngForm" name="NomineeForm">
+        <div class="p-grid">
+          <div class="p-col-12 p-md-12 p-lg-12">
+            <p-card>
               <div class="p-grid">
                 <div class="p-col-12 p-md-6 p-lg-2">
                   <div><label>Assigning Date<span class="form-mandatory-field">*</span></label> </div>
-                  <p-calendar dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="assignDate" [showIcon]="true"
+                  <p-calendar class="p-col-12"  dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="assignDate" [showIcon]="true"
                     name="_assignDate" required></p-calendar>
                 </div>
                 <div class="p-col-12 p-md-6 p-lg-2">
                   <div><label> Due Date<span class="form-mandatory-field">*</span></label></div>
-                  <p-calendar dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="dueDate" [showIcon]="true"
+                  <p-calendar class="p-col-12"  dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="dueDate" [showIcon]="true"
                     name="_dueDate" required></p-calendar>
                 </div>
                 <div class="p-col-12 p-md-6 p-lg-2">
@@ -36,9 +36,8 @@
                     required>
                   </p-dropdown>
                 </div>
-                <div class=p-col-12></div>
-                <div #row2 class="p-col-12 p-md-12 p-lg-12 no-pad-top">
-                  <div class="p-grid">
+                <!-- <div #row2 class="p-col-12 p-md-12 p-lg-12 no-pad-top">
+                  <div class="p-grid"> -->
                     <div class="p-col-12 p-md-6 p-lg-2">
                       <div><label for="_assignment">Assignment Type<span class="form-mandatory-field">*</span></label>
                       </div>
@@ -51,24 +50,21 @@
                       <input class="p-col-12" type="text" pInputText [(ngModel)]="assignmentwork"
                         appInputFormat="noSpecialChars" required>
                     </div>
-                    <div class=p-col-12></div>
-                    <div class="p-col-5 p-md-5 p-lg-5" style="text-align: right;">
+                    <div class="p-col-12 p-md-12 p-lg-12 txt-center">
                       <button pButton type="button" label="Submit" icon="pi pi-save" (click)="onSubmit()"
-                        [disabled]="(!f.valid || !f.dirty)"></button>
+                        [disabled]="(!f.valid || !f.dirty)"></button>&nbsp;
+                      <button pButton type="button" label="View" icon="pi pi-eye" (click)="onView()"></button>&nbsp;
+                      <button pButton type="button" label="Clear" icon="pi pi-times-circle" (click)="clear()"></button>
                     </div>
-                    <div class="p-col-6 p-md-6 p-lg-6">
-                      <button pButton type="button" label="View" icon="pi pi-eye" (click)="onView()"></button>
-                      <button pButton type="button" label="Clear" icon="pi pi-times-circle" (click)="clear()"
-                        style="margin-left: 2%;"></button>
-                    </div>
-                  </div>
-                </div>
+                  <!-- </div>
+                </div> -->
               </div>
+            </p-card>
             </div>
-          </p-card>
+          
         </div>
-        <div *ngIf="Showtable">
-          <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="50" [rowsPerPageOptions]="[10,20,30,50]"
+        <div *ngIf="Showtable" class="p-col-12 p-md-12 p-lg-12 txt-center">
+          <p-table [columns]="cols" [value]="data" responsiveLayout="scroll" [paginator]="true" [rows]="50" [rowsPerPageOptions]="[10,20,30,50]"
            styleClass="p-datatable-gridlines">
             <ng-template pTemplate="header" let-columns>
               <tr>

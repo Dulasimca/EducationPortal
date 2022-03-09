@@ -1,92 +1,91 @@
 <block-ui>
-  <div class="p-col-12 p-md-12 p-lg-12" style="padding-top:25px; height: 520px;">
-  <p-toast position="top-right" key="t-msg"></p-toast>
-  <p-panel header="Fee">
-    <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
+  <div class="p-col-12 p-md-12 p-lg-12">
+    <p-toast position="top-center" key="t-msg"></p-toast>
+    <p-panel header="Fee">
       <form #f="ngForm" name="FeeForm">
-        <p-card>
-          <div class="p-col-12 no-pad-top">
-            <div #row1 class="p-col-12 p-md-12 p-lg-12">
+        <div class="p-grid">
+          <div class="p-col-12 p-md-12 p-lg-12">
+            <p-card>
               <div class="p-grid">
                 <div class="p-col-12 p-md-6 p-lg-2">
                   <div><label for="_date"> Date</label><span class="form-mandatory-field">*</span> </div>
                   <p-calendar dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="dueDate"
-                  [maxDate]="maxDate" [showIcon]="true" name="_date" required></p-calendar>
+                  class="p-col-12 p-md-10 p-lg-12 no-pad-left" [maxDate]="maxDate" [showIcon]="true" name="_date" required></p-calendar>
                 </div>
                 <div class="p-col-12 p-md-6 p-lg-2">
                   <div><label for="_year"> Year</label><span class="form-mandatory-field">*</span> </div>
-                  <p-dropdown [options]="yearOptions" name="_year" (onClick)="onSelect('Y')" [(ngModel)]="selectedYear" 
+                  <p-dropdown [options]="yearOptions" class="p-col-12 p-md-10 p-lg-12 no-pad-left" name="_year" (onClick)="onSelect('Y')" [(ngModel)]="selectedYear" 
                   optionLabel="label" required>
                   </p-dropdown>
                 </div>
                 <div class="p-col-12 p-md-6 p-lg-2">
                   <div><label for="_class">Class<span class="form-mandatory-field">*</span></label></div>
-                  <p-dropdown name="_class" [options]="classOptions" [(ngModel)]="class" optionLabel="label"
+                  <p-dropdown name="_class" class="p-col-12 p-md-10 p-lg-12 no-pad-left" [options]="classOptions" [(ngModel)]="class" optionLabel="label"
                     (onClick)="onSelect('C')" (onChange)="loadStudents()" required>
                   </p-dropdown>
                 </div>
                 <div class="p-col-12 p-md-6 p-lg-2">
                   <div><label for="_section">Section<span class="form-mandatory-field">*</span></label></div>
-                  <p-dropdown name="_section" [options]="sectionOptions" [(ngModel)]="section" optionLabel="label"
+                  <p-dropdown name="_section" class="p-col-12 p-md-10 p-lg-12 no-pad-left" [options]="sectionOptions" [(ngModel)]="section" optionLabel="label"
                     (onClick)="onSelect('S')" (onChange)="loadStudents()" required>
                   </p-dropdown>
                 </div>
                 <div class="p-col-12 p-md-6 p-lg-2">
                   <div> <label for="_studentname">Student Name</label><span class="form-mandatory-field">*</span></div>
-                  <p-dropdown [options]="studentOptions" [(ngModel)]="student" name="_studentname"
+                  <p-dropdown [options]="studentOptions" class="p-col-12 p-md-10 p-lg-12 no-pad-left" [(ngModel)]="student" name="_studentname"
                     (onClick)="onSelect('SN')" optionLabel="label" required>
                   </p-dropdown>
                 </div>
                 <div class="p-col-12 p-md-6 p-lg-2">
                   <div> <label for="_receiptbook"> Receipt Book</label><span class="form-mandatory-field">*</span></div>
-                  <p-dropdown [options]="receiptOptions" [(ngModel)]="receiptBook" name="_receiptbook"
+                  <p-dropdown [options]="receiptOptions" class="p-col-12 p-md-10 p-lg-12 no-pad-left" [(ngModel)]="receiptBook" name="_receiptbook"
                     (onClick)="onSelect('FT')"  required>
                   </p-dropdown>
                 </div>
                 <div class="p-col-12 p-md-6 p-lg-2">
                   <div> <label for="_feename"> Fee Name</label><span class="form-mandatory-field">*</span></div>
-                  <input type="text" class="p-col-12" name="_feename" pInputText [(ngModel)]="feename" required />
+                  <input class="p-col-12 p-md-10 p-lg-12 no-pad-left" type="text"  name="_feename"  pInputText [(ngModel)]="feename" required />
                 </div>
                 <!-- <div #row1 class="p-col-12 p-md-12 p-lg-12"> -->
                   <!-- <div class="p-grid"> -->
                     <div class="p-col-12 p-md-6 p-lg-2">
                       <div> <label for="_actualamount"> Actual Amount</label><span class="form-mandatory-field">*</span>
                       </div>
-                      <input type="text" class="p-col-12" name="_actualamount" pInputText [(ngModel)]="actualamount"
+                      <input class="p-col-12 p-md-10 p-lg-12 no-pad-left" type="text"  name="_actualamount" pInputText [(ngModel)]="actualamount"
                         required>
                     </div>
                     <div class="p-col-12 p-md-6 p-lg-2">
                       <div> <label for="_paidamount"> Paid Amount</label><span class="form-mandatory-field">*</span>
                       </div>
-                      <input type="text" class="p-col-12" name="_paidamount" pInputText [(ngModel)]="paidamount"
+                      <input class="p-col-12 p-md-10 p-lg-12 no-pad-left" type="text"  name="_paidamount" pInputText [(ngModel)]="paidamount"
                         required>
                     </div>
                     <div class="p-col-12 p-md-6 p-lg-2">
                       <div> <label for="_outstandingamount">Outstanding Amount</label><span
                           class="form-mandatory-field">*</span></div>
-                      <input type="text" class="p-col-12" name="_outstandingamount" pInputText [(ngModel)]="outstanding"
+                      <input class="p-col-12 p-md-10 p-lg-12 no-pad-left" type="text"  name="_outstandingamount" pInputText [(ngModel)]="outstanding"
                         required>
                     </div>
                     <div class="p-col-12 p-md-6 p-lg-2">
                       <div> <label for="_payamount">Paying Amount</label><span class="form-mandatory-field">*</span>
                       </div>
-                      <input type="text" class="p-col-12" name="_payamount" pInputText [(ngModel)]="paying" required>
+                      <input class="p-col-12 p-md-10 p-lg-12 no-pad-left" type="text"  name="_payamount" pInputText [(ngModel)]="paying" required>
                     </div>
                     <div class="p-col-12 p-md-6 p-lg-2">
                       <div> <label for="_fine">Fine Amount</label><span class="form-mandatory-field">*</span></div>
-                      <input type="text" class="p-col-12" name="_fine" pInputText [(ngModel)]="fine" appInputFormat="digitOnly" required>
+                      <input class="p-col-12 p-md-10 p-lg-12 no-pad-left" type="text"  name="_fine" pInputText [(ngModel)]="fine" appInputFormat="digitOnly" required>
                     </div>
                   <!-- </div> -->
                 <!-- </div> -->
-                <div class="p-col-12 p-md-12 p-lg-12" style="text-align: center;">
+                <div class="p-col-12 p-md-12 p-lg-12 txt-center">
                   <button pButton type="button" label="Submit" (click)="onSubmit()" [disabled]="(!f.valid || !f.dirty)"></button>&nbsp;
                   <button pButton type="button" label="View" (click)="onView()"></button>&nbsp;
                   <button pButton type="button" label="Pay" [disabled]="true"></button>
                   <!-- <button pButton type="button" label="Clear" (click)="clear()" style="margin-left: 5%;"></button> -->
                 </div>
-                <div *ngIf="showtable"> 
+                <div *ngIf="showtable" class="p-col-12 p-md-12 p-lg-12 txt-center"> 
                 <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10"
-                  [rowsPerPageOptions]="[5,10,15,20]" totalRecords="totalRecords" styleClass="p-datatable-gridlines">
+                  [rowsPerPageOptions]="[5,10,15,20]" responsiveLayout="scroll" totalRecords="totalRecords" styleClass="p-datatable-gridlines">
                   <ng-template pTemplate="header" let-columns>
                     <tr>
                       <th>
@@ -112,13 +111,13 @@
                 </p-table>
               </div>
               </div>
+            </p-card>
             </div>
           </div>
-        </p-card>
+       
       </form>
+    </p-panel>
     </div>
-  </p-panel>
-</div>
 </block-ui>
 
 <!-- feereceipt  -->

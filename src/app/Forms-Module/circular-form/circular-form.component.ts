@@ -34,7 +34,7 @@ export class CircularFormComponent implements OnInit {
   date: Date = new Date();
   data: any = [];
   loading: boolean;
-
+  showTable: boolean;
 
   guardianimg: any[] = [];
   @BlockUI() blockUI: NgBlockUI;
@@ -119,6 +119,7 @@ export class CircularFormComponent implements OnInit {
 
   onview() {
     this.data = [];
+    this.showTable = true;
     this.loading = true;
     const params = { 
       'SchoolID': this.login_user.schoolId,
@@ -129,6 +130,7 @@ export class CircularFormComponent implements OnInit {
         this.data = res;
       }else {
         this.loading = false;
+        this.showTable = true;
         this.messageService.clear();
         this.messageService.add({
           key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,

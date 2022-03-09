@@ -38,7 +38,7 @@
                                             <input type="text" name="_lastname" class="p-col-12" pInputText
                                                 [(ngModel)]="obj.LastName" appInputFormat="noSpecialChars" required />
                                         </div>
-                                        <div class="p-col-12 p-md-4 p-lg-2">
+                                        <div class="p-col-12 p-md-6 p-lg-2">
                                             <div><label class="label-font-size" for="_gender">Gender<span
                                                         class="form-mandatory-field">*</span></label></div>
                                             <p-dropdown name="_gender" [options]="genderOptions"
@@ -48,7 +48,7 @@
                                         <div class="p-col-12 p-md-6 p-lg-2">
                                             <div><label class="label-font-size" for="_dob">D.O.B<span
                                                         class="form-mandatory-field">*</span></label></div>
-                                            <p-calendar dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="dob" name="_dob" [maxDate]="maxDate"
+                                            <p-calendar class="p-col-12"  dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="dob" name="_dob" [maxDate]="maxDate"
                                                 [monthNavigator]="true" [yearNavigator]="true" yearRange="{{yearRange}}"
                                                 inputId="dateofbirth" [showIcon]="true" (onSelect)="onDateSelection('B')" required>
                                             </p-calendar>
@@ -146,13 +146,13 @@
                                         <div class="p-col-12 p-md-6 p-lg-2">
                                             <div> <label class="label-font-size" for="_permanentaddr">Permanent
                                                     Address<span class="form-mandatory-field">*</span></label> </div>
-                                            <textarea pInputTextarea name="_permanentaddr"
+                                            <textarea class="p-col-12" pInputTextarea name="_permanentaddr"
                                                 [(ngModel)]="obj.PermanentAddress" rows="2" cols="20"
                                                 required></textarea>
                                         </div>
                                         <div class="p-col-12 p-md-6 p-lg-2">
                                             <div> <label class="label-font-size" for="_currentaddr">Current Address</label> </div>
-                                            <textarea pInputTextarea name="_currentaddr"
+                                            <textarea class="p-col-12" pInputTextarea name="_currentaddr"
                                                 [(ngModel)]="obj.CurrentAddress" rows="2" cols="20"
                                                 ></textarea>
                                             <div>
@@ -527,7 +527,7 @@
     </div>
     <p-dialog header="{{header}}" [(visible)]="showDialog" [style]="{width: '95vw'}" [draggable]="false" [modal]="true">
         <div>
-            <p-table [columns]="registeredCols" [value]="registeredData" [paginator]="true" [rows]="10" styleClass="p-datatable-gridlines">
+            <p-table [columns]="registeredCols" responsiveLayout="scroll" [value]="registeredData" [paginator]="true" [rows]="10" styleClass="p-datatable-gridlines">
                 <ng-template pTemplate="header" let-columns>
                     <tr>
                         <th style="width: 80px;">S.No</th>

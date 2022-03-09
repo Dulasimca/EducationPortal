@@ -5,7 +5,7 @@
       <p-card>
         <div>
           <p-table [columns]="cols" [value]="data" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5,10,15,20]"
-           [loading]="loading" styleClass="p-datatable-gridlines">
+           [loading]="loading" responsiveLayout="scroll" styleClass="p-datatable-gridlines">
             <ng-template pTemplate="header"  let-columns>
               <tr>
                 <th style="width: 40px;">S.No</th>

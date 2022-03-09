@@ -267,7 +267,7 @@ hr {
     font-size: 17px !important;
 }
 .tab-main .p-tabview .p-tabview-nav {
-    padding-left: 8rem !important;
+    padding-left: 2rem !important;
 }
 /* end #Region 2*/
 /* prime ng styles customed #Region 4*/
@@ -575,6 +575,12 @@ legend {
     font-family: 'poppins' !important;
     font-size: 14px !important;
 }
+.p-calendar {
+    width: inherit !important;  
+}
+.p-dropdown {
+    width: inherit !important;
+}
 .p-sidebar .p-sidebar-header {
     padding: 0 !important;
 }
@@ -678,6 +684,14 @@ mat-toolbar {
 #zmmtg-root {
    display: none;
 }
+
+.td-border {
+    border-bottom: 0.2px solid #dfdada !important;
+}
+.txt-center {
+    text-align: center !important;
+}
+
 
 
 

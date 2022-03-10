@@ -21,21 +21,20 @@
                                         <div class="p-col-12 p-md-6 p-lg-3">
                                             <div><label for="_testdate">Assessment Date<span
                                                         class="form-mandatory-field">*</span></label></div>
-                                            <p-calendar dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="testDate" name="_testdate" [showIcon]="true"
+                                            <p-calendar  class="p-col-12" dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="testDate" name="_testdate" [showIcon]="true"
                                                 required>
                                             </p-calendar>
                                         </div>
                                         <div class="p-col-12 p-md-6 p-lg-3">
                                             <div><label for="_testtime">Assessment Time<span
                                                         class="form-mandatory-field">*</span></label></div>
-                                            <p-calendar dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="testTime" [timeOnly]="true" hourFormat="12" name="_testtime" [showIcon]="true"
+                                            <p-calendar  class="p-col-12" dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="testTime" [timeOnly]="true" hourFormat="12" name="_testtime" [showIcon]="true"
                                                 required>
                                             </p-calendar>
                                         </div>
-                                    </div>
-                                </div>
-                                <div #row2 class="p-col-12 p-md-12 p-lg-12">
-                                    <div class="p-grid">
+                               
+                                <!-- <div #row2 class="p-col-12 p-md-12 p-lg-12">
+                                    <div class="p-grid"> -->
                                         <div class="p-col-12 p-md-6 p-lg-3">
                                             <div><label for="_class">Class<span
                                                         class="form-mandatory-field">*</span></label>
@@ -60,10 +59,12 @@
                                             (onClick)="onSelect('S')" required>
                                             </p-dropdown>
                                         </div>
-                                    </div>
-                                </div>
-                                <div #row3 class="p-col-12 p-md-12 p-lg-12">
-                                    <div class="p-grid">
+                                    <!-- </div>
+                                </div> -->
+                                    <!-- </div>
+                                </div> -->
+                                <!-- <div #row3 class="p-col-12 p-md-12 p-lg-12">
+                                    <div class="p-grid"> -->
                                         <div class="p-col-12 p-md-6 p-lg-6">
                                             <div><label for="_description">Description<span
                                                         class="form-mandatory-field">*</span></label></div>
@@ -71,7 +72,7 @@
                                                 [(ngModel)]="description" required />
                                             <div class="note">*Note: test description eg: "Choose the best answer"</div>
                                         </div>
-                                        <div class="p-col-12 p-md-4 p-lg-3">
+                                        <div class="p-col-12 p-md-6 p-lg-3">
                                             <div><label for="_questiontype">Question Type<span
                                                         class="form-mandatory-field">*</span></label>
                                             </div>

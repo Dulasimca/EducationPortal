@@ -28,6 +28,7 @@ export class PollListComponent implements OnInit {
   isActive: boolean;
   loading: boolean;
   showVoteStatus: boolean;
+  showTable: boolean;
   @BlockUI() blockUI: NgBlockUI;
 
   constructor(private restApiService: RestAPIService, private messageService: MessageService, private authService: AuthService
@@ -47,6 +48,7 @@ export class PollListComponent implements OnInit {
   onView() {
     this.showVoteStatus = false;
     this.loading = true;
+    this.showTable = true;
     this.data = [];
     let nomineeList = [];
     const params = {
@@ -62,6 +64,7 @@ export class PollListComponent implements OnInit {
         votedList = res.slice(0);
       } else {
         this.isDataAvailable = false;
+        this.showTable = true;
         this.loading = false;
         votedList = [];
       }

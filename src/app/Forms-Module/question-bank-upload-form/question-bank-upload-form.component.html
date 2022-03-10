@@ -13,7 +13,7 @@
                                         <div class="p-col-12 p-md-6 p-lg-3">
                                             <div><label for="_pdate">Publish Date<span
                                                         class="form-mandatory-field">*</span></label></div>
-                                            <p-calendar dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="publishDate" name="_pdate" [showIcon]="true"
+                                            <p-calendar class="p-col-12" dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="publishDate" name="_pdate" [showIcon]="true"
                                              required>
                                             </p-calendar>
                                         </div>
@@ -33,10 +33,9 @@
                                                 [(ngModel)]="class" (onChange)="onChangeClass()" required>
                                             </p-dropdown>
                                         </div>
-                                    </div>
-                                </div>
-                                <div #row2 class="p-col-12 p-md-12 p-lg-12 no-pad-top">
-                                    <div class="p-grid">
+                                
+                                <!-- <div #row2 class="p-col-12 p-md-12 p-lg-12 no-pad-top">
+                                    <div class="p-grid"> -->
                                         <div class="p-col-12 p-md-6 p-lg-6">
                                             <div><label for="_description">Description<span
                                                         class="form-mandatory-field">*</span></label></div>
@@ -53,15 +52,16 @@
                                                [disabled]="disableSubject" (onClick)="onSelect('S')" [(ngModel)]="subject" required>
                                             </p-dropdown>
                                         </div>
-                                    </div>
-                                </div>
-                                <div #row3 class="p-col-12 p-md-12 p-lg-12 no-pad-top">
-                                    <div class="p-grid">
-                                        <div class="p-col-12 p-md-8 p-lg-5">
+                               
+                                    <!-- </div>
+                                </div> -->
+                                <!-- <div #row3 class="p-col-12 p-md-12 p-lg-12 no-pad-top">
+                                    <div class="p-grid"> -->
+                                        <div class="p-col-12 p-md-6 p-lg-6">
                                             <div><label for="_pdate">Question Bank<span
                                                 class="form-mandatory-field">*</span></label></div>
                                                 <div class="p-inputgroup">
-                                                     <input #fileSelector id="my-file-selector" pInputText class="p-col-12"
+                                                     <input #fileSelector id="my-file-selector" pInputText 
                                                     name="_pdf" type="file" (change)="uploadData($event);" accept=".pdf"
                                                      required>
                                                 <button pButton type="button" icon="pi pi-times-circle"
@@ -69,7 +69,7 @@
                                             </div>
                                             <div>*Note: .pdf format</div>
                                         </div>
-                                        <div class="p-col-12 p-md-6 p-lg-2">
+                                        <div class="p-col-12 p-md-6 p-lg-3">
                                             <div><label for="_medium">Medium<span
                                                         class="form-mandatory-field">*</span></label>
                                             </div>
@@ -79,7 +79,9 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div #row4 class="p-col-12 p-md-12 p-lg-12 text-center no-pad-top">
+                                    <!-- </div>
+                                </div> -->
+                                <div #row4 class="p-col-12 p-md-12 p-lg-12 text-center">
                                     <button pButton name="_upload" type="button" label="Upload" (click)="onUpload()"
                                         [disabled]="(!f.valid)"></button> &nbsp;
                                     <button pButton name="_view" type="button" label="View"
@@ -109,7 +111,7 @@
                             </div>
                         </div>
                         <div #row3 class="p-col-12">
-                            <p-table [columns]="questionBankCols" [value]="questionBankData" [paginator]="true"
+                            <p-table [columns]="questionBankCols" responsiveLayout="scroll" [value]="questionBankData" [paginator]="true"
                                 [rows]="10" [loading]="loading" styleClass="p-datatable-gridlines">
                                 <ng-template pTemplate="header" let-rowData let-columns>
                                     <tr>

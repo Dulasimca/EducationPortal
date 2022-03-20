@@ -1,5 +1,5 @@
-<div class="example-container" *ngIf="showContainer">
-    <mat-toolbar color="primary" class="example-toolbar">
+<div *ngIf="showContainer">
+    <mat-toolbar color="primary">
         <div fxFlex fxLayout="row" *ngIf="!hideHeader" style="background: rgb(11, 43, 102) !important;">
             <div fxFlex class="margin-lt align-el-center">
                 <div (click)="sidenav.toggle()" >

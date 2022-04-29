@@ -61,6 +61,7 @@ export class ZoomService {
         console.log(res.result);
       }
     });
+    console.log("signature Endpoint : " + this.signatureEndpoint);
     this.startMeeting(this.signatureEndpoint);
   }
 
@@ -93,7 +94,22 @@ export class ZoomService {
   }
   showZoomDiv() {
     document.getElementById('zmmtg-root').style.display = 'block';
-    document.getElementById('side-nav-bar').style.display = 'none';
-    document.getElementById('main-layout').className = 'layout-wrapper-initial';
+     document.getElementById('example-container').style.display = 'none';
+    //document.getElementById('main-layout').className = 'layout-wrapper-initial'
+     //document.getElementById('side-nav-bar').style.display = 'none';
+    //document.getElementById('main-layout').className = 'layout-wrapper-initial';
+
+//     <mat-sidenav-container class="example-container">
+//     <mat-sidenav #sidenav [mode]="mode" [(opened)]="opened">
+//         <p-panelMenu [model]="items" [style]="{'width':'180px', 'height': '90vh !important',
+//         'background': 'white'}"></p-panelMenu>
+//     </mat-sidenav>
+//     <mat-sidenav-content>
+//         <div #main_container style="height: 100vh;"
+//         [ngStyle]="{'margin-bottom': (hideHeader ? '0' : '-5%')}">
+//             <router-outlet></router-outlet>
+//         </div>
+//     </mat-sidenav-content>
+// </mat-sidenav-container>    
   }
 }

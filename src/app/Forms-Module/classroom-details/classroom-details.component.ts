@@ -20,13 +20,16 @@ import { TableConstants } from 'src/app/Common-Module/TableConstants';
 export class ClassroomDetailsComponent implements OnInit {
   duration: any;
   subjectOptions: SelectItem[];
-  subject: number;
+  subject: any;
   meetingDate: Date = new Date();
   meetingTime: Date;
   sectionOptions: SelectItem[];
-  section: number;
+  section: any;
+  ToipicsName: string;
+  className: string;
+  SectionName: string;
   classOptions: SelectItem[];
-  class: number;
+  class: any;
   disableSubject: boolean;
   login_user: User;
   sections?: any;
@@ -79,7 +82,7 @@ export class ClassroomDetailsComponent implements OnInit {
         break;
       case 'SB':
         this.subjects.forEach(c => {
-          if ((c.class * 1) === this.class) {
+          if ((c.class * 1) === this.class.value) {
             subjectSelection.push({ label: c.name, value: c.code })
           }
         });
@@ -94,9 +97,10 @@ export class ClassroomDetailsComponent implements OnInit {
       'SchoolId': this.login_user.schoolId,
       'Date': (this.meetingDate !== undefined && this.meetingDate !== null) ?
       this.datePipe.transform(this.meetingDate, 'MM/dd/yyyy') : this.datePipe.transform(new Date(), 'MM/dd/yyyy'),
-      'SectionCode': this.login_user.id,
-      'ClassId': 0
+      'SectionCode': this.login_user.sectioncode,
+      'ClassId': this.login_user.classId
     };
+    console.log(params)
     this.restApiService.getByParameters(PathConstants.Zoom_Get, params).subscribe((res: any) => {
       if (res !== null && res !== undefined && res.length !== 0) {
         this.showTable = true;
@@ -120,10 +124,13 @@ export class ClassroomDetailsComponent implements OnInit {
   onEdit(selectedRow) {
     if (selectedRow !== undefined && selectedRow !== null) {
       this.class = selectedRow.ClassId;
+      this.className = selectedRow.Classname1
       this.classOptions = [{ label: selectedRow.Classname1, value: selectedRow.ClassId }];
       this.section = selectedRow.SectionCode;
+      this.ToipicsName = selectedRow.SectionName;
       this.sectionOptions = [{ label: selectedRow.SectionName, value: selectedRow.SectionCode }];
       this.subject = selectedRow.SubjectId;
+      this.SectionName = selectedRow.SubjectName;
       this.subjectOptions = [{ label: selectedRow.SubjectName, value: selectedRow.SubjectId }];
       this.meetingDate = new Date(selectedRow.MeetingDate);
       this.meetingTime = selectedRow.MeetingTime;
@@ -137,17 +144,22 @@ export class ClassroomDetailsComponent implements OnInit {
     this.messageService.clear();
     const params = {
       'RowId': this.classroomId,
-      'ClassId': this.class,
-      'SectionCode': this.section,
+      'ClassId': this.class.value,
+      'SectionCode': this.section.value,
       'MeetingDate': this.datePipe.transform(this.meetingDate, 'MM/dd/yyyy'),
       'SchoolId': this.login_user.schoolId,
       'Duration': this.duration,
-      'Topics': this.subject,
+      'Topics': this.subject.value,
       'MeetingTime': typeof(this.meetingTime) === 'string' ? this.meetingTime : this.datePipe.transform(this.meetingTime, 'shortTime'),
-      'CreatedBy': this.login_user.id
+      'CreatedBy': this.login_user.id,
+      'TopicsName': this.subject.label,
+      'ClassName': this.class.label + ' ' + this.section.label
     }
+    console.log("params")
+    console.log(params)
     this.restApiService.post(PathConstants.Zoom_Post, params).subscribe((res: any) => {
       if (res !== undefined && res !== null) {
+        console.log('inside')
         this.blockUI.stop();
         this.clearForm();
         this.messageService.clear();

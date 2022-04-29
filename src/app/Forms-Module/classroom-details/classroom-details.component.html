@@ -12,21 +12,21 @@
                                     <div class="p-grid">
                                         <div class="p-col-6 p-md-6 p-lg-3">
                                             <label for="_class">Class<span class="form-mandatory-field">*</span></label>
-                                            <p-dropdown  class="p-col-12" name="_class" [options]="classOptions" [(ngModel)]="class"
+                                            <p-dropdown  class="p-col-12" name="_class" [options]="classOptions" optionLabel="label" [(ngModel)]="class"
                                                 (onClick)="onSelect('C')" required>
                                             </p-dropdown>
                                         </div>
                                         <div class="p-col-6 p-md-6 p-lg-2">
                                             <label for="_section">Section<span
                                                     class="form-mandatory-field">*</span></label>
-                                            <p-dropdown  class="p-col-12" name="_section" [options]="sectionOptions" [(ngModel)]="section"
-                                                (onClick)="onSelect('S')" required>
+                                            <p-dropdown  class="p-col-12" name="_section" [options]="sectionOptions"  optionLabel="label" [(ngModel)]="section"
+                                               (onClick)="onSelect('S')" required>
                                             </p-dropdown>
                                         </div>
                                         <div class="p-col-6 p-md-6 p-lg-3">
                                             <label for="_subject">Subject<span
                                                     class="form-mandatory-field">*</span></label>
-                                            <p-dropdown  class="p-col-12" name="_subject" [options]="subjectOptions" [(ngModel)]="subject"
+                                            <p-dropdown  class="p-col-12" name="_subject"  [options]="subjectOptions"  optionLabel="label" [(ngModel)]="subject"
                                             (onClick)="onSelect('SB')" required>
                                             </p-dropdown>
                                         </div>
@@ -57,11 +57,11 @@
                                     <!-- </div>
                                 </div> -->
                                 <div #row3 class="p-col-12 p-md-12 p-lg-12 text-center">
-                                    <button pButton name="_save" type="button" label="Save" [disabled]="(!f.valid)"
+                                    <button pButton name="_Save" type="button" label="save"
                                         (click)="onSave()"></button>&nbsp;
-                                        <button pButton name="_view" type="button" label="View"
+                                    <button pButton name="_view" type="button" label="View"
                                         (click)="onView()"></button>&nbsp;
-                                        <button pButton name="_clear" type="button" label="Clear"
+                                    <button pButton name="_clear" type="button" label="Clear"
                                         (click)="clearForm()"></button>
                                 </div>
                             </p-card>

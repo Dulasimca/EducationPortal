@@ -691,7 +691,10 @@ mat-toolbar {
 #zmmtg-root {
    display: none;
 }
-
+#example-container {
+    display: block;
+ }
+ 
 .td-border {
     border-bottom: 0.2px solid #dfdada !important;
 }

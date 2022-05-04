@@ -199,11 +199,12 @@ export class QuestionBankUploadFormComponent implements OnInit {
     if (this.selectedYear !== undefined && this.selectedYear !== null) {
       this.loading = true;
       const params = {
-        'Classcode': this.logged_user.classId,
+        'Classcode': this.class,
         'QuestionYear': this.selectedYear,
         'SchoolID': this.logged_user.schoolId,
-        'Medium': this.logged_user.mediumId
+        'Medium': this.medium
       }
+      console.log(params)
       this.restApiService.getByParameters(PathConstants.Question_Bank_Get, params).subscribe(res => {
         if (res !== undefined && res !== null) {
           if(res.length !== 0) {

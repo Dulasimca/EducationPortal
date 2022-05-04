@@ -8,13 +8,13 @@
                         <label class="label-font-size" for="_roleid">Registration for:<span
                                 class="form-mandatory-field">*</span></label>
                     </div>
-                    <div class="p-col-2 no-pad-bottom" style="margin-left: -5%; margin-top: -2%;">
-                        <p-dropdown class="p-col-2" name="_roleid" [options]="roleIdOptions" [(ngModel)]="roleId"
+                    <div class="p-col-2 no-pad-bottom" style="margin-left: -5%; margin-top: 0%;">
+                        <p-dropdown  name="_roleid" [options]="roleIdOptions" [(ngModel)]="roleId"
                             (onChange)="onChangeRole()" (onClick)="onSelect('R')" required>
                         </p-dropdown>
                     </div>
                 </div>
-                <div style="margin-top: -1%;">
+                <div style="margin-top: 1%;">
                     <p style="font-size: smaller;">Note*: Please select a role to register</p>
                 </div>
 

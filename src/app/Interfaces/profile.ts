@@ -60,4 +60,5 @@ export interface Profile {
     NativityFilename: string;
     CommunityFilename: string;
     AadharNo: string;
+    QuestionBankPhotoFileName:string;
 }

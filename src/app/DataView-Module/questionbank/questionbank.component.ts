@@ -60,10 +60,10 @@ export class QuestionbankComponent implements OnInit {
     this.questionBankData = [];
     this.loading = true;
     const params = {
-      //'Classcode': this.logged_user.classId,
-      //'QuestionYear': this.selectedYear,
+      'Classcode': this.logged_user.classId,
+      'QuestionYear': this.selectedYear,
       'SchoolID': this.logged_user.schoolId,
-      //'Medium': this.logged_user.mediumId
+      'Medium': this.logged_user.mediumId
     }
     this.restApiService.getByParameters(PathConstants.Question_Bank_Get, params).subscribe(res => {
       if (res.length !== 0 && res !== undefined && res !== null) {

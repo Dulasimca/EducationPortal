@@ -28,7 +28,7 @@
                                     {{data[col.field]}}
                                 </td>
                                 <td (click)="onDownload(data.FileName)" class="cursor-pointer">
-                                    <button pButton type="button" icon="pi pi-file-pdf" style="margin-right: 10px; color:#45e327;">
+                                    <button pButton type="button" icon="pi pi-download" style="margin-right: 10px; color:#45e327;">
                                    </button>
                                 </td>
                             </tr>
@@ -38,4 +38,13 @@
             </p-card>
         </div>
     </p-panel>
+    <p-confirmDialog #cd  [style]="{width: '30vw'}">
+        <ng-template pTemplate="header">
+          <h3>Alert</h3>
+      </ng-template>
+      <ng-template pTemplate="footer">
+          <button type="button" pButton icon="pi pi-times" label="No" (click)="cd.reject()"></button>
+          <button type="button" pButton icon="pi pi-check" label="Yes" (click)="cd.accept()"></button>
+      </ng-template>
+      </p-confirmDialog>
 </div>

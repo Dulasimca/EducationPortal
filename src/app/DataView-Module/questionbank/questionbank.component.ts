@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { MessageService, SelectItem } from 'primeng/api';
+import { ConfirmationService, MessageService, SelectItem } from 'primeng/api';
 import { ResponseMessage } from 'src/app/Common-Module/Message';
 import { PathConstants } from 'src/app/Common-Module/PathConstants';
 import { User } from 'src/app/Interfaces/user';
@@ -29,7 +29,8 @@ export class QuestionbankComponent implements OnInit {
   questionBankData: any = [];
   questionBankCols: any;
   constructor(private restApiService: RestAPIService, private authService: AuthService,
-    private messageService: MessageService, private masterService: MasterService, private _datePipe: DatePipe) { }
+    private messageService: MessageService, private masterService: MasterService,private confirmationService: ConfirmationService, 
+    private _datePipe: DatePipe) { }
 
   ngOnInit() {
     this.logged_user = this.authService.UserInfo;
@@ -93,8 +94,15 @@ export class QuestionbankComponent implements OnInit {
   }
 
   onDownload(Filename) {
+    this.confirmationService.confirm({
+      message: 'Do you want to download?',
+      header: 'Confirmation',
+      icon: 'pi pi-exclamation-triangle',
+      accept: () => {
     const path = "../../assets/layout/" + FileUploadConstant.QuestionBank + "/" + Filename;
     saveAs(path, Filename);
-  }
-
+  },
+  reject: (type) => { }
+});
+}
 }

@@ -57,7 +57,7 @@ import { MyschoolViewComponent } from './DataView-Module/myschool-view/myschool-
 import { ZoomComponent } from './Events-Module/zoom/zoom.component';
 import { AssessmentComponent } from './Forms-Module/assessment/assessment.component';
 import { AssessmentResultComponent } from './Forms-Module/assessment-result/assessment-result.component';
-
+import { SchoolmasterComponent } from './Forms-Module/schoolmaster/schoolmaster.component';
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
@@ -116,7 +116,8 @@ const routes: Routes = [
   { path: 'results', component: ResultFormComponent, canActivate: [AuthGuard] },
   { path: 'gallery', component: GalleryFormComponent, canActivate: [AuthGuard] },
   { path: 'downloadsession', component: DownloadsessionFormComponent, canActivate: [AuthGuard] },
-  { path: 'UploadDownloadform', component: UploadDownloadformsComponent },
+  { path: 'UploadDownloadform', component: UploadDownloadformsComponent, canActivate: [AuthGuard] },
+  { path: 'Schoolmaster', component:SchoolmasterComponent, canActivate: [AuthGuard]}
 ];
 
 

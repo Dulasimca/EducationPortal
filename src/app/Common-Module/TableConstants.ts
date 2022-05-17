@@ -190,5 +190,12 @@ export class TableConstants {
           { field: 'authorReference', header: 'Author/Reference', width: '300px', align: 'left !important' },
           { field: 'CreatedDate', header: 'Uploaded date', align: 'center !important' },
         ];
-            
+        public static readonly SchoolMasterFormColumns = [
+          { field: 'Districname', header: 'District', align: 'center !important' },
+          { field: 'Talukname', header: 'Taluk', align: 'center !important' },
+          { field: 'Catagorycode', header: 'Curriculum', align: 'left !important' },
+          { field: 'Schoolname', header: 'School Name', align: 'left !important' },
+          { field: 'Schooladd', header: 'School Address', width: '300px', align: 'center !important' },
+          { field: 'Schoolpincode', header: 'School Pincode', align: 'center !important' },
+        ];     
 }

@@ -112,6 +112,7 @@ import {ConfirmationService} from 'primeng/api';
 import { AssessmentComponent } from './Forms-Module/assessment/assessment.component';
 import { FeesDetailsComponent } from './DataView-Module/fees-details/fees-details.component';
 import { AssessmentResultComponent } from './Forms-Module/assessment-result/assessment-result.component';
+import { SchoolmasterComponent } from './Forms-Module/schoolmaster/schoolmaster.component';
 
   
 FullCalendarModule.registerPlugins([
@@ -182,6 +183,7 @@ FullCalendarModule.registerPlugins([
     InputFormatDirective,
     AssessmentComponent,
     AssessmentResultComponent,
+    SchoolmasterComponent,
   ],
   imports: [
     BrowserModule,

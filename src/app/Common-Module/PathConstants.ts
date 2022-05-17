@@ -79,4 +79,8 @@ export class PathConstants {
     public static readonly Result_Get = 'Result/Get';
     public static readonly Result_Delete = 'Result/Put';
 
+    public static readonly SchoolMaster_Post = 'SchoolMaster/Post';
+    public static readonly SchoolMaster_Get = 'SchoolMaster/Get';
+    public static readonly SchoolMaster_Delete = 'SchoolMaster/Put';
+
 }

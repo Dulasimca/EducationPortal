@@ -18,7 +18,7 @@
                     <p style="font-size: smaller;">Note*: Please select a role to register</p>
                 </div>
 
-                <form #f="ngForm" name="registrationForm" *ngIf="(this.roleId==6 || this.roleId==5)">
+                <form #f="ngForm" name="registrationForm" *ngIf="(this.roleId==6 || this.roleId==5 ||this.roleId==3 )">
                     <p-tabView>
                         <p-tabPanel header="{{tabTitleI}}">
                             <p-card>
@@ -104,19 +104,20 @@
                                 </div>
                                 <div #row3 class="p-col-12 p-md-12 p-lg-12 no-pad-top">
                                     <div class="p-grid">
-                                        <div class="p-col-12 p-md-6 p-lg-2">
-                                            <div><label class="label-font-size" for="_taluk">Taluk</label>
-                                            </div>
-                                            <p-dropdown name="_taluk" [options]="talukOptions" [(ngModel)]="obj.Taluk"
-                                                (onClick)="onSelect('T')" [disabled]="false">
-                                            </p-dropdown>
-                                        </div>
+                                       
                                         <div class="p-col-12 p-md-6 p-lg-2">
                                             <div><label class="label-font-size" for="_district">District</label>
                                             </div>
                                             <p-dropdown name="_district" [options]="districtOptions"
                                                 [(ngModel)]="obj.DistrictId" (onClick)="onSelect('D')" [disabled]="false"
                                                 >
+                                            </p-dropdown>
+                                        </div>
+                                        <div class="p-col-12 p-md-6 p-lg-2">
+                                            <div><label class="label-font-size" for="_taluk">Taluk</label>
+                                            </div>
+                                            <p-dropdown name="_taluk" [options]="talukOptions" [(ngModel)]="obj.Taluk"
+                                                (onClick)="onSelect('T')" [disabled]="false">
                                             </p-dropdown>
                                         </div>
                                         <div class="p-col-12 p-md-6 p-lg-2">

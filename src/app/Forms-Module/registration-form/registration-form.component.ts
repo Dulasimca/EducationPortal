@@ -79,6 +79,7 @@ export class RegistrationFormComponent implements OnInit {
   header: string;
   maxDate: Date = new Date();
   roleId: number;
+  adminroleIdCheck: number;
   dob: Date;
   doj: Date;
   @ViewChild('f', { static: false }) _registrationForm: NgForm;
@@ -99,6 +100,7 @@ export class RegistrationFormComponent implements OnInit {
   ngOnInit() {
     ///loading master data
     this.login_user = this.authService.UserInfo;
+    this.adminroleIdCheck = this.login_user.roleId;
     this.masterService.getMaster('');
     ///end
     this.registeredCols = TableConstants.RegisteredAssociateColumns;
@@ -124,6 +126,8 @@ export class RegistrationFormComponent implements OnInit {
     this.religions = this.masterService.getMaster('RL');
     this.nationalities = this.masterService.getMaster('N');
     this.languages = this.masterService.getMaster('MT');
+    // this.districts = this.masterService.getMaster('D');
+    // let districtSelection = [];
     let classSelection = [];
     let sectionSelection = [];
     let roleIdSelection = [];
@@ -151,11 +155,22 @@ export class RegistrationFormComponent implements OnInit {
         break;
       case 'R':
         if (this.roleIdOptions === undefined) {
+          if(this.adminroleIdCheck===1 || this.adminroleIdCheck===2)
+          {
+            this.roles.forEach(r => {
+              if (r.code === 3) {
+                roleIdSelection.push({ label: r.name, value: r.code })
+              }
+            });
+          }
+          else
+          {
           this.roles.forEach(r => {
             if (r.code === 6 || r.code === 5) {
               roleIdSelection.push({ label: r.name, value: r.code })
             }
           });
+        }
           this.roleIdOptions = roleIdSelection;
           this.roleIdOptions.unshift({ label: '-select', value: null });
           this.roleId = this.obj.RoleId;
@@ -229,9 +244,14 @@ export class RegistrationFormComponent implements OnInit {
       this.tabTitleI = 'Student Info I';
       this.tabTitleII = 'Student Info II';
       start_year_range = current_year - 20;
-    } else {
+    } else if(this.roleId === 5) {
       this.tabTitleI = 'Teacher Info I';
       this.tabTitleII = 'Teacher Info II';
+      start_year_range = current_year - 60;
+    }
+    else{
+      this.tabTitleI = 'Information I';
+      this.tabTitleII = 'Information II';
       start_year_range = current_year - 60;
     }
     this.yearRange = start_year_range + ':' + current_year;
@@ -344,7 +364,7 @@ export class RegistrationFormComponent implements OnInit {
   onView() {
     this.registeredData = [];
     this.blockUI.start();
-    this.header = ((this.roleId * 1) === 6) ? 'Registered Students' : 'Registered Teachers';
+    this.header = ((this.roleId * 1) === 6) ? 'Registered Students' : ((this.roleId * 1) === 5) ?'Registered Teachers':"Registered Admin";
     const params = {
       'SchoolId': this.login_user.schoolId,
       'Value': this.login_user.id,

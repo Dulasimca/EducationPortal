@@ -16,7 +16,7 @@ export class DashboardComponent implements OnInit {
   greetingMsg: string;
   userName: string;
   user_info: User;
-  
+   roleId : number;
   constructor(private datePipe: DatePipe, private authService: AuthService, 
     private locationStrategy: LocationStrategy, private _masterService: MasterService) { }
 
@@ -25,6 +25,7 @@ export class DashboardComponent implements OnInit {
     var _setlayout = new StyleSetting();
     _setlayout.setMainLayout();
     this.user_info = this.authService.UserInfo;
+    this.roleId = this.user_info.roleId;
     const current_time = new Date().getTime();
     let get_hour: any = this.datePipe.transform(current_time, 'HH');
     get_hour = (get_hour * 1);

@@ -27,8 +27,9 @@
                 <div class="p-col-12 p-md-6 p-lg-3">
                     <div><label for="_curriculum">Curriculum<span
                              class="form-mandatory-field">*</span></label></div>
+
                      <p-dropdown [options]="curriculumOptions" [(ngModel)]="curriculum"
-                         name="_curriculum" optionLabel="label" placeholder="-select-" required >
+                         name="_curriculum"  (onClick)="onSelect('CL')" [disabled]="false" >
                      </p-dropdown>
                  </div>
                  

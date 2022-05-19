@@ -26,11 +26,14 @@ export class SchoolmasterComponent implements OnInit {
   obj: Profile = {} as Profile;
   districtOptions: SelectItem[];
   talukOptions: SelectItem[];
+  curriculumOptions: SelectItem[];
+
   districts?: any;
   taluks?: any;
-  login_user: User;
-  curriculumOptions: SelectItem[];
   curriculum?:any;
+
+  login_user: User;
+  
   SchoolName:any;
   SchoolAddress:any;
   SchoolPincode:any;
@@ -41,6 +44,7 @@ export class SchoolmasterComponent implements OnInit {
   data: any = [];
   cols: any;
   showtable: boolean;
+  RowId = 0;
 
 
   @BlockUI() blockUI: NgBlockUI;
@@ -57,17 +61,20 @@ export class SchoolmasterComponent implements OnInit {
     this.login_user = this.authService.UserInfo;
     this.cols = TableConstants.SchoolMasterFormColumns;
     this.masterService.getMaster('');
-    this.curriculumOptions = [
-      { label: 'Stateboard', value: '01' },
-      { label: 'CBSE', value: '02' },
-    ]
+    // this.curriculumOptions = [
+    //   { label: 'Stateboard', value: '01' },
+    //   { label: 'CBSE', value: '02' },
+    // ]
   }
   onSelect(type) {
     this.districts = this.masterService.getMaster('D');
     this.taluks = this.masterService.getMaster('T');
-  
+    this.curriculum =this.masterService.getMaster('CL');
+
     let districtSelection = [];
     let talukSelection = [];
+    let curriculumSelection = [];
+    
     switch (type) {
       case 'D':
       this.districts.forEach(d => {
@@ -83,6 +90,13 @@ export class SchoolmasterComponent implements OnInit {
         this.talukOptions = talukSelection;
         this.talukOptions.unshift({ label: '-select', value: null });
         break;
+        case 'CL':
+          this.curriculum.forEach(c => {
+            curriculumSelection.push({ label: c.name, value: c.code })
+          });
+          this.curriculumOptions = curriculumSelection;
+          this.curriculumOptions.unshift({ label: '-select', value: null });
+          break;
   }
 
     }
@@ -93,8 +107,8 @@ export class SchoolmasterComponent implements OnInit {
     const params = {
       'Districcode': this.DistrictId,
       'Talukcode': this.TalukId,
-      'Catagorycode': this.curriculum.label,
-      'Schoolcode': '0',
+      'Catagorycode': this.curriculum,
+      'Schoolcode': this.RowId,
       'Schoolname': this.SchoolName,
       'Schooladd': this.SchoolAddress,
       'Schoolpincode': this.SchoolPincode,
@@ -105,8 +119,8 @@ export class SchoolmasterComponent implements OnInit {
       if (res !== undefined && res !== null) {
         if (res) {
           this.blockUI.stop();
-          this.onView();
-          this.onClear();
+          //this.onView();
+         // this.onClear();
           this.messageService.clear();
           this.messageService.add({
             key: 't-msg', severity: ResponseMessage.SEVERITY_SUCCESS,
@@ -120,7 +134,8 @@ export class SchoolmasterComponent implements OnInit {
             summary: ResponseMessage.SUMMARY_ERROR, detail: ResponseMessage.ErrorMessage
           });
         }
-      } else {
+      } 
+      else {
         this.messageService.clear();
         this.messageService.add({
           key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
@@ -152,13 +167,15 @@ export class SchoolmasterComponent implements OnInit {
       if(res !== null && res !== undefined && res.length !==0) {
         //this.loading = false;
         this.data = res;
+        this.showtable = true;
       }else {
         this.loading = false;
-        this.showtable = true;
+        this.showtable = false;
         this.messageService.clear();
         this.messageService.add({
           key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
-          summary: ResponseMessage.SUMMARY_WARNING, detail: ResponseMessage.NoRecordMessage
+         // summary: ResponseMessage.SUMMARY_WARNING, detail: ResponseMessage.NoRecordMessage
+          summary: ResponseMessage.SUMMARY_WARNING, detail: 'Please select District and Taluk !'
         });
       }
       
@@ -177,7 +194,8 @@ export class SchoolmasterComponent implements OnInit {
     this.SchoolName = null;
     this.SchoolAddress = null;
     this.SchoolPincode = null;
-    this.onView();
+    this.RowId = 0;
+    //this.onView();
     // if (this._attachment.nativeElement.files.length !== 0) {
     //   this._attachment.nativeElement.value = null;
     // }
@@ -187,18 +205,13 @@ export class SchoolmasterComponent implements OnInit {
   // }
   onEdit(selectedRow) {
      if (selectedRow !== undefined && selectedRow !== null) {
+      this.RowId = selectedRow.Schoolcode; 
       this.DistrictId = selectedRow.Districcode;
       this.districtOptions = [{ label: selectedRow.Districname, value: selectedRow.Districcode }];
-      this.TalukId = selectedRow.Talukcode;
+      this.TalukId = selectedRow.TalukId;
       this.talukOptions = [{ label: selectedRow.Talukname, value: selectedRow.Talukcode }];
-
-      // this.curriculum = selectedRow.Catagorycode;
-      // this.curriculumOptions = [
-      //   { label: 'Stateboard', value: '01' },
-      //   { label: 'CBSE', value: '02' },
-      // ]
-      //this.curriculumOptions = [{ label: selectedRow.curriculumname, value: selectedRow.Catagorycode }];
-      //this.curriculum = selectedRow.Catagorycode;
+      this.curriculum = selectedRow.Catagorycode;
+      this.curriculumOptions = [{ label: selectedRow.Name, value: selectedRow.Catagorycode }];
       this.SchoolName = selectedRow.Schoolname;
       this.SchoolAddress = selectedRow.Schooladd;
       this.SchoolPincode = selectedRow.Schoolpincode;

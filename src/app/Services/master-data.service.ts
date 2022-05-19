@@ -135,6 +135,12 @@ export class MasterService {
               this.masterData.push({ name: a.Name, code: a.Id});
             });
             break;
+            //Curriculum
+            case 'CL':
+            this.data.Table18.forEach(c => {
+              this.masterData.push({ name: c.Name, code: c.id });
+            });
+            break;
     }
     return this.masterData;
   }

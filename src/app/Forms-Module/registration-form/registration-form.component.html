@@ -109,7 +109,7 @@
                                             <div><label class="label-font-size" for="_district">District</label>
                                             </div>
                                             <p-dropdown name="_district" [options]="districtOptions"
-                                                [(ngModel)]="obj.DistrictId" (onClick)="onSelect('D')" [disabled]="false"
+                                                [(ngModel)]="obj.DistrictId" (onClick)="onSelect('D')" [disabled]="true"
                                                 >
                                             </p-dropdown>
                                         </div>
@@ -117,13 +117,13 @@
                                             <div><label class="label-font-size" for="_taluk">Taluk</label>
                                             </div>
                                             <p-dropdown name="_taluk" [options]="talukOptions" [(ngModel)]="obj.Taluk"
-                                                (onClick)="onSelect('T')" [disabled]="false">
+                                                (onClick)="onSelect('T')" [disabled]="true">
                                             </p-dropdown>
                                         </div>
                                         <div class="p-col-12 p-md-6 p-lg-2">
                                             <div><label class="label-font-size" for="_state">State</label></div>
                                             <input class="p-col-12" name="_state" type="text" pInputText
-                                                [(ngModel)]="obj.State" [disabled]="false" />
+                                                [(ngModel)]="obj.State" [disabled]="true" />
                                         </div>
                                         <div class="p-col-12 p-md-6 p-lg-2">
                                             <div><label class="label-font-size" for="_studentmobno">Mobile Number</label>

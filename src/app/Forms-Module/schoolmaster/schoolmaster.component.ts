@@ -192,11 +192,11 @@ export class SchoolmasterComponent implements OnInit {
       this.TalukId = selectedRow.Talukcode;
       this.talukOptions = [{ label: selectedRow.Talukname, value: selectedRow.Talukcode }];
 
-      this.curriculum = selectedRow.Catagorycode;
-      this.curriculumOptions = [
-        { label: 'Stateboard', value: '01' },
-        { label: 'CBSE', value: '02' },
-      ]
+      // this.curriculum = selectedRow.Catagorycode;
+      // this.curriculumOptions = [
+      //   { label: 'Stateboard', value: '01' },
+      //   { label: 'CBSE', value: '02' },
+      // ]
       //this.curriculumOptions = [{ label: selectedRow.curriculumname, value: selectedRow.Catagorycode }];
       //this.curriculum = selectedRow.Catagorycode;
       this.SchoolName = selectedRow.Schoolname;

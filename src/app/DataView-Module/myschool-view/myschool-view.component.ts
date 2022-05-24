@@ -36,7 +36,8 @@ export class MyschoolViewComponent implements OnInit {
     };
     this.restApiService.getByParameters(PathConstants.MySchool_Get, params).subscribe(response => {
       if(response !== undefined && response !== null) {
-        this.schoolName = this.login_user.schoolname + ' - ' + this.login_user.taluk;
+        this.schoolName = this.login_user.schoolname 
+        //+ ' - ' + this.login_user.taluk;
         response.forEach(i => {
           this.curriculum = i.Curriculum,
           this.headMasterName = (i.HMName !== undefined && i.HMName !== null) ? ((i.HMName.toString().trim() !== '') ? i.HMName : '-') : '-',

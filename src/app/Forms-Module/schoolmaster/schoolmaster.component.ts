@@ -160,9 +160,8 @@ export class SchoolmasterComponent implements OnInit {
     this.loading = true;
     const params = { 
       'Districcode': this.DistrictId,
-      'Talukcode': this.TalukId,
-      //'Catagorycode': this.curriculum,
-      
+      'Talukcode': this.TalukId,      
+
     }
     this.restApiService.getByParameters(PathConstants.SchoolMaster_Get, params).subscribe(res => {
       if(res !== null && res !== undefined && res.length !==0) {
@@ -175,8 +174,8 @@ export class SchoolmasterComponent implements OnInit {
         this.messageService.clear();
         this.messageService.add({
           key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
-         // summary: ResponseMessage.SUMMARY_WARNING, detail: ResponseMessage.NoRecordMessage
-          summary: ResponseMessage.SUMMARY_WARNING, detail: 'Please select District and Taluk !'
+         summary: ResponseMessage.SUMMARY_WARNING, detail: ResponseMessage.NoRecordMessage
+          //summary: ResponseMessage.SUMMARY_WARNING, detail: 'Please select District and Taluk !'
         });
       }
       
@@ -196,7 +195,14 @@ export class SchoolmasterComponent implements OnInit {
     this.SchoolAddress = null;
     this.SchoolPincode = null;
     this.RowId = 0;
+
     this.onView();
+    this.talukOptions = [];
+    this.districtOptions = [];
+    this.curriculumOptions = [];
+    this.showtable = false;
+    //this.onView();
+
     // if (this._attachment.nativeElement.files.length !== 0) {
     //   this._attachment.nativeElement.value = null;
     // }
@@ -209,8 +215,8 @@ export class SchoolmasterComponent implements OnInit {
       this.RowId = selectedRow.Schoolcode; 
       this.DistrictId = selectedRow.Districcode;
       this.districtOptions = [{ label: selectedRow.Districname, value: selectedRow.Districcode }];
-      this.TalukId = selectedRow.TalukId;
-      this.talukOptions = [{ label: selectedRow.Talukname, value: selectedRow.Talukcode }];
+      this.TalukId = selectedRow.Talukid;
+      this.talukOptions = [{ label: selectedRow.Talukname, value: selectedRow.Talukid }];
       this.curriculum = selectedRow.Catagorycode;
       this.curriculumOptions = [{ label: selectedRow.Name, value: selectedRow.Catagorycode }];
       this.SchoolName = selectedRow.Schoolname;

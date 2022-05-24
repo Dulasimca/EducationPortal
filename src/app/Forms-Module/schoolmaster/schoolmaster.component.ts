@@ -157,17 +157,18 @@ export class SchoolmasterComponent implements OnInit {
   onView() {
     this.data = [];
     this.showtable = true;
-   // this.loading = true;
+    this.loading = true;
     const params = { 
       'Districcode': this.DistrictId,
       'Talukcode': this.TalukId,
+      //'Catagorycode': this.curriculum,
       
     }
     this.restApiService.getByParameters(PathConstants.SchoolMaster_Get, params).subscribe(res => {
       if(res !== null && res !== undefined && res.length !==0) {
-        //this.loading = false;
+        this.loading = false;
         this.data = res;
-        this.showtable = true;
+        //this.showtable = true;
       }else {
         this.loading = false;
         this.showtable = false;
@@ -195,7 +196,7 @@ export class SchoolmasterComponent implements OnInit {
     this.SchoolAddress = null;
     this.SchoolPincode = null;
     this.RowId = 0;
-    //this.onView();
+    this.onView();
     // if (this._attachment.nativeElement.files.length !== 0) {
     //   this._attachment.nativeElement.value = null;
     // }

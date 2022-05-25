@@ -174,8 +174,8 @@ export class SchoolmasterComponent implements OnInit {
         this.messageService.clear();
         this.messageService.add({
           key: 't-msg', severity: ResponseMessage.SEVERITY_WARNING,
-         summary: ResponseMessage.SUMMARY_WARNING, detail: ResponseMessage.NoRecordMessage
-          //summary: ResponseMessage.SUMMARY_WARNING, detail: 'Please select District and Taluk !'
+         //summary: ResponseMessage.SUMMARY_WARNING, detail: ResponseMessage.NoRecordMessage
+          summary: ResponseMessage.SUMMARY_WARNING, detail: 'Please select District and Taluk !'
         });
       }
       
@@ -196,7 +196,7 @@ export class SchoolmasterComponent implements OnInit {
     this.SchoolPincode = null;
     this.RowId = 0;
 
-    this.onView();
+    //this.onView();
     this.talukOptions = [];
     this.districtOptions = [];
     this.curriculumOptions = [];

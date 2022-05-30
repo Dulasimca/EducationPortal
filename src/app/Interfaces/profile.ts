@@ -61,4 +61,6 @@ export interface Profile {
     CommunityFilename: string;
     AadharNo: string;
     QuestionBankPhotoFileName:string;
+    aadharNo: string;
+    studentId: number;
 }

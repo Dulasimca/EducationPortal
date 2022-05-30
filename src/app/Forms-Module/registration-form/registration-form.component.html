@@ -171,14 +171,28 @@
                                                 maxlength="6" [(ngModel)]="obj.Postalcode" appInputFormat="digitOnly"
                                                 required />
                                         </div>
-                                        <div class="p-col-12 p-md-6 p-lg-2">
+                                        <!-- <div class="p-col-12 p-md-6 p-lg-2">
                                             <div><label class="label-font-size" for="_aadharno">Aadhar No<span
                                                         class="form-mandatory-field">*</span></label>
                                             </div>
                                             <input class="p-col-12" name="_aadharno" type="text" pInputText
                                                 minlength="12" maxlength="12" [(ngModel)]="obj.AadharNo"
                                                 appInputFormat="digitOnly" required />
+                                        </div> -->
+                                        <div class="p-col-12 p-md-6 p-lg-2">
+                                            <span class="form-mandatory-field">
+                                                <label>Aadhaar No<span
+                                                    class="form-mandatory-field" style="color: black;">*</span></label>
+                                                <input type="text" name="_aadharno" pInputText
+                                                    [(ngModel)]="aadharNo"appInputFormat="digitOnly"
+                                                    (input)="validateAadhaar(aadharNo)" minlength="12"
+                                                    maxlength="12" required>
+                                               
+                                            </span>
+                                            <div style="font-size: 13px;color: rgb(241, 34, 34);">
+                                                {{aadharValidationMsg}}</div>
                                         </div>
+
                                     </div>
                                 </div>
                             </p-card>
@@ -516,7 +530,7 @@
                             </p-card>
                         </p-tabPanel>
                         <div class="p-col-12 p-md-12 p-lg-12 text-center">
-                            <button pButton name="_save" type="button" label="Submit" (click)="onSubmit()"[disabled]="(!f.valid)"
+                            <button pButton name="_save" type="button" label="Submit" (click)="checkAadhar()"[disabled]="(!f.valid)"
                            ></button>&nbsp;
                            <button pButton name="_view" type="button" label="View" (click)="onView()"></button>&nbsp;
                             <button pButton name="_clear" type="button" label="Clear" (click)="clearForm()"></button>&nbsp;

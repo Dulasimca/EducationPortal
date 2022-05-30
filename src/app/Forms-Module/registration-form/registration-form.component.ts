@@ -82,6 +82,11 @@ export class RegistrationFormComponent implements OnInit {
   adminroleIdCheck: number;
   dob: Date;
   doj: Date;
+
+  aadharNo: string;
+  aadharValidationMsg: string;
+  
+
   @ViewChild('f', { static: false }) _registrationForm: NgForm;
   @ViewChild('studentImg', { static: false }) studentImg: ElementRef;
   @ViewChild('fatherImg', { static: false }) fatherImg: ElementRef;
@@ -95,6 +100,7 @@ export class RegistrationFormComponent implements OnInit {
 
   constructor(private restApiService: RestAPIService, private datePipe: DatePipe,
     private messageService: MessageService, private masterService: MasterService,
+    private _messageService: MessageService,private _restApiService: RestAPIService,
     public _d: DomSanitizer, private authService: AuthService, private http: HttpClient) { }
 
   ngOnInit() {
@@ -478,6 +484,97 @@ export class RegistrationFormComponent implements OnInit {
     this.obj.CommunityFilename = '';
   }
 
+  maskInput(value) {
+    this.obj.aadharNo = value;
+    var len = value.length;
+    if (len > 11) {
+      this.aadharNo = '*'.repeat(len - 4) + value.substr(8, 4);
+    }
+  }
+
+  validateAadhaar(aadhaarString) {
+    // The multiplication table
+    if (aadhaarString.length != 12) {
+      this.aadharValidationMsg = 'Aadhaar numbers should be 12 digits !';
+    } else {
+      this.aadharValidationMsg = '';
+    }
+    if (aadhaarString.match(/[^$,.\d]/)) {
+      this.aadharValidationMsg = 'Aadhaar numbers must contain only numbers !';
+    } else {
+      this.aadharValidationMsg = '';
+    }
+    var aadhaarArray = aadhaarString.split('');
+    var toCheckChecksum = aadhaarArray.pop();
+    if (this.generate(aadhaarArray) == toCheckChecksum) {
+      this.aadharValidationMsg = '';
+      this.maskInput(aadhaarString)
+      return true;
+    } else {
+      this.aadharValidationMsg = 'Invalid Aadhar No!';
+      this._registrationForm.form.controls._aadharno.invalid;
+      if (this.aadharNo.length === 12) {
+        setTimeout(() => {
+          this.aadharNo = null;
+          this.aadharValidationMsg = 'Please enter valid Aadhar No!';
+    }, 300);
+      }
+      return false;
+    }
+  }
+
+  // generates checksum
+  generate(array) {
+    var d = [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+      [1, 2, 3, 4, 0, 6, 7, 8, 9, 5],
+      [2, 3, 4, 0, 1, 7, 8, 9, 5, 6],
+      [3, 4, 0, 1, 2, 8, 9, 5, 6, 7],
+      [4, 0, 1, 2, 3, 9, 5, 6, 7, 8],
+      [5, 9, 8, 7, 6, 0, 4, 3, 2, 1],
+      [6, 5, 9, 8, 7, 1, 0, 4, 3, 2],
+      [7, 6, 5, 9, 8, 2, 1, 0, 4, 3],
+      [8, 7, 6, 5, 9, 3, 2, 1, 0, 4],
+      [9, 8, 7, 6, 5, 4, 3, 2, 1, 0]
+    ];
+    // permutation table p
+    var p = [
+      [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+      [1, 5, 7, 6, 2, 8, 3, 0, 9, 4],
+      [5, 8, 0, 3, 7, 9, 6, 1, 4, 2],
+      [8, 9, 1, 6, 0, 4, 3, 5, 2, 7],
+      [9, 4, 5, 3, 1, 2, 6, 8, 7, 0],
+      [4, 2, 8, 6, 5, 7, 3, 9, 0, 1],
+      [2, 7, 9, 3, 8, 0, 6, 4, 1, 5],
+      [7, 0, 4, 6, 9, 1, 3, 2, 5, 8]
+    ];
+    // inverse table inv
+    var inv = [0, 4, 3, 2, 1, 5, 6, 7, 8, 9];
+    var c = 0;
+    var invertedArray = array.reverse();
+    for (var i = 0; i < invertedArray.length; i++) {
+      c = d[c][p[((i + 1) % 8)][invertedArray[i]]];
+    }
+    return inv[c];
+  }
+
+  checkAadhar() {
+    const params = {
+      'AadharNo': this.obj.aadharNo,
+      //'studentId': this.obj.studentId
+    }
+    this._restApiService.getByParameters(PathConstants.AadharCheck_Get, params).subscribe(res => {
+      if ( res.Table.length === 0) { 
+        this.onSubmit();
+      } else {
+        this._messageService.clear();
+        this._messageService.add({
+          key: 't-msg', severity: ResponseMessage.SEVERITY_ERROR,
+          summary: ResponseMessage.SUMMARY_ERROR, detail: 'Aadhar number is already exist'
+        })
+      }
+    });
+  }
   clearForm() {
     this._registrationForm.reset();
     this._registrationForm.form.markAsUntouched();

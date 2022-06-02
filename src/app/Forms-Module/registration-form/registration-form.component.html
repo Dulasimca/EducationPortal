@@ -109,7 +109,7 @@
                                             <div><label class="label-font-size" for="_district">District</label>
                                             </div>
                                             <p-dropdown name="_district" [options]="districtOptions"
-                                                [(ngModel)]="obj.DistrictId" (onClick)="onSelect('D')" [disabled]="true"
+                                                [(ngModel)]="obj.DistrictId" (onClick)="onSelect('D')" [disabled]="false"
                                                 >
                                             </p-dropdown>
                                         </div>
@@ -117,13 +117,13 @@
                                             <div><label class="label-font-size" for="_taluk">Taluk</label>
                                             </div>
                                             <p-dropdown name="_taluk" [options]="talukOptions" [(ngModel)]="obj.Taluk"
-                                                (onClick)="onSelect('T')" [disabled]="true">
+                                                (onClick)="onSelect('T')" [disabled]="false">
                                             </p-dropdown>
                                         </div>
                                         <div class="p-col-12 p-md-6 p-lg-2">
                                             <div><label class="label-font-size" for="_state">State</label></div>
                                             <input class="p-col-12" name="_state" type="text" pInputText
-                                                [(ngModel)]="obj.State" [disabled]="true" />
+                                                [(ngModel)]="obj.State" [disabled]="false" />
                                         </div>
                                         <div class="p-col-12 p-md-6 p-lg-2">
                                             <div><label class="label-font-size" for="_studentmobno">Mobile Number</label>
@@ -202,34 +202,44 @@
                                 <div #row1 class="p-col-12 p-md-12 p-lg-12 no-pad-top">
                                     <div class="p-grid">
 
-                                        <div class="p-col-12 p-md-6 p-lg-3">
+                                        <div  [hidden]="isEditable"  class="p-col-12 p-md-6 p-lg-3">
                                             <div><label class="label-font-size" for="_schlname">School Name</label>
                                             </div>
-                                            <input class="p-col-12" name="_schlname" type="text" pInputText
+                                            <input class="p-col-12"  [hidden]="isEditable" name="_schlname" type="text" pInputText
                                                 [(ngModel)]="obj.SchoolName" readonly="true"
-                                                appInputFormat="noSpecialChars"/>
-                                        </div>
-                                        <div class="p-col-12 p-md-6 p-lg-2">
+                                                appInputFormat="noSpecialChars"/></div>
+                                                
+                                                <div class="p-col-12 p-md-6 p-lg-3">
+                                                    <div><label class="label-font-size" for="_schlname">School Name<span
+                                                        class="form-mandatory-field">*</span></label>
+                                                    </div>
+                                                    <p-dropdown name="_schlname" [options]="schoolOptions" 
+                                                        [(ngModel)]="obj.SchoolName" (onClick)="onSelect('SN')" required>
+                                                    </p-dropdown>
+                                                    </div>
+
+                                                                                 
+                                        <div [hidden]="isEditable" class="p-col-12 p-md-6 p-lg-2">
                                             <div><label class="label-font-size" for="_class">Class<span
                                                         class="form-mandatory-field">*</span></label>
                                             </div>
-                                            <p-dropdown name="_class" [options]="classOptions" [(ngModel)]="obj.ClassId"
+                                            <p-dropdown name="_class" [options]="classOptions" [hidden]="isEditable" [(ngModel)]="obj.ClassId"
                                                 (onClick)="onSelect('C')" required>
                                             </p-dropdown>
                                         </div>
-                                        <div class="p-col-12 p-md-6 p-lg-2">
+                                        <div  [hidden]="isEditable"  class="p-col-12 p-md-6 p-lg-2">
                                             <div><label class="label-font-size" for="_section"> Section<span
                                                         class="form-mandatory-field">*</span></label>
                                             </div>
                                             <p-dropdown name="_section" [options]="sectionOptions"
-                                                [(ngModel)]="obj.SectionId" (onClick)="onSelect('S')" required>
+                                            [hidden]="isEditable" [(ngModel)]="obj.SectionId" (onClick)="onSelect('S')" required>
                                             </p-dropdown>
                                         </div>
-                                        <div class="p-col-12 p-md-6 p-lg-2">
+                                        <div [hidden]="isEditable" class="p-col-12 p-md-6 p-lg-2">
                                             <div><label class="label-font-size" for="_doj">D.O.J<span
                                                         class="form-mandatory-field">*</span></label>
                                             </div>
-                                            <p-calendar dateFormat="dd/mm/yy" [showOtherMonths]="false" [(ngModel)]="doj" name="_doj" [showIcon]="true"
+                                            <p-calendar dateFormat="dd/mm/yy" [showOtherMonths]="false" [hidden]="isEditable" [(ngModel)]="doj" name="_doj" [showIcon]="true"
                                                 inputId="dateofjoining" (onSelect)="onDateSelection('J')" required>
                                             </p-calendar>
                                         </div>
@@ -238,19 +248,19 @@
                                 <div #row2 class="p-col-12 p-md-12 p-lg-12 no-pad-top">
                                     <div class="p-grid">
 
-                                        <div class="p-col-12 p-md-6 p-lg-3">
+                                        <div [hidden]="isEditable" class="p-col-12 p-md-6 p-lg-3">
                                             <div><label class="label-font-size" for="_studentemail">Email Id<span
                                                         class="form-mandatory-field">*</span></label>
                                             </div>
                                             <input class="p-col-12" name="_studentemail" type="email" pInputText
-                                                [(ngModel)]="obj.EmailId" required />
+                                            [hidden]="isEditable" [(ngModel)]="obj.EmailId" required />
                                         </div>
-                                        <div class="p-col-12 p-md-6 p-lg-2">
+                                        <div  [hidden]="isEditable" class="p-col-12 p-md-6 p-lg-2">
                                             <div><label class="label-font-size" for="_medium">Medium<span
                                                         class="form-mandatory-field">*</span></label>
                                             </div>
                                             <p-dropdown name="_medium" [options]="mediumOptions"
-                                                (onClick)="onSelect('M')" [(ngModel)]="obj.Medium" required>
+                                                (onClick)="onSelect('M')" [hidden]="isEditable" [(ngModel)]="obj.Medium" required>
                                             </p-dropdown>
                                         </div>
                                         <div class="p-col-12 p-md-6 p-lg-3">

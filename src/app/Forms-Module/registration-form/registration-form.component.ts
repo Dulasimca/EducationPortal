@@ -32,6 +32,7 @@ export class RegistrationFormComponent implements OnInit {
   nationalityOptions: SelectItem[];
   motherTongueOptions: SelectItem[];
   casteOptions: SelectItem[];
+  schoolOptions: SelectItem[];
   checked: boolean;
   religionOptions: SelectItem[];
   bloodGroupOptions: SelectItem[];
@@ -64,6 +65,7 @@ export class RegistrationFormComponent implements OnInit {
   genders?: any;
   mediums?: any;
   taluks?: any;
+  schoolNames? : any;
   bloodGroups?: any;
   religions?: any;
   nationalities?: any;
@@ -82,10 +84,11 @@ export class RegistrationFormComponent implements OnInit {
   adminroleIdCheck: number;
   dob: Date;
   doj: Date;
-
+  schoolList: any = [];
   aadharNo: string;
   aadharValidationMsg: string;
-  
+  isEditable:boolean;
+  schoolOption:SelectItem[];
 
   @ViewChild('f', { static: false }) _registrationForm: NgForm;
   @ViewChild('studentImg', { static: false }) studentImg: ElementRef;
@@ -97,6 +100,7 @@ export class RegistrationFormComponent implements OnInit {
   @ViewChild('communityCertificate', { static: false }) communityCertificate: ElementRef;
   @BlockUI() blockUI: NgBlockUI;
   public formData = new FormData();
+  // data: any;
 
   constructor(private restApiService: RestAPIService, private datePipe: DatePipe,
     private messageService: MessageService, private masterService: MasterService,
@@ -111,6 +115,19 @@ export class RegistrationFormComponent implements OnInit {
     ///end
     this.registeredCols = TableConstants.RegisteredAssociateColumns;
     this.setDefaultObject();
+    if( this.login_user.roleId === 1 ) {
+      this.isEditable = true;
+     }
+     else{
+       this.isEditable = false;
+     }
+    //  const params = {
+    //    'Districcode': this.login_user.distrctId,
+    //    'Talukcode': this.login_user.talukId
+    //  }
+     this.restApiService.get(PathConstants.SchoolNameMaster_Get).subscribe(res => {
+      this.schoolNames = res.Table;
+    });
   }
 
   onDateSelection(type) {
@@ -132,8 +149,8 @@ export class RegistrationFormComponent implements OnInit {
     this.religions = this.masterService.getMaster('RL');
     this.nationalities = this.masterService.getMaster('N');
     this.languages = this.masterService.getMaster('MT');
-    // this.districts = this.masterService.getMaster('D');
-    // let districtSelection = [];
+     this.districts = this.masterService.getMaster('D');
+     let districtSelection = [];
     let classSelection = [];
     let sectionSelection = [];
     let roleIdSelection = [];
@@ -144,6 +161,7 @@ export class RegistrationFormComponent implements OnInit {
     let bloodGroupSelection = [];
     let nationalitySelection = [];
     let languageSelection = [];
+    let schoolSelection = [];
     switch (type) {
       case 'C':
         this.classes.forEach(c => {
@@ -231,7 +249,14 @@ export class RegistrationFormComponent implements OnInit {
         this.motherTongueOptions = languageSelection;
         this.motherTongueOptions.unshift({ label: '-select', value: null });
         break;
-    }
+    case 'SN':
+      this.schoolNames.forEach(l => {
+        schoolSelection.push({ label: l.Schoolname, value: l.Schoolcode })
+      });
+      this.schoolOptions = schoolSelection;
+      this.schoolOptions.unshift({ label: '-select', value: null });
+      break;
+  }
   }
 
   onCheckAddress(value) {

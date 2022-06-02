@@ -84,4 +84,6 @@ export class PathConstants {
     public static readonly SchoolMaster_Delete = 'SchoolMaster/Put';
 
     public static readonly AadharCheck_Get = 'AadharCheck/Get';
+
+    public static readonly SchoolNameMaster_Get = 'SchoolNameMaster';
 }

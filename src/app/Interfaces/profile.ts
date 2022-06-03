@@ -1,4 +1,6 @@
 export interface Profile {
+    schoolOption: { label: string; value: any; }[];
+    
     RoleId: number;
     slno: number;
     ID: any;
@@ -18,7 +20,7 @@ export interface Profile {
     Caste: number;
     CurrentAddress: string;
     PermanentAddress: string;
-    SchoolName: string;
+    SchoolName: any;
     SchoolId: number;
     PhoneNumber: any;
     AltNumber: any;

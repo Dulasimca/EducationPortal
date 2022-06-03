@@ -2,6 +2,7 @@
     <div class="p-col-12 p-md-12 p-lg-12">
         <p-toast position="top-center" key="t-msg"></p-toast>
         <p-panel header="Registration">
+      <!-- <form #f="ngForm" name="_registrationForm"> -->
             <div class="p-col-12 p-md-12 p-lg-12 no-pad-top">
                 <div class="p-grid">
                     <div class="p-col-2 no-pad-bottom">
@@ -18,7 +19,7 @@
                     <p style="font-size: smaller;">Note*: Please select a role to register</p>
                 </div>
 
-                <form #f="ngForm" name="registrationForm" *ngIf="(this.roleId==6 || this.roleId==5 ||this.roleId==3 )">
+                <form #f="ngForm" name="_registrationForm" *ngIf="(this.roleId==6 || this.roleId==5 ||this.roleId==3 )">
                     <p-tabView>
                         <p-tabPanel header="{{tabTitleI}}">
                             <p-card>
@@ -209,11 +210,11 @@
                                                 [(ngModel)]="obj.SchoolName" readonly="true"
                                                 appInputFormat="noSpecialChars"/></div>
                                                 
-                                                <div class="p-col-12 p-md-6 p-lg-3">
+                                                <div [hidden]="isEditableschooldropdown" class="p-col-12 p-md-6 p-lg-3">
                                                     <div><label class="label-font-size" for="_schlname">School Name<span
                                                         class="form-mandatory-field">*</span></label>
                                                     </div>
-                                                    <p-dropdown name="_schlname" [options]="schoolOptions" 
+                                                    <p-dropdown  [hidden]="isEditableschooldropdown" name="_schlname" [options]="schoolOptions" 
                                                         [(ngModel)]="obj.SchoolName" (onClick)="onSelect('SN')" required>
                                                     </p-dropdown>
                                                     </div>
@@ -540,12 +541,15 @@
                             </p-card>
                         </p-tabPanel>
                         <div class="p-col-12 p-md-12 p-lg-12 text-center">
-                            <!-- <button pButton name="_save" type="button" label="Submit" 
+                            <!-- <button pButton name="_save" type="button" label="Submit " 
                             (click)="checkAadhar()" [disabled]="(!f.valid || !f.dirty)">
                            </button>&nbsp; -->
                            <button pButton name="_save" type="button" label="Submit" 
-                            (click)="onSubmit()">
-                           </button>&nbsp;
+                            (click)="onSubmit()" ></button>&nbsp;
+
+                            <!-- <button pButton type="button" label="Save" icon="pi pi-save" name="_save" (click)="onSubmit()"
+                            [disabled]="(!f.valid || !f.dirty)"></button>&nbsp;  -->
+
                            <button pButton name="_view" type="button" label="View" (click)="onView()"></button>&nbsp;
                             <button pButton name="_clear" type="button" label="Clear" (click)="clearForm()"></button>&nbsp;
                         </div>

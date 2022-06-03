@@ -86,9 +86,12 @@ export class RegistrationFormComponent implements OnInit {
   doj: Date;
   schoolList: any = [];
   aadharNo: string;
+  
   aadharValidationMsg: string;
   isEditable:boolean;
-  schoolOption:SelectItem[];
+  
+  isEditableschooldropdown :boolean;
+ 
 
   @ViewChild('f', { static: false }) _registrationForm: NgForm;
   @ViewChild('studentImg', { static: false }) studentImg: ElementRef;
@@ -100,6 +103,7 @@ export class RegistrationFormComponent implements OnInit {
   @ViewChild('communityCertificate', { static: false }) communityCertificate: ElementRef;
   @BlockUI() blockUI: NgBlockUI;
   public formData = new FormData();
+  schoolId: any;
   // data: any;
 
   constructor(private restApiService: RestAPIService, private datePipe: DatePipe,
@@ -121,11 +125,16 @@ export class RegistrationFormComponent implements OnInit {
      else{
        this.isEditable = false;
      }
-    //  const params = {
-    //    'Districcode': this.login_user.distrctId,
-    //    'Talukcode': this.login_user.talukId
-    //  }
+  if ( this.login_user.roleId === 3 ){
+    this.isEditableschooldropdown = true;
+  }
+  else
+       this.isEditableschooldropdown =false;
+       
      this.restApiService.get(PathConstants.SchoolNameMaster_Get).subscribe(res => {
+       res.Table.forEach(r => {
+         r.SchoolCode = this.schoolId;
+       })
       this.schoolNames = res.Table;
     });
   }
@@ -438,6 +447,9 @@ export class RegistrationFormComponent implements OnInit {
         this.obj[i] = '';
       }
     }
+
+    this.obj.SchoolName = this.obj.SchoolName;
+    this.obj.SchoolId = this.obj.SchoolName;
     this.obj.RoleId = (this.roleId !== undefined && this.roleId !== null) ? this.roleId : 0;
     this.obj.DateofBirth = (typeof (this.obj.DateofBirth) === 'object') ?
       this.datePipe.transform(this.obj.DateofBirth, 'MM/dd/yyyy') : this.obj.DateofBirth;
@@ -495,7 +507,9 @@ export class RegistrationFormComponent implements OnInit {
     this.obj.ID = 0;
     this.obj['State'] = 'Tamilnadu';
     this.obj['SchoolName'] = this.login_user.schoolname;
-    this.obj.SchoolId = this.login_user.schoolId;
+    
+    this.obj.SchoolId = this.obj.SchoolId;
+    // this.schoolOptions =[{label: this.obj.SchoolName, value: this.obj.SchoolId}]
     this.obj.Taluk = this.login_user.talukId;
     this.talukOptions = [{ label: this.login_user.taluk, value: this.login_user.talukId }];
     this.obj.DistrictId = this.login_user.distrctId;

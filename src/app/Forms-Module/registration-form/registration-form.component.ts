@@ -124,7 +124,7 @@ export class RegistrationFormComponent implements OnInit {
      
     if( this.login_user.roleId === 1 ) {
       this.isEditable = true;
-      this.obj.ClassId = null;
+      this.obj.ClassId = null;       // Passing null value according to roleId 
       this.obj.SectionId = null;
       this.doj = null;
       this.obj.EmailId = null;

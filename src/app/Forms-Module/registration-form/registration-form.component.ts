@@ -119,14 +119,22 @@ export class RegistrationFormComponent implements OnInit {
     ///end
     this.registeredCols = TableConstants.RegisteredAssociateColumns;
     this.setDefaultObject();
+
+     // Login According to roleId //
+     
     if( this.login_user.roleId === 1 ) {
       this.isEditable = true;
+      this.obj.ClassId = null;
+      this.obj.SectionId = null;
+      this.doj = null;
+      this.obj.EmailId = null;
      }
      else{
        this.isEditable = false;
      }
   if ( this.login_user.roleId === 3 ){
     this.isEditableschooldropdown = true;
+    this.obj.SchoolName = null;
   }
   else
        this.isEditableschooldropdown =false;

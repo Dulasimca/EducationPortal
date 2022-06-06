@@ -211,8 +211,8 @@
                                                 appInputFormat="noSpecialChars"/></div>
                                                 
                                                 <div [hidden]="isEditableschooldropdown" class="p-col-12 p-md-6 p-lg-3">
-                                                    <div><label class="label-font-size" for="_schlname">School Name<span
-                                                        class="form-mandatory-field">*</span></label>
+                                                    <div><label class="label-font-size" for="_schlname">School Name
+                                                                                                                </label>
                                                     </div>
                                                     <p-dropdown  [hidden]="isEditableschooldropdown" name="_schlname" [options]="schoolOptions" 
                                                         [(ngModel)]="obj.SchoolName" (onClick)="onSelect('SN')" required>
@@ -221,27 +221,26 @@
 
                                                                                  
                                         <div [hidden]="isEditable" class="p-col-12 p-md-6 p-lg-2">
-                                            <div><label class="label-font-size" for="_class">Class<span
-                                                        class="form-mandatory-field">*</span></label>
+                                            <div><label class="label-font-size" for="_class">Class<span></span>
+                                                       </label>
                                             </div>
                                             <p-dropdown name="_class" [options]="classOptions" [hidden]="isEditable" [(ngModel)]="obj.ClassId"
-                                                (onClick)="onSelect('C')" required>
+                                                (onClick)="onSelect('C')" >
                                             </p-dropdown>
                                         </div>
                                         <div  [hidden]="isEditable"  class="p-col-12 p-md-6 p-lg-2">
-                                            <div><label class="label-font-size" for="_section"> Section<span
-                                                        class="form-mandatory-field">*</span></label>
+                                            <div><label class="label-font-size" for="_section"> Section</label>
                                             </div>
                                             <p-dropdown name="_section" [options]="sectionOptions"
-                                            [hidden]="isEditable" [(ngModel)]="obj.SectionId" (onClick)="onSelect('S')" required>
+                                            [hidden]="isEditable" [(ngModel)]="obj.SectionId" (onClick)="onSelect('S')" >
                                             </p-dropdown>
                                         </div>
                                         <div [hidden]="isEditable" class="p-col-12 p-md-6 p-lg-2">
-                                            <div><label class="label-font-size" for="_doj">D.O.J<span
-                                                        class="form-mandatory-field">*</span></label>
+                                            <div><label class="label-font-size" for="_doj">D.O.J
+                                                        </label>
                                             </div>
                                             <p-calendar dateFormat="dd/mm/yy" [showOtherMonths]="false" [hidden]="isEditable" [(ngModel)]="doj" name="_doj" [showIcon]="true"
-                                                inputId="dateofjoining" (onSelect)="onDateSelection('J')" required>
+                                                inputId="dateofjoining" (onSelect)="onDateSelection('J')" >
                                             </p-calendar>
                                         </div>
                                     </div>
@@ -250,18 +249,16 @@
                                     <div class="p-grid">
 
                                         <div [hidden]="isEditable" class="p-col-12 p-md-6 p-lg-3">
-                                            <div><label class="label-font-size" for="_studentemail">Email Id<span
-                                                        class="form-mandatory-field">*</span></label>
+                                            <div><label class="label-font-size" for="_studentemail">Email Id</label>
                                             </div>
                                             <input class="p-col-12" name="_studentemail" type="email" pInputText
-                                            [hidden]="isEditable" [(ngModel)]="obj.EmailId" required />
+                                            [hidden]="isEditable" [(ngModel)]="obj.EmailId" >
                                         </div>
                                         <div  [hidden]="isEditable" class="p-col-12 p-md-6 p-lg-2">
-                                            <div><label class="label-font-size" for="_medium">Medium<span
-                                                        class="form-mandatory-field">*</span></label>
+                                            <div><label class="label-font-size" for="_medium">Medium</label>
                                             </div>
                                             <p-dropdown name="_medium" [options]="mediumOptions"
-                                                (onClick)="onSelect('M')" [hidden]="isEditable" [(ngModel)]="obj.Medium" required>
+                                                (onClick)="onSelect('M')" [hidden]="isEditable" [(ngModel)]="obj.Medium" >
                                             </p-dropdown>
                                         </div>
                                         <div class="p-col-12 p-md-6 p-lg-3">
@@ -541,11 +538,11 @@
                             </p-card>
                         </p-tabPanel>
                         <div class="p-col-12 p-md-12 p-lg-12 text-center">
-                            <!-- <button pButton name="_save" type="button" label="Submit " 
-                            (click)="checkAadhar()" [disabled]="(!f.valid || !f.dirty)">
-                           </button>&nbsp; -->
-                           <button pButton name="_save" type="button" label="Submit" 
-                            (click)="onSubmit()" ></button>&nbsp;
+                            <button pButton name="_save" type="button" label="Submit " 
+                            (click)="onSubmit()" [disabled]="(!f.valid)">
+                           </button>&nbsp;
+                           <!-- <button pButton name="_save" type="button" label="Submit" 
+                            (click)="onSubmit()" ></button>&nbsp; -->
 
                             <!-- <button pButton type="button" label="Save" icon="pi pi-save" name="_save" (click)="onSubmit()"
                             [disabled]="(!f.valid || !f.dirty)"></button>&nbsp;  -->

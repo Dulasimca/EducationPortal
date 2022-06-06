@@ -91,6 +91,7 @@ export class RegistrationFormComponent implements OnInit {
   isEditable:boolean;
   
   isEditableschooldropdown :boolean;
+  //isMandate:boolean;
  
 
   @ViewChild('f', { static: false }) _registrationForm: NgForm;
@@ -124,7 +125,10 @@ export class RegistrationFormComponent implements OnInit {
      
     if( this.login_user.roleId === 1 ) {
       this.isEditable = true;
-      this.obj.ClassId = null;       // Passing null value according to roleId 
+      
+      // Passing null value according to role
+      
+      this.obj.ClassId = null;        
       this.obj.SectionId = null;
       this.doj = null;
       this.obj.EmailId = null;
@@ -134,7 +138,9 @@ export class RegistrationFormComponent implements OnInit {
      }
   if ( this.login_user.roleId === 3 ){
     this.isEditableschooldropdown = true;
-    this.obj.SchoolName = null;
+  
+    //this.isMandate = true;
+    this.obj.SchoolNameDp = null;
   }
   else
        this.isEditableschooldropdown =false;
@@ -204,7 +210,7 @@ export class RegistrationFormComponent implements OnInit {
               }
             });
           }
-          else
+          else 
           {
           this.roles.forEach(r => {
             if (r.code === 6 || r.code === 5) {

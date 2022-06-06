@@ -215,7 +215,7 @@
                                                                                                                 </label>
                                                     </div>
                                                     <p-dropdown  [hidden]="isEditableschooldropdown" name="_schlname" [options]="schoolOptions" 
-                                                        [(ngModel)]="obj.SchoolName" (onClick)="onSelect('SN')" required>
+                                                        [(ngModel)]="obj.SchoolNameDp" (onClick)="onSelect('SN')" required>
                                                     </p-dropdown>
                                                     </div>
 
@@ -228,6 +228,8 @@
                                                 (onClick)="onSelect('C')" >
                                             </p-dropdown>
                                         </div>
+                                        <!-- // roleID3 // -->
+                                    
                                         <div  [hidden]="isEditable"  class="p-col-12 p-md-6 p-lg-2">
                                             <div><label class="label-font-size" for="_section"> Section</label>
                                             </div>

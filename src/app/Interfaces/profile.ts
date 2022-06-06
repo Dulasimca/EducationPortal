@@ -1,4 +1,5 @@
 export interface Profile {
+    SchoolNameDp: any;
     schoolOption: { label: string; value: any; }[];
     
     RoleId: number;

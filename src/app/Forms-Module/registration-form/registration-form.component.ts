@@ -105,6 +105,7 @@ export class RegistrationFormComponent implements OnInit {
   @BlockUI() blockUI: NgBlockUI;
   public formData = new FormData();
   schoolId: any;
+  SchoolId: any;
   // data: any;
 
   constructor(private restApiService: RestAPIService, private datePipe: DatePipe,
@@ -462,7 +463,7 @@ export class RegistrationFormComponent implements OnInit {
       }
     }
 
-    this.obj.SchoolName = this.obj.SchoolName;
+    //this.obj.SchoolName = this.obj.SchoolName;
     this.obj.SchoolId = this.obj.SchoolName;
     this.obj.RoleId = (this.roleId !== undefined && this.roleId !== null) ? this.roleId : 0;
     this.obj.DateofBirth = (typeof (this.obj.DateofBirth) === 'object') ?

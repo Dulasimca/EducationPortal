@@ -22,7 +22,8 @@ export interface Profile {
     CurrentAddress: string;
     PermanentAddress: string;
     SchoolName: any;
-    SchoolId: number;
+    SchoolId: any;
+    schoolId:any;
     PhoneNumber: any;
     AltNumber: any;
     Nameoflastschool: string;

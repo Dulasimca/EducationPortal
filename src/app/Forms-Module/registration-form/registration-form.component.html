@@ -183,7 +183,7 @@
                                         <div class="p-col-12 p-md-6 p-lg-2">
                                             <span class="form-mandatory-field">
                                                 <label>Aadhaar No<span
-                                                    class="form-mandatory-field" style="color: black;">*</span></label>
+                                                    class="form-mandatory-field" >*</span></label>
                                                 <input type="text" name="_aadharno" pInputText
                                                     [(ngModel)]="aadharNo"appInputFormat="digitOnly"
                                                     (input)="validateAadhaar(aadharNo)" minlength="12"
@@ -215,7 +215,7 @@
                                                                                                                 </label>
                                                     </div>
                                                     <p-dropdown  [hidden]="isEditableschooldropdown" name="_schlname" [options]="schoolOptions" 
-                                                        [(ngModel)]="obj.SchoolNameDp" (onClick)="onSelect('SN')" required>
+                                                        [(ngModel)]="obj.SchoolName" (onClick)="onSelect('SN')" required>
                                                     </p-dropdown>
                                                     </div>
 
@@ -540,7 +540,7 @@
                             </p-card>
                         </p-tabPanel>
                         <div class="p-col-12 p-md-12 p-lg-12 text-center">
-                            <button pButton name="_save" type="button" label="Submit " 
+                            <button pButton name="_save" type="button" label="Submit" 
                             (click)="onSubmit()" [disabled]="(!f.valid)">
                            </button>&nbsp;
                            <!-- <button pButton name="_save" type="button" label="Submit" 
